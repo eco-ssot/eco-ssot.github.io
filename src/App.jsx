@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <>
-      <Button>TEST</Button>
+      <Button className="text-blue-500">TEST</Button>
       <Counter />
       {error ? (
         <>Oh no, there was an error</>
