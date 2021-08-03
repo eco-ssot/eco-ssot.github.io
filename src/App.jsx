@@ -1,5 +1,6 @@
-import Counter from './features/counter/Counter';
+import { Button } from 'antd';
 
+import Counter from './features/counter/Counter';
 import { useGetPokemonByNameQuery } from './services/pokemon';
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
 
   return (
     <>
+      <Button>TEST</Button>
       <Counter />
       {error ? (
         <>Oh no, there was an error</>

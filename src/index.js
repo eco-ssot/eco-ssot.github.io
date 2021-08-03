@@ -6,8 +6,7 @@ import App from './App';
 import { store } from './app/store';
 import * as serviceWorker from './serviceWorker';
 
-import 'antd/dist/antd.css';
-import './index.css';
+import './index.less';
 
 ReactDOM.render(
   <React.StrictMode>
