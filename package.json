@@ -8,14 +8,17 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.16.10",
+    "clsx": "^1.1.1",
     "currency.js": "^2.0.4",
+    "date-fns": "^2.23.0",
     "echarts": "^5.1.2",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "react-use": "^17.2.4"
   },
   "scripts": {
     "start": "craco start",
@@ -48,5 +51,5 @@
     "prettier": "^2.3.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
-  "homepage": "https://eco-ssot.github.io/"
+  "homepage": "https://10503052.github.io/"
 }
