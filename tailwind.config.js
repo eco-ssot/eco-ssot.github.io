@@ -33,6 +33,21 @@ module.exports = {
       padding: {
         18: '4.5rem',
       },
+      borderRadius: {
+        '1/2': '50%',
+      },
+      minWidth: {
+        1: '0.25rem',
+        2: '0.5rem',
+        3: '0.75rem',
+        4: '1rem',
+      },
+      minHeight: {
+        1: '0.25rem',
+        2: '0.5rem',
+        3: '0.75rem',
+        4: '1rem',
+      },
     },
   },
   variants: {

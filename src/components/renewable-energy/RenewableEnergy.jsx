@@ -26,7 +26,7 @@ const OPTION = {
       ],
     },
   ],
-  grid: { top: 0, bottom: 24, left: 0, right: 0, containerLabel: true },
+  grid: { top: 16, bottom: 24, left: 16, right: 0, containerLabel: true },
 };
 
 export default function RenewableEnergy() {
@@ -35,7 +35,7 @@ export default function RenewableEnergy() {
   };
 
   return (
-    <div className="flex w-full h-full items-center">
+    <div className="flex w-full h-full items-center justify-between">
       <div className="w-1/2 h-full flex items-center justify-center">
         <Chart className="w-full h-full" option={option} />
         <div className="absolute text-center">
@@ -43,10 +43,10 @@ export default function RenewableEnergy() {
           <div>{`可再生能源 > 60%`}</div>
         </div>
       </div>
-      <div className="w-1/2 pl-4 space-y-4">
+      <div className="flex flex-col px-8 justify-center w-1/2 space-y-4">
         <Legend
           dotClassName="bg-blue-500"
-          labelClassName="flex w-3/5 justify-between"
+          labelClassName="flex w-4/5 justify-between"
           label={
             <>
               <div>不可再生能源</div>
@@ -56,7 +56,7 @@ export default function RenewableEnergy() {
         />
         <Legend
           dotClassName="bg-yellow-500"
-          labelClassName="flex w-3/5 justify-between"
+          labelClassName="flex w-4/5 justify-between"
           label={
             <>
               <div>自建太陽能</div>
@@ -66,7 +66,7 @@ export default function RenewableEnergy() {
         />
         <Legend
           dotClassName="bg-green-500"
-          labelClassName="flex w-3/5 justify-between"
+          labelClassName="flex w-4/5 justify-between"
           label={
             <>
               <div>電網包含</div>
@@ -76,7 +76,7 @@ export default function RenewableEnergy() {
         />
         <Legend
           dotClassName="bg-gray-300"
-          labelClassName="flex w-3/5 justify-between"
+          labelClassName="flex w-4/5 justify-between"
           label={
             <>
               <div>綠證</div>

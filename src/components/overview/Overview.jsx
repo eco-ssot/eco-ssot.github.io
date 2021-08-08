@@ -62,7 +62,9 @@ const DATA = [
 
 export default function Overview({ className, ...props }) {
   return (
-    <div className={clsx('grid grid-cols-5 h-full divide-x divide-gray-500', className)} {...props}>
+    <div
+      className={clsx('grid grid-cols-5 h-full w-full divide-x divide-gray-500', className)}
+      {...props}>
       {DATA.map(({ title, unit, overall, direction, color, data }) => {
         return (
           <div key={title} className="h-full px-4">
