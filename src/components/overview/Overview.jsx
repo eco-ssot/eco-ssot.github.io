@@ -8,7 +8,7 @@ const DATA = [
     unit: '(度)',
     overall: '10%',
     direction: 'down',
-    color: 'green',
+    color: 'text-green-500',
     data: [
       { key: 2020, value: 100 },
       { key: 2021, value: 90 },
@@ -19,7 +19,7 @@ const DATA = [
     unit: '(十億臺幣)',
     overall: '10%',
     direction: 'down',
-    color: 'green',
+    color: 'text-green-500',
     data: [
       { key: 2020, value: 100 },
       { key: 2021, value: 90 },
@@ -30,7 +30,7 @@ const DATA = [
     unit: '(M³)',
     overall: '10%',
     direction: 'up',
-    color: 'red',
+    color: 'text-red-500',
     data: [
       { key: 2020, value: 90 },
       { key: 2021, value: 100 },
@@ -41,7 +41,7 @@ const DATA = [
     unit: '(度)',
     overall: '10%',
     direction: 'up',
-    color: 'green',
+    color: 'text-green-500',
     data: [
       { key: 2020, value: 100 },
       { key: 2021, value: 90 },
@@ -72,11 +72,11 @@ export default function Overview({ className, ...props }) {
               {title} {unit}
             </div>
             <div className="flex h-1/2 items-center justify-center">
-              <Arrow className={`w-1/4 h-3/4 text-${color}-500`} direction={direction} />
-              <div className={`text-4xl text-${color}-500`}>{overall}</div>
+              <Arrow className={`w-1/4 h-3/4 ${color}`} direction={direction} />
+              <div className={`text-4xl ${color}`}>{overall}</div>
             </div>
             <div
-              className={`grid items-center h-1/4 ring-1 ring-primary-500 rounded px-4 divide-x divide-primary-500 grid-cols-${data.length}`}>
+              className={`grid items-center h-1/4 ring-1 ring-primary-500 rounded px-4 divide-x divide-primary-500 grid-cols-2`}>
               {data.map(({ key, value }) => {
                 return (
                   <div className="flex justify-around w-full h-3/4 items-center" key={key}>
