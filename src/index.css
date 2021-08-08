@@ -29,12 +29,12 @@ html[data-theme='dark'] {
 
 @screen xl {
   html {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
 @screen 2xl {
   html {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
