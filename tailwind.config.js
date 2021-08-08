@@ -1,16 +1,13 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
-  purge: false,
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'media',
   theme: {
+    colors,
     extend: {
       colors: {
-        ...colors,
-        primary: '#489C9C',
+        primary: colors.teal,
         header: '#30494D',
         panel: '#203033',
         divider: '#707070',

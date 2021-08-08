@@ -38,7 +38,7 @@ const OPTION = {
   grid: { top: 0, bottom: 24, left: 0, right: 0, containerLabel: true },
 };
 
-export default function Carbon() {
+export default function Electricity() {
   const option = {
     ...OPTION,
   };

@@ -26,12 +26,12 @@ export const privateRoutes = [
   {
     path: '/renewable-energy',
     title: '可再生能源',
-    component: ElectricityPage,
+    component: RenewableEnergyPage,
   },
   {
     path: '/electricity',
     title: '用電強度',
-    component: RenewableEnergyPage,
+    component: ElectricityPage,
   },
   {
     path: '/waste',

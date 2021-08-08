@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 
-import ArrowDown from '../arrow-down/ArrowDown';
-import ArrowUp from '../arrow-up/ArrowUp';
-import Divider from '../divider/Divider';
+import Arrow from '../arrow/Arrow';
 
 const DATA = [
   {
@@ -62,37 +60,29 @@ const DATA = [
   },
 ];
 
-export function Arrow({ direction, color }) {
-  return direction ? (
-    direction === 'up' ? (
-      <ArrowUp className={`transform rotate-45 h-3/5 w-1/4 text-${color}-500`} />
-    ) : (
-      <ArrowDown className={`transform -rotate-45 h-3/5 w-1/4 text-${color}-500`} />
-    )
-  ) : null;
-}
-
 export default function Overview({ className, ...props }) {
   return (
-    <div className={clsx('grid grid-flow-col gap-4 h-full', className)} {...props}>
-      {DATA.map(({ title, unit, overall, direction, color, data }, i) => {
+    <div className={clsx('grid grid-cols-5 h-full divide-x divide-gray-500', className)} {...props}>
+      {DATA.map(({ title, unit, overall, direction, color, data }) => {
         return (
-          <div
-            key={title}
-            className={clsx('h-full', {
-              'border-0 border-r border-solid border-divider': i < DATA.length - 1,
-            })}>
-            <div className="h-1/4">
+          <div key={title} className="h-full px-4">
+            <div className="h-1/6">
               {title} {unit}
             </div>
             <div className="flex h-1/2 items-center justify-center">
-              <Arrow direction={direction} color={color} />
-              <div className="text-4xl">{overall}</div>
+              <Arrow className={`w-1/4 h-3/4 text-${color}-500`} direction={direction} />
+              <div className={`text-4xl text-${color}-500`}>{overall}</div>
             </div>
-            <div className="h-1/4">
-              {data.map(({ key, value }) => (
-                <div key={key}>{value}</div>
-              ))}
+            <div
+              className={`grid items-center h-1/4 ring-1 ring-primary-500 rounded px-4 divide-x divide-primary-500 grid-cols-${data.length}`}>
+              {data.map(({ key, value }) => {
+                return (
+                  <div className="flex justify-around w-full h-3/4 items-center" key={key}>
+                    <div className="text-gray-400">{key}</div>
+                    <div className="text-2xl">{value}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );

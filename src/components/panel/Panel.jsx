@@ -1,17 +1,23 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
-export default function Panel({ children, className, to, title = null, ...props }) {
+export default function Panel({
+  children,
+  className,
+  to,
+  title = null,
+  subtitle = null,
+  ...props
+}) {
   return (
-    <Link
-      className={clsx(
-        'bg-panel rounded shadow p-4 text-current hover:text-current h-full',
-        className
-      )}
-      to={to}
-      {...props}>
-      <div className="h-1/6">{title}</div>
+    <div className={clsx('bg-panel rounded shadow p-4 h-full', className)} {...props}>
+      <div className="h-1/6 flex justify-between">
+        <Link className="text-gray-200 hover:text-white" to={to}>
+          {title}
+        </Link>
+        {subtitle}
+      </div>
       <div className="h-5/6">{children}</div>
-    </Link>
+    </div>
   );
 }

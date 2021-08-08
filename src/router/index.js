@@ -8,12 +8,12 @@ import LoginPage from '../pages/login/LoginPage';
 export default function Router() {
   return (
     <BrowserRouter>
-      <Redirect from="/" to="/home" />
       <Switch>
         {privateRoutes.map(({ path, component: Component }) => (
           <PrivateRoute exact key={path} path={path} component={Component} />
         ))}
         <Route path="/login" component={LoginPage} />
+        <Redirect from="/" to="/home" />
       </Switch>
     </BrowserRouter>
   );
