@@ -33,6 +33,7 @@ module.exports = {
         '5/6': '83.33%',
         header: '4rem',
         page: 'calc(100vh - 4rem)',
+        'page-panel': 'calc(100vh - 6rem)',
       },
       padding: {
         18: '4.5rem',
@@ -51,6 +52,8 @@ module.exports = {
         2: '0.5rem',
         3: '0.75rem',
         4: '1rem',
+        page: 'calc(100vh - 4rem)',
+        'page-panel': 'calc(100vh - 6rem)',
       },
     },
   },
