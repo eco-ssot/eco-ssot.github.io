@@ -8,17 +8,19 @@ import { toFormattedNumber } from '../../utils/number';
 const renderer = ({ value }) => toFormattedNumber(value);
 const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%' });
 
+const HEADERS = [
+  { key: 'electricity', name: '用電量 (度)' },
+  { key: 'water', name: '用水量 (M³)' },
+  { key: 'revenue', name: '營業額 (十億臺幣)' },
+  { key: 'asp', name: 'ASP (十億臺幣/百萬台)' },
+];
+
 const COLUMNS = [
   {
     Header: 'Site',
     accessor: 'site',
   },
-  ...[
-    { key: 'electricity', name: '用電量 (度)' },
-    { key: 'water', name: '用水量 (M³)' },
-    { key: 'revenue', name: '營業額 (十億臺幣)' },
-    { key: 'asp', name: 'ASP (十億臺幣/百萬台)' },
-  ].map(({ key, name }) => ({
+  ...HEADERS.map(({ key, name }) => ({
     Header: name,
     columns: [
       {
@@ -118,6 +120,7 @@ const DATA = [
     asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
   },
   {
+    footer: true,
     site: 'Total',
     electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
     water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
@@ -135,7 +138,15 @@ export default function OverviewPage() {
       <div className="flex flex-col w-full justify-center items-center space-y-4">
         <ButtonGroup options={[{ label: '當年度' }, { label: '歷史年度' }]} />
         <div className="w-full">
-          <Table columns={columns} data={data} />
+          <Table
+            columns={columns}
+            data={data}
+            getRowProps={(row) => ({
+              className: row.original.footer
+                ? 'border-b-2 border-t-2 border-primary-500 font-bold'
+                : 'border-b border-gray-400',
+            })}
+          />
         </div>
       </div>
     </PageContainer>
