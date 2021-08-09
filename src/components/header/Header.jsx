@@ -6,15 +6,13 @@ import Select from '../select/Select';
 import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
 
-export default function Header({ className, ...props }) {
+export default function Header({ className }) {
   return (
-    <div
-      className={clsx('flex h-16 px-4 bg-header shadow-lg items-center z-10', className)}
-      {...props}>
+    <div className={clsx('flex h-16 px-4 bg-header shadow-lg items-center z-10', className)}>
       <div className="font-medium text-2xl">ESG 績效管理平台</div>
       <Divider className="h-1/2" />
       <Select
-        className="w-24"
+        className="w-28"
         options={[
           { key: 'WT', value: 'WT' },
           { key: 'WSD', value: 'WSD' },

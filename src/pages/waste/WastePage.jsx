@@ -1,3 +1,5 @@
+import PageContainer from '../../components/page-container/PageContainer';
+
 export default function WastePage() {
-  return <div>WastePage</div>;
+  return <PageContainer>WastePage</PageContainer>;
 }

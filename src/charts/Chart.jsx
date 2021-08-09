@@ -42,7 +42,7 @@ import 'echarts/lib/component/markLine';
 // import 'echarts/lib/component/toolbox';
 // import 'zrender/lib/vml/vml';
 
-export default function Chart({ className, option = {}, ...props }) {
+export default function Chart({ className, option = {} }) {
   const [containerRef, { width, height }] = useMeasure();
   const chartRef = useRef();
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function Chart({ className, option = {}, ...props }) {
   }, [chartRef, option, width, height]);
 
   return (
-    <div ref={containerRef} className={clsx('w-96 h-96', className)} {...props}>
+    <div ref={containerRef} className={clsx('w-96 h-96', className)}>
       <div ref={chartRef} style={{ width, height }} />
     </div>
   );

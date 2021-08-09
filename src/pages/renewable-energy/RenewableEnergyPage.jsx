@@ -1,3 +1,5 @@
+import PageContainer from '../../components/page-container/PageContainer';
+
 export default function RenewableEnergyPage() {
-  return <div>RenewableEnergyPage</div>;
+  return <PageContainer>RenewableEnergyPage</PageContainer>;
 }

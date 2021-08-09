@@ -3,10 +3,10 @@ import clsx from 'clsx';
 
 import { privateRoutes } from '../../router/routes';
 
-export default function NavBar({ className, ...props }) {
+export default function NavBar({ className }) {
   const { pathname } = useLocation();
   return (
-    <div className={clsx('flex flex-grow space-x-4', className)} {...props}>
+    <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes.map(({ path, title }) => (
         <div
           key={path}

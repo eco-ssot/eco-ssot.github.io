@@ -1,3 +1,5 @@
+import PageContainer from '../../components/page-container/PageContainer';
+
 export default function ElectricityPage() {
-  return <div>ElectricityPage</div>;
+  return <PageContainer>ElectricityPage</PageContainer>;
 }

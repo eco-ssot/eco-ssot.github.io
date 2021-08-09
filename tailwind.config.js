@@ -1,5 +1,7 @@
 const colors = require('tailwindcss/colors');
 
+delete colors['lightBlue'];
+
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'media',
@@ -29,6 +31,8 @@ module.exports = {
         '3/6': '50%',
         '4/6': '66.67%',
         '5/6': '83.33%',
+        header: '4rem',
+        page: 'calc(100vh - 4rem)',
       },
       padding: {
         18: '4.5rem',

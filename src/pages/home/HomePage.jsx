@@ -6,6 +6,7 @@ import RenewableEnergy from '../../components/renewable-energy/RenewableEnergy';
 import UnitElectricity from '../../components/unit-electricity/UnitElectricity';
 import Waste from '../../components/waste/Waste';
 import Water from '../../components/water/Water';
+import Tag from '../../components/tag/Tag';
 
 export default function HomePage() {
   return (
@@ -14,11 +15,7 @@ export default function HomePage() {
         className="row-span-1 col-span-3"
         title="各數值 Overview"
         to="/overview"
-        subtitle={
-          <div className="flex h-8 pt-1 rounded shadow px-2 bg-primary-900 border-l-4 border-solid border-primary-600">
-            累計區間：2021.01 - 06
-          </div>
-        }>
+        subtitle={<Tag>累計區間：2021.01 - 06</Tag>}>
         <Overview />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="碳排放量" to="/carbon">

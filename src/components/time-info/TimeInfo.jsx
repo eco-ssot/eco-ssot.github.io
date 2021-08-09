@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import clsx from 'clsx';
 
-export default function TimeInfo({ className, ...rest }) {
+export default function TimeInfo({ className }) {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
     const interval = setInterval(() => setDate(new Date()), 1000);
@@ -11,9 +11,5 @@ export default function TimeInfo({ className, ...rest }) {
     };
   }, []);
 
-  return (
-    <div className={clsx(className)} {...rest}>
-      {format(date, 'yyyy年 MM月 dd日 HH:mm')}
-    </div>
-  );
+  return <div className={clsx(className)}>{format(date, 'yyyy年 MM月 dd日 HH:mm')}</div>;
 }

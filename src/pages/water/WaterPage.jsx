@@ -1,3 +1,5 @@
+import PageContainer from '../../components/page-container/PageContainer';
+
 export default function WaterPage() {
-  return <div>WaterPage</div>;
+  return <PageContainer>WaterPage</PageContainer>;
 }
