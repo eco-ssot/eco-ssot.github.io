@@ -1,6 +1,7 @@
 import Chart from '../../charts/Chart';
 import colors from '../../styles/colors';
 import Legend from '../legend/Legend';
+import { toFormattedNumber } from '../../utils/number';
 
 const OPTION = {
   xAxis: {
@@ -33,7 +34,12 @@ const OPTION = {
       ],
       type: 'bar',
       barWidth: 32,
-      label: { show: true, position: 'top', color: '#fff' },
+      label: {
+        show: true,
+        position: 'top',
+        color: '#fff',
+        formatter: ({ value }) => toFormattedNumber(value),
+      },
       animationDuration: 2000,
     },
   ],

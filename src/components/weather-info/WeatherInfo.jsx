@@ -2,18 +2,22 @@ import { useEffect, useState } from 'react';
 import { get } from 'lodash';
 
 import { useGetWeatherByIdQuery } from '../../services/weather';
+import { toFormattedNumber } from '../../utils/number';
 
 export default function WeatherInfo() {
-  const [weather, setWeather] = useState({ temp: '-', humidity: '-' });
+  const [weather, setWeather] = useState({});
   const { data } = useGetWeatherByIdQuery();
   useEffect(() => {
-    setWeather(get(data, 'main', { temp: '-', humidity: '-' }));
+    const main = get(data, 'main');
+    if (main) {
+      setWeather(main);
+    }
   }, [data]);
 
   return (
     <>
-      <div>溫度：{weather.temp} ºC</div>
-      <div>濕度：{weather.humidity} %</div>
+      <div>溫度：{toFormattedNumber(weather.temp)} ºC</div>
+      <div>濕度：{toFormattedNumber(weather.humidity)} %</div>
     </>
   );
 }
