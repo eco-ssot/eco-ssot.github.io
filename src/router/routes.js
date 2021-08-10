@@ -3,7 +3,7 @@ import ElectricityPage from '../pages/electricity/ElectricityPage';
 import HomePage from '../pages/home/HomePage';
 import OverviewPage from '../pages/overview/OverviewPage';
 import RenewableEnergyPage from '../pages/renewable-energy/RenewableEnergyPage';
-import UnitElectricity from '../pages/unit-electricity/UnitElectricity';
+import UnitElectricityPage from '../pages/unit-electricity/UnitElectricityPage';
 import WastePage from '../pages/waste/WastePage';
 import WaterPage from '../pages/water/WaterPage';
 
@@ -36,16 +36,16 @@ export const privateRoutes = [
   {
     path: '/waste',
     title: '廢棄物產生',
-    component: UnitElectricity,
+    component: WastePage,
   },
   {
     path: '/water',
     title: '用水強度',
-    component: WastePage,
+    component: WaterPage,
   },
   {
     path: '/unit-electricity',
     title: '單臺用電',
-    component: WaterPage,
+    component: UnitElectricityPage,
   },
 ];
