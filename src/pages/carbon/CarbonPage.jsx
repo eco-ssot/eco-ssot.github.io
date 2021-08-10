@@ -192,6 +192,7 @@ export default function CarbonPage() {
       <div className="flex flex-col w-full justify-center items-center space-y-4">
         <ButtonGroup options={[{ label: '當年度' }, { label: '歷史年度' }]} />
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg space-y-2">
+          <div className="h-6"></div>
           <Table
             columns={columns}
             data={data}

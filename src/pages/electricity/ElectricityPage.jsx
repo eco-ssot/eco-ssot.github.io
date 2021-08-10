@@ -198,11 +198,11 @@ export default function ElectricityPage() {
   const data = useMemo(() => DATA, []);
   return (
     <PageContainer>
-      <div>W.W 十億營業額用電</div>
+      <div className="h-8">W.W 十億營業額用電</div>
       <div className="flex flex-col w-full justify-center items-center space-y-4">
         <ButtonGroup options={[{ label: '當年度' }, { label: '歷史年度' }]} />
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg space-y-2">
-          <div className="text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+          <div className="h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
           <Table
             columns={columns}
             data={data}
