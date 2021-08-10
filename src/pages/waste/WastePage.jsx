@@ -322,7 +322,7 @@ export default function WastePage() {
   return (
     <PageContainer>
       <div className="flex justify-between">
-        <div>W.W 碳排放管理</div>
+        <div>廢棄物產生密度</div>
         <Tag>Target：對比2018年下降 2%</Tag>
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-4">
