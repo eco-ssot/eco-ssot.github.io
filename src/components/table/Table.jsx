@@ -48,7 +48,7 @@ export default function Table({
                   {...column.getHeaderProps([
                     {
                       className: clsx(
-                        'px-2 py-3 text-center font-medium text-white uppercase tracking-wider whitespace-nowrap',
+                        'px-2 py-3 text-center font-medium text-white tracking-wider whitespace-nowrap',
                         column.className
                       ),
                       style: column.style,
