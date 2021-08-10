@@ -1,4 +1,6 @@
 const colors = require('tailwindcss/colors');
+const plugin = require('tailwindcss/plugin');
+const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default;
 
 delete colors['lightBlue'];
 
@@ -6,7 +8,7 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'media',
   theme: {
-    colors,
+    colors: { ...colors, transparent: 'transparent' },
     extend: {
       colors: {
         primary: colors.teal,
@@ -33,10 +35,11 @@ module.exports = {
         '5/6': '83.33%',
         header: '4rem',
         page: 'calc(100vh - 4rem)',
-        'page-panel': 'calc(100vh - 6rem)',
+        pagePanel: 'calc(100vh - 6rem)',
       },
       padding: {
         18: '4.5rem',
+        header: '4rem',
       },
       borderRadius: {
         '1/2': '50%',
@@ -53,12 +56,26 @@ module.exports = {
         3: '0.75rem',
         4: '1rem',
         page: 'calc(100vh - 4rem)',
-        'page-panel': 'calc(100vh - 6rem)',
+        pagePanel: 'calc(100vh - 6rem)',
       },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addUtilities, theme, variants }) => {
+      const colors = flattenColorPalette(theme('borderColor'));
+      delete colors['DEFAULT'];
+      const colorMap = Object.keys(colors).map((color) => ({
+        [`.border-t-${color}`]: { borderTopColor: colors[color] },
+        [`.border-r-${color}`]: { borderRightColor: colors[color] },
+        [`.border-b-${color}`]: { borderBottomColor: colors[color] },
+        [`.border-l-${color}`]: { borderLeftColor: colors[color] },
+      }));
+
+      const utilities = Object.assign({}, ...colorMap);
+      addUtilities(utilities, variants('borderColor'));
+    }),
+  ],
 };

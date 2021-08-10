@@ -8,7 +8,7 @@ import WeatherInfo from '../weather-info/WeatherInfo';
 
 export default function Header({ className }) {
   return (
-    <div className={clsx('flex h-16 px-4 bg-header shadow-lg items-center z-10', className)}>
+    <div className={clsx('flex px-4 bg-header shadow-lg items-center z-10', className)}>
       <div className="font-medium text-2xl">ESG 績效管理平台</div>
       <Divider className="h-1/2" />
       <Select
