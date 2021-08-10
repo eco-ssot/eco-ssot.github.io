@@ -77,7 +77,7 @@ export default function Table({
                     {...cell.getCellProps([
                       {
                         className: clsx(
-                          'px-2 py-4 text-center whitespace-nowrap text-gray-50',
+                          'px-2 py-3 text-center whitespace-nowrap text-gray-50',
                           cell.column.id.startsWith('expander') && 'pl-4',
                           row.depth > 0 && 'pl-8 bg-header bg-opacity-50',
                           row.depth > 0 &&
