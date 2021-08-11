@@ -3,7 +3,7 @@
 # 2) nginx stage to serve frontend assets
 
 # Name the node stage "builder"
-FROM node:10 AS builder
+FROM node:12 AS builder
 # Set working directory
 WORKDIR /app
 # Copy all files from current directory to working dir in image
@@ -23,5 +23,5 @@ COPY --from=builder /app/build .
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 # build & run service
-# docker build -t react-nginx .
-# docker run --rm -it -p 8080:80 react-nginx
+# docker build -t eco-ssot-frontend .
+# docker run --rm -it -p 8080:80 eco-ssot-frontend
