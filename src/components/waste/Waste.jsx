@@ -1,11 +1,14 @@
 import Chart from '../../charts/Chart';
 import colors from '../../styles/colors';
 import Legend from '../legend/Legend';
+import { useGetWasteApiQuery } from '../../services/waste';
 
-const OPTION = {
+const COLORS = [colors.yellow['500'], colors.emerald['700'], colors.green['500']];
+
+const OPTION = (values, labels, target) => ({
   xAxis: {
     type: 'category',
-    data: ['2018 Total', '2020 1-6月', '2021 1-6月'],
+    data: labels,
     axisTick: { show: false },
     axisLine: { lineStyle: { color: colors.primary['500'] } },
     axisLabel: {
@@ -21,39 +24,32 @@ const OPTION = {
   },
   series: [
     {
-      data: [
-        {
-          value: 51.43,
-          itemStyle: { color: colors.yellow['500'], barBorderRadius: [4, 4, 0, 0] },
-        },
-        {
-          value: 48.27,
-          itemStyle: { color: colors.emerald['700'], barBorderRadius: [4, 4, 0, 0] },
-        },
-        {
-          value: 53.76,
-          itemStyle: { color: colors.green['500'], barBorderRadius: [4, 4, 0, 0] },
-        },
-      ],
+      data: values.map((value, i) => ({
+        value,
+        itemStyle: { color: COLORS[i], barBorderRadius: [4, 4, 0, 0] },
+      })),
       type: 'bar',
       barWidth: 32,
       label: { show: true, position: 'top', color: '#fff' },
       animationDuration: 2000,
-      markLine: {
-        data: [{ yAxis: 50.4 }],
-        symbol: 'none',
-        lineStyle: { color: colors.orange['500'] },
-      },
+      ...(target && {
+        markLine: {
+          data: [{ yAxis: 50.4 }],
+          symbol: 'none',
+          lineStyle: { color: colors.orange['500'] },
+        },
+      }),
     },
   ],
   grid: { top: 16, bottom: 36, left: 16, right: 48, containerLabel: true },
-};
+});
 
 export default function Waste() {
-  const option = {
-    ...OPTION,
-  };
-
+  const { data = {} } = useGetWasteApiQuery();
+  const { target, ...rest } = data;
+  const labels = Object.keys(rest);
+  const values = Object.values(rest);
+  const option = OPTION(values, labels, target);
   return (
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="w-3/5 h-full" option={option} />
