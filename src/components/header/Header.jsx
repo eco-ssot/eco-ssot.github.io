@@ -23,9 +23,9 @@ export default function Header({ className }) {
       <Divider className="h-1/2" />
       <NavBar />
       <Divider className="h-1/2" />
-      <div className="flex space-x-4">
+      <div className="flex space-x-4 items-center">
         <TimeInfo className="block truncate" />
-        <WeatherInfo className="block truncate" />
+        <WeatherInfo />
       </div>
       <Divider className="h-1/2" />
       <Avatar className="block truncate">Dawin Zhu</Avatar>

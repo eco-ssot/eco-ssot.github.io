@@ -16,8 +16,8 @@ export default function WeatherInfo() {
 
   return (
     <>
-      <div>溫度：{toFormattedNumber(weather.temp)} ºC</div>
-      <div>濕度：{toFormattedNumber(weather.humidity)} %</div>
+      <div className="block truncate">溫度：{toFormattedNumber(weather.temp)} ºC</div>
+      <div className="block truncate">濕度：{toFormattedNumber(weather.humidity)} %</div>
     </>
   );
 }
