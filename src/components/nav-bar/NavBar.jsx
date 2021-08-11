@@ -16,7 +16,7 @@ export default function NavBar({ className }) {
               : 'border-b-2 border-header text-gray-300 hover:text-gray-100 inline-flex items-center px-1 pt-1'
           }>
           <Link to={path} className="text-current text-lg font-medium">
-            {title}
+            <span className="block truncate">{title}</span>
           </Link>
         </div>
       ))}

@@ -42,7 +42,7 @@ const OPTION = {
       },
     },
   ],
-  grid: { top: 16, bottom: 24, left: 16, right: 32, containerLabel: true },
+  grid: { top: 16, bottom: 24, left: 16, right: 48, containerLabel: true },
 };
 
 export default function UnitElectricity() {

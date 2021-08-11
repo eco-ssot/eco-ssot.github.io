@@ -6,7 +6,7 @@ import RenewableEnergy from '../../components/renewable-energy/RenewableEnergy';
 import UnitElectricity from '../../components/unit-electricity/UnitElectricity';
 import Waste from '../../components/waste/Waste';
 import Water from '../../components/water/Water';
-import Tag from '../../components/tag/Tag';
+import TagSelect from '../../components/tag-select/TagSelect';
 
 export default function HomePage() {
   return (
@@ -15,7 +15,11 @@ export default function HomePage() {
         className="row-span-1 col-span-3"
         title="各數值 Overview"
         to="/overview"
-        subtitle={<Tag>累計區間：2021.01 - 06</Tag>}>
+        subtitle={
+          <TagSelect options={[{ key: '2020', value: '對比年度：2020' }]}>
+            累計區間：2021.01 - 06
+          </TagSelect>
+        }>
         <Overview />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="碳排放量" to="/carbon">
@@ -27,14 +31,14 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-1" title="用電強度" to="/electricity">
         <Electricity />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="廢棄物產生密度" to="/waste">
-        <Waste />
-      </Panel>
       <Panel className="row-span-1 col-span-1" title="用水強度" to="/water">
         <Water />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="單臺用電" to="/unit-electricity">
         <UnitElectricity />
+      </Panel>
+      <Panel className="row-span-1 col-span-1" title="廢棄物產生密度" to="/waste">
+        <Waste />
       </Panel>
     </div>
   );

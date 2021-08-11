@@ -5,10 +5,14 @@ import Legend from '../legend/Legend';
 const OPTION = {
   xAxis: {
     type: 'category',
-    data: ['2018 Total', '2021 1-6月'],
+    data: ['2018 Total', '2020 1-6月', '2021 1-6月'],
     axisTick: { show: false },
     axisLine: { lineStyle: { color: colors.primary['500'] } },
-    axisLabel: { color: '#fff' },
+    axisLabel: {
+      color: '#fff',
+      formatter: (value) => value.split(' ').join('\n'),
+      lineHeight: 16,
+    },
   },
   yAxis: {
     type: 'value',
@@ -21,6 +25,10 @@ const OPTION = {
         {
           value: 51.43,
           itemStyle: { color: colors.yellow['500'], barBorderRadius: [4, 4, 0, 0] },
+        },
+        {
+          value: 48.27,
+          itemStyle: { color: colors.emerald['700'], barBorderRadius: [4, 4, 0, 0] },
         },
         {
           value: 53.76,
@@ -38,7 +46,7 @@ const OPTION = {
       },
     },
   ],
-  grid: { top: 16, bottom: 24, left: 16, right: 32, containerLabel: true },
+  grid: { top: 16, bottom: 24, left: 16, right: 48, containerLabel: true },
 };
 
 export default function Waste() {

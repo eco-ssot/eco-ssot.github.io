@@ -34,11 +34,6 @@ export const privateRoutes = [
     component: ElectricityPage,
   },
   {
-    path: '/waste',
-    title: '廢棄物產生',
-    component: WastePage,
-  },
-  {
     path: '/water',
     title: '用水強度',
     component: WaterPage,
@@ -47,5 +42,10 @@ export const privateRoutes = [
     path: '/unit-electricity',
     title: '單臺用電',
     component: UnitElectricityPage,
+  },
+  {
+    path: '/waste',
+    title: '廢棄物產生',
+    component: WastePage,
   },
 ];

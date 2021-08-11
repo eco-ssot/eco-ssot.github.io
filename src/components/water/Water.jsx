@@ -5,10 +5,14 @@ import Legend from '../legend/Legend';
 const OPTION = {
   xAxis: {
     type: 'category',
-    data: ['2016 Total', '2020 Total', '2020 1-6月', '2021 1-6月'],
+    data: ['2016 Total', '2020 1-6月', '2021 1-6月'],
     axisTick: { show: false },
     axisLine: { lineStyle: { color: colors.primary['500'] } },
-    axisLabel: { color: '#fff' },
+    axisLabel: {
+      color: '#fff',
+      formatter: (value) => value.split(' ').join('\n'),
+      lineHeight: 16,
+    },
   },
   yAxis: {
     type: 'value',
@@ -21,10 +25,6 @@ const OPTION = {
         {
           value: 111,
           itemStyle: { color: colors.yellow['500'], barBorderRadius: [4, 4, 0, 0] },
-        },
-        {
-          value: 100,
-          itemStyle: { color: colors.blue['500'], barBorderRadius: [4, 4, 0, 0] },
         },
         {
           value: 90,
@@ -46,7 +46,7 @@ const OPTION = {
       },
     },
   ],
-  grid: { top: 16, bottom: 24, left: 16, right: 32, containerLabel: true },
+  grid: { top: 16, bottom: 24, left: 16, right: 48, containerLabel: true },
 };
 
 export default function Water() {
