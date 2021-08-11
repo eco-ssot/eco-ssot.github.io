@@ -1,0 +1,2 @@
+(this["webpackJsonpeco-ssot-frontend"]=this["webpackJsonpeco-ssot-frontend"]||[]).push([[2],{249:function(o){o.exports=JSON.parse('{"2020 Total":110,"2020 1-6\u6708":90,"2021 1-6\u6708":60,"target":100}')}}]);
+//# sourceMappingURL=2.0a0144ec.chunk.js.map
