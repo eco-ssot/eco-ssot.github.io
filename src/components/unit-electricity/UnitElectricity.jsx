@@ -8,7 +8,11 @@ const OPTION = {
     data: ['2016 Total', '2020 1-6月', '2021 1-6月'],
     axisTick: { show: false },
     axisLine: { lineStyle: { color: colors.primary['500'] } },
-    axisLabel: { color: '#fff' },
+    axisLabel: {
+      color: '#fff',
+      formatter: (value) => value.split(' ').join('\n'),
+      lineHeight: 16,
+    },
   },
   yAxis: {
     type: 'value',
@@ -42,7 +46,7 @@ const OPTION = {
       },
     },
   ],
-  grid: { top: 16, bottom: 24, left: 16, right: 48, containerLabel: true },
+  grid: { top: 16, bottom: 36, left: 16, right: 48, containerLabel: true },
 };
 
 export default function UnitElectricity() {

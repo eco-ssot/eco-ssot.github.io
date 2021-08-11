@@ -8,7 +8,7 @@ const OPTION = {
   series: [
     {
       type: 'pie',
-      radius: ['80%', '100%'],
+      radius: ['70%', '90%'],
       avoidLabelOverlap: false,
       center: ['50%', '50%'],
       label: {
