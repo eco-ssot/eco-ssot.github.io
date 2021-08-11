@@ -5,7 +5,7 @@ const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').
 delete colors['lightBlue'];
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: ['./src/**/*.{js,jsx,ts,tsx,json}'],
   darkMode: 'media',
   theme: {
     colors: { ...colors, transparent: 'transparent' },
