@@ -47,10 +47,10 @@ deploy:
     - master
   before_script:
     - *install_packages
+    - git config --global user.email leo_jhuo@wistron.com
+    - git config --global user.name eco-ssot-frontend-ci
     - git remote add github https://$GITHUB_API_KEY@github.com/eco-ssot/eco-ssot.github.io.git
   script:
     - yarn deploy
-  retry: 1
   when: on_success
   dependencies: []
-  cache: {}
