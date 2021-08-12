@@ -1,0 +1,56 @@
+variables:
+  DOCKER_TLS_CERTDIR: ''
+
+image: node:12
+
+cache: &global_cache
+  paths:
+    - node_modules/
+  policy: pull-push
+
+.install_packages: &install_packages
+  - |
+    if [[ ! -d "node_modules" ]]; then
+        yarn install --network-timeout 1000000
+    fi
+
+stages:
+  # - build:image
+  - setup
+  - deploy
+
+.swpc-runner:
+  tags:
+    - aws
+    - m4-large
+
+default:
+  tags:
+    - aws
+    - m4-large
+
+setup:
+  stage: setup
+  only:
+    refs:
+      - master
+    changes:
+      - package.json
+      - yarn.lock
+  script:
+    - yarn install --network-timeout 1000000
+  dependencies: []
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  before_script:
+    - *install_packages
+    - git remote add github "https://$GITHUB_API_KEY@github.com/eco-ssot/eco-ssot.github.io.git"
+  script:
+    - yarn deploy
+  retry: 1
+  when: on_success
+  dependencies: []
+  cache: {}
