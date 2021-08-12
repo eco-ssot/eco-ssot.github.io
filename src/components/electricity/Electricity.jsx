@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 import Legend from '../legend/Legend';
 import { useGetElectricApiQuery } from '../../services/electric';
 
-const COLORS = [colors._blue, colors.primary['600'], colors.green['500']];
+const COLORS = [colors._blue, colors.primary['600'], colors.primary['500']];
 
 const OPTION = (values, labels, target) => ({
   xAxis: {
