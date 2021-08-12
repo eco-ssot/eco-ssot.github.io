@@ -27,7 +27,7 @@ export default function TagSelect({ className, children, options = [] }) {
                 leaveTo="opacity-0">
                 <Listbox.Options
                   static
-                  className="absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded py-1 overflow-auto border border-gray-300 text-sm">
+                  className="absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded py-1 overflow-auto border border-divider text-sm">
                   {options.map((option) => (
                     <Listbox.Option
                       key={option.key}
