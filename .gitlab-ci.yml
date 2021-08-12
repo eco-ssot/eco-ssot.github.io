@@ -47,7 +47,7 @@ deploy:
     - master
   before_script:
     - *install_packages
-    - git remote add github "https://$GITHUB_API_KEY@github.com/eco-ssot/eco-ssot.github.io.git"
+    - git remote add github https://$GITHUB_API_KEY@github.com/eco-ssot/eco-ssot.github.io.git
   script:
     - yarn deploy
   retry: 1
