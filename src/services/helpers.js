@@ -1,4 +1,4 @@
-import { toSearch } from '../router/helpers';
+import qs from 'query-string';
 
 import axios from '../axios';
 
@@ -6,7 +6,7 @@ export const axiosBaseQuery =
   ({ baseUrl = '/' } = {}) =>
   async ({ url = '', method = 'get', data = {}, query = {} } = {}) => {
     try {
-      const search = toSearch(query);
+      const search = qs.stringify(query);
       const result = await axios({
         url: `${baseUrl}${url}${search ? `?${search}` : ''}`,
         method,

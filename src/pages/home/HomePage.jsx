@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 import Panel from '../../components/panel/Panel';
 import Overview from '../../components/overview/Overview';
 import Carbon from '../../components/carbon/Carbon';
@@ -7,8 +9,18 @@ import UnitElectricity from '../../components/unit-electricity/UnitElectricity';
 import Waste from '../../components/waste/Waste';
 import Water from '../../components/water/Water';
 import TagSelect from '../../components/tag-select/TagSelect';
+import { navigate } from '../../router/helpers';
+import { selectCompareYear } from '../../router/routerSlice';
+
+const lastYear = new Date().getFullYear() - 1;
+const baseYear = 2016;
+const YEAR_OPTIONS = Array.from({ length: lastYear - baseYear }, (_, i) => ({
+  key: String(lastYear - i),
+  value: String(lastYear - i),
+}));
 
 export default function HomePage() {
+  const compareYear = useSelector(selectCompareYear);
   return (
     <div className="grid grid-rows-3 grid-cols-3 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
@@ -16,7 +28,12 @@ export default function HomePage() {
         title="各數值 Overview"
         to="/overview"
         subtitle={
-          <TagSelect options={[{ key: '2020', value: '對比年度：2020' }]}>
+          <TagSelect
+            options={YEAR_OPTIONS}
+            label="對比年度："
+            selected={YEAR_OPTIONS.find(({ key }) => key === compareYear) || YEAR_OPTIONS[0]}
+            onChange={navigate}
+            queryKey="compareYear">
             累計區間：2021.01 - 06
           </TagSelect>
         }>

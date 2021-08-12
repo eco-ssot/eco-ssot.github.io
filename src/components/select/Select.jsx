@@ -3,9 +3,15 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
-export default function Select({ className, options = [], selected = {}, onChange = () => {} }) {
+export default function Select({
+  className,
+  options = [],
+  selected = {},
+  queryKey = '',
+  onChange = () => {},
+}) {
   return (
-    <Listbox value={selected} onChange={(e) => onChange({ query: { business: e.key } })}>
+    <Listbox value={selected} onChange={(e) => onChange({ query: { [queryKey]: e.key } })}>
       {({ open }) => (
         <>
           <div className={clsx('mt-1 relative', className)}>

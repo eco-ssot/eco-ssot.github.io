@@ -1,23 +1,36 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
-export default function TagSelect({ className, children, options = [] }) {
-  const [selected, setSelected] = useState(options[0]);
+import Divider from '../divider/Divider';
+
+export default function TagSelect({
+  className,
+  children,
+  options = [],
+  selected = {},
+  label = '',
+  queryKey = '',
+  onChange = () => {},
+}) {
   return (
-    <div className="w-auto h-8 gap-3 items-center grid grid-cols-2 divide-primary-600 divide-x rounded shadow bg-primary-800">
+    <div className="w-auto h-8 items-center flex rounded shadow bg-primary-800">
       <div className="pl-3">{children}</div>
-      <Listbox value={selected} onChange={setSelected}>
+      <Divider className="border-primary-600" />
+      <Listbox value={selected} onChange={(e) => onChange({ query: { [queryKey]: e.key } })}>
         {({ open }) => (
           <>
+            {label && <Listbox.Label className="font-medium">{label}</Listbox.Label>}
             <div className={clsx('relative', className)}>
               <Listbox.Button
-                className={clsx('bg-transparent relative w-full pl-3 text-left cursor-pointer')}>
-                <span className="block truncate">{selected.value}</span>
-                <span className="absolute inset-y-0 right-0 flex pr-3 items-center pointer-events-none">
+                className={clsx(
+                  'flex space-x-2 pl-2 items-center bg-transparent relative w-full text-left cursor-pointer'
+                )}>
+                <div className="block truncate">{selected.value}</div>
+                <div className="inset-y-0 right-0 flex pr-2 items-center pointer-events-none">
                   <ChevronDownIcon className="h-4 w-4 text-gray-50" aria-hidden="true" />
-                </span>
+                </div>
               </Listbox.Button>
               <Transition
                 show={open}
@@ -36,7 +49,7 @@ export default function TagSelect({ className, children, options = [] }) {
                           active
                             ? 'text-gray-50 bg-primary-600'
                             : 'text-gray-900 dark:text-gray-50',
-                          'cursor-default select-none relative py-1 px-3'
+                          'flex cursor-default select-none relative py-1 pl-2'
                         )
                       }
                       value={option}>
@@ -53,7 +66,7 @@ export default function TagSelect({ className, children, options = [] }) {
                             <span
                               className={clsx(
                                 active ? 'text-gray-50' : 'text-primary-600',
-                                'absolute inset-y-0 right-0 flex items-center pr-4'
+                                'absolute inset-y-0 right-0 flex items-center pr-2'
                               )}>
                               <CheckIcon className="h-4 w-4" aria-hidden="true" />
                             </span>

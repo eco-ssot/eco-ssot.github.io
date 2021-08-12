@@ -30,6 +30,7 @@ export default function Header({ className }) {
         options={BUSINESS_OPTIONS}
         onChange={navigate}
         selected={BUSINESS_OPTIONS.find(({ key }) => key === business) || BUSINESS_OPTIONS[0]}
+        queryKey="business"
       />
       <Divider className="h-1/2" />
       <NavBar />

@@ -1,10 +1,11 @@
+import qs from 'query-string';
+
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
-import { toQuery } from './helpers';
-
+const search = window.location.href.split('?')[1];
 const initialState = {
-  search: window.location.search,
-  query: toQuery(window.location.search),
+  search,
+  query: { ...qs.parse(search) },
 };
 
 export const routerSlice = createSlice({
@@ -13,7 +14,7 @@ export const routerSlice = createSlice({
   reducers: {
     setQueryParams: (state, action) => {
       state.search = action.payload;
-      state.query = toQuery(action.payload);
+      state.query = { ...qs.parse(action.payload) };
     },
   },
 });
@@ -23,5 +24,6 @@ export const selectRouter = (state) => state.router;
 export const selectQueryParams = createSelector(selectRouter, (router) => router.query);
 export const selectSearch = createSelector(selectRouter, (router) => router.search);
 export const selectBusiness = createSelector(selectQueryParams, (query) => query.business);
+export const selectCompareYear = createSelector(selectQueryParams, (query) => query.compareYear);
 
 export default routerSlice.reducer;
