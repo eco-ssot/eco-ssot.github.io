@@ -10,6 +10,7 @@ import { electricApi } from '../services/electric';
 import { singleElectricApi } from '../services/singleelectric';
 import { wasteApi } from '../services/waste';
 import { waterApi } from '../services/water';
+import { summaryApi } from '../services/summary';
 import counterReducer from '../features/counter/counterSlice';
 import routerReducer from '../router/routerSlice';
 
@@ -26,6 +27,7 @@ export const store = configureStore({
     [singleElectricApi.reducerPath]: singleElectricApi.reducer,
     [wasteApi.reducerPath]: wasteApi.reducer,
     [waterApi.reducerPath]: waterApi.reducer,
+    [summaryApi.reducerPath]: summaryApi.reducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
@@ -38,6 +40,7 @@ export const store = configureStore({
     singleElectricApi.middleware,
     wasteApi.middleware,
     waterApi.middleware,
+    summaryApi.middleware,
   ],
 });
 

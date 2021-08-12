@@ -29,7 +29,7 @@ export default function Header({ className }) {
         className="w-28"
         options={BUSINESS_OPTIONS}
         onChange={navigate}
-        selected={BUSINESS_OPTIONS.find(({ key }) => key === business) || BUSINESS_OPTIONS[0]}
+        selected={BUSINESS_OPTIONS.find((option) => option.key === business) || BUSINESS_OPTIONS[0]}
         queryKey="business"
       />
       <Divider className="h-1/2" />
