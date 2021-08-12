@@ -5,19 +5,28 @@ const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').
 delete colors['lightBlue'];
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx,json}'],
+  mode: 'jit',
+  purge: ['./src/**/*.{js,jsx,json}', './public/**/*.html'],
   darkMode: 'media',
   theme: {
     colors: { ...colors, transparent: 'transparent' },
     extend: {
       colors: {
-        primary: colors.teal,
-        header: '#30494D',
-        panel: '#203033',
+        primary: {
+          500: '#21CC97',
+          600: '#489C9C',
+          700: '#3F7879',
+          800: '#30494D',
+          900: '#203033',
+        },
         divider: '#707070',
+        unit: '#D6D6D6',
+        _yellow: '#FACA00',
+        _orange: '#FF9300',
+        _blue: '#3BAEE5',
+        _red: '#D23B5F',
       },
       height: {
-        18: '4.5rem',
         '1/2': '50%',
         '1/3': '33.33%',
         '2/3': '66.67%',
@@ -33,13 +42,6 @@ module.exports = {
         '3/6': '50%',
         '4/6': '66.67%',
         '5/6': '83.33%',
-        header: '4rem',
-        page: 'calc(100vh - 4rem)',
-        pagePanel: 'calc(100vh - 6rem)',
-      },
-      padding: {
-        18: '4.5rem',
-        header: '4rem',
       },
       borderRadius: {
         '1/2': '50%',
@@ -55,8 +57,6 @@ module.exports = {
         2: '0.5rem',
         3: '0.75rem',
         4: '1rem',
-        page: 'calc(100vh - 4rem)',
-        pagePanel: 'calc(100vh - 6rem)',
       },
     },
   },

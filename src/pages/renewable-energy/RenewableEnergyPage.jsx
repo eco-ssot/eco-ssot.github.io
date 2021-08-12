@@ -232,8 +232,8 @@ export default function RenewableEnergyPage() {
             data={data}
             getRowProps={(row) => ({
               className: row.original.isFooter
-                ? 'border-b-2 border-t-2 border-primary-500 font-bold'
-                : 'border-b border-gray-400',
+                ? 'border-b-2 border-t-2 border-primary-600 font-bold'
+                : 'border-b border-divider',
             })}
           />
         </div>

@@ -38,7 +38,7 @@ export default function Table({
 
   return (
     <table {...getTableProps()}>
-      <thead className="bg-header">
+      <thead className="bg-primary-800">
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => {
@@ -48,7 +48,7 @@ export default function Table({
                   {...column.getHeaderProps([
                     {
                       className: clsx(
-                        'px-2 py-3 text-center font-medium text-white tracking-wider whitespace-nowrap',
+                        'px-2 py-3 text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
                         column.className
                       ),
                       style: column.style,
@@ -79,13 +79,13 @@ export default function Table({
                         className: clsx(
                           'px-2 py-3 text-center whitespace-nowrap text-gray-50',
                           cell.column.id.startsWith('expander') && 'pl-4',
-                          row.depth > 0 && 'pl-8 bg-header bg-opacity-50',
+                          row.depth > 0 && 'pl-8 bg-primary-600 bg-opacity-20',
                           row.depth > 0 &&
                             expandedRows[rowId][0] === `${rowId}.${subRowId}` &&
-                            'border-t border-primary-500',
+                            'border-t border-primary-600',
                           row.depth > 0 &&
                             expandedRows[rowId].slice(-1)[0] === `${rowId}.${subRowId}` &&
-                            'border-b border-primary-500',
+                            'border-b border-primary-600',
                           cell.column.className
                         ),
                         style: cell.column.style,

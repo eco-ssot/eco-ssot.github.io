@@ -7,7 +7,7 @@ export const wasteApi = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getWasteApi: builder.query({
-      query: (q) => ({ q, url: 'waste' }),
+      query: (query) => ({ query, url: 'waste' }),
     }),
   }),
 });

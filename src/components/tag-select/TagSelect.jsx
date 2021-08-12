@@ -6,7 +6,7 @@ import clsx from 'clsx';
 export default function TagSelect({ className, children, options = [] }) {
   const [selected, setSelected] = useState(options[0]);
   return (
-    <div className="w-auto h-8 gap-3 items-center grid grid-cols-2 divide-primary-500 divide-x rounded shadow bg-header">
+    <div className="w-auto h-8 gap-3 items-center grid grid-cols-2 divide-primary-600 divide-x rounded shadow bg-primary-800">
       <div className="pl-3">{children}</div>
       <Listbox value={selected} onChange={setSelected}>
         {({ open }) => (
@@ -16,7 +16,7 @@ export default function TagSelect({ className, children, options = [] }) {
                 className={clsx('bg-transparent relative w-full pl-3 text-left cursor-pointer')}>
                 <span className="block truncate">{selected.value}</span>
                 <span className="absolute inset-y-0 right-0 flex pr-3 items-center pointer-events-none">
-                  <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
+                  <ChevronDownIcon className="h-4 w-4 text-gray-50" aria-hidden="true" />
                 </span>
               </Listbox.Button>
               <Transition
@@ -27,13 +27,15 @@ export default function TagSelect({ className, children, options = [] }) {
                 leaveTo="opacity-0">
                 <Listbox.Options
                   static
-                  className="absolute z-10 mt-1 w-full bg-panel shadow-lg max-h-60 rounded py-1 overflow-auto border border-gray-300 text-sm">
+                  className="absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded py-1 overflow-auto border border-gray-300 text-sm">
                   {options.map((option) => (
                     <Listbox.Option
                       key={option.key}
                       className={({ active }) =>
                         clsx(
-                          active ? 'text-white bg-primary-600' : 'text-gray-900 dark:text-gray-50',
+                          active
+                            ? 'text-gray-50 bg-primary-600'
+                            : 'text-gray-900 dark:text-gray-50',
                           'cursor-default select-none relative py-1 px-3'
                         )
                       }
@@ -50,7 +52,7 @@ export default function TagSelect({ className, children, options = [] }) {
                           {selected ? (
                             <span
                               className={clsx(
-                                active ? 'text-white' : 'text-primary-600',
+                                active ? 'text-gray-50' : 'text-primary-600',
                                 'absolute inset-y-0 right-0 flex items-center pr-4'
                               )}>
                               <CheckIcon className="h-4 w-4" aria-hidden="true" />

@@ -7,7 +7,7 @@ export const singleElectricApi = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getSingleElectricApi: builder.query({
-      query: (q) => ({ q, url: 'singleelectric' }),
+      query: (query) => ({ query, url: 'singleelectric' }),
     }),
   }),
 });

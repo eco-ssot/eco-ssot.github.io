@@ -3,14 +3,14 @@ import colors from '../../styles/colors';
 import Legend from '../legend/Legend';
 import { useGetWasteApiQuery } from '../../services/waste';
 
-const COLORS = [colors.yellow['500'], colors.emerald['700'], colors.green['500']];
+const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
 
 const OPTION = (values, labels, target) => ({
   xAxis: {
     type: 'category',
     data: labels,
     axisTick: { show: false },
-    axisLine: { lineStyle: { color: colors.primary['500'] } },
+    axisLine: { lineStyle: { color: colors.primary['600'] } },
     axisLabel: {
       color: '#fff',
       formatter: (value) => value.split(' ').join('\n'),
@@ -36,7 +36,7 @@ const OPTION = (values, labels, target) => ({
         markLine: {
           data: [{ yAxis: 50.4 }],
           symbol: 'none',
-          lineStyle: { color: colors.orange['500'] },
+          lineStyle: { color: colors._orange },
         },
       }),
     },
@@ -54,8 +54,8 @@ export default function Waste() {
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4">
-        <Legend dotClassName="bg-yellow-500" label="基準年" />
-        <Legend dotClassName="bg-orange-500" label="Target : 對比基準年 -6%" />
+        <Legend dotClassName="bg-_yellow" label="基準年" />
+        <Legend dotClassName="bg-_orange" label="Target : 對比基準年 -6%" />
         <div>單位：公噸/十億臺幣</div>
       </div>
     </div>

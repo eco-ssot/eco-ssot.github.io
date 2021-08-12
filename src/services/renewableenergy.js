@@ -7,7 +7,7 @@ export const renewableEnergyApi = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getRenewableEnergyApi: builder.query({
-      query: (q) => ({ q, url: 'renewableenergy' }),
+      query: (query) => ({ query, url: 'renewableenergy' }),
     }),
   }),
 });

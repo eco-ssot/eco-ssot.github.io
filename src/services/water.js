@@ -7,7 +7,7 @@ export const waterApi = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getWaterApi: builder.query({
-      query: (q) => ({ q, url: 'water' }),
+      query: (query) => ({ query, url: 'water' }),
     }),
   }),
 });

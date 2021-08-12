@@ -7,10 +7,10 @@ import { ratioFormatter } from '../../utils/formatter';
 import { useGetRenewableEnergyApiQuery } from '../../services/renewableenergy';
 
 const DATA = {
-  不可再生能源: { value: null, color: colors.blue['500'], dotClassName: 'bg-blue-500' },
-  自建太陽能: { value: null, color: colors.yellow['500'], dotClassName: 'bg-yellow-500' },
-  電網包含: { value: null, color: colors.green['500'], dotClassName: 'bg-green-500' },
-  綠證: { value: null, color: colors.gray['300'], dotClassName: 'bg-gray-500' },
+  不可再生能源: { value: null, color: colors._blue, dotClassName: 'bg-_blue' },
+  自建太陽能: { value: null, color: colors._yellow, dotClassName: 'bg-_yellow' },
+  電網包含: { value: null, color: colors.primary['500'], dotClassName: 'bg-primary-500' },
+  綠證: { value: null, color: colors.divider, dotClassName: 'bg-unit' },
 };
 
 const OPTION = (data = []) => ({

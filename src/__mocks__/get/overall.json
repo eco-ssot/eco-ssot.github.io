@@ -4,7 +4,7 @@
     "unit": "(十億臺幣)",
     "overall": 0.1,
     "direction": "up",
-    "color": "text-green-500",
+    "color": "text-primary-500",
     "data": [
       {
         "key": 2020,
@@ -21,7 +21,7 @@
     "unit": "(千度)",
     "overall": 0.1,
     "direction": "down",
-    "color": "text-green-500",
+    "color": "text-primary-500",
     "data": [
       {
         "key": 2020,
@@ -38,7 +38,7 @@
     "unit": "(公噸)",
     "overall": 0.1,
     "direction": "up",
-    "color": "text-red-500",
+    "color": "text-_red",
     "data": [
       {
         "key": 2020,
@@ -55,7 +55,7 @@
     "unit": "(KM³)",
     "overall": 0.1,
     "direction": "down",
-    "color": "text-green-500",
+    "color": "text-primary-500",
     "data": [
       {
         "key": 2020,
@@ -72,7 +72,7 @@
     "unit": "(公噸)",
     "overall": 0.1,
     "direction": "down",
-    "color": "text-green-500",
+    "color": "text-primary-500",
     "data": [
       {
         "key": "數位化",

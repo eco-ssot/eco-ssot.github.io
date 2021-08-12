@@ -7,7 +7,7 @@ export const co2Api = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getCo2Api: builder.query({
-      query: (q) => ({ q, url: 'co2' }),
+      query: (query) => ({ query, url: 'co2' }),
     }),
   }),
 });

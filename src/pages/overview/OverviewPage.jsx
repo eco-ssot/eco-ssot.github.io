@@ -44,7 +44,7 @@ const COLUMNS = [
   ...HEADERS.reduce((prev, { key, name }, i) => {
     const header = {
       Header: name,
-      className: 'border-b border-gray-400',
+      className: 'border-b border-divider',
       columns: [
         {
           id: [key, 2020].join(),
@@ -200,8 +200,8 @@ export default function OverviewPage() {
             data={data}
             getRowProps={(row) => ({
               className: row.original.isFooter
-                ? 'border-b-2 border-t-2 border-primary-500 font-bold'
-                : 'border-b border-gray-400',
+                ? 'border-b-2 border-t-2 border-primary-600 font-bold'
+                : 'border-b border-divider',
             })}
           />
         </div>

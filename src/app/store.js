@@ -11,10 +11,12 @@ import { singleElectricApi } from '../services/singleelectric';
 import { wasteApi } from '../services/waste';
 import { waterApi } from '../services/water';
 import counterReducer from '../features/counter/counterSlice';
+import routerReducer from '../router/routerSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    router: routerReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
     [overallApi.reducerPath]: overallApi.reducer,

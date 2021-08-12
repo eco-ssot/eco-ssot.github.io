@@ -7,7 +7,7 @@ export const overallApi = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getOverallApi: builder.query({
-      query: (q) => ({ q, url: 'overall' }),
+      query: (query) => ({ query, url: 'overall' }),
     }),
   }),
 });

@@ -68,7 +68,7 @@ const COLUMNS = [
   ...HEADERS.reduce((prev, { key, name, subHeaders }, i) => {
     const header = {
       Header: name,
-      className: 'border-b border-gray-400',
+      className: 'border-b border-divider',
       ...(subHeaders && {
         columns: subHeaders.map(({ key: _key, name: _name }) => ({
           id: [key, _key].join(),
@@ -192,8 +192,8 @@ export default function UnitElectricityPage() {
             data={data}
             getRowProps={(row) => ({
               className: row.original.isFooter
-                ? 'border-b-2 border-t-2 border-primary-500 font-bold'
-                : 'border-b border-gray-400',
+                ? 'border-b-2 border-t-2 border-primary-600 font-bold'
+                : 'border-b border-divider',
             })}
           />
         </div>
