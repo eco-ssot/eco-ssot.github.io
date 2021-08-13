@@ -36,11 +36,11 @@ export default function Header({ className }) {
       <NavBar />
       <Divider className="h-1/2" />
       <div className="flex space-x-4 items-center">
-        <TimeInfo className="block truncate" />
+        <TimeInfo />
         <WeatherInfo />
       </div>
       <Divider className="h-1/2" />
-      <Avatar className="block truncate">Dawin Zhu</Avatar>
+      <Avatar>Dawin Zhu</Avatar>
     </div>
   );
 }
