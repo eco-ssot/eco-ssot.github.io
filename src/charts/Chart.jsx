@@ -53,11 +53,11 @@ export default function Chart({ className, option = {} }) {
     }
 
     return () => instance.dispose();
-  }, [chartRef, option, width, height]);
+  }, [option, width, height]);
 
   return (
-    <div ref={containerRef} className={clsx('w-96 h-96', className)}>
-      <div ref={chartRef} style={{ width, height }} />
+    <div ref={containerRef} className={clsx('grid', className)}>
+      <div ref={chartRef} />
     </div>
   );
 }
