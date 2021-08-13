@@ -1,38 +1,62 @@
 {
-  "revenue": { "compareYear": 1, "currentYear": 1, "gradient": 1.1 },
+  "revenue": {
+    "lastestDate": "2021-06-01",
+    "compareYear": 324.078776087715,
+    "currentYear": 5.80039508538866,
+    "gradient": -0.9821018977070601
+  },
   "electricPowerUtilization": {
-    "gradient": 1.1,
-    "compareYear": 1,
-    "currentYear": 1,
-    "intensity": { "target": 1, "compareYear": 1, "compareYTM": 1, "currentYTM": 1 }
+    "lastestDate": "2021-06-01",
+    "compareYear": 184946.889650211,
+    "currentYear": 1747025.43112453,
+    "gradient": 8.446092521094403,
+    "intensity": {
+      "compareYear": 550.600812662884,
+      "compareYTM": 570.684979383387,
+      "currentYTM": 305587.603637389,
+      "target": -11.01201625325768
+    }
   },
   "CO2Emission": {
-    "gradient": 1.1,
-    "compareYear": 1,
-    "currentYear": 1,
-    "target": 1,
-    "baseYear": 1,
-    "compareYTM": 1,
-    "currentYTM": 1
+    "lastestDate": "2021-06-01",
+    "compareYear": 140973.449321428,
+    "currentYear": 1347.74043266776,
+    "gradient": -0.9904397569956962,
+    "baseYear": 0,
+    "compareYTM": 140973.449321428,
+    "currentYTM": 1347.74043266776,
+    "target": 0
   },
   "waterUse": {
-    "gradient": 1.1,
-    "compareYear": 1,
-    "currentYear": 1,
-    "intensity": { "target": 1, "baseYear": 1, "compareYTM": 1, "currentYTM": 1 }
+    "lastestDate": "2021-06-01",
+    "compareYear": 1985.27713183759,
+    "currentYear": 22602.3092280575,
+    "gradient": 10.3849642780787,
+    "intensity": {
+      "baseYear": 0,
+      "compareYTM": 6.12590912556477,
+      "currentYTM": 3455.05144959835,
+      "target": 0
+    }
   },
   "waste": {
-    "gradient": 1.1,
-    "compareYear": 1,
-    "currentYear": 1,
-    "intensity": { "target": 1, "baseYear": 1, "compareYTM": 1, "currentYTM": 1 }
+    "lastestDate": "2021-06-01",
+    "compareYear": 0,
+    "currentYear": 917.19,
+    "gradient": "Infinity",
+    "intensity": { "baseYear": 0, "compareYTM": 0, "currentYTM": 3455.05144959835, "target": 0 }
   },
-  "totalPowerSaving": { "amount": 1, "digital": 1, "manage": 1 },
+  "totalPowerSaving": { "amount": 11208, "digital": 7291, "manage": 3917 },
   "renewableEnergy": {
-    "nonRenewableEnergy": 1,
-    "selfConstructedSolarEnergy": 1,
-    "grid": 1,
-    "tRec": 1
+    "nonRenewableEnergy": 0.12,
+    "selfConstructedSolarEnergy": 0.33,
+    "grid": 0.22,
+    "tRec": 0
   },
-  "singleElectric": { "target": 1, "compareYear": 1, "compareYTM": 1, "currentYTM": 1 }
+  "singleElectric": {
+    "compareYear": 2.95656561015777,
+    "compareYTM": 2.97890456923005,
+    "currentYTM": 3.21306453790883,
+    "target": -5.91313122031554
+  }
 }
