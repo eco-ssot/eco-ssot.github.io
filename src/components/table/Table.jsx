@@ -21,7 +21,6 @@ export default function Table({
     useExpanded
   );
 
-  console.log({ headerGroups });
   return (
     <table {...getTableProps()}>
       <thead className="bg-primary-800">

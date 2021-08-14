@@ -1,7 +1,7 @@
 import Chart from '../../charts/Chart';
 import colors from '../../styles/colors';
-import Legend from '../legend/Legend';
-import { useGetElectricApiQuery } from '../../services/electric';
+import Legend from '../../components/legend/Legend';
+import { baseFormatter } from '../../utils/formatter';
 
 const COLORS = [colors._blue, colors.primary['600'], colors.primary['500']];
 
@@ -12,7 +12,7 @@ const OPTION = (values, labels, target) => ({
     axisTick: { show: false },
     axisLine: { lineStyle: { color: colors.primary['600'] } },
     axisLabel: {
-      color: '#fff',
+      color: colors.gray['50'],
       formatter: (value) => value.split(' ').join('\n'),
       lineHeight: 16,
     },
@@ -30,13 +30,14 @@ const OPTION = (values, labels, target) => ({
       })),
       type: 'bar',
       barWidth: 32,
-      label: { show: true, position: 'top', color: '#fff' },
+      label: { show: true, position: 'top', color: colors.gray['50'], formatter: baseFormatter },
       animationDuration: 2000,
       ...(target && {
         markLine: {
           data: [{ yAxis: target }],
           symbol: 'none',
           lineStyle: { color: colors._orange },
+          label: { formatter: baseFormatter },
         },
       }),
     },
@@ -44,18 +45,16 @@ const OPTION = (values, labels, target) => ({
   grid: { top: 16, bottom: 36, left: 16, right: 48, containerLabel: true },
 });
 
-export default function Electricity() {
-  const { data = {} } = useGetElectricApiQuery();
-  const { target, ...rest } = data;
-  const labels = Object.keys(rest);
-  const values = Object.values(rest);
-  const option = OPTION(values, labels, target);
+export default function Electricity({ baseYear, compareYear, currentYear, data = {} }) {
+  const labels = [baseYear, compareYear, currentYear];
+  const values = [data.baseYear, data.compareYTM, data.currentYTM];
+  const option = OPTION(values, labels, data.target);
   return (
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4">
-        <Legend dotClassName="bg-_orange" label="Target : 對比去年 -2%" />
-        <div>單位：度/十億臺幣</div>
+        <Legend dotClassName="bg-_orange" label="Target : 對比去年 -%" />
+        <div>單位：千度/十億臺幣</div>
       </div>
     </div>
   );

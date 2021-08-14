@@ -1,16 +1,22 @@
-import { merge } from 'lodash';
-
 import Chart from '../../charts/Chart';
 import colors from '../../styles/colors';
-import Legend from '../legend/Legend';
+import Legend from '../../components/legend/Legend';
 import { ratioFormatter } from '../../utils/formatter';
-import { useGetRenewableEnergyApiQuery } from '../../services/renewableenergy';
 
 const DATA = {
-  不可再生能源: { value: null, color: colors._blue, dotClassName: 'bg-_blue' },
-  自建太陽能: { value: null, color: colors._yellow, dotClassName: 'bg-_yellow' },
-  電網包含: { value: null, color: colors.primary['500'], dotClassName: 'bg-primary-500' },
-  綠證: { value: null, color: colors.divider, dotClassName: 'bg-unit' },
+  nonRenewableEnergy: { value: null, color: colors._blue, dotClassName: 'bg-_blue' },
+  selfConstructedSolarEnergy: {
+    value: null,
+    color: colors.primary['500'],
+    dotClassName: 'bg-primary-500',
+  },
+  tRec: { value: null, color: colors.divider, dotClassName: 'bg-unit' },
+};
+
+const NAME_MAPPING = {
+  nonRenewableEnergy: '不可再生能源',
+  selfConstructedSolarEnergy: '自建太陽能',
+  tRec: '綠證',
 };
 
 const OPTION = (data = []) => ({
@@ -30,8 +36,8 @@ const OPTION = (data = []) => ({
         show: false,
       },
       data: Object.entries(data).map(([name, { color, value }]) => ({
-        name,
         value,
+        name: NAME_MAPPING[name] || name,
         itemStyle: { color },
       })),
     },
@@ -39,22 +45,26 @@ const OPTION = (data = []) => ({
   grid: { top: 16, bottom: 24, left: 16, right: 0, containerLabel: true },
 });
 
-export default function RenewableEnergy() {
-  const { data = DATA } = useGetRenewableEnergyApiQuery();
-  const { target, ...rest } = data;
-  const nextData = merge(
-    DATA,
-    Object.entries(rest).reduce((prev, [key, value]) => ({ ...prev, [key]: { value } }), {})
-  );
+export default function RenewableEnergy({ data = {} }) {
+  const { target, nonRenewableEnergy, selfConstructedSolarEnergy, tRec } = data;
+  const nextData = {
+    ...DATA,
+    nonRenewableEnergy: { ...DATA.nonRenewableEnergy, value: nonRenewableEnergy },
+    selfConstructedSolarEnergy: {
+      ...DATA.selfConstructedSolarEnergy,
+      value: selfConstructedSolarEnergy,
+    },
+    tRec: { ...DATA.tRec, value: tRec },
+  };
 
   const option = OPTION(nextData);
   return (
     <div className="flex w-full h-full items-center justify-between">
       <div className="w-1/2 h-full flex items-center justify-center">
         <Chart className="w-full h-full" option={option} />
-        <div className="absolute text-center">
-          <div>Target:</div>
-          <div>{`可再生能源 > ${ratioFormatter(target)}`}</div>
+        <div className="absolute text-center space-y-2">
+          <div className="text-_orange">{`Target : > ${ratioFormatter(target)}%`}</div>
+          <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy)}`}</div>
         </div>
       </div>
       <div className="flex flex-col px-8 justify-center w-1/2 space-y-4">
@@ -65,7 +75,7 @@ export default function RenewableEnergy() {
             labelClassName="flex w-4/5 justify-between"
             label={
               <>
-                <div>{name}</div>
+                <div>{NAME_MAPPING[name] || name}</div>
                 <div>{ratioFormatter(value)}</div>
               </>
             }

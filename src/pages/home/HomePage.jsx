@@ -1,29 +1,40 @@
 import { useSelector } from 'react-redux';
 
+import Carbon from './Carbon';
+import Electricity from './Electricity';
+import RenewableEnergy from './/RenewableEnergy';
+import UnitElectricity from './UnitElectricity';
+import Waste from './Waste';
+import Water from './Water';
+
 import Panel from '../../components/panel/Panel';
-import Overview from '../../components/overview/Overview';
-import Carbon from '../../components/carbon/Carbon';
-import Electricity from '../../components/electricity/Electricity';
-import RenewableEnergy from '../../components/renewable-energy/RenewableEnergy';
-import UnitElectricity from '../../components/unit-electricity/UnitElectricity';
-import Waste from '../../components/waste/Waste';
-import Water from '../../components/water/Water';
+import Overview from './Overview';
 import TagSelect from '../../components/tag-select/TagSelect';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryApiQuery } from '../../services/summary';
-import { selectCompareYear } from '../../renderless/query-params/queryParamsSlice';
+import { selectCompareYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 
-const lastYear = new Date().getFullYear() - 1;
-const baseYear = 2016;
-const YEAR_OPTIONS = Array.from({ length: lastYear - baseYear }, (_, i) => ({
-  key: String(lastYear - i),
-  value: String(lastYear - i),
+const CURRENT_YEAR = new Date().getFullYear();
+const LAST_YEAR = CURRENT_YEAR - 1;
+const BASE_YEAR = 2016;
+const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR }, (_, i) => ({
+  key: String(LAST_YEAR - i),
+  value: String(LAST_YEAR - i),
 }));
 
 export default function HomePage() {
   const compareYear = useSelector(selectCompareYear);
-  const { data } = useGetSummaryApiQuery({ compareYear });
-  console.log({ data });
+  const business = useSelector(selectBusiness);
+  const { data = {} } = useGetSummaryApiQuery({ compareYear, business });
+  const {
+    CO2Emission,
+    electricPowerUtilization,
+    renewableEnergy,
+    singleElectric,
+    waste,
+    waterUse,
+  } = data;
+
   return (
     <div className="grid grid-rows-3 grid-cols-3 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
@@ -40,25 +51,50 @@ export default function HomePage() {
             累計區間：2021.01 - 06
           </TagSelect>
         }>
-        <Overview />
+        <Overview data={data} compareYear={compareYear || LAST_YEAR} currentYear={CURRENT_YEAR} />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="碳排放量" to="/carbon">
-        <Carbon />
+        <Carbon
+          data={CO2Emission}
+          baseYear={BASE_YEAR}
+          compareYear={compareYear || LAST_YEAR}
+          currentYear={CURRENT_YEAR}
+        />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="可再生能源占比" to="/renewable-energy">
-        <RenewableEnergy />
+        <RenewableEnergy data={renewableEnergy} />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="用電強度" to="/electricity">
-        <Electricity />
+        <Electricity
+          data={electricPowerUtilization?.intensity}
+          baseYear={BASE_YEAR}
+          compareYear={compareYear || LAST_YEAR}
+          currentYear={CURRENT_YEAR}
+        />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="用水強度" to="/water">
-        <Water />
+        <Water
+          data={waterUse?.intensity}
+          baseYear={BASE_YEAR}
+          compareYear={compareYear || LAST_YEAR}
+          currentYear={CURRENT_YEAR}
+        />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="單臺用電" to="/unit-electricity">
-        <UnitElectricity />
+        <UnitElectricity
+          data={singleElectric}
+          baseYear={BASE_YEAR}
+          compareYear={compareYear || LAST_YEAR}
+          currentYear={CURRENT_YEAR}
+        />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="廢棄物產生密度" to="/waste">
-        <Waste />
+        <Waste
+          data={waste?.intensity}
+          baseYear={BASE_YEAR}
+          compareYear={compareYear || LAST_YEAR}
+          currentYear={CURRENT_YEAR}
+        />
       </Panel>
     </div>
   );

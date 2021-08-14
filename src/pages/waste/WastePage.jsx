@@ -14,7 +14,7 @@ const ratioRenderer = ({ value }) =>
 const HEADERS = [
   {
     key: 'nonRecyclable',
-    name: '不可回收類重量 (公噸)',
+    name: '不可回收類重量 (千噸)',
     subHeaders: [
       {
         key: 'normal',
@@ -25,7 +25,7 @@ const HEADERS = [
   },
   {
     key: 'recyclable',
-    name: '可回收類重量 (公噸)',
+    name: '可回收類重量 (千噸)',
     subHeaders: [
       {
         key: 'normal',
@@ -42,7 +42,7 @@ const HEADERS = [
     name: (
       <>
         <div className="text-right">Total</div>
-        <div className="text-right">(公噸)</div>
+        <div className="text-right">(千噸)</div>
       </>
     ),
     rowSpan: 0,
@@ -59,7 +59,7 @@ const HEADERS = [
   },
   {
     key: 'waste',
-    name: '廢棄物產生密度 (公噸/十億新臺幣)',
+    name: '廢棄物產生密度 (千噸/十億新臺幣)',
     subHeaders: [
       { key: 2021, name: '2021年1-6月' },
       { key: 2018, name: '2018年' },

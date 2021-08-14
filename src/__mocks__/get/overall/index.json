@@ -69,7 +69,7 @@
   },
   {
     "title": "廢棄物",
-    "unit": "(公噸)",
+    "unit": "(千噸)",
     "overall": 0.1,
     "direction": "down",
     "color": "text-primary-500",

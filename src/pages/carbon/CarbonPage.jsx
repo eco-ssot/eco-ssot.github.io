@@ -26,14 +26,14 @@ const HEADERS = [
     name: (
       <>
         <div className="text-right">碳排放係數 (e)</div>
-        <div className="text-right">(兆瓦時/公噸)</div>
+        <div className="text-right">(兆瓦時/千噸)</div>
       </>
     ),
     rowSpan: 0,
   },
   {
     key: 'carbon',
-    name: '碳排放 (公噸)',
+    name: '碳排放 (千噸)',
     subHeaders: [
       { key: 'scope1', name: 'Scope1 碳排 (f)' },
       { key: 'scope2', name: 'Scope2 碳排 (g)' },
