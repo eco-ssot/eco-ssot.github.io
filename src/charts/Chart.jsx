@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { useMeasure } from 'react-use';
+import { useDeepCompareEffect, useMeasure } from 'react-use';
 import clsx from 'clsx';
 
 import echarts from 'echarts/lib/echarts';
@@ -45,15 +45,18 @@ import 'echarts/lib/component/markLine';
 export default function Chart({ className, option = {} }) {
   const [containerRef, { width, height }] = useMeasure();
   const chartRef = useRef();
-  useEffect(() => {
-    let instance = { dispose: () => {} };
-    if (width > 0 && height > 0) {
-      instance = echarts.init(chartRef.current);
-      instance.setOption(option);
-    }
-
+  useDeepCompareEffect(() => {
+    const instance = echarts.init(chartRef.current) || { setOption: () => {}, dispose: () => {} };
+    instance.setOption(option, true);
     return () => instance.dispose();
-  }, [option, width, height]);
+  }, [option.series]);
+
+  useEffect(() => {
+    const instance = echarts.getInstanceByDom(chartRef.current);
+    if (instance && (instance.getWidth() !== width || instance.getHeight() !== height)) {
+      instance.resize();
+    }
+  }, [width, height]);
 
   return (
     <div ref={containerRef} className={clsx('grid', className)}>
