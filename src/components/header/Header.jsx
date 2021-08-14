@@ -9,7 +9,7 @@ import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
 import Avatar from '../avatar/Avatar';
 import { navigate } from '../../router/helpers';
-import { selectBusiness } from '../../router/routerSlice';
+import { selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 
 const BUSINESS_OPTIONS = [
   { key: 'WT', value: 'WT' },

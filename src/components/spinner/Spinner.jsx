@@ -1,12 +1,29 @@
-export default function Spinner({ isLoading }) {
-  return isLoading ? (
-    <div className="flex w-screen h-full fixed items-center justify-center z-50 bg-opacity-25 bg-gray-900">
+import { useSelector } from 'react-redux';
+import clsx from 'clsx';
+
+import { selectIsLoading } from '../../renderless/loader/loaderSlice';
+
+export default function Spinner() {
+  const isLoading = useSelector(selectIsLoading);
+  return (
+    <div
+      className={clsx(
+        'fixed flex items-center justify-center inset-0 transition-all bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen',
+        isLoading ? 'z-50 opacity-100' : 'z-0 opacity-0'
+      )}>
       <svg
-        className="animate-spin h-10 w-10 text-primary-500"
+        className="animate-spin h-12 w-12 text-primary-600"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        />
         <path
           className="opacity-75"
           fill="currentColor"
@@ -14,5 +31,5 @@ export default function Spinner({ isLoading }) {
         />
       </svg>
     </div>
-  ) : null;
+  );
 }

@@ -23,7 +23,7 @@ export function mockInterceptor(config) {
                 };
 
                 resolve(response);
-              }, Math.random(1000))
+              }, 1000)
             )
             .catch(console.error);
         }),

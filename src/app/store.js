@@ -12,12 +12,14 @@ import { wasteApi } from '../services/waste';
 import { waterApi } from '../services/water';
 import { summaryApi } from '../services/summary';
 import counterReducer from '../features/counter/counterSlice';
-import routerReducer from '../router/routerSlice';
+import queryParamsReducer from '../renderless/query-params/queryParamsSlice';
+import loaderReducer from '../renderless/loader/loaderSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    router: routerReducer,
+    queryParams: queryParamsReducer,
+    loader: loaderReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
     [overallApi.reducerPath]: overallApi.reducer,

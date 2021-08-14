@@ -10,8 +10,8 @@ import Waste from '../../components/waste/Waste';
 import Water from '../../components/water/Water';
 import TagSelect from '../../components/tag-select/TagSelect';
 import { navigate } from '../../router/helpers';
-import { selectCompareYear } from '../../router/routerSlice';
 import { useGetSummaryApiQuery } from '../../services/summary';
+import { selectCompareYear } from '../../renderless/query-params/queryParamsSlice';
 
 const lastYear = new Date().getFullYear() - 1;
 const baseYear = 2016;
@@ -22,7 +22,7 @@ const YEAR_OPTIONS = Array.from({ length: lastYear - baseYear }, (_, i) => ({
 
 export default function HomePage() {
   const compareYear = useSelector(selectCompareYear);
-  const { data } = useGetSummaryApiQuery();
+  const { data } = useGetSummaryApiQuery({ compareYear });
   console.log({ data });
   return (
     <div className="grid grid-rows-3 grid-cols-3 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
