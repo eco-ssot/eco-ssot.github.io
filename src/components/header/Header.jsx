@@ -21,8 +21,9 @@ export default function Header({ className }) {
   const business = useSelector(selectBusiness);
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
-      <Link className="font-medium text-2xl block truncate" to="/">
-        ESG 績效管理平台
+      <Link className="flex items-center font-medium text-2xl space-x-4" to="/">
+        <img className="h-10 w-10" src="/logo-64x64.png" alt="logo" />
+        <div className="block truncate">ESG 績效管理平台</div>
       </Link>
       <Divider className="h-1/2" />
       <Select
