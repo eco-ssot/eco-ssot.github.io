@@ -7,7 +7,7 @@ html {
   @apply bg-gray-50 text-gray-900;
 }
 
-html[data-theme='dark'] {
+html[class='dark'] {
   @apply bg-gray-900 text-gray-50;
 }
 
@@ -38,5 +38,11 @@ html[data-theme='dark'] {
 @screen 2xl {
   html {
     font-size: 15px;
+  }
+}
+
+@screen max-h-600 {
+  html {
+    font-size: 10px;
   }
 }

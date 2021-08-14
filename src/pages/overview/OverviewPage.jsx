@@ -18,28 +18,31 @@ const HEADERS = [
 
 const COLUMNS = [
   {
-    // Build our expander column
-    id: 'expander', // Make sure it has an ID
-    Header: () => null,
-    Cell: ({ row }) =>
-      // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-      // to build the toggle for expanding a row
-      {
-        const { title, ...rest } = row.getToggleRowExpandedProps();
-        return row.canExpand ? (
-          <span {...rest}>
-            {row.isExpanded ? (
-              <ChevronUpIcon className="w-4 h-4" />
-            ) : (
-              <ChevronDownIcon className="w-4 h-4" />
-            )}
-          </span>
-        ) : null;
-      },
+    id: 'expander',
+    Header: '',
+    Cell: ({ row }) => {
+      const { title, ...rest } = row.getToggleRowExpandedProps();
+      return row.canExpand ? (
+        <span {...rest}>
+          {row.isExpanded ? (
+            <ChevronUpIcon className="w-4 h-4 ml-4" />
+          ) : (
+            <ChevronDownIcon className="w-4 h-4 ml-4" />
+          )}
+        </span>
+      ) : null;
+    },
+    rowSpan: 0,
   },
   {
     Header: 'Site',
     accessor: 'site',
+    rowSpan: 0,
+  },
+  {
+    id: 'dummy',
+    Header: '',
+    rowSpan: 0,
   },
   ...HEADERS.reduce((prev, { key, name }, i) => {
     const header = {
@@ -47,32 +50,28 @@ const COLUMNS = [
       className: 'border-b border-divider',
       columns: [
         {
-          id: [key, 2020].join(),
           Header: '2020年',
           accessor: [key, 2020].join('.'),
-          className: 'text-right',
           Cell: renderer,
+          className: 'text-right',
         },
         {
-          id: [key, 2021].join(),
           Header: '2021年',
           accessor: [key, 2021].join('.'),
-          className: 'text-right',
           Cell: renderer,
+          className: 'text-right',
         },
         {
-          id: [key, 'weight'].join(),
           Header: '權重',
           accessor: [key, 'weight'].join('.'),
-          className: 'text-right',
           Cell: ratioRenderer,
+          className: 'text-right',
         },
         {
-          id: [key, 'delta'].join(),
           Header: '增減率 *',
           accessor: [key, 'delta'].join('.'),
-          className: 'text-right',
           Cell: ratioRenderer,
+          className: 'text-right',
         },
       ],
     };
@@ -80,7 +79,7 @@ const COLUMNS = [
     const dummyHeader = {
       id: `dummy_${i}`,
       Header: '',
-      accessor: `dummy_${i}`,
+      rowSpan: 0,
     };
 
     return prev.concat(header, dummyHeader);

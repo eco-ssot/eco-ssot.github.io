@@ -50,46 +50,48 @@ const HEADERS = [
 
 const COLUMNS = [
   {
-    // Build our expander column
-    id: 'expander', // Make sure it has an ID
-    Header: () => null,
-    Cell: ({ row }) =>
-      // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-      // to build the toggle for expanding a row
-      {
-        const { title, ...rest } = row.getToggleRowExpandedProps();
-        return row.canExpand ? (
-          <span {...rest}>
-            {row.isExpanded ? (
-              <ChevronUpIcon className="w-4 h-4" />
-            ) : (
-              <ChevronDownIcon className="w-4 h-4" />
-            )}
-          </span>
-        ) : null;
-      },
+    id: 'expander',
+    Header: '',
+    Cell: ({ row }) => {
+      const { title, ...rest } = row.getToggleRowExpandedProps();
+      return row.canExpand ? (
+        <span {...rest}>
+          {row.isExpanded ? (
+            <ChevronUpIcon className="w-4 h-4 ml-4" />
+          ) : (
+            <ChevronDownIcon className="w-4 h-4 ml-4" />
+          )}
+        </span>
+      ) : null;
+    },
+    rowSpan: 0,
   },
   {
     Header: 'Site',
     accessor: 'site',
+    rowSpan: 0,
+  },
+  {
+    id: 'dummy',
+    Header: '',
+    rowSpan: 0,
   },
   ...HEADERS.reduce((prev, { key, name, subHeaders }, i) => {
     const header = {
       Header: name,
       className: 'border-b border-divider',
       columns: subHeaders.map(({ key: _key, name: _name }) => ({
-        id: [key, _key].join(),
         Header: _name,
         accessor: [key, _key].join('.'),
-        className: 'text-right',
         Cell: _key === 'delta' ? ratioRenderer : renderer,
+        className: 'text-right',
       })),
     };
 
     const dummyHeader = {
       id: `dummy_${i}`,
       Header: '',
-      accessor: `dummy_${i}`,
+      rowSpan: 0,
     };
 
     return prev.concat(header, dummyHeader);

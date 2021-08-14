@@ -43,38 +43,38 @@ const HEADERS = [
 
 const COLUMNS = [
   {
-    // Build our expander column
-    id: 'expander', // Make sure it has an ID
-    Header: () => null,
-    Cell: ({ row }) =>
-      // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-      // to build the toggle for expanding a row
-      {
-        const { title, ...rest } = row.getToggleRowExpandedProps();
-        return row.canExpand ? (
-          <span {...rest}>
-            {row.isExpanded ? (
-              <ChevronUpIcon className="w-4 h-4" />
-            ) : (
-              <ChevronDownIcon className="w-4 h-4" />
-            )}
-          </span>
-        ) : null;
-      },
+    id: 'expander',
+    Header: '',
+    Cell: ({ row }) => {
+      const { title, ...rest } = row.getToggleRowExpandedProps();
+      return row.canExpand ? (
+        <span {...rest}>
+          {row.isExpanded ? (
+            <ChevronUpIcon className="w-4 h-4 ml-4" />
+          ) : (
+            <ChevronDownIcon className="w-4 h-4 ml-4" />
+          )}
+        </span>
+      ) : null;
+    },
   },
   {
     Header: 'Site',
     accessor: 'site',
   },
+  {
+    id: 'dummy_0',
+    Header: '',
+  },
   ...HEADERS.map(({ key, name }) => ({
     Header: name,
     accessor: key,
-    className: 'text-right',
     Cell: key === 'ratio' ? ratioRenderer : renderer,
+    className: 'text-right',
   })),
   {
     Header: '',
-    accessor: 'dummy',
+    id: 'dummy_1',
   },
 ];
 

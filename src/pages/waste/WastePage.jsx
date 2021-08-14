@@ -18,12 +18,7 @@ const HEADERS = [
     subHeaders: [
       {
         key: 'normal',
-        name: (
-          <>
-            <div>一般廢棄物</div>
-            <div>(焚化 & 掩埋)</div>
-          </>
-        ),
+        name: '一般廢棄物 (焚化 & 掩埋)',
       },
       { key: 'harmful', name: '有害廢棄物' },
     ],
@@ -34,21 +29,11 @@ const HEADERS = [
     subHeaders: [
       {
         key: 'normal',
-        name: (
-          <>
-            <div>一般廢棄物</div>
-            <div>(其他/廚餘)</div>
-          </>
-        ),
+        name: '一般廢棄物 (其他/廚餘)',
       },
       {
         key: 'waste',
-        name: (
-          <>
-            <div>資源廢棄物</div>
-            <div>(堆肥 & 資源回收)</div>
-          </>
-        ),
+        name: '資源廢棄物 (堆肥 & 資源回收)',
       },
     ],
   },
@@ -56,19 +41,21 @@ const HEADERS = [
     key: 'total',
     name: (
       <>
-        <div>Total</div>
-        <div>(公噸)</div>
+        <div className="text-right">Total</div>
+        <div className="text-right">(公噸)</div>
       </>
     ),
+    rowSpan: 0,
   },
   {
     key: 'revenue',
     name: (
       <>
-        <div>2021 1-6月營收</div>
-        <div>(十億新臺幣)</div>
+        <div className="text-right">2021 1-6月營收</div>
+        <div className="text-right">(十億新臺幣)</div>
       </>
     ),
+    rowSpan: 0,
   },
   {
     key: 'waste',
@@ -81,60 +68,63 @@ const HEADERS = [
   },
   {
     key: 'recycleRate',
-    name: '廢棄物回收率',
+    name: <div className="text-right">廢棄物回收率</div>,
     renderer: ratioRenderer,
+    rowSpan: 0,
   },
 ];
 
 const COLUMNS = [
   {
-    // Build our expander column
-    id: 'expander', // Make sure it has an ID
-    Header: () => null,
-    Cell: ({ row }) =>
-      // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-      // to build the toggle for expanding a row
-      {
-        const { title, ...rest } = row.getToggleRowExpandedProps();
-        return row.canExpand ? (
-          <span {...rest}>
-            {row.isExpanded ? (
-              <ChevronUpIcon className="w-4 h-4" />
-            ) : (
-              <ChevronDownIcon className="w-4 h-4" />
-            )}
-          </span>
-        ) : null;
-      },
+    id: 'expander',
+    Header: '',
+    Cell: ({ row }) => {
+      const { title, ...rest } = row.getToggleRowExpandedProps();
+      return row.canExpand ? (
+        <span {...rest}>
+          {row.isExpanded ? (
+            <ChevronUpIcon className="w-4 h-4 ml-4" />
+          ) : (
+            <ChevronDownIcon className="w-4 h-4 ml-4" />
+          )}
+        </span>
+      ) : null;
+    },
+    rowSpan: 0,
   },
   {
     Header: 'Site',
     accessor: 'site',
+    rowSpan: 0,
   },
-  ...HEADERS.reduce((prev, { key, name, subHeaders, renderer = baseRenderer }, i) => {
+  {
+    id: 'dummy',
+    Header: '',
+    rowSpan: 0,
+  },
+  ...HEADERS.reduce((prev, { key, name, subHeaders, renderer = baseRenderer, ...rest }, i) => {
     const header = {
       Header: name,
-      accessor: key,
       Cell: renderer,
-      className: 'text-right',
       ...(subHeaders && {
         className: 'border-b border-divider',
         columns: subHeaders.map(
           ({ key: _key, name: _name, renderer: _renderer = baseRenderer }) => ({
-            id: [key, _key].join(),
             Header: _name,
             accessor: [key, _key].join('.'),
-            className: 'text-right',
             Cell: _renderer,
+            className: 'text-right',
           })
         ),
       }),
+      ...(!subHeaders && { accessor: key, className: 'text-right' }),
+      ...rest,
     };
 
     const dummyHeader = {
       id: `dummy_${i}`,
       Header: '',
-      accessor: `dummy_${i}`,
+      rowSpan: 0,
     };
 
     return prev.concat(header, dummyHeader);

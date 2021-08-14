@@ -13,14 +13,7 @@ export default function Table({
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
 }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { expanded },
-  } = useTable(
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
       data,
@@ -28,35 +21,33 @@ export default function Table({
     useExpanded
   );
 
-  const expandedRows = Object.keys(expanded).reduce(
-    (prev, curr) => ({
-      ...prev,
-      [curr]: rows.find((row) => row.id === curr).subRows.map((subRow) => subRow.id),
-    }),
-    {}
-  );
-
+  console.log({ headerGroups });
   return (
     <table {...getTableProps()}>
       <thead className="bg-primary-800">
-        {headerGroups.map((headerGroup) => (
+        {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => {
+              if (column.rowSpan === 0) {
+                return null;
+              }
+
               return (
                 <th
-                  // Return an array of prop objects and react-table will merge them appropriately
                   {...column.getHeaderProps([
                     {
                       className: clsx(
-                        'px-2 py-3 text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
+                        'w-1 px-2 py-3 text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
                         column.className
                       ),
                       style: column.style,
+                      rowSpan: column.rowSpan,
                     },
                     getColumnProps(column),
                     getHeaderProps(column),
-                  ])}>
-                  {column.render('Header')}
+                  ])}
+                  {...(column.placeholderOf && { rowSpan: 2 })}>
+                  {column.placeholderOf ? column.placeholderOf.Header : column.render('Header')}
                 </th>
               );
             })}
@@ -66,25 +57,20 @@ export default function Table({
       <tbody {...getTableBodyProps()} className="bg-transparent">
         {rows.map((row) => {
           prepareRow(row);
-          const [rowId, subRowId] = row.id.split('.');
           return (
-            // Merge user row props in
             <tr {...row.getRowProps(getRowProps(row))}>
               {row.cells.map((cell) => {
                 return (
                   <td
-                    // Return an array of prop objects and react-table will merge them appropriately
                     {...cell.getCellProps([
                       {
                         className: clsx(
-                          'px-2 py-3 text-center whitespace-nowrap text-gray-50',
-                          cell.column.id.startsWith('expander') && 'pl-4',
-                          row.depth > 0 && 'pl-8 bg-primary-600 bg-opacity-20',
+                          'px-2 py-3 text-gray-50 text-center',
+                          row.depth > 0 && 'bg-primary-600 bg-opacity-20',
+                          row.depth > 0 && row.index === 0 && 'border-t border-primary-600',
                           row.depth > 0 &&
-                            expandedRows[rowId][0] === `${rowId}.${subRowId}` &&
-                            'border-t border-primary-600',
-                          row.depth > 0 &&
-                            expandedRows[rowId].slice(-1)[0] === `${rowId}.${subRowId}` &&
+                            row.id.includes('.') &&
+                            !(row[row.index + 1] || { id: '' }).id.includes('.') &&
                             'border-b border-primary-600',
                           cell.column.className
                         ),
@@ -93,7 +79,9 @@ export default function Table({
                       getColumnProps(cell.column),
                       getCellProps(cell),
                     ])}>
-                    {cell.column.id.startsWith('expander') && subRowId && <Triangle />}
+                    {cell.column.id.startsWith('expander') && row.id.includes('.') && (
+                      <Triangle className="ml-5" />
+                    )}
                     {cell.render('Cell')}
                   </td>
                 );
