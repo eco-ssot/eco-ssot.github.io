@@ -56,6 +56,9 @@ module.exports = {
         3: '0.75rem',
         4: '1rem',
       },
+      zIndex: {
+        '-1': -1,
+      },
     },
   },
   variants: {

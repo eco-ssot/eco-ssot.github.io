@@ -9,7 +9,7 @@ export default function Spinner() {
     <div
       className={clsx(
         'fixed flex items-center justify-center inset-0 transition-all bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen',
-        isLoading ? 'z-50 opacity-100' : 'z-0 opacity-0'
+        isLoading ? 'z-50 opacity-100' : '-z-1 opacity-0'
       )}>
       <svg
         className="animate-spin h-12 w-12 text-primary-600"

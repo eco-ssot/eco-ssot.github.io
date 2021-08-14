@@ -38,21 +38,21 @@ export default function Overview({ className }) {
       {data.map(
         ({ title, unit, overall, direction, color, data = [], renderer = ratioFormatter }) => {
           return (
-            <div key={title} className="h-full px-4">
-              <div className="flex h-1/6 space-x-2">
+            <div key={title} className="h-full px-4 flex flex-col justify-between">
+              <div className="flex space-x-2">
                 <div>{title}</div>
                 <div className="text-unit">{unit}</div>
               </div>
-              <div className="flex h-2/5 items-center justify-center border-b border-primary-600">
-                <Arrow className={`w-1/4 h-3/4 ${color}`} direction={direction} />
+              <div className="h-1/2 flex items-center justify-center border-b border-primary-600">
+                <Arrow className={`w-1/4 ${color}`} direction={direction} />
                 <div className={`text-4xl font-bold ${color}`}>{renderer(overall)}</div>
               </div>
               <div className="space-y-2 py-2">
                 {data.map(({ key, value, renderer = baseFormatter }) => {
                   return (
-                    <div className="flex justify-between w-full h-3/4 items-center px-4" key={key}>
+                    <div className="flex justify-between w-full items-center px-4" key={key}>
                       <div className="text-unit">{key}</div>
-                      <div className="text-2xl">{renderer(value)}</div>
+                      <div className="text-2xl font-medium">{renderer(value)}</div>
                     </div>
                   );
                 })}
