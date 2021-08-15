@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import echarts from 'echarts/lib/echarts';
 
 // then import echarts modules those you have used manually.
-import 'echarts/lib/chart/line';
+// import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 // import 'echarts/lib/chart/scatter';
@@ -24,15 +24,15 @@ import 'echarts/lib/chart/pie';
 // import 'echarts/lib/chart/heatmap';
 // import 'echarts/lib/component/graphic';
 // import 'echarts/lib/component/grid';
-import 'echarts/lib/component/legend';
+// import 'echarts/lib/component/legend';
 // import 'echarts/lib/component/legendScroll';
-import 'echarts/lib/component/tooltip';
+// import 'echarts/lib/component/tooltip';
 // import 'echarts/lib/component/polar';
 // import 'echarts/lib/component/geo';
 // import 'echarts/lib/component/parallel';
 // import 'echarts/lib/component/singleAxis';
 // import 'echarts/lib/component/brush';
-import 'echarts/lib/component/title';
+// import 'echarts/lib/component/title';
 // import 'echarts/lib/component/dataZoom';
 // import 'echarts/lib/component/visualMap';
 // import 'echarts/lib/component/markPoint';
@@ -47,9 +47,9 @@ export default function Chart({ className, option = {} }) {
   const chartRef = useRef();
   useDeepCompareEffect(() => {
     const instance = echarts.init(chartRef.current) || { setOption: () => {}, dispose: () => {} };
-    instance.setOption(option, true);
+    instance.setOption(option);
     return () => instance.dispose();
-  }, [option.series]);
+  }, [option]);
 
   useEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current);
