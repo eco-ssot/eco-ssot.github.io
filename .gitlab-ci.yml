@@ -38,7 +38,9 @@ build:image:
     refs:
       - master
     changes:
+      - src/**/*
       - Dockerfile
+      - package.json
   before_script:
     - echo "$SSOT_USER_TOKEN" | docker login -u $SSOT_USER_NAME --password-stdin $CI_REGISTRY
   script:
