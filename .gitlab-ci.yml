@@ -15,7 +15,7 @@ cache: &global_cache
     fi
 
 stages:
-  # - build:image
+  - build:image
   - setup
   - deploy
 
@@ -28,6 +28,26 @@ default:
   tags:
     - aws
     - m4-large
+
+build:image:
+  stage: build:image
+  image: docker:19.03.8
+  services:
+    - docker:19.03.8-dind
+  only:
+    refs:
+      - master
+    changes:
+      - Dockerfile
+  before_script:
+    - echo "$SSOT_USER_TOKEN" | docker login -u $SSOT_USER_NAME --password-stdin $CI_REGISTRY
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
+  cache: {}
+  dependencies: []
 
 setup:
   stage: setup
