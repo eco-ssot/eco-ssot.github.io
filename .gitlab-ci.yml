@@ -42,14 +42,8 @@ build:image:
       - Dockerfile
       - package.json
       - .gitlab-ci.yml
-  before_script:
-    - echo "$SSOT_USER_TOKEN" | docker login -u $SSOT_USER_NAME --password-stdin $CI_REGISTRY
   script:
-    - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker push $CI_REGISTRY_IMAGE:latest
-    - docker tag $CI_REGISTRY_IMAGE:latest harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
+    - docker build -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend .
     - docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
   cache: {}
   dependencies: []
