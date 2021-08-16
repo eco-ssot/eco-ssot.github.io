@@ -49,6 +49,8 @@ build:image:
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY_IMAGE:latest
+    - docker tag $CI_REGISTRY_IMAGE:latest harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
+    - docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
   cache: {}
   dependencies: []
 
