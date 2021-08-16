@@ -14,12 +14,14 @@ import { summaryApi } from '../services/summary';
 import counterReducer from '../features/counter/counterSlice';
 import queryParamsReducer from '../renderless/query-params/queryParamsSlice';
 import loaderReducer from '../renderless/loader/loaderSlice';
+import errorHandlerReducer from '../renderless/error-handler/errorHandlerSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     queryParams: queryParamsReducer,
     loader: loaderReducer,
+    errorHandler: errorHandlerReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
     [overallApi.reducerPath]: overallApi.reducer,

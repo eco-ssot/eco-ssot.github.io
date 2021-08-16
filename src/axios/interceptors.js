@@ -1,5 +1,5 @@
 export function mockInterceptor(config) {
-  if (process.env.REACT_APP_MOCK) {
+  if (Number(process.env.REACT_APP_MOCK)) {
     return {
       ...config,
       adapter: ({ method, url, mockPath }) =>

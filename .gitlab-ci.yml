@@ -43,6 +43,7 @@ build:image:
       - package.json
       - .gitlab-ci.yml
   script:
+    - docker pull harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend || true
     - docker build -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend .
     - docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
   cache: {}
