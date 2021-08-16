@@ -2,6 +2,7 @@ import Chart from '../../charts/Chart';
 import colors from '../../styles/colors';
 import Legend from '../../components/legend/Legend';
 import { baseFormatter } from '../../utils/formatter';
+import { formatTarget, formatYtm, getTarget } from './helpers';
 
 const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
 
@@ -45,16 +46,24 @@ const OPTION = (values, labels, target) => ({
   grid: { top: 16, bottom: 36, left: 16, right: 48, containerLabel: true },
 });
 
-export default function Carbon({ baseYear, compareYear, currentYear, data = {} }) {
-  const labels = [baseYear, compareYear, currentYear];
+export default function Carbon({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
+  const labels = [
+    `${baseYear} Total`,
+    `${compareYear} ${formatYtm(latestDate)}`,
+    `${currentYear} ${formatYtm(latestDate)}`,
+  ];
+
   const values = [data.baseYear, data.compareYTM, data.currentYTM];
-  const option = OPTION(values, labels, data.target);
+  const option = OPTION(values, labels, getTarget(data.baseYear, data.target));
   return (
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="flex w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4">
         <Legend dotClassName="bg-_yellow" label="基準年" />
-        <Legend dotClassName="bg-_orange" label="Target : 對比基準年 -%" />
+        <Legend
+          dotClassName="bg-_orange"
+          label={`Target : 對比基準年 ${formatTarget(data.target)}%`}
+        />
         <div>單位：公噸</div>
       </div>
     </div>

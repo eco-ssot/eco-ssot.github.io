@@ -1,9 +1,5 @@
-import env from '../environments/environment';
-
-const { mock } = env;
-
 export function mockInterceptor(config) {
-  if (mock) {
+  if (process.env.REACT_APP_MOCK) {
     return {
       ...config,
       adapter: ({ method, url, mockPath }) =>
