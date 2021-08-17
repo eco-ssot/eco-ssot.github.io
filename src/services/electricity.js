@@ -2,14 +2,14 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { axiosBaseQuery } from './helpers';
 
-export const electricApi = createApi({
-  reducerPath: 'electricApi',
+export const electricityApi = createApi({
+  reducerPath: 'electricityApi',
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getElectricApi: builder.query({
+    getElectricityApi: builder.query({
       query: (query) => ({ query, url: 'electric' }),
     }),
   }),
 });
 
-export const { useGetElectricApiQuery } = electricApi;
+export const { useGetElectricityApiQuery } = electricityApi;

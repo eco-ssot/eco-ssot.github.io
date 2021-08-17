@@ -2,14 +2,14 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { axiosBaseQuery } from './helpers';
 
-export const co2Api = createApi({
-  reducerPath: 'co2Api',
+export const carbonApi = createApi({
+  reducerPath: 'carbonApi',
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getCo2Api: builder.query({
+    getCarbonApi: builder.query({
       query: (query) => ({ query, url: 'co2' }),
     }),
   }),
 });
 
-export const { useGetCo2ApiQuery } = co2Api;
+export const { useGetCarbonApiQuery } = carbonApi;
