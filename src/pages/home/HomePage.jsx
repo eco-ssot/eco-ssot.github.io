@@ -9,19 +9,11 @@ import Water from './Water';
 
 import Panel from '../../components/panel/Panel';
 import Overview from './Overview';
-import TagSelect from '../../components/tag-select/TagSelect';
+import TagSelect from '../../components/select/TagSelect';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryApiQuery } from '../../services/summary';
 import { selectCompareYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 import APP_CONFIG from '../../constants/app-config';
-
-const CURRENT_YEAR = new Date().getFullYear();
-const LAST_YEAR = CURRENT_YEAR - 1;
-const BASE_YEAR = 2016;
-const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR }, (_, i) => ({
-  key: String(LAST_YEAR - i),
-  value: String(LAST_YEAR - i),
-}));
 
 export default function HomePage() {
   const compareYear = useSelector(selectCompareYear);
@@ -46,9 +38,12 @@ export default function HomePage() {
         to="/overview"
         subtitle={
           <TagSelect
-            options={YEAR_OPTIONS}
+            options={APP_CONFIG.YEAR_OPTIONS}
             label="對比年度："
-            selected={YEAR_OPTIONS.find((option) => option.key === compareYear) || YEAR_OPTIONS[0]}
+            selected={
+              APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear) ||
+              APP_CONFIG.YEAR_OPTIONS[0]
+            }
             onChange={navigate}
             queryKey="year">
             {`累計區間：${
@@ -60,14 +55,18 @@ export default function HomePage() {
             }`}
           </TagSelect>
         }>
-        <Overview data={data} compareYear={compareYear || LAST_YEAR} currentYear={CURRENT_YEAR} />
+        <Overview
+          data={data}
+          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
+          currentYear={APP_CONFIG.CURRENT_YEAR}
+        />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="碳排放量" to="/carbon">
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
-          compareYear={compareYear || LAST_YEAR}
-          currentYear={CURRENT_YEAR}
+          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
+          currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
@@ -78,8 +77,8 @@ export default function HomePage() {
         <Electricity
           data={electricPowerUtilization?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_ELECTRICITY}
-          compareYear={compareYear || LAST_YEAR}
-          currentYear={CURRENT_YEAR}
+          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
+          currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
       </Panel>
@@ -87,17 +86,17 @@ export default function HomePage() {
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
-          compareYear={compareYear || LAST_YEAR}
-          currentYear={CURRENT_YEAR}
+          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
+          currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={waterUse?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="單臺用電" to="/unit-electricity">
+      <Panel className="row-span-1 col-span-1" title="單台用電" to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
           baseYear={APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
-          compareYear={compareYear || LAST_YEAR}
-          currentYear={CURRENT_YEAR}
+          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
+          currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={singleElectric?.latestDate || latestDate}
         />
       </Panel>
@@ -105,8 +104,8 @@ export default function HomePage() {
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}
-          compareYear={compareYear || LAST_YEAR}
-          currentYear={CURRENT_YEAR}
+          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
+          currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={waste?.latestDate || latestDate}
         />
       </Panel>

@@ -6,6 +6,7 @@
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.3",
     "@reduxjs/toolkit": "^1.5.1",
+    "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "currency.js": "^2.0.4",

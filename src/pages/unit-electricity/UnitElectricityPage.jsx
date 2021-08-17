@@ -22,7 +22,7 @@ const HEADERS = [
   },
   {
     key: 'production',
-    name: '生產量 (臺)',
+    name: '生產量 (台)',
     subHeaders: [
       { key: 2020, name: '2020年 (c)' },
       { key: 2021, name: '2021年 (d)' },
@@ -31,7 +31,7 @@ const HEADERS = [
   },
   {
     key: 'unitElectricity',
-    name: '單臺用電 (度)',
+    name: '單台用電 (度)',
     subHeaders: [
       { key: 2020, name: '2020年 (e=a/c)' },
       { key: 2021, name: '2021年 (f=b/d)' },
@@ -182,7 +182,7 @@ export default function UnitElectricityPage() {
   return (
     <PageContainer>
       <div className="flex justify-between">
-        <div>W.W 單臺用電</div>
+        <div>W.W 單台用電</div>
         <Tag>Target：對比去年下降1%</Tag>
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-4">

@@ -1,7 +1,7 @@
 [
   {
     "title": "營業額",
-    "unit": "(十億臺幣)",
+    "unit": "(十億台幣)",
     "overall": 0.1,
     "direction": "up",
     "color": "text-primary-500",

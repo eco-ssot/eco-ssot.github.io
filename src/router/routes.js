@@ -41,7 +41,7 @@ export const privateRoutes = [
   },
   {
     path: '/unit-electricity',
-    title: '單臺用電',
+    title: '單台用電',
     component: UnitElectricityPage,
   },
   {
@@ -51,7 +51,7 @@ export const privateRoutes = [
   },
   {
     path: '/management',
-    title: '後臺維護',
+    title: '後台維護',
     component: ManagementPage,
   },
 ];

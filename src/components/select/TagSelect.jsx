@@ -23,10 +23,7 @@ export default function TagSelect({
           <>
             {label && <Listbox.Label className="font-medium">{label}</Listbox.Label>}
             <div className={clsx('relative', className)}>
-              <Listbox.Button
-                className={clsx(
-                  'flex space-x-2 pl-2 items-center bg-transparent relative w-full text-left cursor-pointer'
-                )}>
+              <Listbox.Button className="flex space-x-2 pl-2 py-1 items-center bg-transparent relative w-full text-left cursor-pointer">
                 <div className="block truncate">{selected.value}</div>
                 <div className="inset-y-0 right-0 flex pr-2 items-center pointer-events-none">
                   <ChevronDownIcon className="h-4 w-4 text-gray-50" aria-hidden="true" />
@@ -46,9 +43,7 @@ export default function TagSelect({
                       key={option.key}
                       className={({ active }) =>
                         clsx(
-                          active
-                            ? 'text-gray-50 bg-primary-600'
-                            : 'text-gray-900 dark:text-gray-50',
+                          active ? 'text-gray-50 bg-primary-600' : 'text-gray-50',
                           'flex cursor-default select-none relative py-1 pl-2'
                         )
                       }

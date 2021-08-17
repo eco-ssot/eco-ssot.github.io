@@ -41,7 +41,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
   const nextData = [
     {
       title: '營業額',
-      unit: '(十億臺幣)',
+      unit: '(十億台幣)',
       gradient: revenue?.gradient,
       subData: [
         { key: compareYear, value: revenue?.compareYear },

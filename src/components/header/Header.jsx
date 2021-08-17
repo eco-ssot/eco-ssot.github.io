@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import NavBar from '../nav-bar/NavBar';
 import Divider from '../divider/Divider';
-import Select from '../select/Select';
+import GhostSelect from '../select/GhostSelect';
 import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
 import Avatar from '../avatar/Avatar';
@@ -26,7 +26,7 @@ export default function Header({ className }) {
         <div className="block truncate">ESG 績效管理平台</div>
       </Link>
       <Divider className="h-1/2" />
-      <Select
+      <GhostSelect
         className="w-28"
         options={BUSINESS_OPTIONS}
         onChange={navigate}

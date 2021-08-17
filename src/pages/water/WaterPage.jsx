@@ -23,7 +23,7 @@ const HEADERS = [
   },
   {
     key: 'revenue',
-    name: '營業額 (十億臺幣)',
+    name: '營業額 (十億台幣)',
     subHeaders: [
       { key: 2020, name: '2020年' },
       { key: 2021, name: '2021年' },

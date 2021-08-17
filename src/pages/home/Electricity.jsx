@@ -63,7 +63,7 @@ export default function Electricity({ baseYear, compareYear, currentYear, latest
           dotClassName="bg-_orange"
           label={`Target : 對比去年 ${formatTarget(data.target)}%`}
         />
-        <div>單位：千度/十億臺幣</div>
+        <div>單位：千度/十億台幣</div>
       </div>
     </div>
   );

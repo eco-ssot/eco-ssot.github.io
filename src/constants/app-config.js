@@ -1,4 +1,16 @@
+const CURRENT_YEAR = new Date().getFullYear();
+const LAST_YEAR = CURRENT_YEAR - 1;
+const BASE_YEAR = 2016;
+const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR }, (_, i) => ({
+  key: String(LAST_YEAR - i),
+  value: String(LAST_YEAR - i),
+}));
+
 const APP_CONFIG = {
+  YEAR_OPTIONS,
+  CURRENT_YEAR: String(CURRENT_YEAR),
+  LAST_YEAR: String(LAST_YEAR),
+  BASE_YEAR: String(BASE_YEAR),
   BASE_YEAR_CARBON: process.env.REACT_APP_BASE_YEAR_CARBON || '2016',
   BASE_YEAR_WATER: process.env.REACT_APP_BASE_YEAR_WATER || '2016',
   BASE_YEAR_ELECTRICITY: process.env.REACT_APP_BASE_YEAR_ELECTRICITY || '2020',

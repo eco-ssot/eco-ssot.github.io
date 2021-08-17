@@ -12,8 +12,8 @@ const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suff
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },
   { key: 'water', name: '用水量 (M³)' },
-  { key: 'revenue', name: '營業額 (十億臺幣)' },
-  { key: 'asp', name: 'ASP (十億臺幣/百萬台)' },
+  { key: 'revenue', name: '營業額 (十億台幣)' },
+  { key: 'asp', name: 'ASP (十億台幣/百萬台)' },
 ];
 
 const COLUMNS = [

@@ -74,7 +74,7 @@ export default function UnitElectricity({
           dotClassName="bg-_orange"
           label={`Target : 對比去年 ${formatTarget(data.target)}%`}
         />
-        <div>單位：度/臺</div>
+        <div>單位：度/台</div>
       </div>
     </div>
   );

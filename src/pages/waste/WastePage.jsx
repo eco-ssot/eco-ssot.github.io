@@ -52,14 +52,14 @@ const HEADERS = [
     name: (
       <>
         <div className="text-right">2021 1-6月營收</div>
-        <div className="text-right">(十億新臺幣)</div>
+        <div className="text-right">(十億新台幣)</div>
       </>
     ),
     rowSpan: 0,
   },
   {
     key: 'waste',
-    name: '廢棄物產生密度 (千噸/十億新臺幣)',
+    name: '廢棄物產生密度 (千噸/十億新台幣)',
     subHeaders: [
       { key: 2021, name: '2021年1-6月' },
       { key: 2018, name: '2018年' },

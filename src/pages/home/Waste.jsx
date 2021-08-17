@@ -69,7 +69,7 @@ export default function Waste({ baseYear, compareYear, currentYear, latestDate, 
           dotClassName="bg-_orange"
           label={`Target : 對比基準年 ${formatTarget(data.target)}%`}
         />
-        <div>單位：千噸/十億臺幣</div>
+        <div>單位：千噸/十億台幣</div>
       </div>
     </div>
   );
