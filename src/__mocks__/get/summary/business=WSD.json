@@ -1,41 +1,41 @@
 {
   "revenue": {
     "latestDate": "2020-12-01",
-    "compareYear": 694.550548543986,
-    "currentYear": 694.550548543986,
+    "compareYear": 98.4857483364916,
+    "currentYear": 98.4857483364916,
     "gradient": 0
   },
   "electricPowerUtilization": {
     "latestDate": "2020-12-01",
-    "compareYear": 382420.09646377,
-    "currentYear": 382420.09646377,
+    "compareYear": 165587.55538581,
+    "currentYear": 165587.55538581,
     "gradient": 0,
     "intensity": {
-      "compareYear": 550.600812662884,
-      "compareYTM": 550.600812662884,
-      "currentYTM": 550.600812662884,
-      "target": 550.600812662884
+      "compareYear": 1681.33520009468,
+      "compareYTM": 1681.33520009468,
+      "currentYTM": 1681.33520009468,
+      "target": 1681.33520009468
     }
   },
   "CO2Emission": {
     "latestDate": "2020-12-01",
-    "compareYear": 290246.315523432,
-    "currentYear": 290246.315523432,
+    "compareYear": 131044.381493358,
+    "currentYear": 131044.381493358,
     "gradient": 0,
     "baseYear": 0,
-    "compareYTM": 290246.315523432,
-    "currentYTM": 290246.315523432,
+    "compareYTM": 131044.381493358,
+    "currentYTM": 131044.381493358,
     "target": 0
   },
   "waterUse": {
     "latestDate": "2020-12-01",
-    "compareYear": 4063.80135727855,
-    "currentYear": 4063.80135727855,
+    "compareYear": 2092.92932620114,
+    "currentYear": 2092.92932620114,
     "gradient": 0,
     "intensity": {
       "baseYear": 0,
-      "compareYTM": 5.85097998381495,
-      "currentYTM": 5.85097998381495,
+      "compareYTM": 21.2510882188794,
+      "currentYTM": 21.2510882188794,
       "target": 0
     }
   },
@@ -48,15 +48,15 @@
   },
   "totalPowerSaving": { "amount": 0, "digital": 0, "manage": 0 },
   "renewableEnergy": {
-    "nonRenewableEnergy": 0.827189068698172,
+    "nonRenewableEnergy": 0.841464842388687,
     "selfConstructedSolarEnergy": 0,
-    "grid": 0.169243582723353,
+    "grid": 0.155136428771523,
     "tRec": 0
   },
   "singleElectric": {
-    "compareYear": 2.95656561015777,
-    "compareYTM": 2.95656561015777,
-    "currentYTM": 2.95656561015777,
-    "target": 2.926999954056192
+    "compareYear": 1.9613139010606,
+    "compareYTM": 1.9613139010606,
+    "currentYTM": 1.9613139010606,
+    "target": 1.941700762049994
   }
 }

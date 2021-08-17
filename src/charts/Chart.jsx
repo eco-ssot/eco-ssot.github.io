@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { useDeepCompareEffect, useMeasure } from 'react-use';
+import { useDeepCompareEffect, useUpdateEffect, useMeasure } from 'react-use';
 import clsx from 'clsx';
 
 import echarts from 'echarts/lib/echarts';
@@ -45,11 +45,24 @@ import 'echarts/lib/component/markLine';
 export default function Chart({ className, option = {} }) {
   const [containerRef, { width, height }] = useMeasure();
   const chartRef = useRef();
+  const dataset = (option.series || []).map(({ data }) => data);
+  const labels =
+    option.xAxis?.type === 'category'
+      ? option.xAxis?.data
+      : option.yAxis?.type === 'category'
+      ? option.yAxis?.data
+      : [];
+
+  useUpdateEffect(() => {
+    const instance = echarts.getInstanceByDom(chartRef.current) || { setOption: () => {} };
+    instance.setOption({ ...option, animation: false });
+  }, [labels]);
+
   useDeepCompareEffect(() => {
     const instance = echarts.init(chartRef.current) || { setOption: () => {}, dispose: () => {} };
     instance.setOption(option);
     return () => instance.dispose();
-  }, [option]);
+  }, [dataset]);
 
   useEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current);

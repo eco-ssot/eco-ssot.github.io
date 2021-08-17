@@ -6,6 +6,7 @@ import RenewableEnergyPage from '../pages/renewable-energy/RenewableEnergyPage';
 import UnitElectricityPage from '../pages/unit-electricity/UnitElectricityPage';
 import WastePage from '../pages/waste/WastePage';
 import WaterPage from '../pages/water/WaterPage';
+import ManagementPage from '../pages/management/ManagementPage';
 
 export const privateRoutes = [
   {
@@ -47,5 +48,10 @@ export const privateRoutes = [
     path: '/waste',
     title: '廢棄物產生',
     component: WastePage,
+  },
+  {
+    path: '/management',
+    title: '後臺維護',
+    component: ManagementPage,
   },
 ];

@@ -1,12 +1,12 @@
 {
   "revenue": {
-    "lastestDate": "2021-06-01",
+    "latestDate": "2021-06-01",
     "compareYear": 324.078776087715,
     "currentYear": 5.80039508538866,
     "gradient": -0.9821018977070601
   },
   "electricPowerUtilization": {
-    "lastestDate": "2021-06-01",
+    "latestDate": "2021-06-01",
     "compareYear": 184946.889650211,
     "currentYear": 1747025.43112453,
     "gradient": 8.446092521094403,
@@ -18,7 +18,7 @@
     }
   },
   "CO2Emission": {
-    "lastestDate": "2021-06-01",
+    "latestDate": "2021-06-01",
     "compareYear": 140973.449321428,
     "currentYear": 1347.74043266776,
     "gradient": -0.9904397569956962,
@@ -28,7 +28,7 @@
     "target": 0
   },
   "waterUse": {
-    "lastestDate": "2021-06-01",
+    "latestDate": "2021-06-01",
     "compareYear": 1985.27713183759,
     "currentYear": 22602.3092280575,
     "gradient": 10.3849642780787,
@@ -40,7 +40,7 @@
     }
   },
   "waste": {
-    "lastestDate": "2021-06-01",
+    "latestDate": "2021-06-01",
     "compareYear": 0,
     "currentYear": 917.19,
     "gradient": "Infinity",

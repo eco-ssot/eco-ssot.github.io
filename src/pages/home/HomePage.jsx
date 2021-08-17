@@ -26,7 +26,7 @@ const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR }, (_, i) => ({
 export default function HomePage() {
   const compareYear = useSelector(selectCompareYear);
   const business = useSelector(selectBusiness);
-  const { data = {} } = useGetSummaryApiQuery({ compareYear, business });
+  const { data = {} } = useGetSummaryApiQuery({ business, year: compareYear });
   const {
     revenue,
     CO2Emission,
@@ -37,7 +37,7 @@ export default function HomePage() {
     waterUse,
   } = data;
 
-  const latestDate = revenue?.lastestDate;
+  const latestDate = revenue?.latestDate;
   return (
     <div className="grid grid-rows-3 grid-cols-3 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
@@ -50,7 +50,7 @@ export default function HomePage() {
             label="對比年度："
             selected={YEAR_OPTIONS.find((option) => option.key === compareYear) || YEAR_OPTIONS[0]}
             onChange={navigate}
-            queryKey="compareYear">
+            queryKey="year">
             {`累計區間：${
               latestDate
                 ? `${new Date(latestDate).getFullYear()}.01 - ${String(
@@ -68,7 +68,7 @@ export default function HomePage() {
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
           compareYear={compareYear || LAST_YEAR}
           currentYear={CURRENT_YEAR}
-          latestDate={CO2Emission?.lastestDate || latestDate}
+          latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="可再生能源占比" to="/renewable-energy">
@@ -80,7 +80,7 @@ export default function HomePage() {
           baseYear={APP_CONFIG.BASE_YEAR_ELECTRICITY}
           compareYear={compareYear || LAST_YEAR}
           currentYear={CURRENT_YEAR}
-          latestDate={electricPowerUtilization?.lastestDate || latestDate}
+          latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="用水強度" to="/water">
@@ -89,7 +89,7 @@ export default function HomePage() {
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
           compareYear={compareYear || LAST_YEAR}
           currentYear={CURRENT_YEAR}
-          latestDate={waterUse?.lastestDate || latestDate}
+          latestDate={waterUse?.latestDate || latestDate}
         />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="單臺用電" to="/unit-electricity">
@@ -98,7 +98,7 @@ export default function HomePage() {
           baseYear={APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
           compareYear={compareYear || LAST_YEAR}
           currentYear={CURRENT_YEAR}
-          latestDate={singleElectric?.lastestDate || latestDate}
+          latestDate={singleElectric?.latestDate || latestDate}
         />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="廢棄物產生密度" to="/waste">
@@ -107,7 +107,7 @@ export default function HomePage() {
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}
           compareYear={compareYear || LAST_YEAR}
           currentYear={CURRENT_YEAR}
-          latestDate={waste?.lastestDate || latestDate}
+          latestDate={waste?.latestDate || latestDate}
         />
       </Panel>
     </div>
