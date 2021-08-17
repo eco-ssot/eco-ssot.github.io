@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import { useState, useMemo } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
-import clsx from 'clsx';
 
 import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
@@ -8,37 +8,25 @@ import IconButton from '../../components/button/IconButton';
 
 const COLUMNS = ({ setData }) => [
   {
-    Header: '項目',
-    accessor: 'item',
-    className: 'w-[18%]',
+    Header: 'Site',
+    accessor: 'site',
+    className: 'w-1/5',
   },
   {
-    Header: '基準年',
-    accessor: 'baseYear',
+    Header: '碳排放係數',
+    accessor: 'carbonIndex',
     editable: true,
-    className: 'w-[18%]',
+    className: 'w-[30%]',
   },
   {
-    Header: 'Target 訂定標準',
-    accessor: 'target',
-    editable: true,
-    className: 'w-[18%]',
-  },
-  {
-    Header: '2021年 Target',
-    accessor: '2021',
-    editable: true,
-    className: 'w-[18%]',
-  },
-  {
-    Header: '單位',
-    accessor: 'unit',
-    className: 'w-[18%]',
+    Header: '更新日期',
+    accessor: 'updateTime',
+    className: 'w-[30%]',
   },
   {
     Header: '編輯',
     id: 'action',
-    className: 'w-[10%]',
+    className: 'w-1/5',
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <Button
@@ -71,33 +59,18 @@ const COLUMNS = ({ setData }) => [
 ];
 
 const DATA = [
-  { item: '碳排放量', baseYear: '2016', target: '逐年下降 4.2 %', 2021: '241,231', unit: '公噸' },
-  { item: '可再生能源', baseYear: '-', target: '占比 > 60 %', 2021: '-', unit: '%' },
-  {
-    item: '用電強度',
-    baseYear: '-',
-    target: '對比去年下降 2 %',
-    2021: '100',
-    unit: '千度 / 十億新臺幣',
-  },
-  {
-    item: '用水強度',
-    baseYear: '2016',
-    target: '逐年下降 1.8 %',
-    2021: '80',
-    unit: '千噸 / 十億臺幣',
-  },
-  { item: '單台用電', baseYear: '-', target: '對比去年下降 3 %', 2021: '100', unit: '度 / 台' },
-  {
-    item: '廢棄物密度',
-    baseYear: '2018',
-    target: '對比基準年下降 2 %',
-    2021: '50.4',
-    unit: '千噸 / 十億新臺幣',
-  },
+  { site: 'WNH', carbonIndex: 0.7921, updateTime: '2021.05.07' },
+  { site: 'WHC', carbonIndex: 0.7921, updateTime: '2021.05.07' },
+  { site: 'WIH', carbonIndex: 0.7921, updateTime: '2021.05.07' },
+  { site: 'WKS', carbonIndex: 0.8587, updateTime: '2020.11.29' },
+  { site: 'WZS', carbonIndex: 0.8587, updateTime: '2020.11.29' },
+  { site: 'WCQ', carbonIndex: 0.8042, updateTime: '2021.02.13' },
+  { site: 'WCD', carbonIndex: 0.8042, updateTime: '2021.02.13' },
+  { site: 'WMX', carbonIndex: 0.8042, updateTime: '2021.02.13' },
+  { site: 'WCZ', carbonIndex: 0.8042, updateTime: '2021.02.13' },
 ];
 
-export default function Goal({ className }) {
+export default function CarbonIndex({ className }) {
   const [data, setData] = useState(() => DATA);
   const columns = useMemo(() => COLUMNS({ setData }), []);
   const updateMyData = (rowIndex, columnId, value) => {

@@ -1,4 +1,6 @@
 import Goal from './Goal';
+import CarbonIndex from './CarbonIndex';
+import Trec from './Trec';
 
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
@@ -6,7 +8,7 @@ import APP_CONFIG from '../../constants/app-config';
 
 export default function ManagementPage() {
   return (
-    <div className="grid grid-cols-6 grid-rows-2 min-h-[calc(100vh-4rem)] h-full w-full p-4 gap-4">
+    <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-full w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">
         <div className="bg-primary-900 rounded shadow p-4 h-full flex flex-col">
           <div className="flex flex-grow flex-col space-y-8">
@@ -35,18 +37,18 @@ export default function ManagementPage() {
         </div>
       </div>
       <div className="row-span-1 col-span-5">
-        <div className="bg-primary-900 rounded shadow p-4 h-full space-y-4">
+        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
             <div>年度目標</div>
             <div className="flex items-center">
               <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
             </div>
           </div>
-          <Goal />
+          <Goal className="flex flex-col flex-grow" />
         </div>
       </div>
       <div className="row-span-1 col-span-2">
-        <div className="bg-primary-900 rounded shadow p-4 h-full">
+        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
             <div className="flex space-x-2">
               <div>碳排放係數</div>
@@ -56,16 +58,18 @@ export default function ManagementPage() {
               <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
             </div>
           </div>
+          <CarbonIndex className="flex flex-col flex-grow" />
         </div>
       </div>
       <div className="row-span-1 col-span-3">
-        <div className="bg-primary-900 rounded shadow p-4 h-full">
+        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
             <div>綠證</div>
             <div className="flex items-center">
               <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
             </div>
           </div>
+          <Trec className="flex flex-col flex-grow" />
         </div>
       </div>
     </div>

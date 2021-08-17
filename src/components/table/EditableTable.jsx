@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTable } from 'react-table';
 import clsx from 'clsx';
+import { PlusIcon } from '@heroicons/react/solid';
 
 import Input from '../../components/input/Input';
+import IconButton from '../button/IconButton';
 
 const EditableCell = ({
   value: initialValue,
@@ -10,7 +12,7 @@ const EditableCell = ({
     index,
     original: { editing },
   },
-  column: { id, editable },
+  column: { id, editable, placeholder },
   updateMyData,
 }) => {
   const [value, setValue] = useState(initialValue);
@@ -27,7 +29,7 @@ const EditableCell = ({
   }, [initialValue]);
 
   return editable && editing ? (
-    <Input value={value} onChange={onChange} onBlur={onBlur} />
+    <Input value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
   ) : (
     <>{value}</>
   );
@@ -43,6 +45,7 @@ export default function EditableTable({
   columns,
   data,
   updateMyData,
+  setData,
   getHeaderProps = defaultPropGetter,
   getColumnProps = defaultPropGetter,
   getRowProps = defaultPropGetter,
@@ -86,7 +89,14 @@ export default function EditableTable({
             prepareRow(row);
             return (
               <tr {...row.getRowProps(getRowProps(row))}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, i) => {
+                  if (
+                    (cell.column.rowSpan && cell.row.index > 0) ||
+                    (cell.row.original.id === 'addRow' && i > cell.row.original.startIndex)
+                  ) {
+                    return null;
+                  }
+
                   return (
                     <td
                       {...cell.getCellProps([
@@ -100,8 +110,26 @@ export default function EditableTable({
                         },
                         getColumnProps(cell.column),
                         getCellProps(cell),
-                      ])}>
-                      {cell.render('Cell')}
+                      ])}
+                      {...(cell.column.rowSpan &&
+                        cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
+                      {...(cell.row.original.id === 'addRow' &&
+                        i === cell.row.original.startIndex && {
+                          colSpan: cell.row.original.colSpan,
+                        })}>
+                      {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
+                        <IconButton
+                          onClick={() =>
+                            setData((prev) => {
+                              const action = prev.slice(-1);
+                              return [...prev.slice(0, -1), { editing: true }, ...action];
+                            })
+                          }>
+                          <PlusIcon className="w-5 h-5" />
+                        </IconButton>
+                      ) : (
+                        cell.render('Cell')
+                      )}
                     </td>
                   );
                 })}
