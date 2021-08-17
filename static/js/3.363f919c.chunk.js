@@ -1,0 +1,2 @@
+(this["webpackJsonpeco-ssot-frontend"]=this["webpackJsonpeco-ssot-frontend"]||[]).push([[3],{114:function(s){s.exports=JSON.parse('{"\u4e0d\u53ef\u518d\u751f\u80fd\u6e90":0.49,"\u81ea\u5efa\u592a\u967d\u80fd":0.02,"\u96fb\u7db2\u5305\u542b":0.49,"\u7da0\u8b49":0,"target":0.6}')}}]);
+//# sourceMappingURL=3.363f919c.chunk.js.map
