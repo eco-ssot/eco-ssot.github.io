@@ -48,7 +48,7 @@ const OPTION = (values, labels, target) => ({
       }),
     },
   ],
-  grid: { top: 16, bottom: 36, left: 16, right: 48, containerLabel: true },
+  grid: { top: 24, bottom: 36, left: 16, right: 48, containerLabel: true },
 });
 
 export default function UnitElectricity({
