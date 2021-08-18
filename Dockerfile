@@ -24,4 +24,6 @@ ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 # build & run service
 # docker build -t eco-ssot-frontend .
+# docker tag eco-ssot-frontend harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
+# docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
 # docker run --rm -it -p 8080:80 eco-ssot-frontend
