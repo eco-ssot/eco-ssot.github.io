@@ -45,15 +45,15 @@ const COLUMNS = [
     id: 'expander',
     Header: '',
     Cell: ({ row }) => {
-      const { title, ...rest } = row.getToggleRowExpandedProps();
+      const { title, style, ...rest } = row.getToggleRowExpandedProps();
       return row.canExpand ? (
-        <span {...rest}>
+        <div {...rest} className="flex w-12 justify-center">
           {row.isExpanded ? (
-            <ChevronUpIcon className="w-4 h-4 ml-4" />
+            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
           ) : (
-            <ChevronDownIcon className="w-4 h-4 ml-4" />
+            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
           )}
-        </span>
+        </div>
       ) : null;
     },
     rowSpan: 0,
@@ -63,33 +63,18 @@ const COLUMNS = [
     accessor: 'site',
     rowSpan: 0,
   },
-  {
-    id: 'dummy',
-    Header: '',
-    rowSpan: 0,
-  },
-  ...HEADERS.reduce((prev, { key, name, subHeaders }, i) => {
-    const header = {
-      Header: name,
-      className: 'border-b border-divider',
-      ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name }) => ({
-          Header: _name,
-          accessor: [key, _key].join('.'),
-          Cell: _key === 'delta' ? ratioRenderer : renderer,
-          className: 'text-right',
-        })),
-      }),
-    };
-
-    const dummyHeader = {
-      id: `dummy_${i}`,
-      Header: '',
-      rowSpan: 0,
-    };
-
-    return prev.concat(header, dummyHeader);
-  }, []),
+  ...HEADERS.map(({ key, name, subHeaders }) => ({
+    id: name,
+    Header: () => <div className="border-b border-divider py-3">{name}</div>,
+    ...(subHeaders && {
+      columns: subHeaders.map(({ key: _key, name: _name }) => ({
+        Header: _name,
+        accessor: [key, _key].join('.'),
+        Cell: _key === 'delta' ? ratioRenderer : renderer,
+        className: 'text-right',
+      })),
+    }),
+  })),
 ];
 
 const DATA = [

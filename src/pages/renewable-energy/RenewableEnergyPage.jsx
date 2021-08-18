@@ -46,15 +46,15 @@ const COLUMNS = [
     id: 'expander',
     Header: '',
     Cell: ({ row }) => {
-      const { title, ...rest } = row.getToggleRowExpandedProps();
+      const { title, style, ...rest } = row.getToggleRowExpandedProps();
       return row.canExpand ? (
-        <span {...rest}>
+        <div {...rest} className="flex w-12 justify-center">
           {row.isExpanded ? (
-            <ChevronUpIcon className="w-4 h-4 ml-4" />
+            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
           ) : (
-            <ChevronDownIcon className="w-4 h-4 ml-4" />
+            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
           )}
-        </span>
+        </div>
       ) : null;
     },
   },

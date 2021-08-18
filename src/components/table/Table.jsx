@@ -36,7 +36,10 @@ export default function Table({
                   {...column.getHeaderProps([
                     {
                       className: clsx(
-                        'w-1 px-2 py-3 text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
+                        'w-1 text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
+                        headerGroups.length === 1 && 'py-3',
+                        headerGroups.length > 1 && i > 0 && 'py-3',
+                        !column.id.startsWith('expander') && 'px-2',
                         column.className
                       ),
                       style: column.style,
@@ -64,7 +67,8 @@ export default function Table({
                     {...cell.getCellProps([
                       {
                         className: clsx(
-                          'px-2 py-3 text-gray-50 text-center',
+                          'py-3 text-gray-50 text-center',
+                          !cell.column.id.startsWith('expander') && 'px-2',
                           row.depth > 0 && 'bg-primary-600 bg-opacity-20',
                           row.depth > 0 && row.index === 0 && 'border-t border-primary-600',
                           row.depth > 0 &&
@@ -79,7 +83,9 @@ export default function Table({
                       getCellProps(cell),
                     ])}>
                     {cell.column.id.startsWith('expander') && row.id.includes('.') && (
-                      <Triangle className="ml-5" />
+                      <div className="flex justify-center">
+                        <Triangle />
+                      </div>
                     )}
                     {cell.render('Cell')}
                   </td>
