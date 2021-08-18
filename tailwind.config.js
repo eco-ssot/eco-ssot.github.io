@@ -41,6 +41,9 @@ module.exports = {
         '4/6': '66.67%',
         '5/6': '83.33%',
       },
+      maxHeight: {
+        screen: '100vh',
+      },
       borderRadius: {
         '1/2': '50%',
       },

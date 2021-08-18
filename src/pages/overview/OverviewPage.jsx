@@ -1,10 +1,14 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 
 import PageContainer from '../../components/page-container/PageContainer';
-import ButtonGroup from '../../components/button-group/ButtonGroup';
+import ButtonGroup from '../../components/button/ButtonGroup';
 import Table from '../../components/table/Table';
+import Tag from '../../components/tag/Tag';
+import Select from '../../components/select/Select';
+import Button from '../../components/button/Button';
 import { toFormattedNumber } from '../../utils/number';
+import APP_CONFIG from '../../constants/app-config';
 
 const renderer = ({ value }) => toFormattedNumber(value);
 const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%' });
@@ -172,13 +176,33 @@ const DATA = [
 export default function OverviewPage() {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
+  const [isHistory, setIsHistory] = useState(false);
   return (
     <PageContainer>
-      <div className="h-8">用電、用水、營收及ASP比較</div>
-      <div className="flex flex-col w-full justify-center items-center space-y-4">
-        <ButtonGroup options={[{ label: '當年度' }, { label: '歷史年度' }]} />
-        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg space-y-2">
-          <div className="h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+      <div className="flex justify-between h-8">
+        <div>用電、用水、營收及ASP比較</div>
+        {!isHistory && <Tag>{'Target：對比去年下降2%'}</Tag>}
+      </div>
+      <div className="flex flex-col w-full justify-center items-center space-y-2">
+        <ButtonGroup
+          options={APP_CONFIG.HISTORY_OPTIONS}
+          onChange={(e) => setIsHistory(e.key === 'HISTORY')}
+        />
+        {isHistory && (
+          <div className="w-full grid grid-cols-12 py-4 items-center">
+            <div></div>
+            <div className="flex justify-center space-x-8 col-span-10">
+              <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
+              <Select label="資料呈現：" options={APP_CONFIG.DIMENSION_OPTIONS} />
+              <Button>搜尋</Button>
+            </div>
+            <div className="text-right">
+              <Button>Excel</Button>
+            </div>
+          </div>
+        )}
+        <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}
             data={data}

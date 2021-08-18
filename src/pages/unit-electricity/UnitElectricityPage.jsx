@@ -1,11 +1,15 @@
-import { useMemo } from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
+import { useMemo, useState } from 'react';
+import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
 
 import PageContainer from '../../components/page-container/PageContainer';
-import ButtonGroup from '../../components/button-group/ButtonGroup';
+import ButtonGroup from '../../components/button/ButtonGroup';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
+import DualTag from '../../components/tag/DualTag';
+import Select from '../../components/select/Select';
+import Button from '../../components/button/Button';
 import { toFormattedNumber } from '../../utils/number';
+import APP_CONFIG from '../../constants/app-config';
 
 const renderer = ({ value }) => toFormattedNumber(value);
 const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%' });
@@ -161,19 +165,138 @@ const DATA = [
   },
 ];
 
+const HISTORY_COLUMNS = [
+  {
+    id: 'expander',
+    Header: '',
+    Cell: ({ row }) => {
+      const { title, style, ...rest } = row.getToggleRowExpandedProps();
+      return row.canExpand ? (
+        <div {...rest} className="flex w-12 justify-center">
+          {row.isExpanded ? (
+            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
+          ) : (
+            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
+          )}
+        </div>
+      ) : null;
+    },
+    rowSpan: 0,
+  },
+  {
+    Header: 'Site',
+    accessor: 'site',
+    rowSpan: 0,
+  },
+  ...Array.from({ length: 5 }, (_, i) => ({
+    id: String(i),
+    Header: () => <div className="border-b border-divider py-3">{`${2017 + i}年 1-4月`}</div>,
+    columns: [
+      {
+        Header: '單臺用電 (度)',
+        accessor: [2017 + i, 'electricity'].join('.'),
+        className: 'text-right',
+      },
+      {
+        Header: '增減率 *',
+        accessor: [2017 + i, 'delta'].join('.'),
+        className: 'text-right',
+      },
+    ],
+  })),
+];
+
+const FAKE_HISTORY_DATA = Array.from({ length: 5 }, (_, i) => 2017 + i).reduce(
+  (prev, curr) => ({
+    ...prev,
+    [curr]: {
+      electricity: curr,
+      delta: curr,
+    },
+  }),
+  {}
+);
+
+const HISTORY_DATA = [
+  { site: 'WNH', ...FAKE_HISTORY_DATA },
+  { site: 'WHC', ...FAKE_HISTORY_DATA },
+  { site: 'WIH', ...FAKE_HISTORY_DATA },
+  { site: 'WKS', ...FAKE_HISTORY_DATA },
+  {
+    site: 'WZS',
+    ...FAKE_HISTORY_DATA,
+    subRows: [
+      { site: 'WZS-1', ...FAKE_HISTORY_DATA },
+      { site: 'WZS-3', ...FAKE_HISTORY_DATA },
+      { site: 'WZS-6', ...FAKE_HISTORY_DATA },
+    ],
+  },
+  { site: 'WCQ', ...FAKE_HISTORY_DATA },
+  { site: 'WCD', ...FAKE_HISTORY_DATA },
+  { site: 'WMX', ...FAKE_HISTORY_DATA },
+  { site: 'WCZ', ...FAKE_HISTORY_DATA },
+  { isFooter: true, site: 'Total', ...FAKE_HISTORY_DATA },
+];
+
 export default function UnitElectricityPage() {
-  const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => DATA, []);
+  const [isHistory, setIsHistory] = useState(false);
+  const columns = useMemo(() => (isHistory ? HISTORY_COLUMNS : COLUMNS), [isHistory]);
+  const data = useMemo(() => (isHistory ? HISTORY_DATA : DATA), [isHistory]);
   return (
     <PageContainer>
-      <div className="flex justify-between">
+      <div className="flex justify-between h-8">
         <div>W.W 單台用電</div>
-        <Tag>Target：對比去年下降1%</Tag>
+        {isHistory ? (
+          <Tag>Target：對比去年下降1%</Tag>
+        ) : (
+          <DualTag labels={['累計區間：2021.01 - 06', 'Target：對比去年下降1%']} />
+        )}
       </div>
-      <div className="flex flex-col w-full justify-center items-center space-y-4">
-        <ButtonGroup options={[{ label: '當年度' }, { label: '歷史年度' }]} />
-        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg space-y-2">
-          <div className="h-6"></div>
+      <div className="flex flex-col w-full justify-center items-center space-y-2">
+        <ButtonGroup
+          options={APP_CONFIG.HISTORY_OPTIONS}
+          onChange={(e) => setIsHistory(e.key === 'HISTORY')}
+        />
+        {isHistory && (
+          <div className="w-full grid grid-cols-12 py-4 items-center">
+            <div></div>
+            <div className="flex justify-center col-span-10">
+              <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
+              <Select
+                className="mr-8"
+                label={<ArrowRightIcon className="h-5 w-5 mx-2" />}
+                options={APP_CONFIG.YEAR_OPTIONS}
+              />
+              <Select
+                label="查詢月份："
+                options={APP_CONFIG.MONTH_RANGE_OPTIONS}
+                buttonClassName="w-48"
+                className="mr-2"
+              />
+              <Select
+                options={APP_CONFIG.MONTH_OPTIONS}
+                buttonClassName="w-24"
+                optionClassName="max-h-screen"
+                className="mr-8"
+              />
+              <Select
+                label="資料呈現："
+                options={APP_CONFIG.DIMENSION_OPTIONS}
+                buttonClassName="w-32"
+                optionClassName="max-h-screen"
+                className="mr-8"
+              />
+              <Button>搜尋</Button>
+            </div>
+            <div className="text-right">
+              <Button>Excel</Button>
+            </div>
+          </div>
+        )}
+        <div className="w-full h-6 text-right">
+          {isHistory ? '* 增減率 = (當年度 − 上年度) / 上年度' : ''}
+        </div>
+        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}
             data={data}
