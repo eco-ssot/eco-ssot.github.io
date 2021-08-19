@@ -64,7 +64,7 @@ export default function RenewableEnergy({ data = {} }) {
         <Chart className="w-full h-full" option={option} />
         <div className="absolute text-center space-y-2">
           <div className="text-_orange">{`Target : > ${ratioFormatter(target)}%`}</div>
-          <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy)}`}</div>
+          <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>
       <div className="flex flex-col px-8 justify-center w-1/2 space-y-4">
@@ -76,7 +76,7 @@ export default function RenewableEnergy({ data = {} }) {
             label={
               <>
                 <div>{NAME_MAPPING[name] || name}</div>
-                <div>{ratioFormatter(value)}</div>
+                <div>{ratioFormatter(value, { precision: 1 })}</div>
               </>
             }
           />
