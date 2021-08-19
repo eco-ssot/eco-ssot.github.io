@@ -10,12 +10,7 @@ import WeatherInfo from '../weather-info/WeatherInfo';
 import Avatar from '../avatar/Avatar';
 import { navigate } from '../../router/helpers';
 import { selectBusiness } from '../../renderless/query-params/queryParamsSlice';
-
-const BUSINESS_OPTIONS = [
-  { key: 'WT', value: 'WT' },
-  { key: 'WSD', value: 'WSD' },
-  { key: 'ALL', value: 'ALL' },
-];
+import APP_CONFIG from '../../constants/app-config';
 
 export default function Header({ className }) {
   const business = useSelector(selectBusiness);
@@ -27,10 +22,10 @@ export default function Header({ className }) {
       </Link>
       <Divider className="h-1/2" />
       <GhostSelect
-        className="w-28"
-        options={BUSINESS_OPTIONS}
+        buttonClassName="w-36"
+        options={APP_CONFIG.BUSINESS_OPTIONS}
         onChange={navigate}
-        selected={BUSINESS_OPTIONS.find((option) => option.key === business) || BUSINESS_OPTIONS[0]}
+        selected={APP_CONFIG.BUSINESS_OPTIONS.find((option) => option.key === business)}
         queryKey="business"
       />
       <Divider className="h-1/2" />

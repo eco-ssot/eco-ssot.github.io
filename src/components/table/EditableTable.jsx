@@ -42,10 +42,10 @@ const defaultColumn = {
 const defaultPropGetter = () => ({});
 
 export default function EditableTable({
-  columns,
-  data,
-  updateMyData,
-  setData,
+  columns = [],
+  data = [],
+  updateMyData = () => {},
+  setData = () => {},
   getHeaderProps = defaultPropGetter,
   getColumnProps = defaultPropGetter,
   getRowProps = defaultPropGetter,

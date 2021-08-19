@@ -73,7 +73,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-1" title="用電強度" to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
-          baseYear={APP_CONFIG.BASE_YEAR_ELECTRICITY}
+          baseYear={compareYear || APP_CONFIG.BASE_YEAR_ELECTRICITY}
           compareYear={compareYear || APP_CONFIG.LAST_YEAR}
           currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={electricPowerUtilization?.latestDate || latestDate}
@@ -91,7 +91,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-1" title="單台用電" to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
-          baseYear={APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
+          baseYear={compareYear || APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
           compareYear={compareYear || APP_CONFIG.LAST_YEAR}
           currentYear={APP_CONFIG.CURRENT_YEAR}
           latestDate={singleElectric?.latestDate || latestDate}

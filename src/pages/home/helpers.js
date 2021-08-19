@@ -1,4 +1,6 @@
 import { isNil } from 'lodash';
+import { isValid } from 'date-fns';
+
 import { baseFormatter } from '../../utils/formatter';
 
 export function formatTarget(target) {
@@ -15,8 +17,8 @@ export function formatTarget(target) {
 }
 
 export function formatYtm(date) {
-  if (isNil(date)) {
-    return '';
+  if (!isValid(new Date(date))) {
+    return '-';
   }
 
   const month = new Date(date).getMonth() + 1;

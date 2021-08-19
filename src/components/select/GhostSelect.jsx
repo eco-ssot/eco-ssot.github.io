@@ -5,20 +5,24 @@ import clsx from 'clsx';
 
 export default function GhostSelect({
   className,
+  buttonClassName,
+  queryKey,
   options = [],
-  selected = {},
-  queryKey = '',
+  selected = options[0] || {},
   onChange = () => {},
 }) {
   return (
-    <Listbox value={selected} onChange={(e) => onChange({ query: { [queryKey]: e.key } })}>
+    <Listbox
+      value={selected}
+      onChange={(e) => queryKey && onChange({ query: { [queryKey]: e.key } })}>
       {({ open }) => (
         <>
           <div className={clsx('mt-1 relative', className)}>
             <Listbox.Button
               className={clsx(
                 'bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',
-                open ? 'border-primary-600' : 'border-primary-800'
+                open ? 'border-primary-600' : 'border-primary-800',
+                buttonClassName
               )}>
               <span className="block truncate text-lg">{selected.value}</span>
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">

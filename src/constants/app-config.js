@@ -6,6 +6,12 @@ const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR + 1 }, (_, i) =>
   value: String(LAST_YEAR - i),
 }));
 
+const BUSINESS_OPTIONS = [
+  { key: 'ALL', value: 'ALL' },
+  { key: 'WT', value: 'WT' },
+  { key: 'WSD', value: 'WSD' },
+];
+
 const HISTORY_OPTIONS = [
   { key: 'CURRENT', value: '當年度' },
   { key: 'HISTORY', value: '歷史年度' },
@@ -51,6 +57,7 @@ const SITE_OPTIONS = [
 ];
 
 const APP_CONFIG = {
+  BUSINESS_OPTIONS,
   YEAR_OPTIONS,
   HISTORY_OPTIONS,
   DIMENSION_OPTIONS,
