@@ -46,7 +46,7 @@ const OPTION = (values, labels, target) => ({
       }),
     },
   ],
-  grid: { top: 24, bottom: 36, left: 16, right: 48, containerLabel: true },
+  grid: { top: 24, bottom: 36, left: 16, right: 60, containerLabel: true },
 });
 
 export default function Electricity({ baseYear, compareYear, currentYear, latestDate, data = {} }) {

@@ -22,7 +22,7 @@ export default function Header({ className }) {
       </Link>
       <Divider className="h-1/2" />
       <GhostSelect
-        buttonClassName="w-36"
+        buttonClassName="w-32"
         options={APP_CONFIG.BUSINESS_OPTIONS}
         onChange={navigate}
         selected={APP_CONFIG.BUSINESS_OPTIONS.find((option) => option.key === business)}
