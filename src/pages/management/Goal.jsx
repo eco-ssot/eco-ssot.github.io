@@ -1,15 +1,17 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
 import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
+import { usePatchGoalMutation } from '../../services/management';
+import { keepPrecisionFormatter } from '../../utils/formatter';
 
-const COLUMNS = ({ setData }) => [
+const COLUMNS = ({ setData, year, patchGoal }) => [
   {
     Header: '項目',
-    accessor: 'item',
+    accessor: 'category',
     className: 'w-[18%]',
   },
   {
@@ -25,10 +27,11 @@ const COLUMNS = ({ setData }) => [
     className: 'w-[18%]',
   },
   {
-    Header: '2021年 Target',
-    accessor: '2021',
+    Header: `${year}年 Target`,
+    accessor: 'amount',
     editable: true,
     className: 'w-[18%]',
+    formatter: keepPrecisionFormatter,
   },
   {
     Header: '單位',
@@ -42,14 +45,16 @@ const COLUMNS = ({ setData }) => [
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <Button
-          onClick={() =>
-            setData((prev) =>
+          onClick={() => {
+            const { id, editing, category, unit, ...rest } = cell.row.original;
+            patchGoal({ id, year, data: rest });
+            return setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
                 ...(i === cell.row.index && { editing: false }),
               }))
-            )
-          }>
+            );
+          }}>
           儲存
         </Button>
       ) : (
@@ -70,36 +75,10 @@ const COLUMNS = ({ setData }) => [
   },
 ];
 
-const DATA = [
-  { item: '碳排放量', baseYear: '2016', target: '逐年下降 4.2 %', 2021: '241,231', unit: '公噸' },
-  { item: '可再生能源', baseYear: '-', target: '占比 > 60 %', 2021: '-', unit: '%' },
-  {
-    item: '用電強度',
-    baseYear: '-',
-    target: '對比去年下降 2 %',
-    2021: '100',
-    unit: '千度 / 十億新臺幣',
-  },
-  {
-    item: '用水強度',
-    baseYear: '2016',
-    target: '逐年下降 1.8 %',
-    2021: '80',
-    unit: '千噸 / 十億臺幣',
-  },
-  { item: '單台用電', baseYear: '-', target: '對比去年下降 3 %', 2021: '100', unit: '度 / 台' },
-  {
-    item: '廢棄物密度',
-    baseYear: '2018',
-    target: '對比基準年下降 2 %',
-    2021: '50.4',
-    unit: '千噸 / 十億新臺幣',
-  },
-];
-
-export default function Goal({ className }) {
-  const [data, setData] = useState(() => DATA);
-  const columns = useMemo(() => COLUMNS({ setData }), []);
+export default function Goal({ className, year, data }) {
+  const [patchGoal] = usePatchGoalMutation();
+  const [dataSource, setData] = useState(data);
+  const columns = COLUMNS({ setData, patchGoal, year });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {
@@ -115,11 +94,12 @@ export default function Goal({ className }) {
     );
   };
 
+  useEffect(() => data && setData(data), [data]);
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
       <EditableTable
         columns={columns}
-        data={data}
+        data={dataSource}
         updateMyData={updateMyData}
         getRowProps={() => ({ className: 'border-b border-divider' })}
       />

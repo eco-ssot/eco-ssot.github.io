@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTable } from 'react-table';
 import clsx from 'clsx';
 import { PlusIcon } from '@heroicons/react/solid';
+import { isNil } from 'lodash';
 
 import Input from '../../components/input/Input';
 import IconButton from '../button/IconButton';
@@ -12,7 +13,7 @@ const EditableCell = ({
     index,
     original: { editing },
   },
-  column: { id, editable, placeholder },
+  column: { id, editable, placeholder, formatter = (val) => val },
   updateMyData,
 }) => {
   const [value, setValue] = useState(initialValue);
@@ -31,7 +32,7 @@ const EditableCell = ({
   return editable && editing ? (
     <Input value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
   ) : (
-    <>{value}</>
+    <>{isNil(value) || value === '' ? '-' : formatter(value)}</>
   );
 };
 

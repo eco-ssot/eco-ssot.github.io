@@ -1,12 +1,15 @@
+import { useEffect } from 'react';
 import clsx from 'clsx';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
+import { format } from 'date-fns';
 
 import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
+import { usePatchCarbonIndexMutation } from '../../services/management';
 
-const COLUMNS = ({ setData }) => [
+const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
   {
     Header: 'Site',
     accessor: 'site',
@@ -14,14 +17,15 @@ const COLUMNS = ({ setData }) => [
   },
   {
     Header: '碳排放係數',
-    accessor: 'carbonIndex',
+    accessor: 'amount',
     editable: true,
     className: 'w-[30%]',
   },
   {
     Header: '更新日期',
-    accessor: 'updateTime',
+    accessor: 'lastUpdateTime',
     className: 'w-[30%]',
+    Cell: ({ value }) => format(new Date(value), 'yyyy.MM.dd'),
   },
   {
     Header: '編輯',
@@ -30,14 +34,16 @@ const COLUMNS = ({ setData }) => [
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <Button
-          onClick={() =>
-            setData((prev) =>
+          onClick={() => {
+            const { id, editing, lastUpdateTime, site, ...rest } = cell.row.original;
+            patchCarbonIndex({ id, year, data: rest });
+            return setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
                 ...(i === cell.row.index && { editing: false }),
               }))
-            )
-          }>
+            );
+          }}>
           儲存
         </Button>
       ) : (
@@ -58,21 +64,10 @@ const COLUMNS = ({ setData }) => [
   },
 ];
 
-const DATA = [
-  { site: 'WNH', carbonIndex: 0.7921, updateTime: '2021.05.07' },
-  { site: 'WHC', carbonIndex: 0.7921, updateTime: '2021.05.07' },
-  { site: 'WIH', carbonIndex: 0.7921, updateTime: '2021.05.07' },
-  { site: 'WKS', carbonIndex: 0.8587, updateTime: '2020.11.29' },
-  { site: 'WZS', carbonIndex: 0.8587, updateTime: '2020.11.29' },
-  { site: 'WCQ', carbonIndex: 0.8042, updateTime: '2021.02.13' },
-  { site: 'WCD', carbonIndex: 0.8042, updateTime: '2021.02.13' },
-  { site: 'WMX', carbonIndex: 0.8042, updateTime: '2021.02.13' },
-  { site: 'WCZ', carbonIndex: 0.8042, updateTime: '2021.02.13' },
-];
-
-export default function CarbonIndex({ className }) {
-  const [data, setData] = useState(() => DATA);
-  const columns = useMemo(() => COLUMNS({ setData }), []);
+export default function CarbonIndex({ className, year, data }) {
+  const [patchCarbonIndex] = usePatchCarbonIndexMutation();
+  const [dataSource, setData] = useState(data);
+  const columns = COLUMNS({ setData, patchCarbonIndex, year });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {
@@ -88,11 +83,12 @@ export default function CarbonIndex({ className }) {
     );
   };
 
+  useEffect(() => data && setData(data), [data]);
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
       <EditableTable
         columns={columns}
-        data={data}
+        data={dataSource}
         updateMyData={updateMyData}
         getRowProps={() => ({ className: 'border-b border-divider' })}
       />

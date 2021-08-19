@@ -8,3 +8,6 @@ export const baseFormatter = (value, option = {}) =>
 
 export const ratioFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { unit: 1e-2, suffix: '%', ...option });
+
+export const keepPrecisionFormatter = (value, option = {}) =>
+  toFormattedNumber(get(value, 'value', value), { ...option, keepPrecision: true });

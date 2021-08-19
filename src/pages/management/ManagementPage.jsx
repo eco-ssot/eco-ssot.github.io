@@ -7,6 +7,7 @@ import Trec from './Trec';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/management';
 
 const YEAR_OPTIONS = [
   { key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR },
@@ -17,8 +18,10 @@ export default function ManagementPage() {
   const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
+  const goalRes = useGetGoalQuery({ year: goalYear });
+  const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   return (
-    <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-full w-full p-4 gap-4 overflow-hidden">
+    <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">
         <div className="bg-primary-900 rounded shadow p-4 h-full flex flex-col">
           <div className="flex flex-grow flex-col space-y-8">
@@ -59,7 +62,7 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <Goal className="flex flex-col flex-grow" year={goalYear} />
+          <Goal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} />
         </div>
       </div>
       <div className="row-span-1 col-span-2">
@@ -78,7 +81,11 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <CarbonIndex className="flex flex-col flex-grow" />
+          <CarbonIndex
+            className="flex flex-col flex-grow"
+            year={carbonIndexYear}
+            data={carbonIndexRes.data?.data}
+          />
         </div>
       </div>
       <div className="row-span-1 col-span-3">

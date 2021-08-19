@@ -9,7 +9,29 @@ export const managementApi = createApi({
     getGoal: builder.query({
       query: ({ year }) => ({ url: `settings/${year}/objective` }),
     }),
+    getCarbonIndex: builder.query({
+      query: ({ year }) => ({ url: `settings/${year}/carbonCoef` }),
+    }),
+    patchGoal: builder.mutation({
+      query: ({ year, id, data }) => ({
+        data,
+        url: `settings/${year}/objective/${id}`,
+        method: 'PATCH',
+      }),
+    }),
+    patchCarbonIndex: builder.mutation({
+      query: ({ year, id, data }) => ({
+        data,
+        url: `settings/${year}/carbonCoef/${id}`,
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 
-export const { useGetGoalQuery } = managementApi;
+export const {
+  useGetGoalQuery,
+  useGetCarbonIndexQuery,
+  usePatchGoalMutation,
+  usePatchCarbonIndexMutation,
+} = managementApi;

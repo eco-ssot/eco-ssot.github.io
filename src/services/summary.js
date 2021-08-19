@@ -6,10 +6,10 @@ export const summaryApi = createApi({
   reducerPath: 'summaryApi',
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getSummaryApi: builder.query({
+    getSummary: builder.query({
       query: (query) => ({ query, url: 'summary' }),
     }),
   }),
 });
 
-export const { useGetSummaryApiQuery } = summaryApi;
+export const { useGetSummaryQuery } = summaryApi;

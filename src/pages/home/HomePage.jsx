@@ -11,14 +11,14 @@ import Panel from '../../components/panel/Panel';
 import Overview from './Overview';
 import TagSelect from '../../components/select/TagSelect';
 import { navigate } from '../../router/helpers';
-import { useGetSummaryApiQuery } from '../../services/summary';
+import { useGetSummaryQuery } from '../../services/summary';
 import { selectCompareYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 import APP_CONFIG from '../../constants/app-config';
 
 export default function HomePage() {
   const compareYear = useSelector(selectCompareYear);
   const business = useSelector(selectBusiness);
-  const { data = {} } = useGetSummaryApiQuery({ business, year: compareYear });
+  const { data = {} } = useGetSummaryQuery({ business, year: compareYear });
   const {
     revenue,
     CO2Emission,
