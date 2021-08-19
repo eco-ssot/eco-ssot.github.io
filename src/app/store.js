@@ -9,6 +9,7 @@ import { unitElectricityApi } from '../services/unitElectricity';
 import { wasteApi } from '../services/waste';
 import { waterApi } from '../services/water';
 import { summaryApi } from '../services/summary';
+import { managementApi } from '../services/management';
 import queryParamsReducer from '../renderless/query-params/queryParamsSlice';
 import loaderReducer from '../renderless/loader/loaderSlice';
 import errorHandlerReducer from '../renderless/error-handler/errorHandlerSlice';
@@ -26,6 +27,7 @@ export const store = configureStore({
     [wasteApi.reducerPath]: wasteApi.reducer,
     [waterApi.reducerPath]: waterApi.reducer,
     [summaryApi.reducerPath]: summaryApi.reducer,
+    [managementApi.reducerPath]: managementApi.reducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
@@ -37,6 +39,7 @@ export const store = configureStore({
     wasteApi.middleware,
     waterApi.middleware,
     summaryApi.middleware,
+    managementApi.middleware,
   ],
 });
 

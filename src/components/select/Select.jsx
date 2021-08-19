@@ -1,18 +1,19 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
 export default function Select({
   className,
-  buttonClassName = '',
-  optionClassName = '',
-  label = '',
+  buttonClassName,
+  optionClassName,
+  label,
   options = [],
+  selected = options[0] || {},
+  onChange = () => {},
 }) {
-  const [selected, setSelected] = useState(options[0]);
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={selected} onChange={onChange}>
       {({ open }) => (
         <div className={clsx('flex items-center', className)}>
           {label && (

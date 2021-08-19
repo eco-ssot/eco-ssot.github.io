@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Goal from './Goal';
 import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';
@@ -6,7 +8,15 @@ import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
 
+const YEAR_OPTIONS = [
+  { key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR },
+  ...APP_CONFIG.YEAR_OPTIONS,
+];
+
 export default function ManagementPage() {
+  const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
+  const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONFIG.CURRENT_YEAR);
+  const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
   return (
     <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-full w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">
@@ -41,10 +51,15 @@ export default function ManagementPage() {
           <div className="flex justify-between">
             <div>年度目標</div>
             <div className="flex items-center">
-              <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
+              <Select
+                label="查詢年度："
+                options={YEAR_OPTIONS}
+                selected={YEAR_OPTIONS.find((option) => option.key === goalYear)}
+                onChange={(e) => setGoalYear(e.key)}
+              />
             </div>
           </div>
-          <Goal className="flex flex-col flex-grow" />
+          <Goal className="flex flex-col flex-grow" year={goalYear} />
         </div>
       </div>
       <div className="row-span-1 col-span-2">
@@ -55,7 +70,12 @@ export default function ManagementPage() {
               <div className="text-unit">(兆瓦時/公噸)</div>
             </div>
             <div className="flex items-center">
-              <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
+              <Select
+                label="查詢年度："
+                options={YEAR_OPTIONS}
+                selected={YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
+                onChange={(e) => setCarbonIndexYear(e.key)}
+              />
             </div>
           </div>
           <CarbonIndex className="flex flex-col flex-grow" />
@@ -66,7 +86,12 @@ export default function ManagementPage() {
           <div className="flex justify-between">
             <div>綠證</div>
             <div className="flex items-center">
-              <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
+              <Select
+                label="查詢年度："
+                options={YEAR_OPTIONS}
+                selected={YEAR_OPTIONS.find((option) => option.key === tRecYear)}
+                onChange={(e) => setTrecYear(e.key)}
+              />
             </div>
           </div>
           <Trec className="flex flex-col flex-grow" />

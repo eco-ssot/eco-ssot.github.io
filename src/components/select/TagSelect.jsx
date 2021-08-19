@@ -8,17 +8,19 @@ import Divider from '../divider/Divider';
 export default function TagSelect({
   className,
   children,
+  label,
+  queryKey,
   options = [],
-  selected = {},
-  label = '',
-  queryKey = '',
+  selected = options[0] || {},
   onChange = () => {},
 }) {
   return (
     <div className="w-auto h-8 items-center flex rounded shadow bg-primary-800">
       <div className="pl-3">{children}</div>
       <Divider className="border-primary-600" />
-      <Listbox value={selected} onChange={(e) => onChange({ query: { [queryKey]: e.key } })}>
+      <Listbox
+        value={selected}
+        onChange={(e) => queryKey && onChange({ query: { [queryKey]: e.key } })}>
         {({ open }) => (
           <>
             {label && <Listbox.Label className="font-medium">{label}</Listbox.Label>}

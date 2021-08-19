@@ -1,6 +1,6 @@
 import qs from 'query-string';
 
-import axios from '../axios';
+import axios from '.';
 
 export const axiosBaseQuery =
   ({ baseUrl = '/' } = {}) =>

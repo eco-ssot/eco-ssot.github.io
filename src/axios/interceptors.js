@@ -9,6 +9,7 @@ export function mockInterceptor(config) {
           try {
             json = await import(`../__mocks__/${method}${mockPath || filename}/${search || ''}`);
           } catch (err) {
+            console.error(err);
           } finally {
             setTimeout(() => {
               const response = {
@@ -28,4 +29,14 @@ export function mockInterceptor(config) {
   }
 
   return config;
+}
+
+export function loggerInterceptor(response) {
+  const {
+    status,
+    config: { url, method },
+  } = response;
+
+  console.info(`[${method.toUpperCase()}] ${url} ${status}`);
+  return response;
 }

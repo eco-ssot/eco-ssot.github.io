@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery } from '../axios/helpers';
 
 export const wasteApi = createApi({
   reducerPath: 'wasteApi',

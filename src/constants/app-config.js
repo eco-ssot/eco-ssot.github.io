@@ -1,7 +1,7 @@
 const CURRENT_YEAR = new Date().getFullYear();
 const LAST_YEAR = CURRENT_YEAR - 1;
 const BASE_YEAR = 2016;
-const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR }, (_, i) => ({
+const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR + 1 }, (_, i) => ({
   key: String(LAST_YEAR - i),
   value: String(LAST_YEAR - i),
 }));

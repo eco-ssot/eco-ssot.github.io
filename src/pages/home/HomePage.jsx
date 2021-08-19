@@ -40,10 +40,7 @@ export default function HomePage() {
           <TagSelect
             options={APP_CONFIG.YEAR_OPTIONS}
             label="對比年度："
-            selected={
-              APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear) ||
-              APP_CONFIG.YEAR_OPTIONS[0]
-            }
+            selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
             onChange={navigate}
             queryKey="year">
             {`累計區間：${
