@@ -23,7 +23,7 @@ const OPTION = (values, labels, target) => ({
     splitLine: { show: false },
     axisLine: { show: false },
     ...(target > Math.max(...values) && {
-      max: target,
+      max: Math.ceil(target),
     }),
   },
   series: [
@@ -63,7 +63,7 @@ export default function Carbon({ baseYear, compareYear, currentYear, latestDate,
       <Chart className="flex w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4">
         <Legend dotClassName="bg-_yellow" label="基準年" />
-        <Legend dotClassName="bg-_orange" label={`Target : ${data.target}`} />
+        <Legend dotClassName="bg-_orange" label={`Target : ${data.target || '-'}`} />
         <div>單位：公噸</div>
       </div>
     </div>

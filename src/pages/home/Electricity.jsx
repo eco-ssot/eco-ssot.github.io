@@ -23,7 +23,7 @@ const OPTION = (values, labels, target) => ({
     splitLine: { show: false },
     axisLine: { show: false },
     ...(target > Math.max(...values) && {
-      max: target,
+      max: Math.ceil(target),
     }),
   },
   series: [
@@ -62,7 +62,7 @@ export default function Electricity({ baseYear, compareYear, currentYear, latest
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4">
-        <Legend dotClassName="bg-_orange" label={`Target : ${data.target}`} />
+        <Legend dotClassName="bg-_orange" label={`Target : ${data.target || '-'}`} />
         <div>單位：千度/十億台幣</div>
       </div>
     </div>
