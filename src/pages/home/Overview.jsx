@@ -68,7 +68,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
     },
     {
       title: '用水量',
-      unit: '(KM³)',
+      unit: '(千噸)',
       gradient: waterUse?.gradient,
       subData: [
         { key: compareYear, value: waterUse?.compareYear },

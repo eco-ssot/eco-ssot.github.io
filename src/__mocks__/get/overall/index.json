@@ -52,7 +52,7 @@
   },
   {
     "title": "用水量",
-    "unit": "(KM³)",
+    "unit": "(千噸)",
     "overall": 0.1,
     "direction": "down",
     "color": "text-primary-500",
