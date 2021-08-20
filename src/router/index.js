@@ -14,8 +14,8 @@ export default function Router({ children }) {
         {privateRoutes.map(({ path, component: Component, skeleton: Skeleton }) => (
           <PrivateRoute exact key={path} path={path} component={Component} skeleton={Skeleton} />
         ))}
-        <Route path="/login" component={LoginPage} />
-        <Redirect from="/" to="/home" />
+        <Route exact path="/login" component={LoginPage} />
+        <Redirect exact from="/" to="/home" />
       </Switch>
     </HashRouter>
   );

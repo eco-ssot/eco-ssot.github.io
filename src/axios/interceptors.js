@@ -40,3 +40,12 @@ export function loggerInterceptor(response) {
   console.info(`[${method.toUpperCase()}] ${url} ${status}`);
   return response;
 }
+
+export function tokenInterceptor(config) {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+}

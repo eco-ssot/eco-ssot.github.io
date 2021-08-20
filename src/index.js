@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './app/App';
 import { store } from './app/store';
+import KeycloakProvider from './keycloak/KeycloakProvider';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
@@ -11,7 +12,9 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <KeycloakProvider>
+        <App />
+      </KeycloakProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

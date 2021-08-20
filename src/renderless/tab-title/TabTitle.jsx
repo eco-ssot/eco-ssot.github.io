@@ -1,10 +1,11 @@
-import { useTitle, useLocation } from 'react-use';
+import { useLocation } from 'react-router-dom';
+import { useTitle } from 'react-use';
 
 import { privateRoutes } from '../../router/routes';
 
 export default function TabTitle() {
-  const location = useLocation();
-  const title = privateRoutes.find(({ path }) => new RegExp(path).test(location.href))?.title || '';
-  useTitle(title ? `ECO SSOT - ${title}` : 'ECO SSOT');
+  const { pathname } = useLocation();
+  const title = privateRoutes.find(({ path }) => path === pathname)?.title || '';
+  useTitle(title ? `${title} - ECO SSOT` : 'ECO SSOT');
   return null;
 }

@@ -16,7 +16,7 @@ export default function NavBar({ className }) {
               : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
           }>
           <Link
-            to={path}
+            to={{ pathname: path, state: { from: pathname } }}
             className="text-current text-lg font-medium"
             onMouseEnter={() => Component.preload()}>
             <span className="block truncate">{title}</span>
