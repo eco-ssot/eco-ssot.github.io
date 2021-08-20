@@ -9,9 +9,11 @@ export default function Panel({ children, className, to, title = null, subtitle 
         className
       )}>
       <div className="h-auto flex justify-between">
-        <Link className="text-gray-200 hover:text-gray-50" to={to}>
-          {title}
-        </Link>
+        {to && (
+          <Link className="text-gray-200 hover:text-gray-50" to={to}>
+            {title}
+          </Link>
+        )}
         {subtitle}
       </div>
       <div className="flex-grow">{children}</div>

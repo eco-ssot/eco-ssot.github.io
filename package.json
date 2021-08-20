@@ -5,13 +5,14 @@
   "dependencies": {
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.3",
+    "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^1.5.1",
-    "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "currency.js": "^2.0.4",
     "date-fns": "^2.23.0",
     "echarts": "^4.9.0",
+    "keycloak-js": "^15.0.1",
     "lodash": "^4.17.21",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
@@ -48,7 +49,9 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.2.0",
+    "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/postcss7-compat": "^2.2.7",
+    "@testing-library/dom": "^8.1.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -58,7 +61,8 @@
     "gh-pages": "^3.2.3",
     "postcss": "7",
     "prettier": "^2.3.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typescript": "^4.3.5"
   },
   "homepage": "https://eco-ssot.github.io/"
 }
