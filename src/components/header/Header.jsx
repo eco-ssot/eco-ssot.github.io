@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useKeycloak } from '@react-keycloak/web';
 
 import NavBar from '../nav-bar/NavBar';
 import Divider from '../divider/Divider';
@@ -12,8 +13,9 @@ import { navigate } from '../../router/helpers';
 import { selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 import APP_CONFIG from '../../constants/app-config';
 
-export default function Header({ className, authenticated = false }) {
+export default function Header({ className }) {
   const business = useSelector(selectBusiness);
+  const { keycloak } = useKeycloak();
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center font-medium text-2xl space-x-4" to="/">
@@ -21,7 +23,7 @@ export default function Header({ className, authenticated = false }) {
         <div className="block truncate">ESG 績效管理平台</div>
       </Link>
       <Divider className="h-1/2" />
-      {authenticated ? (
+      {keycloak?.authenticated ? (
         <>
           <GhostSelect
             className="w-32"
@@ -43,7 +45,11 @@ export default function Header({ className, authenticated = false }) {
       </div>
 
       <Divider className="h-1/2" />
-      {authenticated ? <Avatar>Dawin Zhu</Avatar> : <div>Login</div>}
+      {keycloak?.authenticated ? (
+        <Avatar>{keycloak?.idTokenParsed?.given_name}</Avatar>
+      ) : (
+        <div>Login</div>
+      )}
     </div>
   );
 }
