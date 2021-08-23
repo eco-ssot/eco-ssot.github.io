@@ -42,6 +42,7 @@ build:image:
       - Dockerfile
       - package.json
       - .gitlab-ci.yml
+      - .env.*
   script:
     - docker pull harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend || true
     - docker build -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend .
