@@ -31,18 +31,12 @@ html[class='dark'] {
 
 @screen xl {
   html {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
 @screen 2xl {
   html {
     font-size: 15px;
-  }
-}
-
-@screen max-h-600 {
-  html {
-    font-size: 10px;
   }
 }

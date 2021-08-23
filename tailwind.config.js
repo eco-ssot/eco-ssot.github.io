@@ -62,9 +62,6 @@ module.exports = {
       zIndex: {
         '-1': -1,
       },
-      screens: {
-        'max-h-600': { raw: '(max-height: 600px)' },
-      },
     },
   },
   variants: {
