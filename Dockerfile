@@ -26,7 +26,6 @@ COPY --from=builder /app/build .
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 # build & run service
-# docker build --build-arg stage=stage -t eco-ssot-frontend:0.0.0-stage .
-# docker tag eco-ssot-frontend harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
-# docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend
+# docker build --build-arg STAGE=stage -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:0.0.0-stage .
+# docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:0.0.0-stage
 # docker run --rm -it -p 8080:80 eco-ssot-frontend
