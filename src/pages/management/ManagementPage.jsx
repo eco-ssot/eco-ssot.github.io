@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useKeycloak } from '@react-keycloak/web';
 
 import Goal from './Goal';
 import CarbonIndex from './CarbonIndex';
@@ -15,11 +16,23 @@ const YEAR_OPTIONS = [
 ];
 
 export default function ManagementPage() {
+  const { keycloak } = useKeycloak();
   const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const goalRes = useGetGoalQuery({ year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
+  const {
+    family_name = '-',
+    given_name = '-',
+    preferred_username = '-',
+  } = keycloak?.idTokenParsed || {};
+
+  const role =
+    (keycloak?.realmAccess?.roles || []).filter(
+      (r) => !['offline_access', 'uma_authorization'].includes(r)
+    )[0] || '-';
+
   return (
     <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">
@@ -28,20 +41,20 @@ export default function ManagementPage() {
             <div>管理者資訊</div>
             <div className="space-y-2">
               <div className="text-primary-600">User Name</div>
-              <div>Vivienne CL Huang</div>
-              <div>黃千千</div>
+              <div>{given_name}</div>
+              <div>{family_name}</div>
             </div>
             <div className="space-y-2">
               <div className="text-primary-600">Department</div>
-              <div>DMA130</div>
+              <div>-</div>
             </div>
             <div className="space-y-2">
               <div className="text-primary-600">ID</div>
-              <div>K8906K84</div>
+              <div>{preferred_username}</div>
             </div>
             <div className="space-y-2">
               <div className="text-primary-600">Level</div>
-              <div>系統管理者</div>
+              <div>{role}</div>
             </div>
           </div>
           <div className="border-t border-divider text-center">
