@@ -58,7 +58,9 @@ export default function ManagementPage() {
             </div>
           </div>
           <div className="border-t border-divider text-center">
-            <Button className="mt-4">登出</Button>
+            <Button className="mt-4" onClick={() => keycloak?.logout()}>
+              登出
+            </Button>
           </div>
         </div>
       </div>

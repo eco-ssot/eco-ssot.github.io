@@ -4,7 +4,6 @@ import { useKeycloak } from '@react-keycloak/web';
 
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
-import UnauthorizedPage from '../pages/unauthorized/UnauthorizedPage';
 
 export default function PrivateRoute({
   component: Component,
@@ -13,7 +12,7 @@ export default function PrivateRoute({
 }) {
   const { keycloak } = useKeycloak();
   if (keycloak?.authenticated && !keycloak?.hasRealmRole('developer')) {
-    return <UnauthorizedPage />;
+    return <Redirect to="/unauthorized" />;
   }
 
   return (

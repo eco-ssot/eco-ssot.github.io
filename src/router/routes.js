@@ -3,6 +3,8 @@ import { lazy } from 'react';
 import LoginPage from '../pages/login/LoginPage';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
+import UnauthorizedPage from '../pages/unauthorized/UnauthorizedPage';
+import ErrorPage from '../pages/error/ErrorPage';
 
 export function lazyPreload(factory) {
   const Component = lazy(factory);
@@ -15,6 +17,16 @@ export const publicRoutes = [
     path: '/login',
     title: '登入',
     component: LoginPage,
+  },
+  {
+    path: '/unauthorized',
+    title: '',
+    component: UnauthorizedPage,
+  },
+  {
+    path: '/error',
+    title: '',
+    component: ErrorPage,
   },
 ];
 
