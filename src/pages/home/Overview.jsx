@@ -77,7 +77,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
     },
     {
       title: '廢棄物',
-      unit: '(千噸)',
+      unit: '(公噸)',
       gradient: waste?.gradient,
       subData: [
         { key: compareYear, value: waste?.compareYear },

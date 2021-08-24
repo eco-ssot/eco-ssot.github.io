@@ -69,7 +69,7 @@ export default function Waste({ baseYear, compareYear, currentYear, latestDate, 
       <div className="flex flex-col h-full justify-center items-start space-y-4">
         <Legend dotClassName="bg-_yellow" label="基準年" />
         <Legend dotClassName="bg-_orange" label={`Target : ${data.target || '-'}`} />
-        <div>單位：千噸/十億台幣</div>
+        <div>單位：公噸/十億台幣</div>
       </div>
     </div>
   );

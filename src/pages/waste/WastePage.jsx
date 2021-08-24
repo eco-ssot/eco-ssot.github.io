@@ -63,7 +63,7 @@ const HEADERS = [
   },
   {
     key: 'waste',
-    name: '廢棄物產生密度 (千噸/十億新台幣)',
+    name: '廢棄物產生密度 (公噸/十億新台幣)',
     subHeaders: [
       { key: 2021, name: '2021年1-6月' },
       { key: 2018, name: '2018年' },
