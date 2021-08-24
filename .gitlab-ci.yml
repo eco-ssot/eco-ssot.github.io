@@ -11,7 +11,7 @@ stages:
 
 default:
   tags:
-    - DESKTOP-A44DDOI
+    - TPEA90099186
 
 deploy:
   stage: deploy
