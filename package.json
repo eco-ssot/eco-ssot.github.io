@@ -9,7 +9,6 @@
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
-    "currency.js": "^2.0.4",
     "date-fns": "^2.23.0",
     "echarts": "^4.9.0",
     "keycloak-js": "^15.0.1",
