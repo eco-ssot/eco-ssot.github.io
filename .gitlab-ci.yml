@@ -21,8 +21,11 @@ deploy:
   only:
     refs:
       - tags
+  variables:
+    USER: $SSOT_USER_NAME
+    TOKEN: $SSOT_USER_TOKEN
   before_script:
-    - docker login -u $SSOT_USER_NAME -p $SSOT_USER_TOKEN harbor.wistron.com
+    - echo "$TOKEN" | docker login -u $USER --password-stdin harbor.wistron.com
   script:
     # build dev
     - docker build --build-arg STAGE=dev -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$CI_COMMIT_TAG-dev .
