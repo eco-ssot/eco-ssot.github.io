@@ -26,7 +26,7 @@ stages:
 
 default:
   tags:
-    - TPEA90099186
+    - DESKTOP-A44DDOI
 
 build:image:
   stage: build:image
@@ -42,6 +42,8 @@ build:image:
       - package.json
       - .gitlab-ci.yml
       - .env.*
+  before_script:
+    - echo "$SSOT_USER_TOKEN" | docker login -u $SSOT_USER_NAME --password-stdin harbor.wistron.com
   script:
     - docker pull harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend || true
     - docker build -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend .
