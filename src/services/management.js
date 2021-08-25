@@ -29,9 +29,5 @@ export const managementApi = createApi({
   }),
 });
 
-export const {
-  useGetGoalQuery,
-  useGetCarbonIndexQuery,
-  usePatchGoalMutation,
-  usePatchCarbonIndexMutation,
-} = managementApi;
+export const { useGetGoalQuery, useGetCarbonIndexQuery, usePatchGoalMutation, usePatchCarbonIndexMutation } =
+  managementApi;

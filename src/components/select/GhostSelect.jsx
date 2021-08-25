@@ -48,11 +48,7 @@ export default function GhostSelect({
                     value={option}>
                     {({ selected, active }) => (
                       <>
-                        <span
-                          className={clsx(
-                            selected ? 'font-semibold' : 'font-normal',
-                            'block truncate'
-                          )}>
+                        <span className={clsx(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
                           {option.value}
                         </span>
                         {selected ? (

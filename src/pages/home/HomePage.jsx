@@ -19,15 +19,7 @@ export default function HomePage() {
   const compareYear = useSelector(selectYear);
   const business = useSelector(selectBusiness);
   const { data = {} } = useGetSummaryQuery({ business, year: compareYear });
-  const {
-    revenue,
-    CO2Emission,
-    electricPowerUtilization,
-    renewableEnergy,
-    singleElectric,
-    waste,
-    waterUse,
-  } = data;
+  const { revenue, CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse } = data;
 
   const latestDate = revenue?.latestDate;
   return (
@@ -45,18 +37,15 @@ export default function HomePage() {
             queryKey="year">
             {`累計區間：${
               latestDate
-                ? `${new Date(latestDate).getFullYear()}.01 - ${String(
-                    new Date(latestDate).getMonth() + 1
-                  ).padStart(2, 0)}`
+                ? `${new Date(latestDate).getFullYear()}.01 - ${String(new Date(latestDate).getMonth() + 1).padStart(
+                    2,
+                    0
+                  )}`
                 : '-'
             }`}
           </TagSelect>
         }>
-        <Overview
-          data={data}
-          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
-          currentYear={APP_CONFIG.CURRENT_YEAR}
-        />
+        <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />
       </Panel>
       <Panel className="row-span-1 col-span-1" title="碳排放量" to="/carbon">
         <Carbon

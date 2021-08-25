@@ -54,13 +54,7 @@ const OPTION = (values, labels, target) => ({
   grid: { top: 24, bottom: 36, left: 16, right: 60, containerLabel: true },
 });
 
-export default function UnitElectricity({
-  baseYear,
-  compareYear,
-  currentYear,
-  latestDate,
-  data = {},
-}) {
+export default function UnitElectricity({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
   const labels = [
     `${baseYear} Total`,
     `${compareYear} ${formatYtm(latestDate)}`,

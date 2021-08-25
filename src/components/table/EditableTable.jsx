@@ -116,8 +116,7 @@ export default function EditableTable({
                         getColumnProps(cell.column),
                         getCellProps(cell),
                       ])}
-                      {...(cell.column.rowSpan &&
-                        cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
+                      {...(cell.column.rowSpan && cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
                       {...(cell.row.original.id === 'addRow' &&
                         i === cell.row.original.startIndex && {
                           colSpan: cell.row.original.colSpan,

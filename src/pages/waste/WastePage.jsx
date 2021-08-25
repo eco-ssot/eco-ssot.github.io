@@ -12,8 +12,7 @@ import { toFormattedNumber } from '../../utils/number';
 import APP_CONFIG from '../../constants/app-config';
 
 const baseRenderer = ({ value }) => toFormattedNumber(value, { precision: 2 });
-const ratioRenderer = ({ value }) =>
-  toFormattedNumber(value, { unit: 1e-2, suffix: '%', precision: 2 });
+const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%', precision: 2 });
 
 const HEADERS = [
   {
@@ -382,10 +381,7 @@ export default function WastePage() {
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
-        <ButtonGroup
-          options={APP_CONFIG.HISTORY_OPTIONS}
-          onChange={(e) => setIsHistory(e.key === 'HISTORY')}
-        />
+        <ButtonGroup options={APP_CONFIG.HISTORY_OPTIONS} onChange={(e) => setIsHistory(e.key === 'HISTORY')} />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
             <div></div>

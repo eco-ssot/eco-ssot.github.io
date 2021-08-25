@@ -246,10 +246,7 @@ export default function CarbonPage() {
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
-        <ButtonGroup
-          options={APP_CONFIG.HISTORY_OPTIONS}
-          onChange={(e) => setIsHistory(e.key === 'HISTORY')}
-        />
+        <ButtonGroup options={APP_CONFIG.HISTORY_OPTIONS} onChange={(e) => setIsHistory(e.key === 'HISTORY')} />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
             <div></div>

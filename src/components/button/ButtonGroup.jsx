@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 
-export default function ButtonGroup({
-  className,
-  options = [],
-  defaultValue = options[0] || {},
-  onChange = () => {},
-}) {
+export default function ButtonGroup({ className, options = [], defaultValue = options[0] || {}, onChange = () => {} }) {
   const [selected, setSelected] = useState(defaultValue);
   return (
     <div className={clsx('relative z-0 inline-flex shadow-sm rounded-md', className)}>

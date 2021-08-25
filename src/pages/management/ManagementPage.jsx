@@ -10,10 +10,7 @@ import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/management';
 
-const YEAR_OPTIONS = [
-  { key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR },
-  ...APP_CONFIG.YEAR_OPTIONS,
-];
+const YEAR_OPTIONS = [{ key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR }, ...APP_CONFIG.YEAR_OPTIONS];
 
 export default function ManagementPage() {
   const { keycloak } = useKeycloak();
@@ -26,16 +23,10 @@ export default function ManagementPage() {
     keycloak?.logout();
   }, [keycloak]);
 
-  const {
-    family_name = '-',
-    given_name = '-',
-    preferred_username = '-',
-  } = keycloak?.idTokenParsed || {};
+  const { family_name = '-', given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
 
   const role =
-    (keycloak?.realmAccess?.roles || []).filter(
-      (r) => !['offline_access', 'uma_authorization'].includes(r)
-    )[0] || '-';
+    (keycloak?.realmAccess?.roles || []).filter((r) => !['offline_access', 'uma_authorization'].includes(r))[0] || '-';
 
   return (
     <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] w-full p-4 gap-4 overflow-hidden">
@@ -100,11 +91,7 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <CarbonIndex
-            className="flex flex-col flex-grow"
-            year={carbonIndexYear}
-            data={carbonIndexRes.data?.data}
-          />
+          <CarbonIndex className="flex flex-col flex-grow" year={carbonIndexYear} data={carbonIndexRes.data?.data} />
         </div>
       </div>
       <div className="row-span-1 col-span-3">

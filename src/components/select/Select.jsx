@@ -16,9 +16,7 @@ export default function Select({
     <Listbox value={selected} onChange={onChange}>
       {({ open }) => (
         <div className={clsx('flex items-center', className)}>
-          {label && (
-            <Listbox.Label className="block font-medium text-gray-50">{label}</Listbox.Label>
-          )}
+          {label && <Listbox.Label className="block font-medium text-gray-50">{label}</Listbox.Label>}
           <div className="relative">
             <Listbox.Button
               className={clsx(
@@ -54,11 +52,7 @@ export default function Select({
                     value={option}>
                     {({ selected, active }) => (
                       <>
-                        <span
-                          className={clsx(
-                            selected ? 'font-semibold' : 'font-normal',
-                            'block truncate'
-                          )}>
+                        <span className={clsx(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
                           {option.value}
                         </span>
                         {selected ? (

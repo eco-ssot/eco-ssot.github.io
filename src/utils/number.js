@@ -1,13 +1,6 @@
 export function toFormattedNumber(
   value,
-  {
-    unit = 1,
-    precision = 0,
-    suffix = '',
-    defaultValue = '-',
-    keepPrecision = false,
-    maxPrecision = 4,
-  } = {}
+  { unit = 1, precision = 0, suffix = '', defaultValue = '-', keepPrecision = false, maxPrecision = 4 } = {}
 ) {
   if (/Infinity/gi.test(String(value))) {
     return `${value}${suffix}`;

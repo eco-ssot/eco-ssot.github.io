@@ -253,10 +253,7 @@ export default function UnitElectricityPage() {
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
-        <ButtonGroup
-          options={APP_CONFIG.HISTORY_OPTIONS}
-          onChange={(e) => setIsHistory(e.key === 'HISTORY')}
-        />
+        <ButtonGroup options={APP_CONFIG.HISTORY_OPTIONS} onChange={(e) => setIsHistory(e.key === 'HISTORY')} />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
             <div></div>
@@ -293,9 +290,7 @@ export default function UnitElectricityPage() {
             </div>
           </div>
         )}
-        <div className="w-full h-6 text-right">
-          {isHistory ? '* 增減率 = (當年度 − 上年度) / 上年度' : ''}
-        </div>
+        <div className="w-full h-6 text-right">{isHistory ? '* 增減率 = (當年度 − 上年度) / 上年度' : ''}</div>
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}

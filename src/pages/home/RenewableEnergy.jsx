@@ -63,9 +63,7 @@ export default function RenewableEnergy({ data = {} }) {
       <div className="w-1/2 h-full flex items-center justify-center">
         <Chart className="w-full h-full" option={option} />
         <div className="absolute text-center space-y-2">
-          <div className="text-_orange">{`Target : > ${
-            target.replace(/[^0-9]/g, '') || '-'
-          }%`}</div>
+          <div className="text-_orange">{`Target : > ${target.replace(/[^0-9]/g, '') || '-'}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>

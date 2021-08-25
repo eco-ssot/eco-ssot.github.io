@@ -12,11 +12,7 @@ import Button from '../../components/button/Button';
 import { toFormattedNumber } from '../../utils/number';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
-import {
-  selectBusiness,
-  selectYear,
-  selectDimension,
-} from '../../renderless/query-params/queryParamsSlice';
+import { selectBusiness, selectYear, selectDimension } from '../../renderless/query-params/queryParamsSlice';
 import { navigate } from '../../router/helpers';
 
 const renderer = ({ value }) => toFormattedNumber(value);
@@ -142,9 +138,7 @@ export default function OverviewPage() {
   const dimension = useSelector(selectDimension);
   const { data } = useGetOverviewQuery({ business, year, dimension });
   const [selectedYear, setSelectedYear] = useState(year || APP_CONFIG.YEAR_OPTIONS[0].key);
-  const [selectedDimension, setSelectedDimension] = useState(
-    dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key
-  );
+  const [selectedDimension, setSelectedDimension] = useState(dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key);
 
   const columns = useMemo(
     () => COLUMNS({ currYear: year, ...(year && { lastYear: String(Number(year - 1)) }) }),
@@ -192,9 +186,7 @@ export default function OverviewPage() {
                 buttonClassName="w-36"
                 label="資料呈現："
                 options={APP_CONFIG.DIMENSION_OPTIONS}
-                selected={APP_CONFIG.DIMENSION_OPTIONS.find(
-                  (option) => option.key === selectedDimension
-                )}
+                selected={APP_CONFIG.DIMENSION_OPTIONS.find((option) => option.key === selectedDimension)}
                 onChange={(e) => setSelectedDimension(e.key)}
               />
               <Button

@@ -59,9 +59,7 @@ const COLUMNS = ({ setData, data = [] }) => [
         <Button
           onClick={() =>
             setData(() =>
-              setData((prev) =>
-                prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow')
-              )
+              setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'))
             )
           }>
           儲存

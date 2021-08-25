@@ -5,11 +5,7 @@ import { useKeycloak } from '../keycloak';
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
 
-export default function PrivateRoute({
-  component: Component,
-  skeleton: Skeleton = PageContainer,
-  ...rest
-}) {
+export default function PrivateRoute({ component: Component, skeleton: Skeleton = PageContainer, ...rest }) {
   const { keycloak } = useKeycloak();
   if (keycloak?.authenticated && !keycloak?.hasRealmRole('developer')) {
     return <Redirect to="/unauthorized" />;

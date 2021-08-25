@@ -35,8 +35,7 @@ function getTrend(gradient, title) {
 }
 
 export default function Overview({ className, compareYear, currentYear, data = {} }) {
-  const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste, totalPowerSaving } =
-    data;
+  const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste, totalPowerSaving } = data;
 
   const nextData = [
     {
