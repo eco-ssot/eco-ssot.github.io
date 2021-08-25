@@ -16,7 +16,7 @@ const onTokens = (tokens) => {
   localStorage.setItem('token', tokens?.token);
 };
 
-export function KeycloakProvider({ children }) {
+export default function KeycloakProvider({ children }) {
   return (
     <ReactKeycloakProvider
       authClient={keycloak}
@@ -31,7 +31,3 @@ export function KeycloakProvider({ children }) {
     </ReactKeycloakProvider>
   );
 }
-
-export default Number(process.env.REACT_APP_MOCK)
-  ? ({ children }) => <>{children}</>
-  : KeycloakProvider;

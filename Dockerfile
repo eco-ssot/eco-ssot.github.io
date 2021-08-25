@@ -10,8 +10,9 @@ ARG STAGE
 WORKDIR /app
 # Copy all files from current directory to working dir in image
 COPY . .
+# Remove mock files
+RUN rm -rf /app/src/__mocks__
 # install node modules and build assets
-
 RUN yarn install --network-timeout 1000000 && yarn build:${STAGE} && yarn cache clean
 
 # nginx state for serving content
