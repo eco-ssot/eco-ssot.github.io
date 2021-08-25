@@ -23,6 +23,7 @@ export const selectReducer = (state) => state.queryParams;
 export const selectQuery = createSelector(selectReducer, (state) => state.query);
 export const selectSearch = createSelector(selectReducer, (state) => state.search);
 export const selectBusiness = createSelector(selectQuery, (state) => state.business);
-export const selectCompareYear = createSelector(selectQuery, (state) => state.year);
+export const selectYear = createSelector(selectQuery, (state) => state.year);
+export const selectDimension = createSelector(selectQuery, (state) => state.dimension);
 
 export default queryParamsSlice.reducer;

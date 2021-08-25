@@ -12,11 +12,11 @@ import Overview from './Overview';
 import TagSelect from '../../components/select/TagSelect';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/summary';
-import { selectCompareYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
+import { selectYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 import APP_CONFIG from '../../constants/app-config';
 
 export default function HomePage() {
-  const compareYear = useSelector(selectCompareYear);
+  const compareYear = useSelector(selectYear);
   const business = useSelector(selectBusiness);
   const { data = {} } = useGetSummaryQuery({ business, year: compareYear });
   const {

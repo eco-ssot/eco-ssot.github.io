@@ -31,7 +31,8 @@
     "start:dev": "cross-env TAILWIND_MODE=watch dotenv -e .env.development craco start",
     "start:prod": "cross-env TAILWIND_MODE=watch dotenv -e .env.production craco start",
     "build:dev": "dotenv -e .env.development craco build",
-    "build:prod": "dotenv -e .env.production craco build"
+    "build:prod": "dotenv -e .env.production craco build",
+    "prettier": "prettier --config ./.prettierrc.json --write \"./src/**/*.+(js|jsx)\""
   },
   "eslintConfig": {
     "extends": "react-app"

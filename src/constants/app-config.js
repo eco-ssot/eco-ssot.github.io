@@ -18,9 +18,9 @@ const HISTORY_OPTIONS = [
 ];
 
 const DIMENSION_OPTIONS = [
-  { key: 'SITE', value: 'By Site' },
-  { key: 'PLANT', value: 'By Plant' },
-  { key: 'ALL', value: 'All' },
+  { key: 'All', value: 'ALL' },
+  { key: 'Site', value: 'By Site' },
+  { key: 'Plant', value: 'By Plant' },
 ];
 
 const MONTH_RANGE_OPTIONS = [

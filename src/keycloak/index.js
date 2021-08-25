@@ -21,7 +21,7 @@ const authClient = {
   realm: 'dummy',
   refreshToken: token,
   idToken: token,
-  authenticated: false,
+  authenticated: true,
   initialized: true,
   hasRealmRole: () => true,
   hasResourceRole: () => true,

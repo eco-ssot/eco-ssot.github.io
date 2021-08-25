@@ -12,9 +12,7 @@ export default function GhostSelect({
   onChange = () => {},
 }) {
   return (
-    <Listbox
-      value={selected}
-      onChange={(e) => queryKey && onChange({ query: { [queryKey]: e.key } })}>
+    <Listbox value={selected} onChange={(e) => queryKey && onChange({ [queryKey]: e.key })}>
       {({ open }) => (
         <>
           <div className={clsx('mt-1 relative', className)}>

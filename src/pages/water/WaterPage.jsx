@@ -17,7 +17,7 @@ const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suff
 const HEADERS = [
   {
     key: 'water',
-    name: '用水量 (M³)',
+    name: '用水量 (千噸)',
     subHeaders: [
       { key: 2020, name: '2020年' },
       { key: 2021, name: '2021年' },

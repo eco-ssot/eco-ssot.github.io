@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
+import { partition } from 'lodash';
+import { useSelector } from 'react-redux';
 
 import PageContainer from '../../components/page-container/PageContainer';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -9,18 +11,25 @@ import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
 import { toFormattedNumber } from '../../utils/number';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetOverviewQuery } from '../../services/overview';
+import {
+  selectBusiness,
+  selectYear,
+  selectDimension,
+} from '../../renderless/query-params/queryParamsSlice';
+import { navigate } from '../../router/helpers';
 
 const renderer = ({ value }) => toFormattedNumber(value);
 const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%' });
 
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },
-  { key: 'water', name: '用水量 (M³)' },
+  { key: 'water', name: '用水量 (公噸)' },
   { key: 'revenue', name: '營業額 (十億台幣)' },
-  { key: 'asp', name: 'ASP (十億台幣/百萬台)' },
+  { key: 'asp', name: 'ASP (千台幣/台)' },
 ];
 
-const COLUMNS = [
+const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
     id: 'expander',
     Header: '',
@@ -42,20 +51,21 @@ const COLUMNS = [
     Header: 'Site',
     accessor: 'site',
     rowSpan: 0,
+    className: 'w-[7.5%]',
   },
   ...HEADERS.map(({ key, name }) => ({
     id: name,
     Header: () => <div className="border-b border-divider py-3">{name}</div>,
     columns: [
       {
-        Header: '2020年',
-        accessor: [key, 2020].join('.'),
+        Header: `${lastYear}年`,
+        accessor: [key, lastYear].join('.'),
         Cell: renderer,
         className: 'text-right',
       },
       {
-        Header: '2021年',
-        accessor: [key, 2021].join('.'),
+        Header: `${currYear}年`,
+        accessor: [key, currYear].join('.'),
         Cell: renderer,
         className: 'text-right',
       },
@@ -75,129 +85,131 @@ const COLUMNS = [
   })),
 ];
 
-const DATA = [
-  {
-    site: 'WNH',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    site: 'WHC',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    site: 'WIH',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    site: 'WKS',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-    subRows: [],
-  },
-  {
-    site: 'WZS',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-    subRows: [
-      {
-        site: 'WZS-1',
-        electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-        water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-        revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-        asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-      },
-      {
-        site: 'WZS-3',
-        electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-        water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-        revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-        asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-      },
-      {
-        site: 'WZS-6',
-        electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-        water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-        revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-        asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-      },
-    ],
-  },
-  {
-    site: 'WCQ',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    site: 'WCD',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    site: 'WMX',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    site: 'WCZ',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-  {
-    isFooter: true,
-    site: 'Total',
-    electricity: { 2020: 13209805, 2021: 15507280, weight: 0.11, delta: 0.17 },
-    water: { 2020: 169416, 2021: 199831, weight: 0.13, delta: 0.18 },
-    revenue: { 2020: 28.7, 2021: 39.3, weight: 0.14, delta: 0.37 },
-    asp: { 2020: 8.4, 2021: 7.6, weight: 0.09, delta: -0.1 },
-  },
-];
+export function toRow({
+  site,
+  ASPCompareYear,
+  ASPCurrentYear,
+  ASPGradient,
+  ASPWeight,
+  electricCompareYear,
+  electricCurrentYear,
+  electricGradient,
+  electricWeight,
+  revenueCompareYear,
+  revenueCurrentYear,
+  revenueGradient,
+  revenueWeight,
+  waterUseCompareYear,
+  waterUseCurrentYear,
+  waterUseGradient,
+  waterUseWeight,
+  currYear = APP_CONFIG.CURRENT_YEAR,
+  lastYear = APP_CONFIG.LAST_YEAR,
+} = {}) {
+  return {
+    site,
+    electricity: {
+      [currYear]: electricCurrentYear,
+      [lastYear]: electricCompareYear,
+      weight: electricWeight,
+      delta: electricGradient,
+    },
+    water: {
+      [currYear]: waterUseCurrentYear,
+      [lastYear]: waterUseCompareYear,
+      weight: waterUseWeight,
+      delta: waterUseGradient,
+    },
+    revenue: {
+      [currYear]: revenueCurrentYear,
+      [lastYear]: revenueCompareYear,
+      weight: revenueWeight,
+      delta: revenueGradient,
+    },
+    asp: {
+      [currYear]: ASPCurrentYear,
+      [lastYear]: ASPCompareYear,
+      weight: ASPWeight,
+      delta: ASPGradient,
+    },
+    ...(site === 'Total' && { isFooter: true }),
+  };
+}
 
 export default function OverviewPage() {
-  const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => DATA, []);
-  const [isHistory, setIsHistory] = useState(false);
+  const business = useSelector(selectBusiness);
+  const year = useSelector(selectYear);
+  const dimension = useSelector(selectDimension);
+  const { data } = useGetOverviewQuery({ business, year, dimension });
+  const [selectedYear, setSelectedYear] = useState(year || APP_CONFIG.YEAR_OPTIONS[0].key);
+  const [selectedDimension, setSelectedDimension] = useState(
+    dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key
+  );
+
+  const columns = useMemo(
+    () => COLUMNS({ currYear: year, ...(year && { lastYear: String(Number(year - 1)) }) }),
+    [year]
+  );
+
+  const [total, records] = partition(data?.data || [], ({ site }) => site === 'Total');
+  const dataSource = [...records, ...total].map(({ plants, ...rest }) => ({
+    ...toRow(rest),
+    subRows: plants.map(toRow),
+  }));
+
+  const isHistory = year || dimension;
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div>用電、用水、營收及ASP比較</div>
-        {!isHistory && <Tag>{'Target：對比去年下降2%'}</Tag>}
+        {!isHistory && <Tag>{'累計區間：2021.01 - 06'}</Tag>}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
         <ButtonGroup
           options={APP_CONFIG.HISTORY_OPTIONS}
-          onChange={(e) => setIsHistory(e.key === 'HISTORY')}
+          defaultValue={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
+          onChange={(e) => {
+            console.log({ e });
+            navigate({
+              business,
+              year: null,
+              dimension: null,
+              ...(e.key === 'HISTORY' && { year: selectedYear, dimension: selectedDimension }),
+            });
+          }}
         />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
             <div></div>
             <div className="flex justify-center space-x-8 col-span-10">
-              <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
-              <Select label="資料呈現：" options={APP_CONFIG.DIMENSION_OPTIONS} />
-              <Button>搜尋</Button>
+              <Select
+                label="查詢年度："
+                options={APP_CONFIG.YEAR_OPTIONS}
+                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === selectedYear)}
+                onChange={(e) => setSelectedYear(e.key)}
+              />
+              <Select
+                buttonClassName="w-36"
+                label="資料呈現："
+                options={APP_CONFIG.DIMENSION_OPTIONS}
+                selected={APP_CONFIG.DIMENSION_OPTIONS.find(
+                  (option) => option.key === selectedDimension
+                )}
+                onChange={(e) => setSelectedDimension(e.key)}
+              />
+              <Button
+                onClick={() =>
+                  navigate({
+                    business,
+                    year: selectedYear,
+                    dimension: selectedDimension,
+                  })
+                }>
+                搜尋
+              </Button>
             </div>
             <div className="text-right">
-              <Button>Excel</Button>
+              <Button onClick={() => {}}>Excel</Button>
             </div>
           </div>
         )}
@@ -205,7 +217,7 @@ export default function OverviewPage() {
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}
-            data={data}
+            data={dataSource}
             getRowProps={(row) => ({
               className: row.original.isFooter
                 ? 'border-b-2 border-t-2 border-primary-600 font-bold'

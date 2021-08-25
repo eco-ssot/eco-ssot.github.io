@@ -8,7 +8,10 @@ const instance = axios.create({
   baseURL: Number(process.env.REACT_APP_MOCK) ? '' : process.env.REACT_APP_BASE_URL || '',
 });
 
-instance.interceptors.request.use(mockInterceptor);
+if (Number(process.env.REACT_APP_MOCK)) {
+  instance.interceptors.request.use(mockInterceptor);
+}
+
 instance.interceptors.request.use(tokenInterceptor);
 
 instance.interceptors.response.use(loggerInterceptor);

@@ -1,104 +1,103 @@
-[
-  {
-    "title": "營業額",
-    "unit": "(十億台幣)",
-    "overall": 0.1,
-    "direction": "up",
-    "color": "text-primary-500",
-    "data": [
-      {
-        "key": 2020,
-        "value": 184946.89
-      },
-      {
-        "key": 2021,
-        "value": 192366.36
-      }
-    ]
-  },
-  {
-    "title": "用電量",
-    "unit": "(千度)",
-    "overall": 0.1,
-    "direction": "down",
-    "color": "text-primary-500",
-    "data": [
-      {
-        "key": 2020,
-        "value": 291374.76
-      },
-      {
-        "key": 2021,
-        "value": 241087.51
-      }
-    ]
-  },
-  {
-    "title": "碳排量",
-    "unit": "(公噸)",
-    "overall": 0.1,
-    "direction": "up",
-    "color": "text-_red",
-    "data": [
-      {
-        "key": 2020,
-        "value": 48719.01
-      },
-      {
-        "key": 2021,
-        "value": 56837.51
-      }
-    ]
-  },
-  {
-    "title": "用水量",
-    "unit": "(千噸)",
-    "overall": 0.1,
-    "direction": "down",
-    "color": "text-primary-500",
-    "data": [
-      {
-        "key": 2020,
-        "value": 43816.81
-      },
-      {
-        "key": 2021,
-        "value": 39182.76
-      }
-    ]
-  },
-  {
-    "title": "廢棄物",
-    "unit": "(公噸)",
-    "overall": 0.1,
-    "direction": "down",
-    "color": "text-primary-500",
-    "data": [
-      {
-        "key": "數位化",
-        "value": 917.19
-      },
-      {
-        "key": "技改及管理",
-        "value": 803.77
-      }
-    ]
-  },
-  {
-    "title": "總節電量",
-    "unit": "(千度)",
-    "overall": 11208,
-    "direction": null,
-    "color": null,
-    "data": [
-      {
-        "key": "數位化",
-        "value": 7291
-      },
-      {
-        "key": "技改及管理",
-        "value": 3917
-      }
-    ]
-  }
-]
+{
+  "data": [
+    {
+      "site": "Total",
+      "electricCompareYear": 19,
+      "electricCurrentYear": 20,
+      "electricWeight": 1,
+      "electricGradient": 0.05263157894736836,
+      "waterUseCompareYear": 0,
+      "waterUseCurrentYear": 0,
+      "waterUseWeight": "Infinity",
+      "waterUseGradient": "Infinity",
+      "revenueCompareYear": 0,
+      "revenueCurrentYear": 0,
+      "revenueWeight": "Infinity",
+      "revenueGradient": "Infinity",
+      "ASPCompareYear": 0,
+      "ASPCurrentYear": 0,
+      "ASPWeight": "Infinity",
+      "ASPGradient": "Infinity",
+      "plants": []
+    },
+    {
+      "site": "WNH",
+      "electricCompareYear": 1.5,
+      "electricCurrentYear": 2,
+      "electricWeight": 0.1,
+      "electricGradient": 0.33333333333333326,
+      "waterUseCompareYear": 0,
+      "waterUseCurrentYear": 2,
+      "waterUseWeight": "Infinity",
+      "waterUseGradient": "Infinity",
+      "revenueCompareYear": 0,
+      "revenueCurrentYear": 2,
+      "revenueWeight": "Infinity",
+      "revenueGradient": "Infinity",
+      "ASPCompareYear": 0,
+      "ASPCurrentYear": 2,
+      "ASPWeight": "Infinity",
+      "ASPGradient": "Infinity",
+      "plants": []
+    },
+    {
+      "site": "WKS",
+      "electricCompareYear": 168168,
+      "electricCurrentYear": 168168,
+      "electricWeight": 8408.4,
+      "electricGradient": 0,
+      "waterUseCompareYear": 0,
+      "waterUseCurrentYear": 0,
+      "waterUseWeight": "Infinity",
+      "waterUseGradient": "Infinity",
+      "revenueCompareYear": 0,
+      "revenueCurrentYear": 0,
+      "revenueWeight": "Infinity",
+      "revenueGradient": "Infinity",
+      "ASPCompareYear": 0,
+      "ASPCurrentYear": 0,
+      "ASPWeight": "Infinity",
+      "ASPGradient": "Infinity",
+      "plants": [
+        {
+          "site": "WKS_1",
+          "electricCompareYear": 1681,
+          "electricCurrentYear": 1681,
+          "electricWeight": 84.05,
+          "electricGradient": 0,
+          "waterUseCompareYear": 0,
+          "waterUseCurrentYear": 0,
+          "waterUseWeight": "Infinity",
+          "waterUseGradient": "Infinity",
+          "revenueUseCompareYear": 0,
+          "revenueUseCurrentYear": 0,
+          "revenueUseWeight": "Infinity",
+          "revenueUseGradient": "Infinity",
+          "ASPUseCompareYear": 0,
+          "ASPUseCurrentYear": 0,
+          "ASPUseWeight": "Infinity",
+          "ASPUseGradient": "Infinity"
+        },
+        {
+          "site": "WKS_5",
+          "electricCompareYear": 1685,
+          "electricCurrentYear": 1685,
+          "electricWeight": 84.25,
+          "electricGradient": 0,
+          "waterUseCompareYear": 0,
+          "waterUseCurrentYear": 0,
+          "waterUseWeight": "Infinity",
+          "waterUseGradient": "Infinity",
+          "revenueUseCompareYear": 0,
+          "revenueUseCurrentYear": 0,
+          "revenueUseWeight": "Infinity",
+          "revenueUseGradient": "Infinity",
+          "ASPUseCompareYear": 0,
+          "ASPUseCurrentYear": 0,
+          "ASPUseWeight": "Infinity",
+          "ASPUseGradient": "Infinity"
+        }
+      ]
+    }
+  ]
+}

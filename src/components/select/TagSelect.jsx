@@ -18,9 +18,7 @@ export default function TagSelect({
     <div className="w-auto h-8 items-center flex rounded shadow bg-primary-800">
       <div className="pl-3">{children}</div>
       <Divider className="border-primary-600" />
-      <Listbox
-        value={selected}
-        onChange={(e) => queryKey && onChange({ query: { [queryKey]: e.key } })}>
+      <Listbox value={selected} onChange={(e) => queryKey && onChange({ [queryKey]: e.key })}>
         {({ open }) => (
           <>
             {label && <Listbox.Label className="font-medium">{label}</Listbox.Label>}
