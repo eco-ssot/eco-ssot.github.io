@@ -14,6 +14,7 @@ import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/summary';
 import { selectYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 import APP_CONFIG from '../../constants/app-config';
+import { formatMonthRange } from '../../utils/date';
 
 export default function HomePage() {
   const compareYear = useSelector(selectYear);
@@ -35,14 +36,7 @@ export default function HomePage() {
             selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
             onChange={navigate}
             queryKey="year">
-            {`累計區間：${
-              latestDate
-                ? `${new Date(latestDate).getFullYear()}.01 - ${String(new Date(latestDate).getMonth() + 1).padStart(
-                    2,
-                    0
-                  )}`
-                : '-'
-            }`}
+            {`累計區間：${formatMonthRange(latestDate)}`}
           </TagSelect>
         }>
         <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />

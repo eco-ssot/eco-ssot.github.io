@@ -9,14 +9,13 @@ import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { toFormattedNumber } from '../../utils/number';
+import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { addPaddingColumns } from '../../utils/table';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
 import { selectBusiness, selectYear, selectDimension } from '../../renderless/query-params/queryParamsSlice';
 import { navigate } from '../../router/helpers';
-
-const renderer = ({ value }) => toFormattedNumber(value);
-const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%' });
+import { formatMonthRange } from '../../utils/date';
 
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },
@@ -25,61 +24,63 @@ const HEADERS = [
   { key: 'asp', name: 'ASP (千台幣/台)' },
 ];
 
-const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
-  {
-    id: 'expander',
-    Header: '',
-    Cell: ({ row }) => {
-      const { title, style, ...rest } = row.getToggleRowExpandedProps();
-      return row.canExpand ? (
-        <div {...rest} className="flex w-12 justify-center">
-          {row.isExpanded ? (
-            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-          ) : (
-            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-          )}
-        </div>
-      ) : null;
+const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+  addPaddingColumns([
+    {
+      id: 'expander',
+      Header: '',
+      Cell: ({ row }) => {
+        const { title, style, ...rest } = row.getToggleRowExpandedProps();
+        return row.canExpand ? (
+          <div {...rest} className="flex justify-center">
+            {row.isExpanded ? (
+              <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
+            ) : (
+              <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
+            )}
+          </div>
+        ) : null;
+      },
+      rowSpan: 0,
+      className: 'w-6',
     },
-    rowSpan: 0,
-  },
-  {
-    Header: 'Site',
-    accessor: 'site',
-    rowSpan: 0,
-    className: 'w-[7.5%]',
-  },
-  ...HEADERS.map(({ key, name }) => ({
-    id: name,
-    Header: () => <div className="border-b border-divider py-3">{name}</div>,
-    columns: [
-      {
-        Header: `${lastYear}年`,
-        accessor: [key, lastYear].join('.'),
-        Cell: renderer,
-        className: 'text-right',
-      },
-      {
-        Header: `${currYear}年`,
-        accessor: [key, currYear].join('.'),
-        Cell: renderer,
-        className: 'text-right',
-      },
-      {
-        Header: '權重',
-        accessor: [key, 'weight'].join('.'),
-        Cell: ratioRenderer,
-        className: 'text-right',
-      },
-      {
-        Header: '增減率 *',
-        accessor: [key, 'delta'].join('.'),
-        Cell: ratioRenderer,
-        className: 'text-right',
-      },
-    ],
-  })),
-];
+    {
+      Header: 'Site',
+      accessor: 'site',
+      rowSpan: 0,
+      className: 'w-24',
+    },
+    ...HEADERS.map(({ key, name }) => ({
+      id: name,
+      Header: () => <div className="border-b border-divider py-3">{name}</div>,
+      columns: [
+        {
+          Header: `${lastYear}年`,
+          accessor: [key, lastYear].join('.'),
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: `${currYear}年`,
+          accessor: [key, currYear].join('.'),
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: '權重',
+          accessor: [key, 'weight'].join('.'),
+          Cell: ratioFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: '增減率 *',
+          accessor: [key, 'delta'].join('.'),
+          Cell: ratioFormatter,
+          className: 'text-right',
+        },
+      ],
+    })),
+  ]);
 
 export function toRow({
   site,
@@ -139,7 +140,6 @@ export default function OverviewPage() {
   const { data } = useGetOverviewQuery({ business, year, dimension });
   const [selectedYear, setSelectedYear] = useState(year || APP_CONFIG.YEAR_OPTIONS[0].key);
   const [selectedDimension, setSelectedDimension] = useState(dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key);
-
   const columns = useMemo(
     () => COLUMNS({ currYear: year, ...(year && { lastYear: String(Number(year - 1)) }) }),
     [year]
@@ -156,21 +156,20 @@ export default function OverviewPage() {
     <PageContainer>
       <div className="flex justify-between h-8">
         <div>用電、用水、營收及ASP比較</div>
-        {!isHistory && <Tag>{'累計區間：2021.01 - 06'}</Tag>}
+        {!isHistory && <Tag>{`累計區間：${formatMonthRange(null)}`}</Tag>}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
         <ButtonGroup
           options={APP_CONFIG.HISTORY_OPTIONS}
-          defaultValue={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
-          onChange={(e) => {
-            console.log({ e });
+          selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
+          onChange={(e) =>
             navigate({
               business,
               year: null,
               dimension: null,
               ...(e.key === 'HISTORY' && { year: selectedYear, dimension: selectedDimension }),
-            });
-          }}
+            })
+          }
         />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">

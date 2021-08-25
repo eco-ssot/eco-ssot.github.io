@@ -1,0 +1,83 @@
+{
+  "data": [
+    {
+      "name": "Total",
+      "totalElectric": 10,
+      "solarElectric": 10,
+      "tRec": 0,
+      "co2Electric": 10,
+      "co2Coefficient": 10,
+      "scope1": 10,
+      "scope2": 10,
+      "scope3": 10,
+      "co2CurrentYear": 10,
+      "co2baseYear": 0,
+      "co2Gradient": 0,
+      "target": 0,
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "totalElectric": 1,
+      "solarElectric": 1,
+      "tRec": 0,
+      "co2Electric": 1,
+      "co2Coefficient": 1,
+      "scope1": 1,
+      "scope2": 1,
+      "scope3": 1,
+      "co2CurrentYear": 1,
+      "co2baseYear": 0,
+      "co2Gradient": 0,
+      "target": 0,
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "totalElectric": 2.4,
+      "solarElectric": 2.4,
+      "tRec": 0,
+      "co2Electric": 2.4,
+      "co2Coefficient": 2.4,
+      "scope1": 2.4,
+      "scope2": 2.4,
+      "scope3": 2.4,
+      "co2CurrentYear": 2.4,
+      "co2baseYear": 0,
+      "co2Gradient": 0,
+      "target": 0,
+      "plants": [
+        {
+          "name": "WKS_1",
+          "totalElectric": 2.2,
+          "solarElectric": 2.2,
+          "tRec": 0,
+          "co2Electric": 2.2,
+          "co2Coefficient": 2.2,
+          "scope1": 2.2,
+          "scope2": 2.2,
+          "scope3": 2.2,
+          "co2CurrentYear": 2.2,
+          "co2baseYear": 0,
+          "co2Gradient": 0,
+          "target": 0
+        },
+        {
+          "name": "WKS_5",
+          "totalElectric": 2.2,
+          "solarElectric": 2.2,
+          "tRec": 0,
+          "co2Electric": 2.2,
+          "co2Coefficient": 2.2,
+          "scope1": 2.2,
+          "scope2": 2.2,
+          "scope3": 2.2,
+          "co2CurrentYear": 2.2,
+          "co2baseYear": 0,
+          "co2Gradient": 0,
+          "target": 0
+        }
+      ]
+    }
+  ]
+}
