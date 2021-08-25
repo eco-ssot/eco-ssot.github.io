@@ -37,6 +37,12 @@ html[class='dark'] {
 
 @screen 2xl {
   html {
+    font-size: 14px;
+  }
+}
+
+@screen 1k {
+  html {
     font-size: 15px;
   }
 }
