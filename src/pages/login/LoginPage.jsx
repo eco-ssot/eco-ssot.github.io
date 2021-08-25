@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { useKeycloak } from '@react-keycloak/web';
 
+import { useKeycloak } from '../../keycloak';
 import Header from '../../components/header/Header';
 import Button from '../../components/button/Button';
 

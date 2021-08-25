@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useKeycloak } from '@react-keycloak/web';
+import { useState, useCallback } from 'react';
 
 import Goal from './Goal';
 import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';
 
+import { useKeycloak } from '../../keycloak';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
@@ -22,6 +22,10 @@ export default function ManagementPage() {
   const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const goalRes = useGetGoalQuery({ year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
+  const logout = useCallback(() => {
+    keycloak?.logout();
+  }, [keycloak]);
+
   const {
     family_name = '-',
     given_name = '-',
@@ -58,7 +62,7 @@ export default function ManagementPage() {
             </div>
           </div>
           <div className="border-t border-divider text-center">
-            <Button className="mt-4" onClick={() => keycloak?.logout()}>
+            <Button className="mt-4" onClick={() => logout()}>
               登出
             </Button>
           </div>

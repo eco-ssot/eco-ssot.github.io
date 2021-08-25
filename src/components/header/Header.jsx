@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useKeycloak } from '@react-keycloak/web';
 
+import { useKeycloak } from '../../keycloak';
 import NavBar from '../nav-bar/NavBar';
 import Divider from '../divider/Divider';
 import GhostSelect from '../select/GhostSelect';

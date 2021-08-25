@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './app/App';
 import { store } from './app/store';
-import KeycloakProvider from './keycloak/KeycloakProvider';
+import { KeycloakProvider } from './keycloak';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
