@@ -1,11 +1,12 @@
 {
   "data": [
     {
-      "site": "Total",
-      "electricCompareYear": 19,
-      "electricCurrentYear": 20,
-      "electricWeight": 1,
-      "electricGradient": 0.05263157894736836,
+      "latestDate": "2021/6/1",
+      "site": "WKS",
+      "electricCompareYear": 168168,
+      "electricCurrentYear": 168168,
+      "electricWeight": 8408.4,
+      "electricGradient": 0,
       "waterUseCompareYear": 0,
       "waterUseCurrentYear": 0,
       "waterUseWeight": "Infinity",
@@ -18,9 +19,51 @@
       "ASPCurrentYear": 0,
       "ASPWeight": "Infinity",
       "ASPGradient": "Infinity",
-      "plants": []
+      "plants": [
+        {
+          "latestDate": "2021/6/1",
+          "site": "WKS_5",
+          "electricCompareYear": 1685,
+          "electricCurrentYear": 1685,
+          "electricWeight": 84.25,
+          "electricGradient": 0,
+          "waterUseCompareYear": 0,
+          "waterUseCurrentYear": 0,
+          "waterUseWeight": "Infinity",
+          "waterUseGradient": "Infinity",
+          "revenueUseCompareYear": 0,
+          "revenueUseCurrentYear": 0,
+          "revenueUseWeight": "Infinity",
+          "revenueUseGradient": "Infinity",
+          "ASPUseCompareYear": 0,
+          "ASPUseCurrentYear": 0,
+          "ASPUseWeight": "Infinity",
+          "ASPUseGradient": "Infinity"
+        },
+        {
+          "latestDate": "2021/6/1",
+          "site": "WKS_1",
+          "electricCompareYear": 1681,
+          "electricCurrentYear": 1681,
+          "electricWeight": 84.05,
+          "electricGradient": 0,
+          "waterUseCompareYear": 0,
+          "waterUseCurrentYear": 0,
+          "waterUseWeight": "Infinity",
+          "waterUseGradient": "Infinity",
+          "revenueUseCompareYear": 0,
+          "revenueUseCurrentYear": 0,
+          "revenueUseWeight": "Infinity",
+          "revenueUseGradient": "Infinity",
+          "ASPUseCompareYear": 0,
+          "ASPUseCurrentYear": 0,
+          "ASPUseWeight": "Infinity",
+          "ASPUseGradient": "Infinity"
+        }
+      ]
     },
     {
+      "latestDate": "2021/6/1",
       "site": "WNH",
       "electricCompareYear": 1.5,
       "electricCurrentYear": 2,
@@ -41,11 +84,12 @@
       "plants": []
     },
     {
-      "site": "WKS",
-      "electricCompareYear": 168168,
-      "electricCurrentYear": 168168,
-      "electricWeight": 8408.4,
-      "electricGradient": 0,
+      "latestDate": "2021/4/1",
+      "site": "Total",
+      "electricCompareYear": 19,
+      "electricCurrentYear": 20,
+      "electricWeight": 1,
+      "electricGradient": 0.05263157894736836,
       "waterUseCompareYear": 0,
       "waterUseCurrentYear": 0,
       "waterUseWeight": "Infinity",
@@ -58,46 +102,7 @@
       "ASPCurrentYear": 0,
       "ASPWeight": "Infinity",
       "ASPGradient": "Infinity",
-      "plants": [
-        {
-          "site": "WKS_1",
-          "electricCompareYear": 1681,
-          "electricCurrentYear": 1681,
-          "electricWeight": 84.05,
-          "electricGradient": 0,
-          "waterUseCompareYear": 0,
-          "waterUseCurrentYear": 0,
-          "waterUseWeight": "Infinity",
-          "waterUseGradient": "Infinity",
-          "revenueUseCompareYear": 0,
-          "revenueUseCurrentYear": 0,
-          "revenueUseWeight": "Infinity",
-          "revenueUseGradient": "Infinity",
-          "ASPUseCompareYear": 0,
-          "ASPUseCurrentYear": 0,
-          "ASPUseWeight": "Infinity",
-          "ASPUseGradient": "Infinity"
-        },
-        {
-          "site": "WKS_5",
-          "electricCompareYear": 1685,
-          "electricCurrentYear": 1685,
-          "electricWeight": 84.25,
-          "electricGradient": 0,
-          "waterUseCompareYear": 0,
-          "waterUseCurrentYear": 0,
-          "waterUseWeight": "Infinity",
-          "waterUseGradient": "Infinity",
-          "revenueUseCompareYear": 0,
-          "revenueUseCurrentYear": 0,
-          "revenueUseWeight": "Infinity",
-          "revenueUseGradient": "Infinity",
-          "ASPUseCompareYear": 0,
-          "ASPUseCurrentYear": 0,
-          "ASPUseWeight": "Infinity",
-          "ASPUseGradient": "Infinity"
-        }
-      ]
+      "plants": []
     }
   ]
 }

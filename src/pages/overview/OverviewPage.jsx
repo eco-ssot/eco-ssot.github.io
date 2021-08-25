@@ -15,7 +15,7 @@ import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
 import { selectBusiness, selectYear, selectDimension } from '../../renderless/query-params/queryParamsSlice';
 import { navigate } from '../../router/helpers';
-import { formatMonthRange } from '../../utils/date';
+import { formatMonthRange, getMaxDate } from '../../utils/date';
 
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },
@@ -151,12 +151,19 @@ export default function OverviewPage() {
     subRows: plants.map(toRow),
   }));
 
+  const maxDate = getMaxDate(
+    ...(data?.data || []).reduce(
+      (prev, { latestDate, plants = [] }) => prev.concat(latestDate).concat(plants.map((p) => p.latestDate)),
+      []
+    )
+  );
+
   const isHistory = year || dimension;
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div>用電、用水、營收及ASP比較</div>
-        {!isHistory && <Tag>{`累計區間：${formatMonthRange(null)}`}</Tag>}
+        {!isHistory && <Tag>{`累計區間：${formatMonthRange(maxDate)}`}</Tag>}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
         <ButtonGroup

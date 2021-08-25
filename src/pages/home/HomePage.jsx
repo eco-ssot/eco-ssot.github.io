@@ -14,15 +14,21 @@ import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/summary';
 import { selectYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
 import APP_CONFIG from '../../constants/app-config';
-import { formatMonthRange } from '../../utils/date';
+import { formatMonthRange, getMaxDate } from '../../utils/date';
 
 export default function HomePage() {
   const compareYear = useSelector(selectYear);
   const business = useSelector(selectBusiness);
   const { data = {} } = useGetSummaryQuery({ business, year: compareYear });
   const { revenue, CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse } = data;
+  const latestDate = getMaxDate(
+    revenue?.latestDate,
+    electricPowerUtilization?.latestDate,
+    CO2Emission?.latestDate,
+    waterUse?.latestDate,
+    waste?.latestDate
+  );
 
-  const latestDate = revenue?.latestDate;
   return (
     <div className="grid grid-rows-3 grid-cols-3 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
