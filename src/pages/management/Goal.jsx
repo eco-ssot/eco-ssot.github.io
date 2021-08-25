@@ -21,10 +21,14 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
     className: 'w-[18%]',
   },
   {
-    Header: 'Target 訂定標準',
+    Header: 'TTarget 訂定標準（對比基準年）',
     accessor: 'target',
     editable: true,
     className: 'w-[18%]',
+    // CustomCell: ({ value = '', ...rest } = {}) => {
+    //   const [match] = value.match(/逐年下降|下降|佔比/) || [];
+    //   return <div {...rest}>{value}</div>;
+    // },
   },
   {
     Header: `${year}年 Target`,

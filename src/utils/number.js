@@ -6,7 +6,7 @@ export function toFormattedNumber(
     suffix = '',
     defaultValue = '-',
     keepPrecision = false,
-    maxPrecision = 3,
+    maxPrecision = 4,
   } = {}
 ) {
   if (/Infinity/gi.test(String(value))) {

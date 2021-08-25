@@ -23,7 +23,7 @@
     "react-use": "^17.2.4"
   },
   "scripts": {
-    "start": "cross-env TAILWIND_MODE=watch craco start",
+    "start": "cross-env TAILWIND_MODE=watch dotenv -e .env craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",

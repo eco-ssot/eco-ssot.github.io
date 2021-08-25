@@ -13,7 +13,7 @@ const EditableCell = ({
     index,
     original: { editing },
   },
-  column: { id, editable, placeholder, formatter = (val) => val },
+  column: { id, editable, placeholder, formatter = (val) => val, CustomCell = null },
   updateMyData,
 }) => {
   const [value, setValue] = useState(initialValue);
@@ -30,7 +30,11 @@ const EditableCell = ({
   }, [initialValue]);
 
   return editable && editing ? (
-    <Input value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
+    CustomCell ? (
+      <CustomCell value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
+    ) : (
+      <Input value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
+    )
   ) : (
     <>{isNil(value) || value === '' ? '-' : formatter(value)}</>
   );
