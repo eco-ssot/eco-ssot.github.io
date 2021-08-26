@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 delete colors['lightBlue'];
 
@@ -8,6 +9,10 @@ module.exports = {
   darkMode: 'media',
   theme: {
     colors: { ...colors, transparent: 'transparent' },
+    screens: {
+      ...defaultTheme.screens,
+      '1k': '1920px',
+    },
     extend: {
       colors: {
         primary: {
@@ -61,9 +66,6 @@ module.exports = {
       },
       zIndex: {
         '-1': -1,
-      },
-      screens: {
-        '1k': '1920px',
       },
     },
   },

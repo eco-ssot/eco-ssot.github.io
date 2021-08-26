@@ -7,7 +7,7 @@ import history from '../router/history';
 const onEvent = (event, error) => {
   console.log('onKeycloakEvent', { event, error });
   if (event === 'onReady') {
-    history.replace(window.location.hash.slice(1));
+    history.replace(window.location.href.replace(window.location.origin, ''));
   }
 };
 

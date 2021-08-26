@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch, Router as HashRouter } from 'react-router-dom';
+import { Redirect, Route, Switch, Router as BrowserRouter } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 import { privateRoutes, publicRoutes } from './routes';
@@ -6,7 +6,7 @@ import history from './history';
 
 export default function Router({ children }) {
   return (
-    <HashRouter history={history}>
+    <BrowserRouter history={history}>
       {children}
       <Switch>
         {publicRoutes.map(({ path, component: Component }) => (
@@ -17,6 +17,6 @@ export default function Router({ children }) {
         ))}
         <Redirect exact from="/" to="/home" />
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

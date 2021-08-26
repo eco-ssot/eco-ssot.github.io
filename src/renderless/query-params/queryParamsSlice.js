@@ -1,7 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import qs from 'query-string';
 
-const search = window.location.href.split('?')[1];
+const search = window.location.search;
 const initialState = {
   search,
   query: { ...qs.parse(search) },
