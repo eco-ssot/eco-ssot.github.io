@@ -139,15 +139,15 @@ export default function OverviewPage() {
   const dimension = useSelector(selectDimension);
   const hash = useSelector(selectHash);
   const { data } = useGetOverviewQuery({ business, year, dimension });
-  const [selectedYear, setSelectedYear] = useState(year || APP_CONFIG.YEAR_OPTIONS[0].key);
-  const [selectedDimension, setSelectedDimension] = useState(dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key);
+  const [selectedYear, setSelectedYear] = useState(year);
+  const [selectedDimension, setSelectedDimension] = useState(dimension);
   const columns = useMemo(
     () => COLUMNS({ currYear: year, ...(year && { lastYear: String(Number(year - 1)) }) }),
     [year]
   );
 
   const [total, records] = partition(data?.data || [], ({ site }) => site === 'Total');
-  const dataSource = [...records, ...total].map(({ plants, ...rest }) => ({
+  const dataSource = [...records, ...total].map(({ plants = [], ...rest }) => ({
     ...toRow(rest),
     subRows: plants.map(toRow),
   }));
@@ -170,7 +170,13 @@ export default function OverviewPage() {
         <ButtonGroup
           options={APP_CONFIG.HISTORY_OPTIONS}
           selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
-          onChange={navigate}
+          onChange={(e) =>
+            navigate({
+              hash: e.key,
+              ...(e.key === APP_CONFIG.HISTORY_OPTIONS[0].key && { dimension: null, year: null }),
+              ...(e.key === APP_CONFIG.HISTORY_OPTIONS[1].key && { dimension: selectedDimension, year: selectedYear }),
+            })
+          }
         />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
@@ -189,14 +195,7 @@ export default function OverviewPage() {
                 selected={APP_CONFIG.DIMENSION_OPTIONS.find((option) => option.key === selectedDimension)}
                 onChange={(e) => setSelectedDimension(e.key)}
               />
-              <Button
-                onClick={() =>
-                  navigate({
-                    business,
-                    year: selectedYear,
-                    dimension: selectedDimension,
-                  })
-                }>
+              <Button onClick={() => navigate({ business, year: selectedYear, dimension: selectedDimension })}>
                 搜尋
               </Button>
             </div>

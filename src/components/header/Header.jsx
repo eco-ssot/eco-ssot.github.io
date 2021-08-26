@@ -45,7 +45,6 @@ export default function Header({ className }) {
         <TimeInfo />
         <WeatherInfo />
       </div>
-
       <Divider className="h-1/2" />
       {keycloak?.authenticated ? <Avatar>{keycloak?.idTokenParsed?.given_name}</Avatar> : <div>Login</div>}
     </div>

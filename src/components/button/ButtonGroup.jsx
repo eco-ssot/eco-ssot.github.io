@@ -13,7 +13,7 @@ export default function ButtonGroup({ className, options = [], selected = option
             i === options.length - 1 && 'rounded-l-none',
             selected.value === value && 'bg-primary-800'
           )}
-          onClick={() => onChange({ hash: key })}>
+          onClick={() => onChange({ key, value })}>
           {value}
         </button>
       ))}
