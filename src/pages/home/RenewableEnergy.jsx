@@ -1,5 +1,5 @@
 import Chart from '../../charts/Chart';
-import colors from '../../styles/colors';
+import { colors } from '../../styles';
 import Legend from '../../components/legend/Legend';
 import { ratioFormatter } from '../../utils/formatter';
 
@@ -42,7 +42,7 @@ const OPTION = (data = []) => ({
       })),
     },
   ],
-  grid: { top: '15%', bottom: '20%', left: 16, right: 0, containerLabel: true },
+  grid: { top: '15%', bottom: '22.5%', left: 16, right: 0, containerLabel: true },
 });
 
 export default function RenewableEnergy({ data = {} }) {
@@ -62,17 +62,17 @@ export default function RenewableEnergy({ data = {} }) {
     <div className="flex w-full h-full items-center justify-between">
       <div className="w-1/2 h-full flex items-center justify-center">
         <Chart className="w-full h-full" option={option} />
-        <div className="absolute text-center space-y-2">
+        <div className="absolute text-center text-lg font-medium">
           <div className="text-_orange">{`Target : > ${target.replace(/[^0-9]/g, '') || '-'}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>
-      <div className="flex flex-col px-8 justify-center w-1/2 space-y-4">
+      <div className="flex flex-col justify-center w-1/2 space-y-4">
         {Object.entries(nextData).map(([name, { dotClassName, value }]) => (
           <Legend
             key={name}
             dotClassName={dotClassName}
-            labelClassName="flex w-4/5 justify-between"
+            labelClassName="flex w-4/5 justify-between text-lg"
             label={
               <>
                 <div>{NAME_MAPPING[name] || name}</div>

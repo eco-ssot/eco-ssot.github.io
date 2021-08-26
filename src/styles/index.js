@@ -1,6 +1,7 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
+
 import tailwindConfig from '../../tailwind.config.js';
 
-const colors = resolveConfig(tailwindConfig).theme.colors;
+const config = resolveConfig(tailwindConfig);
 
-export default colors;
+export const { colors, screens } = config.theme;

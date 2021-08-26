@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { useDeepCompareEffect, useUpdateEffect, useMeasure } from 'react-use';
 import clsx from 'clsx';
 
@@ -42,32 +42,11 @@ import 'echarts/lib/component/markLine';
 // import 'echarts/lib/component/toolbox';
 // import 'zrender/lib/vml/vml';
 
-const BASE_FONT_SIZE = 15;
-
-export function getFontSizeRatio() {
-  const { fontSize = `${BASE_FONT_SIZE}px` } = window.getComputedStyle(document.body);
-  return Number(fontSize.slice(0, -2)) / BASE_FONT_SIZE;
-}
-
-export function updateChartFontSize({ grid = {}, series = [], ...rest } = {}, fontSizeRatio = 1) {
-  const { containLabel, ...restGrid } = grid;
-  return {
-    ...rest,
-    grid: Object.entries(restGrid).reduce(
-      (prev, [key, value]) => ({ ...prev, [key]: typeof value === 'string' ? value : value * fontSizeRatio }),
-      { containLabel }
-    ),
-    series: series.map(({ barWidth, ...restSeries }) => ({
-      ...restSeries,
-      ...(barWidth && { barWidth: typeof barWidth === 'string' ? barWidth : barWidth * fontSizeRatio }),
-    })),
-  };
-}
+import { updateChartFontSize } from './helpers';
 
 export default function Chart({ className, option = {} }) {
   const [containerRef, { width, height }] = useMeasure();
   const chartRef = useRef();
-  const fontSizeRatio = getFontSizeRatio();
   const dataset = (option.series || []).map(({ data }) => data);
   const labels =
     option.xAxis?.type === 'category'
@@ -78,21 +57,22 @@ export default function Chart({ className, option = {} }) {
 
   useUpdateEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current) || { setOption: () => {} };
-    instance.setOption(updateChartFontSize({ ...option, animation: false }, fontSizeRatio));
+    instance.setOption(updateChartFontSize({ ...option, animation: false }));
   }, [labels]);
 
   useDeepCompareEffect(() => {
     const instance = echarts.init(chartRef.current) || { setOption: () => {}, dispose: () => {} };
-    instance.setOption(updateChartFontSize(option, fontSizeRatio));
+    instance.setOption(updateChartFontSize(option));
     return () => instance.dispose();
   }, [dataset]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current);
     if (instance && (instance.getWidth() !== width || instance.getHeight() !== height)) {
+      instance.setOption(updateChartFontSize(option));
       instance.resize();
     }
-  }, [width, height]);
+  }, [{ width, height }]);
 
   return (
     <div ref={containerRef} className={clsx('grid', className)}>

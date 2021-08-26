@@ -1,10 +1,10 @@
 import Chart from '../../charts/Chart';
-import colors from '../../styles/colors';
+import { colors } from '../../styles';
 import Legend from '../../components/legend/Legend';
 import { baseFormatter } from '../../utils/formatter';
 import { formatYtm } from './helpers';
 
-const COLORS = [colors._blue, colors.primary['600'], colors.primary['500']];
+const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
 
 const OPTION = (values, labels, target) => ({
   xAxis: {
@@ -46,7 +46,7 @@ const OPTION = (values, labels, target) => ({
       }),
     },
   ],
-  grid: { top: '15%', bottom: '20%', left: 16, right: 60, containerLabel: true },
+  grid: { top: 24, bottom: 48, left: 16, right: 60, containerLabel: true },
 });
 
 export default function Electricity({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
@@ -61,8 +61,8 @@ export default function Electricity({ baseYear, compareYear, currentYear, latest
   return (
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="w-3/5 h-full" option={option} />
-      <div className="flex flex-col h-full justify-center items-start space-y-4">
-        <Legend dotClassName="bg-_orange" label={`Target : ${data.target || '-'}`} />
+      <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
+        <Legend dotClassName="bg-_orange" label={`目標 : ${data.target || '-'}`} />
         <div>單位：千度/十億台幣</div>
       </div>
     </div>
