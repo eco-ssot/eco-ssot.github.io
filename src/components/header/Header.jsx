@@ -10,7 +10,7 @@ import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
 import Avatar from '../avatar/Avatar';
 import { navigate } from '../../router/helpers';
-import { selectBusiness } from '../../renderless/query-params/queryParamsSlice';
+import { selectBusiness } from '../../renderless/location/locationSlice';
 import APP_CONFIG from '../../constants/app-config';
 import packageJson from '../../../package.json';
 

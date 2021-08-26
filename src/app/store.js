@@ -6,13 +6,13 @@ import { summaryApi } from '../services/summary';
 import { managementApi } from '../services/management';
 import { overviewApi } from '../services/overview';
 import { carbonApi } from '../services/carbon';
-import queryParamsReducer from '../renderless/query-params/queryParamsSlice';
+import locationReducer from '../renderless/location/locationSlice';
 import loaderReducer from '../renderless/loader/loaderSlice';
 import errorHandlerReducer from '../renderless/error-handler/errorHandlerSlice';
 
 export const store = configureStore({
   reducer: {
-    queryParams: queryParamsReducer,
+    location: locationReducer,
     loader: loaderReducer,
     errorHandler: errorHandlerReducer,
     [weatherApi.reducerPath]: weatherApi.reducer,

@@ -12,7 +12,7 @@ import Overview from './Overview';
 import TagSelect from '../../components/select/TagSelect';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/summary';
-import { selectYear, selectBusiness } from '../../renderless/query-params/queryParamsSlice';
+import { selectYear, selectBusiness } from '../../renderless/location/locationSlice';
 import APP_CONFIG from '../../constants/app-config';
 import { formatMonthRange, getMaxDate } from '../../utils/date';
 

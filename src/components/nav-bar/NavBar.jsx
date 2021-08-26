@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
 import { privateRoutes } from '../../router/routes';
-import { selectBusiness } from '../../renderless/query-params/queryParamsSlice';
+import { selectBusiness } from '../../renderless/location/locationSlice';
 
 export default function NavBar({ className }) {
   const { pathname } = useLocation();

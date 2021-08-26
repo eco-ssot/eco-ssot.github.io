@@ -13,7 +13,7 @@ import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
-import { selectBusiness, selectYear, selectDimension } from '../../renderless/query-params/queryParamsSlice';
+import { selectBusiness, selectYear, selectDimension, selectHash } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { formatMonthRange, getMaxDate } from '../../utils/date';
 
@@ -137,6 +137,7 @@ export default function OverviewPage() {
   const business = useSelector(selectBusiness);
   const year = useSelector(selectYear);
   const dimension = useSelector(selectDimension);
+  const hash = useSelector(selectHash);
   const { data } = useGetOverviewQuery({ business, year, dimension });
   const [selectedYear, setSelectedYear] = useState(year || APP_CONFIG.YEAR_OPTIONS[0].key);
   const [selectedDimension, setSelectedDimension] = useState(dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key);
@@ -158,7 +159,7 @@ export default function OverviewPage() {
     )
   );
 
-  const isHistory = year || dimension;
+  const isHistory = hash.slice(1) === APP_CONFIG.HISTORY_OPTIONS[1].key;
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
@@ -169,14 +170,7 @@ export default function OverviewPage() {
         <ButtonGroup
           options={APP_CONFIG.HISTORY_OPTIONS}
           selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
-          onChange={(e) =>
-            navigate({
-              business,
-              year: null,
-              dimension: null,
-              ...(e.key === 'HISTORY' && { year: selectedYear, dimension: selectedDimension }),
-            })
-          }
+          onChange={navigate}
         />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
