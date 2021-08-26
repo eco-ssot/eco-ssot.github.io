@@ -42,9 +42,32 @@ import 'echarts/lib/component/markLine';
 // import 'echarts/lib/component/toolbox';
 // import 'zrender/lib/vml/vml';
 
+const BASE_FONT_SIZE = 15;
+
+export function getFontSizeRatio() {
+  const { fontSize = `${BASE_FONT_SIZE}px` } = window.getComputedStyle(document.body);
+  return Number(fontSize.slice(0, -2)) / BASE_FONT_SIZE;
+}
+
+export function updateChartFontSize({ grid = {}, series = [], ...rest } = {}, fontSizeRatio = 1) {
+  const { containLabel, ...restGrid } = grid;
+  return {
+    ...rest,
+    grid: Object.entries(restGrid).reduce(
+      (prev, [key, value]) => ({ ...prev, [key]: typeof value === 'string' ? value : value * fontSizeRatio }),
+      { containLabel }
+    ),
+    series: series.map(({ barWidth, ...restSeries }) => ({
+      ...restSeries,
+      ...(barWidth && { barWidth: typeof barWidth === 'string' ? barWidth : barWidth * fontSizeRatio }),
+    })),
+  };
+}
+
 export default function Chart({ className, option = {} }) {
   const [containerRef, { width, height }] = useMeasure();
   const chartRef = useRef();
+  const fontSizeRatio = getFontSizeRatio();
   const dataset = (option.series || []).map(({ data }) => data);
   const labels =
     option.xAxis?.type === 'category'
@@ -55,12 +78,12 @@ export default function Chart({ className, option = {} }) {
 
   useUpdateEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current) || { setOption: () => {} };
-    instance.setOption({ ...option, animation: false });
+    instance.setOption(updateChartFontSize({ ...option, animation: false }, fontSizeRatio));
   }, [labels]);
 
   useDeepCompareEffect(() => {
     const instance = echarts.init(chartRef.current) || { setOption: () => {}, dispose: () => {} };
-    instance.setOption(option);
+    instance.setOption(updateChartFontSize(option, fontSizeRatio));
     return () => instance.dispose();
   }, [dataset]);
 

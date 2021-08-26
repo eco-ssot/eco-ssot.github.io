@@ -42,7 +42,7 @@ const OPTION = (data = []) => ({
       })),
     },
   ],
-  grid: { top: 16, bottom: 24, left: 16, right: 0, containerLabel: true },
+  grid: { top: '15%', bottom: '20%', left: 16, right: 0, containerLabel: true },
 });
 
 export default function RenewableEnergy({ data = {} }) {
