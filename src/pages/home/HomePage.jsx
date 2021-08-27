@@ -42,8 +42,7 @@ export default function HomePage() {
             selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
             onChange={navigate}
             queryKey="year">
-            <span>累計區間：</span>
-            <span className="text-lg font-medium">{`${formatMonthRange(latestDate)}`}</span>
+            {`累計區間：${formatMonthRange(latestDate)}`}
           </TagSelect>
         }>
         <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />

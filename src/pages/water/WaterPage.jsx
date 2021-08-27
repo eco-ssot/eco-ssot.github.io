@@ -113,7 +113,7 @@ export default function WaterPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div>W.W 十億營業額用水</div>
+        <div className="text-xl font-medium">十億營業額用水</div>
         {isHistory ? (
           <Tag>Target：對比2016年下降 9%</Tag>
         ) : (

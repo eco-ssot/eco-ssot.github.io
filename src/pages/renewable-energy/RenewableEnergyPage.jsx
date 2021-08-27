@@ -86,7 +86,7 @@ export default function RenewableEnergyPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div>W.W 可再生能源佔比</div>
+        <div className="text-xl font-medium">可再生能源佔比</div>
         {isHistory ? (
           <Tag>{'Target：可再生能源 > 60%'}</Tag>
         ) : (

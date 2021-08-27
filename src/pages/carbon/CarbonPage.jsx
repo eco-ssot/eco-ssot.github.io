@@ -111,7 +111,7 @@ export default function CarbonPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div>W.W 碳排放管理</div>
+        <div className="text-xl font-medium">碳排放管理</div>
         {isHistory ? (
           <Tag>{'Target：對比2016年，每年下降4.2%'}</Tag>
         ) : (

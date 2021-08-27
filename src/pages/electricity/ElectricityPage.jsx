@@ -101,7 +101,7 @@ export default function ElectricityPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div>W.W 十億營業額用電</div>
+        <div className="text-xl font-medium">十億營業額用電</div>
         {isHistory ? (
           <Tag>{'Target：對比去年下降2%'}</Tag>
         ) : (

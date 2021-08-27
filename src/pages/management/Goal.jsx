@@ -21,7 +21,7 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
     className: 'w-[18%]',
   },
   {
-    Header: 'TTarget 訂定標準（對比基準年）',
+    Header: 'Target 訂定標準（對比基準年）',
     accessor: 'target',
     editable: true,
     className: 'w-[18%]',

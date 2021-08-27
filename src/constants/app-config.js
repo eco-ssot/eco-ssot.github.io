@@ -7,9 +7,9 @@ const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR + 1 }, (_, i) =>
 }));
 
 const BUSINESS_OPTIONS = [
-  { key: 'ALL', value: 'ALL' },
-  { key: 'WT', value: 'WT' },
-  { key: 'WSD', value: 'WSD' },
+  { key: 'ALL', value: 'ALL', alias: 'W.W' },
+  { key: 'WT', value: 'WT', alias: 'WT' },
+  { key: 'WSD', value: 'WSD', alias: 'WSD' },
 ];
 
 const HISTORY_OPTIONS = [

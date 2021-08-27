@@ -131,7 +131,7 @@ export default function WastePage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div>廢棄物產生密度</div>
+        <div className="text-xl font-medium">廢棄物產生密度</div>
         {isHistory ? (
           <Tag>Target：對比2018年下降 2%</Tag>
         ) : (
