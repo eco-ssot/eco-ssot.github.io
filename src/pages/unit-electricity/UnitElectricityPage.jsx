@@ -94,7 +94,7 @@ export default function UnitElectricityPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div className="text-xl font-medium">W.W 單台用電</div>
+        <div className="text-xl font-medium">單台用電</div>
         {isHistory ? (
           <Tag>Target：對比去年下降1%</Tag>
         ) : (
