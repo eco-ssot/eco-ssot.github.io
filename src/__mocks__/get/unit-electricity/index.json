@@ -1,0 +1,73 @@
+{
+  "data": [
+    {
+      "latestDate": "2021/6/1",
+      "name": "WKS",
+      "electricCompareYear": 168168,
+      "electricCurrentYear": 168168,
+      "electricGradient": 0,
+      "productionCompareYear": 0,
+      "productionCurrentYear": 0,
+      "productionGradient": "Infinity",
+      "singleElectricCompareYear": 0,
+      "singleElectricCurrentYear": 0,
+      "singleElectricGradient": "Infinity",
+      "plants": [
+        {
+          "latestDate": "2021/6/1",
+          "name": "WKS",
+          "electricCompareYear": 1681,
+          "electricCurrentYear": 1681,
+          "electricGradient": 0,
+          "productionCompareYear": 0,
+          "productionCurrentYear": 0,
+          "productionGradient": "Infinity",
+          "singleElectricCompareYear": 0,
+          "singleElectricCurrentYear": 0,
+          "singleElectricGradient": "Infinity"
+        },
+        {
+          "latestDate": "2021/6/1",
+          "name": "WKS",
+          "electricCompareYear": 1685,
+          "electricCurrentYear": 1685,
+          "electricGradient": 0,
+          "productionCompareYear": 0,
+          "productionCurrentYear": 0,
+          "productionGradient": "Infinity",
+          "singleElectricCompareYear": 0,
+          "singleElectricCurrentYear": 0,
+          "singleElectricGradient": "Infinity"
+        }
+      ]
+    },
+    {
+      "latestDate": "2021/6/1",
+      "name": "WNH",
+      "electricCompareYear": 1.5,
+      "electricCurrentYear": 2,
+      "electricGradient": 0.33333333333333326,
+      "productionCompareYear": 0,
+      "productionCurrentYear": 0,
+      "productionGradient": "Infinity",
+      "singleElectricCompareYear": 0,
+      "singleElectricCurrentYear": 0,
+      "singleElectricGradient": "Infinity",
+      "plants": []
+    },
+    {
+      "latestDate": "2021/4/1",
+      "name": "Total",
+      "electricCompareYear": 19,
+      "electricCurrentYear": 20,
+      "electricGradient": 0.05263157894736836,
+      "productionCompareYear": 0,
+      "productionCurrentYear": 0,
+      "productionGradient": "Infinity",
+      "singleElectricCompareYear": 0,
+      "singleElectricCurrentYear": 0,
+      "singleElectricGradient": "Infinity",
+      "plants": []
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { carbonApi } from '../services/carbon';
 import { renewableEnergyApi } from '../services/renewableEnergy';
 import { electricityApi } from '../services/electricity';
 import { waterApi } from '../services/water';
+import { unitElectricityApi } from '../services/unitElectricity';
 import locationReducer from '../renderless/location/locationSlice';
 import loaderReducer from '../renderless/loader/loaderSlice';
 import errorHandlerReducer from '../renderless/error-handler/errorHandlerSlice';
@@ -26,6 +27,7 @@ export const store = configureStore({
     [renewableEnergyApi.reducerPath]: renewableEnergyApi.reducer,
     [electricityApi.reducerPath]: electricityApi.reducer,
     [waterApi.reducerPath]: waterApi.reducer,
+    [unitElectricityApi.reducerPath]: unitElectricityApi.reducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
@@ -37,6 +39,7 @@ export const store = configureStore({
     renewableEnergyApi.middleware,
     electricityApi.middleware,
     waterApi.middleware,
+    unitElectricityApi.middleware,
   ],
 });
 
