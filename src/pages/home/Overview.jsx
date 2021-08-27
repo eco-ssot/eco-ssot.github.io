@@ -106,7 +106,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
               <div className="text-unit">{unit}</div>
             </div>
             <div className="h-1/2 flex items-center space-x-2 justify-center border-b border-primary-600">
-              <Arrow className={`w-16 h-16 ${color}`} direction={direction} />
+              <Arrow className={`w-14 h-14 ${color}`} direction={direction} />
               <div className={`text-4xl font-bold ${color}`}>{renderer(overall)}</div>
             </div>
             <div className="space-y-2 py-2">

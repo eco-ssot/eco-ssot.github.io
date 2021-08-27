@@ -37,7 +37,7 @@ export default function Select({
               leaveTo="opacity-0">
               <Listbox.Options
                 className={clsx(
-                  'absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto border border-divider focus:outline-none sm:text-sm',
+                  'absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded-md py-1 overflow-auto border border-divider focus:outline-none text-sm',
                   optionClassName
                 )}>
                 {options.map((option) => (

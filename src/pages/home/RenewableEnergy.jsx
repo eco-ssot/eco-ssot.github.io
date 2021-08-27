@@ -30,7 +30,6 @@ const OPTION = (data = []) => ({
       center: ['50%', '50%'],
       label: {
         show: false,
-        position: 'center',
       },
       labelLine: {
         show: false,
@@ -42,7 +41,6 @@ const OPTION = (data = []) => ({
       })),
     },
   ],
-  grid: { top: '15%', bottom: '22.5%', left: 16, right: 0, containerLabel: true },
 });
 
 export default function RenewableEnergy({ data = {} }) {

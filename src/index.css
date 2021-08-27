@@ -11,7 +11,25 @@ html[class='dark'] {
   @apply bg-gray-900 text-gray-50;
 }
 
-@screen sm {
+@screen 1k {
+  html {
+    font-size: 15px;
+  }
+}
+
+@screen 2xl {
+  html {
+    font-size: 13px;
+  }
+}
+
+@screen xl {
+  html {
+    font-size: 13px;
+  }
+}
+
+@screen lg {
   html {
     font-size: 12px;
   }
@@ -23,26 +41,8 @@ html[class='dark'] {
   }
 }
 
-@screen lg {
+@screen sm {
   html {
     font-size: 12px;
-  }
-}
-
-@screen xl {
-  html {
-    font-size: 13px;
-  }
-}
-
-@screen 2xl {
-  html {
-    font-size: 14px;
-  }
-}
-
-@screen 1k {
-  html {
-    font-size: 15px;
   }
 }

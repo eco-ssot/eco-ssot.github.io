@@ -11,7 +11,12 @@ module.exports = {
     colors: { ...colors, transparent: 'transparent' },
     screens: {
       ...defaultTheme.screens,
-      '1k': '1920px',
+      sm: { max: '767px' },
+      md: { max: '1023px' },
+      lg: { max: '1279px' },
+      xl: { max: '1535px' },
+      '2xl': { max: '1919px' },
+      '1k': { min: '1920px' },
     },
     extend: {
       colors: {

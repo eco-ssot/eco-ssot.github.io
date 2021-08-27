@@ -48,7 +48,7 @@ export default function HomePage() {
         }>
         <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="碳排放量" to="/carbon">
+      <Panel className="row-span-1 col-span-1 pb-2" title="碳排放量" to="/carbon">
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
@@ -57,10 +57,10 @@ export default function HomePage() {
           latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="可再生能源占比" to="/renewable-energy">
+      <Panel className="row-span-1 col-span-1 pb-1" title="可再生能源占比" to="/renewable-energy">
         <RenewableEnergy data={renewableEnergy} />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="用電強度" to="/electricity">
+      <Panel className="row-span-1 col-span-1 pb-2" title="用電強度" to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_ELECTRICITY}
@@ -69,7 +69,7 @@ export default function HomePage() {
           latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="用水強度" to="/water">
+      <Panel className="row-span-1 col-span-1 pb-2" title="用水強度" to="/water">
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
@@ -78,7 +78,7 @@ export default function HomePage() {
           latestDate={waterUse?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="單台用電" to="/unit-electricity">
+      <Panel className="row-span-1 col-span-1 pb-2" title="單台用電" to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
@@ -87,7 +87,7 @@ export default function HomePage() {
           latestDate={singleElectric?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1" title="廢棄物產生密度" to="/waste">
+      <Panel className="row-span-1 col-span-1 pb-2" title="廢棄物產生密度" to="/waste">
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}
