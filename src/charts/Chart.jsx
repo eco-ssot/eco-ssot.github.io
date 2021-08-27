@@ -57,19 +57,19 @@ export default function Chart({ className, option = {} }) {
 
   useUpdateEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current) || { setOption: () => {} };
-    instance.setOption(updateChartFontSize({ ...option, animation: false }));
+    instance.setOption(updateChartFontSize({ ...option, animation: false }), true);
   }, [labels]);
 
   useDeepCompareEffect(() => {
     const instance = echarts.init(chartRef.current) || { setOption: () => {}, dispose: () => {} };
-    instance.setOption(updateChartFontSize(option));
+    instance.setOption(updateChartFontSize(option), true);
     return () => instance.dispose();
   }, [dataset]);
 
   useDeepCompareEffect(() => {
     const instance = echarts.getInstanceByDom(chartRef.current);
     if (instance && (instance.getWidth() !== width || instance.getHeight() !== height)) {
-      instance.setOption(updateChartFontSize(option));
+      instance.setOption(updateChartFontSize(option), true);
       instance.resize();
     }
   }, [{ width, height }]);
