@@ -1,0 +1,88 @@
+{
+  "data": [
+    {
+      "latestDate": "2021/6/1",
+      "name": "WKS",
+      "electricCompareYear": 168168,
+      "electricCurrentYear": 168168,
+      "electricGradient": 0,
+      "revenueCompareYear": 0,
+      "revenueCurrentYear": 0,
+      "revenueGradient": "Infinity",
+      "billiRevenueElectricCompareYear": 0,
+      "billiRevenueElectricCurrentYear": 0,
+      "billiRevenueElectricGradient": "Infinity",
+      "ASPCompareYear": 0,
+      "ASPCurrentYear": 0,
+      "ASPGradientYear": "Infinity",
+      "plants": [
+        {
+          "latestDate": "2021/6/1",
+          "name": "WKS",
+          "electricCompareYear": 1681,
+          "electricCurrentYear": 1681,
+          "electricGradient": 0,
+          "revenueCompareYear": 0,
+          "revenueCurrentYear": 0,
+          "revenueGradient": "Infinity",
+          "billiRevenueElectricCompareYear": 0,
+          "billiRevenueElectricCurrentYear": 0,
+          "billiRevenueElectricGradient": "Infinity",
+          "ASPCompareYear": 0,
+          "ASPCurrentYear": 0,
+          "ASPGradientYear": "Infinity"
+        },
+        {
+          "latestDate": "2021/6/1",
+          "name": "WKS",
+          "electricCompareYear": 1685,
+          "electricCurrentYear": 1685,
+          "electricGradient": 0,
+          "revenueCompareYear": 0,
+          "revenueCurrentYear": 0,
+          "revenueGradient": "Infinity",
+          "billiRevenueElectricCompareYear": 0,
+          "billiRevenueElectricCurrentYear": 0,
+          "billiRevenueElectricGradient": "Infinity",
+          "ASPCompareYear": 0,
+          "ASPCurrentYear": 0,
+          "ASPGradientYear": "Infinity"
+        }
+      ]
+    },
+    {
+      "latestDate": "2021/6/1",
+      "name": "WNH",
+      "electricCompareYear": 1.5,
+      "electricCurrentYear": 2,
+      "electricGradient": 0.33333333333333326,
+      "revenueCompareYear": 0,
+      "revenueCurrentYear": 2,
+      "revenueGradient": "Infinity",
+      "billiRevenueElectricCompareYear": 0,
+      "billiRevenueElectricCurrentYear": 0,
+      "billiRevenueElectricGradient": "Infinity",
+      "ASPCompareYear": 0,
+      "ASPCurrentYear": 2,
+      "ASPGradientYear": "Infinity",
+      "plants": []
+    },
+    {
+      "latestDate": "2021/4/1",
+      "name": "Total",
+      "electricCompareYear": 19,
+      "electricCurrentYear": 20,
+      "electricGradient": 0.05263157894736836,
+      "revenueCompareYear": 0,
+      "revenueCurrentYear": 0,
+      "revenueGradient": "Infinity",
+      "billiRevenueElectricCompareYear": 0,
+      "billiRevenueElectricCurrentYear": 0,
+      "billiRevenueElectricGradient": "Infinity",
+      "ASPCompareYear": 0,
+      "ASPCurrentYear": 0,
+      "ASPGradientYear": "Infinity",
+      "plants": []
+    }
+  ]
+}

@@ -3,7 +3,6 @@ import { partition } from 'lodash';
 
 import { axiosBaseQuery } from '../axios/helpers';
 import { getMaxDate } from '../utils/date';
-import APP_CONFIG from '../constants/app-config';
 
 export function toRow({
   name,
@@ -18,8 +17,6 @@ export function toRow({
   tRec,
   totalElectric,
   target,
-  currYear = APP_CONFIG.CURRENT_YEAR,
-  baseYear = APP_CONFIG.BASE_YEAR_CARBON,
   plants = [],
 } = {}) {
   return {
@@ -35,8 +32,8 @@ export function toRow({
     carbon: {
       scope1,
       scope2,
-      [currYear]: co2CurrentYear,
-      [baseYear]: co2baseYear,
+      currYear: co2CurrentYear,
+      baseYear: co2baseYear,
       delta: co2Gradient,
     },
     subRows: plants.map(toRow),

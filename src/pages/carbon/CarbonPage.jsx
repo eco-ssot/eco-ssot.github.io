@@ -44,8 +44,8 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BAS
     subHeaders: [
       { key: 'scope1', name: 'Scope1碳排 (f)' },
       { key: 'scope2', name: 'Scope2碳排 (g=d*e/1000)' },
-      { key: currYear, name: `${currYear}年碳排 (h=f+g)` },
-      { key: baseYear, name: `${baseYear}年碳排 (i)` },
+      { key: 'currYear', name: `${currYear}年碳排 (h=f+g)` },
+      { key: 'baseYear', name: `${baseYear}年碳排 (i)` },
       { key: 'delta', name: '增減率 (h/i-1)' },
     ],
   },

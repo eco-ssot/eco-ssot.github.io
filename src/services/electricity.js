@@ -5,64 +5,56 @@ import { axiosBaseQuery } from '../axios/helpers';
 import { getMaxDate } from '../utils/date';
 
 export function toRow({
-  site,
-  ASPCompareYear,
-  ASPCurrentYear,
-  ASPGradient,
-  ASPWeight,
+  name,
   electricCompareYear,
   electricCurrentYear,
   electricGradient,
-  electricWeight,
   revenueCompareYear,
   revenueCurrentYear,
   revenueGradient,
-  revenueWeight,
-  waterUseCompareYear,
-  waterUseCurrentYear,
-  waterUseGradient,
-  waterUseWeight,
+  billiRevenueElectricCompareYear,
+  billiRevenueElectricCurrentYear,
+  billiRevenueElectricGradient,
+  ASPCompareYear,
+  ASPCurrentYear,
+  ASPGradientYear,
   plants = [],
 } = {}) {
   return {
-    site,
+    site: name,
     electricity: {
       currYear: electricCurrentYear,
       lastYear: electricCompareYear,
-      weight: electricWeight,
       delta: electricGradient,
-    },
-    water: {
-      currYear: waterUseCurrentYear,
-      lastYear: waterUseCompareYear,
-      weight: waterUseWeight,
-      delta: waterUseGradient,
     },
     revenue: {
       currYear: revenueCurrentYear,
       lastYear: revenueCompareYear,
-      weight: revenueWeight,
       delta: revenueGradient,
+    },
+    revenueElectricity: {
+      currYear: billiRevenueElectricCurrentYear,
+      lastYear: billiRevenueElectricCompareYear,
+      delta: billiRevenueElectricGradient,
     },
     asp: {
       currYear: ASPCurrentYear,
       lastYear: ASPCompareYear,
-      weight: ASPWeight,
-      delta: ASPGradient,
+      delta: ASPGradientYear,
     },
     subRows: plants.map(toRow),
-    ...(site === 'Total' && { isFooter: true }),
+    ...(name === 'Total' && { isFooter: true }),
   };
 }
 
-export const overviewApi = createApi({
-  reducerPath: 'overviewApi',
+export const electricityApi = createApi({
+  reducerPath: 'electricityApi',
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getOverview: builder.query({
-      query: (query) => ({ query, url: 'overall' }),
+    getElectricity: builder.query({
+      query: (query) => ({ query, url: 'electric' }),
       transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ site }) => site === 'Total');
+        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
         const maxDate = getMaxDate(
           ...res.data.reduce(
             (prev, { latestDate, plants = [] }) => prev.concat(latestDate).concat(plants.map((p) => p.latestDate)),
@@ -76,4 +68,4 @@ export const overviewApi = createApi({
   }),
 });
 
-export const { useGetOverviewQuery } = overviewApi;
+export const { useGetElectricityQuery } = electricityApi;

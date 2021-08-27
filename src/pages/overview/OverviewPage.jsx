@@ -54,13 +54,13 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
       columns: [
         {
           Header: `${lastYear}年`,
-          accessor: [key, lastYear].join('.'),
+          accessor: [key, 'lastYear'].join('.'),
           Cell: baseFormatter,
           className: 'text-right',
         },
         {
           Header: `${currYear}年`,
-          accessor: [key, currYear].join('.'),
+          accessor: [key, 'currYear'].join('.'),
           Cell: baseFormatter,
           className: 'text-right',
         },
