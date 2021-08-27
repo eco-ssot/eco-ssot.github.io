@@ -10,3 +10,15 @@ export const ratioFormatter = (value, option = {}) =>
 
 export const keepPrecisionFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { ...option, keepPrecision: true });
+
+export const targetFormatter =
+  (target, { formatter = originalFormatter, targetColor = 'text-gray-50' } = {}) =>
+  (value, option = {}) => {
+    if (/NaN|∞|Infinity|-/.test(String(value))) {
+      return '-';
+    }
+
+    return (
+      <div className={value < target ? 'text-_red' : value > target ? targetColor : ''}>{formatter(value, option)}</div>
+    );
+  };

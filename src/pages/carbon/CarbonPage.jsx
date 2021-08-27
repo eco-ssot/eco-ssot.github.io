@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
+import { useSelector } from 'react-redux';
 
 import PageContainer from '../../components/page-container/PageContainer';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -8,20 +9,22 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { toFormattedNumber } from '../../utils/number';
+import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetCarbonQuery } from '../../services/carbon';
+import { addPaddingColumns } from '../../utils/table';
+import { selectBusiness } from '../../renderless/location/locationSlice';
+import { navigate } from '../../router/helpers';
+import useIsHistory from '../../hooks/useIsHistory';
 
-const renderer = ({ value }) => toFormattedNumber(value);
-const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%' });
-
-const HEADERS = [
+const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
   {
     key: 'electricity',
     name: '用電量 (千瓦時)',
     subHeaders: [
       { key: 'total', name: '總用電 (a)' },
       { key: 'sun', name: '太陽能發電 (b)' },
-      { key: 'green', name: '綠證 (c)' },
+      { key: 'tRec', name: '綠證 (c)' },
       { key: 'carbon', name: '碳排放用電 (d=a-b-c)' },
     ],
   },
@@ -30,211 +33,80 @@ const HEADERS = [
     name: (
       <>
         <div className="text-right">碳排放係數 (e)</div>
-        <div className="text-right">(兆瓦時/千噸)</div>
+        <div className="text-right">(公噸/兆瓦時)</div>
       </>
     ),
     rowSpan: 0,
   },
   {
     key: 'carbon',
-    name: '碳排放 (千噸)',
+    name: '碳排放 (公噸)',
     subHeaders: [
-      { key: 'scope1', name: 'Scope1 碳排 (f)' },
-      { key: 'scope2', name: 'Scope2 碳排 (g)' },
-      { key: 'scope3', name: 'Scope2 碳排 (h)' },
-      { key: 2021, name: '2021年碳排 (i=f+g+h)' },
-      { key: 2016, name: '2016年碳排 (j)' },
-      { key: 'delta', name: '增減率 (i/j-1)' },
-    ],
-  },
-];
-
-const COLUMNS = [
-  {
-    id: 'expander',
-    Header: '',
-    Cell: ({ row }) => {
-      const { title, style, ...rest } = row.getToggleRowExpandedProps();
-      return row.canExpand ? (
-        <div {...rest} className="flex w-12 justify-center">
-          {row.isExpanded ? (
-            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-          ) : (
-            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-          )}
-        </div>
-      ) : null;
-    },
-    rowSpan: 0,
-  },
-  {
-    Header: 'Site',
-    accessor: 'site',
-    rowSpan: 0,
-  },
-  ...HEADERS.map(({ key, name, subHeaders, ...rest }) => ({
-    Header: name,
-    ...(subHeaders && {
-      id: name,
-      Header: () => <div className="border-b border-divider py-3">{name}</div>,
-      columns: subHeaders.map(({ key: _key, name: _name }) => ({
-        Header: _name,
-        accessor: [key, _key].join('.'),
-        Cell: _key === 'delta' ? ratioRenderer : renderer,
-        className: 'text-right',
-      })),
-    }),
-    ...(!subHeaders && { accessor: key, className: 'text-right' }),
-    ...rest,
-  })),
-];
-
-const DATA = [
-  {
-    site: 'WNH',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WHC',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WIH',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WKS',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WZS',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-    subRows: [
-      {
-        site: 'WZS-1',
-        electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-        carbonIndex: 0.7921,
-        carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-      },
-      {
-        site: 'WZS-3',
-        electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-        carbonIndex: 0.7921,
-        carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-      },
-      {
-        site: 'WZS-6',
-        electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-        carbonIndex: 0.7921,
-        carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-      },
+      { key: 'scope1', name: 'Scope1碳排 (f)' },
+      { key: 'scope2', name: 'Scope2碳排 (g=d*e/1000)' },
+      { key: currYear, name: `${currYear}年碳排 (h=f+g)` },
+      { key: baseYear, name: `${baseYear}年碳排 (i)` },
+      { key: 'delta', name: '增減率 (h/i-1)' },
     ],
   },
   {
-    site: 'WCQ',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WCD',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WMX',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    site: 'WCZ',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-  {
-    isFooter: true,
-    site: 'Total',
-    electricity: { total: 15507280, sun: 427011, green: 0, carbon: 15080269 },
-    carbonIndex: 0.7921,
-    carbon: { scope1: 0, scope2: 11945, scope3: 0, 2021: 11945, 2016: 19744, delta: -0.4 },
-  },
-];
-
-const HISTORY_COLUMNS = [
-  {
-    id: 'expander',
-    Header: '',
-    Cell: ({ row }) => {
-      const { title, style, ...rest } = row.getToggleRowExpandedProps();
-      return row.canExpand ? (
-        <div {...rest} className="flex w-12 justify-center">
-          {row.isExpanded ? (
-            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-          ) : (
-            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-          )}
-        </div>
-      ) : null;
-    },
-  },
-  {
-    Header: 'Site',
-    accessor: 'site',
-  },
-  ...Array.from({ length: 12 }, (_, i) => ({
-    Header: () => (
+    key: 'target',
+    name: (
       <>
-        <div>{`2018年 ${i + 1}月`}</div>
-        <div>碳排放 (公噸)</div>
+        <div className="text-right">碳排抵扣綠證目標</div>
+        <div className="text-right">(h-i*79%)*1000/e</div>
       </>
     ),
-    accessor: String(i + 1),
-  })),
-];
-
-const FAKE_HISTORY_DATA = Array.from({ length: 12 }, (_, i) => i + 1).reduce(
-  (prev, curr) => ({ ...prev, [curr]: curr }),
-  {}
-);
-
-const HISTORY_DATA = [
-  { site: 'WNH', ...FAKE_HISTORY_DATA },
-  { site: 'WHC', ...FAKE_HISTORY_DATA },
-  { site: 'WIH', ...FAKE_HISTORY_DATA },
-  { site: 'WKS', ...FAKE_HISTORY_DATA },
-  {
-    site: 'WZS',
-    ...FAKE_HISTORY_DATA,
-    subRows: [
-      { site: 'WZS-1', ...FAKE_HISTORY_DATA },
-      { site: 'WZS-3', ...FAKE_HISTORY_DATA },
-      { site: 'WZS-6', ...FAKE_HISTORY_DATA },
-    ],
+    rowSpan: 0,
   },
-  { site: 'WCQ', ...FAKE_HISTORY_DATA },
-  { site: 'WCD', ...FAKE_HISTORY_DATA },
-  { site: 'WMX', ...FAKE_HISTORY_DATA },
-  { site: 'WCZ', ...FAKE_HISTORY_DATA },
-  { isFooter: true, site: 'Total', ...FAKE_HISTORY_DATA },
 ];
+
+const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) =>
+  addPaddingColumns([
+    {
+      id: 'expander',
+      Header: '',
+      Cell: ({ row }) => {
+        const { title, style, ...rest } = row.getToggleRowExpandedProps();
+        return row.canExpand ? (
+          <div {...rest} className="flex w-12 justify-center">
+            {row.isExpanded ? (
+              <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
+            ) : (
+              <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
+            )}
+          </div>
+        ) : null;
+      },
+      rowSpan: 0,
+    },
+    {
+      Header: 'Site',
+      accessor: 'site',
+      rowSpan: 0,
+    },
+    ...HEADERS({ currYear, baseYear }).map(({ key, name, subHeaders, ...rest }) => ({
+      Header: name,
+      ...(subHeaders && {
+        id: name,
+        Header: () => <div className="border-b border-divider py-3">{name}</div>,
+        columns: subHeaders.map(({ key: _key, name: _name }) => ({
+          Header: _name,
+          accessor: [key, _key].join('.'),
+          Cell: _key === 'delta' ? ratioFormatter : baseFormatter,
+          className: 'text-right',
+        })),
+      }),
+      ...(!subHeaders && { accessor: key, className: 'text-right' }),
+      ...rest,
+    })),
+  ]);
 
 export default function CarbonPage() {
-  const [isHistory, setIsHistory] = useState(false);
-  const columns = useMemo(() => (isHistory ? HISTORY_COLUMNS : COLUMNS), [isHistory]);
-  const data = useMemo(() => (isHistory ? HISTORY_DATA : DATA), [isHistory]);
+  const business = useSelector(selectBusiness);
+  const { data } = useGetCarbonQuery({ business });
+  const columns = useMemo(() => COLUMNS(), []);
+  const isHistory = useIsHistory();
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
@@ -246,7 +118,15 @@ export default function CarbonPage() {
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
-        <ButtonGroup options={APP_CONFIG.HISTORY_OPTIONS} onChange={(e) => setIsHistory(e.key === 'HISTORY')} />
+        <ButtonGroup
+          options={APP_CONFIG.HISTORY_OPTIONS}
+          selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
+          onChange={(e) =>
+            navigate({
+              hash: e.key,
+            })
+          }
+        />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
             <div></div>
@@ -294,7 +174,7 @@ export default function CarbonPage() {
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}
-            data={data}
+            data={data?.data || []}
             getRowProps={(row) => ({
               className: row.original.isFooter
                 ? 'border-b-2 border-t-2 border-primary-600 font-bold'

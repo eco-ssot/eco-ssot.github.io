@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Arrow from '../../components/arrow/Arrow';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 
-function getTrend(gradient, title) {
+export function getTrend(gradient, title) {
   if (gradient === undefined) {
     return { overall: gradient };
   }

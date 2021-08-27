@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
-import { partition } from 'lodash';
 import { useSelector } from 'react-redux';
 
 import PageContainer from '../../components/page-container/PageContainer';
@@ -9,13 +8,14 @@ import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
-import { selectBusiness, selectYear, selectDimension, selectHash } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectYear, selectDimension } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
-import { formatMonthRange, getMaxDate } from '../../utils/date';
+import { formatMonthRange } from '../../utils/date';
+import useIsHistory from '../../hooks/useIsHistory';
 
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },
@@ -42,13 +42,11 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
         ) : null;
       },
       rowSpan: 0,
-      className: 'w-6',
     },
     {
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      className: 'w-24',
     },
     ...HEADERS.map(({ key, name }) => ({
       id: name,
@@ -75,96 +73,36 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
         {
           Header: '增減率 *',
           accessor: [key, 'delta'].join('.'),
-          Cell: ratioFormatter,
+          Cell: (c) => {
+            return targetFormatter(0, {
+              formatter: ratioFormatter,
+              ...(c.row.original.isFooter && { targetColor: 'text-primary-500' }),
+            })(c.value);
+          },
           className: 'text-right',
         },
       ],
     })),
   ]);
 
-export function toRow({
-  site,
-  ASPCompareYear,
-  ASPCurrentYear,
-  ASPGradient,
-  ASPWeight,
-  electricCompareYear,
-  electricCurrentYear,
-  electricGradient,
-  electricWeight,
-  revenueCompareYear,
-  revenueCurrentYear,
-  revenueGradient,
-  revenueWeight,
-  waterUseCompareYear,
-  waterUseCurrentYear,
-  waterUseGradient,
-  waterUseWeight,
-  currYear = APP_CONFIG.CURRENT_YEAR,
-  lastYear = APP_CONFIG.LAST_YEAR,
-} = {}) {
-  return {
-    site,
-    electricity: {
-      [currYear]: electricCurrentYear,
-      [lastYear]: electricCompareYear,
-      weight: electricWeight,
-      delta: electricGradient,
-    },
-    water: {
-      [currYear]: waterUseCurrentYear,
-      [lastYear]: waterUseCompareYear,
-      weight: waterUseWeight,
-      delta: waterUseGradient,
-    },
-    revenue: {
-      [currYear]: revenueCurrentYear,
-      [lastYear]: revenueCompareYear,
-      weight: revenueWeight,
-      delta: revenueGradient,
-    },
-    asp: {
-      [currYear]: ASPCurrentYear,
-      [lastYear]: ASPCompareYear,
-      weight: ASPWeight,
-      delta: ASPGradient,
-    },
-    ...(site === 'Total' && { isFooter: true }),
-  };
-}
-
 export default function OverviewPage() {
   const business = useSelector(selectBusiness);
   const year = useSelector(selectYear);
   const dimension = useSelector(selectDimension);
-  const hash = useSelector(selectHash);
   const { data } = useGetOverviewQuery({ business, year, dimension });
-  const [selectedYear, setSelectedYear] = useState(year);
-  const [selectedDimension, setSelectedDimension] = useState(dimension);
   const columns = useMemo(
     () => COLUMNS({ currYear: year, ...(year && { lastYear: String(Number(year - 1)) }) }),
     [year]
   );
 
-  const [total, records] = partition(data?.data || [], ({ site }) => site === 'Total');
-  const dataSource = [...records, ...total].map(({ plants = [], ...rest }) => ({
-    ...toRow(rest),
-    subRows: plants.map(toRow),
-  }));
-
-  const maxDate = getMaxDate(
-    ...(data?.data || []).reduce(
-      (prev, { latestDate, plants = [] }) => prev.concat(latestDate).concat(plants.map((p) => p.latestDate)),
-      []
-    )
-  );
-
-  const isHistory = hash.slice(1) === APP_CONFIG.HISTORY_OPTIONS[1].key;
+  const [selectedYear, setSelectedYear] = useState(year);
+  const [selectedDimension, setSelectedDimension] = useState(dimension);
+  const isHistory = useIsHistory();
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div>用電、用水、營收及ASP比較</div>
-        {!isHistory && <Tag>{`累計區間：${formatMonthRange(maxDate)}`}</Tag>}
+        {!isHistory && <Tag>{`累計區間：${formatMonthRange(data?.maxDate)}`}</Tag>}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
         <ButtonGroup
@@ -174,7 +112,10 @@ export default function OverviewPage() {
             navigate({
               hash: e.key,
               ...(e.key === APP_CONFIG.HISTORY_OPTIONS[0].key && { dimension: null, year: null }),
-              ...(e.key === APP_CONFIG.HISTORY_OPTIONS[1].key && { dimension: selectedDimension, year: selectedYear }),
+              ...(e.key === APP_CONFIG.HISTORY_OPTIONS[1].key && {
+                dimension: selectedDimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
+                year: selectedYear || APP_CONFIG.YEAR_OPTIONS[0].key,
+              }),
             })
           }
         />
@@ -195,7 +136,14 @@ export default function OverviewPage() {
                 selected={APP_CONFIG.DIMENSION_OPTIONS.find((option) => option.key === selectedDimension)}
                 onChange={(e) => setSelectedDimension(e.key)}
               />
-              <Button onClick={() => navigate({ business, year: selectedYear, dimension: selectedDimension })}>
+              <Button
+                onClick={() =>
+                  navigate({
+                    business,
+                    year: selectedYear || APP_CONFIG.YEAR_OPTIONS[0].key,
+                    dimension: selectedDimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
+                  })
+                }>
                 搜尋
               </Button>
             </div>
@@ -208,7 +156,7 @@ export default function OverviewPage() {
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}
-            data={dataSource}
+            data={data?.data || []}
             getRowProps={(row) => ({
               className: row.original.isFooter
                 ? 'border-b-2 border-t-2 border-primary-600 font-bold'
