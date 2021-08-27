@@ -21,7 +21,7 @@ export default function Header({ className }) {
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">
         <img className="h-10 w-10" src="/logo-64x64.png" alt="logo" />
-        <div className="block truncate font-medium text-2xl">ESG 績效管理平台</div>
+        <div className="block truncate font-medium text-xl">ESG 績效管理平台</div>
         <div className="block truncate text-unit text-sm">Ver {packageJson.version}</div>
       </Link>
       <Divider className="h-1/2" />
