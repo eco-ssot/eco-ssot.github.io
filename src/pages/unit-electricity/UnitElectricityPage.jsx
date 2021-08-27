@@ -16,6 +16,7 @@ import { selectBusiness } from '../../renderless/location/locationSlice';
 import useIsHistory from '../../hooks/useIsHistory';
 import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
+import { formatMonthRange } from '../../utils/date';
 
 const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
@@ -97,7 +98,7 @@ export default function UnitElectricityPage() {
         {isHistory ? (
           <Tag>Target：對比去年下降1%</Tag>
         ) : (
-          <DualTag labels={['累計區間：2021.01 - 06', 'Target：對比去年下降1%']} />
+          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比去年下降1%']} />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

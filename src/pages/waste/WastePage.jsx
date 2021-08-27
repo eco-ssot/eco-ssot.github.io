@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
+import { useSelector } from 'react-redux';
 
 import PageContainer from '../../components/page-container/PageContainer';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -8,16 +9,19 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { toFormattedNumber } from '../../utils/number';
+import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetWasteQuery } from '../../services/waste';
+import { selectBusiness } from '../../renderless/location/locationSlice';
+import useIsHistory from '../../hooks/useIsHistory';
+import { navigate } from '../../router/helpers';
+import { addPaddingColumns } from '../../utils/table';
+import { formatMonthRange } from '../../utils/date';
 
-const baseRenderer = ({ value }) => toFormattedNumber(value, { precision: 2 });
-const ratioRenderer = ({ value }) => toFormattedNumber(value, { unit: 1e-2, suffix: '%', precision: 2 });
-
-const HEADERS = [
+const HEADERS = ({ maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
   {
     key: 'nonRecyclable',
-    name: '不可回收類重量 (千噸)',
+    name: '不可回收類重量 (公噸)',
     subHeaders: [
       {
         key: 'normal',
@@ -28,7 +32,7 @@ const HEADERS = [
   },
   {
     key: 'recyclable',
-    name: '可回收類重量 (千噸)',
+    name: '可回收類重量 (公噸)',
     subHeaders: [
       {
         key: 'normal',
@@ -45,7 +49,7 @@ const HEADERS = [
     name: (
       <>
         <div className="text-right">Total</div>
-        <div className="text-right">(千噸)</div>
+        <div className="text-right">(公噸)</div>
       </>
     ),
     rowSpan: 0,
@@ -54,322 +58,76 @@ const HEADERS = [
     key: 'revenue',
     name: (
       <>
-        <div className="text-right">2021 1-6月營收</div>
-        <div className="text-right">(十億新台幣)</div>
+        <div className="text-right">{`${formatMonthRange(maxDate)}月營收`}</div>
+        <div className="text-right">(十億台幣)</div>
       </>
     ),
     rowSpan: 0,
   },
   {
     key: 'waste',
-    name: '廢棄物產生密度 (公噸/十億新台幣)',
+    name: '廢棄物產生密度 (公噸/十億台幣)',
     subHeaders: [
-      { key: 2021, name: '2021年1-6月' },
-      { key: 2018, name: '2018年' },
-      { key: 'delta', name: '增減率 *', renderer: ratioRenderer },
+      { key: 'currYear', name: `${formatMonthRange(maxDate)}月` },
+      { key: 'baseYear', name: `${baseYear}年` },
+      { key: 'delta', name: '增減率 *', renderer: ratioFormatter },
     ],
   },
   {
     key: 'recycleRate',
     name: <div className="text-right">廢棄物回收率</div>,
-    renderer: ratioRenderer,
+    renderer: ratioFormatter,
     rowSpan: 0,
   },
 ];
 
-const COLUMNS = [
-  {
-    id: 'expander',
-    Header: '',
-    Cell: ({ row }) => {
-      const { title, style, ...rest } = row.getToggleRowExpandedProps();
-      return row.canExpand ? (
-        <div {...rest} className="flex w-12 justify-center">
-          {row.isExpanded ? (
-            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-          ) : (
-            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-          )}
-        </div>
-      ) : null;
-    },
-    rowSpan: 0,
-  },
-  {
-    Header: 'Site',
-    accessor: 'site',
-    rowSpan: 0,
-  },
-  ...HEADERS.map(({ key, name, subHeaders, renderer = baseRenderer, ...rest }) => ({
-    Header: name,
-    Cell: renderer,
-    ...(subHeaders && {
-      id: name,
-      Header: () => <div className="border-b border-divider py-3">{name}</div>,
-      columns: subHeaders.map(({ key: _key, name: _name, renderer: _renderer = baseRenderer }) => ({
-        Header: _name,
-        accessor: [key, _key].join('.'),
-        Cell: _renderer,
-        className: 'text-right',
-      })),
-    }),
-    ...(!subHeaders && { accessor: key, className: 'text-right' }),
-    ...rest,
-  })),
-];
-
-const DATA = [
-  {
-    site: 'WNH',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WHC',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WIH',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WKS',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WZS',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-    subRows: [
-      {
-        site: 'WZS-1',
-        nonRecyclable: { normal: 2.87, harmful: 0.0 },
-        recyclable: { normal: 0.07, waste: 0.6 },
-        total: 3.55,
-        revenue: 0,
-        waste: {
-          2021: 33.4,
-          2018: 14.74,
-          delta: 1.2667,
-        },
-        recycleRate: 0.1904,
+const COLUMNS = ({ maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
+  addPaddingColumns([
+    {
+      id: 'expander',
+      Header: '',
+      Cell: ({ row }) => {
+        const { title, style, ...rest } = row.getToggleRowExpandedProps();
+        return row.canExpand ? (
+          <div {...rest} className="flex justify-center">
+            {row.isExpanded ? (
+              <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
+            ) : (
+              <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
+            )}
+          </div>
+        ) : null;
       },
-      {
-        site: 'WZS-3',
-        nonRecyclable: { normal: 2.87, harmful: 0.0 },
-        recyclable: { normal: 0.07, waste: 0.6 },
-        total: 3.55,
-        revenue: 0,
-        waste: {
-          2021: 33.4,
-          2018: 14.74,
-          delta: 1.2667,
-        },
-        recycleRate: 0.1904,
-      },
-      {
-        site: 'WZS-6',
-        nonRecyclable: { normal: 2.87, harmful: 0.0 },
-        recyclable: { normal: 0.07, waste: 0.6 },
-        total: 3.55,
-        revenue: 0,
-        waste: {
-          2021: 33.4,
-          2018: 14.74,
-          delta: 1.2667,
-        },
-        recycleRate: 0.1904,
-      },
-    ],
-  },
-  {
-    site: 'WCQ',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
+      rowSpan: 0,
     },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WCD',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
+    {
+      Header: 'Site',
+      accessor: 'site',
+      rowSpan: 0,
     },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WMX',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-  {
-    site: 'WCZ',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-  {
-    isFooter: true,
-    site: 'Total',
-    nonRecyclable: { normal: 2.87, harmful: 0.0 },
-    recyclable: { normal: 0.07, waste: 0.6 },
-    total: 3.55,
-    revenue: 0,
-    waste: {
-      2021: 33.4,
-      2018: 14.74,
-      delta: 1.2667,
-    },
-    recycleRate: 0.1904,
-  },
-];
-
-const HISTORY_COLUMNS = [
-  {
-    id: 'expander',
-    Header: '',
-    Cell: ({ row }) => {
-      const { title, style, ...rest } = row.getToggleRowExpandedProps();
-      return row.canExpand ? (
-        <div {...rest} className="flex w-12 justify-center">
-          {row.isExpanded ? (
-            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-          ) : (
-            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-          )}
-        </div>
-      ) : null;
-    },
-    rowSpan: 0,
-  },
-  {
-    Header: 'Site',
-    accessor: 'site',
-    rowSpan: 0,
-  },
-  ...Array.from({ length: 5 }, (_, i) => ({
-    id: String(i),
-    Header: () => <div className="border-b border-divider py-3">{`${2017 + i}年 1-4月`}</div>,
-    columns: [
-      {
-        Header: '廢棄物產生密度 (公噸/十億新臺幣)',
-        accessor: [2017 + i, 'waste'].join('.'),
-        className: 'text-right',
-      },
-      {
-        Header: '增減率 *',
-        accessor: [2017 + i, 'delta'].join('.'),
-        className: 'text-right',
-      },
-    ],
-  })),
-];
-
-const FAKE_HISTORY_DATA = Array.from({ length: 5 }, (_, i) => 2017 + i).reduce(
-  (prev, curr) => ({
-    ...prev,
-    [curr]: {
-      waste: curr,
-      delta: curr,
-    },
-  }),
-  {}
-);
-
-const HISTORY_DATA = [
-  { site: 'WNH', ...FAKE_HISTORY_DATA },
-  { site: 'WHC', ...FAKE_HISTORY_DATA },
-  { site: 'WIH', ...FAKE_HISTORY_DATA },
-  { site: 'WKS', ...FAKE_HISTORY_DATA },
-  {
-    site: 'WZS',
-    ...FAKE_HISTORY_DATA,
-    subRows: [
-      { site: 'WZS-1', ...FAKE_HISTORY_DATA },
-      { site: 'WZS-3', ...FAKE_HISTORY_DATA },
-      { site: 'WZS-6', ...FAKE_HISTORY_DATA },
-    ],
-  },
-  { site: 'WCQ', ...FAKE_HISTORY_DATA },
-  { site: 'WCD', ...FAKE_HISTORY_DATA },
-  { site: 'WMX', ...FAKE_HISTORY_DATA },
-  { site: 'WCZ', ...FAKE_HISTORY_DATA },
-  { isFooter: true, site: 'Total', ...FAKE_HISTORY_DATA },
-];
+    ...HEADERS({ maxDate, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
+      Header: name,
+      Cell: renderer,
+      ...(subHeaders && {
+        id: name,
+        Header: () => <div className="border-b border-divider py-3">{name}</div>,
+        columns: subHeaders.map(({ key: _key, name: _name, renderer: _renderer = baseFormatter }) => ({
+          Header: _name,
+          accessor: [key, _key].join('.'),
+          Cell: _renderer,
+          className: 'text-right',
+        })),
+      }),
+      ...(!subHeaders && { accessor: key, className: 'text-right' }),
+      ...rest,
+    })),
+  ]);
 
 export default function WastePage() {
-  const [isHistory, setIsHistory] = useState(false);
-  const columns = useMemo(() => (isHistory ? HISTORY_COLUMNS : COLUMNS), [isHistory]);
-  const data = useMemo(() => (isHistory ? HISTORY_DATA : DATA), [isHistory]);
+  const business = useSelector(selectBusiness);
+  const { data } = useGetWasteQuery({ business });
+  const columns = useMemo(() => COLUMNS({ maxDate: data?.maxDate }), [data?.maxDate]);
+  const isHistory = useIsHistory();
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
@@ -377,11 +135,19 @@ export default function WastePage() {
         {isHistory ? (
           <Tag>Target：對比2018年下降 2%</Tag>
         ) : (
-          <DualTag labels={['累計區間：2021.01 - 06', 'Target：對比2018年下降 6%']} />
+          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比2018年下降 6%']} />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
-        <ButtonGroup options={APP_CONFIG.HISTORY_OPTIONS} onChange={(e) => setIsHistory(e.key === 'HISTORY')} />
+        <ButtonGroup
+          options={APP_CONFIG.HISTORY_OPTIONS}
+          selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
+          onChange={(e) =>
+            navigate({
+              hash: e.key,
+            })
+          }
+        />
         {isHistory && (
           <div className="w-full grid grid-cols-12 py-4 items-center">
             <div></div>
@@ -415,7 +181,7 @@ export default function WastePage() {
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={columns}
-            data={data}
+            data={data?.data || []}
             getRowProps={(row) => ({
               className: row.original.isFooter
                 ? 'border-b-2 border-t-2 border-primary-600 font-bold'

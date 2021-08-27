@@ -1,6 +1,78 @@
 {
-  "2018 Total": 51.43,
-  "2020 1-6月": 48.27,
-  "2021 1-6月": 53.76,
-  "target": 50.4
+  "data": [
+    {
+      "latestDate": "2021/6/1",
+      "site": "WKS",
+      "unrecoverableGeneral": 0,
+      "unrecoverableGazardous": 0,
+      "recoverableGeneral": 0,
+      "recoverableResource": 0,
+      "total": 0,
+      "currentYTM": 0,
+      "intensityCurrentYTM": 0,
+      "intensityBaseYear": 0,
+      "intensityGradient": "Infinity",
+      "recoveryRate": 0,
+      "plants": [
+        {
+          "latestDate": "2021/6/1",
+          "site": "WKS",
+          "unrecoverableGeneral": 0,
+          "unrecoverableGazardous": 0,
+          "recoverableGeneral": 0,
+          "recoverableResource": 0,
+          "total": 0,
+          "currentYTM": 0,
+          "intensityCurrentYTM": 0,
+          "intensityBaseYear": 0,
+          "intensityGradient": "Infinity",
+          "recoveryRate": 0
+        },
+        {
+          "latestDate": "2021/6/1",
+          "site": "WKS",
+          "unrecoverableGeneral": 0,
+          "unrecoverableGazardous": 0,
+          "recoverableGeneral": 0,
+          "recoverableResource": 0,
+          "total": 0,
+          "currentYTM": 0,
+          "intensityCurrentYTM": 0,
+          "intensityBaseYear": 0,
+          "intensityGradient": "Infinity",
+          "recoveryRate": 0
+        }
+      ]
+    },
+    {
+      "latestDate": "2021/6/1",
+      "site": "WNH",
+      "unrecoverableGeneral": 0,
+      "unrecoverableGazardous": 0,
+      "recoverableGeneral": 0,
+      "recoverableResource": 0,
+      "total": 0,
+      "currentYTM": 0,
+      "intensityCurrentYTM": 0,
+      "intensityBaseYear": 0,
+      "intensityGradient": "Infinity",
+      "recoveryRate": 0,
+      "plants": []
+    },
+    {
+      "latestDate": "2021/4/1",
+      "site": "Total",
+      "unrecoverableGeneral": 0,
+      "unrecoverableGazardous": 0,
+      "recoverableGeneral": 0,
+      "recoverableResource": 0,
+      "total": 0,
+      "currentYTM": 0,
+      "intensityCurrentYTM": 0,
+      "intensityBaseYear": 0,
+      "intensityGradient": "Infinity",
+      "recoveryRate": 0,
+      "plants": []
+    }
+  ]
 }

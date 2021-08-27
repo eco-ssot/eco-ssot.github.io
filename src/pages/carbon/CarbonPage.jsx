@@ -16,6 +16,7 @@ import { addPaddingColumns } from '../../utils/table';
 import { selectBusiness } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import useIsHistory from '../../hooks/useIsHistory';
+import { formatMonthRange } from '../../utils/date';
 
 const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
   {
@@ -114,7 +115,7 @@ export default function CarbonPage() {
         {isHistory ? (
           <Tag>{'Target：對比2016年，每年下降4.2%'}</Tag>
         ) : (
-          <DualTag labels={['累計區間：2021.01 - 06', 'Target：對比2016年下降21%']} />
+          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比2016年下降21%']} />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

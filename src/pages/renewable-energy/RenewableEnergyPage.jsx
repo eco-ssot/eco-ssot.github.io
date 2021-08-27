@@ -16,6 +16,7 @@ import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
 import { addPaddingColumns } from '../../utils/table';
 import { navigate } from '../../router/helpers';
 import { selectBusiness } from '../../renderless/location/locationSlice';
+import { formatMonthRange } from '../../utils/date';
 
 const HEADERS = [
   {
@@ -89,7 +90,7 @@ export default function RenewableEnergyPage() {
         {isHistory ? (
           <Tag>{'Target：可再生能源 > 60%'}</Tag>
         ) : (
-          <DualTag labels={['累計區間：2021.01 - 06', 'Target：可再生能源 > 60%']} />
+          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：可再生能源 > 60%']} />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
