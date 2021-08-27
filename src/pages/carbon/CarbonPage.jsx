@@ -69,7 +69,7 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BAS
       Cell: ({ row }) => {
         const { title, style, ...rest } = row.getToggleRowExpandedProps();
         return row.canExpand ? (
-          <div {...rest} className="flex w-12 justify-center">
+          <div {...rest} className="flex justify-center">
             {row.isExpanded ? (
               <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
             ) : (

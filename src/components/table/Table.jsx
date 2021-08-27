@@ -27,7 +27,7 @@ export default function Table({
         {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => {
-              if (column.rowSpan === 0) {
+              if (column.rowSpan === 0 && headerGroups.length > 1) {
                 return null;
               }
 

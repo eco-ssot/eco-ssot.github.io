@@ -1,7 +1,63 @@
 {
-  "不可再生能源": 0.49,
-  "自建太陽能": 0.02,
-  "電網包含": 0.49,
-  "綠證": 0,
-  "target": 0.6
+  "data": [
+    {
+      "latestDate": "2021/6/1",
+      "name": "WKS",
+      "totalElectric": 168168,
+      "solarElectric": 0,
+      "tRec": 0,
+      "percent": 0,
+      "target": 0,
+      "area": "",
+      "structure": "",
+      "plants": [
+        {
+          "latestDate": "2021/6/1",
+          "name": "WKS",
+          "totalElectric": 1681,
+          "solarElectric": 0,
+          "tRec": 0,
+          "percent": 0,
+          "target": 0,
+          "area": "",
+          "structure": ""
+        },
+        {
+          "latestDate": "2021/6/1",
+          "name": "WKS",
+          "totalElectric": 1685,
+          "solarElectric": 0,
+          "tRec": 0,
+          "percent": 0,
+          "target": 0,
+          "area": "",
+          "structure": ""
+        }
+      ]
+    },
+    {
+      "latestDate": "2021/6/1",
+      "name": "WNH",
+      "totalElectric": 2,
+      "solarElectric": 0,
+      "tRec": 0,
+      "percent": 0,
+      "target": 0,
+      "area": "",
+      "structure": "",
+      "plants": []
+    },
+    {
+      "latestDate": "2021/4/1",
+      "name": "Total",
+      "totalElectric": 20,
+      "solarElectric": 0,
+      "tRec": 0,
+      "percent": 0,
+      "target": 0,
+      "area": "",
+      "structure": "",
+      "plants": []
+    }
+  ]
 }
