@@ -8,7 +8,7 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,json}', './public/**/*.html'],
   darkMode: 'media',
   theme: {
-    colors: { ...colors, transparent: 'transparent' },
+    colors: { ...colors, transparent: 'transparent', current: 'currentColor' },
     screens: {
       ...defaultTheme.screens,
       sm: { max: '767px' },

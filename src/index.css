@@ -3,6 +3,18 @@
 @tailwind utilities;
 @tailwind variants;
 
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-primary-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-600 rounded-full hover:bg-primary-700;
+}
+
 html {
   @apply bg-gray-50 text-gray-900;
 }
