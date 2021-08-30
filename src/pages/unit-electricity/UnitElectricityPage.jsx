@@ -98,7 +98,14 @@ export default function UnitElectricityPage() {
         {isHistory ? (
           <Tag>Target：對比去年下降1%</Tag>
         ) : (
-          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比去年下降1%']} />
+          <DualTag
+            labels={[
+              <>
+                累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+              </>,
+              'Target：對比去年下降1%',
+            ]}
+          />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

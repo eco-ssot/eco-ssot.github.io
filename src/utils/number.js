@@ -18,3 +18,8 @@ export function toFormattedNumber(
 
   return `${formattedValue}${suffix}`;
 }
+
+export function getDecimalNumber(value = '') {
+  const [num] = value.match(/[1-9]\d*(\.\d+)?/g) || [];
+  return num;
+}

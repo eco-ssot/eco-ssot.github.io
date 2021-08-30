@@ -1,9 +1,17 @@
 import { isNil } from 'lodash';
 
-export default function Input({ onChange, onBlur, value = '', placeholder = '', type = 'text' }) {
+export default function Input({
+  onChange,
+  onBlur,
+  value = '',
+  placeholder = '',
+  suffix = '',
+  prefix = '',
+  type = 'text',
+}) {
   return (
     <div className="flex justify-center">
-      <div className="w-auto mx-auto">
+      <div className="w-auto mx-auto relative">
         <input
           value={isNil(value) ? '' : value}
           type={type}
@@ -12,6 +20,10 @@ export default function Input({ onChange, onBlur, value = '', placeholder = '', 
           onBlur={onBlur}
           placeholder={placeholder}
         />
+        {prefix && <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">{prefix}</div>}
+        {suffix && (
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">{suffix}</div>
+        )}
       </div>
     </div>
   );

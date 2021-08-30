@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetCarbonQuery } from '../../services/carbon';
 import { addPaddingColumns } from '../../utils/table';
@@ -17,8 +17,9 @@ import { selectBusiness } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import useIsHistory from '../../hooks/useIsHistory';
 import { formatMonthRange } from '../../utils/date';
+import useGoal from '../../hooks/useGoal';
 
-const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
+const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
   {
     key: 'electricity',
     name: '用電量 (千瓦時)',
@@ -47,7 +48,7 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BAS
       { key: 'scope2', name: 'Scope2碳排 (g=d*e/1000)' },
       { key: 'currYear', name: `${currYear}年碳排 (h=f+g)` },
       { key: 'baseYear', name: `${baseYear}年碳排 (i)` },
-      { key: 'delta', name: '增減率 (h/i-1)' },
+      { key: 'delta', name: '增減率 (h/i-1)', formatter: targetFormatter(-pct, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -55,14 +56,14 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BAS
     name: (
       <>
         <div className="text-right">碳排抵扣綠證目標</div>
-        <div className="text-right">(h-i*79%)*1000/e</div>
+        <div className="text-right">{`(h-i*${(1 - pct) * 1e2}%)*1000/e`}</div>
       </>
     ),
     rowSpan: 0,
   },
 ];
 
-const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) =>
+const COLUMNS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) =>
   addPaddingColumns([
     {
       id: 'expander',
@@ -86,15 +87,15 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BAS
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ currYear, baseYear }).map(({ key, name, subHeaders, ...rest }) => ({
+    ...HEADERS({ pct, currYear, baseYear }).map(({ key, name, subHeaders, ...rest }) => ({
       Header: name,
       ...(subHeaders && {
         id: name,
         Header: () => <div className="border-b border-divider py-3">{name}</div>,
-        columns: subHeaders.map(({ key: _key, name: _name }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, formatter = baseFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
-          Cell: _key === 'delta' ? ratioFormatter : baseFormatter,
+          Cell: formatter,
           className: 'text-right',
         })),
       }),
@@ -106,16 +107,24 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BAS
 export default function CarbonPage() {
   const business = useSelector(selectBusiness);
   const { data } = useGetCarbonQuery({ business });
-  const columns = useMemo(() => COLUMNS(), []);
   const isHistory = useIsHistory();
+  const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '碳排放量' });
+  const columns = useMemo(() => COLUMNS({ pct, currYear, baseYear }), [pct, currYear, baseYear]);
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div className="text-xl font-medium">碳排放管理</div>
         {isHistory ? (
-          <Tag>{'Target：對比2016年，每年下降4.2%'}</Tag>
+          <Tag>{label}</Tag>
         ) : (
-          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比2016年下降21%']} />
+          <DualTag
+            labels={[
+              <>
+                累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+              </>,
+              label,
+            ]}
+          />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

@@ -17,6 +17,7 @@ import useIsHistory from '../../hooks/useIsHistory';
 import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
+import useGoal from '../../hooks/useGoal';
 
 const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
@@ -96,16 +97,25 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
 export default function ElectricityPage() {
   const business = useSelector(selectBusiness);
   const { data } = useGetElectricityQuery({ business });
-  const columns = useMemo(() => COLUMNS(), []);
   const isHistory = useIsHistory();
+  const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '用電強度' });
+  console.log({ label, pct, currYear, baseYear });
+  const columns = useMemo(() => COLUMNS({ pct, currYear, baseYear }), [pct, currYear, baseYear]);
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div className="text-xl font-medium">十億營業額用電</div>
         {isHistory ? (
-          <Tag>{'Target：對比去年下降2%'}</Tag>
+          <Tag>{label}</Tag>
         ) : (
-          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比去年下降2%']} />
+          <DualTag
+            labels={[
+              <>
+                累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+              </>,
+              label,
+            ]}
+          />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

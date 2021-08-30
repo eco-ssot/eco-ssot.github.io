@@ -73,12 +73,7 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
         {
           Header: '增減率 *',
           accessor: [key, 'delta'].join('.'),
-          Cell: (c) => {
-            return targetFormatter(0, {
-              formatter: ratioFormatter,
-              ...(c.row.original.isFooter && { targetColor: 'text-primary-500' }),
-            })(c.value);
-          },
+          Cell: targetFormatter(0, { formatter: ratioFormatter }),
           className: 'text-right',
         },
       ],
@@ -102,7 +97,11 @@ export default function OverviewPage() {
     <PageContainer>
       <div className="flex justify-between h-8">
         <div>用電、用水、營收及ASP比較</div>
-        {!isHistory && <Tag>{`累計區間：${formatMonthRange(data?.maxDate)}`}</Tag>}
+        {!isHistory && (
+          <Tag>
+            累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+          </Tag>
+        )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">
         <ButtonGroup

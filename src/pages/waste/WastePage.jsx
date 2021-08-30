@@ -135,7 +135,14 @@ export default function WastePage() {
         {isHistory ? (
           <Tag>Target：對比2018年下降 2%</Tag>
         ) : (
-          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比2018年下降 6%']} />
+          <DualTag
+            labels={[
+              <>
+                累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+              </>,
+              'Target：對比2018年下降 6%',
+            ]}
+          />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

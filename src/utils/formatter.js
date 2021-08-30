@@ -12,13 +12,16 @@ export const keepPrecisionFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { ...option, keepPrecision: true });
 
 export const targetFormatter =
-  (target, { formatter = originalFormatter, targetColor = 'text-gray-50' } = {}) =>
-  (value, option = {}) => {
+  (target, { formatter = originalFormatter } = {}) =>
+  ({ value, ...cell }, option = {}) => {
     if (/NaN|∞|Infinity|-/.test(String(value))) {
       return '-';
     }
 
+    const val = /^revenue$|^asp$|^revenue.delta$|^asp.delta$/gi.test(cell.column.id) ? value * -1 : value;
     return (
-      <div className={value < target ? 'text-_red' : value > target ? targetColor : ''}>{formatter(value, option)}</div>
+      <div className={val > target ? 'text-_red' : val < target && cell.row.original.isFooter ? 'text-green-500' : ''}>
+        {formatter(value, option)}
+      </div>
     );
   };

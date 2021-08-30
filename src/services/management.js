@@ -8,9 +8,21 @@ export const managementApi = createApi({
   endpoints: (builder) => ({
     getGoal: builder.query({
       query: ({ year }) => ({ url: `settings/${year}/objective` }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: res.data.sort((a, b) => a.id - b.id),
+        };
+      },
     }),
     getCarbonIndex: builder.query({
       query: ({ year }) => ({ url: `settings/${year}/carbonCoef` }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: res.data.sort((a, b) => a.id - b.id),
+        };
+      },
     }),
     patchGoal: builder.mutation({
       query: ({ year, id, data }) => ({

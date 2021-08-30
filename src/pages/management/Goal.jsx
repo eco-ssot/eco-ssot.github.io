@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
-import EditableTable from '../../components/table/EditableTable';
+import EditableTable, { SelectInputCell } from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import { usePatchGoalMutation } from '../../services/management';
@@ -25,10 +25,7 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
     accessor: 'target',
     editable: true,
     className: 'w-[18%]',
-    // CustomCell: ({ value = '', ...rest } = {}) => {
-    //   const [match] = value.match(/逐年下降|下降|佔比/) || [];
-    //   return <div {...rest}>{value}</div>;
-    // },
+    EditableComponent: SelectInputCell,
   },
   {
     Header: `${year}年 Target`,

@@ -117,7 +117,14 @@ export default function WaterPage() {
         {isHistory ? (
           <Tag>Target：對比2016年下降 9%</Tag>
         ) : (
-          <DualTag labels={[`累計區間：${formatMonthRange(data?.maxDate)}`, 'Target：對比2016年下降 9%']} />
+          <DualTag
+            labels={[
+              <>
+                累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+              </>,
+              'Target：對比2016年下降 9%',
+            ]}
+          />
         )}
       </div>
       <div className="flex flex-col w-full justify-center items-center space-y-2">

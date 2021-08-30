@@ -2,6 +2,7 @@ import Chart from '../../charts/Chart';
 import { colors } from '../../styles';
 import Legend from '../../components/legend/Legend';
 import { ratioFormatter } from '../../utils/formatter';
+import { getDecimalNumber } from '../../utils/number';
 
 const DATA = {
   nonRenewableEnergy: { value: null, color: colors._blue, dotClassName: 'bg-_blue' },
@@ -61,7 +62,7 @@ export default function RenewableEnergy({ data = {} }) {
       <div className="w-1/2 h-full flex items-center justify-center">
         <Chart className="w-full h-full" option={option} />
         <div className="absolute text-center text-lg font-medium">
-          <div className="text-_orange">{`Target : > ${target.replace(/[^0-9]/g, '') || '-'}%`}</div>
+          <div className="text-_orange">{`Target : > ${getDecimalNumber(target)}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>

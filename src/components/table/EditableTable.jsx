@@ -6,6 +6,57 @@ import { isNil } from 'lodash';
 
 import Input from '../../components/input/Input';
 import IconButton from '../button/IconButton';
+import APP_CONFIG from '../../constants/app-config';
+import Select from '../../components/select/Select';
+import { getDecimalNumber } from '../../utils/number';
+
+export const SelectInputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
+  const [match] = defaultValue.match(/逐年下降|下降|占比|佔比/) || [];
+  const decimalNumber = getDecimalNumber(defaultValue);
+  const getPrefix = (value) => (/占比|佔比/.test(value) ? '>' : '');
+  const [inputValue, setInputValue] = useState(decimalNumber);
+  const [selectValue, setSelectValue] = useState(match);
+  const prefix = getPrefix(selectValue);
+  const suffix = '%';
+
+  useEffect(() => {
+    setSelectValue(match);
+    setInputValue(decimalNumber);
+  }, [match, decimalNumber]);
+
+  return (
+    <div className="flex space-x-2 ">
+      <Select
+        className="text-left"
+        buttonClassName="w-36"
+        options={APP_CONFIG.TARGET_OPTIONS}
+        selected={APP_CONFIG.TARGET_OPTIONS.find((option) => option.key === selectValue)}
+        onChange={(e) => onBlur([e.key, getPrefix(e.key), inputValue, suffix].join(' '))}
+      />
+      <Input
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onBlur={(e) => onBlur([selectValue, prefix, e.target.value, suffix].join(' '))}
+        placeholder={placeholder}
+        prefix={prefix}
+        suffix={suffix}
+      />
+    </div>
+  );
+};
+
+export const InputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
+  const [value, setValue] = useState(defaultValue);
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
+
+  return <Input value={value} onChange={onChange} onBlur={() => onBlur(value)} placeholder={placeholder} />;
+};
 
 const EditableCell = ({
   value: initialValue,
@@ -13,30 +64,17 @@ const EditableCell = ({
     index,
     original: { editing },
   },
-  column: { id, editable, placeholder, formatter = (val) => val, CustomCell = null },
+  column: { id, editable, placeholder, formatter = (val) => val, EditableComponent = InputCell },
   updateMyData,
 }) => {
-  const [value, setValue] = useState(initialValue);
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
-
-  const onBlur = () => {
+  const onBlur = (value) => {
     updateMyData(index, id, value);
   };
 
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
   return editable && editing ? (
-    CustomCell ? (
-      <CustomCell value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
-    ) : (
-      <Input value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} />
-    )
+    <EditableComponent defaultValue={initialValue} placeholder={placeholder} onBlur={onBlur} />
   ) : (
-    <>{isNil(value) || value === '' ? '-' : formatter(value)}</>
+    <>{isNil(initialValue) || initialValue === '' ? '-' : formatter(initialValue)}</>
   );
 };
 
