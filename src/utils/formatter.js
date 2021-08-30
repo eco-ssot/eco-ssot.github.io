@@ -14,10 +14,6 @@ export const keepPrecisionFormatter = (value, option = {}) =>
 export const targetFormatter =
   (target, { formatter = originalFormatter, ...option } = {}) =>
   ({ value, ...cell }) => {
-    if (/NaN|∞|Infinity|-/.test(String(value))) {
-      return '-';
-    }
-
     const val = /^revenue$|^asp$|^revenue.delta$|^asp.delta$/gi.test(cell.column.id) ? value * -1 : value;
     return (
       <div className={val > target ? 'text-_red' : val < target && cell.row.original.isFooter ? 'text-green-500' : ''}>
