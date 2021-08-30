@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetWasteQuery } from '../../services/waste';
 import { selectBusiness } from '../../renderless/location/locationSlice';
@@ -17,8 +17,9 @@ import useIsHistory from '../../hooks/useIsHistory';
 import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
+import useGoal from '../../hooks/useGoal';
 
-const HEADERS = ({ maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
+const HEADERS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
   {
     key: 'nonRecyclable',
     name: '不可回收類重量 (公噸)',
@@ -70,18 +71,18 @@ const HEADERS = ({ maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
     subHeaders: [
       { key: 'currYear', name: `${formatMonthRange(maxDate)}月` },
       { key: 'baseYear', name: `${baseYear}年` },
-      { key: 'delta', name: '增減率 *', renderer: ratioFormatter },
+      { key: 'delta', name: '增減率 *', renderer: targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 }) },
     ],
   },
   {
     key: 'recycleRate',
     name: <div className="text-right">廢棄物回收率</div>,
-    renderer: ratioFormatter,
+    renderer: (cell) => ratioFormatter(cell, { precision: 2 }),
     rowSpan: 0,
   },
 ];
 
-const COLUMNS = ({ maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
+const COLUMNS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
   addPaddingColumns([
     {
       id: 'expander',
@@ -105,42 +106,47 @@ const COLUMNS = ({ maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ maxDate, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
-      Header: name,
-      Cell: renderer,
-      ...(subHeaders && {
-        id: name,
-        Header: () => <div className="border-b border-divider py-3">{name}</div>,
-        columns: subHeaders.map(({ key: _key, name: _name, renderer: _renderer = baseFormatter }) => ({
-          Header: _name,
-          accessor: [key, _key].join('.'),
-          Cell: _renderer,
-          className: 'text-right',
-        })),
-      }),
-      ...(!subHeaders && { accessor: key, className: 'text-right' }),
-      ...rest,
-    })),
+    ...HEADERS({ pct, maxDate, baseYear }).map(
+      ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
+        Header: name,
+        Cell: renderer,
+        ...(subHeaders && {
+          id: name,
+          Header: () => <div className="border-b border-divider py-3">{name}</div>,
+          columns: subHeaders.map(
+            ({ key: _key, name: _name, renderer: _renderer = (cell) => baseFormatter(cell, { precision: 2 }) }) => ({
+              Header: _name,
+              accessor: [key, _key].join('.'),
+              Cell: _renderer,
+              className: 'text-right',
+            })
+          ),
+        }),
+        ...(!subHeaders && { accessor: key, className: 'text-right' }),
+        ...rest,
+      })
+    ),
   ]);
 
 export default function WastePage() {
   const business = useSelector(selectBusiness);
   const { data } = useGetWasteQuery({ business });
-  const columns = useMemo(() => COLUMNS({ maxDate: data?.maxDate }), [data?.maxDate]);
   const isHistory = useIsHistory();
+  const { label, pct, baseYear } = useGoal({ isHistory, keyword: '廢棄物密度' });
+  const columns = useMemo(() => COLUMNS({ pct, baseYear, maxDate: data?.maxDate }), [pct, baseYear, data?.maxDate]);
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div className="text-xl font-medium">廢棄物產生密度</div>
         {isHistory ? (
-          <Tag>Target：對比2018年下降 2%</Tag>
+          <Tag>{label}</Tag>
         ) : (
           <DualTag
             labels={[
               <>
                 累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
               </>,
-              'Target：對比2018年下降 6%',
+              label,
             ]}
           />
         )}

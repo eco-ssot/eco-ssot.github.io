@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
 import useIsHistory from '../../hooks/useIsHistory';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
@@ -17,8 +17,9 @@ import { addPaddingColumns } from '../../utils/table';
 import { navigate } from '../../router/helpers';
 import { selectBusiness } from '../../renderless/location/locationSlice';
 import { formatMonthRange } from '../../utils/date';
+import useGoal from '../../hooks/useGoal';
 
-const HEADERS = [
+const HEADERS = ({ pct } = {}) => [
   {
     key: 'electricity',
     name: '總用電量 (a)',
@@ -37,7 +38,8 @@ const HEADERS = [
   },
   {
     key: 'tRecTarget',
-    name: '再生能源綠證目標 ( a*60% - b )',
+    name: `再生能源綠證目標 ( a*${ratioFormatter(pct)} - b )`,
+    renderer: targetFormatter(pct, { formatter: ratioFormatter }),
   },
   {
     key: 'roofRestArea',
@@ -49,53 +51,55 @@ const HEADERS = [
   },
 ];
 
-const COLUMNS = addPaddingColumns([
-  {
-    id: 'expander',
-    Header: '',
-    Cell: ({ row }) => {
-      const { title, style, ...rest } = row.getToggleRowExpandedProps();
-      return row.canExpand ? (
-        <div {...rest} className="flex justify-center">
-          {row.isExpanded ? (
-            <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-          ) : (
-            <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-          )}
-        </div>
-      ) : null;
+const COLUMNS = ({ pct } = {}) =>
+  addPaddingColumns([
+    {
+      id: 'expander',
+      Header: '',
+      Cell: ({ row }) => {
+        const { title, style, ...rest } = row.getToggleRowExpandedProps();
+        return row.canExpand ? (
+          <div {...rest} className="flex justify-center">
+            {row.isExpanded ? (
+              <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
+            ) : (
+              <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
+            )}
+          </div>
+        ) : null;
+      },
     },
-  },
-  {
-    Header: 'Site',
-    accessor: 'site',
-  },
-  ...HEADERS.map(({ key, name }) => ({
-    Header: name,
-    accessor: key,
-    Cell: key === 'ratio' ? ratioFormatter : baseFormatter,
-    className: 'text-right',
-  })),
-]);
+    {
+      Header: 'Site',
+      accessor: 'site',
+    },
+    ...HEADERS({ pct }).map(({ key, name }) => ({
+      Header: name,
+      accessor: key,
+      Cell: key === 'ratio' ? ratioFormatter : baseFormatter,
+      className: 'text-right',
+    })),
+  ]);
 
 export default function RenewableEnergyPage() {
   const business = useSelector(selectBusiness);
   const { data } = useGetRenewableEnergyQuery({ business });
-  const columns = useMemo(() => COLUMNS, []);
   const isHistory = useIsHistory();
+  const { label, pct } = useGoal({ isHistory, keyword: '可再生能源' });
+  const columns = useMemo(() => COLUMNS({ pct }), [pct]);
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div className="text-xl font-medium">可再生能源佔比</div>
         {isHistory ? (
-          <Tag>{'Target：可再生能源 > 60%'}</Tag>
+          <Tag>{label}</Tag>
         ) : (
           <DualTag
             labels={[
               <>
                 累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
               </>,
-              'Target：可再生能源 > 60%',
+              label,
             ]}
           />
         )}

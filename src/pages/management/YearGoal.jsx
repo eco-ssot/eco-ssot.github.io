@@ -76,7 +76,7 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
   },
 ];
 
-export default function Goal({ className, year, data }) {
+export default function YearGoal({ className, year, data }) {
   const [patchGoal] = usePatchGoalMutation();
   const [dataSource, setData] = useState(data);
   const columns = COLUMNS({ setData, patchGoal, year });

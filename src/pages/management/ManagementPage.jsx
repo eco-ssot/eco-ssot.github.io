@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import Goal from './Goal';
+import YearGoal from './YearGoal';
 import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';
 
@@ -33,7 +33,7 @@ export default function ManagementPage() {
       <div className="row-span-2 col-span-1">
         <div className="bg-primary-900 rounded shadow p-4 h-full flex flex-col">
           <div className="flex flex-grow flex-col space-y-8">
-            <div>管理者資訊</div>
+            <div className="text-xl font-medium">管理者資訊</div>
             <div className="space-y-2">
               <div className="text-primary-600">User Name</div>
               <div>{given_name}</div>
@@ -62,7 +62,7 @@ export default function ManagementPage() {
       <div className="row-span-1 col-span-5">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
-            <div>年度目標</div>
+            <div className="text-xl font-medium">年度目標</div>
             <div className="flex items-center">
               <Select
                 label="查詢年度："
@@ -72,14 +72,14 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <Goal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} />
+          <YearGoal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} />
         </div>
       </div>
       <div className="row-span-1 col-span-2">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
-            <div className="flex space-x-2">
-              <div>碳排放係數</div>
+            <div className="flex space-x-2 items-baseline">
+              <div className="text-xl font-medium">碳排放係數</div>
               <div className="text-unit">(兆瓦時/公噸)</div>
             </div>
             <div className="flex items-center">
@@ -97,7 +97,7 @@ export default function ManagementPage() {
       <div className="row-span-1 col-span-3">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
-            <div>綠證</div>
+            <div className="text-xl font-medium">綠證</div>
             <div className="flex items-center">
               <Select
                 label="查詢年度："

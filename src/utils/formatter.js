@@ -12,8 +12,8 @@ export const keepPrecisionFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { ...option, keepPrecision: true });
 
 export const targetFormatter =
-  (target, { formatter = originalFormatter } = {}) =>
-  ({ value, ...cell }, option = {}) => {
+  (target, { formatter = originalFormatter, ...option } = {}) =>
+  ({ value, ...cell }) => {
     if (/NaN|∞|Infinity|-/.test(String(value))) {
       return '-';
     }

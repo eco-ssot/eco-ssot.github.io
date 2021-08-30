@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
 import { selectBusiness } from '../../renderless/location/locationSlice';
@@ -17,15 +17,16 @@ import useIsHistory from '../../hooks/useIsHistory';
 import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
+import useGoal from '../../hooks/useGoal';
 
-const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
+const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
     key: 'electricity',
     name: '用電量 (度)',
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (a)` },
       { key: 'currYear', name: `${currYear}年 (b)` },
-      { key: 'delta', name: '增減率 (b/a-1)' },
+      { key: 'delta', name: '增減率 (b/a-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -34,21 +35,21 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (c)` },
       { key: 'currYear', name: `${currYear}年 (d)` },
-      { key: 'delta', name: '增減率 (d/c-1)' },
+      { key: 'delta', name: '增減率 (d/c-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
     key: 'unitElectricity',
     name: '單台用電 (度)',
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年 (e=a/c)` },
-      { key: 'currYear', name: `${currYear}年 (f=b/d)` },
-      { key: 'delta', name: '增減率 (f/e-1)' },
+      { key: 'lastYear', name: `${lastYear}年 (e=a/c)`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'currYear', name: `${currYear}年 (f=b/d)`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'delta', name: '增減率 (f/e-1)', renderer: targetFormatter(-pct, { formatter: ratioFormatter }) },
     ],
   },
 ];
 
-const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     {
       id: 'expander',
@@ -72,14 +73,14 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
-          Cell: _key === 'delta' ? ratioFormatter : baseFormatter,
+          Cell: renderer,
           className: 'text-right',
         })),
       }),
@@ -89,21 +90,22 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
 export default function UnitElectricityPage() {
   const business = useSelector(selectBusiness);
   const { data } = useGetUnitElectricityQuery({ business });
-  const columns = useMemo(() => COLUMNS(), []);
   const isHistory = useIsHistory();
+  const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '單台用電' });
+  const columns = useMemo(() => COLUMNS({ pct, currYear, lastYear: baseYear }), [pct, currYear, baseYear]);
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div className="text-xl font-medium">單台用電</div>
         {isHistory ? (
-          <Tag>Target：對比去年下降1%</Tag>
+          <Tag>{label}</Tag>
         ) : (
           <DualTag
             labels={[
               <>
                 累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
               </>,
-              'Target：對比去年下降1%',
+              label,
             ]}
           />
         )}

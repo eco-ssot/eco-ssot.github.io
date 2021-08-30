@@ -20,8 +20,8 @@ import useIsHistory from '../../hooks/useIsHistory';
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },
   { key: 'water', name: '用水量 (公噸)' },
-  { key: 'revenue', name: '營業額 (十億台幣)' },
-  { key: 'asp', name: 'ASP (千台幣/台)' },
+  { key: 'revenue', name: '營業額 (十億台幣)', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+  { key: 'asp', name: 'ASP (千台幣/台)', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
 ];
 
 const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
@@ -48,20 +48,20 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS.map(({ key, name }) => ({
+    ...HEADERS.map(({ key, name, renderer = baseFormatter }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       columns: [
         {
           Header: `${lastYear}年`,
           accessor: [key, 'lastYear'].join('.'),
-          Cell: baseFormatter,
+          Cell: renderer,
           className: 'text-right',
         },
         {
           Header: `${currYear}年`,
           accessor: [key, 'currYear'].join('.'),
-          Cell: baseFormatter,
+          Cell: renderer,
           className: 'text-right',
         },
         {
@@ -96,7 +96,7 @@ export default function OverviewPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div>用電、用水、營收及ASP比較</div>
+        <div className="text-xl font-medium">用電、用水、營收及ASP比較</div>
         {!isHistory && (
           <Tag>
             累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>

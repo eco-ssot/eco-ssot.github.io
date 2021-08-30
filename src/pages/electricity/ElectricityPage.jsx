@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
 import { selectBusiness } from '../../renderless/location/locationSlice';
 import { useGetElectricityQuery } from '../../services/electricity';
@@ -26,7 +26,7 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (a)` },
       { key: 'currYear', name: `${currYear}年 (b)` },
-      { key: 'delta', name: '增減率 (b/a-1)' },
+      { key: 'delta', name: '增減率 (b/a-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -35,7 +35,7 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (c)` },
       { key: 'currYear', name: `${currYear}年 (d)` },
-      { key: 'delta', name: '增減率 (d/c-1)' },
+      { key: 'delta', name: '增減率 (d/c-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -44,7 +44,7 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (e=a/c)` },
       { key: 'currYear', name: `${currYear}年 (f=b/d)` },
-      { key: 'delta', name: '增減率 (f/e-1)' },
+      { key: 'delta', name: '增減率 (f/e-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -53,7 +53,7 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (g)` },
       { key: 'currYear', name: `${currYear}年 (h)` },
-      { key: 'delta', name: '增減率 (h/g-1)' },
+      { key: 'delta', name: '增減率 (h/g-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
 ];
@@ -85,10 +85,10 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     ...HEADERS({ currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
-      columns: subHeaders.map(({ key: _key, name: _name }) => ({
+      columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
         Header: _name,
         accessor: [key, _key].join('.'),
-        Cell: _key === 'delta' ? ratioFormatter : baseFormatter,
+        Cell: renderer,
         className: 'text-right',
       })),
     })),
@@ -99,8 +99,7 @@ export default function ElectricityPage() {
   const { data } = useGetElectricityQuery({ business });
   const isHistory = useIsHistory();
   const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '用電強度' });
-  console.log({ label, pct, currYear, baseYear });
-  const columns = useMemo(() => COLUMNS({ pct, currYear, baseYear }), [pct, currYear, baseYear]);
+  const columns = useMemo(() => COLUMNS({ pct, currYear, lastYear: baseYear }), [pct, currYear, baseYear]);
   return (
     <PageContainer>
       <div className="flex justify-between h-8">

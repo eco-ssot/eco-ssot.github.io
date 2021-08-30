@@ -39,6 +39,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
       </>
     ),
     rowSpan: 0,
+    renderer: (cell) => baseFormatter(cell, { precision: 4 }),
   },
   {
     key: 'carbon',
@@ -48,7 +49,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
       { key: 'scope2', name: 'Scope2碳排 (g=d*e/1000)' },
       { key: 'currYear', name: `${currYear}年碳排 (h=f+g)` },
       { key: 'baseYear', name: `${baseYear}年碳排 (i)` },
-      { key: 'delta', name: '增減率 (h/i-1)', formatter: targetFormatter(-pct, { formatter: ratioFormatter }) },
+      { key: 'delta', name: '增減率 (h/i-1)', renderer: targetFormatter(-pct, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -56,7 +57,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
     name: (
       <>
         <div className="text-right">碳排抵扣綠證目標</div>
-        <div className="text-right">{`(h-i*${(1 - pct) * 1e2}%)*1000/e`}</div>
+        <div className="text-right">{`(h-i*${ratioFormatter(1 - pct)})*1000/e`}</div>
       </>
     ),
     rowSpan: 0,
@@ -87,15 +88,16 @@ const COLUMNS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ pct, currYear, baseYear }).map(({ key, name, subHeaders, ...rest }) => ({
+    ...HEADERS({ pct, currYear, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,
+      Cell: renderer,
       ...(subHeaders && {
         id: name,
         Header: () => <div className="border-b border-divider py-3">{name}</div>,
-        columns: subHeaders.map(({ key: _key, name: _name, formatter = baseFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, _renderer = baseFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
-          Cell: formatter,
+          Cell: _renderer,
           className: 'text-right',
         })),
       }),

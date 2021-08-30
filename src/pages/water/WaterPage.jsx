@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import DualTag from '../../components/tag/DualTag';
 import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetWaterQuery } from '../../services/water';
 import { selectBusiness } from '../../renderless/location/locationSlice';
@@ -17,8 +17,10 @@ import useIsHistory from '../../hooks/useIsHistory';
 import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
+import useGoal from '../../hooks/useGoal';
 
 const HEADERS = ({
+  pct,
   currYear = APP_CONFIG.CURRENT_YEAR,
   lastYear = APP_CONFIG.LAST_YEAR,
   baseYear = APP_CONFIG.BASE_YEAR_WATER,
@@ -29,18 +31,18 @@ const HEADERS = ({
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年` },
       { key: 'currYear', name: `${currYear}年` },
-      { key: 'weight', name: '權重' },
-      { key: 'delta', name: '增減率' },
+      { key: 'weight', name: '權重', renderer: ratioFormatter },
+      { key: 'delta', name: '增減率', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
     key: 'revenue',
     name: '營業額 (十億台幣)',
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年` },
-      { key: 'currYear', name: `${currYear}年` },
-      { key: 'weight', name: '權重' },
-      { key: 'delta', name: '增減率' },
+      { key: 'lastYear', name: `${lastYear}年`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'currYear', name: `${currYear}年`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'weight', name: '權重', renderer: ratioFormatter },
+      { key: 'delta', name: '增減率', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -49,8 +51,8 @@ const HEADERS = ({
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年` },
       { key: 'currYear', name: `${currYear}年` },
-      { key: 'weight', name: '權重' },
-      { key: 'delta', name: '增減率' },
+      { key: 'weight', name: '權重', renderer: ratioFormatter },
+      { key: 'delta', name: '增減率', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
@@ -58,12 +60,13 @@ const HEADERS = ({
     name: '對比基準年',
     subHeaders: [
       { key: 'baseYear', name: `${baseYear}年` },
-      { key: 'delta', name: '增減率' },
+      { key: 'delta', name: '增減率', renderer: targetFormatter(-pct, { formatter: ratioFormatter }) },
     ],
   },
 ];
 
 const COLUMNS = ({
+  pct,
   currYear = APP_CONFIG.CURRENT_YEAR,
   lastYear = APP_CONFIG.LAST_YEAR,
   baseYear = APP_CONFIG.BASE_YEAR_WATER,
@@ -91,14 +94,14 @@ const COLUMNS = ({
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
-          Cell: _key === 'delta' || _key === 'weight' ? ratioFormatter : baseFormatter,
+          Cell: renderer,
           className: 'text-right',
         })),
       }),
@@ -108,21 +111,26 @@ const COLUMNS = ({
 export default function WaterPage() {
   const business = useSelector(selectBusiness);
   const { data } = useGetWaterQuery({ business });
-  const columns = useMemo(() => COLUMNS(), []);
   const isHistory = useIsHistory();
+  const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '用水強度' });
+  const columns = useMemo(
+    () => COLUMNS({ pct, currYear, baseYear, lastYear: currYear - 1 }),
+    [pct, currYear, baseYear]
+  );
+
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
         <div className="text-xl font-medium">十億營業額用水</div>
         {isHistory ? (
-          <Tag>Target：對比2016年下降 9%</Tag>
+          <Tag>{label}</Tag>
         ) : (
           <DualTag
             labels={[
               <>
                 累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
               </>,
-              'Target：對比2016年下降 9%',
+              label,
             ]}
           />
         )}
