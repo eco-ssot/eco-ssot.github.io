@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import EditableTable, { SelectInputCell } from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
-import { usePatchGoalMutation } from '../../services/management';
+import { usePatchGoalMutation } from '../../services/app';
 import { keepPrecisionFormatter } from '../../utils/formatter';
 
 const COLUMNS = ({ setData, year, patchGoal }) => [

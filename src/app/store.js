@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+import { appApi } from '../services/app';
 import { weatherApi } from '../services/weather';
 import { summaryApi } from '../services/summary';
 import { managementApi } from '../services/management';
@@ -20,6 +21,7 @@ export const store = configureStore({
     location: locationReducer,
     loader: loaderReducer,
     errorHandler: errorHandlerReducer,
+    [appApi.reducerPath]: appApi.reducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
     [summaryApi.reducerPath]: summaryApi.reducer,
     [managementApi.reducerPath]: managementApi.reducer,
@@ -33,6 +35,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
+    appApi.middleware,
     weatherApi.middleware,
     summaryApi.middleware,
     managementApi.middleware,

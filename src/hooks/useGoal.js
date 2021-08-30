@@ -1,4 +1,4 @@
-import { useGetGoalQuery } from '../services/management';
+import { useGetGoalQuery } from '../services/app';
 import { getTargetLabel } from '../utils/label';
 import { getDecimalNumber } from '../utils/number';
 

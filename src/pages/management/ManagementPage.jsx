@@ -8,7 +8,7 @@ import { useKeycloak } from '../../keycloak';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/management';
+import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/app';
 
 const YEAR_OPTIONS = [{ key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR }, ...APP_CONFIG.YEAR_OPTIONS];
 

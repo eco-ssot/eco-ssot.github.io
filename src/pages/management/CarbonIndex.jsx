@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
-import { usePatchCarbonIndexMutation } from '../../services/management';
+import { usePatchCarbonIndexMutation } from '../../services/app';
 
 const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
   {
