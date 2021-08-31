@@ -23,6 +23,18 @@ html[class='dark'] {
   @apply bg-gray-900 text-gray-50;
 }
 
+@screen 4k {
+  html {
+    font-size: 30px;
+  }
+}
+
+@screen 2k {
+  html {
+    font-size: 20px;
+  }
+}
+
 @screen 1k {
   html {
     font-size: 15px;

@@ -34,14 +34,19 @@ const OPTION = (values, labels, target) => ({
       })),
       type: 'bar',
       barWidth: 32,
-      label: { show: true, position: 'top', color: colors.gray['50'], formatter: baseFormatter },
+      label: {
+        show: true,
+        position: 'top',
+        color: colors.gray['50'],
+        formatter: (value) => baseFormatter(value, { precision: 1 }),
+      },
       animationDuration: 2000,
       ...(target && {
         markLine: {
           data: [{ yAxis: target }],
           symbol: 'none',
           lineStyle: { color: colors._orange },
-          label: { formatter: baseFormatter },
+          label: { formatter: (value) => baseFormatter(value, { precision: 1 }) },
         },
       }),
     },
