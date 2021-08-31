@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 import YearGoal from './YearGoal';
 import CarbonIndex from './CarbonIndex';
@@ -9,6 +10,7 @@ import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/app';
+import { selectBusiness } from '../../renderless/location/locationSlice';
 
 const YEAR_OPTIONS = [{ key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR }, ...APP_CONFIG.YEAR_OPTIONS];
 
@@ -17,7 +19,8 @@ export default function ManagementPage() {
   const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
-  const goalRes = useGetGoalQuery({ year: goalYear });
+  const business = useSelector(selectBusiness);
+  const goalRes = useGetGoalQuery({ business, year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const logout = useCallback(() => {
     keycloak?.logout();

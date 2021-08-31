@@ -12,7 +12,7 @@ export const appApi = createApi({
       providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
     }),
     getGoal: builder.query({
-      query: ({ year }) => ({ url: `settings/${year}/objective` }),
+      query: ({ year, business = 'ALL' }) => ({ url: `settings/${year}/${business}/objective` }),
       transformResponse: (res) => {
         return {
           ...res,
