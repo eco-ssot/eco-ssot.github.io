@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
-import { format } from 'date-fns';
 
 import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
@@ -13,24 +12,18 @@ const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
   {
     Header: 'Site',
     accessor: 'site',
-    className: 'w-1/5',
+    className: 'w-1/3',
   },
   {
     Header: '碳排放係數',
     accessor: 'amount',
     editable: true,
-    className: 'w-[30%]',
-  },
-  {
-    Header: '更新日期',
-    accessor: 'lastUpdateTime',
-    className: 'w-[30%]',
-    Cell: ({ value }) => format(new Date(value), 'yyyy.MM.dd'),
+    className: 'w-1/3',
   },
   {
     Header: '編輯',
     id: 'action',
-    className: 'w-1/5',
+    className: 'w-1/3',
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <Button
