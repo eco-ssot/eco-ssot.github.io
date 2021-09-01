@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import { isNil } from 'lodash';
 
 import EditableTable, { CustomInputCell } from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import { usePatchGoalMutation } from '../../services/app';
 import { keepPrecisionFormatter } from '../../utils/formatter';
+import APP_CONFIG from '../../constants/app-config';
 
 const COLUMNS = ({ setData, year, patchGoal }) => [
   {
@@ -19,6 +21,13 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
     accessor: 'baseYear',
     editable: true,
     className: 'w-[18%]',
+    Cell: (cell) => {
+      if (cell.row.original.category === '可再生能源') {
+        return APP_CONFIG.CURRENT_YEAR;
+      }
+
+      return isNil(cell.value) ? APP_CONFIG.LAST_YEAR : cell.value;
+    },
   },
   {
     Header: 'Target 訂定標準（對比基準年）',
