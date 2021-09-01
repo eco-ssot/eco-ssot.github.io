@@ -73,12 +73,6 @@ const SITE_OPTIONS = [
   { key: 'WCZ', value: 'WCZ' },
 ];
 
-const TARGET_OPTIONS = [
-  { key: '下降', value: '下降' },
-  { key: '逐年下降', value: '逐年下降' },
-  { key: '占比', value: '占比' },
-];
-
 const APP_CONFIG = {
   BUSINESS_OPTIONS,
   YEAR_OPTIONS,
@@ -88,7 +82,6 @@ const APP_CONFIG = {
   MONTH_OPTIONS,
   SITE_OPTIONS,
   PLANT_OPTIONS,
-  TARGET_OPTIONS,
   BUSINESS_MAPPING,
   HISTORY_MAPPING,
   DIMENSION_MAPPING,
