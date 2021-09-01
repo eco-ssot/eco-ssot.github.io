@@ -52,11 +52,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
       {
         key: 'delta',
         name: '增減率 (h/i-1)',
-        renderer: (cell) => {
-          const { carbon } = cell.row.original;
-          const value = carbon.currYear / carbon.baseYear - 1;
-          return targetFormatter(-pct, { formatter: ratioFormatter })({ ...cell, value });
-        },
+        renderer: targetFormatter(-pct, { formatter: ratioFormatter }),
       },
     ],
   },
@@ -69,11 +65,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
       </>
     ),
     rowSpan: 0,
-    renderer: (cell) => {
-      const { carbon, carbonIndex } = cell.row.original;
-      const value = ((carbon.currYear - carbon.baseYear * (1 - pct)) * 1e3) / carbonIndex;
-      return baseFormatter(value);
-    },
+    renderer: baseFormatter,
   },
 ];
 

@@ -49,10 +49,10 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
   },
   {
     key: 'asp',
-    name: 'ASP (十億新台幣/百萬台)',
+    name: 'ASP (千台幣/台)',
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年 (g)` },
-      { key: 'currYear', name: `${currYear}年 (h)` },
+      { key: 'lastYear', name: `${lastYear}年 (g)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
+      { key: 'currYear', name: `${currYear}年 (h)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
       { key: 'delta', name: '增減率 (h/g-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
