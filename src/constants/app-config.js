@@ -12,16 +12,33 @@ const BUSINESS_OPTIONS = [
   { key: 'WSD', value: 'WSD', alias: 'WSD' },
 ];
 
+const BUSINESS_MAPPING = {
+  ALL: 'ALL',
+  WT: 'WT',
+  WSD: 'WSD',
+};
+
 const HISTORY_OPTIONS = [
   { key: 'CURRENT', value: '當年度' },
   { key: 'HISTORY', value: '歷史年度' },
 ];
+
+const HISTORY_MAPPING = {
+  CURRENT: 'CURRENT',
+  HISTORY: 'HISTORY',
+};
 
 const DIMENSION_OPTIONS = [
   { key: 'All', value: 'ALL' },
   { key: 'Site', value: 'By Site' },
   { key: 'Plant', value: 'By Plant' },
 ];
+
+const DIMENSION_MAPPING = {
+  ALL: 'All',
+  SITE: 'Site',
+  PLANT: 'Plant',
+};
 
 const MONTH_RANGE_OPTIONS = [
   { key: 'SINGLE', value: 'Year To Month' },
@@ -56,7 +73,7 @@ const SITE_OPTIONS = [
   { key: 'WCZ', value: 'WCZ' },
 ];
 
-export const TARGET_OPTIONS = [
+const TARGET_OPTIONS = [
   { key: '下降', value: '下降' },
   { key: '逐年下降', value: '逐年下降' },
   { key: '占比', value: '占比' },
@@ -72,6 +89,9 @@ const APP_CONFIG = {
   SITE_OPTIONS,
   PLANT_OPTIONS,
   TARGET_OPTIONS,
+  BUSINESS_MAPPING,
+  HISTORY_MAPPING,
+  DIMENSION_MAPPING,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),

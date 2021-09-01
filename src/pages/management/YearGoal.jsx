@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
-import EditableTable, { SelectInputCell } from '../../components/table/EditableTable';
+import EditableTable, { CustomInputCell } from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import { usePatchGoalMutation } from '../../services/app';
@@ -25,12 +25,11 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
     accessor: 'target',
     editable: true,
     className: 'w-[18%]',
-    EditableComponent: SelectInputCell,
+    EditableComponent: CustomInputCell,
   },
   {
     Header: `${year}年 Target`,
     accessor: 'amount',
-    editable: true,
     className: 'w-[18%]',
     formatter: keepPrecisionFormatter,
   },
@@ -47,8 +46,8 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
       return cell.row.original.editing ? (
         <Button
           onClick={() => {
-            const { id, editing, category, unit, ...rest } = cell.row.original;
-            patchGoal({ id, year, data: rest });
+            const { baseYear, target, category } = cell.row.original;
+            patchGoal({ year, baseYear, target, category });
             return setData((prev) =>
               prev.map((r, i) => ({
                 ...r,

@@ -6,42 +6,27 @@ import { isNil } from 'lodash';
 
 import Input from '../../components/input/Input';
 import IconButton from '../button/IconButton';
-import APP_CONFIG from '../../constants/app-config';
-import Select from '../../components/select/Select';
 import { getDecimalNumber } from '../../utils/number';
 
-export const SelectInputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
-  const [match] = defaultValue.match(/逐年下降|下降|占比|佔比/) || [];
+export const CustomInputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
+  const [match] = defaultValue.match(/下降|占比|佔比/) || [];
   const decimalNumber = getDecimalNumber(defaultValue);
-  const getPrefix = (value) => (/占比|佔比/.test(value) ? '>' : '');
   const [inputValue, setInputValue] = useState(decimalNumber);
-  const [selectValue, setSelectValue] = useState(match);
-  const prefix = getPrefix(selectValue);
+  const prefix = /占比|佔比/.test(match) ? `${match} >` : match;
   const suffix = '%';
-
   useEffect(() => {
-    setSelectValue(match);
     setInputValue(decimalNumber);
   }, [match, decimalNumber]);
 
   return (
-    <div className="flex space-x-2 ">
-      <Select
-        className="text-left"
-        buttonClassName="w-36"
-        options={APP_CONFIG.TARGET_OPTIONS}
-        selected={APP_CONFIG.TARGET_OPTIONS.find((option) => option.key === selectValue)}
-        onChange={(e) => onBlur([e.key, getPrefix(e.key), inputValue, suffix].join(' '))}
-      />
-      <Input
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onBlur={(e) => onBlur([selectValue, prefix, e.target.value, suffix].join(' '))}
-        placeholder={placeholder}
-        prefix={prefix}
-        suffix={suffix}
-      />
-    </div>
+    <Input
+      value={inputValue}
+      onChange={(e) => setInputValue(e.target.value)}
+      onBlur={(e) => onBlur([prefix, e.target.value, suffix].join(' '))}
+      placeholder={placeholder}
+      prefix={prefix}
+      suffix={suffix}
+    />
   );
 };
 
