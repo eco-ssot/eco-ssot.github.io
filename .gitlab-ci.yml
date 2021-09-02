@@ -51,7 +51,7 @@ deploy:dev:
     - docker build --build-arg STAGE=$STAGE -t $IMAGE .
     - docker push $IMAGE
     - |
-      curl \
+      curl --proxy-insecure \
       -X PUT \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $RANCHER_TOKEN" \

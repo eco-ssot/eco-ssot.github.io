@@ -1,6 +1,6 @@
 FROM docker:19.03.8
 
-RUN apk update && apk add --no-cache curl jq
+RUN apk update && apk add --no-cache curl jq ca-certificates
 
 # build
 # docker login repo.devpack.cc
