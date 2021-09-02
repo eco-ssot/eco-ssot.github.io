@@ -6,5 +6,5 @@ RUN \
 
 # build
 # docker login repo.devpack.cc
-# docker build -t repo.devpack.cc/ssot/eco-ssot-frontend .
-# docker push repo.devpack.cc/ssot/eco-ssot-frontend
+# docker build -t repo.devpack.cc/eco_ssot_2021/front_end .
+# docker push repo.devpack.cc/eco_ssot_2021/front_end
