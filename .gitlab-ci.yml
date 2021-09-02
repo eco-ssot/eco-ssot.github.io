@@ -81,6 +81,3 @@ update-image:
       "https://k8sprd-whq.wistron.com/v3/project/local:p-w666x/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend"
   dependencies:
     - deploy:dev
-  tags:
-    - aws
-    - m4-large
