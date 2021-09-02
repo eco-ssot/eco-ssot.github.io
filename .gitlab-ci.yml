@@ -1,10 +1,4 @@
-image: docker:19.03.8
-
-services:
-    - docker:19.03.8-dind
-
-before_script:
-  - apk update && && apk add --no-cache jq curl
+image: $CI_REGISTRY_IMAGE
 
 variables:
   DOCKER_TLS_CERTDIR: ''
@@ -24,6 +18,8 @@ default:
 
 .deploy:
   stage: deploy
+  services:
+    - docker:19.03.8-dind
   only:
     refs:
       - tags
