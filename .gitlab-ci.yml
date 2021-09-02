@@ -51,13 +51,6 @@ deploy:dev:
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
     - docker build --build-arg STAGE=$STAGE -t $IMAGE .
     - docker push $IMAGE
-    - |
-      curl \
-      -X PUT \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer $RANCHER_TOKEN" \
-      -d "{\"image\": \"$IMAGE\"}" \
-      "https://k8sprd-whq.wistron.com/v3/project/local:p-w666x/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend"
   extends: .deploy
 
 deploy:prod:
@@ -67,3 +60,26 @@ deploy:prod:
     variables:
       - $CI_COMMIT_TAG =~ /prod|prd/
   extends: .deploy
+
+update-image:
+  only:
+    refs:
+      - dev
+  variables:
+    STAGE: dev
+    TAG: $CI_COMMIT_BRANCH
+  script:
+    - export VERSION=$(cat package.json | jq -r .version)
+    - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
+    - |
+      curl \
+      -X PUT \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $RANCHER_TOKEN" \
+      -d "{\"image\": \"$IMAGE\"}" \
+      "https://k8sprd-whq.wistron.com/v3/project/local:p-w666x/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend"
+  dependencies:
+    - deploy:dev
+  tags:
+    - aws
+    - m4-large
