@@ -1,8 +1,6 @@
-FROM node:12-slim
+FROM docker:19.03.8
 
-RUN \
-  apt-get update && \
-  apt-get install zip curl jq yarn -yq
+RUN apk update && apk add --no-cache curl jq
 
 # build
 # docker login repo.devpack.cc
