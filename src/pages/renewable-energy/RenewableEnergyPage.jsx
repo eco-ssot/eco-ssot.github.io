@@ -34,7 +34,7 @@ const HEADERS = ({ pct } = {}) => [
   },
   {
     key: 'ratio',
-    name: '佔比 ( (b+c)/a )',
+    name: '占比 ( (b+c)/a )',
   },
   {
     key: 'tRecTarget',
@@ -90,7 +90,7 @@ export default function RenewableEnergyPage() {
   return (
     <PageContainer>
       <div className="flex justify-between h-8">
-        <div className="text-xl font-medium">可再生能源佔比</div>
+        <div className="text-xl font-medium">可再生能源占比</div>
         {isHistory ? (
           <Tag>{label}</Tag>
         ) : (
@@ -152,8 +152,8 @@ export default function RenewableEnergyPage() {
         )}
         <div className="w-full h-6 text-right">
           {isHistory
-            ? '* 可再生能源佔比 = 可再生能源用電 / 總用電'
-            : '* 佔比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電'}
+            ? '* 可再生能源占比 = 可再生能源用電 / 總用電'
+            : '* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電'}
         </div>
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
