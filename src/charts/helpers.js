@@ -12,6 +12,10 @@ export function getFontSizeRatio() {
 export function getLabelFontSize() {
   const fontSize = getFontSize();
   switch (fontSize) {
+    case 30:
+      return { fontSize: 24, lineHeight: 32 };
+    case 20:
+      return { fontSize: 18, lineHeight: 28 };
     case 15:
       return { fontSize: 14, lineHeight: 20 };
 
