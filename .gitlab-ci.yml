@@ -55,7 +55,7 @@ deploy:dev:
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $RANCHER_TOKEN" \
       -d "{\"containers\":[{\"initContainer\":false,\"restartCount\":0,\"stdin\":true,\"stdinOnce\":false,\"tty\":true,\"allowPrivilegeEscalation\":false,\"image\":\"$IMAGE\",\"imagePullPolicy\":\"Always\",\"name\":\"eco-ssot-2021-frontend\",\"privileged\":false,\"readOnly\":false,\"resources\":{\"type\":\"/v3/project/schemas/resourceRequirements\",\"requests\":{},\"limits\":{}},\"runAsNonRoot\":false,\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"type\":\"container\",\"environmentFrom\":[],\"capAdd\":[],\"capDrop\":[],\"livenessProbe\":null,\"volumeMounts\":[]}]}" \
-      "https://k8sprd-whq.wistron.com/v3/project/local:p-w666x/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend"
+      "https://k8sprd-whq.wistron.com/v3/project/local:p-w666x/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend?action=redeploy"
   extends: .deploy
 
 deploy:prod:
