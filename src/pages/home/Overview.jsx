@@ -15,7 +15,7 @@ export function getTrend(gradient, title) {
         return { overall, direction: 'up', color: 'text-primary-500' };
       }
 
-      return { overall, direction: 'down', color: 'text-dangerous-500' };
+      return { overall, direction: 'down', color: 'text-dangerous-700' };
     }
 
     case '用電量':
