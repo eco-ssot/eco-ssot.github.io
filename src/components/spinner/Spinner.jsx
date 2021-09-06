@@ -8,8 +8,8 @@ export default function Spinner() {
   return (
     <div
       className={clsx(
-        'fixed flex items-center justify-center inset-0 transition-all bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen',
-        isLoading ? 'z-50 opacity-100' : '-z-1 opacity-0'
+        'fixed flex items-center justify-center inset-0 transition-all z-50 bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen',
+        isLoading ? 'opacity-100 visible' : 'opacity-0 invisible'
       )}>
       <svg
         className="animate-spin h-12 w-12 text-primary-600"
