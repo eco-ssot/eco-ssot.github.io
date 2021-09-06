@@ -187,9 +187,7 @@ export default function WaterPage() {
             columns={columns}
             data={data?.data || []}
             getRowProps={(row) => ({
-              className: row.original.isFooter
-                ? 'border-b-2 border-t-2 border-primary-600 font-bold'
-                : 'border-b border-divider',
+              className: row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
             })}
           />
         </div>

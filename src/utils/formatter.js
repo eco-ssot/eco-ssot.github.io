@@ -18,7 +18,11 @@ export const targetFormatter =
     return (
       <div
         className={
-          val > target ? 'text-dangerous-500' : val < target && cell.row.original.isFooter ? 'text-green-500' : ''
+          val > target
+            ? 'text-dangerous-500 font-semibold'
+            : val < target && cell.row.original.isFooter
+            ? 'text-green-500 font-semibold'
+            : ''
         }>
         {formatter(value, option)}
       </div>
