@@ -16,7 +16,10 @@ export const targetFormatter =
   ({ value, ...cell }) => {
     const val = /^revenue$|^asp$|^revenue.delta$|^asp.delta$/gi.test(cell.column.id) ? value * -1 : value;
     return (
-      <div className={val > target ? 'text-_red' : val < target && cell.row.original.isFooter ? 'text-green-500' : ''}>
+      <div
+        className={
+          val > target ? 'text-dangerous-500' : val < target && cell.row.original.isFooter ? 'text-green-500' : ''
+        }>
         {formatter(value, option)}
       </div>
     );

@@ -29,12 +29,15 @@ module.exports = {
           800: '#30494D',
           900: '#203033',
         },
+        dangerous: {
+          500: '#FF4E4E',
+          700: '#D23B5F',
+        },
         divider: '#707070',
         unit: '#D6D6D6',
         _yellow: '#FACA00',
         _orange: '#FF9300',
         _blue: '#3BAEE5',
-        _red: '#D23B5F',
       },
       height: {
         '1/2': '50%',

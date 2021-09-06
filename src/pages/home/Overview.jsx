@@ -15,7 +15,7 @@ export function getTrend(gradient, title) {
         return { overall, direction: 'up', color: 'text-primary-500' };
       }
 
-      return { overall, direction: 'down', color: 'text-_red' };
+      return { overall, direction: 'down', color: 'text-dangerous-500' };
     }
 
     case '用電量':
@@ -23,7 +23,7 @@ export function getTrend(gradient, title) {
     case '廢棄物':
     case '碳排量': {
       if (gradient > 0) {
-        return { overall, direction: 'up', color: 'text-_red' };
+        return { overall, direction: 'up', color: 'text-dangerous-700' };
       }
 
       return { overall, direction: 'down', color: 'text-primary-500' };
