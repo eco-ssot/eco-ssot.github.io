@@ -47,9 +47,9 @@ const EditableCell = ({
   value: initialValue,
   row: {
     index,
-    original: { editing },
+    original: { editing, category },
   },
-  column: { id, editable, placeholder, formatter = (val) => val, EditableComponent = InputCell },
+  column: { id, editable, placeholder, precision = 0, formatter = (val) => val, EditableComponent = InputCell },
   updateMyData,
 }) => {
   const onBlur = (value) => {
@@ -59,7 +59,11 @@ const EditableCell = ({
   return editable && editing ? (
     <EditableComponent defaultValue={initialValue} placeholder={placeholder} onBlur={onBlur} />
   ) : (
-    <>{isNil(initialValue) || initialValue === '' ? '-' : formatter(initialValue)}</>
+    <>
+      {isNil(initialValue) || initialValue === ''
+        ? '-'
+        : formatter(initialValue, { precision, ...(category === '碳排放量' && { precision: 0 }) })}
+    </>
   );
 };
 

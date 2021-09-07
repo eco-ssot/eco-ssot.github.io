@@ -7,8 +7,8 @@ import EditableTable, { CustomInputCell } from '../../components/table/EditableT
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import { usePatchGoalMutation } from '../../services/app';
-import { keepPrecisionFormatter } from '../../utils/formatter';
 import APP_CONFIG from '../../constants/app-config';
+import { baseFormatter } from '../../utils/formatter';
 
 const COLUMNS = ({ setData, year, patchGoal }) => [
   {
@@ -40,7 +40,8 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
     Header: `${year}年 Target`,
     accessor: 'amount',
     className: 'w-[18%]',
-    formatter: keepPrecisionFormatter,
+    formatter: baseFormatter,
+    precision: 1,
   },
   {
     Header: '單位',

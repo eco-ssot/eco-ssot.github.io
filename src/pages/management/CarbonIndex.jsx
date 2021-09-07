@@ -7,6 +7,7 @@ import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import { usePatchCarbonIndexMutation } from '../../services/app';
+import { baseFormatter } from '../../utils/formatter';
 
 const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
   {
@@ -19,6 +20,8 @@ const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
     accessor: 'amount',
     editable: true,
     className: 'w-1/3',
+    formatter: baseFormatter,
+    precision: 4,
   },
   {
     Header: '編輯',
