@@ -49,8 +49,8 @@ const syncGoals =
 
         const responses = await Promise.all(promises);
         patches = chunk(responses, 2).map(([goalRes, baseRes]) => {
-          const targetGoal = goalRes.data?.data.find((d) => d.category === category);
-          const baseValue = baseRes.data?.data[0]?.ytm;
+          const targetGoal = (goalRes.data?.data || []).find((d) => d.category === category);
+          const baseValue = (baseRes.data?.data || []).slice(-1)[0]?.ytm;
           if (targetGoal) {
             return {
               baseYear,
