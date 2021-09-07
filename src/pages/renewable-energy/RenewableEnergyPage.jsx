@@ -22,32 +22,43 @@ import useGoal from '../../hooks/useGoal';
 const HEADERS = ({ pct } = {}) => [
   {
     key: 'electricity',
-    name: '總用電量 (a)',
-  },
-  {
-    key: 'sun',
-    name: '太陽能發電 (b)',
-  },
-  {
-    key: 'tRec',
-    name: '綠證 (c)',
+    name: '用電量 (度)',
+    subHeaders: [
+      { key: 'total', name: '總用電量 (a)' },
+      { key: 'sun', name: '太陽能發電 (b)' },
+      { key: 'tRec', name: '綠證 (c)' },
+    ],
   },
   {
     key: 'ratio',
-    name: '占比 ( (b+c)/a )',
+    name: (
+      <>
+        <div className="text-right">占比 (%)</div>
+        <div className="text-right">( (b+c) / a )</div>
+      </>
+    ),
+    renderer: targetFormatter(-pct, { formatter: ratioFormatter }),
+    rowSpan: 0,
   },
   {
     key: 'tRecTarget',
-    name: `再生能源綠證目標 ( a*${ratioFormatter(pct)} - b )`,
-    renderer: targetFormatter(pct, { formatter: ratioFormatter }),
+    name: (
+      <>
+        <div className="text-right">再生能源綠證目標 (度)</div>
+        <div className="text-right">{`( a*${ratioFormatter(pct)} - b )`}</div>
+      </>
+    ),
+    rowSpan: 0,
   },
   {
     key: 'roofRestArea',
     name: '屋頂剩餘可用面積 (M²)',
+    rowSpan: 0,
   },
   {
     key: 'roofStructure',
     name: '屋頂結構 (RC / 鋼結構)',
+    rowSpan: 0,
   },
 ];
 
@@ -68,16 +79,28 @@ const COLUMNS = ({ pct } = {}) =>
           </div>
         ) : null;
       },
+      rowSpan: 0,
     },
     {
       Header: 'Site',
       accessor: 'site',
+      rowSpan: 0,
     },
-    ...HEADERS({ pct }).map(({ key, name }) => ({
+    ...HEADERS({ pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,
-      accessor: key,
-      Cell: key === 'ratio' ? ratioFormatter : baseFormatter,
-      className: 'text-right',
+      Cell: renderer,
+      ...(subHeaders && {
+        id: name,
+        Header: () => <div className="border-b border-divider py-3">{name}</div>,
+        columns: subHeaders.map(({ key: _key, name: _name, _renderer = baseFormatter }) => ({
+          Header: _name,
+          accessor: [key, _key].join('.'),
+          Cell: _renderer,
+          className: 'text-right',
+        })),
+      }),
+      ...(!subHeaders && { accessor: key, className: 'text-right' }),
+      ...rest,
     })),
   ]);
 

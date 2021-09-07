@@ -22,7 +22,7 @@ import useGoal from '../../hooks/useGoal';
 const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
   {
     key: 'electricity',
-    name: '用電量 (千瓦時)',
+    name: '用電量 (度)',
     subHeaders: [
       { key: 'total', name: '總用電 (a)' },
       { key: 'sun', name: '太陽能發電 (b)' },
@@ -35,7 +35,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
     name: (
       <>
         <div className="text-right">碳排放係數 (e)</div>
-        <div className="text-right">(公噸/兆瓦時)</div>
+        <div className="text-right">(公噸CO₂e/千度)</div>
       </>
     ),
     rowSpan: 0,

@@ -83,7 +83,7 @@ export default function ManagementPage() {
           <div className="flex justify-between">
             <div className="flex space-x-2 items-baseline">
               <div className="text-xl font-medium">碳排放係數</div>
-              <div className="text-unit">(兆瓦時/公噸)</div>
+              <div className="text-unit">(公噸CO₂e/千度)</div>
             </div>
             <div className="flex items-center">
               <Select

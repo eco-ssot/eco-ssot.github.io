@@ -16,10 +16,12 @@ export function toRow({
   plants = [],
 } = {}) {
   return {
-    tRec,
     site: name,
-    electricity: totalElectric,
-    sun: solarElectric,
+    electricity: {
+      tRec,
+      total: totalElectric,
+      sun: solarElectric,
+    },
     ratio: percent,
     tRecTarget: target,
     roofRestArea: area,
