@@ -9,7 +9,7 @@ import IconButton from '../../components/button/IconButton';
 import { usePatchCarbonIndexMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
 
-const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
+const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
   {
     Header: 'Site',
     accessor: 'site',
@@ -44,6 +44,7 @@ const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
         </Button>
       ) : (
         <IconButton
+          disabled={!canEdit}
           onClick={() =>
             setData((prev) =>
               prev.map((r, i) => ({
@@ -60,10 +61,10 @@ const COLUMNS = ({ setData, patchCarbonIndex, year }) => [
   },
 ];
 
-export default function CarbonIndex({ className, year, data }) {
+export default function CarbonIndex({ className, year, data, canEdit }) {
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);
-  const columns = COLUMNS({ setData, patchCarbonIndex, year });
+  const columns = COLUMNS({ setData, patchCarbonIndex, year, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

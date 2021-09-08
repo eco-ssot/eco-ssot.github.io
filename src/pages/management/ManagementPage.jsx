@@ -27,10 +27,8 @@ export default function ManagementPage() {
   }, [keycloak]);
 
   const { family_name = '-', given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
-
-  const role =
-    (keycloak?.realmAccess?.roles || []).filter((r) => !['offline_access', 'uma_authorization'].includes(r))[0] || '-';
-
+  const roles = (keycloak?.realmAccess?.roles || []).filter((r) => !APP_CONFIG.KEYCLOAK_DEFAULT_ROLES.includes(r));
+  const canEdit = roles.includes(APP_CONFIG.EDIT_ROLE);
   return (
     <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">
@@ -52,7 +50,9 @@ export default function ManagementPage() {
             </div>
             <div className="space-y-2">
               <div className="text-primary-600">Level</div>
-              <div>{role}</div>
+              {roles.map((role) => (
+                <div key={role}>{role}</div>
+              ))}
             </div>
           </div>
           <div className="border-t border-divider text-center">
@@ -75,7 +75,7 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <YearGoal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} />
+          <YearGoal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} canEdit={canEdit} />
         </div>
       </div>
       <div className="row-span-1 col-span-2">
@@ -94,7 +94,12 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <CarbonIndex className="flex flex-col flex-grow" year={carbonIndexYear} data={carbonIndexRes.data?.data} />
+          <CarbonIndex
+            className="flex flex-col flex-grow"
+            year={carbonIndexYear}
+            data={carbonIndexRes.data?.data}
+            canEdit={canEdit}
+          />
         </div>
       </div>
       <div className="row-span-1 col-span-3">
@@ -110,7 +115,7 @@ export default function ManagementPage() {
               />
             </div>
           </div>
-          <Trec className="flex flex-col flex-grow" />
+          <Trec className="flex flex-col flex-grow" canEdit={canEdit} />
         </div>
       </div>
     </div>

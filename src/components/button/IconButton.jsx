@@ -1,15 +1,17 @@
 import clsx from 'clsx';
 
-export default function IconButton({ className, children, onClick = () => {} }) {
+export default function IconButton({ className, children, disabled, onClick = () => {} }) {
   return (
     <button
       type="button"
       className={clsx(
         'inline-flex items-center p-1 border border-transparent rounded-full shadow-sm text-gray-50 bg-transparent focus:outline-none',
+        disabled && 'cursor-not-allowed',
         className
       )}
-      onClick={onClick}>
-      {children}
+      onClick={onClick}
+      disabled={disabled}>
+      <div {...(disabled && { className: 'opacity-50' })}>{children}</div>
     </button>
   );
 }

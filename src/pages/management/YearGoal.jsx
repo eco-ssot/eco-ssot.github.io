@@ -10,7 +10,7 @@ import { usePatchGoalMutation } from '../../services/app';
 import APP_CONFIG from '../../constants/app-config';
 import { baseFormatter } from '../../utils/formatter';
 
-const COLUMNS = ({ setData, year, patchGoal }) => [
+const COLUMNS = ({ setData, year, patchGoal, canEdit }) => [
   {
     Header: '項目',
     accessor: 'category',
@@ -69,6 +69,7 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
         </Button>
       ) : (
         <IconButton
+          disabled={!canEdit}
           onClick={() =>
             setData((prev) =>
               prev.map((r, i) => ({
@@ -85,10 +86,10 @@ const COLUMNS = ({ setData, year, patchGoal }) => [
   },
 ];
 
-export default function YearGoal({ className, year, data }) {
+export default function YearGoal({ className, year, data, canEdit }) {
   const [patchGoal] = usePatchGoalMutation();
   const [dataSource, setData] = useState(data);
-  const columns = COLUMNS({ setData, patchGoal, year });
+  const columns = COLUMNS({ setData, patchGoal, year, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

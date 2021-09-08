@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 
 import EditableTable from '../../components/table/EditableTable';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 
-const COLUMNS = ({ setData, data = [] }) => [
+const COLUMNS = ({ setData, canEdit, data = [] }) => [
   {
     Header: '購買日期',
     accessor: 'buyDate',
@@ -73,7 +73,8 @@ const COLUMNS = ({ setData, data = [] }) => [
                 .filter(({ id }) => id !== 'addRow')
                 .concat({ id: 'addRow', colSpan: 4, startIndex: 2 })
             )
-          }>
+          }
+          disabled={!canEdit}>
           <PencilIcon className="w-5 h-5" />
         </IconButton>
       );
@@ -108,9 +109,9 @@ const DATA = [
   },
 ];
 
-export default function Trec({ className }) {
+export default function Trec({ className, canEdit }) {
   const [data, setData] = useState(() => DATA);
-  const columns = useMemo(() => COLUMNS({ data, setData }), [data]);
+  const columns = COLUMNS({ data, setData, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

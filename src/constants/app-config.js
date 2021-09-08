@@ -73,6 +73,9 @@ const SITE_OPTIONS = [
   { key: 'WCZ', value: 'WCZ' },
 ];
 
+const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
+const EDIT_ROLE = 'target_maintainer';
+
 const APP_CONFIG = {
   BUSINESS_OPTIONS,
   YEAR_OPTIONS,
@@ -85,6 +88,8 @@ const APP_CONFIG = {
   BUSINESS_MAPPING,
   HISTORY_MAPPING,
   DIMENSION_MAPPING,
+  KEYCLOAK_DEFAULT_ROLES,
+  EDIT_ROLE,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),
