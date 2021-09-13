@@ -1,7 +1,7 @@
 import { useTable, useExpanded } from 'react-table';
 import clsx from 'clsx';
 
-import Triangle from '../../components/triangle/Triangle';
+import Triangle from '../triangle/Triangle';
 
 const defaultPropGetter = () => ({});
 
@@ -36,7 +36,7 @@ export default function Table({
                   {...column.getHeaderProps([
                     {
                       className: clsx(
-                        'w-1 text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
+                        'text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
                         headerGroups.length === 1 && 'py-3',
                         headerGroups.length > 1 && i > 0 && 'py-3',
                         !column.id.startsWith('expander') && 'px-2',

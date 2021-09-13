@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import qs from 'query-string';
 
 import PageContainer from '../../components/page-container/PageContainer';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -20,6 +22,7 @@ import { formatMonthRange } from '../../utils/date';
 import useGoal from '../../hooks/useGoal';
 
 const HEADERS = ({
+  business,
   pct,
   currYear = APP_CONFIG.CURRENT_YEAR,
   lastYear = APP_CONFIG.LAST_YEAR,
@@ -52,7 +55,19 @@ const HEADERS = ({
       { key: 'lastYear', name: `${lastYear}年` },
       { key: 'currYear', name: `${currYear}年` },
       { key: 'weight', name: '權重', renderer: ratioFormatter },
-      { key: 'delta', name: '增減率', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      {
+        key: 'delta',
+        name: '增減率',
+        renderer: (cell) => {
+          const value = targetFormatter(0, { formatter: ratioFormatter })(cell);
+          if (!cell.row.original.isFooter && cell.value > 0) {
+            const search = qs.stringify({ business, site: cell.row.original.site });
+            return <Link to={`/water/analysis?${search}`}>{value}</Link>;
+          }
+
+          return value;
+        },
+      },
     ],
   },
   {
@@ -66,6 +81,7 @@ const HEADERS = ({
 ];
 
 const COLUMNS = ({
+  business,
   pct,
   currYear = APP_CONFIG.CURRENT_YEAR,
   lastYear = APP_CONFIG.LAST_YEAR,
@@ -94,7 +110,7 @@ const COLUMNS = ({
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ business, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
@@ -114,8 +130,8 @@ export default function WaterPage() {
   const isHistory = useIsHistory();
   const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '用水強度' });
   const columns = useMemo(
-    () => COLUMNS({ pct, currYear, baseYear, lastYear: currYear - 1 }),
-    [pct, currYear, baseYear]
+    () => COLUMNS({ business, pct, currYear, baseYear, lastYear: currYear - 1 }),
+    [business, pct, currYear, baseYear]
   );
 
   return (

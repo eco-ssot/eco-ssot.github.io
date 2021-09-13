@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import qs from 'query-string';
 
 import PageContainer from '../../components/page-container/PageContainer';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -19,7 +21,7 @@ import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
 import useGoal from '../../hooks/useGoal';
 
-const HEADERS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
+const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
   {
     key: 'nonRecyclable',
     name: '不可回收類重量 (公噸)',
@@ -71,7 +73,19 @@ const HEADERS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =
     subHeaders: [
       { key: 'currYear', name: `${formatMonthRange(maxDate)}月` },
       { key: 'baseYear', name: `${baseYear}年` },
-      { key: 'delta', name: '增減率 *', renderer: targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 }) },
+      {
+        key: 'delta',
+        name: '增減率 *',
+        renderer: (cell) => {
+          const value = targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 })(cell);
+          if (!cell.row.original.isFooter && cell.value > 0) {
+            const search = qs.stringify({ business, site: cell.row.original.site });
+            return <Link to={`/waste/analysis?${search}`}>{value}</Link>;
+          }
+
+          return value;
+        },
+      },
     ],
   },
   {
@@ -82,7 +96,7 @@ const HEADERS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =
   },
 ];
 
-const COLUMNS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
+const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
   addPaddingColumns([
     {
       id: 'expander',
@@ -106,7 +120,7 @@ const COLUMNS = ({ pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ pct, maxDate, baseYear }).map(
+    ...HEADERS({ business, pct, maxDate, baseYear }).map(
       ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
         Header: name,
         Cell: renderer,
@@ -133,7 +147,10 @@ export default function WastePage() {
   const { data } = useGetWasteQuery({ business });
   const isHistory = useIsHistory();
   const { label, pct, baseYear } = useGoal({ isHistory, keyword: '廢棄物密度' });
-  const columns = useMemo(() => COLUMNS({ pct, baseYear, maxDate: data?.maxDate }), [pct, baseYear, data?.maxDate]);
+  const columns = useMemo(
+    () => COLUMNS({ business, pct, baseYear, maxDate: data?.maxDate }),
+    [business, pct, baseYear, data?.maxDate]
+  );
   return (
     <PageContainer>
       <div className="flex justify-between h-8">

@@ -21,6 +21,8 @@ const OPTION = (values, labels, target) => ({
     type: 'value',
     splitLine: { show: false },
     axisLine: { show: false },
+    axisLabel: { show: false },
+    axisTick: { show: false },
     ...(target > Math.max(...values) && {
       max: Math.ceil(target),
     }),

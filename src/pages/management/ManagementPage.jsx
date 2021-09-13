@@ -28,7 +28,7 @@ export default function ManagementPage() {
 
   const { family_name = '-', given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
   const roles = (keycloak?.realmAccess?.roles || []).filter((r) => !APP_CONFIG.KEYCLOAK_DEFAULT_ROLES.includes(r));
-  const canEdit = roles.includes(APP_CONFIG.EDIT_ROLE);
+  const canEdit = roles.includes(APP_CONFIG.MAINTAINER_ROLE);
   return (
     <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">

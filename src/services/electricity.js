@@ -65,7 +65,14 @@ export const electricityApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getElectricityAnalysis: builder.query({
+      query: (query) => ({ query, url: 'electric/anaysis' }),
+    }),
+    getElectricityAnalysisExplanation: builder.query({
+      query: (query) => ({ query, url: 'electric/anaysis/explanation' }),
+    }),
   }),
 });
 
-export const { useGetElectricityQuery } = electricityApi;
+export const { useGetElectricityQuery, useGetElectricityAnalysisQuery, useGetElectricityAnalysisExplanationQuery } =
+  electricityApi;

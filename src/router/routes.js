@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import LoginPage from '../pages/login/LoginPage';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
+import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
 import UnauthorizedPage from '../pages/unauthorized/UnauthorizedPage';
 import ErrorPage from '../pages/error/ErrorPage';
 
@@ -80,6 +81,30 @@ export const privateRoutes = [
   },
 ];
 
-const routes = [...publicRoutes, ...privateRoutes];
+export const subRoutes = [
+  {
+    path: '/electricity/analysis',
+    title: '用電第三階段分析',
+    component: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
+    skeleton: AnalysisSkeleton,
+    show: false,
+  },
+  {
+    path: '/water/analysis',
+    title: '用水第三階段分析',
+    component: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
+    skeleton: AnalysisSkeleton,
+    show: false,
+  },
+  {
+    path: '/waste/analysis',
+    title: '廢棄物第三階段分析',
+    component: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
+    skeleton: AnalysisSkeleton,
+    show: false,
+  },
+];
+
+const routes = [...publicRoutes, ...privateRoutes, ...subRoutes];
 
 export default routes;

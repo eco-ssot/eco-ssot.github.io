@@ -74,7 +74,8 @@ const SITE_OPTIONS = [
 ];
 
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
-const EDIT_ROLE = 'target_maintainer';
+const MAINTAINER_ROLE = 'target_maintainer';
+const DEVELOPER_ROLE = 'developer';
 
 const APP_CONFIG = {
   BUSINESS_OPTIONS,
@@ -89,7 +90,8 @@ const APP_CONFIG = {
   HISTORY_MAPPING,
   DIMENSION_MAPPING,
   KEYCLOAK_DEFAULT_ROLES,
-  EDIT_ROLE,
+  MAINTAINER_ROLE,
+  DEVELOPER_ROLE,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),

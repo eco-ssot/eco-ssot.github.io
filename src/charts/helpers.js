@@ -24,6 +24,10 @@ export function getLabelFontSize() {
   }
 }
 
+export function setFontSize(value, fontSizeRatio = 1) {
+  return typeof value === 'string' ? value : value * fontSizeRatio;
+}
+
 export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } = {}) {
   const fontSizeRatio = getFontSizeRatio();
   const labelFontSize = getLabelFontSize();
@@ -31,14 +35,61 @@ export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } =
   return {
     ...rest,
     grid: Object.entries(restGrid).reduce(
-      (prev, [key, value]) => ({ ...prev, [key]: typeof value === 'string' ? value : value * fontSizeRatio }),
+      (prev, [key, value]) => ({ ...prev, [key]: setFontSize(value, fontSizeRatio) }),
       { containLabel }
     ),
-    series: series.map(({ barWidth, label, markLine, ...restSeries }) => ({
+    series: series.map(({ barWidth, label, markLine, data, ...restSeries }) => ({
       ...restSeries,
-      ...(barWidth && { barWidth: typeof barWidth === 'string' ? barWidth : barWidth * fontSizeRatio }),
+      ...(barWidth && { barWidth: setFontSize(barWidth, fontSizeRatio) }),
       ...(label && { label: { ...label, ...labelFontSize } }),
-      ...(markLine && { markLine: { ...markLine, label: { ...markLine.label, ...labelFontSize } } }),
+      ...(markLine && {
+        markLine: {
+          ...markLine,
+          label: { ...markLine.label, ...labelFontSize },
+          ...(markLine.data && {
+            data: markLine.data.map((d) =>
+              Array.isArray(d)
+                ? d.map(({ symbolSize, lineStyle, label, ...rest }) => ({
+                    ...rest,
+                    ...(symbolSize && {
+                      symbolSize: [].concat(symbolSize).map((value) => setFontSize(value, fontSizeRatio)),
+                    }),
+                    ...(lineStyle && {
+                      lineStyle: {
+                        ...lineStyle,
+                        ...(lineStyle.width && {
+                          width: setFontSize(lineStyle.width, fontSizeRatio),
+                          ...(lineStyle.emphasis && {
+                            emphasis: {
+                              ...lineStyle.emphasis,
+                              ...(lineStyle.emphasis.width && {
+                                width: setFontSize(lineStyle.emphasis.width, fontSizeRatio),
+                              }),
+                            },
+                          }),
+                        }),
+                      },
+                    }),
+                    ...(label && { label: { ...label, ...labelFontSize } }),
+                  }))
+                : d
+            ),
+          }),
+        },
+      }),
+      ...(data && {
+        data: data.map(({ itemStyle, ...rest }) => ({
+          ...rest,
+          ...(itemStyle && {
+            itemStyle: {
+              ...itemStyle,
+              ...(itemStyle.barBorderRadius && {
+                barBorderRadius: itemStyle.barBorderRadius.map((value) => setFontSize(value, fontSizeRatio)),
+              }),
+            },
+          }),
+        })),
+      }),
     })),
     ...(xAxis && {
       xAxis: {

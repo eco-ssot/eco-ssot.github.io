@@ -3,9 +3,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 
-import EditableTable from '../../components/table/EditableTable';
-import Button from '../../components/button/Button';
-import IconButton from '../../components/button/IconButton';
+import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { usePatchCarbonIndexMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
 
@@ -13,23 +11,23 @@ const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
   {
     Header: 'Site',
     accessor: 'site',
-    className: 'w-1/3',
+    className: 'w-1/3 text-center py-3',
   },
   {
     Header: '碳排放係數',
     accessor: 'amount',
     editable: true,
-    className: 'w-1/3',
+    className: 'w-1/3 text-center',
     formatter: baseFormatter,
     precision: 4,
   },
   {
     Header: '編輯',
     id: 'action',
-    className: 'w-1/3',
+    className: 'w-1/3 text-center',
     Cell: (cell) => {
       return cell.row.original.editing ? (
-        <Button
+        <EditableButton
           onClick={() => {
             const { id, editing, lastUpdateTime, site, ...rest } = cell.row.original;
             patchCarbonIndex({ id, year, data: rest });
@@ -41,9 +39,9 @@ const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
             );
           }}>
           儲存
-        </Button>
+        </EditableButton>
       ) : (
-        <IconButton
+        <EditableIconButton
           disabled={!canEdit}
           onClick={() =>
             setData((prev) =>
@@ -55,7 +53,7 @@ const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
             )
           }>
           <PencilIcon className="w-5 h-5" />
-        </IconButton>
+        </EditableIconButton>
       );
     },
   },

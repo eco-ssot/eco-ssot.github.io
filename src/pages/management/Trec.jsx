@@ -2,70 +2,68 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 
-import EditableTable from '../../components/table/EditableTable';
-import Button from '../../components/button/Button';
-import IconButton from '../../components/button/IconButton';
+import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 
 const COLUMNS = ({ setData, canEdit, data = [] }) => [
   {
     Header: '購買日期',
     accessor: 'buyDate',
     rowSpan: data.length || 1,
-    className: 'w-[15%]',
+    className: 'w-[15%] text-center',
     editable: true,
   },
   {
     Header: '合計度數 (千度)',
     accessor: 'unit',
     rowSpan: data.length || 1,
-    className: 'w-[15%]',
+    className: 'w-[15%] text-center',
     editable: true,
   },
   {
     Header: '購買地區',
     accessor: 'buyArea',
-    className: 'w-[15%] h-12',
+    className: 'w-[15%] h-12 text-center',
     editable: true,
     placeholder: '地區',
   },
   {
     Header: '購買度數 (千度)',
     accessor: 'buyUnit',
-    className: 'w-[15%]',
+    className: 'w-[15%] text-center',
     editable: true,
     placeholder: '張數',
   },
   {
     Header: '購買地區',
     accessor: 'price',
-    className: 'w-[15%]',
+    className: 'w-[15%] text-center',
     editable: true,
     placeholder: '地區',
   },
   {
     Header: '金額幣別',
     accessor: 'currency',
-    className: 'w-[15%]',
+    className: 'w-[15%] text-center',
     editable: true,
     placeholder: '幣別',
   },
   {
     Header: '編輯',
     id: 'action',
-    className: 'w-[10%]',
+    className: 'w-[10%] text-center',
     rowSpan: data.length || 1,
     Cell: (cell) => {
       return cell.row.original.editing ? (
-        <Button
+        <EditableButton
           onClick={() =>
             setData(() =>
               setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'))
             )
           }>
           儲存
-        </Button>
+        </EditableButton>
       ) : (
-        <IconButton
+        <EditableIconButton
           onClick={() =>
             setData((prev) =>
               prev
@@ -76,7 +74,7 @@ const COLUMNS = ({ setData, canEdit, data = [] }) => [
           }
           disabled={!canEdit}>
           <PencilIcon className="w-5 h-5" />
-        </IconButton>
+        </EditableIconButton>
       );
     },
   },

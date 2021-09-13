@@ -5,6 +5,7 @@ import { useKeycloak as _useKeycloak } from '@react-keycloak/web';
 import _KeycloakProvider from './KeycloakProvider';
 
 import history from '../router/history';
+import APP_CONFIG from '../constants/app-config';
 
 const token = 'token';
 const idTokenParsed = {
@@ -13,7 +14,7 @@ const idTokenParsed = {
   preferred_username: 'dummy',
 };
 
-const realmAccess = { roles: ['developer'] };
+const realmAccess = { roles: [APP_CONFIG.DEVELOPER_ROLE, APP_CONFIG.MAINTAINER_ROLE] };
 const authClient = {
   token,
   idTokenParsed,

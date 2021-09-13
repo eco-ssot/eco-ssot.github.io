@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import qs from 'query-string';
 
 import PageContainer from '../../components/page-container/PageContainer';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -19,7 +21,7 @@ import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
 import useGoal from '../../hooks/useGoal';
 
-const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
+const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
     key: 'electricity',
     name: '用電量 (度)',
@@ -44,7 +46,19 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年 (e=a/c)` },
       { key: 'currYear', name: `${currYear}年 (f=b/d)` },
-      { key: 'delta', name: '增減率 (f/e-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      {
+        key: 'delta',
+        name: '增減率 (f/e-1)',
+        renderer: (cell) => {
+          const value = targetFormatter(0, { formatter: ratioFormatter })(cell);
+          if (!cell.row.original.isFooter && cell.value > 0) {
+            const search = qs.stringify({ business, site: cell.row.original.site });
+            return <Link to={`/electricity/analysis?${search}`}>{value}</Link>;
+          }
+
+          return value;
+        },
+      },
     ],
   },
   {
@@ -58,7 +72,7 @@ const HEADERS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
   },
 ];
 
-const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     {
       id: 'expander',
@@ -82,7 +96,7 @@ const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAS
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ business, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
@@ -99,7 +113,11 @@ export default function ElectricityPage() {
   const { data } = useGetElectricityQuery({ business });
   const isHistory = useIsHistory();
   const { label, pct, currYear, baseYear } = useGoal({ isHistory, keyword: '用電強度' });
-  const columns = useMemo(() => COLUMNS({ pct, currYear, lastYear: baseYear }), [pct, currYear, baseYear]);
+  const columns = useMemo(
+    () => COLUMNS({ business, pct, currYear, lastYear: baseYear }),
+    [business, pct, currYear, baseYear]
+  );
+
   return (
     <PageContainer>
       <div className="flex justify-between h-8">

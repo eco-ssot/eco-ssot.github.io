@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export default function IconButton({ className, children, disabled, onClick = () => {} }) {
+export default function IconButton({ className, children, disabled, onClick = () => {}, ...props }) {
   return (
     <button
       type="button"
@@ -10,7 +10,8 @@ export default function IconButton({ className, children, disabled, onClick = ()
         className
       )}
       onClick={onClick}
-      disabled={disabled}>
+      disabled={disabled}
+      {...props}>
       <div {...(disabled && { className: 'opacity-50' })}>{children}</div>
     </button>
   );

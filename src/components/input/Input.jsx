@@ -1,8 +1,8 @@
 import { isNil } from 'lodash';
 
 export default function Input({
-  onChange,
-  onBlur,
+  onChange = () => {},
+  onBlur = () => {},
   value = '',
   placeholder = '',
   suffix = '',
