@@ -29,6 +29,7 @@ const DATA = [
       { key: '2020 YTM', value: 51.43, renderer: (value) => baseFormatter(value, { precision: 2 }) },
       { key: '2021 YTM', value: 53.76, renderer: (value) => baseFormatter(value, { precision: 2 }) },
     ],
+    renderer: (value) => ratioFormatter(value, { precision: 2 }),
   },
   {
     title: '出貨量',
