@@ -16,7 +16,7 @@ export default function AnalysisPage({ title, chartTitle, overview, chartOption,
   const site = useSelector(selectSite);
   return (
     <div className="flex flex-col p-4 gap-4 w-screen max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
-      <div className="text-xl font-medium">{`${title} ${site ? `Site: (${site})` : ''}`}</div>
+      <div className="text-xl font-medium">{`${title} ${site ? `(Site: ${site})` : ''}`}</div>
       <div className="flex justify-between items-end">
         <div
           className="flex text-gray-300 cursor-pointer space-x-2 items-center hover:text-green-50"
