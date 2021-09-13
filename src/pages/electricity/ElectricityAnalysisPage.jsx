@@ -5,7 +5,7 @@ import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 const DATA = [
   {
     title: '用電量',
-    unit: '(度)',
+    unit: '(千度)',
     value: -0.24,
     subData: [
       { key: '2020 YTM', value: 5495965 },
@@ -23,7 +23,7 @@ const DATA = [
   },
   {
     title: '用電強度',
-    unit: '(度/十億臺幣)',
+    unit: '(千度/十億臺幣)',
     value: 0.24,
     subData: [
       { key: '2020 YTM', value: 457997 },
