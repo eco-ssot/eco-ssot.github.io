@@ -10,14 +10,14 @@ import IconButton from '../button/IconButton';
 import Textarea from '../textarea/Textarea';
 import { getDecimalNumber } from '../../utils/number';
 
-export const EditableButton = ({ children, onClick = () => {} }) => (
-  <Button onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick}>
+export const EditableButton = ({ children, onClick = () => {}, ...props }) => (
+  <Button onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick} {...props}>
     {children}
   </Button>
 );
 
-export const EditableIconButton = ({ children, onClick = () => {} }) => (
-  <IconButton onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick}>
+export const EditableIconButton = ({ children, onClick = () => {}, ...props }) => (
+  <IconButton onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick} {...props}>
     {children}
   </IconButton>
 );
