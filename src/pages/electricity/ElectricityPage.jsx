@@ -20,6 +20,7 @@ import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
 import useGoal from '../../hooks/useGoal';
+import Dot from '../../components/dot/Dot';
 
 const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
@@ -52,8 +53,22 @@ const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
         renderer: (cell) => {
           const value = targetFormatter(0, { formatter: ratioFormatter })(cell);
           if (!cell.row.original.isFooter && cell.value > 0) {
-            const search = qs.stringify({ business, site: cell.row.original.site });
-            return <Link to={`/electricity/analysis?${search}`}>{value}</Link>;
+            let query = { business, site: cell.row.original.site };
+            if (cell.row.depth > 0) {
+              query = {
+                ...query,
+                site: cell.rowsById[cell.row.id.split('.')[0]].original.site,
+                plant: cell.row.original.site,
+              };
+            }
+
+            const search = qs.stringify(query);
+            return (
+              <Link className="flex items-center justify-end space-x-2" to={`/electricity/analysis?${search}`}>
+                <Dot />
+                {value}
+              </Link>
+            );
           }
 
           return value;

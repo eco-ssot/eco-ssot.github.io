@@ -59,7 +59,10 @@ export const wasteApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getWasteAnalysis: builder.query({
+      query: (query) => ({ query, url: 'waste/anaysis' }),
+    }),
   }),
 });
 
-export const { useGetWasteQuery } = wasteApi;
+export const { useGetWasteQuery, useGetWasteAnalysisQuery } = wasteApi;

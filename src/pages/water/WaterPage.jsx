@@ -58,15 +58,7 @@ const HEADERS = ({
       {
         key: 'delta',
         name: '增減率',
-        renderer: (cell) => {
-          const value = targetFormatter(0, { formatter: ratioFormatter })(cell);
-          if (!cell.row.original.isFooter && cell.value > 0) {
-            const search = qs.stringify({ business, site: cell.row.original.site });
-            return <Link to={`/water/analysis?${search}`}>{value}</Link>;
-          }
-
-          return value;
-        },
+        renderer: targetFormatter(0, { formatter: ratioFormatter }),
       },
     ],
   },
@@ -75,7 +67,28 @@ const HEADERS = ({
     name: '對比基準年',
     subHeaders: [
       { key: 'baseYear', name: `${baseYear}年` },
-      { key: 'delta', name: '增減率', renderer: targetFormatter(-pct, { formatter: ratioFormatter }) },
+      {
+        key: 'delta',
+        name: '增減率',
+        renderer: (cell) => {
+          const value = targetFormatter(-pct, { formatter: ratioFormatter })(cell);
+          if (!cell.row.original.isFooter && cell.value > -pct) {
+            let query = { business, site: cell.row.original.site };
+            if (cell.row.depth > 0) {
+              query = {
+                ...query,
+                site: cell.rowsById[cell.row.id.split('.')[0]].original.site,
+                plant: cell.row.original.site,
+              };
+            }
+
+            const search = qs.stringify(query);
+            return <Link to={`/water/analysis?${search}`}>{value}</Link>;
+          }
+
+          return value;
+        },
+      },
     ],
   },
 ];

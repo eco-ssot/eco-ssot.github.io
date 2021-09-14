@@ -1,54 +1,11 @@
+import { useSelector } from 'react-redux';
+
 import AnalysisPage from '../analysis/AnalysisPage';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
-
-const DATA = [
-  {
-    title: '用電量',
-    unit: '(千度)',
-    value: -0.24,
-    subData: [
-      { key: '2020 YTM', value: 5495965 },
-      { key: '2021 YTM', value: 4533269 },
-    ],
-  },
-  {
-    title: '營業額',
-    unit: '(十億台幣)',
-    value: -0.33,
-    subData: [
-      { key: '2020 YTM', value: 12 },
-      { key: '2021 YTM', value: 8 },
-    ],
-  },
-  {
-    title: '用電強度',
-    unit: '(千度/十億臺幣)',
-    value: 0.24,
-    subData: [
-      { key: '2020 YTM', value: 457997 },
-      { key: '2021 YTM', value: 566569 },
-    ],
-  },
-  {
-    title: '出貨量',
-    unit: '(千片)',
-    value: -0.13,
-    subData: [
-      { key: '2020 YTM', value: 1353 },
-      { key: '2021 YTM', value: 1183 },
-    ],
-  },
-  {
-    title: 'ASP',
-    unit: '(千臺幣/片)',
-    value: -0.18,
-    subData: [
-      { key: '2020 YTM', value: 8.06, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-      { key: '2021 YTM', value: 6.56, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-    ],
-  },
-];
+import { useGetElectricityAnalysisQuery } from '../../services/electricity';
+import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
+import useGoal from '../../hooks/useGoal';
 
 const TABLE_DATA = [
   {
@@ -89,9 +46,6 @@ const TABLE_DATA = [
   },
 ];
 
-const LABELS = ['2020 Actual', '2021 Actual', '2021 還原ASP影響'];
-const VALUES = [457997, 566659, 404756];
-const TARGET = 448837;
 const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
 
 export function getMarkLineTrend(value, comparison, x) {
@@ -124,7 +78,7 @@ export function getMarkLineTrend(value, comparison, x) {
   return ret;
 }
 
-const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
+const OPTION = (values, labels, target) => {
   const [base, curr, asp] = values;
   const currTrend = getMarkLineTrend(curr, base, '60%');
   const aspTrend = getMarkLineTrend(asp, base, '85%');
@@ -134,21 +88,7 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
       label: { show: false },
     };
 
-    if (i === 0) {
-      return { yAxis: val, ...style };
-    }
-
-    if (i === 1) {
-      return [
-        { yAxis: val, x: '40%', ...style },
-        { yAxis: val, x: '60%', val },
-      ];
-    }
-
-    return [
-      { yAxis: val, x: '65%', ...style },
-      { yAxis: val, x: '85%', val },
-    ];
+    return { yAxis: val, ...style };
   });
 
   return {
@@ -160,6 +100,7 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
       axisLabel: {
         color: colors.gray['50'],
         formatter: (value) => value.split(' ').join('\n'),
+        interval: 0,
       },
     },
     yAxis: {
@@ -168,7 +109,6 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
       axisLine: { show: false },
       axisLabel: { show: false },
       axisTick: { show: false },
-      scale: true,
     },
     series: [
       {
@@ -179,7 +119,6 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
         type: 'bar',
         barWidth: 48,
         label: { show: true, position: 'top', color: colors.gray['50'], formatter: baseFormatter },
-        animationDuration: 2000,
         markLine: {
           symbol: 'none',
           data: [...markLines, currTrend, aspTrend].concat(
@@ -196,20 +135,87 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
         },
       },
     ],
-    grid: { left: 64, right: 64, top: 64, bottom: 0, containLabel: true },
+    grid: { left: 72, right: 72, top: 64, bottom: 0, containLabel: true },
   };
 };
 
 export default function ElectricityAnalysisPage() {
-  const option = OPTION();
+  const business = useSelector(selectBusiness);
+  const site = useSelector(selectSite);
+  const plant = useSelector(selectPlant);
+  const { label, pct, baseYear, currYear } = useGoal({ keyword: '用電強度' });
+  const { data } = useGetElectricityAnalysisQuery({ business, site, plant });
+  const { ASP, electrcity, electrcityIntensity, revenue, shipment } = data || {};
+  const currYearKey = `${currYear} YTM`;
+  const lastYearKey = `${baseYear} YTM`;
+  const overview = [
+    {
+      title: '用電量',
+      unit: '(度)',
+      value: electrcity?.gradient,
+      subData: [
+        { key: lastYearKey, value: electrcity?.compareYear },
+        { key: currYearKey, value: electrcity?.currentYear },
+      ],
+    },
+    {
+      title: '營業額',
+      unit: '(十億台幣)',
+      value: revenue?.gradient,
+      subData: [
+        { key: lastYearKey, value: revenue?.compareYear },
+        { key: currYearKey, value: revenue?.currentYear },
+      ],
+    },
+    {
+      title: '用電強度',
+      unit: '(度/十億臺幣)',
+      value: electrcityIntensity?.gradient,
+      subData: [
+        { key: lastYearKey, value: electrcityIntensity?.compareYear },
+        { key: currYearKey, value: electrcityIntensity?.currentYear },
+      ],
+    },
+    {
+      title: '出貨量',
+      unit: '(千片)',
+      value: shipment?.gradient,
+      subData: [
+        { key: lastYearKey, value: shipment?.compareYear },
+        { key: currYearKey, value: shipment?.currentYear },
+      ],
+    },
+    {
+      title: 'ASP',
+      unit: '(千臺幣/片)',
+      value: ASP?.gradient,
+      subData: [
+        {
+          key: lastYearKey,
+          value: ASP?.compareYear,
+          renderer: (value) => baseFormatter(value, { precision: 2 }),
+        },
+        {
+          key: currYearKey,
+          value: ASP?.currentYear,
+          renderer: (value) => baseFormatter(value, { precision: 2 }),
+        },
+      ],
+    },
+  ];
+
+  const values = [electrcityIntensity?.compareYear, electrcityIntensity?.currentYear, electrcityIntensity?.ASP];
+  const labels = [`${baseYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const target = electrcityIntensity?.compareYear * (1 - pct);
+  const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title="十億營業額用電：用電強度分析"
+      title={`十億營業額用電：用電強度分析 ${plant ? `(Plant: ${plant})` : site ? `(Site: ${site})` : ''}`}
       chartTitle="用電強度對比"
-      overview={DATA}
-      chartOption={option}
+      target={label}
+      overview={overview}
       tableData={TABLE_DATA}
-      target="對比基準年 -2 %"
+      {...(data && { chartOption: option })}
     />
   );
 }

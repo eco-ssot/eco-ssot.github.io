@@ -1,54 +1,11 @@
+import { useSelector } from 'react-redux';
+
 import AnalysisPage from '../analysis/AnalysisPage';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
-
-const DATA = [
-  {
-    title: '用水量',
-    unit: '(公噸)',
-    value: -0.24,
-    subData: [
-      { key: '2020 YTM', value: 63500 },
-      { key: '2021 YTM', value: 51261 },
-    ],
-  },
-  {
-    title: '營業額',
-    unit: '(十億台幣)',
-    value: -0.33,
-    subData: [
-      { key: '2020 YTM', value: 12 },
-      { key: '2021 YTM', value: 8 },
-    ],
-  },
-  {
-    title: '用水強度',
-    unit: '(公噸/十億臺幣)',
-    value: 0.19,
-    subData: [
-      { key: '2020 YTM', value: 5375 },
-      { key: '2021 YTM', value: 6408 },
-    ],
-  },
-  {
-    title: '出貨量',
-    unit: '(千片)',
-    value: -0.13,
-    subData: [
-      { key: '2020 YTM', value: 1353 },
-      { key: '2021 YTM', value: 1183 },
-    ],
-  },
-  {
-    title: 'ASP',
-    unit: '(千臺幣/片)',
-    value: -0.18,
-    subData: [
-      { key: '2020 YTM', value: 8.06, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-      { key: '2021 YTM', value: 6.56, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-    ],
-  },
-];
+import { useGetWaterAnalysisQuery } from '../../services/water';
+import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
+import useGoal from '../../hooks/useGoal';
 
 const TABLE_DATA = [
   {
@@ -80,9 +37,6 @@ const TABLE_DATA = [
   },
 ];
 
-const LABELS = ['2016 Baseline', '2020 Actual', '2021 Actual', '2021 還原ASP影響'];
-const VALUES = [5705, 5375, 6408, 4760];
-const TARGET = 5192;
 const COLORS = [colors._yellow, colors._blue, colors.primary['600'], colors.primary['500']];
 
 export function getMarkLineTrend(value, comparison, x) {
@@ -115,7 +69,7 @@ export function getMarkLineTrend(value, comparison, x) {
   return ret;
 }
 
-const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
+const OPTION = (values, labels, target) => {
   const [base, prev, curr, asp] = values;
   const currTrend = getMarkLineTrend(curr, base, '70%');
   const aspTrend = getMarkLineTrend(asp, base, '90%');
@@ -126,21 +80,7 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
       label: { show: false },
     };
 
-    if (i < 2) {
-      return { yAxis: val, ...style };
-    }
-
-    if (i === 2) {
-      return [
-        { yAxis: val, x: '50%', ...style },
-        { yAxis: val, x: '70%', val },
-      ];
-    }
-
-    return [
-      { yAxis: val, x: '70%', ...style },
-      { yAxis: val, x: '90%', val },
-    ];
+    return { yAxis: val, ...style };
   });
 
   return {
@@ -161,7 +101,6 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
       axisLine: { show: false },
       axisLabel: { show: false },
       axisTick: { show: false },
-      scale: true,
     },
     series: [
       {
@@ -172,7 +111,6 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
         type: 'bar',
         barWidth: 48,
         label: { show: true, position: 'top', color: colors.gray['50'], formatter: baseFormatter },
-        animationDuration: 2000,
         markLine: {
           symbol: 'none',
           data: [...markLines, currTrend, prevTrend, aspTrend].concat(
@@ -194,15 +132,88 @@ const OPTION = (values = VALUES, labels = LABELS, target = TARGET) => {
 };
 
 export default function WaterAnalysisPage() {
-  const option = OPTION();
+  const business = useSelector(selectBusiness);
+  const site = useSelector(selectSite);
+  const plant = useSelector(selectPlant);
+  const { label, pct, baseYear, currYear } = useGoal({ keyword: '用水強度' });
+  const { data } = useGetWaterAnalysisQuery({ business, site, plant });
+  const { ASP, water, waterIntensity, revenue, shipment } = data || {};
+  const currYearKey = `${currYear} YTM`;
+  const lastYearKey = `${currYear - 1} YTM`;
+  const overview = [
+    {
+      title: '用水量',
+      unit: '(公噸)',
+      value: water?.gradient,
+      subData: [
+        { key: lastYearKey, value: water?.compareYear },
+        { key: currYearKey, value: water?.currentYear },
+      ],
+    },
+    {
+      title: '營業額',
+      unit: '(十億台幣)',
+      value: revenue?.gradient,
+      subData: [
+        { key: lastYearKey, value: revenue?.compareYear },
+        { key: currYearKey, value: revenue?.currentYear },
+      ],
+    },
+    {
+      title: '用水強度',
+      unit: '(公噸/十億臺幣)',
+      value: waterIntensity?.currentYearGradient,
+      subData: [
+        { key: lastYearKey, value: waterIntensity?.compareYear },
+        { key: currYearKey, value: waterIntensity?.currentYear },
+      ],
+    },
+    {
+      title: '出貨量',
+      unit: '(千片)',
+      value: shipment?.gradient,
+      subData: [
+        { key: lastYearKey, value: shipment?.compareYear },
+        { key: currYearKey, value: shipment?.currentYear },
+      ],
+    },
+    {
+      title: 'ASP',
+      unit: '(千臺幣/片)',
+      value: ASP?.gradient,
+      subData: [
+        {
+          key: lastYearKey,
+          value: ASP?.compareYear,
+          renderer: (value) => baseFormatter(value, { precision: 2 }),
+        },
+        {
+          key: currYearKey,
+          value: ASP?.currentYear,
+          renderer: (value) => baseFormatter(value, { precision: 2 }),
+        },
+      ],
+    },
+  ];
+
+  const values = [
+    waterIntensity?.baseYear,
+    waterIntensity?.compareYear,
+    waterIntensity?.currentYear,
+    waterIntensity?.ASP,
+  ];
+
+  const labels = [`${baseYear} Actual`, `${currYear - 1} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const target = waterIntensity?.baseYear * (1 - pct);
+  const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title="十億營業額用水：用水強度分析"
+      title={`十億營業額用水：用水強度分析 ${plant ? `(Plant: ${plant})` : site ? `(Site: ${site})` : ''}`}
       chartTitle="用水強度對比"
-      overview={DATA}
-      chartOption={option}
+      overview={overview}
       tableData={TABLE_DATA}
-      target="對比基準年 -9 %"
+      target={label}
+      {...(data && { chartOption: option })}
     />
   );
 }

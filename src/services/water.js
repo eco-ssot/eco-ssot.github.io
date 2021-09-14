@@ -69,7 +69,10 @@ export const waterApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getWaterAnalysis: builder.query({
+      query: (query) => ({ query, url: 'water/anaysis' }),
+    }),
   }),
 });
 
-export const { useGetWaterQuery } = waterApi;
+export const { useGetWaterQuery, useGetWaterAnalysisQuery } = waterApi;

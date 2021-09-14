@@ -78,7 +78,7 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
         name: '增減率 *',
         renderer: (cell) => {
           const value = targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 })(cell);
-          if (!cell.row.original.isFooter && cell.value > 0) {
+          if (!cell.row.original.isFooter && cell.value > -pct) {
             const search = qs.stringify({ business, site: cell.row.original.site });
             return <Link to={`/waste/analysis?${search}`}>{value}</Link>;
           }
@@ -151,6 +151,7 @@ export default function WastePage() {
     () => COLUMNS({ business, pct, baseYear, maxDate: data?.maxDate }),
     [business, pct, baseYear, data?.maxDate]
   );
+
   return (
     <PageContainer>
       <div className="flex justify-between h-8">

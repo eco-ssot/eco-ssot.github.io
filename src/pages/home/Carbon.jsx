@@ -36,7 +36,6 @@ const OPTION = (values, labels, target) => ({
       type: 'bar',
       barWidth: 32,
       label: { show: true, position: 'top', color: colors.gray['50'], formatter: baseFormatter },
-      animationDuration: 2000,
       ...(target && {
         markLine: {
           data: [{ yAxis: target }],

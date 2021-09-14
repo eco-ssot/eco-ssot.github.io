@@ -1,6 +1,5 @@
 import { useHistory } from 'react-router-dom';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import { useSelector } from 'react-redux';
 
 import AnalysisTable from './AnalysisTable';
 import Chart from '../../charts/Chart';
@@ -9,14 +8,14 @@ import Arrow from '../../components/arrow/Arrow';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
 import Legend from '../../components/legend/Legend';
-import { selectSite } from '../../renderless/location/locationSlice';
+import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 
 export default function AnalysisPage({ title, chartTitle, overview, chartOption, tableData, target }) {
   const history = useHistory();
-  const site = useSelector(selectSite);
+  const { accumulationPeriod } = useAccumulationPeriod();
   return (
     <div className="flex flex-col p-4 gap-4 w-screen max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
-      <div className="text-xl font-medium">{`${title} ${site ? `(Site: ${site})` : ''}`}</div>
+      <div className="text-xl font-medium">{title}</div>
       <div className="flex justify-between items-end">
         <div
           className="flex text-gray-300 cursor-pointer space-x-2 items-center hover:text-green-50"
@@ -25,7 +24,7 @@ export default function AnalysisPage({ title, chartTitle, overview, chartOption,
           <div>返回上一頁</div>
         </div>
         <Tag>
-          累計區間：<span className="text-lg font-medium">2021.01 - 06</span>
+          累計區間：<span className="text-lg font-medium">{accumulationPeriod}</span>
         </Tag>
       </div>
       <div className="grid grid-rows-5 grid-cols-7 flex-grow gap-4 overflow-auto">
@@ -64,7 +63,7 @@ export default function AnalysisPage({ title, chartTitle, overview, chartOption,
           <div className="text-xl font-medium">{chartTitle}</div>
           <div className="flex justify-end space-x-4">
             <Legend dotClassName="bg-_yellow" label="基準年" />
-            <Legend dotClassName="bg-_orange" label={`目標 : ${target || '-'}`} />
+            <Legend dotClassName="bg-_orange" label={target} />
           </div>
           {chartOption && <Chart className="flex-grow" option={chartOption} />}
         </div>

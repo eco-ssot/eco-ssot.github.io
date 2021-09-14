@@ -32,5 +32,6 @@ export const selectBusiness = createSelector(selectQuery, (state) => state.busin
 export const selectYear = createSelector(selectQuery, (state) => state.year);
 export const selectDimension = createSelector(selectQuery, (state) => state.dimension);
 export const selectSite = createSelector(selectQuery, (state) => state.site);
+export const selectPlant = createSelector(selectQuery, (state) => state.plant);
 
 export default locationSlice.reducer;

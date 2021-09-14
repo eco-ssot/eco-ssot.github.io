@@ -42,7 +42,6 @@ const OPTION = (values, labels, target) => ({
         color: colors.gray['50'],
         formatter: ({ value }) => baseFormatter(value, { precision: 1 }),
       },
-      animationDuration: 2000,
       ...(target && {
         markLine: {
           data: [{ yAxis: target }],

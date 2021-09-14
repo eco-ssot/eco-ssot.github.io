@@ -68,11 +68,7 @@ export const electricityApi = createApi({
     getElectricityAnalysis: builder.query({
       query: (query) => ({ query, url: 'electric/anaysis' }),
     }),
-    getElectricityAnalysisExplanation: builder.query({
-      query: (query) => ({ query, url: 'electric/anaysis/explanation' }),
-    }),
   }),
 });
 
-export const { useGetElectricityQuery, useGetElectricityAnalysisQuery, useGetElectricityAnalysisExplanationQuery } =
-  electricityApi;
+export const { useGetElectricityQuery, useGetElectricityAnalysisQuery } = electricityApi;
