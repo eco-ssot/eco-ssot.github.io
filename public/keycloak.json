@@ -1,8 +1,0 @@
-{
-  "realm": "k8sprdwhqecossot2021",
-  "auth-server-url": "https://keycloak-prd.wistron.com/auth/",
-  "ssl-required": "external",
-  "resource": "eco-ssot-frontend",
-  "public-client": true,
-  "confidential-port": 0
-}
