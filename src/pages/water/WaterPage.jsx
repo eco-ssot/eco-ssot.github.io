@@ -20,6 +20,7 @@ import { navigate } from '../../router/helpers';
 import { addPaddingColumns } from '../../utils/table';
 import { formatMonthRange } from '../../utils/date';
 import useGoal from '../../hooks/useGoal';
+import Dot from '../../components/dot/Dot';
 
 const HEADERS = ({
   business,
@@ -72,7 +73,12 @@ const HEADERS = ({
         name: '增減率',
         renderer: (cell) => {
           const value = targetFormatter(-pct, { formatter: ratioFormatter })(cell);
-          if (!cell.row.original.isFooter && cell.value > -pct) {
+          if (
+            !cell.row.original.isFooter &&
+            cell.row.original.subRows.length === 0 &&
+            isFinite(cell.value) &&
+            cell.value > -pct
+          ) {
             let query = { business, site: cell.row.original.site };
             if (cell.row.depth > 0) {
               query = {
@@ -83,7 +89,12 @@ const HEADERS = ({
             }
 
             const search = qs.stringify(query);
-            return <Link to={`/water/analysis?${search}`}>{value}</Link>;
+            return (
+              <Link className="flex items-center justify-end space-x-2" to={`/water/analysis?${search}`}>
+                <Dot />
+                {value}
+              </Link>
+            );
           }
 
           return value;

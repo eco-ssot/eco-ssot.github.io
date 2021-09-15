@@ -88,7 +88,7 @@ const OPTION = (values, labels, target) => {
       label: { show: false },
     };
 
-    return { yAxis: val, ...style };
+    return { yAxis: val || 0, ...style };
   });
 
   return {
@@ -210,12 +210,12 @@ export default function ElectricityAnalysisPage() {
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title={`十億營業額用電：用電強度分析 ${plant ? `(Plant: ${plant})` : site ? `(Site: ${site})` : ''}`}
+      title={`十億營業額用電：用電強度分析 ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle="用電強度對比"
       target={label}
       overview={overview}
       tableData={TABLE_DATA}
-      {...(data && { chartOption: option })}
+      chartOption={option}
     />
   );
 }

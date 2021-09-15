@@ -52,7 +52,12 @@ const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
         name: '增減率 (f/e-1)',
         renderer: (cell) => {
           const value = targetFormatter(0, { formatter: ratioFormatter })(cell);
-          if (!cell.row.original.isFooter && cell.value > 0) {
+          if (
+            !cell.row.original.isFooter &&
+            cell.row.original.subRows.length === 0 &&
+            isFinite(cell.value) &&
+            cell.value > 0
+          ) {
             let query = { business, site: cell.row.original.site };
             if (cell.row.depth > 0) {
               query = {

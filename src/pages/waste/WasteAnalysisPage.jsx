@@ -4,7 +4,7 @@ import AnalysisPage from '../analysis/AnalysisPage';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { useGetWasteAnalysisQuery } from '../../services/waste';
-import { selectBusiness, selectSite } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectPlant, selectSite } from '../../renderless/location/locationSlice';
 import useGoal from '../../hooks/useGoal';
 
 const TABLE_DATA = [
@@ -79,7 +79,7 @@ const OPTION = (values, labels, target) => {
       label: { show: false },
     };
 
-    return { yAxis: val, ...style };
+    return { yAxis: val || 0, ...style };
   });
 
   return {
@@ -138,19 +138,20 @@ const OPTION = (values, labels, target) => {
 export default function WasteAnalysisPage() {
   const business = useSelector(selectBusiness);
   const site = useSelector(selectSite);
+  const plant = useSelector(selectPlant);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
-  const { data } = useGetWasteAnalysisQuery({ business, site });
+  const { data } = useGetWasteAnalysisQuery({ business, site, plant });
   const { ASP, waste, wasteIntensity, revenue, shipment } = data || {};
+  const lastYear = currYear - 1;
   const currYearKey = `${currYear} YTM`;
-  const lastYearKey = `${currYear - 1} YTM`;
-  const baseYearKey = `${baseYear} YTM`;
+  const lastYearKey = `${lastYear} YTM`;
   const overview = [
     {
       title: '廢棄物總量',
       unit: '(公噸)',
       value: waste?.gradient,
       subData: [
-        { key: baseYearKey, value: waste?.baseYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+        { key: lastYearKey, value: waste?.compareYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
         { key: currYearKey, value: waste?.currentYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
       ],
     },
@@ -169,8 +170,8 @@ export default function WasteAnalysisPage() {
       value: wasteIntensity?.currentYear / wasteIntensity?.baseYear - 1,
       subData: [
         {
-          key: baseYearKey,
-          value: wasteIntensity?.baseYear,
+          key: lastYearKey,
+          value: wasteIntensity?.compareYear,
           renderer: (value) => baseFormatter(value, { precision: 2 }),
         },
         {
@@ -209,18 +210,18 @@ export default function WasteAnalysisPage() {
     },
   ];
 
-  const values = [wasteIntensity?.baseYear, wasteIntensity?.currentYear, wasteIntensity?.ASP];
-  const labels = [`${baseYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
-  const target = wasteIntensity?.baseYear * (1 - pct);
+  const values = [wasteIntensity?.compareYear, wasteIntensity?.currentYear, wasteIntensity?.ASP];
+  const labels = [`${lastYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const target = wasteIntensity?.compareYear * (1 - pct);
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title={`廢棄物產生密度：廢棄物密度分析 ${site ? `(Site: ${site})` : ''}`}
+      title={`廢棄物產生密度：廢棄物密度分析 ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle="廢棄物密度對比"
       overview={overview}
       tableData={TABLE_DATA}
-      target={label}
-      {...(data && { chartOption: option })}
+      target={label.replace(baseYear, lastYear)}
+      chartOption={option}
     />
   );
 }

@@ -80,7 +80,7 @@ const OPTION = (values, labels, target) => {
       label: { show: false },
     };
 
-    return { yAxis: val, ...style };
+    return { yAxis: val || 0, ...style };
   });
 
   return {
@@ -208,12 +208,12 @@ export default function WaterAnalysisPage() {
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title={`十億營業額用水：用水強度分析 ${plant ? `(Plant: ${plant})` : site ? `(Site: ${site})` : ''}`}
+      title={`十億營業額用水：用水強度分析 ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle="用水強度對比"
       overview={overview}
       tableData={TABLE_DATA}
       target={label}
-      {...(data && { chartOption: option })}
+      chartOption={option}
     />
   );
 }
