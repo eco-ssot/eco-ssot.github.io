@@ -88,7 +88,10 @@ const OPTION = (values, labels, target) => {
       label: { show: false },
     };
 
-    return { yAxis: val || 0, ...style };
+    return [
+      { x: '0%', yAxis: val || 0, ...style },
+      { x: '100%', yAxis: val || 0 },
+    ];
   });
 
   return {
@@ -124,18 +127,26 @@ const OPTION = (values, labels, target) => {
           data: [...markLines, currTrend, aspTrend].concat(
             target
               ? [
-                  {
-                    yAxis: target,
-                    lineStyle: { color: colors._orange },
-                    label: { formatter: baseFormatter, position: 'start' },
-                  },
+                  [
+                    {
+                      x: '0%',
+                      yAxis: target,
+                      lineStyle: { color: colors._orange },
+                      name: baseFormatter(target),
+                      label: { position: 'insideStartBottom' },
+                    },
+                    {
+                      x: '100%',
+                      yAxis: target,
+                    },
+                  ],
                 ]
               : []
           ),
         },
       },
     ],
-    grid: { left: 72, right: 72, top: 64, bottom: 0, containLabel: true },
+    grid: { left: 64, right: 72, top: 64, bottom: 0, containLabel: true },
   };
 };
 

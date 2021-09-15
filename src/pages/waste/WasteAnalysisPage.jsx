@@ -79,7 +79,10 @@ const OPTION = (values, labels, target) => {
       label: { show: false },
     };
 
-    return { yAxis: val || 0, ...style };
+    return [
+      { x: '0%', yAxis: val || 0, ...style },
+      { x: '100%', yAxis: val || 0 },
+    ];
   });
 
   return {
@@ -120,11 +123,16 @@ const OPTION = (values, labels, target) => {
           data: [...markLines, currTrend, aspTrend].concat(
             target
               ? [
-                  {
-                    yAxis: target,
-                    lineStyle: { color: colors._orange },
-                    label: { formatter: ({ value }) => baseFormatter(value, { precision: 2 }), position: 'start' },
-                  },
+                  [
+                    {
+                      x: '0%',
+                      yAxis: target,
+                      lineStyle: { color: colors._orange },
+                      name: baseFormatter(target, { precision: 2 }),
+                      label: { position: 'insideStartBottom' },
+                    },
+                    { x: '100%', yAxis: target },
+                  ],
                 ]
               : []
           ),
@@ -151,7 +159,7 @@ export default function WasteAnalysisPage() {
       unit: '(公噸)',
       value: waste?.gradient,
       subData: [
-        { key: lastYearKey, value: waste?.compareYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+        { key: lastYearKey, value: waste?.baseYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
         { key: currYearKey, value: waste?.currentYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
       ],
     },
@@ -167,7 +175,7 @@ export default function WasteAnalysisPage() {
     {
       title: '廢棄物產生密度',
       unit: '(公噸/十億臺幣)',
-      value: wasteIntensity?.currentYear / wasteIntensity?.baseYear - 1,
+      value: wasteIntensity?.currentAndCompareGradient,
       subData: [
         {
           key: lastYearKey,

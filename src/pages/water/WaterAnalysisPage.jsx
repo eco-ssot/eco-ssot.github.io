@@ -71,16 +71,19 @@ export function getMarkLineTrend(value, comparison, x) {
 
 const OPTION = (values, labels, target) => {
   const [base, prev, curr, asp] = values;
-  const currTrend = getMarkLineTrend(curr, base, '70%');
-  const aspTrend = getMarkLineTrend(asp, base, '90%');
-  const prevTrend = getMarkLineTrend(asp, prev, '85%');
+  const currTrend = getMarkLineTrend(curr, base, '67.5%');
+  const aspTrend = getMarkLineTrend(asp, base, '95%');
+  const prevTrend = getMarkLineTrend(asp, prev, '87.5%');
   const markLines = values.map((val, i) => {
     const style = {
       lineStyle: { color: COLORS[i] },
       label: { show: false },
     };
 
-    return { yAxis: val || 0, ...style };
+    return [
+      { x: '0%', yAxis: val || 0, ...style },
+      { x: '100%', yAxis: val || 0 },
+    ];
   });
 
   return {
@@ -116,18 +119,26 @@ const OPTION = (values, labels, target) => {
           data: [...markLines, currTrend, prevTrend, aspTrend].concat(
             target
               ? [
-                  {
-                    yAxis: target,
-                    lineStyle: { color: colors._orange },
-                    label: { formatter: baseFormatter, position: 'start' },
-                  },
+                  [
+                    {
+                      x: '0%',
+                      yAxis: target,
+                      lineStyle: { color: colors._orange },
+                      name: baseFormatter(target),
+                      label: { position: 'insideStartBottom' },
+                    },
+                    {
+                      x: '100%',
+                      yAxis: target,
+                    },
+                  ],
                 ]
               : []
           ),
         },
       },
     ],
-    grid: { left: 48, right: 48, top: 64, bottom: 0, containLabel: true },
+    grid: { left: 64, right: 64, top: 64, bottom: 0, containLabel: true },
   };
 };
 
@@ -162,7 +173,7 @@ export default function WaterAnalysisPage() {
     {
       title: '用水強度',
       unit: '(公噸/十億臺幣)',
-      value: waterIntensity?.currentYearGradient,
+      value: waterIntensity?.currentAndCompareGradient,
       subData: [
         { key: lastYearKey, value: waterIntensity?.compareYear },
         { key: currYearKey, value: waterIntensity?.currentYear },
