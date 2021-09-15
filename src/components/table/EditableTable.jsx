@@ -132,7 +132,7 @@ export default function EditableTable({
                 {...column.getHeaderProps([
                   {
                     className: clsx(
-                      'px-2 py-3 font-medium text-left text-gray-50 tracking-wider whitespace-nowrap',
+                      'px-2 py-3 font-medium text-left text-gray-50 tracking-wider whitespace-nowrap text-lg',
                       column.className
                     ),
                     style: column.style,
@@ -164,7 +164,7 @@ export default function EditableTable({
                   <td
                     {...cell.getCellProps([
                       {
-                        className: clsx('px-2 text-gray-50', cell.column.className),
+                        className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
                         style: cell.column.style,
                       },
                       getColumnProps(cell.column),

@@ -36,7 +36,7 @@ export default function Table({
                   {...column.getHeaderProps([
                     {
                       className: clsx(
-                        'text-center font-medium text-gray-50 tracking-wider whitespace-nowrap',
+                        'text-center text-lg font-medium text-gray-50 tracking-wider whitespace-nowrap',
                         headerGroups.length === 1 && 'py-3',
                         headerGroups.length > 1 && i > 0 && 'py-3',
                         !column.id.startsWith('expander') && 'px-2',
@@ -67,7 +67,7 @@ export default function Table({
                     {...cell.getCellProps([
                       {
                         className: clsx(
-                          'py-3 text-gray-50 text-center',
+                          'py-3 text-gray-50 text-center text-lg',
                           !cell.column.id.startsWith('expander') && 'px-2',
                           row.depth > 0 && 'bg-primary-600 bg-opacity-20',
                           row.depth > 0 && row.index === 0 && 'border-t border-primary-600',
