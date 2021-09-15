@@ -12,7 +12,7 @@ export default function NavBar({ className }) {
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
         .filter(({ show = true }) => show)
-        .map(({ path, title, component: Component }) => (
+        .map(({ path, title }) => (
           <div
             key={path}
             className={
@@ -26,8 +26,7 @@ export default function NavBar({ className }) {
                 state: { from: pathname },
                 ...(business && { search: `?business=${business}` }),
               }}
-              className="text-current text-lg font-medium"
-              onMouseEnter={() => Component.preload()}>
+              className="text-current text-lg font-medium">
               <span className="block truncate">{title}</span>
             </Link>
           </div>
