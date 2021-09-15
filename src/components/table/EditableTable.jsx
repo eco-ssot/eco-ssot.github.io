@@ -9,6 +9,7 @@ import Button from '../button/Button';
 import IconButton from '../button/IconButton';
 import Textarea from '../textarea/Textarea';
 import { getDecimalNumber } from '../../utils/number';
+import APP_CONFIG from '../../constants/app-config';
 
 export const EditableButton = ({ children, onClick = () => {}, ...props }) => (
   <Button onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick} {...props}>
@@ -88,7 +89,11 @@ const EditableCell = ({
   ) : (
     <>
       {isNil(initialValue) || initialValue === ''
-        ? '-'
+        ? id === 'baseYear'
+          ? category === '可再生能源'
+            ? APP_CONFIG.CURRENT_YEAR
+            : APP_CONFIG.LAST_YEAR
+          : '-'
         : formatter(initialValue, { precision, ...(category === '碳排放量' && { precision: 0 }) })}
     </>
   );
