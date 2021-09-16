@@ -37,7 +37,7 @@ const TABLE_DATA = [
   },
 ];
 
-const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
+const COLORS = [colors._yellow, colors._blue, colors.primary['600'], colors.primary['500']];
 
 export function getMarkLineTrend(value, comparison, x) {
   const isBetter = value - comparison < 0;
@@ -70,8 +70,8 @@ export function getMarkLineTrend(value, comparison, x) {
 }
 
 const OPTION = (values, labels, target) => {
-  const [base, curr, asp] = values;
-  const currTrend = getMarkLineTrend(curr, base, '60%');
+  const [base, _, curr, asp] = values;
+  const currTrend = getMarkLineTrend(curr, base, '66.5%');
   const aspTrend = getMarkLineTrend(asp, base, '85%');
   const markLines = values.map((val, i) => {
     const style = {
@@ -218,9 +218,15 @@ export default function WasteAnalysisPage() {
     },
   ];
 
-  const values = [wasteIntensity?.compareYear, wasteIntensity?.currentYear, wasteIntensity?.ASP];
-  const labels = [`${lastYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
-  const target = wasteIntensity?.compareYear * (1 - pct);
+  const values = [
+    wasteIntensity?.baseYear,
+    wasteIntensity?.compareYear,
+    wasteIntensity?.currentYear,
+    wasteIntensity?.ASP,
+  ];
+
+  const labels = [`${baseYear} Actual`, `${lastYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const target = wasteIntensity?.baseYear * (1 - pct);
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
@@ -228,7 +234,7 @@ export default function WasteAnalysisPage() {
       chartTitle="廢棄物密度對比"
       overview={overview}
       tableData={TABLE_DATA}
-      target={label.replace(baseYear, lastYear)}
+      target={label}
       chartOption={option}
     />
   );

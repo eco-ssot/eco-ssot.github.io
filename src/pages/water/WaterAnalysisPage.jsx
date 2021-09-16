@@ -71,9 +71,9 @@ export function getMarkLineTrend(value, comparison, x) {
 
 const OPTION = (values, labels, target) => {
   const [base, prev, curr, asp] = values;
-  const currTrend = getMarkLineTrend(curr, base, '67.5%');
-  const aspTrend = getMarkLineTrend(asp, base, '95%');
-  const prevTrend = getMarkLineTrend(asp, prev, '87.5%');
+  const currTrend = getMarkLineTrend(curr, base, '66.5%');
+  const aspTrend = getMarkLineTrend(asp, base, '92.5%');
+  const prevTrend = getMarkLineTrend(asp, prev, '85%');
   const markLines = values.map((val, i) => {
     const style = {
       lineStyle: { color: COLORS[i] },
