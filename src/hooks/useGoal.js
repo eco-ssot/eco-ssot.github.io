@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 
+import { selectBusiness } from '../renderless/location/locationSlice';
 import { useGetGoalQuery } from '../services/app';
 import { getTargetLabel } from '../utils/label';
 import { getDecimalNumber } from '../utils/number';
-import { selectBusiness } from '../renderless/location/locationSlice';
 
 export default function useGoal({ keyword, isHistory = false } = {}) {
   const currYear = new Date().getFullYear();

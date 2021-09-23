@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
-import { selectHash } from '../renderless/location/locationSlice';
 import APP_CONFIG from '../constants/app-config';
+import { selectHash } from '../renderless/location/locationSlice';
 
 export default function useIsHistory() {
   const hash = useSelector(selectHash);

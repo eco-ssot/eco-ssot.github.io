@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { useMount } from 'react-use';
 
-import { increment, decrement } from './loaderSlice';
-
 import axios from '../../axios';
+
+import { increment, decrement } from './loaderSlice';
 
 export default function Loader() {
   useMount(() => {

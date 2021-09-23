@@ -1,10 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { chunk, isNil } from 'lodash';
 
-import { axiosBaseQuery } from './helpers';
 import axios from '../axios';
 import APP_CONFIG from '../constants/app-config';
 import { getDecimalNumber } from '../utils/number';
+
+import { axiosBaseQuery } from './helpers';
 
 const CATEGORY_MAPPING = {
   碳排放量: 'carbon_emission',

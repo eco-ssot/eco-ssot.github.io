@@ -1,16 +1,17 @@
 import { useState, useCallback } from 'react';
+
 import { useSelector } from 'react-redux';
 
-import YearGoal from './YearGoal';
-import CarbonIndex from './CarbonIndex';
-import Trec from './Trec';
-
-import { useKeycloak } from '../../keycloak';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/app';
+import { useKeycloak } from '../../keycloak';
 import { selectBusiness } from '../../renderless/location/locationSlice';
+import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/app';
+
+import CarbonIndex from './CarbonIndex';
+import Trec from './Trec';
+import YearGoal from './YearGoal';
 
 const YEAR_OPTIONS = [{ key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR }, ...APP_CONFIG.YEAR_OPTIONS];
 

@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { useDeepCompareEffect, useUpdateEffect, useMeasure } from 'react-use';
-import clsx from 'clsx';
 
+import clsx from 'clsx';
 import echarts from 'echarts/lib/echarts';
+import { useDeepCompareEffect, useUpdateEffect, useMeasure } from 'react-use';
 
 // then import echarts modules those you have used manually.
 // import 'echarts/lib/chart/line';

@@ -1,21 +1,22 @@
 import { useMemo, useState } from 'react';
+
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { useSelector } from 'react-redux';
 
-import PageContainer from '../../components/page-container/PageContainer';
+import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
+import PageContainer from '../../components/page-container/PageContainer';
+import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
-import Select from '../../components/select/Select';
-import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns } from '../../utils/table';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetOverviewQuery } from '../../services/overview';
+import useIsHistory from '../../hooks/useIsHistory';
 import { selectBusiness, selectYear, selectDimension } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
+import { useGetOverviewQuery } from '../../services/overview';
 import { formatMonthRange } from '../../utils/date';
-import useIsHistory from '../../hooks/useIsHistory';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { addPaddingColumns } from '../../utils/table';
 
 const HEADERS = [
   { key: 'electricity', name: '用電量 (度)' },

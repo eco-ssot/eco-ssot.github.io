@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
-import { privateRoutes } from '../../router/routes';
 import { selectBusiness } from '../../renderless/location/locationSlice';
+import { privateRoutes } from '../../router/routes';
 
 export default function NavBar({ className }) {
   const { pathname } = useLocation();

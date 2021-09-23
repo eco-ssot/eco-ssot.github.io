@@ -1,6 +1,6 @@
 import Header from '../header/Header';
-import Spinner from '../spinner/Spinner';
 import Notification from '../notification/Notification';
+import Spinner from '../spinner/Spinner';
 
 export default function Layout({ children }) {
   return (

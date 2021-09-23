@@ -1,8 +1,8 @@
-import Router from '../router';
-import Location from '../renderless/location/Location';
-import Loader from '../renderless/loader/Loader';
 import ErrorHandler from '../renderless/error-handler/ErrorHandler';
+import Loader from '../renderless/loader/Loader';
+import Location from '../renderless/location/Location';
 import TabTitle from '../renderless/tab-title/TabTitle';
+import Router from '../router';
 
 export default function App() {
   return (

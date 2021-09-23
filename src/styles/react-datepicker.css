@@ -1,0 +1,67 @@
+.react-datepicker-wrapper {
+  @apply flex w-full h-full;
+}
+
+.react-datepicker__input-container {
+  @apply flex w-full h-full;
+}
+
+.react-datepicker__input-container input {
+  @apply block w-full h-full py-1 px-2 bg-transparent rounded text-base hover:border-primary-600 focus:ring-primary-600 focus:border-primary-600;
+}
+
+.react-datepicker-popper {
+  @apply flex w-full z-10 min-w-[16rem];
+}
+
+.react-datepicker-popper > :first-child {
+  @apply flex w-full mt-2 bg-gray-700 rounded shadow;
+}
+
+.react-datepicker {
+  @apply flex w-full;
+}
+
+.react-datepicker__month-container {
+  @apply flex flex-col w-full;
+}
+
+.react-datepicker__month.react-datepicker__monthPicker {
+  @apply flex flex-col w-full space-y-4 p-4;
+}
+
+.react-datepicker__month-wrapper {
+  @apply grid grid-cols-3 gap-4 text-center;
+}
+
+.react-datepicker__month--selected {
+  @apply bg-primary-600;
+}
+
+.react-datepicker__month-text {
+  @apply py-1 rounded hover:bg-primary-700;
+}
+
+.react-datepicker__day-names {
+  @apply grid grid-cols-7 gap-4 px-4 py-2 text-center;
+}
+
+.react-datepicker__month {
+  @apply py-1 pb-4 px-2 space-y-2;
+}
+
+.react-datepicker__week {
+  @apply grid grid-cols-7 gap-1 text-center;
+}
+
+.react-datepicker__day {
+  @apply py-0.5 px-1 rounded hover:bg-primary-700;
+}
+
+.react-datepicker__day--selected {
+  @apply bg-primary-600;
+}
+
+.react-datepicker__day--outside-month {
+  @apply text-gray-400;
+}

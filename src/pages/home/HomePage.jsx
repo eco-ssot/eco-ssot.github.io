@@ -1,20 +1,20 @@
 import { useSelector } from 'react-redux';
 
+import Panel from '../../components/panel/Panel';
+import TagSelect from '../../components/select/TagSelect';
+import APP_CONFIG from '../../constants/app-config';
+import { selectYear, selectBusiness } from '../../renderless/location/locationSlice';
+import { navigate } from '../../router/helpers';
+import { useGetSummaryQuery } from '../../services/app';
+import { formatMonthRange, getMaxDate } from '../../utils/date';
+
+import RenewableEnergy from './/RenewableEnergy';
 import Carbon from './Carbon';
 import Electricity from './Electricity';
-import RenewableEnergy from './/RenewableEnergy';
+import Overview from './Overview';
 import UnitElectricity from './UnitElectricity';
 import Waste from './Waste';
 import Water from './Water';
-
-import Panel from '../../components/panel/Panel';
-import Overview from './Overview';
-import TagSelect from '../../components/select/TagSelect';
-import { navigate } from '../../router/helpers';
-import { useGetSummaryQuery } from '../../services/app';
-import { selectYear, selectBusiness } from '../../renderless/location/locationSlice';
-import APP_CONFIG from '../../constants/app-config';
-import { formatMonthRange, getMaxDate } from '../../utils/date';
 
 export default function HomePage() {
   const compareYear = useSelector(selectYear);

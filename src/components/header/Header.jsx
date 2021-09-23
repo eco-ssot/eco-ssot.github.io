@@ -2,17 +2,17 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import packageJson from '../../../package.json';
+import APP_CONFIG from '../../constants/app-config';
 import { useKeycloak } from '../../keycloak';
-import NavBar from '../nav-bar/NavBar';
+import { selectBusiness } from '../../renderless/location/locationSlice';
+import { navigate } from '../../router/helpers';
+import Avatar from '../avatar/Avatar';
 import Divider from '../divider/Divider';
+import NavBar from '../nav-bar/NavBar';
 import GhostSelect from '../select/GhostSelect';
 import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
-import Avatar from '../avatar/Avatar';
-import { navigate } from '../../router/helpers';
-import { selectBusiness } from '../../renderless/location/locationSlice';
-import APP_CONFIG from '../../constants/app-config';
-import packageJson from '../../../package.json';
 
 export default function Header({ className }) {
   const business = useSelector(selectBusiness);

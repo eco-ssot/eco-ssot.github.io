@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { get } from 'lodash';
 
 import { toFormattedNumber } from './number';
@@ -12,18 +13,19 @@ export const keepPrecisionFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { ...option, keepPrecision: true });
 
 export const targetFormatter =
-  (target, { formatter = originalFormatter, ...option } = {}) =>
+  (target, { className, formatter = originalFormatter, ...option } = {}) =>
   ({ value, ...cell }) => {
     const val = /^revenue$|^asp$|^revenue.delta$|^asp.delta$/gi.test(cell.column.id) ? value * -1 : value;
     return (
       <div
-        className={
+        className={clsx(
           val > target
             ? 'text-dangerous-500 font-semibold'
             : val < target && cell.row.original.isFooter
             ? 'text-green-500 font-semibold'
-            : ''
-        }>
+            : '',
+          className
+        )}>
         {formatter(value, option)}
       </div>
     );

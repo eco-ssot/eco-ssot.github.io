@@ -1,6 +1,6 @@
 import Chart from '../../charts/Chart';
-import { colors } from '../../styles';
 import Legend from '../../components/legend/Legend';
+import { colors } from '../../styles';
 import { ratioFormatter } from '../../utils/formatter';
 import { getDecimalNumber } from '../../utils/number';
 

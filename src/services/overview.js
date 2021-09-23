@@ -1,8 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
-import { axiosBaseQuery } from './helpers';
 import { getMaxDate } from '../utils/date';
+
+import { axiosBaseQuery } from './helpers';
 
 export function toRow({
   site,

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import clsx from 'clsx';
 import { useState } from 'react';
+
 import { PencilIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
 
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { usePatchCarbonIndexMutation } from '../../services/app';

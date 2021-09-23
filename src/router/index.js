@@ -1,8 +1,8 @@
 import { Redirect, Route, Switch, Router as BrowserRouter } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
-import { publicRoutes, privateRoutes, subRoutes } from './routes';
 import history from './history';
+import { publicRoutes, privateRoutes, subRoutes } from './routes';
 
 export default function Router({ children }) {
   return (

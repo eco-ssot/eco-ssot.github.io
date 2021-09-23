@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useUpdateEffect } from 'react-use';
+
 import { useKeycloak as _useKeycloak } from '@react-keycloak/web';
+import { useUpdateEffect } from 'react-use';
+
+import APP_CONFIG from '../constants/app-config';
+import history from '../router/history';
 
 import _KeycloakProvider from './KeycloakProvider';
-
-import history from '../router/history';
-import APP_CONFIG from '../constants/app-config';
 
 const token = 'token';
 const idTokenParsed = {

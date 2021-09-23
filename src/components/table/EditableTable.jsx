@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useTable } from 'react-table';
-import clsx from 'clsx';
-import { PlusIcon } from '@heroicons/react/solid';
-import { isNil } from 'lodash';
 
-import Input from '../input/Input';
+import { PlusIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
+import { isNil } from 'lodash';
+import { useTable } from 'react-table';
+
+import APP_CONFIG from '../../constants/app-config';
+import { getDecimalNumber } from '../../utils/number';
 import Button from '../button/Button';
 import IconButton from '../button/IconButton';
+import Input from '../input/Input';
+import SearchSelect from '../select/SearchSelect';
 import Textarea from '../textarea/Textarea';
-import { getDecimalNumber } from '../../utils/number';
-import APP_CONFIG from '../../constants/app-config';
 
 export const EditableButton = ({ children, onClick = () => {}, ...props }) => (
   <Button onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick} {...props}>
@@ -23,7 +25,24 @@ export const EditableIconButton = ({ children, onClick = () => {}, ...props }) =
   </IconButton>
 );
 
-export const CustomInputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
+export const EditableInput = ({
+  className,
+  containerClassName,
+  wrapperClassName,
+  suffix = '',
+  prefix = '',
+  ...props
+}) => (
+  <div className={clsx('flex h-full', containerClassName)}>
+    <div className={clsx('mx-auto h-full relative', wrapperClassName)}>
+      <Input className={clsx(className)} {...props} />
+      {prefix && <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">{prefix}</div>}
+      {suffix && <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">{suffix}</div>}
+    </div>
+  </div>
+);
+
+export const CustomInputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {}, ...props }) => {
   const [match] = defaultValue.match(/下降|占比|佔比/) || [];
   const decimalNumber = getDecimalNumber(defaultValue);
   const [inputValue, setInputValue] = useState(decimalNumber);
@@ -34,18 +53,19 @@ export const CustomInputCell = ({ defaultValue = '', placeholder = '', onBlur = 
   }, [match, decimalNumber]);
 
   return (
-    <Input
+    <EditableInput
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
       onBlur={(e) => onBlur([prefix, e.target.value, suffix].join(' '))}
       placeholder={placeholder}
       prefix={prefix}
       suffix={suffix}
+      {...props}
     />
   );
 };
 
-export const InputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
+export const InputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {}, ...props }) => {
   const [value, setValue] = useState(defaultValue);
   const onChange = (e) => {
     setValue(e.target.value);
@@ -55,7 +75,15 @@ export const InputCell = ({ defaultValue = '', placeholder = '', onBlur = () => 
     setValue(defaultValue);
   }, [defaultValue]);
 
-  return <Input value={value} onChange={onChange} onBlur={() => onBlur(value)} placeholder={placeholder} />;
+  return (
+    <EditableInput
+      value={value}
+      onChange={onChange}
+      onBlur={() => onBlur(value)}
+      placeholder={placeholder}
+      {...props}
+    />
+  );
 };
 
 export const TextareaCell = ({ defaultValue = '', placeholder = '', onBlur = () => {} }) => {
@@ -69,6 +97,22 @@ export const TextareaCell = ({ defaultValue = '', placeholder = '', onBlur = () 
   }, [defaultValue]);
 
   return <Textarea value={value} onChange={onChange} onBlur={() => onBlur(value)} placeholder={placeholder} />;
+};
+
+export const SearchSelectCell = ({
+  options = [],
+  defaultValue = options[0] || {},
+  label = '',
+  onBlur = () => {},
+} = {}) => {
+  const [value, setValue] = useState(defaultValue);
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
+
+  return (
+    <SearchSelect options={options} value={value} label={label} onChange={setValue} onBlur={() => onBlur(value)} />
+  );
 };
 
 const EditableCell = ({
@@ -85,7 +129,7 @@ const EditableCell = ({
   };
 
   return editable && editing ? (
-    <EditableComponent defaultValue={initialValue} placeholder={placeholder} onBlur={onBlur} />
+    <EditableComponent defaultValue={initialValue} placeholder={placeholder} onBlur={onBlur} className="text-center" />
   ) : (
     <>
       {isNil(initialValue) || initialValue === ''

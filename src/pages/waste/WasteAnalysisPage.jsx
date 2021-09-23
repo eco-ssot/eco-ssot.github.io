@@ -1,39 +1,54 @@
 import { useSelector } from 'react-redux';
 
-import AnalysisPage from '../analysis/AnalysisPage';
+import useGoal from '../../hooks/useGoal';
+import { selectBusiness, selectPlant, selectSite } from '../../renderless/location/locationSlice';
+import { useGetWasteAnalysisQuery } from '../../services/waste';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
-import { useGetWasteAnalysisQuery } from '../../services/waste';
-import { selectBusiness, selectPlant, selectSite } from '../../renderless/location/locationSlice';
-import useGoal from '../../hooks/useGoal';
+import AnalysisPage from '../analysis/AnalysisPage';
 
 const TABLE_DATA = [
   {
     description: 'YTM ASP 降低18%，影響2021營收13.9億、用電強度16%',
-    strategy: '改善措施',
-    expectation: '每月減少 10噸廢棄物',
-    contribution: '廢棄物密度 -3%',
-    dueDate: '2021.09.21',
-    finishDate: '--',
-    pic: '王一二',
+    effect: '+9%',
+    subRows: [
+      {
+        strategy: '廢棄物處理 I',
+        expectation: '每年 -300公噸廢棄物',
+        contribution: '-4 %',
+        dueDate: '2021.09.01',
+        finishDate: '--',
+        pic: '王一二',
+      },
+    ],
   },
   {
     description: '15台除濕機設定管控',
-    strategy: '改善措施',
-    expectation: '每月減少 10噸廢棄物',
-    contribution: '廢棄物密度 -3%',
-    dueDate: '2021.09.23',
-    finishDate: '2021.09.11',
-    pic: '王一二',
+    effect: '+9%',
+    subRows: [
+      {
+        strategy: '廢棄物處理 II',
+        expectation: '每年 -150公噸廢棄物',
+        contribution: '-2 %',
+        dueDate: '2021.09.20',
+        finishDate: '--',
+        pic: '陳三',
+      },
+    ],
   },
   {
     description: '氮氣櫃優化，取消 Reflow MG 供氮裝置',
-    strategy: '改善措施',
-    expectation: '每月減少 10噸廢棄物',
-    contribution: '廢棄物密度 -7%',
-    dueDate: '2021.09.30',
-    finishDate: '2021.09.13',
-    pic: '王一二',
+    effect: '+9%',
+    subRows: [
+      {
+        strategy: '廢棄物處理 III',
+        expectation: '每年 -400公噸廢棄物',
+        contribution: '-5 %',
+        dueDate: '2021.10.07',
+        finishDate: '2021.09.17',
+        pic: '李四',
+      },
+    ],
   },
 ];
 
@@ -70,7 +85,7 @@ export function getMarkLineTrend(value, comparison, x) {
 }
 
 const OPTION = (values, labels, target) => {
-  const [base, _, curr, asp] = values;
+  const [base, , curr, asp] = values;
   const currTrend = getMarkLineTrend(curr, base, '66.5%');
   const aspTrend = getMarkLineTrend(asp, base, '85%');
   const markLines = values.map((val, i) => {
@@ -232,6 +247,7 @@ export default function WasteAnalysisPage() {
     <AnalysisPage
       title={`廢棄物產生密度：廢棄物密度分析 ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle="廢棄物密度對比"
+      tableTitle="影響廢棄物密度"
       overview={overview}
       tableData={TABLE_DATA}
       target={label}

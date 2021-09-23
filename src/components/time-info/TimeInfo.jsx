@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { format } from 'date-fns';
+
 import clsx from 'clsx';
+import { format } from 'date-fns';
 import { useInterval } from 'react-use';
 
 export default function TimeInfo({ className }) {

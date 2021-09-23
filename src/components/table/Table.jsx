@@ -1,5 +1,5 @@
-import { useTable, useExpanded } from 'react-table';
 import clsx from 'clsx';
+import { useTable, useExpanded } from 'react-table';
 
 import Triangle from '../triangle/Triangle';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
@@ -8,6 +9,7 @@ import { KeycloakProvider } from './keycloak';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
+import './styles/react-datepicker.css';
 
 ReactDOM.render(
   <React.StrictMode>

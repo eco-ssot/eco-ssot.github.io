@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 export default function Panel({ children, className, to, title = null, subtitle = null }) {
   return (

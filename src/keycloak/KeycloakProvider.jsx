@@ -1,8 +1,8 @@
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 
-import keycloak from './keycloak';
-
 import history from '../router/history';
+
+import keycloak from './keycloak';
 
 const onEvent = (event, error) => {
   console.log('onKeycloakEvent', { event, error });

@@ -1,16 +1,17 @@
-import { useHistory } from 'react-router-dom';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { useHistory } from 'react-router-dom';
 
-import AnalysisTable from './AnalysisTable';
 import Chart from '../../charts/Chart';
-import Tag from '../../components/tag/Tag';
 import Arrow from '../../components/arrow/Arrow';
+import Legend from '../../components/legend/Legend';
+import Tag from '../../components/tag/Tag';
+import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
-import Legend from '../../components/legend/Legend';
-import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 
-export default function AnalysisPage({ title, chartTitle, overview, chartOption, tableData, target }) {
+import AnalysisTable from './AnalysisTable';
+
+export default function AnalysisPage({ title, chartTitle, overview, chartOption, tableData, target, tableTitle }) {
   const history = useHistory();
   const { accumulationPeriod } = useAccumulationPeriod();
   return (
@@ -57,7 +58,7 @@ export default function AnalysisPage({ title, chartTitle, overview, chartOption,
             })}
         </div>
         <div className="row-span-3 col-span-5 bg-primary-900 rounded shadow p-4 space-y-4 flex flex-col h-full">
-          {tableData && <AnalysisTable className="flex flex-col flex-grow" data={tableData} />}
+          {tableData && <AnalysisTable className="flex flex-col flex-grow" data={tableData} title={tableTitle} />}
         </div>
         <div className="row-span-3 col-span-2 bg-primary-900 rounded shadow p-4 flex flex-col">
           <div className="text-xl font-medium">{chartTitle}</div>

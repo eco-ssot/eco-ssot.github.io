@@ -1,20 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+import errorHandlerReducer from '../renderless/error-handler/errorHandlerSlice';
+import loaderReducer from '../renderless/loader/loaderSlice';
+import locationReducer from '../renderless/location/locationSlice';
 import { appApi } from '../services/app';
-import { weatherApi } from '../services/weather';
-import { summaryApi } from '../services/summary';
+import { carbonApi } from '../services/carbon';
+import { electricityApi } from '../services/electricity';
+import { keycloakAdminApi } from '../services/keycloakAdmin';
 import { managementApi } from '../services/management';
 import { overviewApi } from '../services/overview';
-import { carbonApi } from '../services/carbon';
 import { renewableEnergyApi } from '../services/renewableEnergy';
-import { electricityApi } from '../services/electricity';
-import { waterApi } from '../services/water';
+import { summaryApi } from '../services/summary';
 import { unitElectricityApi } from '../services/unitElectricity';
 import { wasteApi } from '../services/waste';
-import locationReducer from '../renderless/location/locationSlice';
-import loaderReducer from '../renderless/loader/loaderSlice';
-import errorHandlerReducer from '../renderless/error-handler/errorHandlerSlice';
+import { waterApi } from '../services/water';
+import { weatherApi } from '../services/weather';
 
 export const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
     [waterApi.reducerPath]: waterApi.reducer,
     [unitElectricityApi.reducerPath]: unitElectricityApi.reducer,
     [wasteApi.reducerPath]: wasteApi.reducer,
+    [keycloakAdminApi.reducerPath]: keycloakAdminApi.reducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
@@ -46,6 +48,7 @@ export const store = configureStore({
     waterApi.middleware,
     unitElectricityApi.middleware,
     wasteApi.middleware,
+    keycloakAdminApi.middleware,
   ],
 });
 

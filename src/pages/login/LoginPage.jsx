@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
+
 import { Redirect, useLocation } from 'react-router-dom';
 
-import { useKeycloak } from '../../keycloak';
-import Header from '../../components/header/Header';
 import Button from '../../components/button/Button';
+import Header from '../../components/header/Header';
+import { useKeycloak } from '../../keycloak';
 
 export default function LoginPage() {
   const { state } = useLocation();

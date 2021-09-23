@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
@@ -45,7 +46,7 @@ export default function Select({
                     key={option.key}
                     className={({ active }) =>
                       clsx(
-                        active ? 'text-white bg-primary-600' : 'text-gray-50',
+                        active ? 'text-gray-50 bg-primary-600' : 'text-gray-50',
                         'cursor-default select-none relative py-2 pl-3 pr-9'
                       )
                     }
@@ -58,7 +59,7 @@ export default function Select({
                         {selected ? (
                           <span
                             className={clsx(
-                              active ? 'text-white' : 'text-primary-600',
+                              active ? 'text-gray-50' : 'text-primary-600',
                               'absolute inset-y-0 right-0 flex items-center pr-2'
                             )}>
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />

@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
+
 import { Route, Redirect } from 'react-router-dom';
 
-import { useKeycloak } from '../keycloak';
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
 import APP_CONFIG from '../constants/app-config';
+import { useKeycloak } from '../keycloak';
 
 export default function PrivateRoute({ component: Component, skeleton: Skeleton = PageContainer, ...rest }) {
   const { keycloak } = useKeycloak();

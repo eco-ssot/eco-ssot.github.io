@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
+
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
-import ErrorModal from './ErrorModal';
 import EditableTable, {
   CustomInputCell,
   EditableButton,
@@ -11,6 +11,8 @@ import EditableTable, {
 import { usePatchGoalMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
 import { getDecimalNumber } from '../../utils/number';
+
+import ErrorModal from './ErrorModal';
 
 const COLUMNS = ({ setData, year, patchGoal, canEdit, setOpen }) => [
   {

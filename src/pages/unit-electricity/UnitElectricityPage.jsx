@@ -1,23 +1,24 @@
 import { useMemo } from 'react';
+
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
 import { useSelector } from 'react-redux';
 
-import PageContainer from '../../components/page-container/PageContainer';
-import ButtonGroup from '../../components/button/ButtonGroup';
-import Table from '../../components/table/Table';
-import Tag from '../../components/tag/Tag';
-import DualTag from '../../components/tag/DualTag';
-import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import ButtonGroup from '../../components/button/ButtonGroup';
+import PageContainer from '../../components/page-container/PageContainer';
+import Select from '../../components/select/Select';
+import Table from '../../components/table/Table';
+import DualTag from '../../components/tag/DualTag';
+import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
-import { selectBusiness } from '../../renderless/location/locationSlice';
-import useIsHistory from '../../hooks/useIsHistory';
-import { navigate } from '../../router/helpers';
-import { addPaddingColumns } from '../../utils/table';
-import { formatMonthRange } from '../../utils/date';
 import useGoal from '../../hooks/useGoal';
+import useIsHistory from '../../hooks/useIsHistory';
+import { selectBusiness } from '../../renderless/location/locationSlice';
+import { navigate } from '../../router/helpers';
+import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
+import { formatMonthRange } from '../../utils/date';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { addPaddingColumns } from '../../utils/table';
 
 const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {

@@ -1,26 +1,28 @@
 import { useMemo } from 'react';
+
 import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
+import { get } from 'lodash';
+import qs from 'query-string';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import qs from 'query-string';
 
-import PageContainer from '../../components/page-container/PageContainer';
-import ButtonGroup from '../../components/button/ButtonGroup';
-import Table from '../../components/table/Table';
-import Tag from '../../components/tag/Tag';
-import DualTag from '../../components/tag/DualTag';
-import Select from '../../components/select/Select';
 import Button from '../../components/button/Button';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import APP_CONFIG from '../../constants/app-config';
-import { useGetWasteQuery } from '../../services/waste';
-import { selectBusiness } from '../../renderless/location/locationSlice';
-import useIsHistory from '../../hooks/useIsHistory';
-import { navigate } from '../../router/helpers';
-import { addPaddingColumns } from '../../utils/table';
-import { formatMonthRange } from '../../utils/date';
-import useGoal from '../../hooks/useGoal';
+import ButtonGroup from '../../components/button/ButtonGroup';
 import Dot from '../../components/dot/Dot';
+import PageContainer from '../../components/page-container/PageContainer';
+import Select from '../../components/select/Select';
+import Table from '../../components/table/Table';
+import DualTag from '../../components/tag/DualTag';
+import Tag from '../../components/tag/Tag';
+import APP_CONFIG from '../../constants/app-config';
+import useGoal from '../../hooks/useGoal';
+import useIsHistory from '../../hooks/useIsHistory';
+import { selectBusiness } from '../../renderless/location/locationSlice';
+import { navigate } from '../../router/helpers';
+import { useGetWasteQuery } from '../../services/waste';
+import { formatMonthRange } from '../../utils/date';
+import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { addPaddingColumns } from '../../utils/table';
 
 const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
   {
@@ -78,7 +80,21 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
         key: 'delta',
         name: '增減率 *',
         renderer: (cell) => {
-          const value = targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 })(cell);
+          if (cell.row.original.subRows.length > 0) {
+            const canExpand = cell.row.original.subRows.some((row) => {
+              const val = get(row, cell.column.id);
+              return isFinite(val) && val > -pct;
+            });
+
+            if (canExpand) {
+              return (
+                <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
+                  {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
+                </div>
+              );
+            }
+          }
+
           if (
             !cell.row.original.isFooter &&
             cell.row.original.subRows.length === 0 &&
@@ -98,12 +114,12 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
             return (
               <Link className="flex items-center justify-end space-x-2" to={`/waste/analysis?${search}`}>
                 <Dot />
-                {value}
+                {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
               </Link>
             );
           }
 
-          return value;
+          return targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 })(cell);
         },
       },
     ],

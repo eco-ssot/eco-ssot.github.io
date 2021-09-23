@@ -1,7 +1,8 @@
 import Chart from '../../charts/Chart';
-import { colors } from '../../styles';
 import Legend from '../../components/legend/Legend';
+import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
+
 import { formatYtm } from './helpers';
 
 const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];

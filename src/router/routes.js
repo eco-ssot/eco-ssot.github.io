@@ -1,21 +1,21 @@
-import LoginPage from '../pages/login/LoginPage';
+import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
-import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
-import UnauthorizedPage from '../pages/unauthorized/UnauthorizedPage';
+import CarbonPage from '../pages/carbon/CarbonPage';
+import ElectricityAnalysisPage from '../pages/electricity/ElectricityAnalysisPage';
+import ElectricityPage from '../pages/electricity/ElectricityPage';
 import ErrorPage from '../pages/error/ErrorPage';
 import HomePage from '../pages/home/HomePage';
-import OverviewPage from '../pages/overview/OverviewPage';
-import CarbonPage from '../pages/carbon/CarbonPage';
-import RenewableEnergyPage from '../pages/renewable-energy/RenewableEnergyPage';
-import ElectricityPage from '../pages/electricity/ElectricityPage';
-import ElectricityAnalysisPage from '../pages/electricity/ElectricityAnalysisPage';
-import WaterPage from '../pages/water/WaterPage';
-import WaterAnalysisPage from '../pages/water/WaterAnalysisPage';
-import UnitElectricityPage from '../pages/unit-electricity/UnitElectricityPage';
-import WastePage from '../pages/waste/WastePage';
-import WasteAnalysisPage from '../pages/waste/WasteAnalysisPage';
+import LoginPage from '../pages/login/LoginPage';
 import ManagementPage from '../pages/management/ManagementPage';
+import OverviewPage from '../pages/overview/OverviewPage';
+import RenewableEnergyPage from '../pages/renewable-energy/RenewableEnergyPage';
+import UnauthorizedPage from '../pages/unauthorized/UnauthorizedPage';
+import UnitElectricityPage from '../pages/unit-electricity/UnitElectricityPage';
+import WasteAnalysisPage from '../pages/waste/WasteAnalysisPage';
+import WastePage from '../pages/waste/WastePage';
+import WaterAnalysisPage from '../pages/water/WaterAnalysisPage';
+import WaterPage from '../pages/water/WaterPage';
 
 export const publicRoutes = [
   {

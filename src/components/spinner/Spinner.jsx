@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
 import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 
 import { selectIsLoading } from '../../renderless/loader/loaderSlice';
 

@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 
-import AnalysisPage from '../analysis/AnalysisPage';
+import useGoal from '../../hooks/useGoal';
+import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
+import { useGetWaterAnalysisQuery } from '../../services/water';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
-import { useGetWaterAnalysisQuery } from '../../services/water';
-import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
-import useGoal from '../../hooks/useGoal';
+import AnalysisPage from '../analysis/AnalysisPage';
 
 const TABLE_DATA = [
   {
