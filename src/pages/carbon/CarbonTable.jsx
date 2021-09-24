@@ -1,29 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { ArrowRightIcon } from '@heroicons/react/outline';
-import { isNil } from 'lodash';
-import { useSelector } from 'react-redux';
-
-import Button from '../../components/button/Button';
-import ButtonGroup from '../../components/button/ButtonGroup';
-import PageContainer from '../../components/page-container/PageContainer';
-import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
-import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import useIsHistory from '../../hooks/useIsHistory';
-import {
-  selectBusiness,
-  selectDimension,
-  selectEndMonth,
-  selectEndYear,
-  selectMonthType,
-  selectStartYear,
-} from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
-import { useGetCarbonHistoryQuery, useGetCarbonQuery } from '../../services/carbon';
+import { useGetCarbonQuery } from '../../services/carbon';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';

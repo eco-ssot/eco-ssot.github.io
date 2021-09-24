@@ -50,7 +50,14 @@ export const renewableEnergyApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getRenewableEnergyHistory: builder.query({
+      query: (query) => ({ query, url: 'renewableenergy/history' }),
+      transformResponse: (res) => {
+        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+        return { data: [...records, ...total] };
+      },
+    }),
   }),
 });
 
-export const { useGetRenewableEnergyQuery } = renewableEnergyApi;
+export const { useGetRenewableEnergyQuery, useGetRenewableEnergyHistoryQuery } = renewableEnergyApi;

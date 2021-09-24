@@ -6,7 +6,7 @@ import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { navigate } from '../../router/helpers';
-import { useGetCarbonHistoryQuery } from '../../services/carbon';
+import { useGetRenewableEnergyHistoryQuery } from '../../services/renewableEnergy';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
@@ -23,12 +23,17 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => <div className="border-b border-divider py-3">{header}</div>,
         columns: [
           {
-            Header: '碳排 (公噸)',
-            accessor: [key, 'carbon'].join('.'),
+            Header: '總用電量 (度)',
+            accessor: [key, 'electricity'].join('.'),
             className: 'text-right',
             Cell: baseFormatter,
           },
-          { Header: '增減率 *', accessor: [key, 'delta'].join('.'), className: 'text-right', Cell: ratioFormatter },
+          {
+            Header: '可再生能源佔比 *',
+            accessor: [key, 'ratio'].join('.'),
+            className: 'text-right',
+            Cell: ratioFormatter,
+          },
         ],
       };
     });
@@ -41,7 +46,7 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => (
           <>
             <div>{`${startYear} 年 ${key} 月`}</div>
-            <div>碳排放 (公噸)</div>
+            <div>占比 (%)</div>
           </>
         ),
         accessor: String(key),
@@ -81,9 +86,9 @@ export function toMonthTypeRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { year, carbon, gradient: delta }) => ({
+      (prev, { year, electricity, ratio }) => ({
         ...prev,
-        [year]: { carbon, delta },
+        [year]: { electricity, ratio },
       }),
       {}
     ),
@@ -107,7 +112,7 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   };
 }
 
-export default function CarbonHistoryTable({
+export default function RenewableEnergyHistoryTable({
   business,
   startYear,
   endYear,
@@ -117,22 +122,27 @@ export default function CarbonHistoryTable({
   dimension,
 }) {
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetCarbonHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
-  const { label } = useGoal({ keyword: '碳排放量', isHistory: true });
+  const { data } = useGetRenewableEnergyHistoryQuery({ business }, { skip: Object.values(option).every(isNil) });
+  const { label } = useGoal({ keyword: '可再生能源' });
   return (
     <>
       <Tag className="absolute top-4 right-4">{label}</Tag>
       <HistorySearch option={option} onSearch={(query) => navigate({ ...query, business })} />
       {data && (
-        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-          <Table
-            columns={COLUMNS(option)}
-            data={(data?.data || []).map(toRow(option))}
-            getRowProps={(row) => ({
-              className: row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
-            })}
-          />
-        </div>
+        <>
+          <div className="w-full h-6 text-right">* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電</div>
+          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+            <Table
+              columns={COLUMNS(option)}
+              data={(data?.data || []).map(toRow(option))}
+              getRowProps={(row) => ({
+                className: row.original.isFooter
+                  ? 'border-b-2 border-t-2 border-primary-600'
+                  : 'border-b border-divider',
+              })}
+            />
+          </div>
+        </>
       )}
     </>
   );
