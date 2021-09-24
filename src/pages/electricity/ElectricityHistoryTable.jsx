@@ -6,7 +6,7 @@ import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { navigate } from '../../router/helpers';
-import { useGetRenewableEnergyHistoryQuery } from '../../services/renewableEnergy';
+import { useGetElectricityHistoryQuery } from '../../services/electricity';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
@@ -23,17 +23,12 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => <div className="border-b border-divider py-3">{header}</div>,
         columns: [
           {
-            Header: '總用電量 (度)',
+            Header: '十億營業額用電 (度)',
             accessor: [key, 'electricity'].join('.'),
             className: 'text-right',
             Cell: baseFormatter,
           },
-          {
-            Header: '可再生能源占比 *',
-            accessor: [key, 'ratio'].join('.'),
-            className: 'text-right',
-            Cell: ratioFormatter,
-          },
+          { Header: '增減率 *', accessor: [key, 'delta'].join('.'), className: 'text-right', Cell: ratioFormatter },
         ],
       };
     });
@@ -46,7 +41,7 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => (
           <>
             <div>{`${startYear} 年 ${key} 月`}</div>
-            <div>可再生能源占比 (%)</div>
+            <div>十億營業額用電 (度)</div>
           </>
         ),
         accessor: String(key),
@@ -86,9 +81,9 @@ export function toMonthTypeRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { year, electricity, ratio }) => ({
+      (prev, { year, billiRevenueElectric: electricity, gradient: delta }) => ({
         ...prev,
-        [year]: { electricity, ratio },
+        [year]: { electricity, delta },
       }),
       {}
     ),
@@ -101,9 +96,9 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { month, ratio }) => ({
+      (prev, { month, billiRevenueElectric }) => ({
         ...prev,
-        [month]: ratio,
+        [month]: billiRevenueElectric,
       }),
       {}
     ),
@@ -112,7 +107,7 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   };
 }
 
-export default function RenewableEnergyHistoryTable({
+export default function ElectricityHistoryTable({
   business,
   startYear,
   endYear,
@@ -122,27 +117,22 @@ export default function RenewableEnergyHistoryTable({
   dimension,
 }) {
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetRenewableEnergyHistoryQuery({ business }, { skip: Object.values(option).every(isNil) });
-  const { label } = useGoal({ keyword: '可再生能源' });
+  const { data } = useGetElectricityHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { label } = useGoal({ keyword: '用電強度', isHistory: true });
   return (
     <>
       <Tag className="absolute top-4 right-4">{label}</Tag>
       <HistorySearch option={option} onSearch={(query) => navigate({ ...query, business })} />
       {data && (
-        <>
-          <div className="w-full h-6 text-right">* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電</div>
-          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table
-              columns={COLUMNS(option)}
-              data={(data?.data || []).map(toRow(option))}
-              getRowProps={(row) => ({
-                className: row.original.isFooter
-                  ? 'border-b-2 border-t-2 border-primary-600'
-                  : 'border-b border-divider',
-              })}
-            />
-          </div>
-        </>
+        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+          <Table
+            columns={COLUMNS(option)}
+            data={(data?.data || []).map(toRow(option))}
+            getRowProps={(row) => ({
+              className: row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
+            })}
+          />
+        </div>
       )}
     </>
   );

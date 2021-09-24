@@ -23,7 +23,7 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => <div className="border-b border-divider py-3">{header}</div>,
         columns: [
           {
-            Header: '碳排 (公噸)',
+            Header: '碳排放 (公噸)',
             accessor: [key, 'carbon'].join('.'),
             className: 'text-right',
             Cell: baseFormatter,
