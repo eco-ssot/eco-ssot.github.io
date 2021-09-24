@@ -37,7 +37,7 @@ export default function HomePage() {
         to="/overview"
         subtitle={
           <TagSelect
-            options={APP_CONFIG.YEAR_OPTIONS}
+            options={APP_CONFIG.YEAR_OPTIONS.slice(1)}
             label="對比年度："
             selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
             onChange={navigate}

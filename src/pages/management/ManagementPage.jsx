@@ -13,8 +13,6 @@ import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';
 import YearGoal from './YearGoal';
 
-const YEAR_OPTIONS = [{ key: APP_CONFIG.CURRENT_YEAR, value: APP_CONFIG.CURRENT_YEAR }, ...APP_CONFIG.YEAR_OPTIONS];
-
 export default function ManagementPage() {
   const { keycloak } = useKeycloak();
   const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
@@ -70,8 +68,8 @@ export default function ManagementPage() {
             <div className="flex items-center">
               <Select
                 label="查詢年度："
-                options={YEAR_OPTIONS}
-                selected={YEAR_OPTIONS.find((option) => option.key === goalYear)}
+                options={APP_CONFIG.YEAR_OPTIONS}
+                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === goalYear)}
                 onChange={(e) => setGoalYear(e.key)}
               />
             </div>
@@ -89,8 +87,8 @@ export default function ManagementPage() {
             <div className="flex items-center">
               <Select
                 label="查詢年度："
-                options={YEAR_OPTIONS}
-                selected={YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
+                options={APP_CONFIG.YEAR_OPTIONS}
+                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
                 onChange={(e) => setCarbonIndexYear(e.key)}
               />
             </div>
@@ -110,8 +108,8 @@ export default function ManagementPage() {
             <div className="flex items-center">
               <Select
                 label="查詢年度："
-                options={YEAR_OPTIONS}
-                selected={YEAR_OPTIONS.find((option) => option.key === tRecYear)}
+                options={APP_CONFIG.YEAR_OPTIONS}
+                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === tRecYear)}
                 onChange={(e) => setTrecYear(e.key)}
               />
             </div>

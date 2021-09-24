@@ -1,9 +1,9 @@
 const CURRENT_YEAR = new Date().getFullYear();
 const LAST_YEAR = CURRENT_YEAR - 1;
 const BASE_YEAR = 2016;
-const YEAR_OPTIONS = Array.from({ length: LAST_YEAR - BASE_YEAR + 1 }, (_, i) => ({
-  key: String(LAST_YEAR - i),
-  value: String(LAST_YEAR - i),
+const YEAR_OPTIONS = Array.from({ length: CURRENT_YEAR - BASE_YEAR + 1 }, (_, i) => ({
+  key: String(CURRENT_YEAR - i),
+  value: String(CURRENT_YEAR - i),
 }));
 
 const BUSINESS_OPTIONS = [
@@ -30,20 +30,25 @@ const HISTORY_MAPPING = {
 
 const DIMENSION_OPTIONS = [
   { key: 'All', value: 'ALL' },
-  { key: 'Site', value: 'By Site' },
-  { key: 'Plant', value: 'By Plant' },
+  { key: 'site', value: 'By Site' },
+  { key: 'plant', value: 'By Plant' },
 ];
 
 const DIMENSION_MAPPING = {
   ALL: 'All',
-  SITE: 'Site',
-  PLANT: 'Plant',
+  SITE: 'site',
+  PLANT: 'plant',
 };
 
 const MONTH_RANGE_OPTIONS = [
-  { key: 'SINGLE', value: 'Year To Month' },
-  { key: 'YTM', value: '單月資料' },
+  { key: 'YTM', value: 'Year To Month' },
+  { key: 'single', value: '單月資料' },
 ];
+
+const MONTH_RANGE_MAPPING = {
+  YTM: 'YTM',
+  SINGLE: 'single',
+};
 
 const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => ({
   key: String(i + 1),
@@ -89,6 +94,7 @@ const APP_CONFIG = {
   BUSINESS_MAPPING,
   HISTORY_MAPPING,
   DIMENSION_MAPPING,
+  MONTH_RANGE_MAPPING,
   KEYCLOAK_DEFAULT_ROLES,
   MAINTAINER_ROLE,
   DEVELOPER_ROLE,

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/outline';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ import { navigate } from '../../router/helpers';
 import { useGetElectricityQuery } from '../../services/electricity';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
 const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
@@ -110,23 +110,7 @@ const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
 
 const COLUMNS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
-    {
-      id: 'expander',
-      Header: '',
-      Cell: ({ row }) => {
-        const { title, style, ...rest } = row.getToggleRowExpandedProps();
-        return row.canExpand ? (
-          <div {...rest} className="flex justify-center">
-            {row.isExpanded ? (
-              <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-            ) : (
-              <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-            )}
-          </div>
-        ) : null;
-      },
-      rowSpan: 0,
-    },
+    { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',

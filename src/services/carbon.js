@@ -60,7 +60,14 @@ export const carbonApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getCarbonHistory: builder.query({
+      query: (query) => ({ query, url: 'carbon/history' }),
+      transformResponse: (res) => {
+        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+        return { data: [...records, ...total] };
+      },
+    }),
   }),
 });
 
-export const { useGetCarbonQuery } = carbonApi;
+export const { useGetCarbonQuery, useGetCarbonHistoryQuery } = carbonApi;

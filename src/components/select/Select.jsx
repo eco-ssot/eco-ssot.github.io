@@ -43,6 +43,7 @@ export default function Select({
                 )}>
                 {options.map((option) => (
                   <Listbox.Option
+                    disabled={option.disabled}
                     key={option.key}
                     className={({ active }) =>
                       clsx(
@@ -51,9 +52,14 @@ export default function Select({
                       )
                     }
                     value={option}>
-                    {({ selected, active }) => (
+                    {({ selected, active, disabled }) => (
                       <>
-                        <span className={clsx(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                        <span
+                          className={clsx(
+                            selected ? 'font-semibold' : 'font-normal',
+                            'block truncate',
+                            disabled && 'opacity-50'
+                          )}>
                           {option.value}
                         </span>
                         {selected ? (

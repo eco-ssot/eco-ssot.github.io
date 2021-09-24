@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { ChevronDownIcon, ChevronUpIcon, ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/outline';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ import { navigate } from '../../router/helpers';
 import { useGetWaterQuery } from '../../services/water';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
 const HEADERS = ({
   business,
@@ -128,23 +128,7 @@ const COLUMNS = ({
   baseYear = APP_CONFIG.BASE_YEAR_WATER,
 } = {}) =>
   addPaddingColumns([
-    {
-      id: 'expander',
-      Header: '',
-      Cell: ({ row }) => {
-        const { title, style, ...rest } = row.getToggleRowExpandedProps();
-        return row.canExpand ? (
-          <div {...rest} className="flex justify-center">
-            {row.isExpanded ? (
-              <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
-            ) : (
-              <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
-            )}
-          </div>
-        ) : null;
-      },
-      rowSpan: 0,
-    },
+    { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',

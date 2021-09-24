@@ -33,5 +33,10 @@ export const selectYear = createSelector(selectQuery, (state) => state.year);
 export const selectDimension = createSelector(selectQuery, (state) => state.dimension);
 export const selectSite = createSelector(selectQuery, (state) => state.site);
 export const selectPlant = createSelector(selectQuery, (state) => state.plant);
+export const selectStartYear = createSelector(selectQuery, (state) => state.startYear);
+export const selectEndYear = createSelector(selectQuery, (state) => state.endYear);
+export const selectMonthType = createSelector(selectQuery, (state) => state.monthType);
+export const selectStartMonth = createSelector(selectQuery, (state) => state.startMonth);
+export const selectEndMonth = createSelector(selectQuery, (state) => state.endMonth);
 
 export default locationSlice.reducer;

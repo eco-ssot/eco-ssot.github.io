@@ -9,11 +9,11 @@ export default function Router({ children }) {
     <BrowserRouter history={history}>
       {children}
       <Switch>
-        {publicRoutes.map(({ path, component: Component }) => (
-          <Route exact key={path} path={path} component={Component} />
+        {publicRoutes.map(({ path, component: Component }, i) => (
+          <Route key={i} path={path} component={Component} />
         ))}
-        {privateRoutes.concat(subRoutes).map(({ path, component: Component, skeleton: Skeleton }) => (
-          <PrivateRoute exact key={path} path={path} component={Component} skeleton={Skeleton} />
+        {privateRoutes.concat(subRoutes).map(({ path, component: Component, skeleton: Skeleton }, i) => (
+          <PrivateRoute key={i} path={path} component={Component} skeleton={Skeleton} />
         ))}
         <Redirect exact from="/" to="/home" />
       </Switch>
