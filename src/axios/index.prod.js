@@ -15,4 +15,5 @@ const keycloakInstance = axios.create({
 instance.interceptors.request.use(tokenInterceptor);
 keycloakInstance.interceptors.request.use(tokenInterceptor);
 
+export { keycloakInstance };
 export default instance;
