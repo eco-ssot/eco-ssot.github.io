@@ -4,7 +4,7 @@ import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { useGetElectricityHistoryQuery } from '../../services/electricity';
+import { useGetWasteHistoryQuery } from '../../services/waste';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
@@ -21,8 +21,8 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => <div className="border-b border-divider py-3">{header}</div>,
         columns: [
           {
-            Header: '十億營業額用電 (度)',
-            accessor: [key, 'electricity'].join('.'),
+            Header: '廢棄物產生密度 (公噸/十億臺幣)',
+            accessor: [key, 'waste'].join('.'),
             className: 'text-right',
             Cell: baseFormatter,
           },
@@ -39,7 +39,7 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
         Header: () => (
           <>
             <div>{`${startYear} 年 ${key} 月`}</div>
-            <div>十億營業額用電 (度)</div>
+            <div>廢棄物產生密度 (公噸/十億臺幣)</div>
           </>
         ),
         accessor: String(key),
@@ -79,9 +79,9 @@ export function toMonthTypeRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { year, billiRevenueElectric: electricity, gradient: delta }) => ({
+      (prev, { year, intensity: waste, gradient: delta }) => ({
         ...prev,
-        [year]: { electricity, delta },
+        [year]: { waste, delta },
       }),
       {}
     ),
@@ -94,9 +94,9 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { month, billiRevenueElectric }) => ({
+      (prev, { month, intensity }) => ({
         ...prev,
-        [month]: billiRevenueElectric,
+        [month]: intensity,
       }),
       {}
     ),
@@ -105,7 +105,7 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   };
 }
 
-export default function ElectricityHistoryTable({
+export default function WasteHistoryTable({
   business,
   startYear,
   endYear,
@@ -115,15 +115,18 @@ export default function ElectricityHistoryTable({
   dimension,
 }) {
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetElectricityHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
-  const { label } = useGoal({ keyword: '用電強度', isHistory: true });
+  const { data } = useGetWasteHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { label } = useGoal({ keyword: '廢棄物密度', isHistory: true });
   return (
     <>
       <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
-        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-          <Table columns={COLUMNS(option)} data={(data?.data || []).map(toRow(option))} />
-        </div>
+        <>
+          <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+            <Table columns={COLUMNS(option)} data={(data?.data || []).map(toRow(option))} />
+          </div>
+        </>
       )}
     </>
   );

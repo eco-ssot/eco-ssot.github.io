@@ -60,7 +60,7 @@ export default function OverviewTable({ business }) {
   const columns = useMemo(() => COLUMNS(), []);
   return (
     <>
-      <Tag className="absolute top-4 right-4">
+      <Tag className="absolute top-2 right-4">
         累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
       </Tag>
       {data && (

@@ -92,7 +92,7 @@ export default function CarbonTable({ business }) {
   return (
     <>
       <DualTag
-        className="absolute top-4 right-4"
+        className="absolute top-2 right-4"
         labels={[
           <>
             累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>

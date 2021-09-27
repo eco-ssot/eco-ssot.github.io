@@ -1,11 +1,9 @@
 import { isNil } from 'lodash';
 
-import HistorySearch from '../../components/history-search/HistorySearch';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { navigate } from '../../router/helpers';
 import { useGetRenewableEnergyHistoryQuery } from '../../services/renewableEnergy';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
@@ -126,8 +124,7 @@ export default function RenewableEnergyHistoryTable({
   const { label } = useGoal({ keyword: '可再生能源' });
   return (
     <>
-      <Tag className="absolute top-4 right-4">{label}</Tag>
-      <HistorySearch option={option} onSearch={(query) => navigate({ ...query, business })} />
+      <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
         <>
           <div className="w-full h-6 text-right">* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電</div>

@@ -10,10 +10,10 @@ export default function Router({ children }) {
       {children}
       <Switch>
         {publicRoutes.map(({ path, component: Component }, i) => (
-          <Route key={i} path={path} component={Component} />
+          <Route exact key={i} path={path} component={Component} />
         ))}
         {privateRoutes.concat(subRoutes).map(({ path, component: Component, skeleton: Skeleton }, i) => (
-          <PrivateRoute key={i} path={path} component={Component} skeleton={Skeleton} />
+          <PrivateRoute exact key={i} path={path} component={Component} skeleton={Skeleton} />
         ))}
         <Redirect exact from="/" to="/home" />
       </Switch>

@@ -58,7 +58,14 @@ export const unitElectricityApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getUnitElectricityHistory: builder.query({
+      query: (query) => ({ query, url: 'singleelectric/history' }),
+      transformResponse: (res) => {
+        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+        return { data: [...records, ...total] };
+      },
+    }),
   }),
 });
 
-export const { useGetUnitElectricityQuery } = unitElectricityApi;
+export const { useGetUnitElectricityQuery, useGetUnitElectricityHistoryQuery } = unitElectricityApi;

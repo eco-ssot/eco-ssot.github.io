@@ -60,10 +60,17 @@ export const wasteApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getWasteHistory: builder.query({
+      query: (query) => ({ query, url: 'waste/history' }),
+      transformResponse: (res) => {
+        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+        return { data: [...records, ...total] };
+      },
+    }),
     getWasteAnalysis: builder.query({
       query: (query) => ({ query, url: 'waste/anaysis' }),
     }),
   }),
 });
 
-export const { useGetWasteQuery, useGetWasteAnalysisQuery } = wasteApi;
+export const { useGetWasteQuery, useGetWasteHistoryQuery, useGetWasteAnalysisQuery } = wasteApi;

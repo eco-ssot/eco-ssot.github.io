@@ -8,7 +8,6 @@ import { useGetOverviewQuery } from '../../services/overview';
 import { COLUMNS } from './OverviewTable';
 
 export default function OverviewHistoryTable({ business, year, dimension }) {
-  console.log('render');
   const option = { year, dimension };
   const { data } = useGetOverviewQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
   const columns = useMemo(() => COLUMNS({ currYear: year, lastYear: year - 1 }), [year]);

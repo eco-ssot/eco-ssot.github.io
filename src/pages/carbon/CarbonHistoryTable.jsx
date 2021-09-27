@@ -1,11 +1,9 @@
 import { isNil } from 'lodash';
 
-import HistorySearch from '../../components/history-search/HistorySearch';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { navigate } from '../../router/helpers';
 import { useGetCarbonHistoryQuery } from '../../services/carbon';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
@@ -121,8 +119,7 @@ export default function CarbonHistoryTable({
   const { label } = useGoal({ keyword: '碳排放量', isHistory: true });
   return (
     <>
-      <Tag className="absolute top-4 right-4">{label}</Tag>
-      <HistorySearch option={option} onSearch={(query) => navigate({ ...query, business })} />
+      <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table columns={COLUMNS(option)} data={(data?.data || []).map(toRow(option))} />

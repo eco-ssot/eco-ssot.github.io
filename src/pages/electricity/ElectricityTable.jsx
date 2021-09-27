@@ -120,16 +120,12 @@ const COLUMNS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
 
 export default function ElectricityTable({ business }) {
   const { data } = useGetElectricityQuery({ business });
-  const { label, pct, currYear, baseYear } = useGoal({ keyword: '用電強度' });
-  const columns = useMemo(
-    () => COLUMNS({ business, pct, currYear, lastYear: baseYear }),
-    [business, pct, currYear, baseYear]
-  );
-
+  const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
+  const columns = useMemo(() => COLUMNS({ business, currYear, lastYear: baseYear }), [business, currYear, baseYear]);
   return (
     <>
       <DualTag
-        className="absolute top-4 right-4"
+        className="absolute top-2 right-4"
         labels={[
           <>
             累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
