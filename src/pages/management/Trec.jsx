@@ -128,13 +128,7 @@ export default function Trec({ className, canEdit }) {
 
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
-      <EditableTable
-        columns={columns}
-        data={data}
-        updateMyData={updateMyData}
-        setData={setData}
-        getRowProps={() => ({ className: 'border-b border-divider' })}
-      />
+      <EditableTable columns={columns} data={data} updateMyData={updateMyData} setData={setData} />
     </div>
   );
 }

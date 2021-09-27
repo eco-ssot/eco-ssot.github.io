@@ -67,15 +67,7 @@ export default function OverviewTable({ business }) {
         <>
           <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table
-              columns={columns}
-              data={data?.data || []}
-              getRowProps={(row) => ({
-                className: row.original.isFooter
-                  ? 'border-b-2 border-t-2 border-primary-600'
-                  : 'border-b border-divider',
-              })}
-            />
+            <Table columns={columns} data={data?.data || []} />
           </div>
         </>
       )}

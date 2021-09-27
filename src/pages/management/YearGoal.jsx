@@ -112,12 +112,7 @@ export default function YearGoal({ className, year, data, canEdit }) {
     <>
       <ErrorModal open={open} setOpen={setOpen} />
       <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
-        <EditableTable
-          columns={columns}
-          data={dataSource}
-          updateMyData={updateMyData}
-          getRowProps={() => ({ className: 'border-b border-divider' })}
-        />
+        <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData} />
       </div>
     </>
   );

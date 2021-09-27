@@ -195,7 +195,14 @@ export default function EditableTable({
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps(getRowProps(row))}>
+            <tr
+              {...row.getRowProps({
+                ...getRowProps(row),
+                className: clsx(
+                  row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
+                  getRowProps(row).className
+                ),
+              })}>
               {row.cells.map((cell, i) => {
                 if (
                   (cell.column.rowSpan && cell.row.index > 0) ||

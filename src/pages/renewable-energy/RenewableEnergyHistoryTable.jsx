@@ -132,15 +132,7 @@ export default function RenewableEnergyHistoryTable({
         <>
           <div className="w-full h-6 text-right">* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table
-              columns={COLUMNS(option)}
-              data={(data?.data || []).map(toRow(option))}
-              getRowProps={(row) => ({
-                className: row.original.isFooter
-                  ? 'border-b-2 border-t-2 border-primary-600'
-                  : 'border-b border-divider',
-              })}
-            />
+            <Table columns={COLUMNS(option)} data={(data?.data || []).map(toRow(option))} />
           </div>
         </>
       )}

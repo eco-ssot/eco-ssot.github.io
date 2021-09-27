@@ -82,12 +82,7 @@ export default function CarbonIndex({ className, year, data, canEdit }) {
   useEffect(() => data && setData(data), [data]);
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
-      <EditableTable
-        columns={columns}
-        data={dataSource}
-        updateMyData={updateMyData}
-        getRowProps={() => ({ className: 'border-b border-divider' })}
-      />
+      <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData} />
     </div>
   );
 }
