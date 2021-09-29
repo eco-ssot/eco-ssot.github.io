@@ -55,6 +55,7 @@ export function toRow({
 export const waterApi = createApi({
   reducerPath: 'waterApi',
   baseQuery: axiosBaseQuery(),
+  tagTypes: ['EXPLANATION'],
   endpoints: (builder) => ({
     getWater: builder.query({
       query: (query) => ({ query, url: 'water' }),
@@ -80,7 +81,37 @@ export const waterApi = createApi({
     getWaterAnalysis: builder.query({
       query: (query) => ({ query, url: 'water/anaysis' }),
     }),
+    getWaterExplanation: builder.query({
+      query: (query) => ({ query, url: 'water/anaysis/explanation' }),
+      providesTags: ['EXPLANATION'],
+    }),
+    postWaterExplanation: builder.mutation({
+      query: ({ data }) => ({ data, url: 'water/anaysis/explanation', method: 'POST' }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
+    postWaterImprovement: builder.mutation({
+      query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}/improvements`, method: 'POST' }),
+    }),
+    patchWaterExplanation: builder.mutation({
+      query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}`, method: 'PATCH' }),
+    }),
+    patchWaterImprovement: builder.mutation({
+      query: ({ id, subId, data }) => ({
+        data,
+        url: `water/anaysis/explanation/${id}/improvements/${subId}`,
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 
-export const { useGetWaterQuery, useGetWaterHistoryQuery, useGetWaterAnalysisQuery } = waterApi;
+export const {
+  useGetWaterQuery,
+  useGetWaterHistoryQuery,
+  useGetWaterAnalysisQuery,
+  useGetWaterExplanationQuery,
+  usePatchWaterExplanationMutation,
+  usePatchWaterImprovementMutation,
+  usePostWaterExplanationMutation,
+  usePostWaterImprovementMutation,
+} = waterApi;

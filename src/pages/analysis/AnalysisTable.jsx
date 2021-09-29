@@ -5,6 +5,7 @@ import { PlusIcon, XIcon } from '@heroicons/react/outline';
 import { PencilIcon, ChevronUpIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast } from 'date-fns';
+import { isNil } from 'lodash';
 
 import Dot from '../../components/dot/Dot';
 import Legend from '../../components/legend/Legend';
@@ -42,7 +43,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
             <div className="col-span-1"></div>
           </Disclosure.Button>
           <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
-            {table.map(({ strategy, expectation, contribution, dueDate, finishDate, pic, editing }, i) => (
+            {table.map(({ id, name, expect, contribution, dd, completedDate, PIC, editing, isNewRow }, i) => (
               <div key={i} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
                 {editing ? (
                   <>
@@ -50,16 +51,16 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
                       <InputCell
                         className="h-full"
                         wrapperClassName="w-full"
-                        defaultValue={strategy}
-                        onBlur={updateRow('strategy', i)}
+                        defaultValue={name}
+                        onBlur={updateRow('name', i)}
                       />
                     </div>
                     <div className="col-span-2 h-full">
                       <InputCell
                         className="h-full"
                         wrapperClassName="w-full"
-                        defaultValue={expectation}
-                        onBlur={updateRow('expectation', i)}
+                        defaultValue={expect}
+                        onBlur={updateRow('expect', i)}
                       />
                     </div>
                     <div className="col-span-1 h-full">
@@ -73,31 +74,31 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
                     <div className="col-span-1 text-center h-full">
                       <InputCell
                         className="h-full"
-                        placeholder="yyyy.mm.dd"
-                        defaultValue={dueDate}
-                        onBlur={updateRow('dueDate', i)}
+                        placeholder="yyyy-mm-dd"
+                        defaultValue={dd}
+                        onBlur={updateRow('dd', i)}
                       />
                     </div>
                     <div className="col-span-1 text-center h-full">
                       <InputCell
                         className="h-full"
-                        placeholder="yyyy.mm.dd"
-                        defaultValue={finishDate}
-                        onBlur={updateRow('finishDate', i)}
+                        placeholder="yyyy-mm-dd"
+                        defaultValue={completedDate}
+                        onBlur={updateRow('completedDate', i)}
                       />
                     </div>
                     <div className="col-span-2 text-center">
                       <SearchSelectCell
                         options={userOptions}
-                        defaultValue={userOptions.find((user) => user.label === pic)}
-                        onBlur={(user) => updateRow('pic', i)(user.label)}
+                        defaultValue={userOptions.find((user) => user.label === PIC || user.alias === PIC)}
+                        onBlur={(user) => updateRow('PIC', i)(user.alias)}
                       />
                     </div>
                     <div className="col-span-1 text-center">
                       <EditableButton
                         onClick={() => {
+                          onChange({ id, name, expect, contribution, dd, completedDate, PIC });
                           setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
-                          onChange(table);
                         }}>
                         儲存
                       </EditableButton>
@@ -108,22 +109,24 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
                     <div className="col-span-3 pl-2 flex items-center space-x-2">
                       <Dot
                         color={
-                          isValid(new Date(dueDate))
-                            ? differenceInWeeks(new Date(dueDate), new Date()) < 1
-                              ? isPast(new Date(dueDate))
+                          isValid(new Date(dd))
+                            ? differenceInWeeks(new Date(dd), new Date()) < 1
+                              ? isPast(new Date(dd))
                                 ? 'bg-dangerous-700'
                                 : 'bg-_yellow'
                               : ''
                             : ''
                         }
                       />
-                      <div>{strategy}</div>
+                      <div>{name}</div>
                     </div>
-                    <div className="col-span-2">{expectation}</div>
-                    <div className="col-span-1 pl-4">{contribution}</div>
-                    <div className="col-span-1 text-center">{dueDate}</div>
-                    <div className="col-span-1 text-center">{finishDate}</div>
-                    <div className="col-span-2 text-center px-2">{pic}</div>
+                    <div className="col-span-2">{expect}</div>
+                    <div className="col-span-1 pl-4">{`${contribution}%`}</div>
+                    <div className="col-span-1 text-center">{dd}</div>
+                    <div className="col-span-1 text-center">{completedDate}</div>
+                    <div className="col-span-2 text-center px-2">
+                      {userOptions.find((user) => user.label === PIC || user.alias === PIC)?.label}
+                    </div>
                     <div className="col-span-1 text-center">
                       <EditableIconButton
                         onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}>
@@ -136,7 +139,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
             ))}
             {canAddRow && (
               <div className="col-span-11 text-center py-2">
-                <EditableIconButton onClick={() => setData((prev) => [...prev, { editing: true }])}>
+                <EditableIconButton onClick={() => setData((prev) => [...prev, { editing: true, isNewRow: true }])}>
                   <PlusIcon className="w-5 h-5" />
                 </EditableIconButton>
               </div>
@@ -148,7 +151,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
   );
 }
 
-export default function AnalysisTable({ className, data, title }) {
+export default function AnalysisTable({ className, data, title, onRowChange, onSubRowChange }) {
   const { data: users } = useGetUsersQuery();
   const [table, setData] = useState(data);
   const [isAddingRow, setIsAddingRow] = useState(false);
@@ -194,7 +197,7 @@ export default function AnalysisTable({ className, data, title }) {
           <div className="col-span-1 text-center">編輯</div>
         </div>
         {table &&
-          table.map(({ description, effect, subRows, editing }, i) => (
+          table.map(({ id, description, effect, editing, imrprovements = [] }, i) => (
             <div key={i} className="grid grid-cols-12 text-lg items-center border-b border-divider">
               <div className="col-span-1 text-center h-full flex flex-col justify-center">{i + 1}</div>
               <div className="col-span-11 grid grid-cols-11 items-center border-l border-primary-600 gap-x-2">
@@ -215,6 +218,7 @@ export default function AnalysisTable({ className, data, title }) {
                     <div className="col-span-1 text-center pr-3">
                       <EditableButton
                         onClick={() => {
+                          onRowChange({ id, data: { description, effect } });
                           setData((prev) =>
                             prev.map((d, j) => (i === j ? { ...d, editing: false, isNewRow: false } : d))
                           );
@@ -228,7 +232,7 @@ export default function AnalysisTable({ className, data, title }) {
                 ) : (
                   <>
                     <div className="col-span-5 px-4 py-3">{description}</div>
-                    <div className="col-span-5 px-4">{effect}</div>
+                    <div className="col-span-5 px-4">{`${effect}%`}</div>
                     <div className="col-span-1 pr-3 text-center">
                       <EditableIconButton
                         onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}>
@@ -239,10 +243,10 @@ export default function AnalysisTable({ className, data, title }) {
                 )}
                 <div className="col-span-11">
                   <AnalysisSubTable
-                    data={subRows}
+                    data={imrprovements}
                     users={users}
-                    canAddRow={editing || (isAddingRow && i === table.length - 1)}
-                    onChange={(subRows) => setData((prev) => prev.map((d, j) => (i === j ? { ...d, subRows } : d)))}
+                    canAddRow={!isNil(id) && (editing || (isAddingRow && i === table.length - 1))}
+                    onChange={(row) => onSubRowChange({ id, subId: row.id, data: row })}
                   />
                 </div>
               </div>

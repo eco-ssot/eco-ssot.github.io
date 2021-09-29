@@ -1,50 +1,19 @@
+import { isNil } from 'lodash';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
 import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
-import { useGetElectricityAnalysisQuery } from '../../services/electricity';
+import {
+  useGetElectricityAnalysisQuery,
+  useGetElectricityExplanationQuery,
+  usePatchElectricityExplanationMutation,
+  usePatchElectricityImprovementMutation,
+  usePostElectricityExplanationMutation,
+  usePostElectricityImprovementMutation,
+} from '../../services/electricity';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import AnalysisPage from '../analysis/AnalysisPage';
-
-const TABLE_DATA = [
-  {
-    description: 'YTM ASP 降低18%，影響2021 營收13.9億、用電強度16%',
-    strategy: '改善措施',
-    expectation: '每月減少 500度用電',
-    contribution: '用電強度 -3%',
-    dueDate: '2021.09.21',
-    finishDate: '--',
-    pic: '王一二',
-  },
-  {
-    description: '15台除濕機設定管控、PCBA直流電源Study休息時間',
-    strategy: '改善措施',
-    expectation: '每月減少 1000度用電',
-    contribution: '用電強度 -7%',
-    dueDate: '2021.09.23',
-    finishDate: '2021.09.11',
-    pic: '王一二',
-  },
-  {
-    description: '氮氣櫃優化，取消 Reflow MG 供氮裝置',
-    strategy: '改善措施',
-    expectation: '每年減少 1500度用電',
-    contribution: '用電強度 -10%',
-    dueDate: '2021.09.30',
-    finishDate: '2021.09.13',
-    pic: '王一二',
-  },
-  {
-    description: 'Weekly review 夏季用電節省方案',
-    strategy: '改善措施',
-    expectation: '每月減少 700度用電',
-    contribution: '用電強度 -5%',
-    dueDate: '2021.10.01',
-    finishDate: '--',
-    pic: '王一二',
-  },
-];
 
 const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
 
@@ -156,6 +125,11 @@ export default function ElectricityAnalysisPage() {
   const plant = useSelector(selectPlant);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '用電強度' });
   const { data } = useGetElectricityAnalysisQuery({ business, site, plant });
+  const { data: tableData } = useGetElectricityExplanationQuery({ business, site, plant });
+  const [postExplanation] = usePostElectricityExplanationMutation();
+  const [postImprovement] = usePostElectricityImprovementMutation();
+  const [patchExplanation] = usePatchElectricityExplanationMutation();
+  const [patchImprovement] = usePatchElectricityImprovementMutation();
   const { ASP, electrcity, electrcityIntensity, revenue, shipment } = data || {};
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${baseYear} YTM`;
@@ -225,7 +199,13 @@ export default function ElectricityAnalysisPage() {
       chartTitle="用電強度對比"
       target={label}
       overview={overview}
-      tableData={TABLE_DATA}
+      tableData={tableData?.data}
+      onRowChange={({ id, data }) =>
+        isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
+      }
+      onSubRowChange={({ id, subId, data }) =>
+        isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
+      }
       chartOption={option}
     />
   );

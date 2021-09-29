@@ -11,7 +11,17 @@ import { getTrend } from '../../utils/trend';
 
 import AnalysisTable from './AnalysisTable';
 
-export default function AnalysisPage({ title, chartTitle, overview, chartOption, tableData, target, tableTitle }) {
+export default function AnalysisPage({
+  overview,
+  chartOption,
+  tableData,
+  target,
+  title = '',
+  chartTitle = '',
+  tableTitle = '',
+  onRowChange = () => {},
+  onSubRowChange = () => {},
+}) {
   const history = useHistory();
   const { accumulationPeriod } = useAccumulationPeriod();
   return (
@@ -58,7 +68,15 @@ export default function AnalysisPage({ title, chartTitle, overview, chartOption,
             })}
         </div>
         <div className="row-span-3 col-span-5 bg-primary-900 rounded shadow p-4 space-y-4 flex flex-col h-full">
-          {tableData && <AnalysisTable className="flex flex-col flex-grow" data={tableData} title={tableTitle} />}
+          {tableData && (
+            <AnalysisTable
+              className="flex flex-col flex-grow"
+              data={tableData}
+              title={tableTitle}
+              onRowChange={onRowChange}
+              onSubRowChange={onSubRowChange}
+            />
+          )}
         </div>
         <div className="row-span-3 col-span-2 bg-primary-900 rounded shadow p-4 flex flex-col">
           <div className="text-xl font-medium">{chartTitle}</div>

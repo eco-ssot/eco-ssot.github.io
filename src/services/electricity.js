@@ -51,6 +51,7 @@ export function toRow({
 export const electricityApi = createApi({
   reducerPath: 'electricityApi',
   baseQuery: axiosBaseQuery(),
+  tagTypes: ['EXPLANATION'],
   endpoints: (builder) => ({
     getElectricity: builder.query({
       query: (query) => ({ query, url: 'electric' }),
@@ -76,7 +77,37 @@ export const electricityApi = createApi({
     getElectricityAnalysis: builder.query({
       query: (query) => ({ query, url: 'electric/anaysis' }),
     }),
+    getElectricityExplanation: builder.query({
+      query: (query) => ({ query, url: 'electric/anaysis/explanation' }),
+      providesTags: ['EXPLANATION'],
+    }),
+    postElectricityExplanation: builder.mutation({
+      query: ({ data }) => ({ data, url: 'electric/anaysis/explanation', method: 'POST' }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
+    postElectricityImprovement: builder.mutation({
+      query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}/improvements`, method: 'POST' }),
+    }),
+    patchElectricityExplanation: builder.mutation({
+      query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}`, method: 'PATCH' }),
+    }),
+    patchElectricityImprovement: builder.mutation({
+      query: ({ id, subId, data }) => ({
+        data,
+        url: `electric/anaysis/explanation/${id}/improvements/${subId}`,
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 
-export const { useGetElectricityQuery, useGetElectricityHistoryQuery, useGetElectricityAnalysisQuery } = electricityApi;
+export const {
+  useGetElectricityQuery,
+  useGetElectricityHistoryQuery,
+  useGetElectricityAnalysisQuery,
+  useGetElectricityExplanationQuery,
+  usePatchElectricityExplanationMutation,
+  usePatchElectricityImprovementMutation,
+  usePostElectricityExplanationMutation,
+  usePostElectricityImprovementMutation,
+} = electricityApi;

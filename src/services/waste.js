@@ -45,6 +45,7 @@ export function toRow({
 export const wasteApi = createApi({
   reducerPath: 'wasteApi',
   baseQuery: axiosBaseQuery(),
+  tagTypes: ['EXPLANATION'],
   endpoints: (builder) => ({
     getWaste: builder.query({
       query: (query) => ({ query, url: 'waste' }),
@@ -70,7 +71,37 @@ export const wasteApi = createApi({
     getWasteAnalysis: builder.query({
       query: (query) => ({ query, url: 'waste/anaysis' }),
     }),
+    getWasteExplanation: builder.query({
+      query: (query) => ({ query, url: 'waste/anaysis/explanation' }),
+      providesTags: ['EXPLANATION'],
+    }),
+    postWasteExplanation: builder.mutation({
+      query: ({ data }) => ({ data, url: 'waste/anaysis/explanation', method: 'POST' }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
+    postWasteImprovement: builder.mutation({
+      query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}/improvements`, method: 'POST' }),
+    }),
+    patchWasteExplanation: builder.mutation({
+      query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}`, method: 'PATCH' }),
+    }),
+    patchWasteImprovement: builder.mutation({
+      query: ({ id, subId, data }) => ({
+        data,
+        url: `waste/anaysis/explanation/${id}/improvements/${subId}`,
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 
-export const { useGetWasteQuery, useGetWasteHistoryQuery, useGetWasteAnalysisQuery } = wasteApi;
+export const {
+  useGetWasteQuery,
+  useGetWasteHistoryQuery,
+  useGetWasteAnalysisQuery,
+  useGetWasteExplanationQuery,
+  usePostWasteExplanationMutation,
+  usePostWasteImprovementMutation,
+  usePatchWasteExplanationMutation,
+  usePatchWasteImprovementMutation,
+} = wasteApi;

@@ -1,56 +1,19 @@
+import { isNil } from 'lodash';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
 import { selectBusiness, selectPlant, selectSite } from '../../renderless/location/locationSlice';
-import { useGetWasteAnalysisQuery } from '../../services/waste';
+import {
+  useGetWasteAnalysisQuery,
+  useGetWasteExplanationQuery,
+  usePatchWasteExplanationMutation,
+  usePatchWasteImprovementMutation,
+  usePostWasteExplanationMutation,
+  usePostWasteImprovementMutation,
+} from '../../services/waste';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import AnalysisPage from '../analysis/AnalysisPage';
-
-const TABLE_DATA = [
-  {
-    description: 'YTM ASP 降低18%，影響2021營收13.9億、用電強度16%',
-    effect: '+9%',
-    subRows: [
-      {
-        strategy: '廢棄物處理 I',
-        expectation: '每年 -300公噸廢棄物',
-        contribution: '-4 %',
-        dueDate: '2021.09.01',
-        finishDate: '--',
-        pic: '王一二',
-      },
-    ],
-  },
-  {
-    description: '15台除濕機設定管控',
-    effect: '+9%',
-    subRows: [
-      {
-        strategy: '廢棄物處理 II',
-        expectation: '每年 -150公噸廢棄物',
-        contribution: '-2 %',
-        dueDate: '2021.09.20',
-        finishDate: '--',
-        pic: '陳三',
-      },
-    ],
-  },
-  {
-    description: '氮氣櫃優化，取消 Reflow MG 供氮裝置',
-    effect: '+9%',
-    subRows: [
-      {
-        strategy: '廢棄物處理 III',
-        expectation: '每年 -400公噸廢棄物',
-        contribution: '-5 %',
-        dueDate: '2021.10.07',
-        finishDate: '2021.09.17',
-        pic: '李四',
-      },
-    ],
-  },
-];
 
 const COLORS = [colors._yellow, colors._blue, colors.primary['600'], colors.primary['500']];
 
@@ -164,6 +127,11 @@ export default function WasteAnalysisPage() {
   const plant = useSelector(selectPlant);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
   const { data } = useGetWasteAnalysisQuery({ business, site, plant });
+  const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant });
+  const [postExplanation] = usePostWasteExplanationMutation();
+  const [postImprovement] = usePostWasteImprovementMutation();
+  const [patchExplanation] = usePatchWasteExplanationMutation();
+  const [patchImprovement] = usePatchWasteImprovementMutation();
   const { ASP, waste, wasteIntensity, revenue, shipment } = data || {};
   const lastYear = currYear - 1;
   const currYearKey = `${currYear} YTM`;
@@ -249,7 +217,13 @@ export default function WasteAnalysisPage() {
       chartTitle="廢棄物密度對比"
       tableTitle="影響廢棄物密度"
       overview={overview}
-      tableData={TABLE_DATA}
+      tableData={tableData?.data}
+      onRowChange={({ id, data }) =>
+        isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
+      }
+      onSubRowChange={({ id, subId, data }) =>
+        isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
+      }
       target={label}
       chartOption={option}
     />

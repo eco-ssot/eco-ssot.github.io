@@ -1,41 +1,19 @@
+import { isNil } from 'lodash';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
 import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
-import { useGetWaterAnalysisQuery } from '../../services/water';
+import {
+  useGetWaterAnalysisQuery,
+  useGetWaterExplanationQuery,
+  usePatchWaterExplanationMutation,
+  usePatchWaterImprovementMutation,
+  usePostWaterExplanationMutation,
+  usePostWaterImprovementMutation,
+} from '../../services/water';
 import { colors } from '../../styles';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import AnalysisPage from '../analysis/AnalysisPage';
-
-const TABLE_DATA = [
-  {
-    description: 'YTM ASP 降低18%，影響2021營收13.9億、用水強度16%',
-    strategy: '改善措施',
-    expectation: '每月減少 500度用電',
-    contribution: '用電強度 -3%',
-    dueDate: '2021.09.21',
-    finishDate: '--',
-    pic: '王一二',
-  },
-  {
-    description: '15台除濕機設定管控',
-    strategy: '改善措施',
-    expectation: '每月減少 500噸用水',
-    contribution: '用水強度 -3%',
-    dueDate: '2021.09.23',
-    finishDate: '2021.09.11',
-    pic: '王一二',
-  },
-  {
-    description: '氮氣櫃優化，取消 Reflow MG 供氮裝置',
-    strategy: '改善措施',
-    expectation: '每月減少 500噸用水',
-    contribution: '用水強度 -7%',
-    dueDate: '2021.09.30',
-    finishDate: '2021.09.13',
-    pic: '王一二',
-  },
-];
 
 const COLORS = [colors._yellow, colors._blue, colors.primary['600'], colors.primary['500']];
 
@@ -148,6 +126,11 @@ export default function WaterAnalysisPage() {
   const plant = useSelector(selectPlant);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '用水強度' });
   const { data } = useGetWaterAnalysisQuery({ business, site, plant });
+  const { data: tableData } = useGetWaterExplanationQuery({ business, site, plant });
+  const [postExplanation] = usePostWaterExplanationMutation();
+  const [postImprovement] = usePostWaterImprovementMutation();
+  const [patchExplanation] = usePatchWaterExplanationMutation();
+  const [patchImprovement] = usePatchWaterImprovementMutation();
   const { ASP, water, waterIntensity, revenue, shipment } = data || {};
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${currYear - 1} YTM`;
@@ -222,7 +205,13 @@ export default function WaterAnalysisPage() {
       title={`十億營業額用水：用水強度分析 ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle="用水強度對比"
       overview={overview}
-      tableData={TABLE_DATA}
+      tableData={tableData?.data}
+      onRowChange={({ id, data }) =>
+        isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
+      }
+      onSubRowChange={({ id, subId, data }) =>
+        isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
+      }
       target={label}
       chartOption={option}
     />
