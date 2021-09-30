@@ -48,7 +48,7 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
           </>
         ),
         accessor: String(key),
-        Cell: baseFormatter,
+        Cell: ratioFormatter,
         className: 'text-right',
       };
     });
