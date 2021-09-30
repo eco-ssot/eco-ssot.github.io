@@ -18,6 +18,23 @@ import {
 } from '../../components/table/EditableTable';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
+export function trimRow(row = {}) {
+  return Object.entries(row).reduce((prev, [key, value]) => {
+    const nextValue = String(value).trim();
+    if (isNil(value) || nextValue === '') {
+      return { ...prev, [key]: null };
+    }
+
+    if (/dd|completedDate/i.test(key)) {
+      if (!isValid(new Date(nextValue))) {
+        return prev;
+      }
+    }
+
+    return { ...prev, [key]: nextValue };
+  }, {});
+}
+
 export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onChange = () => {} }) {
   const userOptions = users.map(({ id, firstName, email }) => ({ value: id, label: firstName, alias: email }));
   const [table, setData] = useState(data);
@@ -44,7 +61,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
             <div className="col-span-1"></div>
           </Disclosure.Button>
           <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
-            {table.map(({ id, name, expect, contribution, dd, completedDate, PIC, editing, isNewRow }, i) => (
+            {table.map(({ id, name, expect, contribution, dd, completedDate, PIC, editing }, i) => (
               <div key={i} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
                 {editing ? (
                   <>
@@ -122,7 +139,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
                       <div>{name}</div>
                     </div>
                     <div className="col-span-2">{expect}</div>
-                    <div className="col-span-1 pl-4">{`${contribution}%`}</div>
+                    <div className="col-span-1 pl-4">{contribution && `${contribution} %`}</div>
                     <div className="col-span-1 text-center">{dd}</div>
                     <div className="col-span-1 text-center">{completedDate}</div>
                     <div className="col-span-2 text-center px-2">
@@ -219,7 +236,7 @@ export default function AnalysisTable({ className, data, title, onRowChange, onS
                     <div className="col-span-1 text-center pr-3">
                       <EditableButton
                         onClick={() => {
-                          onRowChange({ id, data: { description, effect } });
+                          onRowChange({ id, data: trimRow({ description, effect }) });
                           setData((prev) =>
                             prev.map((d, j) => (i === j ? { ...d, editing: false, isNewRow: false } : d))
                           );
@@ -233,7 +250,7 @@ export default function AnalysisTable({ className, data, title, onRowChange, onS
                 ) : (
                   <>
                     <div className="col-span-5 px-4 py-3">{description}</div>
-                    <div className="col-span-5 px-4">{`${effect}%`}</div>
+                    <div className="col-span-5 px-4">{effect && `${effect} %`}</div>
                     <div className="col-span-1 pr-3 text-center">
                       <EditableIconButton
                         onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}>
@@ -247,7 +264,7 @@ export default function AnalysisTable({ className, data, title, onRowChange, onS
                     data={imrprovements}
                     users={users}
                     canAddRow={!isNil(id) && (editing || (isAddingRow && i === table.length - 1))}
-                    onChange={(row) => onSubRowChange({ id, subId: row.id, data: row })}
+                    onChange={({ id: _id, ...row }) => onSubRowChange({ id, subId: _id, data: trimRow(row) })}
                   />
                 </div>
               </div>
