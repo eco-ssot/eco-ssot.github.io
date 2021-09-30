@@ -94,6 +94,17 @@ export const wasteApi = createApi({
         method: 'PATCH',
       }),
     }),
+    deleteWasteExplanation: builder.mutation({
+      query: ({ id }) => ({ url: `waste/anaysis/explanation/${id}`, method: 'DELETE' }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
+    deleteWasteImprovement: builder.mutation({
+      query: ({ id, subId }) => ({
+        url: `waste/anaysis/explanation/${id}/improvements/${subId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
   }),
 });
 
@@ -106,4 +117,6 @@ export const {
   usePostWasteImprovementMutation,
   usePatchWasteExplanationMutation,
   usePatchWasteImprovementMutation,
+  useDeleteWasteExplanationMutation,
+  useDeleteWasteImprovementMutation,
 } = wasteApi;

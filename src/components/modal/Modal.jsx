@@ -6,7 +6,7 @@ import { XIcon } from '@heroicons/react/solid';
 import Button from '../button/Button';
 import IconButton from '../button/IconButton';
 
-export default function Modal({ children, open = false, title = '', setOpen = () => {} }) {
+export default function Modal({ children, footer, open = false, title = '', setOpen = () => {} }) {
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => {}}>
@@ -40,9 +40,11 @@ export default function Modal({ children, open = false, title = '', setOpen = ()
                 </IconButton>
               </Dialog.Title>
               {children}
-              <div className="flex my-4 justify-center">
-                <Button onClick={() => setOpen(false)}>OK</Button>
-              </div>
+              {footer || (
+                <div className="flex my-4 justify-center">
+                  <Button onClick={() => setOpen(false)}>OK</Button>
+                </div>
+              )}
             </div>
           </Transition.Child>
         </div>

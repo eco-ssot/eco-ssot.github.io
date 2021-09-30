@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import useGoal from '../../hooks/useGoal';
 import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
 import {
+  useDeleteElectricityExplanationMutation,
+  useDeleteElectricityImprovementMutation,
   useGetElectricityAnalysisQuery,
   useGetElectricityExplanationQuery,
   usePatchElectricityExplanationMutation,
@@ -130,6 +132,8 @@ export default function ElectricityAnalysisPage() {
   const [postImprovement] = usePostElectricityImprovementMutation();
   const [patchExplanation] = usePatchElectricityExplanationMutation();
   const [patchImprovement] = usePatchElectricityImprovementMutation();
+  const [deleteExplanation] = useDeleteElectricityExplanationMutation();
+  const [deleteImprovement] = useDeleteElectricityImprovementMutation();
   const { ASP, electrcity, electrcityIntensity, revenue, shipment } = data || {};
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${baseYear} YTM`;
@@ -200,13 +204,15 @@ export default function ElectricityAnalysisPage() {
       target={label}
       overview={overview}
       tableData={tableData?.data}
+      chartOption={option}
       onRowChange={({ id, data }) =>
         isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
       }
       onSubRowChange={({ id, subId, data }) =>
         isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
       }
-      chartOption={option}
+      onDeleteRow={({ id }) => deleteExplanation({ id })}
+      onDeleteSubRow={({ id, subId }) => deleteImprovement({ id, subId })}
     />
   );
 }

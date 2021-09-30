@@ -104,6 +104,17 @@ export const waterApi = createApi({
         method: 'PATCH',
       }),
     }),
+    deleteWaterExplanation: builder.mutation({
+      query: ({ id }) => ({ url: `water/anaysis/explanation/${id}`, method: 'DELETE' }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
+    deleteWaterImprovement: builder.mutation({
+      query: ({ id, subId }) => ({
+        url: `water/anaysis/explanation/${id}/improvements/${subId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
   }),
 });
 
@@ -116,4 +127,6 @@ export const {
   usePatchWaterImprovementMutation,
   usePostWaterExplanationMutation,
   usePostWaterImprovementMutation,
+  useDeleteWaterExplanationMutation,
+  useDeleteWaterImprovementMutation,
 } = waterApi;

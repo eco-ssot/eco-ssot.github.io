@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import useGoal from '../../hooks/useGoal';
 import { selectBusiness, selectPlant, selectSite } from '../../renderless/location/locationSlice';
 import {
+  useDeleteWasteExplanationMutation,
+  useDeleteWasteImprovementMutation,
   useGetWasteAnalysisQuery,
   useGetWasteExplanationQuery,
   usePatchWasteExplanationMutation,
@@ -132,6 +134,8 @@ export default function WasteAnalysisPage() {
   const [postImprovement] = usePostWasteImprovementMutation();
   const [patchExplanation] = usePatchWasteExplanationMutation();
   const [patchImprovement] = usePatchWasteImprovementMutation();
+  const [deleteExplanation] = useDeleteWasteExplanationMutation();
+  const [deleteImprovement] = useDeleteWasteImprovementMutation();
   const { ASP, waste, wasteIntensity, revenue, shipment } = data || {};
   const lastYear = currYear - 1;
   const currYearKey = `${currYear} YTM`;
@@ -218,14 +222,16 @@ export default function WasteAnalysisPage() {
       tableTitle="影響廢棄物密度"
       overview={overview}
       tableData={tableData?.data}
+      target={label}
+      chartOption={option}
       onRowChange={({ id, data }) =>
         isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
       }
       onSubRowChange={({ id, subId, data }) =>
         isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
       }
-      target={label}
-      chartOption={option}
+      onDeleteRow={({ id }) => deleteExplanation({ id })}
+      onDeleteSubRow={({ id, subId }) => deleteImprovement({ id, subId })}
     />
   );
 }

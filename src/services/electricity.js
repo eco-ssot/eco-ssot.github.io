@@ -100,6 +100,17 @@ export const electricityApi = createApi({
         method: 'PATCH',
       }),
     }),
+    deleteElectricityExplanation: builder.mutation({
+      query: ({ id }) => ({ url: `electric/anaysis/explanation/${id}`, method: 'DELETE' }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
+    deleteElectricityImprovement: builder.mutation({
+      query: ({ id, subId }) => ({
+        url: `electric/anaysis/explanation/${id}/improvements/${subId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['EXPLANATION'],
+    }),
   }),
 });
 
@@ -112,4 +123,6 @@ export const {
   usePatchElectricityImprovementMutation,
   usePostElectricityExplanationMutation,
   usePostElectricityImprovementMutation,
+  useDeleteElectricityExplanationMutation,
+  useDeleteElectricityImprovementMutation,
 } = electricityApi;

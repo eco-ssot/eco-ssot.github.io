@@ -21,6 +21,8 @@ export default function AnalysisPage({
   tableTitle = '',
   onRowChange = () => {},
   onSubRowChange = () => {},
+  onDeleteRow = () => {},
+  onDeleteSubRow = () => {},
 }) {
   const history = useHistory();
   const { accumulationPeriod } = useAccumulationPeriod();
@@ -75,6 +77,8 @@ export default function AnalysisPage({
               title={tableTitle}
               onRowChange={onRowChange}
               onSubRowChange={onSubRowChange}
+              onDeleteRow={onDeleteRow}
+              onDeleteSubRow={onDeleteSubRow}
             />
           )}
         </div>

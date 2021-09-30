@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import useGoal from '../../hooks/useGoal';
 import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
 import {
+  useDeleteWaterExplanationMutation,
+  useDeleteWaterImprovementMutation,
   useGetWaterAnalysisQuery,
   useGetWaterExplanationQuery,
   usePatchWaterExplanationMutation,
@@ -131,6 +133,8 @@ export default function WaterAnalysisPage() {
   const [postImprovement] = usePostWaterImprovementMutation();
   const [patchExplanation] = usePatchWaterExplanationMutation();
   const [patchImprovement] = usePatchWaterImprovementMutation();
+  const [deleteExplanation] = useDeleteWaterExplanationMutation();
+  const [deleteImprovement] = useDeleteWaterImprovementMutation();
   const { ASP, water, waterIntensity, revenue, shipment } = data || {};
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${currYear - 1} YTM`;
@@ -206,14 +210,16 @@ export default function WaterAnalysisPage() {
       chartTitle="用水強度對比"
       overview={overview}
       tableData={tableData?.data}
+      target={label}
+      chartOption={option}
       onRowChange={({ id, data }) =>
         isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
       }
       onSubRowChange={({ id, subId, data }) =>
         isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
       }
-      target={label}
-      chartOption={option}
+      onDeleteRow={({ id }) => deleteExplanation({ id })}
+      onDeleteSubRow={({ id, subId }) => deleteImprovement({ id, subId })}
     />
   );
 }
