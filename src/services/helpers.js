@@ -1,4 +1,5 @@
 import { saveAs } from 'file-saver';
+import { sortBy } from 'lodash';
 import qs from 'query-string';
 
 import axios from '../axios';
@@ -69,3 +70,15 @@ export const axiosFileDownload =
     const blob = new Blob([_data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     saveAs(blob, `${filename}.xlsx`);
   };
+
+export function sortExplanationsById(res) {
+  return {
+    data: sortBy(
+      res?.data.map(({ imrprovements = [], ...rest }) => ({
+        ...rest,
+        imrprovements: sortBy(imrprovements, ({ id }) => id),
+      })),
+      ({ id }) => id
+    ),
+  };
+}

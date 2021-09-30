@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery, sortExplanationsById } from './helpers';
 
 export function toRow({
   site,
@@ -73,6 +73,7 @@ export const wasteApi = createApi({
     }),
     getWasteExplanation: builder.query({
       query: (query) => ({ query, url: 'waste/anaysis/explanation' }),
+      transformResponse: sortExplanationsById,
       providesTags: ['EXPLANATION'],
     }),
     postWasteExplanation: builder.mutation({

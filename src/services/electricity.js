@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery, sortExplanationsById } from './helpers';
 
 export function toRow({
   name,
@@ -79,6 +79,7 @@ export const electricityApi = createApi({
     }),
     getElectricityExplanation: builder.query({
       query: (query) => ({ query, url: 'electric/anaysis/explanation' }),
+      transformResponse: sortExplanationsById,
       providesTags: ['EXPLANATION'],
     }),
     postElectricityExplanation: builder.mutation({

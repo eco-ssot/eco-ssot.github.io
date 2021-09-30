@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery, sortExplanationsById } from './helpers';
 
 export function toRow({
   name,
@@ -83,6 +83,7 @@ export const waterApi = createApi({
     }),
     getWaterExplanation: builder.query({
       query: (query) => ({ query, url: 'water/anaysis/explanation' }),
+      transformResponse: sortExplanationsById,
       providesTags: ['EXPLANATION'],
     }),
     postWaterExplanation: builder.mutation({
