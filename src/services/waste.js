@@ -81,6 +81,7 @@ export const wasteApi = createApi({
     }),
     postWasteImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}/improvements`, method: 'POST' }),
+      invalidatesTags: ['EXPLANATION'],
     }),
     patchWasteExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}`, method: 'PATCH' }),

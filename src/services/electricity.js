@@ -87,6 +87,7 @@ export const electricityApi = createApi({
     }),
     postElectricityImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}/improvements`, method: 'POST' }),
+      invalidatesTags: ['EXPLANATION'],
     }),
     patchElectricityExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}`, method: 'PATCH' }),

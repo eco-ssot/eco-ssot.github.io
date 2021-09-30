@@ -24,6 +24,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
   const updateRow = (key, idx) => (value) =>
     setData((prev) => prev.map((d, i) => (i === idx ? { ...d, [key]: value } : d)));
 
+  useEffect(() => setData((prev) => data.map((d, i) => ({ ...(prev[i] || {}), ...d }))), [data]);
   return (
     <Disclosure>
       {({ open }) => (
@@ -166,7 +167,7 @@ export default function AnalysisTable({ className, data, title, onRowChange, onS
     }
   }, [isAddingRow]);
 
-  useEffect(() => data && setData(data), [data]);
+  useEffect(() => data && setData((prev) => data.map((d, i) => ({ ...(prev[i] || {}), ...d }))), [data]);
   return (
     <>
       <div className="flex justify-between">

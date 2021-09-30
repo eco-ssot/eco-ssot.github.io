@@ -91,6 +91,7 @@ export const waterApi = createApi({
     }),
     postWaterImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}/improvements`, method: 'POST' }),
+      invalidatesTags: ['EXPLANATION'],
     }),
     patchWaterExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}`, method: 'PATCH' }),
