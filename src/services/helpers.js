@@ -1,3 +1,4 @@
+import { saveAs } from 'file-saver';
 import qs from 'query-string';
 
 import axios from '../axios';
@@ -43,4 +44,28 @@ export const axiosMultipleQueries =
         error: { status: err.response?.status, data: err.response?.data },
       };
     }
+  };
+
+export const axiosFileDownload =
+  ({ baseUrl = '/' } = {}) =>
+  async ({
+    url = '',
+    method = 'GET',
+    responseType = 'arrayBuffer',
+    filename = 'download.xlsx',
+    data = {},
+    query = {},
+    option = {},
+  } = {}) => {
+    const { data: _data } = await axiosBaseQuery({ baseUrl })({
+      url,
+      method,
+      data,
+      query,
+      option,
+      responseType,
+    });
+
+    const blob = new Blob([_data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, `${filename}.xlsx`);
   };

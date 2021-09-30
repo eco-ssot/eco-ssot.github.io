@@ -30,7 +30,7 @@ export function AnalysisSubTable({ data = [], users = [], canAddRow = false, onC
         <>
           <Disclosure.Button
             as="div"
-            className="grid grid-cols-11 items-center w-full py-2 font-medium text-left text-primary-600 bg-primary-600 bg-opacity-10 cursor-pointer gap-2 px-2 tracking-wider">
+            className="grid grid-cols-11 items-center w-full py-2 font-medium text-left text-primary-600 bg-primary-600 bg-opacity-10 cursor-pointer gap-2 px-2 tracking-wider border-t border-b border-primary-600">
             <div className="col-span-3 flex space-x-2 items-center">
               <ChevronUpIcon className={clsx(`${open && 'transform rotate-180'} w-5 h-5 text-primary-600`)} />
               <div className="">改善措施</div>

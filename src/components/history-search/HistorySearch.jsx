@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import qs from 'query-string';
 
 import APP_CONFIG from '../../constants/app-config';
 import Button from '../button/Button';
@@ -40,7 +41,32 @@ export function getEndMonthOptions(searchOption) {
   }));
 }
 
-export default function HistorySearch({ option = {}, onSearch = () => {} }) {
+export function getQuery({
+  searchOption = {},
+  startYearOptions = [],
+  endYearOptions = [],
+  endMonthOptions = [],
+  startMonthOptions = [],
+  sameYear = false,
+} = {}) {
+  return {
+    ...searchOption,
+    startYear: searchOption.startYear || startYearOptions.slice(-1)[0].key,
+    endYear: searchOption.endYear || endYearOptions[0].key,
+    endMonth: searchOption.endMonth || endMonthOptions.slice(-1)[0].key,
+    dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
+    ...(sameYear && {
+      startMonth: searchOption.startMonth || startMonthOptions[0].key,
+      monthType: null,
+    }),
+    ...(!sameYear && {
+      startMonth: null,
+      monthType: searchOption.monthType || APP_CONFIG.MONTH_RANGE_OPTIONS[0].key,
+    }),
+  };
+}
+
+export default function HistorySearch({ downloadResource, option = {}, onSearch = () => {} }) {
   const [searchOption, setSearchOption] = useState(option);
   const sameYear = isSameYear(searchOption);
   const startYearOptions = getStartYearOptions(searchOption);
@@ -114,27 +140,24 @@ export default function HistorySearch({ option = {}, onSearch = () => {} }) {
         />
         <Button
           onClick={() =>
-            onSearch({
-              ...searchOption,
-              startYear: searchOption.startYear || startYearOptions.slice(-1)[0].key,
-              endYear: searchOption.endYear || endYearOptions[0].key,
-              endMonth: searchOption.endMonth || endMonthOptions.slice(-1)[0].key,
-              dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
-              ...(sameYear && {
-                startMonth: searchOption.startMonth || startMonthOptions[0].key,
-                monthType: null,
-              }),
-              ...(!sameYear && {
-                startMonth: null,
-                monthType: searchOption.monthType || APP_CONFIG.MONTH_RANGE_OPTIONS[0].key,
-              }),
-            })
+            onSearch(
+              getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions })
+            )
           }>
           搜尋
         </Button>
       </div>
       <div className="text-right">
-        <Button>Excel</Button>
+        <a
+          download
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
+          href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify(
+            getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions })
+          )}`}>
+          Excel
+        </a>
       </div>
     </div>
   );

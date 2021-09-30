@@ -84,7 +84,7 @@ export function toMonthTypeRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { year, electricity, ratio }) => ({
+      (prev, { year, electricity, percent: ratio }) => ({
         ...prev,
         [year]: { electricity, ratio },
       }),
@@ -99,9 +99,9 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { month, ratio }) => ({
+      (prev, { month, percent }) => ({
         ...prev,
-        [month]: ratio,
+        [month]: percent,
       }),
       {}
     ),
@@ -120,7 +120,11 @@ export default function RenewableEnergyHistoryTable({
   dimension,
 }) {
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetRenewableEnergyHistoryQuery({ business }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetRenewableEnergyHistoryQuery(
+    { business, ...option },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   const { label } = useGoal({ keyword: '可再生能源' });
   return (
     <>

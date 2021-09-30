@@ -4,5 +4,12 @@ import UnitElectricityHistoryTable from './UnitElectricityHistoryTable';
 import UnitElectricityTable from './UnitElectricityTable';
 
 export default function UnitElectricityPage() {
-  return <TablePage title="單台用電" table={UnitElectricityTable} historyTable={UnitElectricityHistoryTable} />;
+  return (
+    <TablePage
+      title="單台用電"
+      downloadResource="singleelectric"
+      table={UnitElectricityTable}
+      historyTable={UnitElectricityHistoryTable}
+    />
+  );
 }

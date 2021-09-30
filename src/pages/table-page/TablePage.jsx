@@ -7,7 +7,7 @@ import { navigate } from '../../router/helpers';
 
 import TablePanel from './TablePanel';
 
-export default function TablePage({ title, table: Table, historyTable: HistoryTable }) {
+export default function TablePage({ title, downloadResource, table: Table, historyTable: HistoryTable }) {
   return (
     <PageContainer className="flex flex-col relative space-y-2">
       <div className="text-xl font-medium">{title}</div>
@@ -28,9 +28,9 @@ export default function TablePage({ title, table: Table, historyTable: HistoryTa
             {isHistory ? (
               <>
                 {isOverview ? (
-                  <OverviewSearch option={option} onSearch={navigate} />
+                  <OverviewSearch option={option} onSearch={navigate} downloadResource={downloadResource} />
                 ) : (
-                  <HistorySearch option={option} onSearch={navigate} />
+                  <HistorySearch option={option} onSearch={navigate} downloadResource={downloadResource} />
                 )}
                 <HistoryTable {...option} />
               </>

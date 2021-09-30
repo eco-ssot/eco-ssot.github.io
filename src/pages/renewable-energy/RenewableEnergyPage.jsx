@@ -4,5 +4,12 @@ import RenewableEnergyHistoryTable from './RenewableEnergyHistoryTable';
 import RenewableEnergyTable from './RenewableEnergyTable';
 
 export default function RenewableEnergyPage() {
-  return <TablePage title="可再生能源占比" table={RenewableEnergyTable} historyTable={RenewableEnergyHistoryTable} />;
+  return (
+    <TablePage
+      title="可再生能源占比"
+      downloadResource="renewableenergy"
+      table={RenewableEnergyTable}
+      historyTable={RenewableEnergyHistoryTable}
+    />
+  );
 }

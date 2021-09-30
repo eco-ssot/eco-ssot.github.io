@@ -4,5 +4,7 @@ import WasteHistoryTable from './WasteHistoryTable';
 import WasteTable from './WasteTable';
 
 export default function WastePage() {
-  return <TablePage title="廢棄物產生密度" table={WasteTable} historyTable={WasteHistoryTable} />;
+  return (
+    <TablePage title="廢棄物產生密度" downloadResource="waste" table={WasteTable} historyTable={WasteHistoryTable} />
+  );
 }
