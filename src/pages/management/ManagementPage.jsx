@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
-import { useKeycloak } from '../../keycloak';
+import useAdmin from '../../hooks/useAdmin';
 import { selectBusiness } from '../../renderless/location/locationSlice';
 import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/app';
 
@@ -14,7 +14,7 @@ import Trec from './Trec';
 import YearGoal from './YearGoal';
 
 export default function ManagementPage() {
-  const { keycloak } = useKeycloak();
+  const { keycloak, roles, canEdit } = useAdmin();
   const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
@@ -26,8 +26,6 @@ export default function ManagementPage() {
   }, [keycloak]);
 
   const { family_name = '-', given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
-  const roles = (keycloak?.realmAccess?.roles || []).filter((r) => !APP_CONFIG.KEYCLOAK_DEFAULT_ROLES.includes(r));
-  const canEdit = roles.includes(APP_CONFIG.MAINTAINER_ROLE);
   return (
     <div className="grid grid-cols-6 grid-rows-2 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] w-full p-4 gap-4 overflow-hidden">
       <div className="row-span-2 col-span-1">

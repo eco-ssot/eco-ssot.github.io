@@ -37,7 +37,14 @@ export function trimRow(row = {}) {
   }, {});
 }
 
-export function AnalysisSubTable({ data, users = [], canAddRow = false, onChange = () => {}, onDeleteRow = () => {} }) {
+export function AnalysisSubTable({
+  data,
+  canEdit,
+  users = [],
+  canAddRow = false,
+  onChange = () => {},
+  onDeleteRow = () => {},
+}) {
   const userOptions = users.map(({ id, firstName, email }) => ({ value: id, label: firstName, alias: email }));
   const [table, setData] = useState(data);
   const [deleteId, setDeleteId] = useState(false);
@@ -162,7 +169,7 @@ export function AnalysisSubTable({ data, users = [], canAddRow = false, onChange
                             }>
                             <PencilIcon className="w-5 h-5" />
                           </EditableIconButton>
-                          <EditableIconButton onClick={() => setDeleteId(id)}>
+                          <EditableIconButton disabled={!canEdit} onClick={() => setDeleteId(id)}>
                             <TrashIcon className="w-5 h-5" />
                           </EditableIconButton>
                         </div>
@@ -189,6 +196,7 @@ export default function AnalysisTable({
   className,
   data,
   title,
+  canEdit,
   onRowChange,
   onSubRowChange,
   onDeleteRow,
@@ -287,6 +295,7 @@ export default function AnalysisTable({
                         <PencilIcon className="w-5 h-5" />
                       </EditableIconButton>
                       <EditableIconButton
+                        disabled={!canEdit}
                         onClick={() => {
                           setDeleteId(id);
                           setIsAddingRow(false);
@@ -300,6 +309,7 @@ export default function AnalysisTable({
                   <AnalysisSubTable
                     data={imrprovements}
                     users={users}
+                    canEdit={canEdit}
                     canAddRow={!isNil(id) && (editing || (isAddingRow && i === table.length - 1))}
                     onChange={({ id: _id, ...row }) => onSubRowChange({ id, subId: _id, data: trimRow(row) })}
                     onDeleteRow={(subId) => onDeleteSubRow({ id, subId })}

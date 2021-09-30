@@ -6,6 +6,7 @@ import Arrow from '../../components/arrow/Arrow';
 import Legend from '../../components/legend/Legend';
 import Tag from '../../components/tag/Tag';
 import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
+import useAdmin from '../../hooks/useAdmin';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
 
@@ -26,6 +27,7 @@ export default function AnalysisPage({
 }) {
   const history = useHistory();
   const { accumulationPeriod } = useAccumulationPeriod();
+  const { canEdit } = useAdmin();
   return (
     <div className="flex flex-col p-4 gap-4 w-screen max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
       <div className="text-xl font-medium">{title}</div>
@@ -75,6 +77,7 @@ export default function AnalysisPage({
               className="flex flex-col flex-grow"
               data={tableData}
               title={tableTitle}
+              canEdit={canEdit}
               onRowChange={onRowChange}
               onSubRowChange={onSubRowChange}
               onDeleteRow={onDeleteRow}
