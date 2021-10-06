@@ -12,6 +12,7 @@ export default function Table({
   getColumnProps = defaultPropGetter,
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
+  stickyHeader = true,
 }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
@@ -23,7 +24,7 @@ export default function Table({
 
   return (
     <table {...getTableProps()}>
-      <thead className="bg-primary-800">
+      <thead className={clsx('bg-primary-800 ', stickyHeader && 'sticky top-0')}>
         {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => {
