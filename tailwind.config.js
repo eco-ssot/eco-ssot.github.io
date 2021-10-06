@@ -75,6 +75,7 @@ module.exports = {
         4: '1rem',
       },
       zIndex: {
+        1: 1,
         '-1': -1,
       },
       transitionProperty: {
