@@ -183,7 +183,7 @@ export default function EditableTable({
 
   return (
     <table {...getTableProps()}>
-      <thead className={clsx('bg-primary-800 ', stickyHeader && 'sticky top-0')}>
+      <thead className={clsx('bg-primary-800 ', stickyHeader && 'sticky top-0 z-10')}>
         {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => {
