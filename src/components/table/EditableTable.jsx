@@ -121,7 +121,15 @@ const EditableCell = ({
     index,
     original: { editing, category },
   },
-  column: { id, editable, placeholder, precision = 0, formatter = (val) => val, EditableComponent = InputCell },
+  column: {
+    id,
+    editable,
+    placeholder,
+    precision = 0,
+    formatter = (val) => val,
+    EditableComponent = InputCell,
+    editableComponentProps = {},
+  },
   updateMyData,
 }) => {
   const onBlur = (value) => {
@@ -129,7 +137,13 @@ const EditableCell = ({
   };
 
   return editable && editing ? (
-    <EditableComponent defaultValue={initialValue} placeholder={placeholder} onBlur={onBlur} className="text-center" />
+    <EditableComponent
+      defaultValue={initialValue}
+      placeholder={placeholder}
+      onBlur={onBlur}
+      className="text-center"
+      {...editableComponentProps}
+    />
   ) : (
     <>
       {isNil(initialValue) || initialValue === ''
@@ -169,25 +183,35 @@ export default function EditableTable({
   return (
     <table {...getTableProps()}>
       <thead className="bg-primary-800">
-        {headerGroups.map((headerGroup) => (
+        {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th
-                {...column.getHeaderProps([
-                  {
-                    className: clsx(
-                      'px-2 py-3 font-medium text-left text-gray-50 tracking-wider whitespace-nowrap text-lg',
-                      column.className
-                    ),
-                    style: column.style,
-                    rowSpan: column.rowSpan,
-                  },
-                  getColumnProps(column),
-                  getHeaderProps(column),
-                ])}>
-                {column.render('Header')}
-              </th>
-            ))}
+            {headerGroup.headers.map((column) => {
+              if (column.rowSpan === 0 && headerGroups.length > 1) {
+                return null;
+              }
+
+              return (
+                <th
+                  {...column.getHeaderProps([
+                    {
+                      className: clsx(
+                        'text-center text-lg font-medium text-gray-50 tracking-wider whitespace-nowrap',
+                        headerGroups.length === 1 && 'py-3',
+                        headerGroups.length > 1 && i > 0 && 'py-3',
+                        !column.id.startsWith('expander') && 'px-2',
+                        column.className
+                      ),
+                      style: column.style,
+                      rowSpan: column.rowSpan,
+                    },
+                    getColumnProps(column),
+                    getHeaderProps(column),
+                  ])}
+                  {...(column.placeholderOf && { rowSpan: 2 })}>
+                  {column.placeholderOf ? column.placeholderOf.Header : column.render('Header')}
+                </th>
+              );
+            })}
           </tr>
         ))}
       </thead>

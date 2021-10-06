@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import { useTitle } from 'react-use';
 
-import { privateRoutes, subRoutes } from '../../router/routes';
+import { privateRoutes } from '../../router/routes';
 
 export default function TabTitle() {
   const { pathname } = useLocation();
-  const title = privateRoutes.concat(subRoutes).find(({ path }) => path === pathname)?.title || '';
+  const title = privateRoutes.find(({ path }) => pathname.startsWith(path))?.title || '';
   useTitle(title ? `${title} - ECO SSOT` : 'ECO SSOT');
   return null;
 }

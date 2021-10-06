@@ -7,7 +7,7 @@ export default function ElectricityPage() {
   return (
     <TablePage
       title="十億營業額用電"
-      downloadResource="electirc"
+      downloadResource="electric"
       table={ElectricityTable}
       historyTable={ElectricityHistoryTable}
     />

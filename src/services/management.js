@@ -38,8 +38,20 @@ export const managementApi = createApi({
         method: 'PATCH',
       }),
     }),
+    getDataStatus: builder.query({
+      query: () => ({ url: 'data-status' }),
+    }),
+    getDataStatusPic: builder.query({
+      query: () => ({ url: 'data-status/pic' }),
+    }),
   }),
 });
 
-export const { useGetGoalQuery, useGetCarbonIndexQuery, usePatchGoalMutation, usePatchCarbonIndexMutation } =
-  managementApi;
+export const {
+  useGetGoalQuery,
+  useGetCarbonIndexQuery,
+  usePatchGoalMutation,
+  usePatchCarbonIndexMutation,
+  useGetDataStatusQuery,
+  useGetDataStatusPicQuery,
+} = managementApi;

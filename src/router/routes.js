@@ -79,13 +79,11 @@ export const privateRoutes = [
   },
   {
     path: '/management',
-    title: '後台維護',
+    title: '後臺設定',
     component: ManagementPage,
     skeleton: ManagementSkeleton,
+    exact: false,
   },
-];
-
-export const subRoutes = [
   {
     path: '/electricity/analysis',
     title: '用電第三階段分析',
@@ -109,6 +107,6 @@ export const subRoutes = [
   },
 ];
 
-const routes = [...publicRoutes, ...privateRoutes, ...subRoutes];
+const routes = [...publicRoutes, ...privateRoutes];
 
 export default routes;

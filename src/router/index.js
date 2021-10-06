@@ -2,7 +2,7 @@ import { Redirect, Route, Switch, Router as BrowserRouter } from 'react-router-d
 
 import PrivateRoute from './PrivateRoute';
 import history from './history';
-import { publicRoutes, privateRoutes, subRoutes } from './routes';
+import { publicRoutes, privateRoutes } from './routes';
 
 export default function Router({ children }) {
   return (
@@ -12,8 +12,8 @@ export default function Router({ children }) {
         {publicRoutes.map(({ path, component: Component }, i) => (
           <Route exact key={i} path={path} component={Component} />
         ))}
-        {privateRoutes.concat(subRoutes).map(({ path, component: Component, skeleton: Skeleton }, i) => (
-          <PrivateRoute exact key={i} path={path} component={Component} skeleton={Skeleton} />
+        {privateRoutes.map(({ path, component: Component, skeleton: Skeleton, exact = true }, i) => (
+          <PrivateRoute exact={exact} key={i} path={path} component={Component} skeleton={Skeleton} />
         ))}
         <Redirect exact from="/" to="/home" />
       </Switch>
