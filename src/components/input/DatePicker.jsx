@@ -1,6 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { format } from 'date-fns';
+import { isNil } from 'lodash';
 import ReactDatePicker from 'react-datepicker';
 
 export default function DatePicker({ className, value, onChange }) {
@@ -9,7 +10,7 @@ export default function DatePicker({ className, value, onChange }) {
       <ReactDatePicker
         dateFormat="yyyy-MM-dd"
         placeholderText="yyyy-mm-dd"
-        onChange={(date) => onChange(format(date, 'yyyy-MM-dd'))}
+        onChange={(date) => onChange(isNil(date) ? null : format(date, 'yyyy-MM-dd'))}
         renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
           <div className="flex pt-4 px-6 w-full justify-between items-center">
             <ChevronLeftIcon
