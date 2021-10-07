@@ -8,6 +8,7 @@ import { differenceInWeeks, isValid, isPast } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
 
 import Dot from '../../components/dot/Dot';
+import DatePicker from '../../components/input/DatePicker';
 import Legend from '../../components/legend/Legend';
 import {
   TextareaCell,
@@ -107,20 +108,10 @@ export function AnalysisSubTable({
                           />
                         </div>
                         <div className="col-span-1 text-center h-full">
-                          <InputCell
-                            className="h-full"
-                            placeholder="yyyy-mm-dd"
-                            defaultValue={dd}
-                            onBlur={updateRow('dd', i)}
-                          />
+                          <DatePicker value={dd} onChange={updateRow('dd', i)} />
                         </div>
                         <div className="col-span-1 text-center h-full">
-                          <InputCell
-                            className="h-full"
-                            placeholder="yyyy-mm-dd"
-                            defaultValue={completedDate}
-                            onBlur={updateRow('completedDate', i)}
-                          />
+                          <DatePicker value={completedDate} onChange={updateRow('completedDate', i)} />
                         </div>
                         <div className="col-span-2 text-center">
                           <SearchSelectCell

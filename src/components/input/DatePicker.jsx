@@ -1,17 +1,15 @@
-import { useState } from 'react';
-
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import ReactDatePicker from 'react-datepicker';
 
-export default function DatePicker({ className }) {
-  const [startDate, setStartDate] = useState(new Date());
+export default function DatePicker({ className, value, onChange }) {
   return (
-    <div className={clsx('relative flex h-full', className)}>
+    <div className={clsx('relative flex h-full bg-gray-50 bg-opacity-10', className)}>
       <ReactDatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
+        dateFormat="yyyy-MM-dd"
+        placeholderText="yyyy-mm-dd"
+        onChange={(date) => onChange(format(date, 'yyyy-MM-dd'))}
         renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
           <div className="flex pt-4 px-6 w-full justify-between items-center">
             <ChevronLeftIcon
@@ -25,6 +23,7 @@ export default function DatePicker({ className }) {
             />
           </div>
         )}
+        {...(value && { selected: new Date(value) })}
       />
     </div>
   );
