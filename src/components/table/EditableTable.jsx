@@ -4,6 +4,7 @@ import { PlusIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { isNil } from 'lodash';
 import { useTable } from 'react-table';
+import { useDeepCompareEffect } from 'react-use';
 
 import APP_CONFIG from '../../constants/app-config';
 import { getDecimalNumber } from '../../utils/number';
@@ -101,17 +102,25 @@ export const TextareaCell = ({ defaultValue = '', placeholder = '', onBlur = () 
 
 export const SearchSelectCell = ({
   options = [],
-  defaultValue = options[0] || {},
+  defaultValue = {},
   label = '',
+  placeholder = '',
   onBlur = () => {},
 } = {}) => {
   const [value, setValue] = useState(defaultValue);
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
 
   return (
-    <SearchSelect options={options} value={value} label={label} onChange={setValue} onBlur={() => onBlur(value)} />
+    <SearchSelect
+      options={options}
+      value={value}
+      label={label}
+      onChange={setValue}
+      onBlur={() => onBlur(value)}
+      placeholder={placeholder}
+    />
   );
 };
 

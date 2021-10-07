@@ -20,6 +20,11 @@ import {
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
 import DeleteModal from './DeleteModal';
+import ErrorModal from './ErrorModal';
+
+export function isEmpty(value) {
+  return isNil(value) || String(value).trim() === '';
+}
 
 export function trimRow(row = {}) {
   return Object.entries(row).reduce((prev, [key, value]) => {
@@ -49,6 +54,7 @@ export function AnalysisSubTable({
   const userOptions = users.map(({ id, firstName, email }) => ({ value: id, label: firstName, alias: email }));
   const [table, setData] = useState(data);
   const [deleteId, setDeleteId] = useState(false);
+  const [open, setOpen] = useState(false);
   const updateRow = (key, idx) => (value) =>
     setData((prev) => prev.map((d, i) => (i === idx ? { ...d, [key]: value } : d)));
 
@@ -60,6 +66,7 @@ export function AnalysisSubTable({
   return (
     <>
       <DeleteModal open={!isBoolean(deleteId)} setOpen={setDeleteId} onConfirm={() => onDeleteRow(deleteId)} />
+      <ErrorModal open={open} setOpen={setOpen} />
       <Disclosure>
         {({ open }) => (
           <>
@@ -117,12 +124,16 @@ export function AnalysisSubTable({
                           <SearchSelectCell
                             options={userOptions}
                             defaultValue={userOptions.find((user) => user.label === PIC || user.alias === PIC)}
-                            onBlur={(user) => updateRow('PIC', i)(user.alias)}
+                            onBlur={(user) => user.alias && updateRow('PIC', i)(user.alias)}
                           />
                         </div>
                         <div className="col-span-1 text-center">
                           <EditableButton
                             onClick={() => {
+                              if ([name, expect, contribution, dd, PIC].some(isEmpty)) {
+                                return setOpen(true);
+                              }
+
                               onChange({ id, name, expect, contribution, dd, completedDate, PIC });
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
                             }}>
@@ -197,6 +208,7 @@ export default function AnalysisTable({
   const [table, setData] = useState(data);
   const [isAddingRow, setIsAddingRow] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
+  const [open, setOpen] = useState(false);
   const updateRow = (key, idx) => (value) =>
     setData((prev) => prev.map((d, i) => (i === idx ? { ...d, [key]: value } : d)));
 
@@ -216,6 +228,7 @@ export default function AnalysisTable({
   return (
     <>
       <DeleteModal open={!isBoolean(deleteId)} setOpen={setDeleteId} onConfirm={() => onDeleteRow({ id: deleteId })} />
+      <ErrorModal open={open} setOpen={setOpen} />
       <div className="flex justify-between">
         <div className="text-xl font-medium">未達標說明</div>
         <div className="flex space-x-4 items-center">
@@ -265,6 +278,10 @@ export default function AnalysisTable({
                     <div className="col-span-1 text-center pr-3">
                       <EditableButton
                         onClick={() => {
+                          if ([description, effect].some(isEmpty)) {
+                            return setOpen(true);
+                          }
+
                           onRowChange({ id, data: trimRow({ description, effect }) });
                           setData((prev) =>
                             prev.map((d, j) => (i === j ? { ...d, editing: false, isNewRow: false } : d))
