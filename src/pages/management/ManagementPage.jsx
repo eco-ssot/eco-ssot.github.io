@@ -78,7 +78,7 @@ export default function ManagementPage() {
           <DataStatusPage />
         </Route>
         <Route exact path="/management/pic">
-          <PicPage />
+          <PicPage canEdit={canEdit} />
         </Route>
         <Redirect exact from="/management" to="/management/goal" />
       </Switch>

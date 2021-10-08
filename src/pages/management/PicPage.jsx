@@ -6,7 +6,7 @@ import { PencilIcon } from '@heroicons/react/solid';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 
-const COLUMNS = ({ setData, patchDataStatusPic }) => [
+const COLUMNS = ({ canEdit, setData, patchDataStatusPic }) => [
   { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
   {
     id: 'opm',
@@ -80,6 +80,7 @@ const COLUMNS = ({ setData, patchDataStatusPic }) => [
         </EditableButton>
       ) : (
         <EditableIconButton
+          disabled={!canEdit}
           onClick={() =>
             setData((prev) =>
               prev.map((r, i) => ({
@@ -96,11 +97,11 @@ const COLUMNS = ({ setData, patchDataStatusPic }) => [
   },
 ];
 
-export default function PicPage() {
+export default function PicPage({ canEdit }) {
   const { data: { data } = {} } = useGetDataStatusPicQuery();
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
-  const columns = COLUMNS({ setData, patchDataStatusPic });
+  const columns = COLUMNS({ canEdit, setData, patchDataStatusPic });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {
