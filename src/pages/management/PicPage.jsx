@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-import { PencilIcon } from '@heroicons/react/outline';
+import { PencilIcon } from '@heroicons/react/solid';
 
+import { AsyncSearchSelect } from '../../components/select/SearchSelect';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { useGetDataStatusPicQuery } from '../../services/management';
 
@@ -23,6 +24,7 @@ const COLUMNS = ({ setData }) => [
         className: 'w-1/5 text-center',
         editable: true,
         editableComponentProps: { className: 'text-left', wrapperClassName: 'w-full ' },
+        Cell: (cell) => <AsyncSearchSelect />,
       },
       {
         Header: '備註',

@@ -79,7 +79,7 @@ export const privateRoutes = [
   },
   {
     path: '/management',
-    title: '後臺設定',
+    title: '後台設定',
     component: ManagementPage,
     skeleton: ManagementSkeleton,
     exact: false,
