@@ -44,6 +44,13 @@ export const managementApi = createApi({
     getDataStatusPic: builder.query({
       query: () => ({ url: 'data-status/pic' }),
     }),
+    patchDataStatusPic: builder.mutation({
+      query: ({ plant, ...data }) => ({
+        data,
+        url: `data-status/pic/${plant}`,
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 
@@ -54,4 +61,5 @@ export const {
   usePatchCarbonIndexMutation,
   useGetDataStatusQuery,
   useGetDataStatusPicQuery,
+  usePatchDataStatusPicMutation,
 } = managementApi;

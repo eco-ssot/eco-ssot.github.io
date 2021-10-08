@@ -3,11 +3,10 @@ import { useEffect } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 
-import { AsyncSearchSelect } from '../../components/select/SearchSelect';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
-import { useGetDataStatusPicQuery } from '../../services/management';
+import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 
-const COLUMNS = ({ setData }) => [
+const COLUMNS = ({ setData, patchDataStatusPic }) => [
   { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
   {
     id: 'opm',
@@ -24,7 +23,6 @@ const COLUMNS = ({ setData }) => [
         className: 'w-1/5 text-center',
         editable: true,
         editableComponentProps: { className: 'text-left', wrapperClassName: 'w-full ' },
-        Cell: (cell) => <AsyncSearchSelect />,
       },
       {
         Header: '備註',
@@ -67,7 +65,19 @@ const COLUMNS = ({ setData }) => [
     rowSpan: 0,
     Cell: (cell) => {
       return cell.row.original.editing ? (
-        <EditableButton onClick={() => {}}>儲存</EditableButton>
+        <EditableButton
+          onClick={() => {
+            const { editing, ...rest } = cell.row.original;
+            patchDataStatusPic(rest);
+            return setData((prev) =>
+              prev.map((r, i) => ({
+                ...r,
+                ...(i === cell.row.index && { editing: false }),
+              }))
+            );
+          }}>
+          儲存
+        </EditableButton>
       ) : (
         <EditableIconButton
           onClick={() =>
@@ -88,8 +98,9 @@ const COLUMNS = ({ setData }) => [
 
 export default function PicPage() {
   const { data: { data } = {} } = useGetDataStatusPicQuery();
+  const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
-  const columns = COLUMNS({ setData });
+  const columns = COLUMNS({ setData, patchDataStatusPic });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {
