@@ -19,6 +19,7 @@ const onTokens = (tokens) => {
 export default function KeycloakProvider({ children }) {
   return (
     <ReactKeycloakProvider
+      initOptions={{ checkLoginIframe: false }}
       authClient={keycloak}
       onEvent={onEvent}
       onTokens={onTokens}

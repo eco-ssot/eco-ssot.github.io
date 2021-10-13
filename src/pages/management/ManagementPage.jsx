@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import useAdmin from '../../hooks/useAdmin';
 import { selectBusiness } from '../../renderless/location/locationSlice';
+import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
 import DataStatusPage from './DataStatusPage';
 import GoalPage from './GoalPage';
@@ -25,6 +26,7 @@ export function Nav({ children, to, pathname }) {
 
 export default function ManagementPage() {
   const { keycloak, roles, canEdit } = useAdmin();
+  const { data: users = [] } = useGetUsersQuery();
   const { pathname } = useLocation();
   const business = useSelector(selectBusiness);
   const logout = useCallback(() => {
@@ -78,7 +80,7 @@ export default function ManagementPage() {
           <DataStatusPage />
         </Route>
         <Route exact path="/management/pic">
-          <PicPage canEdit={canEdit} />
+          <PicPage canEdit={canEdit} users={users} />
         </Route>
         <Redirect exact from="/management" to="/management/goal" />
       </Switch>

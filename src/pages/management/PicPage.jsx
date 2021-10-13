@@ -8,7 +8,6 @@ import EditableTable, {
   EditableButton,
   EditableIconButton,
 } from '../../components/table/EditableTable';
-import { useGetUsersQuery } from '../../services/keycloakAdmin';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 
 const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
@@ -122,9 +121,8 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
   },
 ];
 
-export default function PicPage({ canEdit }) {
+export default function PicPage({ canEdit, users }) {
   const { data: { data } = {} } = useGetDataStatusPicQuery();
-  const { data: users = [] } = useGetUsersQuery();
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));

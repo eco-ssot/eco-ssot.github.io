@@ -13,11 +13,11 @@ import './styles/react-datepicker.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <KeycloakProvider>
+    <KeycloakProvider>
+      <Provider store={store}>
         <App />
-      </KeycloakProvider>
-    </Provider>
+      </Provider>
+    </KeycloakProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
