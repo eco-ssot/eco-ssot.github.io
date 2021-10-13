@@ -50,7 +50,7 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
   {
     id: 'waste',
     Header: () => (
-      <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider h-11">
+      <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
         <div className="px-2">廢棄物</div>
         <div className="px-2 text-gray-400 text-sm">手動更新</div>
       </div>
@@ -145,7 +145,7 @@ export default function PicPage({ canEdit, users }) {
   useEffect(() => data && setData(data), [data]);
   return (
     <div className="row-span-2 col-span-7">
-      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-2">
+      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-6">
         <div className="text-xl font-medium">資料維護 PIC</div>
         {data && (
           <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
