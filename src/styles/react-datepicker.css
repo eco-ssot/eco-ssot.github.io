@@ -15,7 +15,7 @@
 }
 
 .react-datepicker-popper {
-  @apply flex w-full z-10 min-w-[16rem];
+  @apply flex w-full z-10 min-w-[16rem] max-w-[16rem];
 }
 
 .react-datepicker-popper > :first-child {

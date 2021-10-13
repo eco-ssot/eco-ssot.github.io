@@ -8,6 +8,7 @@ export default function DatePicker({ className, value, onChange }) {
   return (
     <div className={clsx('relative flex h-full bg-gray-50 bg-opacity-10', className)}>
       <ReactDatePicker
+        portalId="root-portal"
         dateFormat="yyyy-MM-dd"
         placeholderText="yyyy-mm-dd"
         onChange={(date) => onChange(isNil(date) ? null : format(date, 'yyyy-MM-dd'))}

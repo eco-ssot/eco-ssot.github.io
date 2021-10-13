@@ -96,6 +96,7 @@ export function BaseAsyncReactSelect(props) {
         IndicatorSeparator: (props) => null,
         Option: CustomOption,
       }}
+      menuPlacement="auto"
       {...props}
     />
   );
@@ -111,6 +112,7 @@ export default function BaseReactSelect(props) {
         IndicatorSeparator: (props) => null,
         Option: CustomOption,
       }}
+      menuPlacement="auto"
       {...props}
     />
   );
