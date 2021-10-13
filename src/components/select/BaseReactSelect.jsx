@@ -43,7 +43,7 @@ const customStyles = {
   }),
   input: (provided, state) => ({
     ...provided,
-    ...tw`w-auto text-left text-base`,
+    ...tw`w-auto text-left text-base py-0 h-full`,
   }),
   singleValue: (provided, state) => ({
     ...provided,

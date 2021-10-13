@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { PlusIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { isNil } from 'lodash';
 import { useTable } from 'react-table';
-import { useDeepCompareEffect } from 'react-use';
 
 import APP_CONFIG from '../../constants/app-config';
 import { getDecimalNumber } from '../../utils/number';
 import Button from '../button/Button';
 import IconButton from '../button/IconButton';
 import Input from '../input/Input';
-import SearchSelect from '../select/SearchSelect';
+import AdSearchSelect from '../select/AdSearchSelect';
 import Textarea from '../textarea/Textarea';
 
 export const EditableButton = ({ children, onClick = () => {}, ...props }) => (
@@ -100,25 +99,21 @@ export const TextareaCell = ({ defaultValue = '', placeholder = '', onBlur = () 
   return <Textarea value={value} onChange={onChange} onBlur={() => onBlur(value)} placeholder={placeholder} />;
 };
 
-export const SearchSelectCell = ({
+export const AdSearchSelectCell = ({
   options = [],
   defaultValue = {},
   label = '',
   placeholder = '',
   onBlur = () => {},
 } = {}) => {
-  const [value, setValue] = useState(defaultValue);
-  useDeepCompareEffect(() => {
-    setValue(defaultValue);
-  }, [defaultValue]);
-
+  const ref = useRef(defaultValue);
   return (
-    <SearchSelect
+    <AdSearchSelect
       options={options}
-      value={value}
+      defaultValue={defaultValue}
+      onChange={(e) => (ref.current = e)}
       label={label}
-      onChange={setValue}
-      onBlur={() => onBlur(value)}
+      onBlur={() => onBlur(ref.current)}
       placeholder={placeholder}
     />
   );

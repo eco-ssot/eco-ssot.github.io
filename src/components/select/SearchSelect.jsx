@@ -1,7 +1,7 @@
 import BaseReactSelect, { BaseAsyncReactSelect } from './BaseReactSelect';
 
-export function AsyncSearchSelect() {
-  return <BaseAsyncReactSelect cacheOptions defaultOptions loadOptions={() => {}} onInputChange={() => {}} />;
+export function AsyncSearchSelect({ defaultOptions = [], loadOptions = () => {}, ...props }) {
+  return <BaseAsyncReactSelect cacheOptions defaultOptions={defaultOptions} loadOptions={loadOptions} {...props} />;
 }
 
 export default function SearchSelect({ options = [], value = {}, label = '', onChange = () => {}, onBlur = () => {} }) {

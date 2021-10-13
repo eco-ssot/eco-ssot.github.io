@@ -15,7 +15,7 @@ import {
   InputCell,
   EditableButton,
   EditableIconButton,
-  SearchSelectCell,
+  AdSearchSelectCell,
 } from '../../components/table/EditableTable';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
@@ -51,7 +51,7 @@ export function AnalysisSubTable({
   onChange = () => {},
   onDeleteRow = () => {},
 }) {
-  const userOptions = users.map(({ id, firstName, email }) => ({ value: id, label: firstName, alias: email }));
+  const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
   const [table, setData] = useState(data);
   const [deleteId, setDeleteId] = useState(false);
   const [open, setOpen] = useState(false);
@@ -121,10 +121,10 @@ export function AnalysisSubTable({
                           <DatePicker value={completedDate} onChange={updateRow('completedDate', i)} />
                         </div>
                         <div className="col-span-2 text-center">
-                          <SearchSelectCell
+                          <AdSearchSelectCell
                             options={userOptions}
-                            defaultValue={userOptions.find((user) => user.label === PIC || user.alias === PIC)}
-                            onBlur={(user) => user.alias && updateRow('PIC', i)(user.alias)}
+                            defaultValue={{ value: PIC, label: PIC }}
+                            onBlur={(user) => user.label && updateRow('PIC', i)(user.label)}
                           />
                         </div>
                         <div className="col-span-1 text-center">
@@ -161,9 +161,7 @@ export function AnalysisSubTable({
                         <div className="col-span-1 pl-4">{contribution && `${contribution} %`}</div>
                         <div className="col-span-1 text-center">{dd}</div>
                         <div className="col-span-1 text-center">{completedDate}</div>
-                        <div className="col-span-2 text-center px-2">
-                          {userOptions.find((user) => user.label === PIC || user.alias === PIC)?.label}
-                        </div>
+                        <div className="col-span-2 text-center px-2">{PIC}</div>
                         <div className="col-span-1 text-center space-x-2">
                           <EditableIconButton
                             onClick={() =>

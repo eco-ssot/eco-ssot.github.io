@@ -117,7 +117,7 @@ const COLUMNS = addPaddingColumns([
     id: 'waste',
     Header: () => (
       <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-        <div className="px-2">benefit</div>
+        <div className="px-2">廢棄物</div>
         <div className="px-2 text-gray-400 text-sm">手動更新</div>
       </div>
     ),
