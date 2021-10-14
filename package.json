@@ -40,9 +40,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js,.jsx src",
     "test": "craco test",
-    "test-ci": "craco test --watchAll=false",
-    "test-debug": "craco --inspect-brk test --runInBand --no-cache",
-    "coverage": "craco test --coverage --watchAll=false"
+    "test:ci": "craco test --coverage --watchAll=false",
+    "test:coverage": "craco test --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"

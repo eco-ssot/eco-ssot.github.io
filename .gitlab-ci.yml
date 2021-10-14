@@ -3,7 +3,19 @@ image: $CI_REGISTRY_IMAGE
 variables:
   DOCKER_TLS_CERTDIR: ''
 
+cache: &global_cache
+  paths:
+    - node_modules/
+  policy: pull-push
+
+.install_packages: &install_packages
+  - |
+    if [[ ! -d "node_modules" ]]; then
+        yarn install --network-timeout 1000000
+    fi
+
 stages:
+  - test
   - deploy
 
 .swpc-runner:
@@ -65,3 +77,22 @@ deploy:prod:
     variables:
       - $CI_COMMIT_TAG =~ /prod|prd/
   extends: .deploy
+
+test:
+  stage: test
+  only:
+    - testing
+    - master
+  before_script:
+    - *install_packages
+  script:
+    - yarn test:ci
+  artifacts:
+    paths:
+      - coverage/
+    expire_in: 1h
+  dependencies: []
+  allow_failure: true
+  tags:
+    - aws
+    - m4-large
