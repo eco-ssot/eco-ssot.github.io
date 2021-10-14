@@ -79,6 +79,7 @@ deploy:prod:
   extends: .deploy
 
 test:
+  image: node:14
   stage: test
   only:
     - testing
