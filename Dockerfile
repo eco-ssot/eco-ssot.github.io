@@ -3,7 +3,7 @@
 # 2) nginx stage to serve frontend assets
 
 # Name the node stage "builder"
-FROM node:12 AS builder
+FROM node:14 AS builder
 
 ARG STAGE
 # Set working directory
@@ -12,6 +12,9 @@ WORKDIR /app
 COPY . .
 # Remove mock files
 RUN rm -rf /app/src/__mocks__
+RUN rm -rf /app/src/__tests__
+RUN rm /app/src/setupTests.js
+
 # install node modules and build assets
 RUN yarn install --network-timeout 1000000 && yarn build:${STAGE} && yarn cache clean
 

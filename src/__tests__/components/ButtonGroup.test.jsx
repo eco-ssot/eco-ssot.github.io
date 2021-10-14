@@ -1,13 +1,15 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import ButtonGroup from './ButtonGroup';
+import ButtonGroup from '../../components/button/ButtonGroup';
 
 test('ButtonGroup', () => {
-  const { container } = render(<ButtonGroup />);
-  expect(container.firstChild).toMatchInlineSnapshot(`
-    <div
-      class="relative z-0 inline-flex shadow-sm rounded-md"
-    />
+  const { asFragment } = render(<ButtonGroup />);
+  expect(asFragment()).toMatchInlineSnapshot(`
+    <DocumentFragment>
+      <div
+        class="relative z-0 inline-flex shadow-sm rounded-md"
+      />
+    </DocumentFragment>
   `);
 });
 
