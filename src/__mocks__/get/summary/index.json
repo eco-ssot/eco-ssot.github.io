@@ -14,7 +14,7 @@
       "compareYear": 578.544711693252,
       "compareYTM": 598.7042841636,
       "currentYTM": 512.431424429296,
-      "target": "對比去年下降 2 %",
+      "target": "下降 2 %",
       "targetAmount": 566.973817459387
     }
   },
@@ -26,8 +26,8 @@
     "baseYear": 267964.901764152,
     "compareYTM": 145700.331019428,
     "currentYTM": 127562.417348453,
-    "target": "逐年下降 4.2 %",
-    "targetAmount": 211692.27239368
+    "target": "下降 21 %",
+    "targetAmount": 211692.2723936801
   },
   "waterUse": {
     "latestDate": "2021-06-01",
@@ -38,24 +38,24 @@
       "baseYear": 6.73211819684123,
       "compareYTM": 6.23568181857929,
       "currentYTM": 5.27950018534054,
-      "target": "逐年下降 1.8 %",
-      "targetAmount": 6.73211819684123
+      "target": "下降 9 %",
+      "targetAmount": 6.126227559125519
     }
   },
   "waste": {
     "latestDate": "2021-06-01",
-    "compareYear": 18.5046859547536,
-    "currentYear": 18.1925053442244,
-    "gradient": -0.01687035442225404,
+    "compareYear": 18504.6859547536,
+    "currentYear": 18192.505344224403,
+    "gradient": -0.01687035442225393,
     "intensity": {
       "baseYear": 51.43,
       "compareYTM": 57.0993453448034,
       "currentYTM": 52.6804194206149,
-      "target": "對比基準年下降 2%",
-      "targetAmount": 50.4014
+      "target": "下降 2 %",
+      "targetAmount": 50.401399999999995
     }
   },
-  "totalPowerSaving": { "amount": 3963.31067451468, "digital": 562.176315930963, "manage": 3401.13435858372 },
+  "totalPowerSaving": { "amount": 3956.39785221854, "digital": 555.26349363482, "manage": 3401.13435858372 },
   "renewableEnergy": {
     "nonRenewableEnergy": 0.982629032147111,
     "selfConstructedSolarEnergy": 0.0173709678528887,
@@ -64,10 +64,10 @@
     "target": "占比 > 60 %"
   },
   "singleElectric": {
-    "compareYear": 3.10661618942834,
-    "compareYTM": 3.12516185311127,
-    "currentYTM": 3.3586934423991,
-    "target": "對比去年下降 3%",
-    "targetAmount": 3.01341770374548
+    "compareYear": 3.8468550304140865,
+    "compareYTM": 4.019723419233266,
+    "currentYTM": 3.7423465170456227,
+    "target": "下降 3 %",
+    "targetAmount": 3.5503604902134103
   }
 }

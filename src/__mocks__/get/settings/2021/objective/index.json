@@ -1,52 +1,45 @@
 {
   "data": [
     {
-      "id": 2,
-      "category": "可再生能源",
-      "baseYear": null,
-      "target": "占比 > 60 %",
-      "amount": null,
-      "unit": "%"
-    },
-    {
-      "id": 3,
+      "id": 15,
       "category": "用電強度",
       "baseYear": null,
-      "target": "對比去年下降 2 %",
-      "amount": 100,
+      "target": "下降 2 %",
+      "amount": 566.973817459387,
       "unit": "千度 / 十億新臺幣"
     },
     {
-      "id": 4,
+      "id": 16,
       "category": "用水強度",
       "baseYear": 2016,
-      "target": "逐年下降 1.8 %",
-      "amount": 80,
+      "target": "下降 9 %",
+      "amount": 6.126227559125519,
       "unit": "千噸 / 十億新臺幣"
     },
     {
-      "id": 5,
+      "id": 13,
+      "category": "碳排放量",
+      "baseYear": 2016,
+      "target": "下降 21 %",
+      "amount": 211692.2723936801,
+      "unit": "公噸"
+    },
+    {
+      "id": 17,
       "category": "單台用電",
       "baseYear": null,
-      "target": "對比去年下降 3%",
-      "amount": 100,
+      "target": "下降 3 %",
+      "amount": 3.5503604902134103,
       "unit": "度 / 臺"
     },
     {
-      "id": 6,
+      "id": 18,
       "category": "廢棄物密度",
       "baseYear": 2018,
-      "target": "對比基準年下降 2%",
-      "amount": 50.4,
+      "target": "下降 2 %",
+      "amount": 50.401399999999995,
       "unit": "公噸 / 十億新臺幣"
     },
-    {
-      "id": 1,
-      "category": "碳排放",
-      "baseYear": 2016,
-      "target": "逐年下降 4.2%",
-      "amount": 241231,
-      "unit": "公噸"
-    }
+    { "id": 14, "category": "可再生能源", "baseYear": null, "target": "占比 > 60 %", "amount": 0.6, "unit": "%" }
   ]
 }
