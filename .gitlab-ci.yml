@@ -110,12 +110,11 @@ test:
     TARGET: https://eco-ssot-2021-dev.k8sprd-whq.k8s.wistron.com
   before_script:
     - docker pull owasp/zap2docker-stable
-    - docker cp $CI_PROJECT_DIR/zap.conf $CI_REGISTRY_IMAGE:/zap/wrk/zap.conf
   script:
-    - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t $TARGET -c zap.config -r zap-report.html
+    - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t $TARGET -r zap-report.html
   artifacts:
     paths:
-      - zap-report.html
+      - [zap-report.html]
 
 zap:dev:
   only:
