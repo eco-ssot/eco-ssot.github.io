@@ -114,7 +114,7 @@ test:
     - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t $TARGET -r zap-report.html
   artifacts:
     paths:
-      - [zap-report.html]
+      - zap-report.html
 
 zap:dev:
   only:
