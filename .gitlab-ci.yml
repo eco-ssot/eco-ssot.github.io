@@ -102,7 +102,7 @@ test:
   image: owasp/zap2docker-stable
   services:
     - docker:19.03.8-dind
-  stage: zp
+  stage: zap
   only:
     - zap
     - dev
