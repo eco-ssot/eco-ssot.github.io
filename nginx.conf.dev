@@ -12,7 +12,6 @@ server {
         add_header Cache-Control 'no-cache, no-store, must-revalidate';
         add_header X-Frame-Options 'SAMEORIGIN';
         add_header X-Content-Type-Options 'nosniff';
-        add_header Content-Security-Policy "default-src 'self'; form-action 'self'; frame-ancestors 'self'; connect-src 'self' https://keycloak-prd.wistron.com/ https://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/ https://api.openweathermap.org/";
         if_modified_since off;
         expires off;
         etag off;
