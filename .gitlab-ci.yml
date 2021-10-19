@@ -16,8 +16,8 @@ cache: &global_cache
 
 stages:
   - test
-  - zap
   - deploy
+  - zap
 
 .swpc-runner:
   tags:
@@ -122,7 +122,6 @@ zap:dev:
 
 zap:prod:
   only:
-    - zap
     - master
   variables:
     TARGET: http://eco-ssot-2021-prd.k8sprd-whq.k8s.wistron.com
