@@ -112,13 +112,10 @@ test:
     - docker pull owasp/zap2docker-stable
     - mkdir output; chgrp -f 1000 output; chmod 770 output; cd output
   script:
-    - docker run --rm -v $(pwd):/zap/wrk owasp/zap2docker-stable zap-baseline.py -t $TARGET -J zap-output.json
+    - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t $TARGET -g gen.conf -r testreport.html
   artifacts:
     paths:
-      - output/zap-output.json
-  tags:
-    - aws
-    - m4-large
+      - output/testreport.html
 
 zap:dev:
   only:
