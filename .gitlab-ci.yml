@@ -110,11 +110,12 @@ test:
     TARGET: https://eco-ssot-2021-dev.k8sprd-whq.k8s.wistron.com
   before_script:
     - docker pull owasp/zap2docker-stable
+    - mkdir output; chgrp -f 1000 output; chmod 770 output; cd output
   script:
     - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t $TARGET -r zap-report.html
   artifacts:
     paths:
-      - zap-report.html
+      - output/zap-report.html
 
 zap:dev:
   only:
