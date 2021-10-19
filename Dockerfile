@@ -14,6 +14,7 @@ COPY . .
 RUN rm -rf /app/src/__mocks__
 RUN rm -rf /app/src/__tests__
 RUN rm /app/src/setupTests.js
+RUN mv /app/nginx.conf.${STAGE} /app/nginx.conf
 
 # install node modules and build assets
 RUN yarn install --network-timeout 1000000 && yarn build:${STAGE} && yarn cache clean
