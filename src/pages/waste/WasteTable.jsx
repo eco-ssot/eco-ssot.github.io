@@ -1,10 +1,13 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import { get } from 'lodash';
 import qs from 'query-string';
 import { Link } from 'react-router-dom';
 
+import Button from '../../components/button/Button';
 import Dot from '../../components/dot/Dot';
+import FileInput from '../../components/input/FileInput';
+import Modal from '../../components/modal/Modal';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
@@ -152,6 +155,34 @@ const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
     ),
   ]);
 
+export function UploadModal({ open, setOpen }) {
+  const [name, setName] = useState('');
+  const fileRef = useRef();
+  return (
+    <Modal open={open} setOpen={setOpen} title="匯入廢棄物資料" footer={<Button className="mb-8">Import</Button>}>
+      <form className="p-8 flex flex-col items-start space-y-4">
+        <div>請選擇欲匯入之Excel檔</div>
+        <div className="flex items-center space-x-4 w-full">
+          <FileInput
+            id="excel"
+            type="file"
+            value={name}
+            onChange={(e) => {
+              const file = Array.from(e.target.files)[0];
+              fileRef.current = file;
+              setName(e.target.value);
+            }}
+            accept=".xlsx,xls"
+          />
+          <label htmlFor="excel" className="underline cursor-pointer">
+            Browse
+          </label>
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
 export default function WasteTable({ business }) {
   const { data } = useGetWasteQuery({ business });
   const { label, pct, baseYear } = useGoal({ keyword: '廢棄物密度' });
@@ -160,8 +191,10 @@ export default function WasteTable({ business }) {
     [business, pct, baseYear, data?.maxDate]
   );
 
+  const [open, setOpen] = useState(false);
   return (
     <>
+      <UploadModal open={open} setOpen={setOpen} />
       <DualTag
         className="absolute top-2 right-4"
         labels={[
@@ -171,6 +204,9 @@ export default function WasteTable({ business }) {
           label,
         ]}
       />
+      <Button className="self-end" onClick={() => setOpen(true)}>
+        Import
+      </Button>
       {data && (
         <>
           <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
