@@ -4,10 +4,18 @@ import MockDate from 'mockdate';
 import TimeInfo from '../../components/time-info/TimeInfo';
 
 test('TimeInfo', () => {
-  MockDate.set('2021-10-21T08:00:00.000Z');
+  MockDate.set('2021/10/21');
 
-  const { queryByText } = render(<TimeInfo />);
-  expect(queryByText(/2021年 10月 21日/i)).toBeInTheDocument();
+  const { asFragment } = render(<TimeInfo />);
+  expect(asFragment()).toMatchInlineSnapshot(`
+    <DocumentFragment>
+      <div
+        class="block truncate"
+      >
+        2021年 10月 21日 00:00
+      </div>
+    </DocumentFragment>
+  `);
 
   MockDate.reset();
 });

@@ -4,7 +4,7 @@ import { renderWithProviders } from '../../__mocks__/helpers';
 import Layout from '../../components/layout/Layout';
 
 test('Layout', () => {
-  MockDate.set('2021-10-21T08:00:00.000Z');
+  MockDate.set('2021/10/21');
 
   const { asFragment } = renderWithProviders(<Layout />);
   expect(asFragment()).toMatchInlineSnapshot(`
@@ -246,7 +246,7 @@ test('Layout', () => {
             <div
               class="block truncate"
             >
-              2021年 10月 21日 16:00
+              2021年 10月 21日 00:00
             </div>
             <div
               class="block truncate"
