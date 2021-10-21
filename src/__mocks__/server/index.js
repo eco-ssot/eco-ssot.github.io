@@ -9,6 +9,7 @@ import { summary } from './summary';
 import { unitElectricity } from './unitElectricity';
 import { waste } from './waste';
 import { water } from './water';
+import { weather } from './weather';
 
 const server = setupServer(
   ...app,
@@ -19,7 +20,8 @@ const server = setupServer(
   ...electricity,
   ...water,
   ...unitElectricity,
-  ...waste
+  ...waste,
+  ...weather
 );
 
 export { server };
