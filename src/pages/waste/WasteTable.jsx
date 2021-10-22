@@ -1,10 +1,12 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { UploadIcon } from '@heroicons/react/outline';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { Link } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
+import IconButton from '../../components/button/IconButton';
 import Dot from '../../components/dot/Dot';
 import FileInput from '../../components/input/FileInput';
 import Modal from '../../components/modal/Modal';
@@ -17,7 +19,7 @@ import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
-const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) => [
+const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE, setOpen = () => {} } = {}) => [
   {
     key: 'nonRecyclable',
     name: '不可回收類重量 (公噸)',
@@ -119,13 +121,30 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
   },
   {
     key: 'recycleRate',
-    name: <div className="text-right">廢棄物回收率</div>,
-    renderer: (cell) => ratioFormatter(cell, { precision: 2 }),
+    name: <div className="text-center">廢棄物回收率</div>,
+    renderer: (cell) => {
+      const value = ratioFormatter(cell, { precision: 2 });
+      if (cell.row.original.subRows.length > 0) {
+        return (
+          <div className="relative ">
+            {value}
+            <IconButton
+              className="absolute ml-2 p-1 bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
+              onClick={() => setOpen(true)}>
+              <UploadIcon className="w-5 h-5" />
+            </IconButton>
+          </div>
+        );
+      }
+
+      return value;
+    },
     rowSpan: 0,
+    className: 'text-center',
   },
 ];
 
-const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE } = {}) =>
+const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE, setOpen = () => {} } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -133,7 +152,7 @@ const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ business, pct, maxDate, baseYear }).map(
+    ...HEADERS({ business, pct, maxDate, baseYear, setOpen }).map(
       ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
         Header: name,
         Cell: renderer,
@@ -158,8 +177,18 @@ const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
 export function UploadModal({ open, setOpen }) {
   const [name, setName] = useState('');
   const fileRef = useRef();
+  useEffect(() => !open && setName(''), [open]);
   return (
-    <Modal open={open} setOpen={setOpen} title="匯入廢棄物資料" footer={<Button className="mb-8">Import</Button>}>
+    <Modal
+      open={open}
+      setOpen={setOpen}
+      title="匯入廢棄物資料"
+      footer={
+        <Button className="mb-8" onClick={() => setOpen(false)}>
+          <UploadIcon className="w-5 h-5 mr-2" />
+          Import
+        </Button>
+      }>
       <form className="p-8 flex flex-col items-start space-y-4">
         <div>請選擇欲匯入之Excel檔</div>
         <div className="flex items-center space-x-4 w-full">
@@ -186,12 +215,12 @@ export function UploadModal({ open, setOpen }) {
 export default function WasteTable({ business }) {
   const { data } = useGetWasteQuery({ business });
   const { label, pct, baseYear } = useGoal({ keyword: '廢棄物密度' });
+  const [open, setOpen] = useState(false);
   const columns = useMemo(
-    () => COLUMNS({ business, pct, lastYear: baseYear, maxDate: data?.maxDate }),
+    () => COLUMNS({ business, pct, lastYear: baseYear, maxDate: data?.maxDate, setOpen }),
     [business, pct, baseYear, data?.maxDate]
   );
 
-  const [open, setOpen] = useState(false);
   return (
     <>
       <UploadModal open={open} setOpen={setOpen} />
@@ -204,9 +233,6 @@ export default function WasteTable({ business }) {
           label,
         ]}
       />
-      <Button className="hidden self-end" onClick={() => setOpen(true)}>
-        Import
-      </Button>
       {data && (
         <>
           <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
