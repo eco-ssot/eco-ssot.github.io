@@ -8,8 +8,8 @@ import { addPaddingColumns } from '../../utils/table';
 
 const STATUS_MAPPING = {
   0: 'bg-gray-50',
-  1: 'bg-primary-500',
-  2: 'bg-dangerous-700',
+  2: 'bg-primary-500',
+  1: 'bg-dangerous-700',
 };
 
 const statusRenderer = (cell) => {
