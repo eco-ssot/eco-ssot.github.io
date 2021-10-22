@@ -1,0 +1,14 @@
+{
+  "revenue": { "compareYear": 67.11669299148512, "currentYear": 65.36679750660463, "gradient": -0.026072433054806554 },
+  "shipment": { "compareYear": 0, "currentYear": 0, "gradient": "Infinity" },
+  "ASP": { "compareYear": 0, "currentYear": 0, "gradient": "Infinity" },
+  "electrcity": { "compareYear": 14677385, "currentYear": 20187015, "gradient": 0.37538226325738533 },
+  "electrcityIntensity": {
+    "compareYear": 218684.56781477705,
+    "currentYear": 308826.74033342866,
+    "gradient": 0.41220180015171826,
+    "ASP": 0,
+    "ASPGradient": -1,
+    "target": 214310.8764584815
+  }
+}

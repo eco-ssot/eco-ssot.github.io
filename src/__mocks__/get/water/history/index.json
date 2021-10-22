@@ -1,0 +1,238 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 69978.93954410308, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 78560.2156521453, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 10284.844236760124, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 17834.17554962007, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 4099.554498556361, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 6203.269399493933, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 14154.25615706217, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 7686.474296541743, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": null, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 21118.717077957903, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 2992.4961338164803, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 3717.883274708868, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 10858.53147502288, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 12792.558147978689, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 6882.938149665559, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 12670.914920391157, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 12055.51046997405, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 12473.137478024133, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 8013.985712223184, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 7917.962506019598, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2016", "billiRevenue": 80433.44568718274, "gradient": "Infinity" },
+            { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+            { "year": "2020", "billiRevenue": 26735.7269950344, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 2333.455943822103, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 674.7642816892484, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 19575.769039749757, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 7459.329462671107, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 438.0650994575045, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 120.38759770353039, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 3914.353552313989, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 1680.346260884888, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 1630.6711771338923, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 950.642320608568, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 6732.118196841234, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": -1 },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": 5970.64586007728, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": null, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2016", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2017", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2018", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2019", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2020", "billiRevenue": null, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    }
+  ]
+}

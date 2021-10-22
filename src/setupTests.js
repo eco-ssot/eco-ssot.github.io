@@ -5,6 +5,8 @@
 import '@testing-library/jest-dom/extend-expect';
 import echarts from 'echarts/lib/echarts';
 
+import packageJson from '../package.json';
+
 import { server } from './__mocks__/server';
 
 // make debug output for TestingLibrary Errors larger
@@ -51,3 +53,5 @@ Object.defineProperty(window, 'getComputedStyle', {
     },
   }),
 });
+
+packageJson.version = '0.7.13';

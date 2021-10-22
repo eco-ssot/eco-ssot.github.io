@@ -3,6 +3,8 @@ import { setupServer } from 'msw/node';
 import { app } from './app';
 import { carbon } from './carbon';
 import { electricity } from './electricity';
+import { keycloakAdmin } from './keycloakAdmin';
+import { management } from './management';
 import { overall } from './overview';
 import { renewableEnergy } from './renewableEnergy';
 import { summary } from './summary';
@@ -21,7 +23,9 @@ const server = setupServer(
   ...water,
   ...unitElectricity,
   ...waste,
-  ...weather
+  ...weather,
+  ...keycloakAdmin,
+  ...management
 );
 
 export { server };

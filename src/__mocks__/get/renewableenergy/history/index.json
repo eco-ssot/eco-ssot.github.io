@@ -1,0 +1,238 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 23187298.133333333, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 92193793.96000001, "percent": 0.006104393536989871 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 38964165.83235641, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 3433859.483756833, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 11989652.663514161, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 15886844.141366234, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 7653809.543719184, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 125079527.27442141, "percent": 0.006407432175064617 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 51170474.665982164, "percent": 0.0156621292401806 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 27129141.60148622, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 19800716.864491276, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2016", "electricity": 0, "percent": 0 },
+            { "year": "2017", "electricity": 0, "percent": 0 },
+            { "year": "2018", "electricity": 0, "percent": 0 },
+            { "year": "2019", "electricity": 0, "percent": 0 },
+            { "year": "2020", "electricity": 26979194.14246174, "percent": 0 },
+            { "year": "2021", "electricity": 0, "percent": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 34342494, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 18090312.566089477, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 5186219.359999999, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 14845883.391333334, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 30530401.94623656, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 401828546.86377054, "percent": 0.0033950444739370518 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 6898443, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2016", "electricity": 0, "percent": 0 },
+        { "year": "2017", "electricity": 0, "percent": 0 },
+        { "year": "2018", "electricity": 0, "percent": 0 },
+        { "year": "2019", "electricity": 0, "percent": 0 },
+        { "year": "2020", "electricity": 12510007.4, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

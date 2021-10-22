@@ -1,0 +1,15 @@
+{
+  "revenue": { "compareYear": 2.4571856534514063, "currentYear": 4.526474684803065, "gradient": 0.8421378451583823 },
+  "shipment": { "compareYear": 5846, "currentYear": 8772, "gradient": 0.5005131713992474 },
+  "ASP": { "compareYear": 0.42031913333072296, "currentYear": 0.5160139859556617, "gradient": 0.227671892703591 },
+  "waste": { "baseYear": 1481.51, "currentYear": 1252.5904605964845, "gradient": -0.15451771463136632 },
+  "wasteIntensity": {
+    "target": 199.94956396961408,
+    "baseYear": 225.04960727573376,
+    "compareYear": 204.03016731593274,
+    "currentYear": 276.72538737527066,
+    "ASP": 339.72798007813304,
+    "currentAndCompareGradient": 0.3562964291783979,
+    "ASPandCompareGradient": 0.6650870042765664
+  }
+}

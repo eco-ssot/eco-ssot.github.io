@@ -1,0 +1,15 @@
+{
+  "data": [
+    { "id": 8, "site": "WMX", "amount": 0.505, "lastUpdateTime": "2020-08-14T00:00:00+00:00" },
+    { "id": 9, "site": "WCZ", "amount": 0.428, "lastUpdateTime": "2021-06-01T00:00:00+00:00" },
+    { "id": 10, "site": "WOK", "amount": 0.7921, "lastUpdateTime": "2020-11-29T00:00:00+00:00" },
+    { "id": 4, "site": "WKS", "amount": 0.7921, "lastUpdateTime": "2020-11-29T00:00:00+00:00" },
+    { "id": 11, "site": "WTZ", "amount": 0.7921, "lastUpdateTime": "2020-11-29T00:00:00+00:00" },
+    { "id": 3, "site": "WIH", "amount": 0.509, "lastUpdateTime": "2021-05-07T00:00:00+00:00" },
+    { "id": 5, "site": "WZS", "amount": 0.8042, "lastUpdateTime": "2020-11-29T00:00:00+00:00" },
+    { "id": 6, "site": "WCQ", "amount": 0.8587, "lastUpdateTime": "2021-02-13T00:00:00+00:00" },
+    { "id": 7, "site": "WCD", "amount": 0.8587, "lastUpdateTime": "2020-12-30T00:00:00+00:00" },
+    { "id": 2, "site": "WHC", "amount": 0.509, "lastUpdateTime": "2021-05-07T00:00:00+00:00" },
+    { "id": 1, "site": "WNH", "amount": 0.509, "lastUpdateTime": "2021-05-07T00:00:00+00:00" }
+  ]
+}
