@@ -84,7 +84,8 @@
       "src/**/*.{js,jsx}",
       "!/node_modules/",
       "!src/serviceWorker.js",
-      "!src/index.js"
+      "!src/index.js",
+      "!src/**/*.prod.js"
     ]
   }
 }

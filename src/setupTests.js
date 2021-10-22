@@ -15,7 +15,7 @@ process.env.DEBUG_PRINT_LIMIT = '15000';
 process.env.REACT_APP_MOCK_API = '0';
 process.env.REACT_APP_MOCK_KEYCLOAK = '1';
 process.env.REACT_APP_API_BASE_URL =
-  'https://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/api';
+  'http://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/api';
 
 process.env.REACT_APP_KEYCLOAK_REALM = 'k8sprdwhqecossot2021';
 process.env.REACT_APP_KEYCLOAK_URL = 'https://keycloak-prd.wistron.com/auth';
