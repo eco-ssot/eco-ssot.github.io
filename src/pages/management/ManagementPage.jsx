@@ -14,10 +14,12 @@ import DataStatusPage from './DataStatusPage';
 import GoalPage from './GoalPage';
 import PicPage from './PicPage';
 
-export function Nav({ children, to, pathname }) {
+export function Nav({ hidden, children, to, pathname }) {
   const match = pathname.endsWith(to);
   return (
-    <Link to={to} className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10')}>
+    <Link
+      to={to}
+      className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10', hidden && 'hidden')}>
       {match && <div className="absolute w-1 h-full bg-primary-600"></div>}
       <div className={clsx('ml-4', match && 'font-medium')}>{children}</div>
     </Link>
@@ -60,7 +62,7 @@ export default function ManagementPage() {
               <Nav to="/management/data-status" pathname={pathname}>
                 資料更新狀態
               </Nav>
-              <Nav to="/management/pic" pathname={pathname}>
+              <Nav hidden to="/management/pic" pathname={pathname}>
                 資料維護PIC
               </Nav>
             </div>
