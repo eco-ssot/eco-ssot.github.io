@@ -204,7 +204,7 @@ export default function WasteTable({ business }) {
           label,
         ]}
       />
-      <Button className="self-end" onClick={() => setOpen(true)}>
+      <Button className="hidden self-end" onClick={() => setOpen(true)}>
         Import
       </Button>
       {data && (

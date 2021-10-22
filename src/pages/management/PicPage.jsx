@@ -13,6 +13,7 @@ import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../s
 const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
   { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
   {
+    hidden: true,
     id: 'opm',
     Header: () => (
       <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
@@ -126,7 +127,7 @@ export default function PicPage({ canEdit, users }) {
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
-  const columns = COLUMNS({ canEdit, userOptions, setData, patchDataStatusPic });
+  const columns = COLUMNS({ canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

@@ -62,7 +62,7 @@ export default function ManagementPage() {
               <Nav to="/management/data-status" pathname={pathname}>
                 資料更新狀態
               </Nav>
-              <Nav hidden to="/management/pic" pathname={pathname}>
+              <Nav to="/management/pic" pathname={pathname}>
                 資料維護PIC
               </Nav>
             </div>
