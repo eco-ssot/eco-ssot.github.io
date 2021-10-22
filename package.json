@@ -41,7 +41,8 @@
     "lint:fix": "eslint --fix --ext .js,.jsx src",
     "test": "craco test",
     "test:ci": "craco test --coverage --watchAll=false",
-    "test:coverage": "craco test --coverage --watchAll=false"
+    "test:coverage": "craco test --coverage --watchAll=false",
+    "test:update-snapshot": "craco test --updateSnapshot"
   },
   "eslintConfig": {
     "extends": "react-app"

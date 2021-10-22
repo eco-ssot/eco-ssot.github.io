@@ -256,7 +256,7 @@ test('HistorySearch', () => {
           <a
             class="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
             download=""
-            href="https://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/api/undefined/download?dimension=All&endMonth=12&endYear=2021&monthType=YTM&startMonth&startYear=2016"
+            href="http://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/api/undefined/download?dimension=All&endMonth=12&endYear=2021&monthType=YTM&startMonth&startYear=2016"
             rel="noopener noreferrer"
             target="_blank"
           >
