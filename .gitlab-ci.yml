@@ -96,6 +96,9 @@ test:
     expire_in: 1h
   dependencies: []
   allow_failure: true
+  tags:
+    - aws
+    - m4-large
 
 .zap:
   services:
