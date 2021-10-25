@@ -85,6 +85,7 @@ test:
   only:
     - testing
     - master
+    - tags
   before_script:
     - *install_packages
   script:
