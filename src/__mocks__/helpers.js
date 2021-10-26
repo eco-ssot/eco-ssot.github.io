@@ -35,4 +35,8 @@ async function getHistoryData(resource, req) {
   return data;
 }
 
-export { renderWithProviders, getHistoryData };
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export { renderWithProviders, getHistoryData, sleep };

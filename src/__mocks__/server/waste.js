@@ -18,6 +18,12 @@ const waste = [
   rest.get(`${process.env.REACT_APP_API_BASE_URL}/waste/anaysis/explanation`, (req, res, ctx) => {
     return res(ctx.json(explanationJson));
   }),
+  rest.patch(`${process.env.REACT_APP_API_BASE_URL}/waste/anaysis/explanation/:id`, (req, res, ctx) => {
+    return res(ctx.json({ id: 1 }));
+  }),
+  rest.post(`${process.env.REACT_APP_API_BASE_URL}/waste/anaysis/explanation`, (req, res, ctx) => {
+    return res(ctx.json({ id: 1 }));
+  }),
 ];
 
 export { waste };
