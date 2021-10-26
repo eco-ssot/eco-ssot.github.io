@@ -1,0 +1,358 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 1950.6737781 },
+        { "year": "2021", "month": "2", "carbon": 1783.6531563 },
+        { "year": "2021", "month": "3", "carbon": 2174.4451965000003 },
+        { "year": "2021", "month": "4", "carbon": 1969.6635835 },
+        { "year": "2021", "month": "5", "carbon": 2248.0796046 },
+        { "year": "2021", "month": "6", "carbon": 2604.7772845 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 4015.555409523 },
+        { "year": "2021", "month": "2", "carbon": 2857.1102447000003 },
+        { "year": "2021", "month": "3", "carbon": 2730.9846607229997 },
+        { "year": "2021", "month": "4", "carbon": 3214.052390423 },
+        { "year": "2021", "month": "5", "carbon": 3067.624784423 },
+        { "year": "2021", "month": "6", "carbon": 4516.9119361230005 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 2856.4995356000004 },
+        { "year": "2021", "month": "2", "carbon": 2147.9755908 },
+        { "year": "2021", "month": "3", "carbon": 2556.8892948000002 },
+        { "year": "2021", "month": "4", "carbon": 2098.5731059 },
+        { "year": "2021", "month": "5", "carbon": 2285.1435478000003 },
+        { "year": "2021", "month": "6", "carbon": 2640.7156536 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 1395.354552568103 },
+            { "year": "2021", "month": "2", "carbon": 970.0324415442059 },
+            { "year": "2021", "month": "3", "carbon": 1171.7410131409795 },
+            { "year": "2021", "month": "4", "carbon": 1015.8718776417932 },
+            { "year": "2021", "month": "5", "carbon": 1057.3932805435388 },
+            { "year": "2021", "month": "6", "carbon": 1347.740432667762 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 682.1158660690543 },
+            { "year": "2021", "month": "2", "carbon": 457.6521043980626 },
+            { "year": "2021", "month": "3", "carbon": 566.8769323620209 },
+            { "year": "2021", "month": "4", "carbon": 532.8732883076968 },
+            { "year": "2021", "month": "5", "carbon": 579.680625708835 },
+            { "year": "2021", "month": "6", "carbon": 673.0071683084843 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 183.87407268347926 },
+            { "year": "2021", "month": "2", "carbon": 190.85087235767745 },
+            { "year": "2021", "month": "3", "carbon": 218.20204623374212 },
+            { "year": "2021", "month": "4", "carbon": 112.42261565236669 },
+            { "year": "2021", "month": "5", "carbon": 176.22387491663653 },
+            { "year": "2021", "month": "6", "carbon": 67.35519227955892 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 595.1550442793637 },
+            { "year": "2021", "month": "2", "carbon": 529.4401725000545 },
+            { "year": "2021", "month": "3", "carbon": 600.0693030632577 },
+            { "year": "2021", "month": "4", "carbon": 437.40532429814334 },
+            { "year": "2021", "month": "5", "carbon": 471.84576663098966 },
+            { "year": "2021", "month": "6", "carbon": 552.6128603441947 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 6180.340144504813 },
+        { "year": "2021", "month": "2", "carbon": 5409.277909654903 },
+        { "year": "2021", "month": "3", "carbon": 7535.171142893547 },
+        { "year": "2021", "month": "4", "carbon": 7487.094388806259 },
+        { "year": "2021", "month": "5", "carbon": 8675.399582388594 },
+        { "year": "2021", "month": "6", "carbon": 9064.2767737758 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 1390.7442049789947 },
+            { "year": "2021", "month": "2", "carbon": 1259.712767295528 },
+            { "year": "2021", "month": "3", "carbon": 1894.971423078298 },
+            { "year": "2021", "month": "4", "carbon": 2033.573104245105 },
+            { "year": "2021", "month": "5", "carbon": 2477.8690925222695 },
+            { "year": "2021", "month": "6", "carbon": 2536.7761659002126 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 1197.1804792305647 },
+            { "year": "2021", "month": "2", "carbon": 967.0306924142354 },
+            { "year": "2021", "month": "3", "carbon": 1273.6740674853788 },
+            { "year": "2021", "month": "4", "carbon": 1243.17436554333 },
+            { "year": "2021", "month": "5", "carbon": 1548.2201108567526 },
+            { "year": "2021", "month": "6", "carbon": 1520.766426003381 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 2561.989535356772 },
+            { "year": "2021", "month": "2", "carbon": 2340.708993748228 },
+            { "year": "2021", "month": "3", "carbon": 3226.695680001096 },
+            { "year": "2021", "month": "4", "carbon": 2995.1960928980193 },
+            { "year": "2021", "month": "5", "carbon": 3276.82600639308 },
+            { "year": "2021", "month": "6", "carbon": 3573.4865444838947 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2021", "month": "1", "carbon": 1030.4259249384809 },
+            { "year": "2021", "month": "2", "carbon": 841.825456196912 },
+            { "year": "2021", "month": "3", "carbon": 1139.8299723287741 },
+            { "year": "2021", "month": "4", "carbon": 1215.150826119805 },
+            { "year": "2021", "month": "5", "carbon": 1372.4843726164922 },
+            { "year": "2021", "month": "6", "carbon": 1433.2476373883117 },
+            { "year": "2021", "month": "7", "carbon": 0 },
+            { "year": "2021", "month": "8", "carbon": 0 },
+            { "year": "2021", "month": "9", "carbon": 0 },
+            { "year": "2021", "month": "10", "carbon": 0 },
+            { "year": "2021", "month": "11", "carbon": 0 },
+            { "year": "2021", "month": "12", "carbon": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 1247.1288100000002 },
+        { "year": "2021", "month": "2", "carbon": 1354.71502 },
+        { "year": "2021", "month": "3", "carbon": 1755.43656 },
+        { "year": "2021", "month": "4", "carbon": 1693.13269 },
+        { "year": "2021", "month": "5", "carbon": 1999.99998 },
+        { "year": "2021", "month": "6", "carbon": 2144.029515 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 783.7589409787697 },
+        { "year": "2021", "month": "2", "carbon": 577.6426183394836 },
+        { "year": "2021", "month": "3", "carbon": 871.614145 },
+        { "year": "2021", "month": "4", "carbon": 833.9013170000001 },
+        { "year": "2021", "month": "5", "carbon": 870.4314619592476 },
+        { "year": "2021", "month": "6", "carbon": 964.8012014899529 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 210.0965544 },
+        { "year": "2021", "month": "2", "carbon": 176.96111539999998 },
+        { "year": "2021", "month": "3", "carbon": 206.0342566 },
+        { "year": "2021", "month": "4", "carbon": 216.93307116 },
+        { "year": "2021", "month": "5", "carbon": 236.62670364 },
+        { "year": "2021", "month": "6", "carbon": 233.99490168 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 1092.3360932 },
+        { "year": "2021", "month": "2", "carbon": 627.5843298000001 },
+        { "year": "2021", "month": "3", "carbon": 673.2654524000001 },
+        { "year": "2021", "month": "4", "carbon": 668.6121571000001 },
+        { "year": "2021", "month": "5", "carbon": 724.4611464 },
+        { "year": "2021", "month": "6", "carbon": 724.4611464 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 1910.5490714666666 },
+        { "year": "2021", "month": "2", "carbon": 1897.6841481 },
+        { "year": "2021", "month": "3", "carbon": 2532.4096862928573 },
+        { "year": "2021", "month": "4", "carbon": 2589.004450607142 },
+        { "year": "2021", "month": "5", "carbon": 2829.4568496666666 },
+        { "year": "2021", "month": "6", "carbon": 2844.4652544333335 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 20895.339331773248 },
+        { "year": "2021", "month": "2", "carbon": 17517.48400909439 },
+        { "year": "2021", "month": "3", "carbon": 21786.94997320941 },
+        { "year": "2021", "month": "4", "carbon": 21585.824232496405 },
+        { "year": "2021", "month": "5", "carbon": 23711.819796877506 },
+        { "year": "2021", "month": "6", "carbon": 25738.43366700209 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 465.861887 },
+        { "year": "2021", "month": "2", "carbon": 404.45447 },
+        { "year": "2021", "month": "3", "carbon": 489.460418 },
+        { "year": "2021", "month": "4", "carbon": 508.36171 },
+        { "year": "2021", "month": "5", "carbon": 478.849321 },
+        { "year": "2021", "month": "6", "carbon": 0 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2021", "month": "1", "carbon": 182.539107 },
+        { "year": "2021", "month": "2", "carbon": 280.425406 },
+        { "year": "2021", "month": "3", "carbon": 261.23916 },
+        { "year": "2021", "month": "4", "carbon": 306.495368 },
+        { "year": "2021", "month": "5", "carbon": 295.746815 },
+        { "year": "2021", "month": "6", "carbon": 0 },
+        { "year": "2021", "month": "7", "carbon": 0 },
+        { "year": "2021", "month": "8", "carbon": 0 },
+        { "year": "2021", "month": "9", "carbon": 0 },
+        { "year": "2021", "month": "10", "carbon": 0 },
+        { "year": "2021", "month": "11", "carbon": 0 },
+        { "year": "2021", "month": "12", "carbon": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

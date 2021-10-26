@@ -18,4 +18,21 @@ function renderWithProviders(ui, { preloadedState = {}, ...renderOptions } = {})
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
 
-export { renderWithProviders };
+async function getHistoryData(resource, req) {
+  const monthType = req.url.searchParams.get('monthType');
+  const startYear = req.url.searchParams.get('startYear');
+  const endYear = req.url.searchParams.get('endYear');
+  let type = monthType;
+  if (monthType === 'YTM') {
+    type = 'index';
+  }
+
+  if (startYear && endYear && startYear === endYear) {
+    type = 'sameYear';
+  }
+
+  const { default: data } = await import(`./get/${resource}/history/${type}.json`);
+  return data;
+}
+
+export { renderWithProviders, getHistoryData };
