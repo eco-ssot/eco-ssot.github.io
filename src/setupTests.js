@@ -4,6 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 import echarts from 'echarts/lib/echarts';
+import { JSDOM } from 'jsdom';
 
 import packageJson from '../package.json';
 
@@ -20,6 +21,10 @@ process.env.REACT_APP_API_BASE_URL =
 process.env.REACT_APP_KEYCLOAK_REALM = 'k8sprdwhqecossot2021';
 process.env.REACT_APP_KEYCLOAK_URL = 'https://keycloak-prd.wistron.com/auth';
 process.env.REACT_APP_KEYCLOAK_CLIENT_ID = 'eco-ssot-frontend';
+
+const dom = new JSDOM();
+global.document = dom.window.document;
+global.window = dom.window;
 
 let echartsSpy;
 

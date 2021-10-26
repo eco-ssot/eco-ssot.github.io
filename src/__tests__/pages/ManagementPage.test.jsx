@@ -16,7 +16,7 @@ describe('ManagementPage', () => {
 
 describe('Goal Page', () => {
   it('handles good response', async () => {
-    const { queryByText } = renderWithProviders(<GoalPage />);
+    const { queryByText } = renderWithProviders(<GoalPage canEdit={true} />);
     expect(queryByText(/年度目標/i)).toBeInTheDocument();
     await waitFor(() => expect(queryByText(/用電強度/i)).toBeInTheDocument());
     await waitFor(() => expect(queryByText(/WNH/i)).toBeInTheDocument());

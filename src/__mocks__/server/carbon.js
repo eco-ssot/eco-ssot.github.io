@@ -1,9 +1,6 @@
 import { rest } from 'msw';
 
 import carbonJson from '../get/carbon';
-import carbonHistoryJson from '../get/carbon/history';
-import carbonHistorySameYearJson from '../get/carbon/history/sameYear.json';
-import carbonHistorySingleJson from '../get/carbon/history/single.json';
 import { getHistoryData } from '../helpers';
 
 const carbon = [

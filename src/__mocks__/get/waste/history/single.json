@@ -1,0 +1,238 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 225.04960727573376, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 280.0988516666079, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 51.84214750735754, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 105.89981466856004, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 33.313168034688104, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 35.23705795001141, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 33.313168034688104, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 21.872472444419888, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 33.313168034688104, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 239.16387183751914, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 33.313168034688104, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": null, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 33.313168034688104, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 32.74009677531556, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 84.24677982705236, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 104.69531311522012, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 84.24677982705236, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 142.659754132653, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 84.24677982705236, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 95.4390706303706, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 84.24677982705236, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 77.49561414247091, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+            { "year": "2018", "intensity": 84.24677982705236, "gradient": "Infinity" },
+            { "year": "2019", "intensity": 0, "gradient": -1 },
+            { "year": "2020", "intensity": 121.37649595288877, "gradient": "Infinity" },
+            { "year": "2021", "intensity": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 25.62240863175757, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 39.39955738331563, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 14.736060483326584, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 35.18156522427788, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 25.35232843137255, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 19.179426531043298, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 64.5781409278766, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 67.04324133932981, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 52.751812001980824, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 28.656589793404063, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 51.43, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": -1 },
+        { "year": "2020", "intensity": 52.18889891119046, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2020", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": "Infinity" }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2016", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2017", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2018", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2019", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2020", "intensity": 0, "gradient": "Infinity" },
+        { "year": "2021", "intensity": 0, "gradient": "Infinity" }
+      ],
+      "plants": []
+    }
+  ]
+}
