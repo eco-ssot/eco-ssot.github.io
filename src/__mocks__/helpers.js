@@ -18,6 +18,12 @@ function renderWithProviders(ui, { preloadedState = {}, ...renderOptions } = {})
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
 
+const storeWrapper = ({ children }) => (
+  <BrowserRouter>
+    <Provider store={store}>{children}</Provider>
+  </BrowserRouter>
+);
+
 async function getHistoryData(resource, req) {
   const monthType = req.url.searchParams.get('monthType');
   const startYear = req.url.searchParams.get('startYear');
@@ -39,4 +45,4 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export { renderWithProviders, getHistoryData, sleep };
+export { renderWithProviders, getHistoryData, storeWrapper, sleep };

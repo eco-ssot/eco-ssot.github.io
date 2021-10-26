@@ -66,6 +66,7 @@
     "@testing-library/dom": "^8.1.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "9",
     "cross-env": "^7.0.3",
@@ -86,7 +87,8 @@
       "!/node_modules/",
       "!src/serviceWorker.js",
       "!src/**/index.js",
-      "!src/**/*.prod.js"
+      "!src/**/*.prod.js",
+      "!src/keycloak/*"
     ]
   }
 }
