@@ -14,7 +14,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { useGetWasteQuery } from '../../services/waste';
+import { useGetWasteQuery, useUploadWasteExcelMutation } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
@@ -129,7 +129,7 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
           <div className="relative ">
             {value}
             <IconButton
-              className="hidden absolute ml-2 p-1 bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
+              className="absolute ml-2 p-1 bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
               onClick={() => setOpen(true)}>
               <UploadIcon className="w-5 h-5" />
             </IconButton>
@@ -174,17 +174,24 @@ const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
     ),
   ]);
 
-export function UploadModal({ open, setOpen }) {
+export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
   const [name, setName] = useState('');
   const fileRef = useRef();
   useEffect(() => !open && setName(''), [open]);
+  useEffect(() => !!isSuccess && setOpen(false), [isSuccess, setOpen]);
   return (
     <Modal
       open={open}
       setOpen={setOpen}
       title="匯入廢棄物資料"
       footer={
-        <Button className="mb-8" onClick={() => setOpen(false)}>
+        <Button
+          className="mb-8"
+          onClick={() => {
+            const formData = new FormData();
+            formData.append('file', fileRef.current);
+            uploadExcel(formData);
+          }}>
           <UploadIcon className="w-5 h-5 mr-2" />
           Import
         </Button>
@@ -215,6 +222,7 @@ export function UploadModal({ open, setOpen }) {
 export default function WasteTable({ business }) {
   const { data } = useGetWasteQuery({ business });
   const { label, pct, baseYear } = useGoal({ keyword: '廢棄物密度' });
+  const [uploadExcel, { isSuccess }] = useUploadWasteExcelMutation();
   const [open, setOpen] = useState(false);
   const columns = useMemo(
     () => COLUMNS({ business, pct, lastYear: baseYear, maxDate: data?.maxDate, setOpen }),
@@ -223,7 +231,7 @@ export default function WasteTable({ business }) {
 
   return (
     <>
-      <UploadModal open={open} setOpen={setOpen} />
+      <UploadModal open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
       <DualTag
         className="absolute top-2 right-4"
         labels={[

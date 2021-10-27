@@ -105,6 +105,13 @@ export const wasteApi = createApi({
       }),
       invalidatesTags: ['EXPLANATION'],
     }),
+    uploadWasteExcel: builder.mutation({
+      query: (formData) => ({
+        url: 'waste/upload',
+        method: 'POST',
+        data: formData,
+      }),
+    }),
   }),
 });
 
@@ -119,4 +126,5 @@ export const {
   usePatchWasteImprovementMutation,
   useDeleteWasteExplanationMutation,
   useDeleteWasteImprovementMutation,
+  useUploadWasteExcelMutation,
 } = wasteApi;
