@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { UploadIcon } from '@heroicons/react/outline';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import qs from 'query-string';
 import { Link } from 'react-router-dom';
 
@@ -188,6 +188,10 @@ export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
         <Button
           className="mb-8"
           onClick={() => {
+            if (isNil(fileRef.current)) {
+              return;
+            }
+
             const formData = new FormData();
             formData.append('file', fileRef.current);
             uploadExcel(formData);
