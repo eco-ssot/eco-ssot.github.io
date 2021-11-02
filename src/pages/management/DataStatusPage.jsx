@@ -133,7 +133,7 @@ function getLabel() {
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
   return (
     <>
-      <div>{`下表為${month}月資料狀態`}</div>
+      <div>{`下表為${month - 1 === 0 ? 12 : month - 1}月資料狀態`}</div>
       <div>{`預計下次更新: ${nextMonth}/10, CSR預計下次更新: ${nextMonth}/30`}</div>
     </>
   );
