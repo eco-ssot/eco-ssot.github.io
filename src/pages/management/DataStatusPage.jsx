@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { format, subMonths } from 'date-fns';
+import { subMonths } from 'date-fns';
 
 import Legend from '../../components/legend/Legend';
 import Table from '../../components/table/Table';
@@ -131,7 +131,12 @@ function getLabel() {
   const date = now.getDate();
   const month = (date < 10 ? subMonths(now, 1) : now).getMonth() + 1;
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
-  return `${month}月資料狀態, 預計下次更新: ${nextMonth}/10, CSR預計下次更新: ${nextMonth}/30`;
+  return (
+    <>
+      <div>{`下表為${month}月資料狀態`}</div>
+      <div>{`預計下次更新: ${nextMonth}/10, CSR預計下次更新: ${nextMonth}/30`}</div>
+    </>
+  );
 }
 
 export default function DataStatusPage() {
@@ -139,7 +144,7 @@ export default function DataStatusPage() {
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-2">
-        <div className="text-xl font-medium">{getLabel()}</div>
+        <div className="text-xl font-medium space-y-2">{getLabel()}</div>
         <div className="flex justify-end space-x-4">
           <Legend dotClassName="bg-gray-50" label="無資料" />
           <Legend dotClassName="bg-primary-500" label="已更新" />
