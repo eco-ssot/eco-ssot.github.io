@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { UploadIcon } from '@heroicons/react/outline';
 import { get, isNil } from 'lodash';
 import qs from 'query-string';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
@@ -178,7 +179,13 @@ export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
   const [name, setName] = useState('');
   const fileRef = useRef();
   useEffect(() => !open && setName(''), [open]);
-  useEffect(() => !!isSuccess && setOpen(false), [isSuccess, setOpen]);
+  useEffect(() => {
+    if (!!isSuccess) {
+      toast.success('上傳成功');
+      setOpen(false);
+    }
+  }, [isSuccess, setOpen]);
+
   return (
     <Modal
       open={open}

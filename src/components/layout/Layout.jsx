@@ -1,11 +1,12 @@
+import { Toaster } from 'react-hot-toast';
+
 import Header from '../header/Header';
-import Notification from '../notification/Notification';
 import Spinner from '../spinner/Spinner';
 
 export default function Layout({ children }) {
   return (
     <>
-      <Notification />
+      <Toaster />
       <Spinner />
       <div className="dark:bg-gray-900 dark:text-gray-50">
         <Header className="flex fixed w-full h-16" />
