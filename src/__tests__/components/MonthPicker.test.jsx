@@ -18,7 +18,7 @@ test('MonthPicker', () => {
             <input
               class=""
               type="text"
-              value="10/2021"
+              value="11/2021"
             />
           </div>
         </div>

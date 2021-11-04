@@ -12,13 +12,8 @@ test('App', async () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
-        aria-live="assertive"
-        class="z-50 fixed inset-0 flex px-4 py-6 pointer-events-none p-6 items-start"
-      >
-        <div
-          class="w-full flex flex-col space-y-4 items-end"
-        />
-      </div>
+        style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
+      />
       <div
         class="fixed flex items-center justify-center inset-0 transition-all z-50 bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen opacity-0 invisible"
       >

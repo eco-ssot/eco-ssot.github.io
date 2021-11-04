@@ -84,6 +84,8 @@ test:
   stage: test
   only:
     - testing
+    - master
+    - tags
   before_script:
     - *install_packages
   script:
@@ -104,8 +106,8 @@ test:
   stage: zap
   only:
     - zap
-    - dev
-    - master
+    # - dev
+    # - master
   variables:
     TARGET: https://eco-ssot-2021-dev.k8sprd-whq.k8s.wistron.com
   before_script:
@@ -113,16 +115,15 @@ test:
   script:
     - docker run -t owasp/zap2docker-stable zap-baseline.py -t $TARGET
   allow_failure: true
+# zap:dev:
+#   only:
+#     - zap
+#     - dev
+#   extends: .zap
 
-zap:dev:
-  only:
-    - zap
-    - dev
-  extends: .zap
-
-zap:prod:
-  only:
-    - master
-  variables:
-    TARGET: http://eco-ssot-2021-prd.k8sprd-whq.k8s.wistron.com
-  extends: .zap
+# zap:prod:
+#   only:
+#     - master
+#   variables:
+#     TARGET: http://eco-ssot-2021-prd.k8sprd-whq.k8s.wistron.com
+#   extends: .zap
