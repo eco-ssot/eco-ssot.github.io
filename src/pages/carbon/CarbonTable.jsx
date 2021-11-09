@@ -9,7 +9,7 @@ import useGoal from '../../hooks/useGoal';
 import { useGetCarbonQuery } from '../../services/carbon';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
   {
@@ -68,6 +68,7 @@ const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CO
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
+      Cell: noDataRenderer,
     },
     ...HEADERS({ t, pct, currYear, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,

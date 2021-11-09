@@ -31,7 +31,9 @@ module.exports = {
         },
         dangerous: {
           500: '#FF4E4E',
+          600: '#D23B5F',
           700: '#D23B5F',
+          900: '#69061E',
         },
         divider: '#707070',
         unit: '#D6D6D6',

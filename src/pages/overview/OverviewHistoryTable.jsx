@@ -4,14 +4,14 @@ import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import Table from '../../components/table/Table';
-import { useGetOverviewQuery } from '../../services/overview';
+import { useGetOverviewHistoryQuery } from '../../services/overview';
 
 import { COLUMNS } from './OverviewTable';
 
 export default function OverviewHistoryTable({ business, year, dimension }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const option = { year, dimension };
-  const { data } = useGetOverviewQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetOverviewHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
   const columns = useMemo(() => COLUMNS({ t, currYear: year, lastYear: year - 1 }), [year, t]);
   return (
     <>

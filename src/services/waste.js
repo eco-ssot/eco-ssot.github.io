@@ -3,22 +3,22 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery, sortExplanationsById } from './helpers';
+import { axiosBaseQuery, siteNoData, sortExplanationsById } from './helpers';
 
-export function toRow({
-  site,
-  unrecoverableGeneral,
-  unrecoverableGazardous,
-  recoverableGeneral,
-  recoverableResource,
-  total,
-  currentYTM,
-  intensityCurrentYTM,
-  intensityBaseYear,
-  intensityGradient,
-  recoveryRate,
-  plants = [],
-} = {}) {
+export function toRow({ plants = [], ...data } = {}) {
+  const {
+    site,
+    unrecoverableGeneral,
+    unrecoverableGazardous,
+    recoverableGeneral,
+    recoverableResource,
+    total,
+    currentYTM,
+    intensityCurrentYTM,
+    intensityBaseYear,
+    intensityGradient,
+    recoveryRate,
+  } = data;
   return {
     site,
     total,
@@ -39,6 +39,7 @@ export function toRow({
     },
     subRows: plants.map(toRow),
     ...(site === 'Total' && { isFooter: true }),
+    ...(siteNoData(data, plants) && { noData: true }),
   };
 }
 

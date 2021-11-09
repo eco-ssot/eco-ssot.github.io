@@ -2,6 +2,7 @@ import { sortBy } from 'lodash';
 import qs from 'query-string';
 
 import axios from '../axios';
+import APP_CONFIG from '../constants/app-config';
 
 export const axiosBaseQuery =
   ({ baseUrl = '/' } = {}) =>
@@ -34,4 +35,9 @@ export function sortExplanationsById(res) {
       ({ id }) => id
     ),
   };
+}
+
+export function siteNoData(row = {}, subRows = []) {
+  const noValue = (obj) => Object.values(obj).some((val) => val === APP_CONFIG.NO_DATA);
+  return noValue(row) || subRows.some(noValue);
 }

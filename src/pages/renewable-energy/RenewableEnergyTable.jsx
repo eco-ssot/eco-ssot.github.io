@@ -8,7 +8,7 @@ import useGoal from '../../hooks/useGoal';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct } = {}) => [
   {
@@ -60,6 +60,7 @@ const COLUMNS = ({ t, pct } = {}) =>
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
+      Cell: noDataRenderer,
     },
     ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,

@@ -8,7 +8,7 @@ import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
 
 export const HEADERS = [
   { key: 'electricity' },
@@ -24,6 +24,7 @@ export const COLUMNS = ({ t, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
+      Cell: noDataRenderer,
     },
     ...HEADERS.map(({ key, renderer = baseFormatter }) => ({
       id: key,

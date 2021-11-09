@@ -3,23 +3,23 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery, siteNoData } from './helpers';
 
-export function toRow({
-  name,
-  co2Coefficient,
-  co2CurrentYear,
-  co2Electric,
-  co2Gradient,
-  co2baseYear,
-  scope1,
-  scope2,
-  solarElectric,
-  tRec,
-  totalElectric,
-  target,
-  plants = [],
-} = {}) {
+export function toRow({ plants = [], ...data } = {}) {
+  const {
+    name,
+    co2Coefficient,
+    co2CurrentYear,
+    co2Electric,
+    co2Gradient,
+    co2baseYear,
+    scope1,
+    scope2,
+    solarElectric,
+    tRec,
+    totalElectric,
+    target,
+  } = data;
   return {
     target,
     site: name,
@@ -39,6 +39,7 @@ export function toRow({
     },
     subRows: plants.map(toRow),
     ...(name === 'Total' && { isFooter: true }),
+    ...(siteNoData(data, plants) && { noData: true }),
   };
 }
 

@@ -86,8 +86,10 @@ const LANGUAGE_OPTIONS = [
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
+const NO_DATA = 'No Data';
 
 const APP_CONFIG = {
+  NO_DATA,
   BUSINESS_OPTIONS,
   YEAR_OPTIONS,
   HISTORY_OPTIONS,

@@ -13,7 +13,7 @@ import useGoal from '../../hooks/useGoal';
 import { useGetWaterQuery } from '../../services/water';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({
   t,
@@ -126,6 +126,7 @@ const COLUMNS = ({
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
+      Cell: noDataRenderer,
     },
     ...HEADERS({ t, business, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,

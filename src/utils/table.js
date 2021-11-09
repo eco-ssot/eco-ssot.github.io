@@ -25,3 +25,11 @@ export const EXPAND_COLUMN = {
   },
   rowSpan: 0,
 };
+
+export function noDataRenderer(cell) {
+  if (cell.row.original.noData) {
+    return <div className="bg-dangerous-900 rounded border border-dangerous-600 px-1">{cell.value}</div>;
+  }
+
+  return cell.value;
+}

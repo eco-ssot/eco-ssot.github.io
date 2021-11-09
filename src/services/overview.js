@@ -3,28 +3,28 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery, siteNoData } from './helpers';
 
-export function toRow({
-  site,
-  ASPCompareYear,
-  ASPCurrentYear,
-  ASPGradient,
-  ASPWeight,
-  electricCompareYear,
-  electricCurrentYear,
-  electricGradient,
-  electricWeight,
-  revenueCompareYear,
-  revenueCurrentYear,
-  revenueGradient,
-  revenueWeight,
-  waterUseCompareYear,
-  waterUseCurrentYear,
-  waterUseGradient,
-  waterUseWeight,
-  plants = [],
-} = {}) {
+export function toRow({ plants = [], ...data } = {}) {
+  const {
+    site,
+    ASPCompareYear,
+    ASPCurrentYear,
+    ASPGradient,
+    ASPWeight,
+    electricCompareYear,
+    electricCurrentYear,
+    electricGradient,
+    electricWeight,
+    revenueCompareYear,
+    revenueCurrentYear,
+    revenueGradient,
+    revenueWeight,
+    waterUseCompareYear,
+    waterUseCurrentYear,
+    waterUseGradient,
+    waterUseWeight,
+  } = data;
   return {
     site,
     electricity: {
@@ -53,6 +53,7 @@ export function toRow({
     },
     subRows: plants.map(toRow),
     ...(site === 'Total' && { isFooter: true }),
+    ...(siteNoData(data, plants) && { noData: true }),
   };
 }
 
@@ -74,7 +75,14 @@ export const overviewApi = createApi({
         return { maxDate, data: [...records, ...total].map(toRow) };
       },
     }),
+    getOverviewHistory: builder.query({
+      query: (query) => ({ query, url: 'overall/history' }),
+      transformResponse: (res) => {
+        const [total, records] = partition(res.data, ({ site }) => site === 'Total');
+        return { data: [...records, ...total].map(toRow) };
+      },
+    }),
   }),
 });
 
-export const { useGetOverviewQuery } = overviewApi;
+export const { useGetOverviewQuery, useGetOverviewHistoryQuery } = overviewApi;

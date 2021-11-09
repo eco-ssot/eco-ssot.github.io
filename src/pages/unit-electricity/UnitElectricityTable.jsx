@@ -9,7 +9,7 @@ import useGoal from '../../hooks/useGoal';
 import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
@@ -60,6 +60,7 @@ const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CO
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
+      Cell: noDataRenderer,
     },
     ...HEADERS({ t, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
