@@ -33,10 +33,11 @@ export default function HomePage() {
   );
 
   return (
-    <div className="grid grid-rows-3 grid-cols-12 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
+    <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
         title={t('overviewTitle')}
-        className="row-span-1 col-span-11"
+        className="row-span-1 col-span-8"
+        title="各數值 Overview"
         to="/overview"
         subtitle={
           <TagSelect
@@ -54,8 +55,8 @@ export default function HomePage() {
         className="row-span-1 col-span-1"
         subtitle={<div className="text-xl font-medium text-gray-100">資料缺漏 Site</div>}>
         <div className="flex flex-col h-full w-full items-center">
-          <div className="flex flex-grow"></div>
-          <div className="border-t border-primary-600 w-full p-2 flex justify-center">
+          <div className="flex flex-grow overflow-auto"></div>
+          <div className="border-t border-primary-600 w-full p-2 pb-0 flex justify-center">
             <Link to="/management/data-status" className="underline">
               <div>前往後台設定</div>
               <div>查看資料詳情</div>
@@ -63,7 +64,7 @@ export default function HomePage() {
           </div>
         </div>
       </Panel>
-      <Panel className="row-span-1 col-span-4 pb-2" title={t('carbonEmission')} to="/carbon">
+      <Panel className="row-span-1 col-span-3 pb-2" title={t('carbonEmission')} to="/carbon">
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
@@ -72,10 +73,10 @@ export default function HomePage() {
           latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-4 pb-1" title={t('renewableEnergyRatio')} to="/renewable-energy">
+      <Panel className="row-span-1 col-span-3 pb-1" title={t('renewableEnergyRatio')} to="/renewable-energy">
         <RenewableEnergy data={renewableEnergy} />
       </Panel>
-      <Panel className="row-span-1 col-span-4 pb-2" title={t('electricityIntensity')} to="/electricity">
+      <Panel className="row-span-1 col-span-3 pb-2" title={t('electricityIntensity')} to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_ELECTRICITY}
@@ -84,7 +85,7 @@ export default function HomePage() {
           latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-4 pb-2" title={t('waterIntensity')} to="/water">
+      <Panel className="row-span-1 col-span-3 pb-2" title={t('waterIntensity')} to="/water">
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
@@ -93,7 +94,7 @@ export default function HomePage() {
           latestDate={waterUse?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-4 pb-2" title={t('unitElectricity')} to="/unit-electricity">
+      <Panel className="row-span-1 col-span-3 pb-2" title={t('unitElectricity')} to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
@@ -102,7 +103,7 @@ export default function HomePage() {
           latestDate={singleElectric?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-4 pb-2" title={t('wasteEmissionDensity')} to="/waste">
+      <Panel className="row-span-1 col-span-3 pb-2" title={t('wasteEmissionDensity')} to="/waste">
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}
