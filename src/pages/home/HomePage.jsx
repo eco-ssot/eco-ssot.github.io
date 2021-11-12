@@ -53,7 +53,7 @@ export default function HomePage() {
         <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />
       </Panel>
       <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
-        <div className="text-xl font-medium text-gray-100">資料缺漏 Site</div>
+        <div className="text-xl font-medium text-gray-100">資料缺漏 Plant</div>
         <div className="grid grid-cols-2 overflow-y-auto max-h-[60%] ">
           {missing?.map((val, i) => (
             <div key={i} className="text-center">
