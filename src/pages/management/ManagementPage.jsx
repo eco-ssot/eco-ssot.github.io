@@ -3,8 +3,7 @@ import { useCallback } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation, Link } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import useAdmin from '../../hooks/useAdmin';
