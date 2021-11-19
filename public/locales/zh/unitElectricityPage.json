@@ -1,0 +1,17 @@
+{
+  "title": "單台用電",
+  "table": {
+    "electricity": {
+      "header": "用電量 (度)",
+      "delta": "增減率 (b/a-1)"
+    },
+    "production": {
+      "header": "生產量 (台)",
+      "delta": "增減率 (d/c-1)"
+    },
+    "unitElectricity": {
+      "header": "單台用電 (度)",
+      "delta": "增減率 (f/e-1)"
+    }
+  }
+}

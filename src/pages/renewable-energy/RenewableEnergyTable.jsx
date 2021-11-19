@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
@@ -8,21 +10,21 @@ import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
-const HEADERS = ({ pct } = {}) => [
+const HEADERS = ({ t, pct } = {}) => [
   {
     key: 'electricity',
-    name: '用電量 (度)',
+    name: t('renewableEnergyPage:table.electricity.header'),
     subHeaders: [
-      { key: 'total', name: '總用電量 (a)' },
-      { key: 'sun', name: '太陽能發電 (b)' },
-      { key: 'tRec', name: '綠證 (c)' },
+      { key: 'total', name: t('renewableEnergyPage:table.electricity.total') },
+      { key: 'sun', name: t('renewableEnergyPage:table.electricity.sun') },
+      { key: 'tRec', name: t('renewableEnergyPage:table.electricity.tRec') },
     ],
   },
   {
     key: 'ratio',
     name: (
       <>
-        <div className="text-right">占比 (%)</div>
+        <div className="text-right">{t('renewableEnergyPage:table.ratio.header')}</div>
         <div className="text-right">( (b+c) / a )</div>
       </>
     ),
@@ -33,7 +35,7 @@ const HEADERS = ({ pct } = {}) => [
     key: 'tRecTarget',
     name: (
       <>
-        <div className="text-right">再生能源綠證目標 (度)</div>
+        <div className="text-right">{t('renewableEnergyPage:table.tRec.header')}</div>
         <div className="text-right">{`( a*${ratioFormatter(pct)} - b )`}</div>
       </>
     ),
@@ -41,17 +43,17 @@ const HEADERS = ({ pct } = {}) => [
   },
   {
     key: 'roofRestArea',
-    name: '屋頂剩餘可用面積 (M²)',
+    name: t('renewableEnergyPage:table.roof.area'),
     rowSpan: 0,
   },
   {
     key: 'roofStructure',
-    name: '屋頂結構 (RC / 鋼結構)',
+    name: t('renewableEnergyPage:table.roof.structure'),
     rowSpan: 0,
   },
 ];
 
-const COLUMNS = ({ pct } = {}) =>
+const COLUMNS = ({ t, pct } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -59,7 +61,7 @@ const COLUMNS = ({ pct } = {}) =>
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
+    ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,
       Cell: renderer,
       ...(subHeaders && {
@@ -78,23 +80,25 @@ const COLUMNS = ({ pct } = {}) =>
   ]);
 
 export default function RenewableEnergyTable({ business }) {
+  const { t } = useTranslation(['renewableEnergyPage', 'common']);
   const { data } = useGetRenewableEnergyQuery({ business });
   const { label, pct } = useGoal({ keyword: '可再生能源' });
-  const columns = useMemo(() => COLUMNS({ pct }), [pct]);
+  const columns = useMemo(() => COLUMNS({ t, pct }), [pct, t]);
   return (
     <>
       <DualTag
         className="absolute top-2 right-4"
         labels={[
           <>
-            累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+            {t('common:accumulationRange')}：
+            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
           </>,
           label,
         ]}
       />
       {data && (
         <>
-          <div className="w-full h-6 text-right">* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電</div>
+          <div className="w-full h-6 text-right">{t('renewableEnergyPage:ratioDesc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
             <Table columns={columns} data={data?.data || []} />
           </div>

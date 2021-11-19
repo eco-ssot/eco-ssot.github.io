@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
@@ -9,23 +11,23 @@ import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
-const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
+const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
   {
     key: 'electricity',
-    name: '用電量 (度)',
+    name: t('carbonPage:table.electricity.header'),
     subHeaders: [
-      { key: 'total', name: '總用電 (a)' },
-      { key: 'sun', name: '太陽能發電 (b)' },
-      { key: 'tRec', name: '綠證 (c)' },
-      { key: 'carbon', name: '碳排放用電 (d=a-b-c)' },
+      { key: 'total', name: t('carbonPage:table.electricity.total') },
+      { key: 'sun', name: t('carbonPage:table.electricity.sun') },
+      { key: 'tRec', name: t('carbonPage:table.electricity.tRec') },
+      { key: 'carbon', name: t('carbonPage:table.electricity.carbon') },
     ],
   },
   {
     key: 'carbonIndex',
     name: (
       <>
-        <div className="text-right">碳排放係數 (e)</div>
-        <div className="text-right">(公噸CO₂e/千度)</div>
+        <div className="text-right">{t('carbonPage:table.carbonIndex.header')}</div>
+        <div className="text-right">{t('carbonPage:table.carbonIndex.unit')}</div>
       </>
     ),
     rowSpan: 0,
@@ -33,15 +35,15 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
   },
   {
     key: 'carbon',
-    name: '碳排放 (公噸)',
+    name: t('carbonPage:table.carbon.header'),
     subHeaders: [
-      { key: 'scope1', name: 'Scope1碳排 (f)' },
-      { key: 'scope2', name: 'Scope2碳排 (g=d*e/1000)' },
-      { key: 'currYear', name: `${currYear}年碳排 (h=f+g)` },
-      { key: 'baseYear', name: `${baseYear}年碳排 (i)` },
+      { key: 'scope1', name: t('carbonPage:table.carbon.scope1') },
+      { key: 'scope2', name: t('carbonPage:table.carbon.scope2') },
+      { key: 'currYear', name: t('carbonPage:table.carbon.currYear', { currYear }) },
+      { key: 'baseYear', name: t('carbonPage:table.carbon.baseYear', { baseYear }) },
       {
         key: 'delta',
-        name: '增減率 (h/i-1)',
+        name: t('carbonPage:table.carbon.delta'),
         renderer: targetFormatter(-pct, { formatter: ratioFormatter }),
       },
     ],
@@ -50,8 +52,8 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
     key: 'target',
     name: (
       <>
-        <div className="text-right">碳排抵扣綠證目標</div>
-        <div className="text-right">{`(h-i*${ratioFormatter(1 - pct)})*1000/e`}</div>
+        <div className="text-right">{t('carbonPage:table.target.header')}</div>
+        <div className="text-right">{t('carbonPage:table.target.unit', { ratio: ratioFormatter(1 - pct) })}</div>
       </>
     ),
     rowSpan: 0,
@@ -59,7 +61,7 @@ const HEADERS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
   },
 ];
 
-const COLUMNS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) =>
+const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -67,7 +69,7 @@ const COLUMNS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ pct, currYear, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
+    ...HEADERS({ t, pct, currYear, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,
       Cell: renderer,
       ...(subHeaders && {
@@ -86,16 +88,18 @@ const COLUMNS = ({ pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFI
   ]);
 
 export default function CarbonTable({ business }) {
+  const { t } = useTranslation(['carbonPage', 'common']);
   const { data } = useGetCarbonQuery({ business });
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '碳排放量' });
-  const columns = useMemo(() => COLUMNS({ pct, currYear, baseYear }), [pct, currYear, baseYear]);
+  const columns = useMemo(() => COLUMNS({ t, pct, currYear, baseYear }), [pct, currYear, baseYear, t]);
   return (
     <>
       <DualTag
         className="absolute top-2 right-4"
         labels={[
           <>
-            累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+            {t('common:accumulationRange')}：
+            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
           </>,
           label,
         ]}

@@ -1,0 +1,9 @@
+{
+  "title": "Electricity, Water, Revenue, and ASP",
+  "table": {
+    "electricity": "Electricity Consumption (kWh)",
+    "water": "Water Consumption (Ton)",
+    "revenue": "Revenue (Billion NTD)",
+    "asp": "ASP (Thousand NTD / Product)"
+  }
+}

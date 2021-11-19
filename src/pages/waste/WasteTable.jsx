@@ -4,6 +4,7 @@ import { UploadIcon } from '@heroicons/react/outline';
 import { get, isNil } from 'lodash';
 import qs from 'query-string';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
@@ -20,29 +21,37 @@ import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
-const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE, setOpen = () => {} } = {}) => [
+const HEADERS = ({
+  t,
+  business,
+  pct,
+  maxDate,
+  currYear,
+  baseYear = APP_CONFIG.BASE_YEAR_WASTE,
+  setOpen = () => {},
+} = {}) => [
   {
     key: 'nonRecyclable',
-    name: '不可回收類重量 (公噸)',
+    name: t('wastePage:table.nonRecyclable.header'),
     subHeaders: [
       {
         key: 'normal',
-        name: '一般廢棄物 (焚化 & 掩埋)',
+        name: t('wastePage:table.nonRecyclable.normal'),
       },
-      { key: 'harmful', name: '有害廢棄物' },
+      { key: 'harmful', name: t('wastePage:table.nonRecyclable.harmful') },
     ],
   },
   {
     key: 'recyclable',
-    name: '可回收類重量 (公噸)',
+    name: t('wastePage:table.recyclable.header'),
     subHeaders: [
       {
         key: 'normal',
-        name: '一般廢棄物 (其他/廚餘)',
+        name: t('wastePage:table.recyclable.normal'),
       },
       {
         key: 'waste',
-        name: '資源廢棄物 (堆肥 & 資源回收)',
+        name: t('wastePage:table.recyclable.waste'),
       },
     ],
   },
@@ -51,7 +60,7 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
     name: (
       <>
         <div className="text-right">Total</div>
-        <div className="text-right">(公噸)</div>
+        <div className="text-right">({t('common:metricTon')})</div>
       </>
     ),
     rowSpan: 0,
@@ -60,21 +69,21 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
     key: 'revenue',
     name: (
       <>
-        <div className="text-right">{`${formatMonthRange(maxDate)}月營收`}</div>
-        <div className="text-right">(十億台幣)</div>
+        <div className="text-right">{t('wastePage:table.revenue.header', { ytm: formatMonthRange(maxDate) })}</div>
+        <div className="text-right">({t('common:billionNtd')})</div>
       </>
     ),
     rowSpan: 0,
   },
   {
     key: 'waste',
-    name: '廢棄物產生密度 (公噸/十億台幣)',
+    name: t('wastePage:table.waste.header'),
     subHeaders: [
-      { key: 'currYear', name: `${formatMonthRange(maxDate)}月` },
-      { key: 'baseYear', name: `${baseYear}年` },
+      { key: 'currYear', name: formatMonthRange(maxDate) },
+      { key: 'baseYear', name: baseYear },
       {
         key: 'delta',
-        name: '增減率 *',
+        name: t('wastePage:table.waste.delta', { baseYear, currYear }),
         renderer: (cell) => {
           if (cell.row.original.subRows.length > 0) {
             const canExpand = cell.row.original.subRows.some((row) => {
@@ -122,7 +131,7 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
   },
   {
     key: 'recycleRate',
-    name: <div className="text-center">廢棄物回收率</div>,
+    name: <div className="text-center">{t('wastePage:table.recycleRate')}</div>,
     renderer: (cell) => {
       const value = ratioFormatter(cell, { precision: 2 });
       if (cell.row.original.subRows.length > 0) {
@@ -145,7 +154,15 @@ const HEADERS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
   },
 ];
 
-const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE, setOpen = () => {} } = {}) =>
+const COLUMNS = ({
+  t,
+  business,
+  pct,
+  maxDate,
+  currYear,
+  baseYear = APP_CONFIG.BASE_YEAR_WASTE,
+  setOpen = () => {},
+} = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -153,7 +170,7 @@ const COLUMNS = ({ business, pct, maxDate, baseYear = APP_CONFIG.BASE_YEAR_WASTE
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ business, pct, maxDate, baseYear, setOpen }).map(
+    ...HEADERS({ t, business, pct, maxDate, currYear, baseYear, setOpen }).map(
       ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
         Header: name,
         Cell: renderer,
@@ -231,13 +248,14 @@ export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
 }
 
 export default function WasteTable({ business }) {
+  const { t } = useTranslation(['wastePage', 'common']);
   const { data } = useGetWasteQuery({ business });
-  const { label, pct, baseYear } = useGoal({ keyword: '廢棄物密度' });
+  const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
   const [uploadExcel, { isSuccess }] = useUploadWasteExcelMutation();
   const [open, setOpen] = useState(false);
   const columns = useMemo(
-    () => COLUMNS({ business, pct, lastYear: baseYear, maxDate: data?.maxDate, setOpen }),
-    [business, pct, baseYear, data?.maxDate]
+    () => COLUMNS({ t, business, pct, currYear, lastYear: baseYear, maxDate: data?.maxDate, setOpen }),
+    [business, pct, currYear, baseYear, data?.maxDate, t]
   );
 
   return (
@@ -247,14 +265,15 @@ export default function WasteTable({ business }) {
         className="absolute top-2 right-4"
         labels={[
           <>
-            累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+            {t('common:accumulationRange')}：
+            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
           </>,
           label,
         ]}
       />
       {data && (
         <>
-          <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+          <div className="w-full h-6 text-right">{t('wastePage:desc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
             <Table columns={columns} data={data?.data || []} />
           </div>

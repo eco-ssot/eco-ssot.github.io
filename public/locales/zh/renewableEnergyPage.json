@@ -1,0 +1,22 @@
+{
+  "title": "可再生能源占比",
+  "ratioDesc": "* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電",
+  "table": {
+    "electricity": {
+      "header": "用電量 (度)",
+      "total": "總用電量 (a)",
+      "sun": "太陽能發電 (b)",
+      "tRec": "綠證 (c)"
+    },
+    "ratio": {
+      "header": "占比 (%)"
+    },
+    "tRec": {
+      "header": "再生能源綠證目標 (度)"
+    },
+    "roof": {
+      "area": "屋頂剩餘可用面積 (M²)",
+      "structure": "屋頂結構 (RC / 鋼結構)"
+    }
+  }
+}

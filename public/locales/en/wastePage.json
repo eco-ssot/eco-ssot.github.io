@@ -1,0 +1,25 @@
+{
+  "title": "Waste Generation Intensity",
+  "desc": "* General*¹ = Incineration & Landfill, General*¹ = Others & Food Waste",
+  "table": {
+    "nonRecyclable": {
+      "header": "Non-recyclable Waste Weight (Ton)",
+      "normal": "General *¹",
+      "harmful": "Hazardous"
+    },
+    "recyclable": {
+      "header": "Recyclable Waste Weight (Ton)",
+      "normal": "General *²",
+      "waste": "Recyclable(Compost & Recycling)"
+    },
+    "revenue": {
+      "header": "{{ytm}} Revenue"
+    },
+    "waste": {
+      "header": "Waste Generation Intensity (ton/billion NTD)",
+      "delta": "Gap ( ({{currYear}}-{{baseYear}}) / {{baseYear}} )"
+    },
+    "recycleRate": "Waste Recycling Rate"
+  },
+  "upload": {}
+}

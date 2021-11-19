@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { get } from 'lodash';
 import qs from 'query-string';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import Dot from '../../components/dot/Dot';
@@ -14,34 +15,42 @@ import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
-const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
+const HEADERS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
   {
     key: 'electricity',
-    name: '用電量 (度)',
+    name: t('electricityPage:table.electricity.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年 (a)` },
-      { key: 'currYear', name: `${currYear}年 (b)` },
-      { key: 'delta', name: '增減率 (b/a-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      { key: 'lastYear', name: `${lastYear} (a)` },
+      { key: 'currYear', name: `${currYear} (b)` },
+      {
+        key: 'delta',
+        name: t('electricityPage:table.electricity.delta'),
+        renderer: targetFormatter(0, { formatter: ratioFormatter }),
+      },
     ],
   },
   {
     key: 'revenue',
-    name: '營業額 (十億新台幣)',
+    name: t('electricityPage:table.revenue.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年 (c)` },
-      { key: 'currYear', name: `${currYear}年 (d)` },
-      { key: 'delta', name: '增減率 (d/c-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      { key: 'lastYear', name: `${lastYear} (c)` },
+      { key: 'currYear', name: `${currYear} (d)` },
+      {
+        key: 'delta',
+        name: t('electricityPage:table.revenue.delta'),
+        renderer: targetFormatter(0, { formatter: ratioFormatter }),
+      },
     ],
   },
   {
     key: 'revenueElectricity',
-    name: '十億營業額用電 (度)',
+    name: t('electricityPage:table.revenueElectricity.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年 (e=a/c)` },
-      { key: 'currYear', name: `${currYear}年 (f=b/d)` },
+      { key: 'lastYear', name: `${lastYear} (e=a/c)` },
+      { key: 'currYear', name: `${currYear} (f=b/d)` },
       {
         key: 'delta',
-        name: '增減率 (f/e-1)',
+        name: t('electricityPage:table.revenueElectricity.delta'),
         renderer: (cell) => {
           if (cell.row.original.subRows.length > 0) {
             const canExpand = cell.row.original.subRows.some((row) => {
@@ -89,16 +98,20 @@ const HEADERS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
   },
   {
     key: 'asp',
-    name: 'ASP (千台幣/台)',
+    name: t('electricityPage:table.asp.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年 (g)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
-      { key: 'currYear', name: `${currYear}年 (h)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
-      { key: 'delta', name: '增減率 (h/g-1)', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      { key: 'lastYear', name: `${lastYear} (g)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
+      { key: 'currYear', name: `${currYear} (h)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
+      {
+        key: 'delta',
+        name: t('electricityPage:table.asp.delta'),
+        renderer: targetFormatter(0, { formatter: ratioFormatter }),
+      },
     ],
   },
 ];
 
-const COLUMNS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -106,7 +119,7 @@ const COLUMNS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ business, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ t, business, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
@@ -119,16 +132,22 @@ const COLUMNS = ({ business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
   ]);
 
 export default function ElectricityTable({ business }) {
+  const { t } = useTranslation(['electricityPage', 'common']);
   const { data } = useGetElectricityQuery({ business });
   const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
-  const columns = useMemo(() => COLUMNS({ business, currYear, lastYear: baseYear }), [business, currYear, baseYear]);
+  const columns = useMemo(
+    () => COLUMNS({ t, business, currYear, lastYear: baseYear }),
+    [business, currYear, baseYear, t]
+  );
+
   return (
     <>
       <DualTag
         className="absolute top-2 right-4"
         labels={[
           <>
-            累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+            {t('common:accumulationRange')}：
+            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
           </>,
           label,
         ]}

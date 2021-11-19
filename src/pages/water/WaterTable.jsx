@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { get } from 'lodash';
 import qs from 'query-string';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import Dot from '../../components/dot/Dot';
@@ -15,6 +16,7 @@ import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/form
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
 const HEADERS = ({
+  t,
   business,
   pct,
   currYear = APP_CONFIG.CURRENT_YEAR,
@@ -23,46 +25,46 @@ const HEADERS = ({
 } = {}) => [
   {
     key: 'water',
-    name: '用水量 (公噸)',
+    name: t('waterPage:table.water'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年` },
-      { key: 'currYear', name: `${currYear}年` },
-      { key: 'weight', name: '權重', renderer: ratioFormatter },
-      { key: 'delta', name: '增減率', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      { key: 'lastYear', name: lastYear },
+      { key: 'currYear', name: currYear },
+      { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
+      { key: 'delta', name: t('common:gap'), renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
     key: 'revenue',
-    name: '營業額 (十億台幣)',
+    name: t('waterPage:table.revenue'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
-      { key: 'currYear', name: `${currYear}年`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
-      { key: 'weight', name: '權重', renderer: ratioFormatter },
-      { key: 'delta', name: '增減率', renderer: targetFormatter(0, { formatter: ratioFormatter }) },
+      { key: 'lastYear', name: lastYear, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'currYear', name: currYear, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
+      { key: 'delta', name: t('common:gap'), renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
   },
   {
     key: 'revenueWater',
-    name: '十億營業額用水 (公噸)',
+    name: t('waterPage:table.revenueWater'),
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年` },
       { key: 'currYear', name: `${currYear}年` },
-      { key: 'weight', name: '權重', renderer: ratioFormatter },
+      { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       {
         key: 'delta',
-        name: '增減率',
+        name: t('common:gap'),
         renderer: targetFormatter(0, { formatter: ratioFormatter }),
       },
     ],
   },
   {
     key: 'comparison',
-    name: '對比基準年',
+    name: t('waterPage:table.comparison'),
     subHeaders: [
-      { key: 'baseYear', name: `${baseYear}年` },
+      { key: 'baseYear', name: baseYear },
       {
         key: 'delta',
-        name: '增減率',
+        name: t('common:gap'),
         renderer: (cell) => {
           if (cell.row.original.subRows.length > 0) {
             const canExpand = cell.row.original.subRows.some((row) => {
@@ -111,6 +113,7 @@ const HEADERS = ({
 ];
 
 const COLUMNS = ({
+  t,
   business,
   pct,
   currYear = APP_CONFIG.CURRENT_YEAR,
@@ -124,7 +127,7 @@ const COLUMNS = ({
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS({ business, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ t, business, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
@@ -139,11 +142,12 @@ const COLUMNS = ({
   ]);
 
 export default function WaterTable({ business }) {
+  const { t } = useTranslation(['waterPage', 'common']);
   const { data } = useGetWaterQuery({ business });
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(
-    () => COLUMNS({ business, pct, currYear, baseYear, lastYear: currYear - 1 }),
-    [business, pct, currYear, baseYear]
+    () => COLUMNS({ t, business, pct, currYear, baseYear, lastYear: currYear - 1 }),
+    [business, pct, currYear, baseYear, t]
   );
 
   return (
@@ -152,14 +156,15 @@ export default function WaterTable({ business }) {
         className="absolute top-2 right-4"
         labels={[
           <>
-            累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+            {t('common:accumulationRange')}：
+            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
           </>,
           label,
         ]}
       />
       {data && (
         <>
-          <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+          <div className="w-full h-6 text-right">{t('common:gapDesc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg space-y-2">
             <Table columns={columns} data={data?.data || []} />
           </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import Panel from '../../components/panel/Panel';
@@ -17,6 +18,7 @@ import Waste from './Waste';
 import Water from './Water';
 
 export default function HomePage() {
+  const { t } = useTranslation('homePage');
   const compareYear = useSelector(selectYear);
   const business = useSelector(selectBusiness);
   const { data = {} } = useGetSummaryQuery({ business, year: compareYear });
@@ -33,21 +35,21 @@ export default function HomePage() {
     <div className="grid grid-rows-3 grid-cols-3 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
         className="row-span-1 col-span-3"
-        title="各數值 Overview"
+        title={t('overviewTitle')}
         to="/overview"
         subtitle={
           <TagSelect
             options={APP_CONFIG.YEAR_OPTIONS.slice(1)}
-            label="對比年度："
+            label={`${t('compareYear')}：`}
             selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
             onChange={navigate}
             queryKey="year">
-            累計區間：<span className="text-lg font-medium">{formatMonthRange(latestDate)}</span>
+            {t('accumulationRange')}：<span className="text-lg font-medium">{formatMonthRange(latestDate)}</span>
           </TagSelect>
         }>
         <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />
       </Panel>
-      <Panel className="row-span-1 col-span-1 pb-2" title="碳排放量" to="/carbon">
+      <Panel className="row-span-1 col-span-1 pb-2" title={t('carbonEmission')} to="/carbon">
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
@@ -56,10 +58,10 @@ export default function HomePage() {
           latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1 pb-1" title="可再生能源占比" to="/renewable-energy">
+      <Panel className="row-span-1 col-span-1 pb-1" title={t('renewableEnergyRatio')} to="/renewable-energy">
         <RenewableEnergy data={renewableEnergy} />
       </Panel>
-      <Panel className="row-span-1 col-span-1 pb-2" title="用電強度" to="/electricity">
+      <Panel className="row-span-1 col-span-1 pb-2" title={t('electricityIntensity')} to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_ELECTRICITY}
@@ -68,7 +70,7 @@ export default function HomePage() {
           latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1 pb-2" title="用水強度" to="/water">
+      <Panel className="row-span-1 col-span-1 pb-2" title={t('waterIntensity')} to="/water">
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
@@ -77,7 +79,7 @@ export default function HomePage() {
           latestDate={waterUse?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1 pb-2" title="單台用電" to="/unit-electricity">
+      <Panel className="row-span-1 col-span-1 pb-2" title={t('unitElectricity')} to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
@@ -86,7 +88,7 @@ export default function HomePage() {
           latestDate={singleElectric?.latestDate || latestDate}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-1 pb-2" title="廢棄物產生密度" to="/waste">
+      <Panel className="row-span-1 col-span-1 pb-2" title={t('wasteEmissionDensity')} to="/waste">
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}

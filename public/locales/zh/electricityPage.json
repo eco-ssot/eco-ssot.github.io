@@ -1,0 +1,21 @@
+{
+  "title": "十億營業額用電",
+  "table": {
+    "electricity": {
+      "header": "用電量 (度)",
+      "delta": "增減率 (b/a-1)"
+    },
+    "revenue": {
+      "header": "營業額 (十億新台幣)",
+      "delta": "增減率 (d/c-1)"
+    },
+    "revenueElectricity": {
+      "header": "十億營業額用電 (度)",
+      "delta": "增減率 (f/e-1)"
+    },
+    "asp": {
+      "header": "ASP (千台幣/台)",
+      "delta": "增減率 (h/g-1)"
+    }
+  }
+}

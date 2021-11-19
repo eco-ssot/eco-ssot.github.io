@@ -1,0 +1,13 @@
+{
+  "buttonGroup": {
+    "currentYear": "Current Year",
+    "historyYear": "History Years"
+  },
+  "selectLabel": {
+    "searchYear": "Year",
+    "dimension": "Dimension"
+  },
+  "button": {
+    "search": "Search"
+  }
+}

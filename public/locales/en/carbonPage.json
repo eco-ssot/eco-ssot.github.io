@@ -1,0 +1,28 @@
+{
+  "title": "Carbon Emission",
+  "table": {
+    "electricity": {
+      "header": "Electricity Consumption (kWh)",
+      "total": "Total (a)",
+      "sun": "Solar Power (b)",
+      "tRec": "REC (c)",
+      "carbon": "Non-renewable (d=a-b-c)"
+    },
+    "carbonIndex": {
+      "header": "Carbon Emission Factor (e)",
+      "unit": " (Ton CO₂e/MWh)"
+    },
+    "carbon": {
+      "header": "Carbon Emission (Ton)",
+      "scope1": "Scope1 (f)",
+      "scope2": "Scope2 (g=d*e/1000)",
+      "currYear": "{{currYear}} Total (h=f+g)",
+      "baseYear": "{{baseYear}} Total (i)",
+      "delta": "Gap (h/i-1)"
+    },
+    "target": {
+      "header": "REC Target for Carbon Offset",
+      "unit": "(h-i*{{ratio}})*1000/e"
+    }
+  }
+}

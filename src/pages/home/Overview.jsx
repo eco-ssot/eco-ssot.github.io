@@ -1,15 +1,17 @@
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import Arrow from '../../components/arrow/Arrow';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
 
 export default function Overview({ className, compareYear, currentYear, data = {} }) {
+  const { t } = useTranslation(['homePage', 'common']);
   const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste, totalPowerSaving } = data;
   const nextData = [
     {
-      title: '營業額',
-      unit: '(十億台幣)',
+      title: t('revenue'),
+      unit: `(${t('common:billionNtd')})`,
       value: revenue?.gradient,
       subData: [
         { key: compareYear, value: revenue?.compareYear },
@@ -17,8 +19,8 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
-      title: '用電量',
-      unit: '(千度)',
+      title: t('electricityUsed'),
+      unit: `(${t('common:mwh')})`,
       value: electricPowerUtilization?.gradient,
       subData: [
         { key: compareYear, value: electricPowerUtilization?.compareYear },
@@ -26,8 +28,8 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
-      title: '碳排量',
-      unit: '(公噸)',
+      title: t('carbonEmission'),
+      unit: `(${t('common:metricTon')})`,
       value: CO2Emission?.gradient,
       subData: [
         { key: compareYear, value: CO2Emission?.compareYear },
@@ -35,8 +37,8 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
-      title: '用水量',
-      unit: '(千噸)',
+      title: t('waterUsed'),
+      unit: `(${t('common:thousandTon')})`,
       value: waterUse?.gradient,
       subData: [
         { key: compareYear, value: waterUse?.compareYear },
@@ -44,8 +46,8 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
-      title: '廢棄物',
-      unit: '(公噸)',
+      title: t('wasteEmission'),
+      unit: `(${t('common:metricTon')})`,
       value: waste?.gradient,
       subData: [
         { key: compareYear, value: waste?.compareYear },
@@ -53,12 +55,12 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
-      title: '總節電量',
-      unit: '(千度)',
+      title: t('electricitySaving'),
+      unit: `(${t('common:mwh')})`,
       value: totalPowerSaving?.amount,
       subData: [
-        { key: '數位化', value: totalPowerSaving?.digital },
-        { key: '技改及管理', value: totalPowerSaving?.manage },
+        { key: t('digitization'), value: totalPowerSaving?.digital },
+        { key: t('technologyImprovementAndManagement'), value: totalPowerSaving?.manage },
       ],
       renderer: baseFormatter,
     },

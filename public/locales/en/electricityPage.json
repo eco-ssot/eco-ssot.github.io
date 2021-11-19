@@ -1,0 +1,21 @@
+{
+  "title": "Electricity Consumption per Billion NTD",
+  "table": {
+    "electricity": {
+      "header": "Electricity Consumption (kWh)",
+      "delta": "Gap (b/a-1)"
+    },
+    "revenue": {
+      "header": "Revenue (billion NTD)",
+      "delta": "Gap (d/c-1)"
+    },
+    "revenueElectricity": {
+      "header": "Electricity Consumption per Billion NTD",
+      "delta": "Gap (f/e-1)"
+    },
+    "asp": {
+      "header": "ASP (Thousand NTD/unit)",
+      "delta": "Gap (h/g-1)"
+    }
+  }
+}

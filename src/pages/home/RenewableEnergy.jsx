@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
 import { colors } from '../../styles';
@@ -15,9 +17,9 @@ const DATA = {
 };
 
 const NAME_MAPPING = {
-  nonRenewableEnergy: '不可再生能源',
-  selfConstructedSolarEnergy: '自建太陽能',
-  tRec: '綠證',
+  nonRenewableEnergy: 'nonRenewableEnergy',
+  selfConstructedSolarEnergy: 'solarPower',
+  tRec: 'tRec',
 };
 
 const OPTION = (data = []) => ({
@@ -45,6 +47,7 @@ const OPTION = (data = []) => ({
 });
 
 export default function RenewableEnergy({ data = {} }) {
+  const { t } = useTranslation(['homePage', 'common']);
   const { nonRenewableEnergy, selfConstructedSolarEnergy, tRec, target = '' } = data;
   const nextData = {
     ...DATA,
@@ -62,7 +65,7 @@ export default function RenewableEnergy({ data = {} }) {
       <div className="w-1/2 h-full flex items-center justify-center">
         <Chart className="w-full h-full" option={option} />
         <div className="absolute text-center text-lg font-medium">
-          <div className="text-_orange">{`Target : > ${getDecimalNumber(target)}%`}</div>
+          <div className="text-_orange">{`Target : > ${getDecimalNumber(target) || '-'}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>
@@ -74,7 +77,7 @@ export default function RenewableEnergy({ data = {} }) {
             labelClassName="flex w-4/5 justify-between text-lg"
             label={
               <>
-                <div>{NAME_MAPPING[name] || name}</div>
+                <div>{t(`homePage:${NAME_MAPPING[name]}`) || ''}</div>
                 <div>{ratioFormatter(value, { precision: 1 })}</div>
               </>
             }

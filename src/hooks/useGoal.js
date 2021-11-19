@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { selectBusiness } from '../renderless/location/locationSlice';
@@ -6,6 +7,7 @@ import { getTargetLabel } from '../utils/label';
 import { getDecimalNumber } from '../utils/number';
 
 export default function useGoal({ keyword, isHistory = false } = {}) {
+  const { i18n } = useTranslation();
   const currYear = new Date().getFullYear();
   const business = useSelector(selectBusiness);
   const { data: { data = [] } = {} } = useGetGoalQuery({ business, year: currYear });
@@ -15,6 +17,6 @@ export default function useGoal({ keyword, isHistory = false } = {}) {
     pct,
     currYear,
     baseYear: baseYear || currYear - 1,
-    label: getTargetLabel(target, baseYear, isHistory),
+    label: getTargetLabel(target, baseYear, isHistory, i18n.resolvedLanguage),
   };
 }

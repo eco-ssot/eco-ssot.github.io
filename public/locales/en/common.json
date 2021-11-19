@@ -1,0 +1,18 @@
+{
+  "title": "ESG Dashboard",
+  "humidity": "Humidity",
+  "temperature": "Temperature",
+  "billionNtd": "Billion NTD",
+  "mwh": "MWh",
+  "metricTon": "Ton",
+  "thousandTon": "Kiloton",
+  "baseYear": "Baseline Year",
+  "target": "Target",
+  "unit": "Unit",
+  "kwh": "kWh",
+  "dai": "Product",
+  "accumulationRange": "YTM Duration",
+  "gapDesc": "* Gap = (Current year − Last year) / Last year",
+  "weight": "Percentage",
+  "gap": "Gap *"
+}

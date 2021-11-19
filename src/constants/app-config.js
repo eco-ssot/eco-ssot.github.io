@@ -19,8 +19,8 @@ const BUSINESS_MAPPING = {
 };
 
 const HISTORY_OPTIONS = [
-  { key: 'CURRENT', value: '當年度' },
-  { key: 'HISTORY', value: '歷史年度' },
+  { key: 'CURRENT', value: 'currentYear' },
+  { key: 'HISTORY', value: 'historyYear' },
 ];
 
 const HISTORY_MAPPING = {
@@ -78,6 +78,11 @@ const SITE_OPTIONS = [
   { key: 'WCZ', value: 'WCZ' },
 ];
 
+const LANGUAGE_OPTIONS = [
+  { key: 'zh', value: '中文' },
+  { key: 'en', value: 'English' },
+];
+
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
@@ -98,6 +103,7 @@ const APP_CONFIG = {
   KEYCLOAK_DEFAULT_ROLES,
   MAINTAINER_ROLE,
   DEVELOPER_ROLE,
+  LANGUAGE_OPTIONS,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),

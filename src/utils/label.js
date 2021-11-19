@@ -1,4 +1,4 @@
-export function getTargetLabel(target = '', baseYear = '', isHistory = false) {
+export function getTargetLabel(target = '', baseYear = '', isHistory = false, lng = 'en') {
   if (target === '') {
     return '目標：-';
   }

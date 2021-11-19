@@ -22,16 +22,19 @@ export const publicRoutes = [
     path: '/login',
     title: '登入',
     component: LoginPage,
+    key: 'login',
   },
   {
     path: '/unauthorized',
     title: '',
     component: UnauthorizedPage,
+    key: 'unauthorized',
   },
   {
     path: '/error',
     title: '',
     component: ErrorPage,
+    key: 'error',
   },
 ];
 
@@ -41,41 +44,49 @@ export const privateRoutes = [
     title: '首頁',
     component: HomePage,
     skeleton: HomeSkeleton,
+    key: 'home',
   },
   {
     path: '/overview',
     title: '總覽比較',
     component: OverviewPage,
+    key: 'overview',
   },
   {
     path: '/carbon',
     title: '碳排放量',
     component: CarbonPage,
+    key: 'carbon',
   },
   {
     path: '/renewable-energy',
     title: '可再生能源',
     component: RenewableEnergyPage,
+    key: 'renewableEnergy',
   },
   {
     path: '/electricity',
     title: '用電',
     component: ElectricityPage,
+    key: 'electricity',
   },
   {
     path: '/water',
     title: '用水',
     component: WaterPage,
+    key: 'water',
   },
   {
     path: '/unit-electricity',
     title: '單台用電',
     component: UnitElectricityPage,
+    key: 'unitElectricity',
   },
   {
     path: '/waste',
     title: '廢棄物',
     component: WastePage,
+    key: 'waste',
   },
   {
     path: '/management',
@@ -83,6 +94,7 @@ export const privateRoutes = [
     component: ManagementPage,
     skeleton: ManagementSkeleton,
     exact: false,
+    key: 'management',
   },
   {
     path: '/electricity/analysis',
@@ -90,6 +102,7 @@ export const privateRoutes = [
     component: ElectricityAnalysisPage,
     skeleton: AnalysisSkeleton,
     show: false,
+    key: 'electricityAnalysis',
   },
   {
     path: '/water/analysis',
@@ -97,6 +110,7 @@ export const privateRoutes = [
     component: WaterAnalysisPage,
     skeleton: AnalysisSkeleton,
     show: false,
+    key: 'waterAnalysis',
   },
   {
     path: '/waste/analysis',
@@ -104,6 +118,7 @@ export const privateRoutes = [
     component: WasteAnalysisPage,
     skeleton: AnalysisSkeleton,
     show: false,
+    key: 'wasteAnalysis',
   },
 ];
 

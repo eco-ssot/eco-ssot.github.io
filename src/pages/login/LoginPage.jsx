@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { Redirect, useLocation } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
@@ -7,6 +8,7 @@ import Header from '../../components/header/Header';
 import { useKeycloak } from '../../keycloak';
 
 export default function LoginPage() {
+  const { t } = useTranslation('loginPage');
   const { state } = useLocation();
   const { keycloak } = useKeycloak();
   const login = useCallback(() => {
@@ -22,7 +24,7 @@ export default function LoginPage() {
       <Header className="fixed z-50 h-16 w-full top-0" />
       <img src="/login.png" className="fixed w-full h-full -z-1" alt="login" />
       <div className="flex flex-col space-y-4 items-center">
-        <div className="text-lg font-medium">請點擊下方按鈕登入</div>
+        <div className="text-lg font-medium">{t('loginDescription')}</div>
         <Button className="text-lg" onClick={() => login()}>
           Login with keycloak
         </Button>

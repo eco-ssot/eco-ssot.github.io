@@ -5,8 +5,9 @@ export default function WeatherInfo() {
   const { data } = useGetWeatherByIdQuery();
   return (
     <>
-      <div className="block truncate">溫度：{toFormattedNumber(data?.main?.temp)} ºC</div>
-      <div className="block truncate">濕度：{toFormattedNumber(data?.main?.humidity)} %</div>
+      <div className="block truncate">
+        T & H：{toFormattedNumber(data?.main?.temp)} ºC / {toFormattedNumber(data?.main?.humidity)}%
+      </div>
     </>
   );
 }

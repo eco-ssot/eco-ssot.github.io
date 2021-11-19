@@ -1,0 +1,25 @@
+{
+  "title": "廢棄物產生密度",
+  "desc": "",
+  "table": {
+    "nonRecyclable": {
+      "header": "不可回收類重量 (公噸)",
+      "normal": "一般廢棄物 (焚化 & 掩埋)",
+      "harmful": "有害廢棄物"
+    },
+    "recyclable": {
+      "header": "可回收類重量 (公噸)",
+      "normal": "一般廢棄物 (其他/廚餘)",
+      "waste": "資源廢棄物 (堆肥 & 資源回收)"
+    },
+    "revenue": {
+      "header": "{{ytm}} 營收"
+    },
+    "waste": {
+      "header": "廢棄物產生密度 (公噸/十億台幣)",
+      "delta": "增減率 ( ({{currYear}}-{{baseYear}}) / {{baseYear}} )"
+    },
+    "recycleRate": "廢棄物回收率"
+  },
+  "upload": {}
+}

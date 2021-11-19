@@ -1,0 +1,17 @@
+{
+  "title": "Electricity Consumption per Product",
+  "table": {
+    "electricity": {
+      "header": "Electricity Consumption (kWh)",
+      "delta": "Gap (b/a-1)"
+    },
+    "production": {
+      "header": "Production (unit)",
+      "delta": "Gap (d/c-1)"
+    },
+    "unitElectricity": {
+      "header": "Electricity Consumption per Product (kWh)",
+      "delta": "Gap (f/e-1)"
+    }
+  }
+}

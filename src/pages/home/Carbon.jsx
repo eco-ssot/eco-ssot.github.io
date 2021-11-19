@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
+
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 
-import { formatYtm } from './helpers';
+import { formatTarget, formatYtm } from './helpers';
 
 const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
 
@@ -51,10 +53,11 @@ const OPTION = (values, labels, target) => ({
 });
 
 export default function Carbon({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
+  const { t, i18n } = useTranslation(['homePage', 'common']);
   const labels = [
     `${baseYear} Total`,
-    `${compareYear} ${formatYtm(latestDate)}`,
-    `${currentYear} ${formatYtm(latestDate)}`,
+    `${compareYear} ${formatYtm(latestDate, i18n.resolvedLanguage)}`,
+    `${currentYear} ${formatYtm(latestDate, i18n.resolvedLanguage)}`,
   ];
 
   const values = [data.baseYear, data.compareYTM, data.currentYTM];
@@ -63,9 +66,12 @@ export default function Carbon({ baseYear, compareYear, currentYear, latestDate,
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="flex w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
-        <Legend dotClassName="bg-_yellow" label="基準年" />
-        <Legend dotClassName="bg-_orange" label={`目標 : ${data.target || '-'}`} />
-        <div>單位：公噸</div>
+        <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />
+        <Legend
+          dotClassName="bg-_orange"
+          label={`${t('common:target')} : ${formatTarget(data.target, i18n.resolvedLanguage)}`}
+        />
+        <div>{`${t('common:unit')}：${t('common:metricTon')}`}</div>
       </div>
     </div>
   );

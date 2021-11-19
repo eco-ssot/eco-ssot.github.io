@@ -1,0 +1,18 @@
+{
+  "title": "ESG 績效管理平台",
+  "humidity": "濕度",
+  "temperature": "溫度",
+  "billionNtd": "十億台幣",
+  "mwh": "千度",
+  "metricTon": "公噸",
+  "thousandTon": "千噸",
+  "baseYear": "基準年",
+  "target": "目標",
+  "unit": "單位",
+  "kwh": "度",
+  "dai": "台",
+  "accumulationRange": "累計區間",
+  "gapDesc": "* 增減率 = (當年度 − 上年度) / 上年度",
+  "weight": "權重",
+  "gap": "增減率 *"
+}

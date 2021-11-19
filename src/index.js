@@ -8,6 +8,7 @@ import { store } from './app/store';
 import { KeycloakProvider } from './keycloak';
 import * as serviceWorker from './serviceWorker';
 
+import './i18n';
 import './index.css';
 import './styles/react-datepicker.css';
 

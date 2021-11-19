@@ -1,0 +1,9 @@
+{
+  "title": "Water Consumption per Billion NTD",
+  "table": {
+    "water": "Water Consumption (Ton)",
+    "revenue": "Revenue (billion NTD)",
+    "revenueWater": "Water Consumption per Billion NTD",
+    "comparison": "Compared to Baseline Year"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "buttonGroup": {
+    "currentYear": "當年度",
+    "historyYear": "歷史年度"
+  },
+  "selectLabel": {
+    "searchYear": "查詢年度",
+    "dimension": "資料呈現"
+  },
+  "button": {
+    "search": "搜尋"
+  }
+}

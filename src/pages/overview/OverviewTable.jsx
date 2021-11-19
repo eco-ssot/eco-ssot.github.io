@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
@@ -9,13 +11,13 @@ import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/form
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
 export const HEADERS = [
-  { key: 'electricity', name: '用電量 (度)' },
-  { key: 'water', name: '用水量 (公噸)' },
-  { key: 'revenue', name: '營業額 (十億台幣)', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
-  { key: 'asp', name: 'ASP (千台幣/台)', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+  { key: 'electricity' },
+  { key: 'water' },
+  { key: 'revenue', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+  { key: 'asp', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
 ];
 
-export const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+export const COLUMNS = ({ t, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -23,30 +25,30 @@ export const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CON
       accessor: 'site',
       rowSpan: 0,
     },
-    ...HEADERS.map(({ key, name, renderer = baseFormatter }) => ({
-      id: name,
-      Header: () => <div className="border-b border-divider py-3">{name}</div>,
+    ...HEADERS.map(({ key, renderer = baseFormatter }) => ({
+      id: key,
+      Header: () => <div className="border-b border-divider py-3">{t(`overviewPage:table.${key}`)}</div>,
       columns: [
         {
-          Header: `${lastYear}年`,
+          Header: lastYear,
           accessor: [key, 'lastYear'].join('.'),
           Cell: renderer,
           className: 'text-right',
         },
         {
-          Header: `${currYear}年`,
+          Header: currYear,
           accessor: [key, 'currYear'].join('.'),
           Cell: renderer,
           className: 'text-right',
         },
         {
-          Header: '權重',
+          Header: t('common:weight'),
           accessor: [key, 'weight'].join('.'),
           Cell: ratioFormatter,
           className: 'text-right',
         },
         {
-          Header: '增減率 *',
+          Header: t('common:gap'),
           accessor: [key, 'delta'].join('.'),
           Cell: targetFormatter(0, { formatter: ratioFormatter }),
           className: 'text-right',
@@ -56,16 +58,17 @@ export const COLUMNS = ({ currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CON
   ]);
 
 export default function OverviewTable({ business }) {
+  const { t } = useTranslation(['overviewPage', 'common']);
   const { data } = useGetOverviewQuery({ business });
-  const columns = useMemo(() => COLUMNS(), []);
+  const columns = useMemo(() => COLUMNS({ t }), [t]);
   return (
     <>
       <Tag className="absolute top-2 right-4">
-        累計區間：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+        {t('common:accumulationRange')}：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
       </Tag>
       {data && (
         <>
-          <div className="w-full h-6 text-right">* 增減率 = (當年度 − 上年度) / 上年度</div>
+          <div className="w-full h-6 text-right">{t('common:gapDesc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
             <Table columns={columns} data={data?.data || []} />
           </div>

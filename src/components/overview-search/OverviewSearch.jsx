@@ -1,26 +1,28 @@
 import { useState } from 'react';
 
 import qs from 'query-string';
+import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
 
 export default function OverviewSearch({ downloadResource, option = {}, onSearch = () => {} }) {
+  const { t } = useTranslation();
   const [searchOption, setSearchOption] = useState(option);
   return (
     <div className="w-full grid grid-cols-12 py-4 items-center">
       <div></div>
       <div className="flex justify-center space-x-8 col-span-10">
         <Select
-          label="查詢年度："
+          label={`${t('selectLabel.searchYear')}：`}
           options={APP_CONFIG.YEAR_OPTIONS}
           selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         />
         <Select
           buttonClassName="w-36"
-          label="資料呈現："
+          label={`${t('selectLabel.dimension')}：`}
           options={APP_CONFIG.DIMENSION_OPTIONS}
           selected={APP_CONFIG.DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, dimension: e.key }))}
@@ -33,7 +35,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
               dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
             })
           }>
-          搜尋
+          {t('button.search')}
         </Button>
       </div>
       <div className="text-right">

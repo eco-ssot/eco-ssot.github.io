@@ -1,10 +1,11 @@
+import { useTranslation } from 'react-i18next';
+
 import TablePage from '../table-page/TablePage';
 
 import WaterHistoryTable from './WaterHistoryTable';
 import WaterTable from './WaterTable';
 
 export default function WaterPage() {
-  return (
-    <TablePage title="十億營業額用水" downloadResource="water" table={WaterTable} historyTable={WaterHistoryTable} />
-  );
+  const { t } = useTranslation('waterPage');
+  return <TablePage title={t('title')} downloadResource="water" table={WaterTable} historyTable={WaterHistoryTable} />;
 }
