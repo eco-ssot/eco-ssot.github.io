@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
@@ -140,6 +140,7 @@ export default function Trec({ className, canEdit }) {
     );
   };
 
+  useEffect(() => setData(DATA(i18n.resolvedLanguage)), [i18n.resolvedLanguage]);
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
       <EditableTable columns={columns} data={data} updateMyData={updateMyData} setData={setData} />
