@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
-import get from 'lodash.get';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
