@@ -13,7 +13,7 @@ const loadOptions = (q, callback) => {
 
       callback(options);
     })
-    .catch((err) => console.log({ err }));
+    .catch((err) => console.error({ err }));
 };
 
 export default function AdSearchSelect({ options = [], ...props }) {

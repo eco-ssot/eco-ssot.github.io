@@ -5,6 +5,7 @@
   },
   "selectLabel": {
     "searchYear": "Year",
+    "searchMonth": "Month",
     "dimension": "Dimension"
   },
   "button": {

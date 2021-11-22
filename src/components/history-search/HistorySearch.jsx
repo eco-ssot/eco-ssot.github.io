@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import qs from 'query-string';
+import { useTranslation } from 'react-i18next';
 
 import APP_CONFIG from '../../constants/app-config';
 import Button from '../button/Button';
@@ -67,6 +68,7 @@ export function getQuery({
 }
 
 export default function HistorySearch({ downloadResource, option = {}, onSearch = () => {} }) {
+  const { t } = useTranslation('component');
   const [searchOption, setSearchOption] = useState(option);
   const sameYear = isSameYear(searchOption);
   const startYearOptions = getStartYearOptions(searchOption);
@@ -78,7 +80,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
       <div></div>
       <div className="flex justify-center col-span-10">
         <Select
-          label="查詢年度："
+          label={`${t('selectLabel.searchYear')}：`}
           options={startYearOptions}
           selected={
             startYearOptions.find((option) => option.key === searchOption.startYear) || startYearOptions.slice(-1)[0]
@@ -94,7 +96,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         />
         {!sameYear && (
           <Select
-            label="查詢月份："
+            label={`${t('selectLabel.searchMonth')}：`}
             options={APP_CONFIG.MONTH_RANGE_OPTIONS}
             buttonClassName="w-48"
             className="mr-2"
@@ -104,7 +106,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         )}
         {sameYear && (
           <Select
-            label="查詢月份："
+            label={`${t('selectLabel.searchMonth')}：`}
             options={startMonthOptions}
             buttonClassName="w-24"
             optionClassName="max-h-screen"
@@ -130,7 +132,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           })}
         />
         <Select
-          label="資料呈現："
+          label={`${t('selectLabel.dimension')}：`}
           options={APP_CONFIG.DIMENSION_OPTIONS}
           buttonClassName="w-36"
           optionClassName="max-h-screen"
@@ -144,7 +146,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
               getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions })
             )
           }>
-          搜尋
+          {t('button.search')}
         </Button>
       </div>
       <div className="text-right">
