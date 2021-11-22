@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import EditableTable, {
   CustomInputCell,
   EditableButton,
   EditableIconButton,
 } from '../../components/table/EditableTable';
+import { selectLanguage } from '../../renderless/location/locationSlice';
 import { usePatchGoalMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
 import { getDecimalNumber } from '../../utils/number';
@@ -110,11 +112,12 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => [
 ];
 
 export default function YearGoal({ className, year, data, canEdit }) {
-  const { t, i18n } = useTranslation(['managementPage', 'common', 'component']);
+  const { t } = useTranslation(['managementPage', 'common', 'component']);
+  const lng = useSelector(selectLanguage);
   const [patchGoal] = usePatchGoalMutation();
   const [dataSource, setData] = useState(data);
   const [open, setOpen] = useState(false);
-  const columns = COLUMNS({ t, setData, patchGoal, setOpen, year, canEdit, lng: i18n.resolvedLanguage });
+  const columns = COLUMNS({ t, lng, setData, patchGoal, setOpen, year, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

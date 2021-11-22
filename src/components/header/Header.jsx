@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import packageJson from '../../../package.json';
 import APP_CONFIG from '../../constants/app-config';
 import { useKeycloak } from '../../keycloak';
-import { selectBusiness } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectLanguage } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import Avatar from '../avatar/Avatar';
 import Divider from '../divider/Divider';
@@ -16,7 +16,8 @@ import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
 
 export default function Header({ className }) {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
+  const lng = useSelector(selectLanguage);
   const business = useSelector(selectBusiness);
   const { keycloak } = useKeycloak();
   return (
@@ -51,7 +52,7 @@ export default function Header({ className }) {
       <GhostSelect
         className="w-32"
         options={APP_CONFIG.LANGUAGE_OPTIONS}
-        selected={APP_CONFIG.LANGUAGE_OPTIONS.find((option) => i18n.resolvedLanguage?.startsWith(option.key))}
+        selected={APP_CONFIG.LANGUAGE_OPTIONS.find((option) => lng?.startsWith(option.key))}
         onChange={navigate}
         queryKey="lng"
       />

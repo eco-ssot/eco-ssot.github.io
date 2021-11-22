@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
+import { selectLanguage } from '../../renderless/location/locationSlice';
 
 const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
   {
@@ -122,8 +124,9 @@ const DATA = (lng) => [
 ];
 
 export default function Trec({ className, canEdit }) {
-  const { t, i18n } = useTranslation(['managementPage', 'common', 'component']);
-  const [data, setData] = useState(() => DATA(i18n.resolvedLanguage));
+  const { t } = useTranslation(['managementPage', 'common', 'component']);
+  const lng = useSelector(selectLanguage);
+  const [data, setData] = useState(() => DATA(lng));
   const columns = COLUMNS({ t, data, setData, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
@@ -140,7 +143,6 @@ export default function Trec({ className, canEdit }) {
     );
   };
 
-  useEffect(() => setData(DATA(i18n.resolvedLanguage)), [i18n.resolvedLanguage]);
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
       <EditableTable columns={columns} data={data} updateMyData={updateMyData} setData={setData} />

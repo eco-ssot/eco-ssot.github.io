@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
+import { selectLanguage } from '../../renderless/location/locationSlice';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 
@@ -53,7 +55,8 @@ const OPTION = (values, labels, target) => ({
 });
 
 export default function Carbon({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
-  const { t, i18n } = useTranslation(['homePage', 'common']);
+  const { t } = useTranslation(['homePage', 'common']);
+  const lng = useSelector(selectLanguage);
   const labels = [
     `${baseYear} Total`,
     `${compareYear} ${formatYtm(latestDate)}`,
@@ -67,10 +70,7 @@ export default function Carbon({ baseYear, compareYear, currentYear, latestDate,
       <Chart className="flex w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
         <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />
-        <Legend
-          dotClassName="bg-_orange"
-          label={`${t('common:target')} : ${formatTarget(data.target, i18n.resolvedLanguage)}`}
-        />
+        <Legend dotClassName="bg-_orange" label={`${t('common:target')} : ${formatTarget(data.target, lng)}`} />
         <div>{`${t('common:unit')}：${t('common:metricTon')}`}</div>
       </div>
     </div>
