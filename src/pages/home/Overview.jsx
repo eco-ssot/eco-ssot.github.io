@@ -10,6 +10,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
   const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste, totalPowerSaving } = data;
   const nextData = [
     {
+      name: '營業額',
       title: t('revenue'),
       unit: `(${t('common:billionNtd')})`,
       value: revenue?.gradient,
@@ -19,6 +20,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
+      name: '用電量',
       title: t('electricityUsed'),
       unit: `(${t('common:mwh')})`,
       value: electricPowerUtilization?.gradient,
@@ -28,6 +30,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
+      name: '碳排量',
       title: t('carbonEmission'),
       unit: `(${t('common:metricTon')})`,
       value: CO2Emission?.gradient,
@@ -37,6 +40,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
+      name: '用水量',
       title: t('waterUsed'),
       unit: `(${t('common:thousandTon')})`,
       value: waterUse?.gradient,
@@ -46,6 +50,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
+      name: '廢棄物',
       title: t('wasteEmission'),
       unit: `(${t('common:metricTon')})`,
       value: waste?.gradient,
@@ -55,6 +60,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
       ],
     },
     {
+      name: '總節電量',
       title: t('electricitySaving'),
       unit: `(${t('common:mwh')})`,
       value: totalPowerSaving?.amount,
@@ -68,8 +74,8 @@ export default function Overview({ className, compareYear, currentYear, data = {
 
   return (
     <div className={clsx('grid h-full w-full divide-x divide-divider grid-cols-6', className)}>
-      {nextData.map(({ title, unit, value, subData = [], renderer = ratioFormatter }) => {
-        const trend = getTrend(value, title);
+      {nextData.map(({ title, unit, value, name, subData = [], renderer = ratioFormatter }) => {
+        const trend = getTrend(value, name);
         return (
           <div key={title} className="h-full px-4 flex flex-col justify-between">
             <div className="flex space-x-2 items-baseline">
