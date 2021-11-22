@@ -51,7 +51,7 @@ export default function Header({ className }) {
       <GhostSelect
         className="w-32"
         options={APP_CONFIG.LANGUAGE_OPTIONS}
-        selected={APP_CONFIG.LANGUAGE_OPTIONS.find((option) => i18n.resolvedLanguage.startsWith(option.key))}
+        selected={APP_CONFIG.LANGUAGE_OPTIONS.find((option) => i18n.resolvedLanguage?.startsWith(option.key))}
         onChange={navigate}
         queryKey="lng"
       />
