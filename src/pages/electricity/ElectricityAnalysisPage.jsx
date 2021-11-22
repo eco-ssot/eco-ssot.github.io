@@ -1,4 +1,5 @@
 import { isNil } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
@@ -73,7 +74,7 @@ const OPTION = (values, labels, target) => {
       axisLine: { lineStyle: { color: colors.primary['600'] } },
       axisLabel: {
         color: colors.gray['50'],
-        formatter: (value) => value.split(' ').join('\n'),
+        formatter: (value) => value.replace(' ', '\n'),
         interval: 0,
       },
     },
@@ -122,10 +123,11 @@ const OPTION = (values, labels, target) => {
 };
 
 export default function ElectricityAnalysisPage() {
+  const { t } = useTranslation(['analysisPage']);
   const business = useSelector(selectBusiness);
   const site = useSelector(selectSite);
   const plant = useSelector(selectPlant);
-  const { label, pct, baseYear, currYear } = useGoal({ keyword: '用電強度' });
+  const { label, pct, baseYear, currYear } = useGoal({ keyword: '用電強度', labelType: 'analysis' });
   const { data } = useGetElectricityAnalysisQuery({ business, site, plant });
   const { data: tableData } = useGetElectricityExplanationQuery({ business, site, plant });
   const [postExplanation] = usePostElectricityExplanationMutation();
@@ -139,8 +141,9 @@ export default function ElectricityAnalysisPage() {
   const lastYearKey = `${baseYear} YTM`;
   const overview = [
     {
-      title: '用電量',
-      unit: '(度)',
+      name: '用電量',
+      title: t('analysisPage:electricity.electricity.title'),
+      unit: t('analysisPage:electricity.electricity.unit'),
       value: electrcity?.gradient,
       subData: [
         { key: lastYearKey, value: electrcity?.compareYear },
@@ -148,8 +151,9 @@ export default function ElectricityAnalysisPage() {
       ],
     },
     {
-      title: '營業額',
-      unit: '(十億台幣)',
+      name: '營業額',
+      title: t('analysisPage:electricity.revenue.title'),
+      unit: t('analysisPage:electricity.revenue.unit'),
       value: revenue?.gradient,
       subData: [
         { key: lastYearKey, value: revenue?.compareYear },
@@ -157,8 +161,9 @@ export default function ElectricityAnalysisPage() {
       ],
     },
     {
-      title: '用電強度',
-      unit: '(度/十億台幣)',
+      name: '用電強度',
+      title: t('analysisPage:electricity.electricityIntensity.title'),
+      unit: t('analysisPage:electricity.electricityIntensity.unit'),
       value: electrcityIntensity?.gradient,
       subData: [
         { key: lastYearKey, value: electrcityIntensity?.compareYear },
@@ -166,8 +171,9 @@ export default function ElectricityAnalysisPage() {
       ],
     },
     {
-      title: '出貨量',
-      unit: '(千片)',
+      name: '出貨量',
+      title: t('analysisPage:electricity.shipment.title'),
+      unit: t('analysisPage:electricity.shipment.unit'),
       value: shipment?.gradient,
       subData: [
         { key: lastYearKey, value: shipment?.compareYear },
@@ -175,8 +181,9 @@ export default function ElectricityAnalysisPage() {
       ],
     },
     {
+      name: 'ASP',
       title: 'ASP',
-      unit: '(千台幣/片)',
+      unit: t('analysisPage:electricity.asp.unit'),
       value: ASP?.gradient,
       subData: [
         {
@@ -194,13 +201,14 @@ export default function ElectricityAnalysisPage() {
   ];
 
   const values = [electrcityIntensity?.compareYear, electrcityIntensity?.currentYear, electrcityIntensity?.ASP];
-  const labels = [`${baseYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const labels = [`${baseYear} Actual`, `${currYear} Actual`, `${currYear} ${t('analysisPage:aspReduction')}`];
   const target = electrcityIntensity?.compareYear * (1 - pct);
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title={`十億營業額用電：用電強度分析 ${`(Plant: ${plant || site || '-'})`}`}
-      chartTitle="用電強度對比"
+      title={`${t('analysisPage:electricity.title')} ${`(Plant: ${plant || site || '-'})`}`}
+      chartTitle={t('analysisPage:electricity.chartTitle')}
+      tableTitle={t('analysisPage:electricity.tableTitle')}
       target={label}
       overview={overview}
       tableData={tableData?.data}

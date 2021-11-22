@@ -18,7 +18,7 @@ import Waste from './Waste';
 import Water from './Water';
 
 export default function HomePage() {
-  const { t } = useTranslation('homePage');
+  const { t } = useTranslation(['homePage']);
   const compareYear = useSelector(selectYear);
   const business = useSelector(selectBusiness);
   const { data = {} } = useGetSummaryQuery({ business, year: compareYear });

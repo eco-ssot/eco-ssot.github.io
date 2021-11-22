@@ -6,7 +6,7 @@ import CarbonHistoryTable from './CarbonHistoryTable';
 import CarbonTable from './CarbonTable';
 
 export default function CarbonPage() {
-  const { t } = useTranslation('carbonPage');
+  const { t } = useTranslation(['carbonPage']);
   return (
     <TablePage title={t('title')} downloadResource="carbon" table={CarbonTable} historyTable={CarbonHistoryTable} />
   );

@@ -6,6 +6,6 @@ import WasteHistoryTable from './WasteHistoryTable';
 import WasteTable from './WasteTable';
 
 export default function WastePage() {
-  const { t } = useTranslation('wastePage');
+  const { t } = useTranslation(['wastePage']);
   return <TablePage title={t('title')} downloadResource="waste" table={WasteTable} historyTable={WasteHistoryTable} />;
 }

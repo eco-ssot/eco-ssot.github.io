@@ -68,7 +68,7 @@ export function getQuery({
 }
 
 export default function HistorySearch({ downloadResource, option = {}, onSearch = () => {} }) {
-  const { t } = useTranslation('component');
+  const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const sameYear = isSameYear(searchOption);
   const startYearOptions = getStartYearOptions(searchOption);

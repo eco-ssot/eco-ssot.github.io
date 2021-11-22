@@ -8,7 +8,7 @@ import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
 
 export default function OverviewSearch({ downloadResource, option = {}, onSearch = () => {} }) {
-  const { t } = useTranslation('component');
+  const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   return (
     <div className="w-full grid grid-cols-12 py-4 items-center">

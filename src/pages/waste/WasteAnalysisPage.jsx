@@ -1,4 +1,5 @@
 import { isNil } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
@@ -73,7 +74,7 @@ const OPTION = (values, labels, target) => {
       axisLine: { lineStyle: { color: colors.primary['600'] } },
       axisLabel: {
         color: colors.gray['50'],
-        formatter: (value) => value.split(' ').join('\n'),
+        formatter: (value) => value.replace(' ', '\n'),
         interval: 0,
       },
     },
@@ -124,10 +125,11 @@ const OPTION = (values, labels, target) => {
 };
 
 export default function WasteAnalysisPage() {
+  const { t } = useTranslation(['analysisPage']);
   const business = useSelector(selectBusiness);
   const site = useSelector(selectSite);
   const plant = useSelector(selectPlant);
-  const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
+  const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度', labelType: 'analysis' });
   const { data } = useGetWasteAnalysisQuery({ business, site, plant });
   const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant });
   const [postExplanation] = usePostWasteExplanationMutation();
@@ -142,8 +144,9 @@ export default function WasteAnalysisPage() {
   const lastYearKey = `${lastYear} YTM`;
   const overview = [
     {
-      title: '廢棄物總量',
-      unit: '(公噸)',
+      name: '廢棄物總量',
+      title: t('analysisPage:waste.waste.title'),
+      unit: t('analysisPage:waste.waste.unit'),
       value: waste?.gradient,
       subData: [
         { key: lastYearKey, value: waste?.baseYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
@@ -151,8 +154,9 @@ export default function WasteAnalysisPage() {
       ],
     },
     {
-      title: '營業額',
-      unit: '(十億台幣)',
+      name: '營業額',
+      title: t('analysisPage:waste.revenue.title'),
+      unit: t('analysisPage:waste.revenue.unit'),
       value: revenue?.gradient,
       subData: [
         { key: lastYearKey, value: revenue?.compareYear },
@@ -160,8 +164,9 @@ export default function WasteAnalysisPage() {
       ],
     },
     {
-      title: '廢棄物產生密度',
-      unit: '(公噸/十億台幣)',
+      name: '廢棄物產生密度',
+      title: t('analysisPage:waste.wasteDensity.title'),
+      unit: t('analysisPage:waste.wasteDensity.unit'),
       value: wasteIntensity?.currentAndCompareGradient,
       subData: [
         {
@@ -178,8 +183,9 @@ export default function WasteAnalysisPage() {
       renderer: (value) => ratioFormatter(value, { precision: 2 }),
     },
     {
-      title: '出貨量',
-      unit: '(千片)',
+      name: '出貨量',
+      title: t('analysisPage:waste.shipment.title'),
+      unit: t('analysisPage:waste.shipment.unit'),
       value: shipment?.gradient,
       subData: [
         { key: lastYearKey, value: shipment?.compareYear },
@@ -187,8 +193,9 @@ export default function WasteAnalysisPage() {
       ],
     },
     {
+      name: 'ASP',
       title: 'ASP',
-      unit: '(千台幣/片)',
+      unit: t('analysisPage:waste.asp.unit'),
       value: ASP?.gradient,
       subData: [
         {
@@ -212,14 +219,20 @@ export default function WasteAnalysisPage() {
     wasteIntensity?.ASP,
   ];
 
-  const labels = [`${baseYear} Actual`, `${lastYear} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const labels = [
+    `${baseYear} Actual`,
+    `${lastYear} Actual`,
+    `${currYear} Actual`,
+    `${currYear} ${t('analysisPage:aspReduction')}`,
+  ];
+
   const target = wasteIntensity?.baseYear * (1 - pct);
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title={`廢棄物產生密度：廢棄物密度分析 ${`(Plant: ${plant || site || '-'})`}`}
-      chartTitle="廢棄物密度對比"
-      tableTitle="影響廢棄物密度"
+      title={`${t('analysisPage:waste.title')} ${`(Plant: ${plant || site || '-'})`}`}
+      chartTitle={t('analysisPage:waste.chartTitle')}
+      tableTitle={t('analysisPage:waste.tableTitle')}
       overview={overview}
       tableData={tableData?.data}
       target={label}

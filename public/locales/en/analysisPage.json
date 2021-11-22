@@ -1,0 +1,88 @@
+{
+  "backDesc": "Back",
+  "aspDesc": "＊ASP Reduction = Current YTM Electricity Consumption / (Current YTM Shipment * Last year YTM ASP)",
+  "aspReduction": "ASP Reduction *",
+  "missingTargetDesc": "Missing Target Data Analysis",
+  "overdue": "Already passed D.D",
+  "aboutToOverdue": "Less than a week from D.D",
+  "addDesc": "Add New",
+  "cancelAdd": "Cancel",
+  "electricity": {
+    "title": "Electricity Consumption per Billion NTD：Analysis",
+    "chartTitle": "Electricity Consumption Intensity",
+    "tableTitle": "Impact on Electricity",
+    "electricity": {
+      "title": "Electricity Consumption",
+      "unit": "(kWh)"
+    },
+    "revenue": {
+      "title": "Revenue",
+      "unit": "(Billion NTD)"
+    },
+    "electricityIntensity": {
+      "title": "Consumption Intensity",
+      "unit": "(kWh/billion NTD)"
+    },
+    "shipment": {
+      "title": "Shipment",
+      "unit": "(Kpcs)"
+    },
+    "asp": {
+      "unit": "(Thousand NTD/pic)"
+    }
+  },
+  "waste": {
+    "title": "Waste Generation Intensity：Analysis",
+    "chartTitle": "Waste Generation Intensity",
+    "tableTitle": "Impact on Waste",
+    "waste": {
+      "title": "Waste Total",
+      "unit": "(Ton)"
+    },
+    "revenue": {
+      "title": "Revenue",
+      "unit": "(Billion NTD)"
+    },
+    "wasteDensity": {
+      "title": "Waste Generation Intensity",
+      "unit": "(ton/billion NTD)"
+    },
+    "shipment": {
+      "title": "Shipment",
+      "unit": "(Kpcs)"
+    },
+    "asp": {
+      "unit": "(Thousand NTD/pic)"
+    }
+  },
+  "water": {
+    "title": "Water Consumption Intensity：Analysis",
+    "chartTitle": "Water Consumption Intensity",
+    "tableTitle": "Impact on Water",
+    "water": {
+      "title": "Water Consumption",
+      "unit": "(Ton)"
+    },
+    "revenue": {
+      "title": "Revenue",
+      "unit": "(Billion NTD)"
+    },
+    "waterIntensity": {
+      "title": "Consumption Intensity",
+      "unit": "(Ton/Billion NTD)"
+    },
+    "shipment": {
+      "title": "Shipment",
+      "unit": "(Kpcs)"
+    },
+    "asp": {
+      "unit": "(Thousand NTD/pic)"
+    }
+  },
+  "table": {
+    "strategy": "Action",
+    "expect": "Expected Value",
+    "contribution": "Attribution",
+    "finishDate": "Close Date"
+  }
+}

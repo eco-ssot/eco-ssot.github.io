@@ -1,4 +1,5 @@
 import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
@@ -25,6 +26,7 @@ export default function AnalysisPage({
   onDeleteRow = () => {},
   onDeleteSubRow = () => {},
 }) {
+  const { t } = useTranslation(['analysisPage', 'common']);
   const history = useHistory();
   const { accumulationPeriod } = useAccumulationPeriod();
   const { canEdit } = useAdmin();
@@ -36,17 +38,20 @@ export default function AnalysisPage({
           className="flex text-gray-300 cursor-pointer space-x-2 items-center hover:text-green-50"
           onClick={() => history.goBack()}>
           <ChevronLeftIcon className="w-5 h-5" />
-          <div>返回上一頁</div>
+          <div>{t('analysisPage:backDesc')}</div>
         </div>
-        <Tag>
-          累計區間：<span className="text-lg font-medium">{accumulationPeriod}</span>
-        </Tag>
+        <div className="flex items-center space-x-2">
+          <div className="text-gray-300">{t('analysisPage:aspDesc')}</div>
+          <Tag>
+            {t('common:accumulationRange')}：<span className="text-lg font-medium">{accumulationPeriod}</span>
+          </Tag>
+        </div>
       </div>
       <div className="grid grid-rows-5 grid-cols-7 flex-grow gap-4 overflow-auto">
         <div className="row-span-2 col-span-7 bg-primary-900 rounded shadow py-8 grid h-full w-full divide-x divide-divider grid-cols-5">
           {overview &&
-            overview.map(({ title, unit, value, subData = [], renderer = ratioFormatter }) => {
-              const trend = getTrend(value, title);
+            overview.map(({ name, title, unit, value, subData = [], renderer = ratioFormatter }) => {
+              const trend = getTrend(value, name);
               return (
                 <div key={title} className="h-full flex flex-col justify-between px-8">
                   <div className="flex space-x-2 items-baseline">
@@ -88,7 +93,7 @@ export default function AnalysisPage({
         <div className="row-span-3 col-span-2 bg-primary-900 rounded shadow p-4 flex flex-col">
           <div className="text-xl font-medium">{chartTitle}</div>
           <div className="flex justify-end space-x-4">
-            <Legend dotClassName="bg-_yellow" label="基準年" />
+            <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />
             <Legend dotClassName="bg-_orange" label={target} />
           </div>
           {chartOption && <Chart className="flex-grow" option={chartOption} />}

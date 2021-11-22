@@ -5,7 +5,7 @@ import { useGetGoalQuery } from '../services/app';
 import { getTargetLabel } from '../utils/label';
 import { getDecimalNumber } from '../utils/number';
 
-export default function useGoal({ keyword, isHistory = false } = {}) {
+export default function useGoal({ keyword, isHistory = false, labelType = '' } = {}) {
   const currYear = new Date().getFullYear();
   const business = useSelector(selectBusiness);
   const lng = useSelector(selectLanguage);
@@ -16,6 +16,6 @@ export default function useGoal({ keyword, isHistory = false } = {}) {
     pct,
     currYear,
     baseYear: baseYear || currYear - 1,
-    label: getTargetLabel(target, baseYear, isHistory, lng),
+    label: getTargetLabel(target, baseYear, isHistory, lng, labelType),
   };
 }

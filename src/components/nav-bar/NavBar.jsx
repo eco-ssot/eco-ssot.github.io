@@ -7,7 +7,7 @@ import { selectBusiness } from '../../renderless/location/locationSlice';
 import { privateRoutes } from '../../router/routes';
 
 export default function NavBar({ className }) {
-  const { t } = useTranslation('homePage', { keyPrefix: 'navbar' });
+  const { t } = useTranslation(['homePage'], { keyPrefix: 'navbar' });
   const { pathname } = useLocation();
   const business = useSelector(selectBusiness);
   return (

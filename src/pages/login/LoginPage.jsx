@@ -8,7 +8,7 @@ import Header from '../../components/header/Header';
 import { useKeycloak } from '../../keycloak';
 
 export default function LoginPage() {
-  const { t } = useTranslation('loginPage');
+  const { t } = useTranslation(['loginPage']);
   const { state } = useLocation();
   const { keycloak } = useKeycloak();
   const login = useCallback(() => {

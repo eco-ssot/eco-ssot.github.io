@@ -19,7 +19,8 @@ const OPTION = (values, labels, target) => ({
     axisLine: { lineStyle: { color: colors.primary['600'] } },
     axisLabel: {
       color: colors.gray['50'],
-      formatter: (value) => value.split(' ').join('\n'),
+      formatter: (value) => value.replace(' ', '\n'),
+      lineHeight: 16,
     },
   },
   yAxis: {

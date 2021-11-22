@@ -6,7 +6,7 @@ import OverviewHistoryTable from './OverviewHistoryTable';
 import OverviewTable from './OverviewTable';
 
 export default function OverviewPage() {
-  const { t } = useTranslation('overviewPage');
+  const { t } = useTranslation(['overviewPage']);
   return (
     <TablePage
       title={t('title')}

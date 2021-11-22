@@ -1,6 +1,6 @@
 import { getDecimalNumber } from './number';
 
-export function getTargetLabel(target = '', baseYear = '', isHistory = false, lng = 'en') {
+export function getTargetLabel(target = '', baseYear = '', isHistory = false, lng = 'en', labelType = '') {
   if (lng === 'en') {
     if (target === '') {
       return 'Target：-';
@@ -13,6 +13,10 @@ export function getTargetLabel(target = '', baseYear = '', isHistory = false, ln
     const decimalNumber = getDecimalNumber(target);
     if (isHistory) {
       return `Target：-${decimalNumber}% compared to ${baseYear || 'last year'}`;
+    }
+
+    if (labelType === 'analysis') {
+      return `Target：Baseline -${decimalNumber}% `;
     }
 
     return `Target：-${decimalNumber}% compared to ${baseYear || 'last year'}`;

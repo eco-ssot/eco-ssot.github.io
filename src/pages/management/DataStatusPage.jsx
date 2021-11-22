@@ -155,7 +155,7 @@ function getLabel(t) {
 }
 
 export default function DataStatusPage() {
-  const { t } = useTranslation('managementPage');
+  const { t } = useTranslation(['managementPage']);
   const { data } = useGetDataStatusQuery();
   return (
     <div className="row-span-2 col-span-7">

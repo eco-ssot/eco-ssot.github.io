@@ -16,7 +16,7 @@ import TimeInfo from '../time-info/TimeInfo';
 import WeatherInfo from '../weather-info/WeatherInfo';
 
 export default function Header({ className }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common']);
   const lng = useSelector(selectLanguage);
   const business = useSelector(selectBusiness);
   const { keycloak } = useKeycloak();

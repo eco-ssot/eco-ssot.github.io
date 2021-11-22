@@ -6,7 +6,7 @@ import RenewableEnergyHistoryTable from './RenewableEnergyHistoryTable';
 import RenewableEnergyTable from './RenewableEnergyTable';
 
 export default function RenewableEnergyPage() {
-  const { t } = useTranslation('renewableEnergyPage');
+  const { t } = useTranslation(['renewableEnergyPage']);
   return (
     <TablePage
       title={t('title')}

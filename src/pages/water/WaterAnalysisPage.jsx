@@ -1,4 +1,5 @@
 import { isNil } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
@@ -74,7 +75,7 @@ const OPTION = (values, labels, target) => {
       axisLine: { lineStyle: { color: colors.primary['600'] } },
       axisLabel: {
         color: colors.gray['50'],
-        formatter: (value) => value.split(' ').join('\n'),
+        formatter: (value) => value.replace(' ', '\n'),
         interval: 0,
       },
     },
@@ -123,10 +124,11 @@ const OPTION = (values, labels, target) => {
 };
 
 export default function WaterAnalysisPage() {
+  const { t } = useTranslation(['analysisPage']);
   const business = useSelector(selectBusiness);
   const site = useSelector(selectSite);
   const plant = useSelector(selectPlant);
-  const { label, pct, baseYear, currYear } = useGoal({ keyword: '用水強度' });
+  const { label, pct, baseYear, currYear } = useGoal({ keyword: '用水強度', labelType: 'analysis' });
   const { data } = useGetWaterAnalysisQuery({ business, site, plant });
   const { data: tableData } = useGetWaterExplanationQuery({ business, site, plant });
   const [postExplanation] = usePostWaterExplanationMutation();
@@ -140,8 +142,9 @@ export default function WaterAnalysisPage() {
   const lastYearKey = `${currYear - 1} YTM`;
   const overview = [
     {
-      title: '用水量',
-      unit: '(公噸)',
+      name: '用水量',
+      title: t('analysisPage:water.water.title'),
+      unit: t('analysisPage:water.water.unit'),
       value: water?.gradient,
       subData: [
         { key: lastYearKey, value: water?.compareYear },
@@ -149,8 +152,9 @@ export default function WaterAnalysisPage() {
       ],
     },
     {
-      title: '營業額',
-      unit: '(十億台幣)',
+      name: '營業額',
+      title: t('analysisPage:water.revenue.title'),
+      unit: t('analysisPage:water.revenue.unit'),
       value: revenue?.gradient,
       subData: [
         { key: lastYearKey, value: revenue?.compareYear },
@@ -158,8 +162,9 @@ export default function WaterAnalysisPage() {
       ],
     },
     {
-      title: '用水強度',
-      unit: '(公噸/十億台幣)',
+      name: '用水強度',
+      title: t('analysisPage:water.waterIntensity.title'),
+      unit: t('analysisPage:water.waterIntensity.unit'),
       value: waterIntensity?.currentAndCompareGradient,
       subData: [
         { key: lastYearKey, value: waterIntensity?.compareYear },
@@ -167,8 +172,9 @@ export default function WaterAnalysisPage() {
       ],
     },
     {
-      title: '出貨量',
-      unit: '(千片)',
+      name: '出貨量',
+      title: t('analysisPage:water.shipment.title'),
+      unit: t('analysisPage:water.shipment.unit'),
       value: shipment?.gradient,
       subData: [
         { key: lastYearKey, value: shipment?.compareYear },
@@ -176,8 +182,9 @@ export default function WaterAnalysisPage() {
       ],
     },
     {
+      name: 'ASP',
       title: 'ASP',
-      unit: '(千台幣/片)',
+      unit: t('analysisPage:water.asp.unit'),
       value: ASP?.gradient,
       subData: [
         {
@@ -201,13 +208,20 @@ export default function WaterAnalysisPage() {
     waterIntensity?.ASP,
   ];
 
-  const labels = [`${baseYear} Actual`, `${currYear - 1} Actual`, `${currYear} Actual`, `${currYear} 還原ASP影響`];
+  const labels = [
+    `${baseYear} Actual`,
+    `${currYear - 1} Actual`,
+    `${currYear} Actual`,
+    `${currYear}  ${t('analysisPage:aspReduction')}`,
+  ];
+
   const target = waterIntensity?.baseYear * (1 - pct);
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
-      title={`十億營業額用水：用水強度分析 ${`(Plant: ${plant || site || '-'})`}`}
-      chartTitle="用水強度對比"
+      title={`${t('analysisPage:water.title')} ${`(Plant: ${plant || site || '-'})`}`}
+      chartTitle={t('analysisPage:water.chartTitle')}
+      tableTitle={t('analysisPage:water.tableTitle')}
       overview={overview}
       tableData={tableData?.data}
       target={label}

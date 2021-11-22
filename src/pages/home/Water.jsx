@@ -19,7 +19,7 @@ const OPTION = (values, labels, target) => ({
     axisLine: { lineStyle: { color: colors.primary['600'] } },
     axisLabel: {
       color: colors.gray['50'],
-      formatter: (value) => value.split(' ').join('\n'),
+      formatter: (value) => value.replace(' ', '\n'),
       lineHeight: 16,
     },
   },
@@ -61,7 +61,7 @@ const OPTION = (values, labels, target) => ({
 });
 
 export default function Water({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common']);
   const lng = useSelector(selectLanguage);
   const labels = [
     `${baseYear} Total`,

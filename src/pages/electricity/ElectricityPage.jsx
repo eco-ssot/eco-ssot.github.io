@@ -6,7 +6,7 @@ import ElectricityHistoryTable from './ElectricityHistoryTable';
 import ElectricityTable from './ElectricityTable';
 
 export default function ElectricityPage() {
-  const { t } = useTranslation('electricityPage');
+  const { t } = useTranslation(['electricityPage']);
   return (
     <TablePage
       title={t('title')}

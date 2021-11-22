@@ -6,6 +6,7 @@ import { PencilIcon, ChevronUpIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import Dot from '../../components/dot/Dot';
 import DatePicker from '../../components/input/DatePicker';
@@ -51,6 +52,7 @@ export function AnalysisSubTable({
   onChange = () => {},
   onDeleteRow = () => {},
 }) {
+  const { t } = useTranslation(['analysisPage', 'component']);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
   const [table, setData] = useState(data);
   const [deleteId, setDeleteId] = useState(false);
@@ -75,12 +77,12 @@ export function AnalysisSubTable({
               className="grid grid-cols-11 items-center w-full py-2 font-medium text-left text-primary-600 bg-primary-600 bg-opacity-10 cursor-pointer gap-2 px-2 tracking-wider border-t border-b border-primary-600">
               <div className="col-span-3 flex space-x-2 items-center">
                 <ChevronUpIcon className={clsx(`${open && 'transform rotate-180'} w-5 h-5 text-primary-600`)} />
-                <div className="">改善措施</div>
+                <div className="">{t('analysisPage:table.strategy')}</div>
               </div>
-              <div className="col-span-2">預計效益</div>
-              <div className="col-span-1">貢獻度</div>
+              <div className="col-span-2">{t('analysisPage:table.expect')}</div>
+              <div className="col-span-1">{t('analysisPage:table.contribution')}</div>
               <div className="col-span-1 text-center">D.D</div>
-              <div className="col-span-1 text-center">完成日期</div>
+              <div className="col-span-1 text-center">{t('analysisPage:table.finishDate')}</div>
               <div className="col-span-2 text-center">PIC</div>
               <div className="col-span-1"></div>
             </Disclosure.Button>
@@ -137,7 +139,7 @@ export function AnalysisSubTable({
                               onChange({ id, name, expect, contribution, dd, completedDate, PIC });
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
                             }}>
-                            儲存
+                            {t('component:button.save')}
                           </EditableButton>
                         </div>
                       </>
@@ -202,6 +204,7 @@ export default function AnalysisTable({
   onDeleteRow,
   onDeleteSubRow,
 }) {
+  const { t } = useTranslation(['analysisPage', 'common', 'component']);
   const { data: users } = useGetUsersQuery();
   const [table, setData] = useState(data);
   const [isAddingRow, setIsAddingRow] = useState(false);
@@ -228,20 +231,20 @@ export default function AnalysisTable({
       <DeleteModal open={!isBoolean(deleteId)} setOpen={setDeleteId} onConfirm={() => onDeleteRow({ id: deleteId })} />
       <ErrorModal open={open} setOpen={setOpen} />
       <div className="flex justify-between">
-        <div className="text-xl font-medium">未達標說明</div>
+        <div className="text-xl font-medium">{t('analysisPage:missingTargetDesc')}</div>
         <div className="flex space-x-4 items-center">
-          <Legend dotClassName="bg-_yellow" label="即將過期" />
-          <Legend dotClassName="bg-dangerous-700" label="已過期" />
+          <Legend dotClassName="bg-_yellow" label={t('analysisPage:aboutToOverdue')} />
+          <Legend dotClassName="bg-dangerous-700" label={t('analysisPage:overdue')} />
           <EditableButton className="flex items-center space-x-1" onClick={() => setIsAddingRow((prev) => !prev)}>
             {isAddingRow ? (
               <>
                 <XIcon className="w-4 h-4" />
-                取消新增
+                {t('analysisPage:cancelAdd')}
               </>
             ) : (
               <>
                 <PlusIcon className="w-4 h-4" />
-                新增說明
+                {t('analysisPage:addDesc')}
               </>
             )}
           </EditableButton>
@@ -250,9 +253,9 @@ export default function AnalysisTable({
       <div className={clsx('w-full shadow overflow-auto rounded-t-lg', className)}>
         <div className="grid grid-cols-12 grid-rows-1 text-lg bg-primary-800 items-center py-3 tracking-wider gap-2 px-2 font-medium">
           <div className="col-span-1 text-center">No.</div>
-          <div className="col-span-5">未達標說明</div>
+          <div className="col-span-5">{t('analysisPage:missingTargetDesc')}</div>
           <div className="col-span-5">{title}</div>
-          <div className="col-span-1 text-center">編輯</div>
+          <div className="col-span-1 text-center">{t('common:edit')}</div>
         </div>
         {table &&
           table.map(({ id, description, effect, editing, imrprovements }, i) => (
@@ -287,7 +290,7 @@ export default function AnalysisTable({
 
                           setIsAddingRow(false);
                         }}>
-                        儲存
+                        {t('component:button.save')}
                       </EditableButton>
                     </div>
                   </>
