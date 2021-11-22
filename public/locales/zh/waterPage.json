@@ -5,5 +5,9 @@
     "revenue": "營業額 (十億台幣)",
     "revenueWater": "十億營業額用水 (公噸)",
     "comparison": "對比基準年"
+  },
+  "history": {
+    "water": "十億營業額用水 (公噸)",
+    "delta": "增減率 *"
   }
 }

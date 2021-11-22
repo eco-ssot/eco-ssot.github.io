@@ -1,17 +1,17 @@
-import { isValid, format } from 'date-fns';
+import { isValid } from 'date-fns';
 import { isNil } from 'lodash';
 
-export function formatYtm(date, lng = 'en') {
+export function formatYtm(date) {
   if (!isValid(new Date(date))) {
     return '-';
   }
 
   const month = new Date(date).getMonth() + 1;
   if (month === 1) {
-    return lng === 'zh' ? '1月' : 'Jan.';
+    return '1';
   }
 
-  return lng === 'zh' ? `1-${month}月` : `Jan-${format(new Date(date), 'MMM')}`;
+  return `1-${month}`;
 }
 
 export function formatTarget(target, lng = 'en') {

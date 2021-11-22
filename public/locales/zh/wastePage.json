@@ -21,5 +21,9 @@
     },
     "recycleRate": "廢棄物回收率"
   },
-  "upload": {}
+  "upload": {},
+  "history": {
+    "waste": "廢棄物產生密度 (公噸/十億台幣)",
+    "delta": "增減率 *"
+  }
 }

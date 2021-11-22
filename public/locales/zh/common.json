@@ -15,5 +15,9 @@
   "gapDesc": "* 增減率 = (當年度 − 上年度) / 上年度",
   "weight": "權重",
   "gap": "增減率 *",
-  "edit": "編輯"
+  "edit": "編輯",
+  "history": {
+    "ytm": "{{startYear}} 年 1 - {{endMonthNum}} 月",
+    "m": "{{startYear}} 年 {{endMonthNum}} 月"
+  }
 }

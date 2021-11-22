@@ -42,7 +42,7 @@ const DIMENSION_MAPPING = {
 
 const MONTH_RANGE_OPTIONS = [
   { key: 'YTM', value: 'Year To Month' },
-  { key: 'single', value: '單月資料' },
+  { key: 'single', value: 'Single Month' },
 ];
 
 const MONTH_RANGE_MAPPING = {
@@ -52,7 +52,7 @@ const MONTH_RANGE_MAPPING = {
 
 const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => ({
   key: String(i + 1),
-  value: `${String(i + 1)}月`,
+  value: String(i + 1),
 }));
 
 const PLANT_OPTIONS = [

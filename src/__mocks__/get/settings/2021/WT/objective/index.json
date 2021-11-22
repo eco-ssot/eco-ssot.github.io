@@ -6,7 +6,7 @@
       "baseYear": null,
       "target": "下降 2 %",
       "amount": 356.4979683122203,
-      "unit": "千度 / 十億新臺幣"
+      "unit": "千度 / 十億新台幣"
     },
     {
       "id": 10,
@@ -14,7 +14,7 @@
       "baseYear": 2016,
       "target": "下降 9 %",
       "amount": 4.240214267299201,
-      "unit": "千噸 / 十億新臺幣"
+      "unit": "千噸 / 十億新台幣"
     },
     {
       "id": 7,
@@ -30,7 +30,7 @@
       "baseYear": null,
       "target": "下降 3 %",
       "amount": 3.7686571346692963,
-      "unit": "度 / 臺"
+      "unit": "度 / 台"
     },
     {
       "id": 12,
@@ -38,7 +38,7 @@
       "baseYear": 2018,
       "target": "下降 2 %",
       "amount": null,
-      "unit": "公噸 / 十億新臺幣"
+      "unit": "公噸 / 十億新台幣"
     },
     { "id": 8, "category": "可再生能源", "baseYear": null, "target": "占比 > 60 %", "amount": 0.6, "unit": "%" }
   ]

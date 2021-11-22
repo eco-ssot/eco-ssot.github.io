@@ -13,5 +13,9 @@
       "header": "單台用電 (度)",
       "delta": "增減率 (f/e-1)"
     }
+  },
+  "history": {
+    "unitElectricity": "單台用電 (度)",
+    "delta": "增減率 *"
   }
 }

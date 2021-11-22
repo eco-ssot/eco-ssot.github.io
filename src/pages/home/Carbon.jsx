@@ -56,8 +56,8 @@ export default function Carbon({ baseYear, compareYear, currentYear, latestDate,
   const { t, i18n } = useTranslation(['homePage', 'common']);
   const labels = [
     `${baseYear} Total`,
-    `${compareYear} ${formatYtm(latestDate, i18n.resolvedLanguage)}`,
-    `${currentYear} ${formatYtm(latestDate, i18n.resolvedLanguage)}`,
+    `${compareYear} ${formatYtm(latestDate)}`,
+    `${currentYear} ${formatYtm(latestDate)}`,
   ];
 
   const values = [data.baseYear, data.compareYTM, data.currentYTM];

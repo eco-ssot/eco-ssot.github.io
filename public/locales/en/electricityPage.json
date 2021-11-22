@@ -17,5 +17,9 @@
       "header": "ASP (Thousand NTD/unit)",
       "delta": "Gap (h/g-1)"
     }
+  },
+  "history": {
+    "electricity": "Electricity Consumption/Billion NTD (kWh)",
+    "delta": "Gap *"
   }
 }

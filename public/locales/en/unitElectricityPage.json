@@ -13,5 +13,9 @@
       "header": "Electricity Consumption per Product (kWh)",
       "delta": "Gap (f/e-1)"
     }
+  },
+  "history": {
+    "unitElectricity": "Electricity Consumption / Product (kWh)",
+    "delta": "Gap *"
   }
 }

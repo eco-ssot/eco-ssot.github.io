@@ -23,10 +23,10 @@ const DICTIONARY = {
   單台用電: 'Electricity Consumption per Product',
   廢棄物密度: 'Waste Generation Intensity',
   公噸: 'Ton',
-  '千度 / 十億新臺幣': 'MWh / billion NTD',
-  '千噸 / 十億新臺幣': 'Kiloton / billion NTD',
-  '度 / 臺': 'kWh / product',
-  '公噸 / 十億新臺幣': 'Ton / billion NTD',
+  '千度 / 十億新台幣': 'MWh / billion NTD',
+  '千噸 / 十億新台幣': 'Kiloton / billion NTD',
+  '度 / 台': 'kWh / product',
+  '公噸 / 十億新台幣': 'Ton / billion NTD',
 };
 
 const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => [

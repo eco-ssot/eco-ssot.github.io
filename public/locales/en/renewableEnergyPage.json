@@ -18,5 +18,10 @@
       "area": "Usable Roof Area (M²)",
       "structure": "Roof Structure (RC / Steel Structure)"
     }
+  },
+  "history": {
+    "desc": "* Percentage = Renewable Energy / Total",
+    "electricity": "Total (kWh)",
+    "ratio": "Percentage *"
   }
 }

@@ -158,7 +158,7 @@ export default function ElectricityAnalysisPage() {
     },
     {
       title: '用電強度',
-      unit: '(度/十億臺幣)',
+      unit: '(度/十億台幣)',
       value: electrcityIntensity?.gradient,
       subData: [
         { key: lastYearKey, value: electrcityIntensity?.compareYear },
@@ -176,7 +176,7 @@ export default function ElectricityAnalysisPage() {
     },
     {
       title: 'ASP',
-      unit: '(千臺幣/片)',
+      unit: '(千台幣/片)',
       value: ASP?.gradient,
       subData: [
         {

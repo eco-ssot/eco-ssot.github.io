@@ -5,5 +5,9 @@
     "revenue": "Revenue (billion NTD)",
     "revenueWater": "Water Consumption per Billion NTD",
     "comparison": "Compared to Baseline Year"
+  },
+  "history": {
+    "water": "Water Consumption per Billion NTD",
+    "delta": "Gap *"
   }
 }

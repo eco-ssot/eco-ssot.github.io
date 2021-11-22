@@ -159,7 +159,7 @@ export default function WaterAnalysisPage() {
     },
     {
       title: '用水強度',
-      unit: '(公噸/十億臺幣)',
+      unit: '(公噸/十億台幣)',
       value: waterIntensity?.currentAndCompareGradient,
       subData: [
         { key: lastYearKey, value: waterIntensity?.compareYear },
@@ -177,7 +177,7 @@ export default function WaterAnalysisPage() {
     },
     {
       title: 'ASP',
-      unit: '(千臺幣/片)',
+      unit: '(千台幣/片)',
       value: ASP?.gradient,
       subData: [
         {

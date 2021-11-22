@@ -161,7 +161,7 @@ export default function WasteAnalysisPage() {
     },
     {
       title: '廢棄物產生密度',
-      unit: '(公噸/十億臺幣)',
+      unit: '(公噸/十億台幣)',
       value: wasteIntensity?.currentAndCompareGradient,
       subData: [
         {
@@ -188,7 +188,7 @@ export default function WasteAnalysisPage() {
     },
     {
       title: 'ASP',
-      unit: '(千臺幣/片)',
+      unit: '(千台幣/片)',
       value: ASP?.gradient,
       subData: [
         {

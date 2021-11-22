@@ -21,5 +21,9 @@
     },
     "recycleRate": "Waste Recycling Rate"
   },
-  "upload": {}
+  "upload": {},
+  "history": {
+    "waste": "Waste Generation Intensity (ton/billion NTD)",
+    "delta": "Gap *"
+  }
 }

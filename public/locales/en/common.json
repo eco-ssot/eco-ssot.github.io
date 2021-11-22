@@ -15,5 +15,9 @@
   "gapDesc": "* Gap = (Current year − Last year) / Last year",
   "weight": "Percentage",
   "gap": "Gap *",
-  "edit": "Edit"
+  "edit": "Edit",
+  "history": {
+    "ytm": "Jan - {{endMonth, datetime}}, {{startYear}}",
+    "m": "{{endMonth, datetime}}, {{startYear}}"
+  }
 }

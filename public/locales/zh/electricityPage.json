@@ -17,5 +17,9 @@
       "header": "ASP (千台幣/台)",
       "delta": "增減率 (h/g-1)"
     }
+  },
+  "history": {
+    "electricity": "十億營業額用電 (度)",
+    "delta": "增減率 *"
   }
 }

@@ -30,5 +30,37 @@
       "price": "購買價格",
       "currency": "金額幣別"
     }
+  },
+  "dataStatus": {
+    "title": "下表為{{currMonthNum}}月資料狀態",
+    "subTitle": "預計下次更新: {{nextMonth}}/10, CSR預計下次更新: {{nextMonth}}/30",
+    "csrDesc": "＊CSR 更新日期：每月最後一日",
+    "noData": "無資料",
+    "updated": "已更新",
+    "notUpdated": "未更新",
+    "table": {
+      "autoSync": "自動同步",
+      "manualSync": "手動更新",
+      "benefit": "節電量",
+      "OPMRevenue": "營收",
+      "OPMManual": "人力",
+      "OPMShipment": "出貨量",
+      "FEMElectric": "智慧電表",
+      "FEMWater": "智慧水表",
+      "FEMSolar": "太陽能",
+      "CSRElectric": "電費帳單 / 差異",
+      "CSRWater": "水費帳單 / 差異",
+      "DPMEquProduction": "約當生產量",
+      "waste": "廢棄物",
+      "wasteWeight": "廢棄物重量"
+    }
+  },
+  "pic": {
+    "title": "資料維護 PIC",
+    "table": {
+      "waste": "廢棄物",
+      "manualSync": "手動更新",
+      "remark": "手動更新"
+    }
   }
 }

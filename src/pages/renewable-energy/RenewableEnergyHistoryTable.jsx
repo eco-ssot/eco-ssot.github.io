@@ -1,4 +1,5 @@
 import { isNil } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
@@ -8,26 +9,32 @@ import { useGetRenewableEnergyHistoryQuery } from '../../services/renewableEnerg
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
-const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
+const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => {
   let columns = [];
   if (!isNil(monthType)) {
     columns = Array.from({ length: Number(endYear) - Number(startYear) + 1 }, (_, i) => {
       const key = Number(startYear) + i;
-      const header =
-        monthType === APP_CONFIG.MONTH_RANGE_MAPPING.YTM ? `${key} 年 1 - ${endMonth}月` : `${key} 年 ${endMonth}月`;
+      const header = t(monthType === APP_CONFIG.MONTH_RANGE_MAPPING.YTM ? 'common:history.ytm' : 'common:history.m', {
+        startYear: key,
+        endMonthNum: endMonth,
+        endMonth: new Date().setMonth(Number(endMonth) - 1),
+        formatParams: {
+          endMonth: { month: 'short' },
+        },
+      });
 
       return {
         id: key,
         Header: () => <div className="border-b border-divider py-3">{header}</div>,
         columns: [
           {
-            Header: '總用電量 (度)',
+            Header: t('renewableEnergyPage:history.electricity'),
             accessor: [key, 'electricity'].join('.'),
             className: 'text-right',
             Cell: baseFormatter,
           },
           {
-            Header: '可再生能源占比 *',
+            Header: t('renewableEnergyPage:history.ratio'),
             accessor: [key, 'ratio'].join('.'),
             className: 'text-right',
             Cell: ratioFormatter,
@@ -43,8 +50,17 @@ const COLUMNS = ({ startYear, endYear, startMonth, endMonth, monthType }) => {
       return {
         Header: () => (
           <>
-            <div>{`${startYear} 年 ${key} 月`}</div>
-            <div>可再生能源占比 (%)</div>
+            <div>
+              {t('common:history.m', {
+                startYear: startYear,
+                endMonthNum: key,
+                endMonth: new Date().setMonth(Number(key) - 1),
+                formatParams: {
+                  endMonth: { month: 'short' },
+                },
+              })}
+            </div>
+            <div>{t('renewableEnergyPage:history.ratio')}</div>
           </>
         ),
         accessor: String(key),
@@ -119,6 +135,7 @@ export default function RenewableEnergyHistoryTable({
   endMonth,
   dimension,
 }) {
+  const { t } = useTranslation(['renewableEnergyPage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
   const { data } = useGetRenewableEnergyHistoryQuery(
     { business, ...option },
@@ -131,9 +148,9 @@ export default function RenewableEnergyHistoryTable({
       <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
         <>
-          <div className="w-full h-6 text-right">* 占比 = ( 電網綠電 + 太陽能發電 + 綠證 ) / 總用電</div>
+          <div className="w-full h-6 text-right">{t('history.desc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table columns={COLUMNS(option)} data={(data?.data || []).map(toRow(option))} />
+            <Table columns={COLUMNS({ ...option, t })} data={(data?.data || []).map(toRow(option))} />
           </div>
         </>
       )}

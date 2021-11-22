@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
+import { useTranslation } from 'react-i18next';
 
 import EditableTable, {
   AdSearchSelectCell,
@@ -10,7 +11,7 @@ import EditableTable, {
 } from '../../components/table/EditableTable';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 
-const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
+const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
   {
     hidden: true,
@@ -18,7 +19,7 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
     Header: () => (
       <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
         <div className="px-2">OPM</div>
-        <div className="px-2 text-gray-400 text-sm">自動同步</div>
+        <div className="px-2 text-gray-400 text-sm">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
     columns: [
@@ -40,7 +41,7 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
           ),
       },
       {
-        Header: '備註',
+        Header: t('managementPage:pic.table.remark'),
         accessor: 'OPMNote',
         className: 'w-1/5 text-center',
         editable: true,
@@ -52,8 +53,8 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
     id: 'waste',
     Header: () => (
       <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-        <div className="px-2">廢棄物</div>
-        <div className="px-2 text-gray-400 text-sm">手動更新</div>
+        <div className="px-2">{t('managementPage:pic.table.waste')}</div>
+        <div className="px-2 text-gray-400 text-sm">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
     columns: [
@@ -75,7 +76,7 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
           ),
       },
       {
-        Header: '備註',
+        Header: t('managementPage:pic.table.remark'),
         accessor: 'wasteNote',
         className: 'w-1/5 text-center',
         editable: true,
@@ -84,7 +85,7 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
     ],
   },
   {
-    Header: '編輯',
+    Header: t('common:edit'),
     id: 'action',
     className: 'w-[10%] text-center',
     rowSpan: 0,
@@ -101,7 +102,7 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
               }))
             );
           }}>
-          儲存
+          {t('component:button.save')}
         </EditableButton>
       ) : (
         <EditableIconButton
@@ -123,11 +124,12 @@ const COLUMNS = ({ canEdit, userOptions, setData, patchDataStatusPic }) => [
 ];
 
 export default function PicPage({ canEdit, users }) {
+  const { t } = useTranslation(['managementPage', 'common', 'component']);
   const { data: { data } = {} } = useGetDataStatusPicQuery();
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
-  const columns = COLUMNS({ canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
+  const columns = COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {
@@ -147,7 +149,7 @@ export default function PicPage({ canEdit, users }) {
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-6">
-        <div className="text-xl font-medium">資料維護 PIC</div>
+        <div className="text-xl font-medium">{t('managementPage:pic.title')}</div>
         {data && (
           <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
             <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData} />

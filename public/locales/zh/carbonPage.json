@@ -24,5 +24,9 @@
       "header": "碳排抵扣綠證目標",
       "unit": "(h-i*{{ratio}})*1000/e"
     }
+  },
+  "history": {
+    "carbon": "碳排放 (公噸)",
+    "delta": "增減率 *"
   }
 }
