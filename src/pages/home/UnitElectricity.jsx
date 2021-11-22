@@ -59,7 +59,7 @@ const OPTION = (values, labels, target) => ({
 });
 
 export default function UnitElectricity({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('common');
   const labels = [
     `${baseYear} Total`,
     `${compareYear} ${formatYtm(latestDate)}`,

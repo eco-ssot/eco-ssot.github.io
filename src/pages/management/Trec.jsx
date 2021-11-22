@@ -2,54 +2,55 @@ import { useState } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 
-const COLUMNS = ({ setData, canEdit, data = [] }) => [
+const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
   {
-    Header: '購買日期',
+    Header: t('managementPage:tRec.table.buyDate'),
     accessor: 'buyDate',
     rowSpan: data.length || 1,
     className: 'w-[15%] text-center',
     editable: true,
   },
   {
-    Header: '合計度數 (千度)',
+    Header: t('managementPage:tRec.table.unit'),
     accessor: 'unit',
     rowSpan: data.length || 1,
     className: 'w-[15%] text-center',
     editable: true,
   },
   {
-    Header: '購買地區',
+    Header: t('managementPage:tRec.table.buyArea'),
     accessor: 'buyArea',
-    className: 'w-[15%] h-12 text-center',
+    className: 'w-[15%] text-center py-2',
     editable: true,
     placeholder: '地區',
   },
   {
-    Header: '購買度數 (千度)',
+    Header: t('managementPage:tRec.table.buyUnit'),
     accessor: 'buyUnit',
     className: 'w-[15%] text-center',
     editable: true,
     placeholder: '張數',
   },
   {
-    Header: '購買地區',
+    Header: t('managementPage:tRec.table.price'),
     accessor: 'price',
     className: 'w-[15%] text-center',
     editable: true,
-    placeholder: '地區',
+    placeholder: '價格',
   },
   {
-    Header: '金額幣別',
+    Header: t('managementPage:tRec.table.currency'),
     accessor: 'currency',
     className: 'w-[15%] text-center',
     editable: true,
     placeholder: '幣別',
   },
   {
-    Header: '編輯',
+    Header: t('common:edit'),
     id: 'action',
     className: 'w-[10%] text-center',
     rowSpan: data.length || 1,
@@ -61,7 +62,7 @@ const COLUMNS = ({ setData, canEdit, data = [] }) => [
               setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'))
             )
           }>
-          儲存
+          {t('component:button.save')}
         </EditableButton>
       ) : (
         <EditableIconButton
@@ -81,7 +82,7 @@ const COLUMNS = ({ setData, canEdit, data = [] }) => [
   },
 ];
 
-const DATA = [
+const DATA = (lng) => [
   {
     buyDate: '2020.12.29',
     unit: '344,000',
@@ -89,14 +90,22 @@ const DATA = [
     buyUnit: '188,000',
     price: '600,000',
     currency: '人民幣',
+    ...(lng === 'en' && {
+      buyArea: 'China',
+      currency: 'CNY',
+    }),
   },
   {
     buyDate: '2020.12.29',
     unit: '344,000',
-    buyArea: '臺灣',
+    buyArea: '台灣',
     buyUnit: '0',
     price: '0',
-    currency: '臺灣',
+    currency: '新台幣',
+    ...(lng === 'en' && {
+      buyArea: 'Taiwan',
+      currency: 'NTD',
+    }),
   },
   {
     buyDate: '2020.12.29',
@@ -105,12 +114,17 @@ const DATA = [
     buyUnit: '156,000',
     price: '150,000',
     currency: '捷克克朗',
+    ...(lng === 'en' && {
+      buyArea: 'Czech Republic',
+      currency: 'CZK',
+    }),
   },
 ];
 
 export default function Trec({ className, canEdit }) {
-  const [data, setData] = useState(() => DATA);
-  const columns = COLUMNS({ data, setData, canEdit });
+  const { t, i18n } = useTranslation(['managementPage', 'common', 'component']);
+  const [data, setData] = useState(() => DATA(i18n.resolvedLanguage));
+  const columns = COLUMNS({ t, data, setData, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

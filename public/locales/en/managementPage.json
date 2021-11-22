@@ -1,1 +1,34 @@
-{}
+{
+  "nav": {
+    "goal": "Annual Target",
+    "dataStatus": "Data Update Status",
+    "pic": "Data Maintain PIC"
+  },
+  "yearGoal": {
+    "title": "Annual Target",
+    "table": {
+      "category": "Item",
+      "baseYear": "Baseline Year",
+      "target": "Target Definition （Compared to Baseline Year）",
+      "unit": "Unit"
+    }
+  },
+  "carbonIndex": {
+    "title": "Carbon Emission Factor",
+    "unit": "(Ton CO₂e/MWh)",
+    "table": {
+      "amount": "Carbon Emission Factor"
+    }
+  },
+  "tRec": {
+    "title": "Renewable Energy Certificate (REC) Purchase",
+    "table": {
+      "buyDate": "Date",
+      "unit": "Total (MWh)",
+      "buyArea": "Area",
+      "buyUnit": "Amount (MWh)",
+      "price": "Price",
+      "currency": "Currency"
+    }
+  }
+}

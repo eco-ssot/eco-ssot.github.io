@@ -14,5 +14,6 @@
   "accumulationRange": "YTM Duration",
   "gapDesc": "* Gap = (Current year − Last year) / Last year",
   "weight": "Percentage",
-  "gap": "Gap *"
+  "gap": "Gap *",
+  "edit": "Edit"
 }

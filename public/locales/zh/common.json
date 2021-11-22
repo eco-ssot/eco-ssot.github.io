@@ -14,5 +14,6 @@
   "accumulationRange": "累計區間",
   "gapDesc": "* 增減率 = (當年度 − 上年度) / 上年度",
   "weight": "權重",
-  "gap": "增減率 *"
+  "gap": "增減率 *",
+  "edit": "編輯"
 }

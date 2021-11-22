@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import EditableTable, {
   CustomInputCell,
@@ -14,39 +15,60 @@ import { getDecimalNumber } from '../../utils/number';
 
 import ErrorModal from './ErrorModal';
 
-const COLUMNS = ({ setData, year, patchGoal, canEdit, setOpen }) => [
+const DICTIONARY = {
+  碳排放量: 'Carbon Emission',
+  可再生能源: 'Renewable Energy',
+  用電強度: 'Electricity Consumption Intensity',
+  用水強度: 'Water Consumption Intensity',
+  單台用電: 'Electricity Consumption per Product',
+  廢棄物密度: 'Waste Generation Intensity',
+  公噸: 'Ton',
+  '千度 / 十億新臺幣': 'MWh / billion NTD',
+  '千噸 / 十億新臺幣': 'Kiloton / billion NTD',
+  '度 / 臺': 'kWh / product',
+  '公噸 / 十億新臺幣': 'Ton / billion NTD',
+};
+
+const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => [
   {
-    Header: '項目',
+    Header: t('managementPage:yearGoal.table.category'),
     accessor: 'category',
     className: 'w-[18%] text-center py-3',
+    ...(lng === 'en' && {
+      Cell: (cell) => DICTIONARY[cell.value] || cell.value,
+    }),
   },
   {
-    Header: '基準年',
+    Header: t('managementPage:yearGoal.table.baseYear'),
     accessor: 'baseYear',
     editable: true,
     className: 'w-[18%] text-center',
   },
   {
-    Header: 'Target 訂定標準（對比基準年）',
+    lng,
+    Header: t('managementPage:yearGoal.table.target'),
     accessor: 'target',
     editable: true,
     className: 'w-[18%] text-center',
-    EditableComponent: CustomInputCell,
+    EditableComponent: (cell) => CustomInputCell({ ...cell, lng }),
   },
   {
-    Header: `${year}年 Target`,
+    Header: `${year} Target`,
     accessor: 'amount',
     className: 'w-[18%] text-center',
     formatter: baseFormatter,
     precision: 1,
   },
   {
-    Header: '單位',
+    Header: t('managementPage:yearGoal.table.unit'),
     accessor: 'unit',
     className: 'w-[18%] text-center',
+    ...(lng === 'en' && {
+      Cell: (cell) => DICTIONARY[cell.value] || cell.value,
+    }),
   },
   {
-    Header: '編輯',
+    Header: t('common:edit'),
     id: 'action',
     className: 'w-[10%] text-center',
     Cell: (cell) => {
@@ -66,7 +88,7 @@ const COLUMNS = ({ setData, year, patchGoal, canEdit, setOpen }) => [
               }))
             );
           }}>
-          儲存
+          {t('component:button.save')}
         </EditableButton>
       ) : (
         <EditableIconButton
@@ -88,10 +110,11 @@ const COLUMNS = ({ setData, year, patchGoal, canEdit, setOpen }) => [
 ];
 
 export default function YearGoal({ className, year, data, canEdit }) {
+  const { t, i18n } = useTranslation(['managementPage', 'common', 'component']);
   const [patchGoal] = usePatchGoalMutation();
   const [dataSource, setData] = useState(data);
   const [open, setOpen] = useState(false);
-  const columns = COLUMNS({ setData, patchGoal, setOpen, year, canEdit });
+  const columns = COLUMNS({ t, setData, patchGoal, setOpen, year, canEdit, lng: i18n.resolvedLanguage });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

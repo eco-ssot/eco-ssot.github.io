@@ -3,19 +3,20 @@ import { useState } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { usePatchCarbonIndexMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
 
-const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
+const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
   {
     Header: 'Site',
     accessor: 'site',
     className: 'w-1/3 text-center py-3',
   },
   {
-    Header: '碳排放係數',
+    Header: t('managementPage:carbonIndex.table.amount'),
     accessor: 'amount',
     editable: true,
     className: 'w-1/3 text-center',
@@ -23,7 +24,7 @@ const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
     precision: 4,
   },
   {
-    Header: '編輯',
+    Header: t('common:edit'),
     id: 'action',
     className: 'w-1/3 text-center',
     Cell: (cell) => {
@@ -39,7 +40,7 @@ const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
               }))
             );
           }}>
-          儲存
+          {t('component:button.save')}
         </EditableButton>
       ) : (
         <EditableIconButton
@@ -61,9 +62,10 @@ const COLUMNS = ({ setData, patchCarbonIndex, year, canEdit }) => [
 ];
 
 export default function CarbonIndex({ className, year, data, canEdit }) {
+  const { t } = useTranslation(['managementPage', 'component']);
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);
-  const columns = COLUMNS({ setData, patchCarbonIndex, year, canEdit });
+  const columns = COLUMNS({ t, setData, patchCarbonIndex, year, canEdit });
   const updateMyData = (rowIndex, columnId, value) => {
     setData((old) =>
       old.map((row, index) => {

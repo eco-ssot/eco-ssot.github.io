@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 export default function ButtonGroup({ className, options = [], selected = options[0] || {}, onChange = () => {} }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('component');
   return (
     <div className={clsx('relative z-0 inline-flex shadow-sm rounded-md', className)}>
       {options.map(({ value, key = value }, i) => (

@@ -1,1 +1,34 @@
-{}
+{
+  "nav": {
+    "goal": "年度目標維護",
+    "dataStatus": "資料更新狀態",
+    "pic": "資料維護PIC"
+  },
+  "yearGoal": {
+    "title": "年度目標",
+    "table": {
+      "category": "項目",
+      "baseYear": "基準年",
+      "target": "Target 訂定標準（對比基準年）",
+      "unit": "單位"
+    }
+  },
+  "carbonIndex": {
+    "title": "碳排放係數",
+    "unit": "(公噸CO₂e/千度)",
+    "table": {
+      "amount": "碳排放係數"
+    }
+  },
+  "tRec": {
+    "title": "綠證",
+    "table": {
+      "buyDate": "購買日期",
+      "unit": "合計度數 (千度)",
+      "buyArea": "購買地區",
+      "buyUnit": "購買度數 (千度)",
+      "price": "購買價格",
+      "currency": "金額幣別"
+    }
+  }
+}

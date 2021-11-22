@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -27,6 +28,7 @@ export function Nav({ hidden, children, to, pathname }) {
 }
 
 export default function ManagementPage() {
+  const { t } = useTranslation(['managementPage', 'common', 'component']);
   const { keycloak, roles, canEdit } = useAdmin();
   const { data: users = [] } = useGetUsersQuery();
   const { pathname } = useLocation();
@@ -57,19 +59,19 @@ export default function ManagementPage() {
             </div>
             <div className="flex flex-col py-4 space-y-2">
               <Nav to="/management/goal" pathname={pathname}>
-                年度目標維護
+                {t('managementPage:nav.goal')}
               </Nav>
               <Nav to="/management/data-status" pathname={pathname}>
-                資料更新狀態
+                {t('managementPage:nav.dataStatus')}
               </Nav>
               <Nav to="/management/pic" pathname={pathname}>
-                資料維護PIC
+                {t('managementPage:nav.pic')}
               </Nav>
             </div>
           </div>
           <div className="border-t border-divider text-center mx-4">
             <Button className="mt-4" onClick={() => logout()}>
-              登出
+              {t('component:button.logout')}
             </Button>
           </div>
         </div>

@@ -6,12 +6,19 @@ import { isNil } from 'lodash';
 import { useTable } from 'react-table';
 
 import APP_CONFIG from '../../constants/app-config';
+import { formatTarget } from '../../pages/management/helpers';
 import { getDecimalNumber } from '../../utils/number';
 import Button from '../button/Button';
 import IconButton from '../button/IconButton';
 import Input from '../input/Input';
 import AdSearchSelect from '../select/AdSearchSelect';
 import Textarea from '../textarea/Textarea';
+
+const DICTIONARY = {
+  下降: '-',
+  '占比 >': '>',
+  '佔比 >': '>',
+};
 
 export const EditableButton = ({ children, onClick = () => {}, ...props }) => (
   <Button onMouseDown={() => document.activeElement?.blur()} onMouseUp={onClick} {...props}>
@@ -42,7 +49,7 @@ export const EditableInput = ({
   </div>
 );
 
-export const CustomInputCell = ({ defaultValue = '', placeholder = '', onBlur = () => {}, ...props }) => {
+export const CustomInputCell = ({ defaultValue = '', placeholder = '', lng = 'en', onBlur = () => {}, ...props }) => {
   const [match] = defaultValue.match(/下降|占比|佔比/) || [];
   const decimalNumber = getDecimalNumber(defaultValue);
   const [inputValue, setInputValue] = useState(decimalNumber);
@@ -58,7 +65,7 @@ export const CustomInputCell = ({ defaultValue = '', placeholder = '', onBlur = 
       onChange={(e) => setInputValue(e.target.value)}
       onBlur={(e) => onBlur([prefix, e.target.value, suffix].join(' '))}
       placeholder={placeholder}
-      prefix={prefix}
+      prefix={lng === 'en' ? DICTIONARY[prefix] || prefix : prefix}
       suffix={suffix}
       {...props}
     />
@@ -126,6 +133,7 @@ const EditableCell = ({
     original: { editing, category },
   },
   column: {
+    lng,
     id,
     editable,
     placeholder,
@@ -156,6 +164,8 @@ const EditableCell = ({
             ? APP_CONFIG.CURRENT_YEAR
             : APP_CONFIG.LAST_YEAR
           : '-'
+        : id === 'target'
+        ? formatTarget(initialValue, lng)
         : formatter(initialValue, { precision, ...(category === '碳排放量' && { precision: 0 }) })}
     </>
   );
