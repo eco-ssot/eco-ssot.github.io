@@ -73,7 +73,7 @@ export const privateRoutes = [
     group: '/electricity',
   },
   {
-    path: '/electricity/baseline',
+    path: '/analysis/electricity',
     title: '用電分析',
     component: ElectricityBaselinePage,
     key: 'electricityBaseline',
