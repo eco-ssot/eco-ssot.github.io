@@ -194,21 +194,23 @@ const COLUMNS = ({
   ]);
 
 export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
+  const { t } = useTranslation(['wastePage', 'component']);
   const [name, setName] = useState('');
   const fileRef = useRef();
   useEffect(() => !open && setName(''), [open]);
   useEffect(() => {
     if (!!isSuccess) {
-      toast.success('上傳成功');
+      toast.success(t('component:toast.uploadSuccess'));
+      fileRef.current = null;
       setOpen(false);
     }
-  }, [isSuccess, setOpen]);
+  }, [isSuccess, setOpen, t]);
 
   return (
     <Modal
       open={open}
       setOpen={setOpen}
-      title="匯入廢棄物資料"
+      title={t('wastePage:upload.uploadWaste')}
       footer={
         <Button
           className="mb-8"
@@ -226,7 +228,7 @@ export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
         </Button>
       }>
       <form className="p-8 flex flex-col items-start space-y-4">
-        <div>請選擇欲匯入之Excel檔</div>
+        <div>{t('wastePage:upload.selectExcel')}</div>
         <div className="flex items-center space-x-4 w-full">
           <FileInput
             id="excel"

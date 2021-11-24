@@ -21,7 +21,10 @@
     },
     "recycleRate": "Waste Recycling Rate"
   },
-  "upload": {},
+  "upload": {
+    "uploadWaste": "Import Data of Waste",
+    "selectExcel": "Select Excel File"
+  },
   "history": {
     "waste": "Waste Generation Intensity (ton/billion NTD)",
     "delta": "Gap *"

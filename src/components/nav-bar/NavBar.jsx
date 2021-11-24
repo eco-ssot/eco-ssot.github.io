@@ -14,25 +14,27 @@ export default function NavBar({ className }) {
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
         .filter(({ show = true }) => show)
-        .map(({ path, key, parent }) => (
-          <div
-            key={key}
-            className={
-              pathname === path || pathname.startsWith(parent)
-                ? 'border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2'
-                : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
-            }>
-            <Link
-              to={{
-                pathname: path,
-                state: { from: pathname },
-                ...(business && { search: `?business=${business}` }),
-              }}
-              className="text-current text-lg font-medium">
-              <span className="block truncate">{t(key)}</span>
-            </Link>
-          </div>
-        ))}
+        .map(({ path, key, group }) => {
+          return (
+            <div
+              key={key}
+              className={
+                pathname === path || pathname.startsWith(group)
+                  ? 'border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2'
+                  : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
+              }>
+              <Link
+                to={{
+                  pathname: path,
+                  state: { from: pathname },
+                  ...(business && { search: `?business=${business}` }),
+                }}
+                className="text-current text-lg font-medium">
+                <span className="block truncate">{t(key)}</span>
+              </Link>
+            </div>
+          );
+        })}
     </div>
   );
 }

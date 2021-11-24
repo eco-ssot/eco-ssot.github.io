@@ -13,6 +13,20 @@
   "button": {
     "search": "Search",
     "logout": "Logout",
-    "save": "Save"
+    "save": "Save",
+    "delete": "Delete",
+    "cancel": "Cancel"
+  },
+  "toast": {
+    "uploadSuccess": "Upload success"
+  },
+  "modal": {
+    "sureToDelete": "Sure to delete？",
+    "incompleteContent": "Input content incomplete",
+    "allColumnRequiredExceptCloseDate": "Please make sure all columns are filled in, except for “Close date” column.",
+    "inputValueError": "Input value error",
+    "checkInputRules": "Make sure all input values meet the following criteria:",
+    "goalRule1": "1. Baseline year must be less than or equal to the query year.",
+    "goalRule2": "2. Target definition must be less than or equal to 100%."
   }
 }

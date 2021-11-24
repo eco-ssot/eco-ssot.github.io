@@ -21,6 +21,9 @@
   "nonRenewableEnergy": "Non-renewable Energy",
   "solarPower": "Solar Power",
   "tRec": "REC",
+  "dataMissing": "Data Incomplete",
+  "seeDetail": "See details",
+  "onSettingsPage": "on settings page",
   "navbar": {
     "home": "Home",
     "overview": "Overview",

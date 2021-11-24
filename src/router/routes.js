@@ -70,6 +70,7 @@ export const privateRoutes = [
     title: '用電',
     component: ElectricityPage,
     key: 'electricity',
+    group: '/electricity',
   },
   {
     path: '/electricity/baseline',
@@ -82,6 +83,7 @@ export const privateRoutes = [
     title: '用水',
     component: WaterPage,
     key: 'water',
+    group: '/water',
   },
   {
     path: '/unit-electricity',
@@ -94,6 +96,7 @@ export const privateRoutes = [
     title: '廢棄物',
     component: WastePage,
     key: 'waste',
+    group: '/waste',
   },
   {
     path: '/management',
@@ -102,6 +105,7 @@ export const privateRoutes = [
     skeleton: ManagementSkeleton,
     exact: false,
     key: 'management',
+    group: '/management',
   },
   {
     path: '/electricity/analysis',
@@ -110,7 +114,7 @@ export const privateRoutes = [
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'electricityAnalysis',
-    parent: '/electricity',
+    group: '/electricity',
   },
   {
     path: '/water/analysis',
@@ -119,7 +123,7 @@ export const privateRoutes = [
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'waterAnalysis',
-    parent: '/water',
+    group: '/water',
   },
   {
     path: '/waste/analysis',
@@ -128,7 +132,7 @@ export const privateRoutes = [
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'wasteAnalysis',
-    parent: '/waste',
+    group: '/waste',
   },
 ];
 

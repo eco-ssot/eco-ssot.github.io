@@ -21,6 +21,9 @@
   "nonRenewableEnergy": "不可再生能源",
   "solarPower": "自建太陽能",
   "tRec": "綠證",
+  "dataMissing": "資料缺漏 Plant",
+  "seeDetail": "前往後台設定",
+  "onSettingsPage": "查看資料詳情",
   "navbar": {
     "home": "首頁",
     "overview": "總覽比較",
