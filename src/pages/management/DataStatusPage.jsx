@@ -46,7 +46,13 @@ const csrRenderer = (amountProp, ratioProp) => (cell) => {
 
 const COLUMNS = (t) =>
   addPaddingColumns([
-    { Header: 'Plant', accessor: 'plant', rowSpan: 0 },
+    {
+      Header: 'Plant',
+      accessor: 'plant',
+      rowSpan: 0,
+      Cell: (cell) =>
+        cell.value.startsWith('WKS-6A') ? <div className="line-through text-gray-300">{cell.value}</div> : cell.value,
+    },
     {
       id: 'dpm',
       Header: () => (
