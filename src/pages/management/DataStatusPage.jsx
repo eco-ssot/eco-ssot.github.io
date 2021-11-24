@@ -138,16 +138,28 @@ function getLabel(t) {
   const month = (date < 10 ? subMonths(now, 1) : now).getMonth() + 1;
   const currMonth = month - 1 === 0 ? 12 : month - 1;
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
+  const csrMonth = currMonth - 1 === 0 ? 12 : currMonth - 1;
   return (
     <>
-      <div>
-        {t('dataStatus.title', {
-          currMonthNum: currMonth,
-          currMonth: now.setDate(currMonth - 1),
-          formatParams: {
-            currMonth: { month: 'short' },
-          },
-        })}
+      <div className="flex space-x-2">
+        <div>
+          {t('dataStatus.title', {
+            currMonthNum: currMonth,
+            currMonth: now.setMonth(currMonth - 1),
+            formatParams: {
+              currMonth: { month: 'short' },
+            },
+          })}
+        </div>
+        <div>
+          {t('dataStatus.csrTitle', {
+            csrMonthNum: csrMonth,
+            csrMonth: subMonths(now, 1).setMonth(csrMonth - 1),
+            formatParams: {
+              csrMonth: { month: 'short' },
+            },
+          })}
+        </div>
       </div>
       <div>{t('dataStatus.subTitle', { nextMonth })}</div>
     </>

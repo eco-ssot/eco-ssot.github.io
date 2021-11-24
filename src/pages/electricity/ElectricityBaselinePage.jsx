@@ -316,7 +316,7 @@ export function ChartPanel() {
   );
 }
 
-export function PredictionPanel() {
+export function PredictionPanel({ dimension }) {
   const [selectedRow, setSelectedRow] = useState(-1);
   return (
     <>
@@ -348,21 +348,33 @@ export function PredictionPanel() {
             </div>
           </div>
           <div className="flex flex-col flex-grow border border-divider rounded shadow p-4 space-y-2 min-h-[256px] overflow-hidden">
-            <div className="flex justify-between">
-              <div className="text-xl font-medium">生產用電模型預測</div>
-              <div className="flex space-x-4">
-                <Legend dotClassName="bg-_yellow" label="預測用電" />
-                <Legend dotClassName="bg-primary-600" label="實際用電" />
-              </div>
-            </div>
-            <Chart
-              className="w-full h-full pl-4"
-              option={LINE_OPTION({
-                dataset: toLineDataset(APP_CONFIG.ELECTRICITY_TYPES.slice(-1)[0].key),
-                lineColors: [colors._yellow, colors.primary['600']],
-                electricityType: APP_CONFIG.ELECTRICITY_TYPES.slice(-1)[0].key,
-              })}
-            />
+            {dimension === DIMENSION_OPTIONS[0].key ? (
+              <>
+                <div className="text-xl font-medium">預測今年綠證總購買量 : All sites</div>
+                <div className="text-sm text-gray-300">每年11月計算</div>
+                <div className="text-2xl font-semibold flex flex-grow flex-col items-center justify-center">
+                  372,481,702 度
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-between">
+                  <div className="text-xl font-medium">生產用電模型預測</div>
+                  <div className="flex space-x-4">
+                    <Legend dotClassName="bg-_yellow" label="預測用電" />
+                    <Legend dotClassName="bg-primary-600" label="實際用電" />
+                  </div>
+                </div>
+                <Chart
+                  className="w-full h-full pl-4"
+                  option={LINE_OPTION({
+                    dataset: toLineDataset(APP_CONFIG.ELECTRICITY_TYPES.slice(-1)[0].key),
+                    lineColors: [colors._yellow, colors.primary['600']],
+                    electricityType: APP_CONFIG.ELECTRICITY_TYPES.slice(-1)[0].key,
+                  })}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -372,6 +384,12 @@ export function PredictionPanel() {
 
 export default function ElectricityBaselinePage() {
   const hash = useSelector(selectHash);
+  const [searchOption, setSearchOption] = useState({
+    year: APP_CONFIG.YEAR_OPTIONS[0].key,
+    month: APP_CONFIG.MONTH_OPTIONS[0].key,
+    dimension: DIMENSION_OPTIONS[0].key,
+  });
+
   const isPredictionTab = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
   return (
     <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
@@ -389,10 +407,29 @@ export default function ElectricityBaselinePage() {
         />
         <div className="flex w-full justify-center items-center">
           <div className="flex w-full items-center justify-center space-x-8">
-            {isPredictionTab && <Select buttonClassName="w-36" label="資料呈現：" options={DIMENSION_OPTIONS} />}
-            <Select label="查詢年度：" options={APP_CONFIG.YEAR_OPTIONS} />
+            {isPredictionTab && (
+              <Select
+                buttonClassName="w-36"
+                label="資料呈現："
+                options={DIMENSION_OPTIONS}
+                selected={DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, dimension: e.key }))}
+              />
+            )}
+            <Select
+              label="查詢年度："
+              options={APP_CONFIG.YEAR_OPTIONS}
+              selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+              onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+            />
             {isPredictionTab ? (
-              <Select buttonClassName="w-24" label="查詢月份：" options={APP_CONFIG.MONTH_OPTIONS} />
+              <Select
+                buttonClassName="w-24"
+                label="查詢月份："
+                options={APP_CONFIG.MONTH_OPTIONS}
+                selected={APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month)}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
+              />
             ) : (
               <Select label="Site：" options={APP_CONFIG.SITE_OPTIONS} />
             )}
@@ -400,7 +437,7 @@ export default function ElectricityBaselinePage() {
           </div>
           <Button className="absolute right-8">Excel</Button>
         </div>
-        {isPredictionTab ? <PredictionPanel /> : <BaseLinePanel />}
+        {isPredictionTab ? <PredictionPanel dimension={searchOption.dimension} /> : <BaseLinePanel />}
       </div>
       {!isPredictionTab && <ChartPanel />}
     </div>
