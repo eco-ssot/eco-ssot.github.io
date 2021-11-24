@@ -48,14 +48,14 @@ const COLUMNS = (t) =>
   addPaddingColumns([
     { Header: 'Plant', accessor: 'plant', rowSpan: 0 },
     {
-      id: 'benefit',
+      id: 'dpm',
       Header: () => (
         <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-          <div className="px-2">Benefit</div>
+          <div className="px-2">DPM</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
-      columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer }],
+      columns: [{ Header: t('dataStatus.table.DPMEquProduction'), accessor: 'DPMEquProduction', Cell: statusRenderer }],
     },
     {
       id: 'opm',
@@ -111,14 +111,14 @@ const COLUMNS = (t) =>
       ],
     },
     {
-      id: 'dpm',
+      id: 'benefit',
       Header: () => (
         <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-          <div className="px-2">DPM</div>
+          <div className="px-2">Benefit</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
-      columns: [{ Header: t('dataStatus.table.DPMEquProduction'), accessor: 'DPMEquProduction', Cell: statusRenderer }],
+      columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer }],
     },
     {
       id: 'waste',
