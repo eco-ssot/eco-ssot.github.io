@@ -83,6 +83,20 @@ const LANGUAGE_OPTIONS = [
   { key: 'en', value: 'English' },
 ];
 
+const ELECTRICITY_TYPES = [
+  { key: 'basic', value: '基礎用電' },
+  { key: 'airCondition', value: '空調用電' },
+  { key: 'airPressure', value: '空壓用電' },
+  { key: 'production', value: '生產用電' },
+];
+
+const ELECTRICITY_TYPE_MAPPING = {
+  basic: '基礎用電',
+  airCondition: '空調用電',
+  airPressure: '空壓用電',
+  production: '生產用電',
+};
+
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
@@ -106,6 +120,8 @@ const APP_CONFIG = {
   MAINTAINER_ROLE,
   DEVELOPER_ROLE,
   LANGUAGE_OPTIONS,
+  ELECTRICITY_TYPES,
+  ELECTRICITY_TYPE_MAPPING,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),

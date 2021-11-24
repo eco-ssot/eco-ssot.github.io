@@ -3,6 +3,7 @@ import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
 import CarbonPage from '../pages/carbon/CarbonPage';
 import ElectricityAnalysisPage from '../pages/electricity/ElectricityAnalysisPage';
+import ElectricityBaselinePage from '../pages/electricity/ElectricityBaselinePage';
 import ElectricityPage from '../pages/electricity/ElectricityPage';
 import ErrorPage from '../pages/error/ErrorPage';
 import HomePage from '../pages/home/HomePage';
@@ -71,6 +72,12 @@ export const privateRoutes = [
     key: 'electricity',
   },
   {
+    path: '/electricity/baseline',
+    title: '用電分析',
+    component: ElectricityBaselinePage,
+    key: 'electricityBaseline',
+  },
+  {
     path: '/water',
     title: '用水',
     component: WaterPage,
@@ -103,6 +110,7 @@ export const privateRoutes = [
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'electricityAnalysis',
+    parent: '/electricity',
   },
   {
     path: '/water/analysis',
@@ -111,6 +119,7 @@ export const privateRoutes = [
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'waterAnalysis',
+    parent: '/water',
   },
   {
     path: '/waste/analysis',
@@ -119,6 +128,7 @@ export const privateRoutes = [
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'wasteAnalysis',
+    parent: '/waste',
   },
 ];
 

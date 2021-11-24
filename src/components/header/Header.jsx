@@ -12,8 +12,6 @@ import Avatar from '../avatar/Avatar';
 import Divider from '../divider/Divider';
 import NavBar from '../nav-bar/NavBar';
 import GhostSelect from '../select/GhostSelect';
-import TimeInfo from '../time-info/TimeInfo';
-import WeatherInfo from '../weather-info/WeatherInfo';
 
 export default function Header({ className }) {
   const { t } = useTranslation(['common']);
@@ -44,11 +42,6 @@ export default function Header({ className }) {
       ) : (
         <div className="flex-grow"></div>
       )}
-      <div className="flex space-x-4 items-center">
-        <TimeInfo />
-        <WeatherInfo />
-      </div>
-      <Divider className="h-1/2" />
       <GhostSelect
         className="w-32"
         options={APP_CONFIG.LANGUAGE_OPTIONS}

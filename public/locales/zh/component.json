@@ -1,7 +1,9 @@
 {
   "buttonGroup": {
     "currentYear": "當年度",
-    "historyYear": "歷史年度"
+    "historyYear": "歷史年度",
+    "baseline": "用電基準線",
+    "prediction": "用電預測"
   },
   "selectLabel": {
     "searchYear": "查詢年度",

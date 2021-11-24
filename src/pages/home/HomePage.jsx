@@ -10,10 +10,10 @@ import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
 import { formatMonthRange, getMaxDate } from '../../utils/date';
 
-import RenewableEnergy from './/RenewableEnergy';
 import Carbon from './Carbon';
 import Electricity from './Electricity';
 import Overview from './Overview';
+import RenewableEnergy from './RenewableEnergy';
 import UnitElectricity from './UnitElectricity';
 import Waste from './Waste';
 import Water from './Water';

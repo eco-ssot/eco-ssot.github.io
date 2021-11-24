@@ -77,6 +77,7 @@ const OPTION = (values, labels, target) => {
         color: colors.gray['50'],
         formatter: (value) => value.replace(' ', '\n'),
         interval: 0,
+        lineHeight: 16,
       },
     },
     yAxis: {

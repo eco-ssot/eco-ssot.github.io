@@ -14,11 +14,11 @@ export default function NavBar({ className }) {
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
         .filter(({ show = true }) => show)
-        .map(({ path, key }) => (
+        .map(({ path, key, parent }) => (
           <div
             key={key}
             className={
-              pathname.startsWith(path)
+              pathname === path || pathname.startsWith(parent)
                 ? 'border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2'
                 : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
             }>

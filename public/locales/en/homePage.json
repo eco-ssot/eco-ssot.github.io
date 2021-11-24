@@ -30,6 +30,7 @@
     "water": "Water",
     "unitElectricity": "Unit Electricity",
     "waste": "Waste",
-    "management": "Settings"
+    "management": "Settings",
+    "electricityBaseline": "Analysis"
   }
 }

@@ -7,7 +7,7 @@ import { privateRoutes } from '../../router/routes';
 export default function TabTitle() {
   const { pathname } = useLocation();
   const { t } = useTranslation(['homePage'], { keyPrefix: 'navbar' });
-  const title = privateRoutes.find(({ path }) => pathname.startsWith(path))?.key;
+  const title = privateRoutes.find(({ path, parent }) => pathname === path || pathname.startsWith(parent))?.key;
   useTitle(title ? `${t(title)} - ECO SSOT` : 'ECO SSOT');
   return null;
 }

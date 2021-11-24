@@ -2,10 +2,10 @@ import { useRef } from 'react';
 
 import clsx from 'clsx';
 import echarts from 'echarts/lib/echarts';
-import { useDeepCompareEffect, useUpdateEffect, useMeasure } from 'react-use';
+import { useDeepCompareEffect, useUpdateEffect, useMeasure, useDebounce } from 'react-use';
 
 // then import echarts modules those you have used manually.
-// import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 // import 'echarts/lib/chart/scatter';
@@ -26,7 +26,7 @@ import 'echarts/lib/chart/pie';
 // import 'echarts/lib/component/grid';
 // import 'echarts/lib/component/legend';
 // import 'echarts/lib/component/legendScroll';
-// import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/tooltip';
 // import 'echarts/lib/component/polar';
 // import 'echarts/lib/component/geo';
 // import 'echarts/lib/component/parallel';
@@ -66,13 +66,17 @@ export default function Chart({ className, option = {} }) {
     return () => instance.dispose();
   }, [dataset]);
 
-  useDeepCompareEffect(() => {
-    const instance = echarts.getInstanceByDom(chartRef.current);
-    if (instance && (instance.getWidth() !== width || instance.getHeight() !== height)) {
-      instance.setOption(updateChartFontSize(option), true);
-      instance.resize();
-    }
-  }, [{ width, height }]);
+  useDebounce(
+    () => {
+      const instance = echarts.getInstanceByDom(chartRef.current);
+      if (instance && (Math.abs(instance.getWidth() - width) > 2 || Math.abs(instance.getHeight() - height) > 2)) {
+        instance.setOption(updateChartFontSize(option), true);
+        instance.resize();
+      }
+    },
+    100,
+    [{ width, height }]
+  );
 
   return (
     <div ref={containerRef} className={clsx('grid', className)}>

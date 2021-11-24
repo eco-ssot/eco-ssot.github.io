@@ -30,6 +30,7 @@
     "water": "用水",
     "unitElectricity": "約當單台用電",
     "waste": "廢棄物",
-    "management": "後台設定"
+    "management": "後台設定",
+    "electricityBaseline": "用電分析"
   }
 }

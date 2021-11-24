@@ -1,7 +1,9 @@
 {
   "buttonGroup": {
     "currentYear": "Current Year",
-    "historyYear": "History Years"
+    "historyYear": "History Years",
+    "baseline": "Baseline",
+    "prediction": "Prediction"
   },
   "selectLabel": {
     "searchYear": "Year",
