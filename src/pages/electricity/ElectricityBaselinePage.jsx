@@ -368,7 +368,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                       </>
                     ) : (
                       <>
-                        {m + 1 < 12 && (
+                        {m + 1 < 13 && (
                           <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'nextMonth']))}</div>
                         )}
                         <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'selected']))}</div>
