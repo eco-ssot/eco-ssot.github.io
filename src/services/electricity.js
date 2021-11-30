@@ -83,6 +83,9 @@ export const electricityApi = createApi({
       transformResponse: sortExplanationsById,
       providesTags: ['EXPLANATION'],
     }),
+    getElectricityPrediction: builder.query({
+      query: (query) => ({ query, url: 'electric/inference/prediction' }),
+    }),
     postElectricityExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'electric/anaysis/explanation', method: 'POST' }),
       invalidatesTags: ['EXPLANATION'],
@@ -120,6 +123,7 @@ export const {
   useGetElectricityHistoryQuery,
   useGetElectricityAnalysisQuery,
   useGetElectricityExplanationQuery,
+  useGetElectricityPredictionQuery,
   usePatchElectricityExplanationMutation,
   usePatchElectricityImprovementMutation,
   usePostElectricityExplanationMutation,

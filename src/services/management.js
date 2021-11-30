@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { uniq } from 'lodash';
 
 import { axiosBaseQuery } from './helpers';
 
@@ -19,7 +20,25 @@ export const managementApi = createApi({
         method: 'PATCH',
       }),
     }),
+    getPlantOptions: builder.query({
+      query: () => ({ url: 'data-status' }),
+      transformResponse: (res) =>
+        uniq(
+          res?.data?.map(({ plant }) => {
+            const p = plant.split('(')[0].trim();
+            return {
+              key: p,
+              value: p,
+            };
+          })
+        ),
+    }),
   }),
 });
 
-export const { useGetDataStatusQuery, useGetDataStatusPicQuery, usePatchDataStatusPicMutation } = managementApi;
+export const {
+  useGetDataStatusQuery,
+  useGetDataStatusPicQuery,
+  useGetPlantOptionsQuery,
+  usePatchDataStatusPicMutation,
+} = managementApi;

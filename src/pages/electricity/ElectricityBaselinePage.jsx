@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 import clsx from 'clsx';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
+import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { usePrevious } from 'react-use';
 
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
@@ -12,11 +14,14 @@ import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
-import { selectHash } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
+import { useGetElectricityPredictionQuery } from '../../services/electricity';
+import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+
+import { gapFormatter, getYtmLabel } from './helpers';
 
 const BUTTON_GROUP_OPTIONS = [
   { key: 'BASELINE', value: 'baseline' },
@@ -24,7 +29,7 @@ const BUTTON_GROUP_OPTIONS = [
 ];
 
 const DIMENSION_OPTIONS = [
-  { key: 'site', value: 'By Site' },
+  { key: 'plant', value: 'By Plant' },
   { key: 'month', value: 'By Month' },
 ];
 
@@ -35,13 +40,13 @@ const BASE_LINE_SUB_COLUMNS = [
 ];
 
 const BASE_LINE_DETAIL_ENTRIES = [
-  'PCBA產量 (pcs)',
-  'FA產量 (pcs)',
-  '人數 (人)',
-  'PCBA面積 (m²)',
-  'FA面積 (m²)',
-  '營業額 (十億NTD)',
-  '外氣平均溫度 (°C)',
+  { key: 'PCBAProduction', name: 'PCBA產量 (pcs)' },
+  { key: 'FAProduction', name: 'FA產量 (pcs)' },
+  { key: 'manpower', name: '人數 (人)' },
+  { key: 'PCBALines', name: 'PCBA 開線數量' },
+  { key: 'FALines', name: 'FA 開線數量' },
+  { key: 'revenue', name: '營業額 (十億NTD)' },
+  { key: 'temperature', name: '外氣平均溫度 (°C)' },
 ];
 
 const BASE_LINE_COLUMNS = addPaddingColumns([
@@ -60,12 +65,7 @@ const BASE_LINE_COLUMNS = addPaddingColumns([
       className: 'text-right',
       Cell: baseFormatter,
       ...(_key === 'gap' && {
-        Cell: (cell) => (
-          <div className={clsx(cell.value > 0 ? 'text-dangerous-500 font-semibold' : 'text-green-500 font-semibold')}>
-            {cell.value > 0 && '+'}
-            {baseFormatter(cell)}
-          </div>
-        ),
+        Cell: gapFormatter,
       }),
     })),
   })),
@@ -88,61 +88,105 @@ const BASE_LINE_DATA = Array.from({ length: 12 }, (_, i) => ({
   },
 }));
 
-const PREDICTION_COLUMNS_BY_SITE = (month) => [
-  { ...EXPAND_COLUMN },
-  {
-    Header: 'Site',
-    accessor: 'site',
-    rowSpan: 0,
-  },
-  {
-    id: 'actual',
-    Header: <div className="border-b border-divider py-3">實際工廠用電 (度)</div>,
-    columns: [
-      {
-        Header: 'YTM (1-10月)',
-        accessor: 'actual.ytm',
-        Cell: baseFormatter,
-      },
-    ],
-  },
-  {
-    id: 'prediction',
-    Header: <div className="border-b border-divider py-3">工廠用電預測 (度)</div>,
-    columns: [
-      {
-        Header: '11月',
-        accessor: 'prediction.lastMonth',
-        Cell: baseFormatter,
-      },
-      {
-        Header: '12月',
-        accessor: 'prediction.currMonth',
-        Cell: baseFormatter,
-      },
-      {
-        Header: 'YTM (1-12月) *',
-        accessor: 'prediction.ytm',
-        Cell: baseFormatter,
-      },
-    ],
-  },
-  {
-    Header: '綠證目標',
-    accessor: 'tRec',
-    rowSpan: 0,
-    Cell: baseFormatter,
-  },
-];
+const PREDICTION_COLUMNS_BY_SITE = ({ month } = {}) => {
+  const m = Number(month);
+  const nextMonth = m + 1;
+  return addPaddingColumns([
+    { ...EXPAND_COLUMN },
+    {
+      Header: 'Plant',
+      accessor: 'plant',
+      rowSpan: 0,
+    },
+    {
+      id: 'actual',
+      Header: <div className="border-b border-divider py-3">實際工廠用電 (度)</div>,
+      columns: [
+        {
+          Header: getYtmLabel(m),
+          accessor: 'actualYTM',
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+      ],
+    },
+    {
+      id: 'prediction',
+      Header: <div className="border-b border-divider py-3">工廠用電預測 (度)</div>,
+      columns: [
+        {
+          Header: `${m}月`,
+          accessor: 'predicted.selected',
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: `${nextMonth > 12 ? '-' : `${nextMonth}月`}`,
+          accessor: 'predicted.nextMonth',
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: `YTM (1-${nextMonth > 12 ? 12 : nextMonth}月) *`,
+          accessor: 'predicted.YTM',
+          className: 'text-right',
+          Cell: baseFormatter,
+        },
+      ],
+    },
+    {
+      Header: '年度預測綠證目標 (11月)',
+      accessor: 'rec',
+      className: 'text-right',
+      rowSpan: 0,
+      Cell: baseFormatter,
+    },
+  ]);
+};
 
-const PREDICTION_DATA_BY_SITE = APP_CONFIG.SITE_OPTIONS.map(({ key }) => ({
-  site: key,
-  actual: { ytm: 39184524 },
-  prediction: { lastMonth: 4028412, currMonth: 4028412, ytm: 47241348 },
-  tRec: 20122012,
-}));
+const PREDICTION_COLUMNS_BY_MONTH = () =>
+  addPaddingColumns([
+    { ...EXPAND_COLUMN },
+    {
+      Header: '月份',
+      accessor: 'month',
+      rowSpan: 0,
+      Cell: (cell) => `${Number(cell.value)}月`,
+    },
+    {
+      id: 'prediction',
+      Header: <div className="border-b border-divider py-3">當月工廠用電預測 (度)</div>,
+      columns: [
+        {
+          Header: '預測',
+          accessor: 'predicted',
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: '實際',
+          accessor: 'actual',
+          Cell: baseFormatter,
+          className: 'text-right',
+        },
+        {
+          Header: '差異',
+          accessor: 'gap',
+          className: 'text-right',
+          Cell: gapFormatter,
+        },
+      ],
+    },
+    {
+      Header: '年度預測綠證目標 (11月)',
+      accessor: 'rec',
+      className: 'text-right',
+      rowSpan: 0,
+      Cell: baseFormatter,
+    },
+  ]);
 
-const LINE_OPTION = ({ dataset, lineColors, electricityType }) => {
+const LINE_OPTION = ({ dataset, lineColors, type, compareName, actualName }) => {
   return {
     xAxis: {
       type: 'category',
@@ -175,13 +219,13 @@ const LINE_OPTION = ({ dataset, lineColors, electricityType }) => {
     grid: {
       bottom: 0,
       top: 36,
-      left: 0,
+      left: 24,
       right: 48,
       containLabel: true,
     },
     tooltip: {
       trigger: 'axis',
-      formatter: LineTooltipFormatter(electricityType),
+      formatter: LineTooltipFormatter({ type, compareName, actualName }),
       backgroundColor: 'transparent',
       padding: 0,
       axisPointer: {
@@ -223,65 +267,151 @@ export function toLineDataset(key) {
   );
 }
 
-export const LineTooltipFormatter = (electricityType) => (dataset) => {
-  const [actual, baseline] = dataset;
-  const actualValue = actual.value;
-  const baselineValue = baseline.value;
-  const gap = actualValue - baselineValue;
-  return renderToString(
-    <div className="flex flex-col bg-gray-900 rounded shadow py-2 bg-opacity-75">
-      <div className="flex justify-between items-baseline px-4 border-b pb-2 border-divider space-x-4">
-        <div>2021.{String(actual.dataIndex + 1).padStart(2, '0')}</div>
-        <div>{APP_CONFIG.ELECTRICITY_TYPE_MAPPING[electricityType]}</div>
-      </div>
-      <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
-        <div>實際用電</div>
-        <div>{baseFormatter(actualValue)}</div>
-      </div>
-      <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
-        <div>基準線</div>
-        <div>{baseFormatter(baselineValue)}</div>
-      </div>
-      <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
-        <div>差異</div>
-        <div className={clsx(gap > 0 ? 'text-dangerous-500 font-semibold' : 'text-green-500 font-semibold')}>
-          {gap > 0 && '+'}
-          {baseFormatter(gap)}
+export const LineTooltipFormatter =
+  ({ type, compareName, actualName }) =>
+  (dataset) => {
+    const [actual, baseline] = dataset;
+    const actualValue = actual.value;
+    const baselineValue = baseline.value;
+    const gap = actualValue - baselineValue;
+    return renderToString(
+      <div className="flex flex-col bg-gray-900 rounded shadow py-2 bg-opacity-75">
+        <div className="flex justify-between items-baseline px-4 border-b pb-2 border-divider space-x-4">
+          <div>2021.{String(actual.dataIndex + 1).padStart(2, '0')}</div>
+          <div>{APP_CONFIG.ELECTRICITY_TYPE_MAPPING[type] || type}</div>
+        </div>
+        <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
+          <div>{actualName || '實際用電'}</div>
+          <div>{baseFormatter(actualValue)}</div>
+        </div>
+        <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
+          <div>{compareName || '基準線'}</div>
+          <div>{baseFormatter(baselineValue)}</div>
+        </div>
+        <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
+          <div>差異</div>
+          <div className={clsx(gap > 0 ? 'text-dangerous-500 font-semibold' : 'text-green-500 font-semibold')}>
+            {gap > 0 && '+'}
+            {baseFormatter(gap)}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
-export function BaseLinePanel() {
+export function PredictionPanel({ categorized, year, month, plant }) {
+  const byMonth = categorized === 'month';
+  const option = byMonth ? { categorized, year, plant } : { categorized, year, month };
+  const { data } = useGetElectricityPredictionQuery(option, { skip: Object.values(option).every(isNil) });
   const [selectedRow, setSelectedRow] = useState(-1);
+  if (isNil(data)) {
+    return null;
+  }
+
+  const r = data.data[selectedRow] || {};
+  const m = Number(month);
+  const dataset = data.data.reduce(
+    (prev, curr) => ({
+      ...prev,
+      actual: prev.actual.concat(curr.actual),
+      prediction: prev.prediction.concat(curr.predicted),
+    }),
+    { actual: [], prediction: [] }
+  );
+
   return (
-    <div className="grid grid-cols-6 overflow-auto gap-4">
-      <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
-        <Table
-          columns={BASE_LINE_COLUMNS}
-          data={BASE_LINE_DATA}
-          getRowProps={(row) => ({
-            className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
-            onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
-          })}
-        />
-      </div>
-      <div className="col-span-1 flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
-        <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
-          <div>{`基線數據 : ${BASE_LINE_DATA[selectedRow]?.month || '-'}月`}</div>
-          <div className="text-gray-300 text-sm">點擊左方欄位查看該月份數據</div>
+    <>
+      {!byMonth && <div className="self-end">＊工廠用電預測 YTM = 實際工廠用電 + 2個月工廠用電預測</div>}
+      <div className="grid grid-cols-3 gap-4 h-full overflow-hidden">
+        <div className="col-span-2 w-full flex flex-col shadow overflow-auto rounded-t-lg">
+          <Table
+            columns={byMonth ? PREDICTION_COLUMNS_BY_MONTH() : PREDICTION_COLUMNS_BY_SITE({ year, month })}
+            data={data.data}
+            getRowProps={(row) => ({
+              className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
+              onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
+            })}
+          />
         </div>
-        <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
-          {BASE_LINE_DETAIL_ENTRIES.map((entry) => (
-            <div key={entry} className="flex justify-between">
-              <div>{entry}</div>
-              <div>{baseFormatter(get(BASE_LINE_DATA, [selectedRow, 'detail', entry], '-'))}</div>
+        <div className="col-span-1 flex flex-col overflow-auto">
+          <div className="flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
+            <div className="flex flex-col bg-primary-800 p-4 pb-2 space-y-2 top-0 sticky">
+              <div className="border-b border-divider pb-1">{`預測基線數據 : ${
+                (byMonth ? `${Number(r.month) || '-'}月` : r.plant) || '-'
+              }  `}</div>
+              <div className="flex">
+                <div className="w-1/2 text-gray-300 text-sm">點擊左方欄位查看該月份數據</div>
+                <div className="w-1/2 flex flex-row-reverse">
+                  {byMonth ? (
+                    <>
+                      <div className="w-1/2 text-right">實際</div>
+                      <div>預測</div>
+                    </>
+                  ) : (
+                    <>
+                      {m + 1 < 12 && <div className="w-1/2 text-right">{m + 1}月</div>}
+                      <div>{m}月</div>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
-          ))}
+            <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
+              {BASE_LINE_DETAIL_ENTRIES.map(({ key, name }) => (
+                <div key={key} className="flex">
+                  <div className="w-1/2">{name}</div>
+                  <div className="w-1/2 flex flex-row-reverse">
+                    {byMonth ? (
+                      <>
+                        <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'actual']))}</div>
+                        <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'predicted']))}</div>
+                      </>
+                    ) : (
+                      <>
+                        {m + 1 < 12 && (
+                          <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'nextMonth']))}</div>
+                        )}
+                        <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'selected']))}</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col flex-grow border border-divider rounded shadow p-4 space-y-2 min-h-[256px] overflow-hidden">
+            {byMonth ? (
+              <>
+                <div className="flex justify-between">
+                  <div className="text-xl font-medium">工廠用電模型預測</div>
+                  <div className="flex space-x-4">
+                    <Legend dotClassName="bg-_yellow" label="預測用電" />
+                    <Legend dotClassName="bg-primary-600" label="實際用電" />
+                  </div>
+                </div>
+                <Chart
+                  className="w-full h-full pl-4"
+                  option={LINE_OPTION({
+                    dataset,
+                    lineColors: [colors._yellow, colors.primary['600']],
+                    type: '工廠用電模型預測',
+                    compareName: '預測用電',
+                  })}
+                />
+              </>
+            ) : (
+              <>
+                <div className="text-xl font-medium">預測今年綠證總購買量 : All sites</div>
+                <div className="text-sm text-gray-300">每年11月計算</div>
+                <div className="text-2xl font-semibold flex flex-grow flex-col items-center justify-center">
+                  {data.totalRec} 度
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -306,7 +436,7 @@ export function ChartPanel() {
               option={LINE_OPTION({
                 dataset,
                 lineColors: [colors.primary['600'], colors._yellow],
-                electricityType: key,
+                type: key,
               })}
             />
           </div>
@@ -316,130 +446,167 @@ export function ChartPanel() {
   );
 }
 
-export function PredictionPanel({ dimension }) {
+export function BaselinePanel() {
   const [selectedRow, setSelectedRow] = useState(-1);
   return (
-    <>
-      <div className="self-end">＊工廠用電預測 YTM = 實際工廠用電 + 2個月工廠用電預測</div>
-      <div className="grid grid-cols-3 gap-4 h-full overflow-hidden">
-        <div className="col-span-2 w-full flex flex-col shadow overflow-auto rounded-t-lg">
-          <Table
-            columns={PREDICTION_COLUMNS_BY_SITE()}
-            data={PREDICTION_DATA_BY_SITE}
-            getRowProps={(row) => ({
-              className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
-              onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
-            })}
-          />
+    <div className="grid grid-cols-6 overflow-auto gap-4">
+      <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
+        <Table
+          columns={BASE_LINE_COLUMNS}
+          data={BASE_LINE_DATA}
+          getRowProps={(row) => ({
+            className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
+            onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
+          })}
+        />
+      </div>
+      <div className="col-span-1 flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
+        <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
+          <div>{`基線數據 : ${BASE_LINE_DATA[selectedRow]?.month || '-'}月`}</div>
+          <div className="text-gray-300 text-sm">點擊左方欄位查看該月份數據</div>
         </div>
-        <div className="col-span-1 flex flex-col overflow-auto">
-          <div className="flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
-            <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
-              <div className="border-b border-divider pb-2">{`預測基線數據 : - `}</div>
-              <div className="text-gray-300 text-sm">點擊左方欄位查看該月份數據</div>
+        <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
+          {BASE_LINE_DETAIL_ENTRIES.map(({ key, name }) => (
+            <div key={key} className="flex justify-between">
+              <div>{name}</div>
+              <div>{baseFormatter(get(BASE_LINE_DATA, [selectedRow, 'detail', name], '-'))}</div>
             </div>
-            <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
-              {BASE_LINE_DETAIL_ENTRIES.map((entry) => (
-                <div key={entry} className="flex justify-between">
-                  <div>{entry}</div>
-                  <div>{baseFormatter(get(BASE_LINE_DATA, [selectedRow, 'detail', entry], '-'))}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col flex-grow border border-divider rounded shadow p-4 space-y-2 min-h-[256px] overflow-hidden">
-            {dimension === DIMENSION_OPTIONS[0].key ? (
-              <>
-                <div className="text-xl font-medium">預測今年綠證總購買量 : All sites</div>
-                <div className="text-sm text-gray-300">每年11月計算</div>
-                <div className="text-2xl font-semibold flex flex-grow flex-col items-center justify-center">
-                  372,481,702 度
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex justify-between">
-                  <div className="text-xl font-medium">生產用電模型預測</div>
-                  <div className="flex space-x-4">
-                    <Legend dotClassName="bg-_yellow" label="預測用電" />
-                    <Legend dotClassName="bg-primary-600" label="實際用電" />
-                  </div>
-                </div>
-                <Chart
-                  className="w-full h-full pl-4"
-                  option={LINE_OPTION({
-                    dataset: toLineDataset(APP_CONFIG.ELECTRICITY_TYPES.slice(-1)[0].key),
-                    lineColors: [colors._yellow, colors.primary['600']],
-                    electricityType: APP_CONFIG.ELECTRICITY_TYPES.slice(-1)[0].key,
-                  })}
-                />
-              </>
-            )}
-          </div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
+  );
+}
+
+export function TabPanel({ children }) {
+  const { hash, search } = useLocation();
+  const prevSearch = usePrevious(search);
+  const option = qs.parse(search);
+  const prevOption = qs.parse(prevSearch);
+  const isPrediction = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
+  return children({
+    option,
+    isPrediction,
+    prevOption,
+  });
+}
+
+export function BaselineSearch({ ...option }) {
+  const [searchOption, setSearchOption] = useState(option);
+  const { data: plantOptions } = useGetPlantOptionsQuery();
+  return (
+    <div className="flex w-full items-center justify-center space-x-8">
+      <Select
+        label="查詢年度："
+        options={APP_CONFIG.YEAR_OPTIONS}
+        selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+        onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+      />
+      <Select
+        buttonClassName="w-36"
+        label="Plant："
+        options={plantOptions || APP_CONFIG.PLANT_OPTIONS}
+        selected={plantOptions?.find((option) => option.key === searchOption.plant)}
+        onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
+      />
+      <Button
+        onClick={() =>
+          navigate({
+            ...searchOption,
+            ...(!searchOption.year && { year: APP_CONFIG.YEAR_OPTIONS[0].key }),
+            ...(!searchOption.plant && { plant: plantOptions[0].key }),
+          })
+        }>
+        搜尋
+      </Button>
+    </div>
+  );
+}
+
+export function PredictionSearch({ ...option }) {
+  const [searchOption, setSearchOption] = useState(option);
+  const { data: plantOptions } = useGetPlantOptionsQuery();
+  const byMonth = searchOption.categorized === 'month';
+  return (
+    <div className="flex w-full items-center justify-center space-x-8">
+      <Select
+        label="資料呈現："
+        buttonClassName="w-36"
+        options={DIMENSION_OPTIONS}
+        selected={DIMENSION_OPTIONS.find((option) => option.key === searchOption.categorized)}
+        onChange={(e) =>
+          setSearchOption((prev) => ({ ...prev, categorized: e.key, ...(e.key === 'month' && { month: null }) }))
+        }
+      />
+      <Select
+        label="查詢年度："
+        options={APP_CONFIG.YEAR_OPTIONS}
+        selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+        onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+      />
+      {byMonth ? (
+        <Select
+          buttonClassName="w-36"
+          label="Plant："
+          options={plantOptions || APP_CONFIG.PLANT_OPTIONS}
+          selected={plantOptions?.find((option) => option.key === searchOption.plant)}
+          onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
+        />
+      ) : (
+        <Select
+          buttonClassName="w-20"
+          label="查詢月份："
+          options={APP_CONFIG.MONTH_OPTIONS}
+          selected={APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month)}
+          onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
+        />
+      )}
+      <Button
+        onClick={() =>
+          navigate({
+            ...searchOption,
+            ...(!searchOption.categorized && { categorized: DIMENSION_OPTIONS[0].key }),
+            ...(!searchOption.year && { year: APP_CONFIG.YEAR_OPTIONS[0].key }),
+            ...(!byMonth && !searchOption.month && { month: APP_CONFIG.MONTH_OPTIONS[0].key }),
+            ...(byMonth && !searchOption.plant && { plant: plantOptions[0].key }),
+          })
+        }>
+        搜尋
+      </Button>
+    </div>
   );
 }
 
 export default function ElectricityBaselinePage() {
-  const hash = useSelector(selectHash);
-  const [searchOption, setSearchOption] = useState({
-    year: APP_CONFIG.YEAR_OPTIONS[0].key,
-    month: APP_CONFIG.MONTH_OPTIONS[0].key,
-    dimension: DIMENSION_OPTIONS[0].key,
-  });
-
-  const isPredictionTab = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
   return (
-    <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
-      <div
-        className={clsx(
-          'bg-primary-900 rounded shadow p-4 flex flex-col space-y-4 overflow-auto',
-          isPredictionTab ? 'row-span-5' : 'row-span-3'
-        )}>
-        <div className="text-xl font-medium">用電分析</div>
-        <ButtonGroup
-          className="self-center"
-          options={BUTTON_GROUP_OPTIONS}
-          selected={isPredictionTab ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
-          onChange={(e) => navigate({ hash: e.key }, { merge: false })}
-        />
-        <div className="flex w-full justify-center items-center">
-          <div className="flex w-full items-center justify-center space-x-8">
-            {isPredictionTab && (
-              <Select
-                buttonClassName="w-36"
-                label="資料呈現："
-                options={DIMENSION_OPTIONS}
-                selected={DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, dimension: e.key }))}
-              />
-            )}
-            <Select
-              label="查詢年度："
-              options={APP_CONFIG.YEAR_OPTIONS}
-              selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
-              onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
-            />
-            {isPredictionTab ? (
-              <Select
-                buttonClassName="w-24"
-                label="查詢月份："
-                options={APP_CONFIG.MONTH_OPTIONS}
-                selected={APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
-              />
-            ) : (
-              <Select label="Site：" options={APP_CONFIG.SITE_OPTIONS} />
-            )}
-            <Button>搜尋</Button>
-          </div>
-          <Button className="absolute right-8">Excel</Button>
-        </div>
-        {isPredictionTab ? <PredictionPanel dimension={searchOption.dimension} /> : <BaseLinePanel />}
+    <>
+      <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
+        <TabPanel>
+          {({ isPrediction, option, prevOption }) => (
+            <>
+              <div
+                className={clsx(
+                  'bg-primary-900 rounded shadow p-4 flex flex-col space-y-4 overflow-auto',
+                  isPrediction ? 'row-span-5' : 'row-span-3'
+                )}>
+                <div className="text-xl font-medium">用電分析</div>
+                <ButtonGroup
+                  className="self-center"
+                  options={BUTTON_GROUP_OPTIONS}
+                  selected={isPrediction ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
+                  onChange={(e) => navigate({ hash: e.key }, { merge: false })}
+                />
+                <div className="flex w-full justify-center items-center">
+                  {isPrediction ? <PredictionSearch {...option} /> : <BaselineSearch {...option} />}
+                  <Button className="absolute right-8">Excel</Button>
+                </div>
+                {isPrediction ? <PredictionPanel {...option} /> : <BaselinePanel {...option} />}
+              </div>
+              {!isPrediction && <ChartPanel {...option} />}
+            </>
+          )}
+        </TabPanel>
       </div>
-      {!isPredictionTab && <ChartPanel />}
-    </div>
+    </>
   );
 }
