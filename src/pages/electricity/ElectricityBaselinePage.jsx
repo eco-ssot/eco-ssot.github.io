@@ -579,7 +579,7 @@ export function PredictionSearch({ ...option }) {
             ...searchOption,
             ...(!searchOption.categorized && { categorized: DIMENSION_OPTIONS[0].key }),
             ...(!searchOption.year && { year: APP_CONFIG.YEAR_OPTIONS[0].key }),
-            ...(!byMonth && !searchOption.month && { month: APP_CONFIG.MONTH_OPTIONS[0].key }),
+            ...(!byMonth && !searchOption.month && { month: String(new Date().getMonth() + 1) }),
             ...(byMonth && !searchOption.plant && { plant: plantOptions[0].key }),
           })
         }>
