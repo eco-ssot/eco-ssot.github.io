@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { subMonths } from 'date-fns';
+import { subMonths, lastDayOfMonth } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 
 import Legend from '../../components/legend/Legend';
@@ -144,7 +144,7 @@ function getLabel(t) {
   const month = (date < 10 ? subMonths(now, 1) : now).getMonth() + 1;
   const currMonth = month - 1 === 0 ? 12 : month - 1;
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
-  const csrMonth = currMonth - 1 === 0 ? 12 : currMonth - 1;
+  const csrMonth = subMonths(now, date > 30 || date === lastDayOfMonth(now) ? 1 : 2).getMonth() + 1;
   return (
     <>
       <div className="flex space-x-2">
