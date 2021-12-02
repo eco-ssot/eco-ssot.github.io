@@ -71,6 +71,33 @@ const BASE_LINE_COLUMNS = addPaddingColumns([
   })),
 ]);
 
+const HISTORY_COLUMNS = [
+  {
+    id: 'prediction',
+    Header: <div className="border-b border-divider py-3">當月工廠用電預測 (度)</div>,
+    columns: [
+      {
+        Header: '預測',
+        accessor: 'predicted',
+        Cell: baseFormatter,
+        className: 'text-right',
+      },
+      {
+        Header: '實際',
+        accessor: 'actual',
+        Cell: baseFormatter,
+        className: 'text-right',
+      },
+      {
+        Header: '差異',
+        accessor: 'gap',
+        className: 'text-right',
+        Cell: gapFormatter,
+      },
+    ],
+  },
+];
+
 const BASE_LINE_DATA = Array.from({ length: 12 }, (_, i) => ({
   month: i + 1,
   basic: { actual: 13209805, baseline: 15507280, gap: -2297475 },
@@ -91,13 +118,9 @@ const BASE_LINE_DATA = Array.from({ length: 12 }, (_, i) => ({
 const PREDICTION_COLUMNS_BY_SITE = ({ month } = {}) => {
   const m = Number(month);
   const nextMonth = m + 1;
-  return addPaddingColumns([
-    { ...EXPAND_COLUMN },
-    {
-      Header: 'Plant',
-      accessor: 'plant',
-      rowSpan: 0,
-    },
+  const currMonth = new Date().getMonth() + 1;
+  const isHistory = currMonth > m;
+  const currColumns = [
     {
       id: 'actual',
       Header: <div className="border-b border-divider py-3">實際工廠用電 (度)</div>,
@@ -134,6 +157,16 @@ const PREDICTION_COLUMNS_BY_SITE = ({ month } = {}) => {
         },
       ],
     },
+  ];
+
+  return addPaddingColumns([
+    { ...EXPAND_COLUMN },
+    {
+      Header: 'Plant',
+      accessor: 'plant',
+      rowSpan: 0,
+    },
+    ...(isHistory ? HISTORY_COLUMNS : currColumns),
     {
       Header: '年度預測綠證目標 (11月)',
       accessor: 'rec',
@@ -153,30 +186,7 @@ const PREDICTION_COLUMNS_BY_MONTH = () =>
       rowSpan: 0,
       Cell: (cell) => `${Number(cell.value)}月`,
     },
-    {
-      id: 'prediction',
-      Header: <div className="border-b border-divider py-3">當月工廠用電預測 (度)</div>,
-      columns: [
-        {
-          Header: '預測',
-          accessor: 'predicted',
-          Cell: baseFormatter,
-          className: 'text-right',
-        },
-        {
-          Header: '實際',
-          accessor: 'actual',
-          Cell: baseFormatter,
-          className: 'text-right',
-        },
-        {
-          Header: '差異',
-          accessor: 'gap',
-          className: 'text-right',
-          Cell: gapFormatter,
-        },
-      ],
-    },
+    ...HISTORY_COLUMNS,
     {
       Header: '年度預測綠證目標 (11月)',
       accessor: 'rec',
@@ -316,7 +326,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
       actual: prev.actual.concat(curr.actual),
       prediction: prev.prediction.concat(curr.predicted),
     }),
-    { actual: [], prediction: [] }
+    { prediction: [], actual: [] }
   );
 
   return (
@@ -555,9 +565,11 @@ export function PredictionSearch({ ...option }) {
       ) : (
         <Select
           buttonClassName="w-20"
-          label="查詢月份："
+          label="預測月份："
           options={APP_CONFIG.MONTH_OPTIONS}
-          selected={APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month)}
+          selected={APP_CONFIG.MONTH_OPTIONS.find(
+            (option) => option.key === searchOption.month || option.key === String(new Date().getMonth() + 1)
+          )}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
         />
       )}
