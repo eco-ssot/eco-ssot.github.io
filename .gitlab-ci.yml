@@ -26,7 +26,7 @@ stages:
 
 default:
   tags:
-    - TPEA90099186
+    - DESKTOP-5CP7UMU
 
 .deploy:
   stage: deploy
