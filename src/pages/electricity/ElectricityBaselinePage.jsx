@@ -326,7 +326,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
       actual: prev.actual.concat(curr.actual),
       prediction: prev.prediction.concat(curr.predicted),
     }),
-    { prediction: [], actual: [] }
+    { actual: [], prediction: [] }
   );
 
   return (
@@ -403,7 +403,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                   className="w-full h-full pl-4"
                   option={LINE_OPTION({
                     dataset,
-                    lineColors: [colors._yellow, colors.primary['600']],
+                    lineColors: [colors.primary['600'], colors._yellow],
                     type: '工廠用電模型預測',
                     compareName: '預測用電',
                   })}
