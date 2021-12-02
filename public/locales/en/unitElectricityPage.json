@@ -1,5 +1,5 @@
 {
-  "title": "Electricity Consumption per Product",
+  "title": "Equivalent Electricity Consumption per Product",
   "table": {
     "electricity": {
       "header": "Electricity Consumption (kWh)",
@@ -10,7 +10,7 @@
       "delta": "Gap (d/c-1)"
     },
     "unitElectricity": {
-      "header": "Electricity Consumption per Product (kWh)",
+      "header": "Equivalent Electricity Consumption per Product (kWh)",
       "delta": "Gap (f/e-1)"
     }
   },

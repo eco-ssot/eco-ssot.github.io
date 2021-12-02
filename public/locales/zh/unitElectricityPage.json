@@ -1,5 +1,5 @@
 {
-  "title": "單台用電",
+  "title": "約當單台用電",
   "table": {
     "electricity": {
       "header": "用電量 (度)",
@@ -10,12 +10,12 @@
       "delta": "增減率 (d/c-1)"
     },
     "unitElectricity": {
-      "header": "單台用電 (度)",
+      "header": "約當單台用電 (度)",
       "delta": "增減率 (f/e-1)"
     }
   },
   "history": {
-    "unitElectricity": "單台用電 (度)",
+    "unitElectricity": "約當單台用電 (度)",
     "delta": "增減率 *"
   }
 }

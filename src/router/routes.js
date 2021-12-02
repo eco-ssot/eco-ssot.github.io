@@ -78,7 +78,7 @@ export const privateRoutes = [
   },
   {
     path: '/unit-electricity',
-    title: '單台用電',
+    title: '約當單台用電',
     component: UnitElectricityPage,
     key: 'unitElectricity',
   },

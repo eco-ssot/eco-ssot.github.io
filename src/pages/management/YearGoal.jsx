@@ -17,12 +17,17 @@ import { getDecimalNumber } from '../../utils/number';
 
 import ErrorModal from './ErrorModal';
 
+const ALIAS = {
+  單台用電: '約當單台用電',
+};
+
 const DICTIONARY = {
   碳排放量: 'Carbon Emission',
   可再生能源: 'Renewable Energy',
   用電強度: 'Electricity Consumption Intensity',
   用水強度: 'Water Consumption Intensity',
   單台用電: 'Electricity Consumption per Product',
+  約當單台用電: 'Equivalent Electricity Consumption per Product',
   廢棄物密度: 'Waste Generation Intensity',
   公噸: 'Ton',
   千度: 'MWh',
@@ -40,8 +45,9 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
       Header: t('managementPage:yearGoal.table.category'),
       accessor: 'category',
       className: 'w-[18%] text-center py-3',
+      Cell: (cell) => ALIAS[cell.value] || cell.value,
       ...(lng === 'en' && {
-        Cell: (cell) => DICTIONARY[cell.value] || cell.value,
+        Cell: (cell) => DICTIONARY[ALIAS[cell.value] || cell.value] || cell.value,
       }),
     },
     {

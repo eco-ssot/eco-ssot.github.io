@@ -14,7 +14,7 @@
   "renewableEnergyRatio": "可再生能源占比",
   "electricityIntensity": "用電強度",
   "waterIntensity": "用水強度",
-  "unitElectricity": "單台用電",
+  "unitElectricity": "約當單台用電",
   "wasteEmissionDensity": "廢棄物產生密度",
   "digitization": "數位化",
   "technologyImprovementAndManagement": "技改及管理",
@@ -28,7 +28,7 @@
     "renewableEnergy": "可再生能源",
     "electricity": "用電",
     "water": "用水",
-    "unitElectricity": "單台用電",
+    "unitElectricity": "約當單台用電",
     "waste": "廢棄物",
     "management": "後台設定"
   }

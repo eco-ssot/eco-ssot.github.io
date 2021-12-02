@@ -14,7 +14,7 @@
   "renewableEnergyRatio": "Renewable Energy",
   "electricityIntensity": "Electricity Consumption Intensity",
   "waterIntensity": "Water Consumption Intensity",
-  "unitElectricity": "Electricity Consumption per Product",
+  "unitElectricity": "Equivalent Electricity Consumption per Product",
   "wasteEmissionDensity": "Waste Generation Intensity",
   "digitization": "Digitization",
   "technologyImprovementAndManagement": "Energy-saving Measures & Management",
