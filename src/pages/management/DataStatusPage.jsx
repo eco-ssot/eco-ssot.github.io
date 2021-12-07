@@ -8,6 +8,7 @@ import { useGetDataStatusQuery } from '../../services/management';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 
+const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
 const STATUS_MAPPING = {
   0: 'bg-gray-50',
   2: 'bg-primary-500',
@@ -51,7 +52,11 @@ const COLUMNS = (t) =>
       accessor: 'plant',
       rowSpan: 0,
       Cell: (cell) =>
-        cell.value.startsWith('WKS-6A') ? <div className="line-through text-gray-300">{cell.value}</div> : cell.value,
+        DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val)) ? (
+          <div className="line-through text-gray-300">{cell.value}</div>
+        ) : (
+          cell.value
+        ),
     },
     {
       id: 'dpm',
