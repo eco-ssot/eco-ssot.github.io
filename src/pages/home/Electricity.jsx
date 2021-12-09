@@ -77,7 +77,7 @@ export default function Electricity({ baseYear, compareYear, currentYear, latest
       <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
         <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />
         <Legend dotClassName="bg-_orange" label={`${t('target')} : ${formatTarget(data.target, lng)}`} />
-        <div>{`${t('unit')}：${t('mwh')} / ${t('billionNtd')}`}</div>
+        <div>{`${t('unit')} : ${t('mwh')} / ${t('billionNtd')}`}</div>
       </div>
     </div>
   );

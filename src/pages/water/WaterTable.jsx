@@ -157,7 +157,7 @@ export default function WaterTable({ business }) {
         className="absolute top-2 right-4"
         labels={[
           <>
-            {t('common:accumulationRange')}：
+            {t('common:accumulationRange')} :
             <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
           </>,
           label,

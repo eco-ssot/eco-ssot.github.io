@@ -35,7 +35,7 @@
     "title": "{{currMonth, datetime}}. Data Status",
     "subTitle": "Next update: {{nextMonth}}/10, CSR next update: {{nextMonth}}/30",
     "csrTitle": "(CSR is {{csrMonth, datetime}}.)",
-    "csrDesc": "＊CSR Update：on the last day of each month",
+    "csrDesc": "＊CSR Update : on the last day of each month",
     "noData": "No Data",
     "updated": "Updated",
     "notUpdated": "Not-Updated",

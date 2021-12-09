@@ -77,7 +77,7 @@ export default function Waste({ baseYear, compareYear, currentYear, latestDate, 
       <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
         <Legend dotClassName="bg-_yellow" label={t('baseYear')} />
         <Legend dotClassName="bg-_orange" label={`${t('target')} : ${formatTarget(data.target, lng)}`} />
-        <div>{`${t('common:unit')}：${t('common:metricTon')} / ${t('common:billionNtd')}`}</div>
+        <div>{`${t('common:unit')} : ${t('common:metricTon')} / ${t('common:billionNtd')}`}</div>
       </div>
     </div>
   );

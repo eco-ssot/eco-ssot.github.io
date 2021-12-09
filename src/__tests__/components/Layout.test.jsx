@@ -246,12 +246,12 @@ test('Layout', () => {
             <div
               class="block truncate"
             >
-              溫度：- ºC
+              溫度 : - ºC
             </div>
             <div
               class="block truncate"
             >
-              濕度：- %
+              濕度 : - %
             </div>
           </div>
           <div

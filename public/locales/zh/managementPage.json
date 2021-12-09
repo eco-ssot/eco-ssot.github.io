@@ -35,7 +35,7 @@
     "title": "下表為{{currMonthNum}}月資料狀態",
     "subTitle": "預計下次更新: {{nextMonth}}/10, CSR預計下次更新: {{nextMonth}}/30",
     "csrTitle": "(CSR為 {{csrMonthNum}}月)",
-    "csrDesc": "＊CSR 更新日期：每月最後一日",
+    "csrDesc": "＊CSR 更新日期 : 每月最後一日",
     "noData": "無資料",
     "updated": "已更新",
     "notUpdated": "未更新",

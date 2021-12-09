@@ -6,7 +6,7 @@ export default function WeatherInfo() {
   return (
     <>
       <div className="block truncate">
-        T & H：{toFormattedNumber(data?.main?.temp)} ºC / {toFormattedNumber(data?.main?.humidity)}%
+        T & H : {toFormattedNumber(data?.main?.temp)} ºC / {toFormattedNumber(data?.main?.humidity)}%
       </div>
     </>
   );

@@ -84,10 +84,10 @@ const LANGUAGE_OPTIONS = [
 ];
 
 const ELECTRICITY_TYPES = [
-  { key: 'basic', value: '基礎用電' },
-  { key: 'air_conditionin', value: '空調用電' },
-  { key: 'air_compressor', value: '空壓用電' },
-  { key: 'air_production', value: '生產用電' },
+  { key: 'basic', value: 'basicElectricity' },
+  { key: 'air_conditionin', value: 'airCondition' },
+  { key: 'air_compressor', value: 'airCompress' },
+  { key: 'air_production', value: 'production' },
 ];
 
 const ELECTRICITY_TYPE_MAPPING = {

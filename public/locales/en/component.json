@@ -8,7 +8,8 @@
   "selectLabel": {
     "searchYear": "Year",
     "searchMonth": "Month",
-    "dimension": "Dimension"
+    "dimension": "Dimension",
+    "predictionMonth": "Prediction Month"
   },
   "button": {
     "search": "Search",

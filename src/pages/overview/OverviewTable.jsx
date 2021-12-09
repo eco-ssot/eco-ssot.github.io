@@ -65,7 +65,7 @@ export default function OverviewTable({ business }) {
   return (
     <>
       <Tag className="absolute top-2 right-4">
-        {t('common:accumulationRange')}：<span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+        {t('common:accumulationRange')} : <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
       </Tag>
       {data && (
         <>

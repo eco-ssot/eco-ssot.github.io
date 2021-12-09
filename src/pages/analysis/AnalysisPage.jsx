@@ -43,7 +43,7 @@ export default function AnalysisPage({
         <div className="flex items-center space-x-2">
           <div className="text-gray-300">{t('analysisPage:aspDesc')}</div>
           <Tag>
-            {t('common:accumulationRange')}：<span className="text-lg font-medium">{accumulationPeriod}</span>
+            {t('common:accumulationRange')} : <span className="text-lg font-medium">{accumulationPeriod}</span>
           </Tag>
         </div>
       </div>

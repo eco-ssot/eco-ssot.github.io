@@ -1,0 +1,33 @@
+{
+  "title": "Electricity Analysis",
+  "baselinePanel": {
+    "baselineData": "Baseline Data",
+    "selectFromLeftDesc": "Select month from table on the left",
+    "table": {
+      "month": "Month",
+      "basicElectricity": "Basic Electricity (kWh)",
+      "airCondition": "Air Conditioning Electricity (kWh)",
+      "airCompress": "Air Compressor Electricity (kWh)",
+      "production": "Production Electricity (kWh)",
+      "actual": "Actual",
+      "baseline": "Baseline",
+      "gap": "Gap"
+    }
+  },
+  "PCBAProduction": "PCBA Production (pcs)",
+  "FAProduction": "FA Production (pcs)",
+  "manpower": "Manpower",
+  "PCBALines": "PCBA Lines",
+  "FALines": "FA Lines",
+  "revenue": "Revenue (billion NTD)",
+  "temperature": "Temperature (°C)",
+  "modelPrediction": " Baseline Model",
+  "basic": "Basic Electricity",
+  "air_conditionin": "Air Conditioning Electricity",
+  "air_compressor": "Air Compressor Electricity",
+  "air_production": "Production Electricity",
+  "predictionBaseline": "Predicted Baseline",
+  "actual": "Actual",
+  "baseline": "Baseline",
+  "gap": "Gap"
+}

@@ -80,7 +80,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
       <div></div>
       <div className="flex justify-center col-span-10">
         <Select
-          label={`${t('selectLabel.searchYear')}：`}
+          label={`${t('selectLabel.searchYear')} : `}
           options={startYearOptions}
           selected={
             startYearOptions.find((option) => option.key === searchOption.startYear) || startYearOptions.slice(-1)[0]
@@ -96,7 +96,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         />
         {!sameYear && (
           <Select
-            label={`${t('selectLabel.searchMonth')}：`}
+            label={`${t('selectLabel.searchMonth')} : `}
             options={APP_CONFIG.MONTH_RANGE_OPTIONS}
             buttonClassName="w-48"
             className="mr-2"
@@ -106,7 +106,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         )}
         {sameYear && (
           <Select
-            label={`${t('selectLabel.searchMonth')}：`}
+            label={`${t('selectLabel.searchMonth')} : `}
             options={startMonthOptions}
             buttonClassName="w-24"
             optionClassName="max-h-screen"
@@ -132,7 +132,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           })}
         />
         <Select
-          label={`${t('selectLabel.dimension')}：`}
+          label={`${t('selectLabel.dimension')} : `}
           options={APP_CONFIG.DIMENSION_OPTIONS}
           buttonClassName="w-36"
           optionClassName="max-h-screen"

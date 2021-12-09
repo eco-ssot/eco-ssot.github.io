@@ -11,7 +11,7 @@ export default function AnalysisSkeleton() {
           <ChevronLeftIcon className="w-5 h-5" />
           <div>返回上一頁</div>
         </div>
-        <Tag>累計區間：</Tag>
+        <Tag>累計區間 : </Tag>
       </div>
       <div className="grid grid-rows-5 grid-cols-7 flex-grow gap-4 overflow-auto">
         <div className="row-span-2 col-span-7 bg-primary-900 rounded shadow py-8 grid h-full w-full divide-x divide-divider grid-cols-5"></div>

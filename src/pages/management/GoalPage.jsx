@@ -25,7 +25,7 @@ export default function GoalPage({ business, canEdit }) {
             <div className="text-xl font-medium">{t('managementPage:yearGoal.title')}</div>
             <div className="flex items-center">
               <Select
-                label={`${t('component:selectLabel.searchYear')}：`}
+                label={`${t('component:selectLabel.searchYear')} : `}
                 options={APP_CONFIG.YEAR_OPTIONS}
                 selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === goalYear)}
                 onChange={(e) => setGoalYear(e.key)}
@@ -44,7 +44,7 @@ export default function GoalPage({ business, canEdit }) {
             </div>
             <div className="flex items-center">
               <Select
-                label={`${t('component:selectLabel.searchYear')}：`}
+                label={`${t('component:selectLabel.searchYear')} : `}
                 options={APP_CONFIG.YEAR_OPTIONS}
                 selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
                 onChange={(e) => setCarbonIndexYear(e.key)}
@@ -65,7 +65,7 @@ export default function GoalPage({ business, canEdit }) {
             <div className="text-xl font-medium">{t('managementPage:tRec.title')}</div>
             <div className="flex items-center">
               <Select
-                label={`${t('component:selectLabel.searchYear')}：`}
+                label={`${t('component:selectLabel.searchYear')} : `}
                 options={APP_CONFIG.YEAR_OPTIONS}
                 selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === tRecYear)}
                 onChange={(e) => setTrecYear(e.key)}

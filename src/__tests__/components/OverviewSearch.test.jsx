@@ -19,7 +19,7 @@ test('OverviewSearch', () => {
               class="block font-medium text-gray-50"
               id="headlessui-listbox-label-1"
             >
-              查詢年度：
+              查詢年度 :
             </label>
             <div
               class="relative"
@@ -64,7 +64,7 @@ test('OverviewSearch', () => {
               class="block font-medium text-gray-50"
               id="headlessui-listbox-label-3"
             >
-              資料呈現：
+              資料呈現 :
             </label>
             <div
               class="relative"

@@ -8,7 +8,8 @@
   "selectLabel": {
     "searchYear": "查詢年度",
     "searchMonth": "查詢月份",
-    "dimension": "資料呈現"
+    "dimension": "資料呈現",
+    "predictionMonth": "預測月份"
   },
   "button": {
     "search": "搜尋",
@@ -25,7 +26,7 @@
     "incompleteContent": "內容填寫不完整",
     "allColumnRequiredExceptCloseDate": "請確認「完成日期以外之欄位」皆不可為空白。",
     "inputValueError": "輸入值錯誤",
-    "checkInputRules": "請確認輸入值是否符合下列條件：",
+    "checkInputRules": "請確認輸入值是否符合下列條件 : ",
     "goalRule1": "1. 基準年不可大於查詢年度。",
     "goalRule2": "2. Target 訂定標準數值不可大於100%。"
   }

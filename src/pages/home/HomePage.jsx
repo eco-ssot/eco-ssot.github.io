@@ -43,11 +43,11 @@ export default function HomePage() {
         subtitle={
           <TagSelect
             options={APP_CONFIG.YEAR_OPTIONS.slice(1)}
-            label={`${t('compareYear')}：`}
+            label={`${t('compareYear')} : `}
             selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
             onChange={navigate}
             queryKey="year">
-            {t('accumulationRange')}：<span className="text-lg font-medium">{formatMonthRange(latestDate)}</span>
+            {t('accumulationRange')} : <span className="text-lg font-medium">{formatMonthRange(latestDate)}</span>
           </TagSelect>
         }>
         <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />

@@ -19,7 +19,7 @@ test('HistorySearch', () => {
               class="block font-medium text-gray-50"
               id="headlessui-listbox-label-1"
             >
-              查詢年度：
+              查詢年度 :
             </label>
             <div
               class="relative"
@@ -122,7 +122,7 @@ test('HistorySearch', () => {
               class="block font-medium text-gray-50"
               id="headlessui-listbox-label-5"
             >
-              查詢月份：
+              查詢月份 :
             </label>
             <div
               class="relative"
@@ -205,7 +205,7 @@ test('HistorySearch', () => {
               class="block font-medium text-gray-50"
               id="headlessui-listbox-label-8"
             >
-              資料呈現：
+              資料呈現 :
             </label>
             <div
               class="relative"

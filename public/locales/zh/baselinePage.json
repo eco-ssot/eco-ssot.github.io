@@ -1,0 +1,33 @@
+{
+  "title": "用電分析",
+  "baselinePanel": {
+    "baselineData": "基線數據",
+    "selectFromLeftDesc": "點擊左方欄位查看該月份數據",
+    "table": {
+      "month": "月份",
+      "basicElectricity": "基礎用電 (度)",
+      "airCondition": "空調用電 (度)",
+      "airCompress": "空壓用電 (度)",
+      "production": "生產用電 (度)",
+      "actual": "實際用電",
+      "baseline": "基準線",
+      "gap": "差異"
+    }
+  },
+  "PCBAProduction": "PCBA產量 (pcs)",
+  "FAProduction": "FA產量 (pcs)",
+  "manpower": "人數 (人)",
+  "PCBALines": "PCBA 開線數量",
+  "FALines": "FA 開線數量",
+  "revenue": "營業額 (十億NTD)",
+  "temperature": "外氣平均溫度 (°C)",
+  "modelPrediction": "模型預測",
+  "basic": "基礎用電",
+  "air_conditionin": "空調用電",
+  "air_compressor": "空壓用電",
+  "air_production": "生產用電",
+  "predictionBaseline": "預測基準線",
+  "actual": "實際用電",
+  "baseline": "基準線",
+  "gap": "差異"
+}

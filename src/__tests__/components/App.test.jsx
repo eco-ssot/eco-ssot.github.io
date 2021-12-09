@@ -248,12 +248,12 @@ test('App', async () => {
             <div
               class="block truncate"
             >
-              溫度：- ºC
+              溫度 : - ºC
             </div>
             <div
               class="block truncate"
             >
-              濕度：- %
+              濕度 : - %
             </div>
           </div>
           <div
@@ -289,7 +289,7 @@ test('App', async () => {
                   <div
                     class="pl-3"
                   >
-                    累計區間：
+                    累計區間 :
                     <span
                       class="text-lg font-medium"
                     >
@@ -303,7 +303,7 @@ test('App', async () => {
                     class="font-medium"
                     id="headlessui-listbox-label-2"
                   >
-                    對比年度：
+                    對比年度 :
                   </label>
                   <div
                     class="relative"
@@ -827,7 +827,7 @@ test('App', async () => {
                       </div>
                     </div>
                     <div>
-                      單位：公噸
+                      單位 : 公噸
                     </div>
                   </div>
                 </div>
@@ -971,7 +971,7 @@ test('App', async () => {
                       </div>
                     </div>
                     <div>
-                      單位：千度/十億台幣
+                      單位 : 千度/十億台幣
                     </div>
                   </div>
                 </div>
@@ -1029,7 +1029,7 @@ test('App', async () => {
                       </div>
                     </div>
                     <div>
-                      單位：千噸/十億台幣
+                      單位 : 千噸/十億台幣
                     </div>
                   </div>
                 </div>
@@ -1075,7 +1075,7 @@ test('App', async () => {
                       </div>
                     </div>
                     <div>
-                      單位：度/台
+                      單位 : 度/台
                     </div>
                   </div>
                 </div>
@@ -1133,7 +1133,7 @@ test('App', async () => {
                       </div>
                     </div>
                     <div>
-                      單位：公噸/十億台幣
+                      單位 : 公噸/十億台幣
                     </div>
                   </div>
                 </div>
