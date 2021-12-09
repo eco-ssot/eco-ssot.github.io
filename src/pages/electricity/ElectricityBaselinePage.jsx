@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRef } from 'react';
 
 import clsx from 'clsx';
-import { get, isNil } from 'lodash';
+import { get, isEmpty, isNil } from 'lodash';
 import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
 import { useLocation } from 'react-router';
@@ -485,6 +485,7 @@ export function TabPanel({ children }) {
   const { hash, search } = useLocation();
   const option = qs.parse(search);
   const isPrediction = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
+  console.log({ option });
   return children({
     option,
     isPrediction,
@@ -591,7 +592,7 @@ export default function ElectricityBaselinePage() {
               <div
                 className={clsx(
                   'bg-primary-900 rounded shadow p-4 flex flex-col space-y-4 overflow-auto',
-                  isPrediction ? 'row-span-5' : 'row-span-3'
+                  isPrediction || isEmpty(option) ? 'row-span-5' : 'row-span-3'
                 )}>
                 <div className="text-xl font-medium">用電分析</div>
                 <ButtonGroup
@@ -617,7 +618,7 @@ export default function ElectricityBaselinePage() {
                 </div>
                 {isPrediction ? <PredictionPanel {...option} /> : <BaselinePanel {...option} />}
               </div>
-              {!isPrediction && <ChartPanel {...option} />}
+              {!isPrediction && !isEmpty(option) && <ChartPanel {...option} />}
             </>
           )}
         </TabPanel>
