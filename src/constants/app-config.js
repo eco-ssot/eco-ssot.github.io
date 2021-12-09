@@ -85,16 +85,16 @@ const LANGUAGE_OPTIONS = [
 
 const ELECTRICITY_TYPES = [
   { key: 'basic', value: '基礎用電' },
-  { key: 'airCondition', value: '空調用電' },
-  { key: 'airPressure', value: '空壓用電' },
-  { key: 'production', value: '生產用電' },
+  { key: 'air_conditionin', value: '空調用電' },
+  { key: 'air_compressor', value: '空壓用電' },
+  { key: 'air_production', value: '生產用電' },
 ];
 
 const ELECTRICITY_TYPE_MAPPING = {
   basic: '基礎用電',
-  airCondition: '空調用電',
-  airPressure: '空壓用電',
-  production: '生產用電',
+  air_conditionin: '空調用電',
+  air_compressor: '空壓用電',
+  air_production: '生產用電',
 };
 
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];

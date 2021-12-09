@@ -86,6 +86,9 @@ export const electricityApi = createApi({
     getElectricityPrediction: builder.query({
       query: (query) => ({ query, url: 'electric/inference/prediction' }),
     }),
+    getElectricityBaseline: builder.query({
+      query: (query) => ({ query, url: 'electric/inference/baseline' }),
+    }),
     postElectricityExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'electric/anaysis/explanation', method: 'POST' }),
       invalidatesTags: ['EXPLANATION'],
@@ -124,6 +127,7 @@ export const {
   useGetElectricityAnalysisQuery,
   useGetElectricityExplanationQuery,
   useGetElectricityPredictionQuery,
+  useGetElectricityBaselineQuery,
   usePatchElectricityExplanationMutation,
   usePatchElectricityImprovementMutation,
   usePostElectricityExplanationMutation,

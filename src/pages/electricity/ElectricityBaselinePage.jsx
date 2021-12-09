@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import { useRef } from 'react';
 
 import clsx from 'clsx';
 import { get, isNil } from 'lodash';
 import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
 import { useLocation } from 'react-router';
-import { usePrevious } from 'react-use';
 
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
@@ -15,7 +15,7 @@ import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
-import { useGetElectricityPredictionQuery } from '../../services/electricity';
+import { useGetElectricityPredictionQuery, useGetElectricityBaselineQuery } from '../../services/electricity';
 import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
@@ -98,23 +98,6 @@ const HISTORY_COLUMNS = [
   },
 ];
 
-const BASE_LINE_DATA = Array.from({ length: 12 }, (_, i) => ({
-  month: i + 1,
-  basic: { actual: 13209805, baseline: 15507280, gap: -2297475 },
-  airCondition: { actual: 169416, baseline: 199831, gap: -30415 },
-  airPressure: { actual: 837715, baseline: 739036, gap: 98679 },
-  production: { actual: 1072516, baseline: 1705361, gap: -632845 },
-  detail: {
-    'PCBA產量 (pcs)': 3065547,
-    'FA產量 (pcs)': 133930,
-    '人數 (人)': 1123,
-    'PCBA面積 (m²)': 2177,
-    'FA面積 (m²)': 2414,
-    '營業額 (十億NTD)': 0,
-    '外氣平均溫度 (°C)': 5,
-  },
-}));
-
 const PREDICTION_COLUMNS_BY_SITE = ({ month } = {}) => {
   const m = Number(month);
   const nextMonth = m + 1;
@@ -196,7 +179,7 @@ const PREDICTION_COLUMNS_BY_MONTH = () =>
     },
   ]);
 
-const LINE_OPTION = ({ dataset, lineColors, type, compareName, actualName }) => {
+const LINE_OPTION = ({ dataset, lineColors, type, compareName, actualName, year }) => {
   return {
     xAxis: {
       type: 'category',
@@ -235,7 +218,7 @@ const LINE_OPTION = ({ dataset, lineColors, type, compareName, actualName }) => 
     },
     tooltip: {
       trigger: 'axis',
-      formatter: LineTooltipFormatter({ type, compareName, actualName }),
+      formatter: LineTooltipFormatter({ type, compareName, actualName, year }),
       backgroundColor: 'transparent',
       padding: 0,
       axisPointer: {
@@ -264,21 +247,8 @@ const LINE_OPTION = ({ dataset, lineColors, type, compareName, actualName }) => 
   };
 };
 
-export function toLineDataset(key) {
-  return BASE_LINE_DATA.reduce(
-    (prev, curr) => {
-      return {
-        ...prev,
-        actual: prev.actual.concat(curr[key].actual),
-        baseline: prev.baseline.concat(curr[key].baseline),
-      };
-    },
-    { actual: [], baseline: [] }
-  );
-}
-
 export const LineTooltipFormatter =
-  ({ type, compareName, actualName }) =>
+  ({ type, compareName, actualName, year }) =>
   (dataset) => {
     const [actual, baseline] = dataset;
     const actualValue = actual.value;
@@ -287,7 +257,9 @@ export const LineTooltipFormatter =
     return renderToString(
       <div className="flex flex-col bg-gray-900 rounded shadow py-2 bg-opacity-75">
         <div className="flex justify-between items-baseline px-4 border-b pb-2 border-divider space-x-4">
-          <div>2021.{String(actual.dataIndex + 1).padStart(2, '0')}</div>
+          <div>
+            {year}.{String(actual.dataIndex + 1).padStart(2, '0')}
+          </div>
           <div>{APP_CONFIG.ELECTRICITY_TYPE_MAPPING[type] || type}</div>
         </div>
         <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
@@ -402,6 +374,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                 <Chart
                   className="w-full h-full pl-4"
                   option={LINE_OPTION({
+                    year,
                     dataset,
                     lineColors: [colors.primary['600'], colors._yellow],
                     type: '工廠用電模型預測',
@@ -425,11 +398,21 @@ export function PredictionPanel({ categorized, year, month, plant }) {
   );
 }
 
-export function ChartPanel() {
+export function ChartPanel({ plant, year }) {
+  const option = { year, plant };
+  const { data } = useGetElectricityBaselineQuery(option, { skip: Object.values(option).every(isNil) });
   return (
     <div className="row-span-2 bg-primary-900 rounded shadow p-4 grid grid-cols-4 gap-4">
       {APP_CONFIG.ELECTRICITY_TYPES.map(({ key, value }, i) => {
-        const dataset = toLineDataset(key);
+        const dataset = data?.data?.reduce(
+          (prev, curr) => ({
+            ...prev,
+            actual: prev.actual.concat(curr[key].actual),
+            baseline: prev.actual.concat(curr[key].baseline),
+          }),
+          { actual: [], baseline: [] }
+        );
+
         return (
           <div key={key} className="flex flex-col space-y-2">
             <div className="flex justify-between">
@@ -441,14 +424,17 @@ export function ChartPanel() {
                 </div>
               )}
             </div>
-            <Chart
-              className="w-full h-full"
-              option={LINE_OPTION({
-                dataset,
-                lineColors: [colors.primary['600'], colors._yellow],
-                type: key,
-              })}
-            />
+            {data && (
+              <Chart
+                className="w-full h-full"
+                option={LINE_OPTION({
+                  year,
+                  dataset,
+                  lineColors: [colors.primary['600'], colors._yellow],
+                  type: key,
+                })}
+              />
+            )}
           </div>
         );
       })}
@@ -456,14 +442,21 @@ export function ChartPanel() {
   );
 }
 
-export function BaselinePanel() {
+export function BaselinePanel({ year, plant }) {
+  const option = { year, plant };
   const [selectedRow, setSelectedRow] = useState(-1);
+  const { data } = useGetElectricityBaselineQuery(option, { skip: Object.values(option).every(isNil) });
+  if (isNil(data)) {
+    return null;
+  }
+
+  const r = data.data[selectedRow] || {};
   return (
     <div className="grid grid-cols-6 overflow-auto gap-4">
       <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
         <Table
           columns={BASE_LINE_COLUMNS}
-          data={BASE_LINE_DATA}
+          data={data.data}
           getRowProps={(row) => ({
             className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
             onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
@@ -472,14 +465,14 @@ export function BaselinePanel() {
       </div>
       <div className="col-span-1 flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
         <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
-          <div>{`基線數據 : ${BASE_LINE_DATA[selectedRow]?.month || '-'}月`}</div>
+          <div>{`基線數據 : ${r.month || '-'}月`}</div>
           <div className="text-gray-300 text-sm">點擊左方欄位查看該月份數據</div>
         </div>
         <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
           {BASE_LINE_DETAIL_ENTRIES.map(({ key, name }) => (
             <div key={key} className="flex justify-between">
               <div>{name}</div>
-              <div>{baseFormatter(get(BASE_LINE_DATA, [selectedRow, 'detail', name], '-'))}</div>
+              <div>{baseFormatter(get(r, [selectedRow, key]))}</div>
             </div>
           ))}
         </div>
@@ -490,14 +483,11 @@ export function BaselinePanel() {
 
 export function TabPanel({ children }) {
   const { hash, search } = useLocation();
-  const prevSearch = usePrevious(search);
   const option = qs.parse(search);
-  const prevOption = qs.parse(prevSearch);
   const isPrediction = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
   return children({
     option,
     isPrediction,
-    prevOption,
   });
 }
 
@@ -590,11 +580,13 @@ export function PredictionSearch({ ...option }) {
 }
 
 export default function ElectricityBaselinePage() {
+  const baselineRef = useRef({});
+  const predictionRef = useRef({});
   return (
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
         <TabPanel>
-          {({ isPrediction, option, prevOption }) => (
+          {({ isPrediction, option }) => (
             <>
               <div
                 className={clsx(
@@ -606,7 +598,18 @@ export default function ElectricityBaselinePage() {
                   className="self-center"
                   options={BUTTON_GROUP_OPTIONS}
                   selected={isPrediction ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
-                  onChange={(e) => navigate({ hash: e.key }, { merge: false })}
+                  onChange={(e) => {
+                    navigate(
+                      { hash: e.key, ...(isPrediction ? { ...baselineRef.current } : { ...predictionRef.current }) },
+                      { merge: false }
+                    );
+
+                    if (e.key === BUTTON_GROUP_OPTIONS[0].key) {
+                      predictionRef.current = option;
+                    } else {
+                      baselineRef.current = option;
+                    }
+                  }}
                 />
                 <div className="flex w-full justify-center items-center">
                   {isPrediction ? <PredictionSearch {...option} /> : <BaselineSearch {...option} />}
