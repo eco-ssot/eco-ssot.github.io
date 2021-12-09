@@ -29,5 +29,10 @@
     "checkInputRules": "Make sure all input values meet the following criteria:",
     "goalRule1": "1. Baseline year must be less than or equal to the query year.",
     "goalRule2": "2. Target definition must be less than or equal to 100%."
+  },
+  "legend": {
+    "meetTarget": "Meet Target",
+    "missTarget": "Miss Target",
+    "missingData": "Missing Data"
   }
 }

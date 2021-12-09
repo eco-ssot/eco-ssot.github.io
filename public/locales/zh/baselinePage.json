@@ -1,19 +1,8 @@
 {
   "title": "用電分析",
-  "baselinePanel": {
-    "baselineData": "基線數據",
-    "selectFromLeftDesc": "點擊左方欄位查看該月份數據",
-    "table": {
-      "month": "月份",
-      "basicElectricity": "基礎用電 (度)",
-      "airCondition": "空調用電 (度)",
-      "airCompress": "空壓用電 (度)",
-      "production": "生產用電 (度)",
-      "actual": "實際用電",
-      "baseline": "基準線",
-      "gap": "差異"
-    }
-  },
+  "predicted": "預測",
+  "baselineData": "基線數據",
+  "selectFromLeftDesc": "點擊左方欄位查看該月份數據",
   "PCBAProduction": "PCBA產量 (pcs)",
   "FAProduction": "FA產量 (pcs)",
   "manpower": "人數 (人)",
@@ -27,7 +16,34 @@
   "air_compressor": "空壓用電",
   "air_production": "生產用電",
   "predictionBaseline": "預測基準線",
-  "actual": "實際用電",
+  "predictionElectricity": "預測用電",
+  "actualElectricity": "實際用電",
   "baseline": "基準線",
-  "gap": "差異"
+  "gap": "差異",
+  "actual": "實際",
+  "baselinePanel": {
+    "table": {
+      "month": "月份",
+      "basicElectricity": "基礎用電 (度)",
+      "airCondition": "空調用電 (度)",
+      "airCompress": "空壓用電 (度)",
+      "production": "生產用電 (度)",
+      "actualElectricity": "實際用電",
+      "baseline": "基準線",
+      "gap": "差異"
+    }
+  },
+  "predictionPanel": {
+    "desc": "＊工廠用電預測 YTM = 實際工廠用電 + 2個月工廠用電預測",
+    "chartTitle": "工廠用電模型預測",
+    "buyTrecTarget": "預測今年綠證總購買量",
+    "calcEveryNov": "每年11月計算",
+    "table": {
+      "month": "月份",
+      "monthlyElectricity": "當月工廠用電預測 (度)",
+      "tRecTarget": "年度預測綠證目標 (11月)",
+      "actualElectricity": "實際工廠用電 (度)",
+      "predictionElectricity": "工廠用電預測 (度)"
+    }
+  }
 }

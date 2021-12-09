@@ -1,19 +1,8 @@
 {
   "title": "Electricity Analysis",
-  "baselinePanel": {
-    "baselineData": "Baseline Data",
-    "selectFromLeftDesc": "Select month from table on the left",
-    "table": {
-      "month": "Month",
-      "basicElectricity": "Basic Electricity (kWh)",
-      "airCondition": "Air Conditioning Electricity (kWh)",
-      "airCompress": "Air Compressor Electricity (kWh)",
-      "production": "Production Electricity (kWh)",
-      "actual": "Actual",
-      "baseline": "Baseline",
-      "gap": "Gap"
-    }
-  },
+  "predicted": "Predicted ",
+  "baselineData": "Baseline Data",
+  "selectFromLeftDesc": "Select month from table on the left",
   "PCBAProduction": "PCBA Production (pcs)",
   "FAProduction": "FA Production (pcs)",
   "manpower": "Manpower",
@@ -27,7 +16,34 @@
   "air_compressor": "Air Compressor Electricity",
   "air_production": "Production Electricity",
   "predictionBaseline": "Predicted Baseline",
-  "actual": "Actual",
+  "predictionElectricity": "Predicted",
+  "actualElectricity": "Actual",
   "baseline": "Baseline",
-  "gap": "Gap"
+  "gap": "Gap",
+  "actual": "Actual",
+  "baselinePanel": {
+    "table": {
+      "month": "Month",
+      "basicElectricity": "Basic Electricity (kWh)",
+      "airCondition": "Air Conditioning Electricity (kWh)",
+      "airCompress": "Air Compressor Electricity (kWh)",
+      "production": "Production Electricity (kWh)",
+      "actualElectricity": "Actual",
+      "baseline": "Baseline",
+      "gap": "Gap"
+    }
+  },
+  "predictionPanel": {
+    "desc": "＊ Predicted Electricity Consumption YTM = Actual + Predicted Electricity Consumption of 2 months",
+    "chartTitle": "Electricity Baseline Model",
+    "buyTrecTarget": "Predicted Annual REC Target Total",
+    "calcEveryNov": "Only calculated in November",
+    "table": {
+      "month": "Month",
+      "monthlyElectricity": "Monthly Electricity Consumption (kWh)",
+      "tRecTarget": "Annual REC Target (Nov)",
+      "actualElectricity": "Actual (kWh)",
+      "predictionElectricity": "Predicted (kWh)"
+    }
+  }
 }

@@ -2,16 +2,16 @@ import clsx from 'clsx';
 
 import { baseFormatter } from '../../utils/formatter';
 
-export function getYtmLabel(m) {
+export function getYtmLabel(m, t) {
   if (m === 1) {
     return '-';
   }
 
   if (m === 2) {
-    return 'YTM (1月)';
+    return `YTM (${t('common:month.1')}${t('common:month.text')})`;
   }
 
-  return `YTM (1-${m - 1}月)`;
+  return `YTM (${t('common:month.1')}-${t(`common:month.${m - 1}`)}${t('common:month.text')})`;
 }
 
 export function gapFormatter(cell) {

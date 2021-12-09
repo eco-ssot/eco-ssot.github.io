@@ -29,5 +29,10 @@
     "checkInputRules": "請確認輸入值是否符合下列條件 : ",
     "goalRule1": "1. 基準年不可大於查詢年度。",
     "goalRule2": "2. Target 訂定標準數值不可大於100%。"
+  },
+  "legend": {
+    "meetTarget": "達標",
+    "missTarget": "未達標",
+    "missingData": "資料缺漏"
   }
 }
