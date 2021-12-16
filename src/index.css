@@ -20,10 +20,6 @@
 }
 
 html {
-  @apply bg-gray-50 text-gray-900;
-}
-
-html[class='dark'] {
   @apply bg-gray-900 text-gray-50;
 }
 
