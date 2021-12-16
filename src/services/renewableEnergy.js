@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery, siteNoData } from './helpers';
+import { axiosBaseQuery } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const { name, area, percent, solarElectric, structure, tRec, target, totalElectric } = data;
@@ -20,7 +20,6 @@ export function toRow({ plants = [], ...data } = {}) {
     roofStructure: structure,
     subRows: plants.map(toRow),
     ...(name === 'Total' && { isFooter: true }),
-    ...(siteNoData(data, plants) && { noData: true }),
   };
 }
 

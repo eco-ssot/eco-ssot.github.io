@@ -6,6 +6,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -53,14 +54,14 @@ const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CO
   },
 ];
 
-const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({ t, pct, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer,
+      Cell: noDataRenderer({ missing }),
     },
     ...HEADERS({ t, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
@@ -79,8 +80,13 @@ const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CO
 export default function UnitElectricityTable({ business }) {
   const { t } = useTranslation(['unitElectricityPage', 'common']);
   const { data } = useGetUnitElectricityQuery({ business });
+  const { data: summary } = useGetSummaryQuery({ business });
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '單台用電' });
-  const columns = useMemo(() => COLUMNS({ t, pct, currYear, lastYear: baseYear }), [pct, currYear, baseYear, t]);
+  const columns = useMemo(
+    () => COLUMNS({ t, pct, currYear, lastYear: baseYear, missing: summary?.missing }),
+    [pct, currYear, baseYear, t, summary?.missing]
+  );
+
   return (
     <>
       <DualTag

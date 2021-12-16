@@ -6,6 +6,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetCarbonQuery } from '../../services/carbon';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -61,14 +62,20 @@ const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CO
   },
 ];
 
-const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) =>
+const COLUMNS = ({
+  t,
+  pct,
+  missing,
+  currYear = APP_CONFIG.CURRENT_YEAR,
+  baseYear = APP_CONFIG.BASE_YEAR_CARBON,
+} = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer,
+      Cell: noDataRenderer({ missing }),
     },
     ...HEADERS({ t, pct, currYear, baseYear }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,
@@ -91,8 +98,13 @@ const COLUMNS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CO
 export default function CarbonTable({ business }) {
   const { t } = useTranslation(['carbonPage', 'common']);
   const { data } = useGetCarbonQuery({ business });
+  const { data: summary } = useGetSummaryQuery({ business });
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '碳排放量' });
-  const columns = useMemo(() => COLUMNS({ t, pct, currYear, baseYear }), [pct, currYear, baseYear, t]);
+  const columns = useMemo(
+    () => COLUMNS({ t, pct, currYear, baseYear, missing: summary?.missing }),
+    [pct, currYear, baseYear, t, summary?.missing]
+  );
+
   return (
     <>
       <DualTag

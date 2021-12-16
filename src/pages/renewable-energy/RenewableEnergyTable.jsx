@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -53,14 +54,14 @@ const HEADERS = ({ t, pct } = {}) => [
   },
 ];
 
-const COLUMNS = ({ t, pct } = {}) =>
+const COLUMNS = ({ t, pct, missing } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer,
+      Cell: noDataRenderer({ missing }),
     },
     ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,
@@ -83,8 +84,9 @@ const COLUMNS = ({ t, pct } = {}) =>
 export default function RenewableEnergyTable({ business }) {
   const { t } = useTranslation(['renewableEnergyPage', 'common']);
   const { data } = useGetRenewableEnergyQuery({ business });
+  const { data: summary } = useGetSummaryQuery({ business });
   const { label, pct } = useGoal({ keyword: '可再生能源' });
-  const columns = useMemo(() => COLUMNS({ t, pct }), [pct, t]);
+  const columns = useMemo(() => COLUMNS({ t, pct, missing: summary?.missing }), [pct, t, summary?.missing]);
   return (
     <>
       <DualTag

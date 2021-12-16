@@ -10,6 +10,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetWaterQuery } from '../../services/water';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -116,6 +117,7 @@ const COLUMNS = ({
   t,
   business,
   pct,
+  missing,
   currYear = APP_CONFIG.CURRENT_YEAR,
   lastYear = APP_CONFIG.LAST_YEAR,
   baseYear = APP_CONFIG.BASE_YEAR_WATER,
@@ -126,7 +128,7 @@ const COLUMNS = ({
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer,
+      Cell: noDataRenderer({ missing }),
     },
     ...HEADERS({ t, business, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
@@ -145,10 +147,11 @@ const COLUMNS = ({
 export default function WaterTable({ business }) {
   const { t } = useTranslation(['waterPage', 'common']);
   const { data } = useGetWaterQuery({ business });
+  const { data: summary } = useGetSummaryQuery({ business });
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, pct, currYear, baseYear, lastYear: currYear - 1 }),
-    [business, pct, currYear, baseYear, t]
+    () => COLUMNS({ t, business, pct, currYear, baseYear, lastYear: currYear - 1, missing: summary?.missing }),
+    [business, pct, currYear, baseYear, t, summary?.missing]
   );
 
   return (

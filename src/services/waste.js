@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery, siteNoData, sortExplanationsById } from './helpers';
+import { axiosBaseQuery, sortExplanationsById } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -39,7 +39,6 @@ export function toRow({ plants = [], ...data } = {}) {
     },
     subRows: plants.map(toRow),
     ...(site === 'Total' && { isFooter: true }),
-    ...(siteNoData(data, plants) && { noData: true }),
   };
 }
 

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetOverviewQuery } from '../../services/overview';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -17,14 +18,14 @@ export const HEADERS = [
   { key: 'asp', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
 ];
 
-export const COLUMNS = ({ t, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+export const COLUMNS = ({ t, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer,
+      Cell: noDataRenderer({ missing }),
     },
     ...HEADERS.map(({ key, renderer = baseFormatter }) => ({
       id: key,
@@ -61,7 +62,8 @@ export const COLUMNS = ({ t, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_
 export default function OverviewTable({ business }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const { data } = useGetOverviewQuery({ business });
-  const columns = useMemo(() => COLUMNS({ t }), [t]);
+  const { data: summary } = useGetSummaryQuery({ business });
+  const columns = useMemo(() => COLUMNS({ t, missing: summary?.missing }), [t, summary?.missing]);
   return (
     <>
       <Tag className="absolute top-2 right-4">

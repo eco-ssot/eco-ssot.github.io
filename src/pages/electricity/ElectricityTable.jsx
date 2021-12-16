@@ -10,6 +10,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetElectricityQuery } from '../../services/electricity';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -111,14 +112,14 @@ const HEADERS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = A
   },
 ];
 
-const COLUMNS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({ t, business, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer,
+      Cell: noDataRenderer({ missing }),
     },
     ...HEADERS({ t, business, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
@@ -135,10 +136,11 @@ const COLUMNS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = A
 export default function ElectricityTable({ business }) {
   const { t } = useTranslation(['electricityPage', 'common']);
   const { data } = useGetElectricityQuery({ business });
+  const { data: summary } = useGetSummaryQuery({ business });
   const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, currYear, lastYear: baseYear }),
-    [business, currYear, baseYear, t]
+    () => COLUMNS({ t, business, currYear, lastYear: baseYear, missing: summary?.missing }),
+    [business, currYear, baseYear, t, summary?.missing]
   );
 
   return (
