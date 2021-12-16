@@ -8,7 +8,7 @@ export default function Layout({ children }) {
     <>
       <Toaster />
       <Spinner />
-      <div className="dark:bg-gray-900 dark:text-gray-50">
+      <div className="bg-gray-900 text-gray-50">
         <Header className="flex fixed w-full h-16" />
         <div className="pt-16">{children}</div>
       </div>

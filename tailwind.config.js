@@ -1,12 +1,8 @@
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-delete colors['lightBlue'];
-
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,jsx,json}', './public/**/*.html'],
-  darkMode: 'media',
+  content: ['./src/**/*.{js,jsx,json}', './public/**/*.html'],
   theme: {
     colors: { ...colors, transparent: 'transparent', current: 'currentColor' },
     screens: {
@@ -22,6 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        gray: colors.trueGray,
         primary: {
           500: '#21CC97',
           600: '#489C9C',

@@ -9,7 +9,22 @@ module.exports = {
       );
 
       webpackConfig.resolve.plugins.splice(scopePluginIndex, 1);
-      return webpackConfig;
+      return {
+        ...webpackConfig,
+        resolve: {
+          ...webpackConfig.resolve,
+          fallback: {
+            timers: false,
+            tty: false,
+            os: false,
+            http: false,
+            https: false,
+            zlib: false,
+            util: false,
+            ...webpackConfig.resolve.fallback,
+          },
+        },
+      };
     },
     ...(process.env.NODE_ENV === 'production' && {
       plugins: [
@@ -23,10 +38,5 @@ module.exports = {
         ),
       ],
     }),
-  },
-  style: {
-    postcss: {
-      plugins: [require('tailwindcss'), require('autoprefixer')],
-    },
   },
 };

@@ -39,7 +39,7 @@ test('App', async () => {
         </svg>
       </div>
       <div
-        class="dark:bg-gray-900 dark:text-gray-50"
+        class="bg-gray-900 text-gray-50"
       >
         <div
           class="flex px-4 bg-primary-800 shadow-lg items-center z-10 flex fixed w-full h-16"
