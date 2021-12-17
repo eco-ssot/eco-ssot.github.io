@@ -12,7 +12,7 @@
   "temperature": "外氣平均溫度 (°C)",
   "modelPrediction": "模型預測",
   "basic": "基礎用電",
-  "air_conditionin": "空調用電",
+  "air_condition": "空調用電",
   "air_compressor": "空壓用電",
   "air_production": "生產用電",
   "predictionBaseline": "預測基準線",

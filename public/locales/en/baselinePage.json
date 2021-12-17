@@ -12,7 +12,7 @@
   "temperature": "Temperature (°C)",
   "modelPrediction": " Baseline Model",
   "basic": "Basic Electricity",
-  "air_conditionin": "Air Conditioning Electricity",
+  "air_condition": "Air Conditioning Electricity",
   "air_compressor": "Air Compressor Electricity",
   "air_production": "Production Electricity",
   "predictionBaseline": "Predicted Baseline",

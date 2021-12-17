@@ -437,8 +437,8 @@ export function ChartPanel({ plant, year }) {
         const dataset = data?.data?.reduce(
           (prev, curr) => ({
             ...prev,
-            actual: prev.actual.concat(curr[key].actual),
-            baseline: prev.actual.concat(curr[key].baseline),
+            actual: prev.actual.concat(curr[key]?.actual),
+            baseline: prev.baseline.concat(curr[key]?.baseline),
           }),
           { actual: [], baseline: [] }
         );
