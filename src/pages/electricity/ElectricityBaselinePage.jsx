@@ -104,11 +104,10 @@ const HISTORY_COLUMNS = (t) => [
   },
 ];
 
-const PREDICTION_COLUMNS_BY_SITE = ({ t, month } = {}) => {
+const PREDICTION_COLUMNS_BY_SITE = ({ t, year, month } = {}) => {
   const m = Number(month);
   const nextMonth = m + 1;
-  const currMonth = new Date().getMonth() + 1;
-  const isHistory = currMonth > m;
+  const isHistory = !isFuture(addMonths(new Date(Number(year), m - 1, 1), 1));
   const currColumns = [
     {
       id: 'actual',
@@ -350,7 +349,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                     </>
                   ) : (
                     <>
-                      {!isFuture(addMonths(new Date().setMonth(m - 1), 1)) && (
+                      {!isFuture(addMonths(new Date(Number(year), m - 1, 1), 1)) && m < 12 && (
                         <div className="w-1/2 text-right">
                           {t(`common:month.${m + 1}`, { defaultValue: '-' })}
                           {t('common:month.text')}
@@ -377,7 +376,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                       </>
                     ) : (
                       <>
-                        {!isFuture(addMonths(new Date().setMonth(m - 1), 1)) && (
+                        {!isFuture(addMonths(new Date(Number(year), m - 1, 1), 1)) && m < 12 && (
                           <div className="w-1/2 text-right">
                             {baseFormatter(get(r, [key, 'nextMonth'], get(r, [key, 'predicted'])))}
                           </div>
