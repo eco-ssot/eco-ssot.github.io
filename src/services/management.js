@@ -1,5 +1,4 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { uniq } from 'lodash';
 
 import { axiosBaseQuery } from './helpers';
 
@@ -21,17 +20,12 @@ export const managementApi = createApi({
       }),
     }),
     getPlantOptions: builder.query({
-      query: () => ({ url: 'data-status' }),
+      query: (query) => ({ query, url: 'plants' }),
       transformResponse: (res) =>
-        uniq(
-          res?.data?.map(({ plant }) => {
-            const p = plant.split('(')[0].trim();
-            return {
-              key: p,
-              value: p,
-            };
-          })
-        ),
+        res?.data?.map((plant) => ({
+          key: plant,
+          value: plant,
+        })),
     }),
   }),
 });

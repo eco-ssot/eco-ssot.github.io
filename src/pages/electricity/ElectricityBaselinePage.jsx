@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 
 import clsx from 'clsx';
@@ -294,11 +294,12 @@ export const LineTooltipFormatter =
     );
   };
 
-export function PredictionPanel({ categorized, year, month, plant }) {
+export function PredictionPanel({ categorized, year, month, plant, business }) {
   const { t } = useTranslation(['baselinePage', 'common']);
   const byMonth = categorized === 'month';
   const option = byMonth ? { categorized, year, plant } : { categorized, year, month };
-  const { data } = useGetElectricityPredictionQuery(option, { skip: Object.values(option).every(isNil) });
+  const skip = Object.values(option).every(isNil);
+  const { data } = useGetElectricityPredictionQuery({ ...option, bo: business }, { skip });
   const [selectedRow, setSelectedRow] = useState(-1);
   if (isNil(data)) {
     return null;
@@ -335,9 +336,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
               <div className="border-b border-divider pb-1">{`${t('baselinePage:predicted')}${t(
                 'baselinePage:baselineData'
               )} : ${
-                (byMonth
-                  ? `${t(`common:month.${Number(r.month)}`, { defaultValue: '-' })}${t('common:month.text')}`
-                  : r.plant) || '-'
+                (byMonth ? `${t(`common:month.${Number(r.month)}`)}${t('common:month.text')}` : r.plant) || '-'
               }  `}</div>
               <div className="flex">
                 <div className="w-1/2 text-gray-300 text-sm">{t('baselinePage:selectFromLeftDesc')}</div>
@@ -351,12 +350,12 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                     <>
                       {!isFuture(addMonths(new Date(Number(year), m - 1, 1), 1)) && m < 12 && (
                         <div className="w-1/2 text-right">
-                          {t(`common:month.${m + 1}`, { defaultValue: '-' })}
+                          {t(`common:month.${m + 1}`)}
                           {t('common:month.text')}
                         </div>
                       )}
                       <div>
-                        {t(`common:month.${m}`, { defaultValue: '-' })}
+                        {t(`common:month.${m}`)}
                         {t('common:month.text')}
                       </div>
                     </>
@@ -431,10 +430,14 @@ export function PredictionPanel({ categorized, year, month, plant }) {
   );
 }
 
-export function ChartPanel({ plant, year }) {
+export function ChartPanel({ plant, year, business }) {
   const { t } = useTranslation(['baselinePage']);
   const option = { year, plant };
-  const { data } = useGetElectricityBaselineQuery(option, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetElectricityBaselineQuery(
+    { ...option, bo: business },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   return (
     <div className="row-span-2 bg-primary-900 rounded shadow p-4 grid grid-cols-4 gap-4">
       {APP_CONFIG.ELECTRICITY_TYPES.map(({ key }, i) => {
@@ -480,17 +483,17 @@ export function ChartPanel({ plant, year }) {
   );
 }
 
-export function BaselinePanel({ year, plant }) {
+export function BaselinePanel({ year, plant, business }) {
   const { t } = useTranslation(['baselinePage', 'common']);
   const option = { year, plant };
+  const skip = Object.values(option).every(isNil);
   const [selectedRow, setSelectedRow] = useState(-1);
-  const { data } = useGetElectricityBaselineQuery(option, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetElectricityBaselineQuery({ ...option, bo: business }, { skip });
   if (isNil(data)) {
     return null;
   }
 
   const r = data.data[selectedRow] || {};
-  console.log({ r });
   return (
     <div className="grid grid-cols-6 overflow-auto gap-4">
       <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
@@ -532,15 +535,21 @@ export function TabPanel({ children }) {
   const { lng, business, ...option } = qs.parse(search);
   const isPrediction = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
   return children({
+    business,
     option,
     isPrediction,
   });
 }
 
-export function BaselineSearch({ ...option }) {
+export function BaselineSearch({ business, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const { data: plantOptions } = useGetPlantOptionsQuery();
+  const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
+  useEffect(() => {
+    if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
+      navigate({ plant: plantOptions[0].key });
+    }
+  }, [plantOptions, option]);
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
@@ -570,11 +579,16 @@ export function BaselineSearch({ ...option }) {
   );
 }
 
-export function PredictionSearch({ ...option }) {
+export function PredictionSearch({ business, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const { data: plantOptions } = useGetPlantOptionsQuery();
+  const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
   const byMonth = searchOption.categorized === 'month';
+  useEffect(() => {
+    if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
+      navigate({ plant: plantOptions[0].key });
+    }
+  }, [plantOptions, option]);
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
@@ -635,7 +649,7 @@ export default function ElectricityBaselinePage() {
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
         <TabPanel>
-          {({ isPrediction, option }) => (
+          {({ isPrediction, option, business }) => (
             <>
               <div
                 className={clsx(
@@ -649,7 +663,12 @@ export default function ElectricityBaselinePage() {
                   selected={isPrediction ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
                   onChange={(e) => {
                     navigate(
-                      { hash: e.key, ...(isPrediction ? { ...baselineRef.current } : { ...predictionRef.current }) },
+                      {
+                        hash: e.key,
+                        ...(isPrediction
+                          ? { ...baselineRef.current, business }
+                          : { ...predictionRef.current, business }),
+                      },
                       { merge: false }
                     );
 
@@ -661,12 +680,20 @@ export default function ElectricityBaselinePage() {
                   }}
                 />
                 <div className="flex w-full justify-center items-center">
-                  {isPrediction ? <PredictionSearch {...option} /> : <BaselineSearch {...option} />}
+                  {isPrediction ? (
+                    <PredictionSearch {...option} business={business} />
+                  ) : (
+                    <BaselineSearch {...option} business={business} />
+                  )}
                   <Button className="absolute right-8">Excel</Button>
                 </div>
-                {isPrediction ? <PredictionPanel {...option} /> : <BaselinePanel {...option} />}
+                {isPrediction ? (
+                  <PredictionPanel {...option} business={business} />
+                ) : (
+                  <BaselinePanel {...option} business={business} />
+                )}
               </div>
-              {!isPrediction && !isEmpty(option) && <ChartPanel {...option} />}
+              {!isPrediction && !isEmpty(option) && <ChartPanel {...option} business={business} />}
             </>
           )}
         </TabPanel>

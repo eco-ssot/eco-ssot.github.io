@@ -14,11 +14,14 @@ import DataStatusPage from './DataStatusPage';
 import GoalPage from './GoalPage';
 import PicPage from './PicPage';
 
-export function Nav({ hidden, children, to, pathname }) {
+export function Nav({ hidden, children, to, pathname, business }) {
   const match = pathname.endsWith(to);
   return (
     <Link
-      to={to}
+      to={{
+        pathname: to,
+        ...(business && { search: `?business=${business}` }),
+      }}
       className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10', hidden && 'hidden')}>
       {match && <div className="absolute w-1 h-full bg-primary-600"></div>}
       <div className={clsx('ml-4', match && 'font-medium')}>{children}</div>
@@ -57,13 +60,13 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col py-4 space-y-2">
-              <Nav to="/management/goal" pathname={pathname}>
+              <Nav to="/management/goal" pathname={pathname} business={business}>
                 {t('managementPage:nav.goal')}
               </Nav>
-              <Nav to="/management/data-status" pathname={pathname}>
+              <Nav to="/management/data-status" pathname={pathname} business={business}>
                 {t('managementPage:nav.dataStatus')}
               </Nav>
-              <Nav to="/management/pic" pathname={pathname}>
+              <Nav to="/management/pic" pathname={pathname} business={business}>
                 {t('managementPage:nav.pic')}
               </Nav>
             </div>
@@ -85,7 +88,11 @@ export default function ManagementPage() {
         <Route exact path="/management/pic">
           <PicPage canEdit={canEdit} users={users} />
         </Route>
-        <Redirect exact from="/management" to="/management/goal" />
+        <Redirect
+          exact
+          from="/management"
+          to={{ pathname: '/management/goal', ...(business && { search: `?business=${business}` }) }}
+        />
       </Switch>
     </div>
   );
