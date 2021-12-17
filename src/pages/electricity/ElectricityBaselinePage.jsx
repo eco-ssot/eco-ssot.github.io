@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRef } from 'react';
 
 import clsx from 'clsx';
+import { addMonths, isFuture } from 'date-fns';
 import { get, isEmpty, isNil } from 'lodash';
 import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
@@ -349,7 +350,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                     </>
                   ) : (
                     <>
-                      {m + 1 < 12 && (
+                      {!isFuture(addMonths(new Date().setMonth(m - 1), 1)) && (
                         <div className="w-1/2 text-right">
                           {t(`common:month.${m + 1}`, { defaultValue: '-' })}
                           {t('common:month.text')}
@@ -376,7 +377,7 @@ export function PredictionPanel({ categorized, year, month, plant }) {
                       </>
                     ) : (
                       <>
-                        {m + 1 < 13 && (
+                        {!isFuture(addMonths(new Date().setMonth(m - 1), 1)) && (
                           <div className="w-1/2 text-right">
                             {baseFormatter(get(r, [key, 'nextMonth'], get(r, [key, 'predicted'])))}
                           </div>
@@ -490,6 +491,7 @@ export function BaselinePanel({ year, plant }) {
   }
 
   const r = data.data[selectedRow] || {};
+  console.log({ r });
   return (
     <div className="grid grid-cols-6 overflow-auto gap-4">
       <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
@@ -517,7 +519,7 @@ export function BaselinePanel({ year, plant }) {
           {BASE_LINE_DETAIL_ENTRIES.map(({ key }) => (
             <div key={key} className="flex justify-between">
               <div>{t(`baselinePage:${key}`)}</div>
-              <div>{baseFormatter(get(r, [selectedRow, key]))}</div>
+              <div>{baseFormatter(get(r, [key]))}</div>
             </div>
           ))}
         </div>
