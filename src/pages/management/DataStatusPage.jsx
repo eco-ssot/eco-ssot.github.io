@@ -1,15 +1,15 @@
 import clsx from 'clsx';
-import { subMonths, lastDayOfMonth } from 'date-fns';
+import { subMonths } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 
 import Legend from '../../components/legend/Legend';
 import Table from '../../components/table/Table';
 import { useGetDataStatusQuery } from '../../services/management';
-import { ratioFormatter, baseFormatter } from '../../utils/formatter';
+import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 
-const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
-const STATUS_MAPPING = {
+export const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
+export const STATUS_MAPPING = {
   0: 'bg-gray-50',
   2: 'bg-primary-500',
   1: 'bg-dangerous-700',
@@ -28,19 +28,6 @@ const femRenderer = (prop) => (cell) => {
     <div className="flex flex-col space-y-2 justify-end items-center">
       {statusRenderer(cell)}
       <div>{baseFormatter(cell.row.original[prop])}</div>
-    </div>
-  );
-};
-
-const csrRenderer = (amountProp, ratioProp) => (cell) => {
-  return (
-    <div className="flex flex-col space-y-2 justify-end items-center">
-      {statusRenderer(cell)}
-      <div className="flex space-x-2">
-        <div>{baseFormatter(cell.row.original[amountProp])}</div>
-        <div>/</div>
-        <div>{ratioFormatter(cell.row.original[ratioProp])}</div>
-      </div>
     </div>
   );
 };
@@ -94,31 +81,10 @@ const COLUMNS = (t) =>
         {
           Header: t('dataStatus.table.FEMElectric'),
           accessor: 'FEMElectric',
-          Cell: femRenderer('FEMElectricAmount'),
+          Cell: statusRenderer,
         },
-        { Header: t('dataStatus.table.FEMWater'), accessor: 'FEMWater', Cell: femRenderer('FEMWaterAmount') },
+        { Header: t('dataStatus.table.FEMWater'), accessor: 'FEMWater', Cell: statusRenderer },
         { Header: t('dataStatus.table.FEMSolar'), accessor: 'FEMSolar', Cell: femRenderer('FEMSolarAmount') },
-      ],
-    },
-    {
-      id: 'csr',
-      Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-          <div className="px-2">CSR *</div>
-          <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
-        </div>
-      ),
-      columns: [
-        {
-          Header: t('dataStatus.table.CSRElectric'),
-          accessor: 'CSRElectric',
-          Cell: csrRenderer('CSRElectricAmount', 'CSRElectricDifferent'),
-        },
-        {
-          Header: t('dataStatus.table.CSRWater'),
-          accessor: 'CSRWater',
-          Cell: csrRenderer('CSRWaterAmount', 'CSRWaterDifferent'),
-        },
       ],
     },
     {
@@ -149,7 +115,6 @@ function getLabel(t) {
   const month = (date < 10 ? subMonths(now, 1) : now).getMonth() + 1;
   const currMonth = month - 1 === 0 ? 12 : month - 1;
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
-  const csrMonth = subMonths(now, date > 30 || date === lastDayOfMonth(now) ? 1 : 2).getMonth() + 1;
   return (
     <>
       <div className="flex space-x-2">
@@ -162,17 +127,8 @@ function getLabel(t) {
             },
           })}
         </div>
-        <div>
-          {t('dataStatus.csrTitle', {
-            csrMonthNum: csrMonth,
-            csrMonth: subMonths(now, 1).setMonth(csrMonth - 1),
-            formatParams: {
-              csrMonth: { month: 'short' },
-            },
-          })}
-        </div>
+        <div>({t('dataStatus.subTitle', { nextMonth })})</div>
       </div>
-      <div>{t('dataStatus.subTitle', { nextMonth })}</div>
     </>
   );
 }

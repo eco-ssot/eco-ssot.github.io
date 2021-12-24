@@ -27,6 +27,9 @@ export const managementApi = createApi({
           value: plant,
         })),
     }),
+    getCsrStatus: builder.query({
+      query: (query) => ({ query, url: 'data-status/csr-compare' }),
+    }),
   }),
 });
 
@@ -34,5 +37,6 @@ export const {
   useGetDataStatusQuery,
   useGetDataStatusPicQuery,
   useGetPlantOptionsQuery,
+  useGetCsrStatusQuery,
   usePatchDataStatusPicMutation,
 } = managementApi;

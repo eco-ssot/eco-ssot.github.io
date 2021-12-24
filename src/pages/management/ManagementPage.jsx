@@ -10,6 +10,7 @@ import useAdmin from '../../hooks/useAdmin';
 import { selectBusiness } from '../../renderless/location/locationSlice';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
+import CsrPage from './CsrPage';
 import DataStatusPage from './DataStatusPage';
 import GoalPage from './GoalPage';
 import PicPage from './PicPage';
@@ -66,6 +67,9 @@ export default function ManagementPage() {
               <Nav to="/management/data-status" pathname={pathname} business={business}>
                 {t('managementPage:nav.dataStatus')}
               </Nav>
+              <Nav to="/management/csr" pathname={pathname} business={business}>
+                CSR 對照
+              </Nav>
               <Nav to="/management/pic" pathname={pathname} business={business}>
                 {t('managementPage:nav.pic')}
               </Nav>
@@ -84,6 +88,9 @@ export default function ManagementPage() {
         </Route>
         <Route exact path="/management/data-status">
           <DataStatusPage />
+        </Route>
+        <Route exact path="/management/csr">
+          <CsrPage />
         </Route>
         <Route exact path="/management/pic">
           <PicPage canEdit={canEdit} users={users} />
