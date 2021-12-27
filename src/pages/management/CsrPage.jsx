@@ -37,7 +37,17 @@ const csrRenderer = (cell) => {
 const ratioRenderer = (cell) => baseFormatter(cell.value, { precision: 1, unit: 1e-2, suffix: '%' });
 
 const COLUMNS = addPaddingColumns([
-  { Header: 'Plant', accessor: 'plant', rowSpan: 0 },
+  {
+    Header: 'Plant',
+    accessor: 'plant',
+    rowSpan: 0,
+    Cell: (cell) =>
+      DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val)) ? (
+        <div className="line-through text-gray-300">{cell.value}</div>
+      ) : (
+        cell.value
+      ),
+  },
   {
     id: 'electric',
     Header: () => <div className="border-b border-divider py-3">用電</div>,
