@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import Legend from '../../components/legend/Legend';
 import Table from '../../components/table/Table';
 import { useGetDataStatusQuery } from '../../services/management';
-import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 
 export const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
@@ -19,15 +18,6 @@ const statusRenderer = (cell) => {
   return (
     <div className="flex justify-center">
       <div className={clsx('rounded-full h-3 w-3 text-center', STATUS_MAPPING[cell.value])}></div>
-    </div>
-  );
-};
-
-const femRenderer = (prop) => (cell) => {
-  return (
-    <div className="flex flex-col space-y-2 justify-end items-center">
-      {statusRenderer(cell)}
-      <div>{baseFormatter(cell.row.original[prop])}</div>
     </div>
   );
 };
@@ -84,7 +74,7 @@ const COLUMNS = (t) =>
           Cell: statusRenderer,
         },
         { Header: t('dataStatus.table.FEMWater'), accessor: 'FEMWater', Cell: statusRenderer },
-        { Header: t('dataStatus.table.FEMSolar'), accessor: 'FEMSolar', Cell: femRenderer('FEMSolarAmount') },
+        { Header: t('dataStatus.table.FEMSolar'), accessor: 'FEMSolar', Cell: statusRenderer },
       ],
     },
     {
