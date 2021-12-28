@@ -135,7 +135,7 @@ const HEADERS = ({
     name: <div className="text-center">{t('wastePage:table.recycleRate')}</div>,
     renderer: (cell) => {
       const value = ratioFormatter(cell, { precision: 2 });
-      if (cell.row.depth === 0 && !cell.row.original.isFooter) {
+      if (cell.row.canExpand) {
         return (
           <div className="relative ">
             {value}
