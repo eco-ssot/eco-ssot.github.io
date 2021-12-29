@@ -113,6 +113,7 @@ export default function CsrPage() {
           <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
           <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
           <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
+          <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
         </div>
         <div className="flex justify-end">＊差異 = ( FEM - CSR ) / CSR * 100%</div>
         <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">

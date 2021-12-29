@@ -39,6 +39,7 @@
     "noData": "無資料",
     "updated": "已更新",
     "notUpdated": "未更新",
+    "incorrectData": "資料不正確",
     "table": {
       "autoSync": "自動同步",
       "manualSync": "手動更新",

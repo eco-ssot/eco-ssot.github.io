@@ -12,6 +12,7 @@ export const STATUS_MAPPING = {
   0: 'bg-gray-50',
   2: 'bg-primary-500',
   1: 'bg-dangerous-700',
+  3: 'bg-yellow-500',
 };
 
 const statusRenderer = (cell) => {
@@ -134,6 +135,7 @@ export default function DataStatusPage() {
           <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
           <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
           <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
+          <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
         </div>
         <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
         {data && (

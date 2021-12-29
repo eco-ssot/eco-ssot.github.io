@@ -39,6 +39,7 @@
     "noData": "No Data",
     "updated": "Updated",
     "notUpdated": "Not-Updated",
+    "incorrectData": "Incorrect Data",
     "table": {
       "autoSync": "Auto",
       "manualSync": "Manual",
