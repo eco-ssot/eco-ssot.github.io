@@ -10,7 +10,7 @@ export default function useGoal({ keyword, isHistory = false, labelType = '' } =
   const lng = useSelector(selectLanguage);
   const { data: summary } = useGetSummaryQuery({ business });
   const currYear = summary?.currYear;
-  const { data: { data = [] } = {} } = useGetGoalQuery({ business, year: summary?.currYear });
+  const { data: { data = [] } = {} } = useGetGoalQuery({ business, year: currYear }, { skip: !currYear });
   const { baseYear, target = '' } = data.filter((d) => new RegExp(keyword).test(d.category))[0] || {};
   const pct = getDecimalNumber(target) / 1e2;
   return {
