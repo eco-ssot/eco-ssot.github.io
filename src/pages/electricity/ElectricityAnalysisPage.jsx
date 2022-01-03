@@ -207,6 +207,7 @@ export default function ElectricityAnalysisPage() {
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
+      hasCategory
       title={`${t('analysisPage:electricity.title')} ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle={t('analysisPage:electricity.chartTitle')}
       tableTitle={t('analysisPage:electricity.tableTitle')}

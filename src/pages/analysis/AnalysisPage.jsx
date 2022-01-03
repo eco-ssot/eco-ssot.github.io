@@ -21,6 +21,7 @@ export default function AnalysisPage({
   title = '',
   chartTitle = '',
   tableTitle = '',
+  hasCategory = false,
   onRowChange = () => {},
   onSubRowChange = () => {},
   onDeleteRow = () => {},
@@ -83,6 +84,7 @@ export default function AnalysisPage({
               data={tableData}
               title={tableTitle}
               canEdit={canEdit}
+              hasCategory={hasCategory}
               onRowChange={onRowChange}
               onSubRowChange={onSubRowChange}
               onDeleteRow={onDeleteRow}

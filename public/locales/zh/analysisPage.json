@@ -81,6 +81,7 @@
   },
   "table": {
     "strategy": "改善措施",
+    "category": "措施類別",
     "expect": "預計效益",
     "contribution": "貢獻度",
     "finishDate": "完成日期"

@@ -81,6 +81,7 @@
   },
   "table": {
     "strategy": "Action",
+    "category": "Category",
     "expect": "Expected Value",
     "contribution": "Attribution",
     "finishDate": "Close Date"

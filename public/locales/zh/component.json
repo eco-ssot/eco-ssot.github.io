@@ -34,5 +34,12 @@
     "meetTarget": "達標",
     "missTarget": "未達標",
     "missingData": "資料缺漏"
+  },
+  "electricityOptions": {
+    "null": "",
+    "basic": "基礎用電",
+    "air_condition": "空調用電",
+    "air_compressor": "空壓用電",
+    "air_production": "生產用電"
   }
 }

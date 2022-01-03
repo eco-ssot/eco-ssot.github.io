@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { Disclosure } from '@headlessui/react';
 import { PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import Dot from '../../components/dot/Dot';
 import DatePicker from '../../components/input/DatePicker';
 import Legend from '../../components/legend/Legend';
+import Select from '../../components/select/Select';
 import {
   TextareaCell,
   InputCell,
@@ -18,6 +19,7 @@ import {
   EditableIconButton,
   AdSearchSelectCell,
 } from '../../components/table/EditableTable';
+import APP_CONFIG from '../../constants/app-config';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
 import DeleteModal from './DeleteModal';
@@ -49,11 +51,21 @@ export function AnalysisSubTable({
   canEdit,
   users = [],
   canAddRow = false,
+  hasCategory = false,
   onChange = () => {},
   onDeleteRow = () => {},
 }) {
   const { t } = useTranslation(['analysisPage', 'component']);
-  const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
+  const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
+  const electricityOptions = useMemo(
+    () =>
+      APP_CONFIG.ELECTRICITY_OPTIONS.map((option) => ({
+        ...option,
+        value: t(`component:electricityOptions.${option.key}`),
+      })),
+    [t]
+  );
+
   const [table, setData] = useState(data);
   const [deleteId, setDeleteId] = useState(false);
   const [open, setOpen] = useState(false);
@@ -75,11 +87,18 @@ export function AnalysisSubTable({
             <Disclosure.Button
               as="div"
               className="grid grid-cols-11 items-center w-full py-2 font-medium text-left text-primary-600 bg-primary-600 bg-opacity-10 cursor-pointer gap-2 px-2 tracking-wider border-t border-b border-primary-600">
-              <div className="col-span-3 flex space-x-2 items-center">
+              <div className={clsx('flex space-x-2 items-center', hasCategory ? 'col-span-2' : 'col-span-3')}>
                 <ChevronUpIcon className={clsx(`${open && 'transform rotate-180'} w-5 h-5 text-primary-600`)} />
                 <div className="">{t('analysisPage:table.strategy')}</div>
               </div>
-              <div className="col-span-2">{t('analysisPage:table.expect')}</div>
+              {hasCategory ? (
+                <div className="flex col-span-3 space-x-2">
+                  <div className="w-32">{t('analysisPage:table.category')}</div>
+                  <div>{t('analysisPage:table.expect')}</div>
+                </div>
+              ) : (
+                <div className="col-span-2">{t('analysisPage:table.expect')}</div>
+              )}
               <div className="col-span-1">{t('analysisPage:table.contribution')}</div>
               <div className="col-span-1 text-center">D.D</div>
               <div className="col-span-1 text-center">{t('analysisPage:table.finishDate')}</div>
@@ -88,11 +107,11 @@ export function AnalysisSubTable({
             </Disclosure.Button>
             <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
               {table &&
-                table.map(({ id, name, expect, contribution, dd, completedDate, PIC, editing }, i) => (
+                table.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
                   <div key={i} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
                     {editing ? (
                       <>
-                        <div className="col-span-3 h-full">
+                        <div className={clsx('h-full', hasCategory ? 'col-span-2' : 'col-span-3')}>
                           <InputCell
                             className="h-full"
                             wrapperClassName="w-full"
@@ -100,14 +119,33 @@ export function AnalysisSubTable({
                             onBlur={updateRow('name', i)}
                           />
                         </div>
-                        <div className="col-span-2 h-full">
-                          <InputCell
-                            className="h-full"
-                            wrapperClassName="w-full"
-                            defaultValue={expect}
-                            onBlur={updateRow('expect', i)}
-                          />
-                        </div>
+                        {hasCategory ? (
+                          <div className="flex col-span-3 h-full space-x-2">
+                            <Select
+                              buttonClassName="w-32"
+                              options={electricityOptions}
+                              selected={electricityOptions.find((option) => option.key === category)}
+                              onChange={(e) => updateRow('category', i)(e.key)}
+                            />
+                            <div className="w-full">
+                              <InputCell
+                                className="h-full"
+                                wrapperClassName="w-full"
+                                defaultValue={expect}
+                                onBlur={updateRow('expect', i)}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="col-span-2 h-full">
+                            <InputCell
+                              className="h-full"
+                              wrapperClassName="w-full"
+                              defaultValue={expect}
+                              onBlur={updateRow('expect', i)}
+                            />
+                          </div>
+                        )}
                         <div className="col-span-1 h-full">
                           <InputCell
                             className="h-full"
@@ -136,7 +174,19 @@ export function AnalysisSubTable({
                                 return setOpen(true);
                               }
 
-                              onChange({ id, name, expect, contribution, dd, completedDate, PIC });
+                              onChange({
+                                id,
+                                name,
+                                expect,
+                                contribution,
+                                dd,
+                                completedDate,
+                                PIC,
+                                ...(hasCategory && {
+                                  category: category || APP_CONFIG.ELECTRICITY_OPTIONS[0].value,
+                                }),
+                              });
+
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
                             }}>
                             {t('component:button.save')}
@@ -145,7 +195,11 @@ export function AnalysisSubTable({
                       </>
                     ) : (
                       <>
-                        <div className="col-span-3 pl-2 flex items-center space-x-2">
+                        <div
+                          className={clsx(
+                            'pl-2 flex items-center space-x-2',
+                            hasCategory ? 'col-span-2' : 'col-span-3'
+                          )}>
                           <Dot
                             color={
                               isValid(new Date(dd))
@@ -159,7 +213,14 @@ export function AnalysisSubTable({
                           />
                           <div>{name}</div>
                         </div>
-                        <div className="col-span-2">{expect}</div>
+                        {hasCategory ? (
+                          <div className="col-span-3 flex space-x-2">
+                            <div className="w-32">{t(`component:electricityOptions.${category}`)}</div>
+                            <div>{expect}</div>
+                          </div>
+                        ) : (
+                          <div className="col-span-2">{expect}</div>
+                        )}
                         <div className="col-span-1 pl-4">{contribution && `${contribution} %`}</div>
                         <div className="col-span-1 text-center">{dd}</div>
                         <div className="col-span-1 text-center">{completedDate}</div>
@@ -199,6 +260,7 @@ export default function AnalysisTable({
   data,
   title,
   canEdit,
+  hasCategory,
   onRowChange,
   onSubRowChange,
   onDeleteRow,
@@ -320,6 +382,7 @@ export default function AnalysisTable({
                     users={users}
                     canEdit={canEdit}
                     canAddRow={!isNil(id) && (editing || (isAddingRow && i === table.length - 1))}
+                    hasCategory={hasCategory}
                     onChange={({ id: _id, ...row }) => onSubRowChange({ id, subId: _id, data: trimRow(row) })}
                     onDeleteRow={(subId) => onDeleteSubRow({ id, subId })}
                   />

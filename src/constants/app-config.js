@@ -97,6 +97,13 @@ const ELECTRICITY_TYPE_MAPPING = {
   air_production: '生產用電',
 };
 
+const ELECTRICITY_OPTIONS = [
+  { key: 'basic', value: 'basic' },
+  { key: 'air_condition', value: 'air_condition' },
+  { key: 'air_compressor', value: 'air_compressor' },
+  { key: 'air_production', value: 'air_production' },
+];
+
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
@@ -122,6 +129,7 @@ const APP_CONFIG = {
   LANGUAGE_OPTIONS,
   ELECTRICITY_TYPES,
   ELECTRICITY_TYPE_MAPPING,
+  ELECTRICITY_OPTIONS,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),

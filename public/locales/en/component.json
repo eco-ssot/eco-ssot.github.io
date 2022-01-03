@@ -34,5 +34,12 @@
     "meetTarget": "Meet Target",
     "missTarget": "Miss Target",
     "missingData": "Missing Data"
+  },
+  "electricityOptions": {
+    "null": "",
+    "basic": "Basic",
+    "air_condition": "Air Condition",
+    "air_compressor": "Air Compressor",
+    "air_production": "Production"
   }
 }
