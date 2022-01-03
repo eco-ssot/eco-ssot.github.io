@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import clsx from 'clsx';
-import subMonths from 'date-fns/subMonths';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -13,6 +12,7 @@ import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetCsrStatusQuery } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
@@ -72,8 +72,13 @@ export default function CsrPage() {
   const { t } = useTranslation(['managementPage']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
+  const { data: summary } = useGetSummaryQuery();
   const [searchOption, setSearchOption] = useState({ year, month });
-  const { data } = useGetCsrStatusQuery({ year, month });
+  const { data } = useGetCsrStatusQuery(
+    { year: year || summary?.currYear, month: month || summary?.currMonth },
+    { skip: !summary }
+  );
+
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-2">
@@ -81,8 +86,10 @@ export default function CsrPage() {
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
-            options={APP_CONFIG.YEAR_OPTIONS}
-            selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+            options={summary?.yearOptions || APP_CONFIG.YEAR_OPTIONS}
+            selected={(summary?.yearOptions || APP_CONFIG.YEAR_OPTIONS).find(
+              (option) => option.key === searchOption.year
+            )}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
           />
           <Select
@@ -91,19 +98,17 @@ export default function CsrPage() {
             options={APP_CONFIG.MONTH_OPTIONS}
             selected={
               APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(subMonths(new Date(), 1).getMonth() + 1))
+              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(summary?.currMonth))
             }
             onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
           />
           <Button
             onClick={() =>
               navigate({
-                year: searchOption.year || APP_CONFIG.YEAR_OPTIONS[0].key,
+                year: searchOption.year || summary?.currYear,
                 month:
                   searchOption.month ||
-                  APP_CONFIG.MONTH_OPTIONS.find(
-                    (option) => option.key === String(subMonths(new Date(), 1).getMonth() + 1)
-                  ).key,
+                  APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(summary?.currMonth)).key,
               })
             }>
             搜尋

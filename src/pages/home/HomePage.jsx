@@ -8,7 +8,7 @@ import APP_CONFIG from '../../constants/app-config';
 import { selectYear, selectBusiness } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
-import { formatMonthRange, getMaxDate } from '../../utils/date';
+import { formatMonthRange } from '../../utils/date';
 
 import Carbon from './Carbon';
 import Electricity from './Electricity';
@@ -23,16 +23,17 @@ export default function HomePage() {
   const compareYear = useSelector(selectYear);
   const business = useSelector(selectBusiness);
   const { data = {} } = useGetSummaryQuery({ business, year: compareYear });
-  const { revenue, CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, missing } =
-    data;
-
-  const latestDate = getMaxDate(
-    revenue?.latestDate,
-    electricPowerUtilization?.latestDate,
-    CO2Emission?.latestDate,
-    waterUse?.latestDate,
-    waste?.latestDate
-  );
+  const {
+    latestDate,
+    CO2Emission,
+    electricPowerUtilization,
+    renewableEnergy,
+    singleElectric,
+    waste,
+    waterUse,
+    missing,
+    yearOptions = [],
+  } = data;
 
   return (
     <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
@@ -42,15 +43,19 @@ export default function HomePage() {
         to="/overview"
         subtitle={
           <TagSelect
-            options={APP_CONFIG.YEAR_OPTIONS.slice(1)}
+            options={yearOptions.slice(1)}
             label={`${t('compareYear')} : `}
-            selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === compareYear)}
+            selected={yearOptions.find((option) => option.key === compareYear)}
             onChange={navigate}
             queryKey="year">
             {t('accumulationRange')} : <span className="text-lg font-medium">{formatMonthRange(latestDate)}</span>
           </TagSelect>
         }>
-        <Overview data={data} compareYear={compareYear || APP_CONFIG.LAST_YEAR} currentYear={APP_CONFIG.CURRENT_YEAR} />
+        <Overview
+          data={data}
+          compareYear={compareYear || yearOptions[1]?.key}
+          currentYear={yearOptions[0]?.key || APP_CONFIG.CURRENT_YEAR}
+        />
       </Panel>
       <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
@@ -72,8 +77,8 @@ export default function HomePage() {
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
-          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
-          currentYear={APP_CONFIG.CURRENT_YEAR}
+          compareYear={compareYear || yearOptions[1]?.key || APP_CONFIG.LAST_YEAR}
+          currentYear={yearOptions[0]?.key || APP_CONFIG.CURRENT_YEAR}
           latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
@@ -84,8 +89,8 @@ export default function HomePage() {
         <Electricity
           data={electricPowerUtilization?.intensity}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_ELECTRICITY}
-          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
-          currentYear={APP_CONFIG.CURRENT_YEAR}
+          compareYear={compareYear || yearOptions[1]?.key || APP_CONFIG.LAST_YEAR}
+          currentYear={yearOptions[0]?.key || APP_CONFIG.CURRENT_YEAR}
           latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
       </Panel>
@@ -93,8 +98,8 @@ export default function HomePage() {
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
-          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
-          currentYear={APP_CONFIG.CURRENT_YEAR}
+          compareYear={compareYear || yearOptions[1]?.key || APP_CONFIG.LAST_YEAR}
+          currentYear={yearOptions[0]?.key || APP_CONFIG.CURRENT_YEAR}
           latestDate={waterUse?.latestDate || latestDate}
         />
       </Panel>
@@ -102,8 +107,8 @@ export default function HomePage() {
         <UnitElectricity
           data={singleElectric}
           baseYear={compareYear || APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
-          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
-          currentYear={APP_CONFIG.CURRENT_YEAR}
+          compareYear={compareYear || yearOptions[1]?.key || APP_CONFIG.LAST_YEAR}
+          currentYear={yearOptions[0]?.key || APP_CONFIG.CURRENT_YEAR}
           latestDate={singleElectric?.latestDate || latestDate}
         />
       </Panel>
@@ -111,8 +116,8 @@ export default function HomePage() {
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}
-          compareYear={compareYear || APP_CONFIG.LAST_YEAR}
-          currentYear={APP_CONFIG.CURRENT_YEAR}
+          compareYear={compareYear || yearOptions[1]?.key || APP_CONFIG.LAST_YEAR}
+          currentYear={yearOptions[0]?.key || APP_CONFIG.CURRENT_YEAR}
           latestDate={waste?.latestDate || latestDate}
         />
       </Panel>

@@ -63,7 +63,11 @@ export default function OverviewTable({ business }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const { data } = useGetOverviewQuery({ business });
   const { data: summary } = useGetSummaryQuery({ business });
-  const columns = useMemo(() => COLUMNS({ t, missing: summary?.missing }), [t, summary?.missing]);
+  const columns = useMemo(
+    () => COLUMNS({ t, missing: summary?.missing, currYear: summary?.currYear, lastYear: summary?.lastYear }),
+    [t, summary?.missing, summary?.currYear, summary?.lastYear]
+  );
+
   return (
     <>
       <Tag className="absolute top-2 right-4">

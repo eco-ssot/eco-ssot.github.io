@@ -3,6 +3,7 @@ import { chunk, isNil } from 'lodash';
 
 import axios from '../axios';
 import APP_CONFIG from '../constants/app-config';
+import { getMaxDate } from '../utils/date';
 import { getDecimalNumber } from '../utils/number';
 
 import { axiosBaseQuery } from './helpers';
@@ -84,6 +85,29 @@ export const appApi = createApi({
     getSummary: builder.query({
       query: (query) => ({ query, url: 'summary' }),
       providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
+      transformResponse: (res) => {
+        const latestDate = getMaxDate(
+          res.revenue?.latestDate,
+          res.electricPowerUtilization?.latestDate,
+          res.CO2Emission?.latestDate,
+          res.waterUse?.latestDate,
+          res.waste?.latestDate
+        );
+
+        const ld = new Date(latestDate);
+        const currYear = ld.getFullYear();
+        const lastYear = currYear - 1;
+        const currMonth = ld.getMonth() + 1;
+        const yearOptions = APP_CONFIG.YEAR_OPTIONS.filter((option) => Number(option.key) <= currYear);
+        return {
+          ...res,
+          latestDate,
+          currYear,
+          lastYear,
+          currMonth,
+          yearOptions,
+        };
+      },
     }),
     getGoal: builder.query({
       query: ({ year, business = APP_CONFIG.BUSINESS_MAPPING.ALL }) => ({

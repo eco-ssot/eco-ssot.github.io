@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux';
 
 import { selectBusiness, selectLanguage } from '../renderless/location/locationSlice';
-import { useGetGoalQuery } from '../services/app';
+import { useGetGoalQuery, useGetSummaryQuery } from '../services/app';
 import { getTargetLabel } from '../utils/label';
 import { getDecimalNumber } from '../utils/number';
 
 export default function useGoal({ keyword, isHistory = false, labelType = '' } = {}) {
-  const currYear = new Date().getFullYear();
   const business = useSelector(selectBusiness);
   const lng = useSelector(selectLanguage);
-  const { data: { data = [] } = {} } = useGetGoalQuery({ business, year: currYear });
+  const { data: summary } = useGetSummaryQuery({ business });
+  const currYear = summary?.currYear;
+  const { data: { data = [] } = {} } = useGetGoalQuery({ business, year: summary?.currYear });
   const { baseYear, target = '' } = data.filter((d) => new RegExp(keyword).test(d.category))[0] || {};
   const pct = getDecimalNumber(target) / 1e2;
   return {
