@@ -102,10 +102,10 @@ export const appApi = createApi({
         return {
           ...res,
           latestDate,
-          currYear,
-          lastYear,
-          currMonth,
           yearOptions,
+          currYear: String(currYear),
+          lastYear: String(lastYear),
+          currMonth: String(currMonth),
         };
       },
     }),

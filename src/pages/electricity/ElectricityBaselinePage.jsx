@@ -589,6 +589,7 @@ export function PredictionSearch({ business, ...option }) {
       navigate({ plant: plantOptions[0].key });
     }
   }, [plantOptions, option]);
+
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
@@ -619,9 +620,10 @@ export function PredictionSearch({ business, ...option }) {
           buttonClassName="w-20"
           label={`${t('component:selectLabel.predictionMonth')} : `}
           options={APP_CONFIG.MONTH_OPTIONS}
-          selected={APP_CONFIG.MONTH_OPTIONS.find(
-            (option) => option.key === searchOption.month || option.key === String(new Date().getMonth() + 1)
-          )}
+          selected={
+            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(new Date().getMonth() + 1))
+          }
           onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
         />
       )}
