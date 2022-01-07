@@ -5,9 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Legend from '../../components/legend/Legend';
 import Table from '../../components/table/Table';
 import { useGetDataStatusQuery } from '../../services/management';
-import { addPaddingColumns } from '../../utils/table';
+import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
-export const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
 export const STATUS_MAPPING = {
   0: 'bg-gray-50',
   2: 'bg-primary-500',
@@ -29,12 +28,7 @@ const COLUMNS = (t) =>
       Header: 'Plant',
       accessor: 'plant',
       rowSpan: 0,
-      Cell: (cell) =>
-        DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val)) ? (
-          <div className="line-through text-gray-300">{cell.value}</div>
-        ) : (
-          cell.value
-        ),
+      Cell: plantRenderer,
     },
     {
       id: 'dpm',

@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
+import APP_CONFIG from '../constants/app-config';
 import { getMaxDate } from '../utils/date';
 
 import { axiosBaseQuery, sortExplanationsById } from './helpers';
@@ -64,7 +65,10 @@ export const electricityApi = createApi({
           )
         );
 
-        return { maxDate, data: [...records, ...total].map(toRow) };
+        return {
+          maxDate,
+          data: [...records, ...total].map(toRow).filter(({ site }) => !APP_CONFIG.HIDE_PLANTS.includes(site)),
+        };
       },
     }),
     getElectricityHistory: builder.query({

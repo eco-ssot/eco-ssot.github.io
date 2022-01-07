@@ -1,5 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 
+import APP_CONFIG from '../constants/app-config';
+
 export function addPaddingColumns(columns = []) {
   return [
     { id: 'paddingLeft', rowSpan: 0, Header: '', className: 'w-1' },
@@ -33,5 +35,12 @@ export const noDataRenderer =
       return <div className="bg-dangerous-900 rounded border border-dangerous-600 px-1">{cell.value}</div>;
     }
 
-    return cell.value;
+    return plantRenderer(cell);
   };
+
+export const plantRenderer = (cell) =>
+  APP_CONFIG.DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val)) ? (
+    <div className="line-through text-gray-300">{cell.value}</div>
+  ) : (
+    cell.value
+  );

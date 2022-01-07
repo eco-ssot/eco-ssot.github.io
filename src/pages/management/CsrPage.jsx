@@ -15,9 +15,8 @@ import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
 import { useGetCsrStatusQuery } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
-import { addPaddingColumns } from '../../utils/table';
+import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
-export const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
 export const STATUS_MAPPING = {
   0: 'bg-gray-50',
   2: 'bg-primary-500',
@@ -41,12 +40,7 @@ const COLUMNS = addPaddingColumns([
     Header: 'Plant',
     accessor: 'plant',
     rowSpan: 0,
-    Cell: (cell) =>
-      DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val)) ? (
-        <div className="line-through text-gray-300">{cell.value}</div>
-      ) : (
-        cell.value
-      ),
+    Cell: plantRenderer,
   },
   {
     id: 'electric',

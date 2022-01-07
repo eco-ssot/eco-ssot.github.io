@@ -104,6 +104,8 @@ const ELECTRICITY_OPTIONS = [
   { key: 'air_production', value: 'air_production' },
 ];
 
+const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
+const HIDE_PLANTS = ['WMX', 'WCZ'];
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
@@ -130,6 +132,8 @@ const APP_CONFIG = {
   ELECTRICITY_TYPES,
   ELECTRICITY_TYPE_MAPPING,
   ELECTRICITY_OPTIONS,
+  DEPRECIATED_PLANTS,
+  HIDE_PLANTS,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),
