@@ -29,6 +29,7 @@ export default function GoalPage({ business, canEdit }) {
                 options={APP_CONFIG.YEAR_OPTIONS}
                 selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === goalYear)}
                 onChange={(e) => setGoalYear(e.key)}
+                buttonClassName="min-w-28"
               />
             </div>
           </div>
@@ -48,6 +49,7 @@ export default function GoalPage({ business, canEdit }) {
                 options={APP_CONFIG.YEAR_OPTIONS}
                 selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
                 onChange={(e) => setCarbonIndexYear(e.key)}
+                buttonClassName="min-w-28"
               />
             </div>
           </div>
@@ -69,6 +71,7 @@ export default function GoalPage({ business, canEdit }) {
                 options={APP_CONFIG.YEAR_OPTIONS}
                 selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === tRecYear)}
                 onChange={(e) => setTrecYear(e.key)}
+                buttonClassName="min-w-28"
               />
             </div>
           </div>

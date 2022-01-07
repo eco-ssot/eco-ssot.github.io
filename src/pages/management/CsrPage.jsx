@@ -85,6 +85,7 @@ export default function CsrPage() {
               (option) => option.key === searchOption.year
             )}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+            buttonClassName="min-w-28"
           />
           <Select
             label="查詢月份 : "

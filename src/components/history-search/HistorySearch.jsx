@@ -86,6 +86,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
             startYearOptions.find((option) => option.key === searchOption.startYear) || startYearOptions.slice(-1)[0]
           }
           onChange={(e) => setSearchOption((prev) => ({ ...prev, startYear: e.key }))}
+          buttonClassName="min-w-28"
         />
         <Select
           className="mr-8"
@@ -93,6 +94,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           options={endYearOptions}
           selected={endYearOptions.find((option) => option.key === searchOption.endYear)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, endYear: e.key }))}
+          buttonClassName="min-w-28"
         />
         {!sameYear && (
           <Select

@@ -557,6 +557,7 @@ export function BaselineSearch({ business, ...option }) {
         options={APP_CONFIG.YEAR_OPTIONS}
         selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+        buttonClassName="min-w-28"
       />
       <Select
         buttonClassName="w-36"
@@ -606,6 +607,7 @@ export function PredictionSearch({ business, ...option }) {
         options={APP_CONFIG.YEAR_OPTIONS}
         selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+        buttonClassName="min-w-28"
       />
       {byMonth ? (
         <Select
