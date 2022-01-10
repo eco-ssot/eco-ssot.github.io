@@ -419,7 +419,7 @@ export function PredictionPanel({ categorized, year, month, plant, business }) {
                 </div>
                 <div className="text-sm text-gray-300">{t('baselinePage:predictionPanel.calcEveryNov')}</div>
                 <div className="text-2xl font-semibold flex flex-grow flex-col items-center justify-center">
-                  {data.totalRec} {t('common:kwh')}
+                  {baseFormatter(data.totalRec)} {t('common:kwh')}
                 </div>
               </>
             )}
