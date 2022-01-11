@@ -86,41 +86,41 @@ const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
 
 const DATA = (lng) => [
   {
-    buyDate: '2020.12.29',
-    unit: '344,000',
+    buyDate: '2021.12.24',
+    unit: '200,517',
     buyArea: '中國',
-    buyUnit: '188,000',
-    price: '600,000',
+    buyUnit: '200,517',
+    price: '620,641',
     currency: '人民幣',
     ...(lng === 'en' && {
       buyArea: 'China',
       currency: 'CNY',
     }),
   },
-  {
-    buyDate: '2020.12.29',
-    unit: '344,000',
-    buyArea: '台灣',
-    buyUnit: '0',
-    price: '0',
-    currency: '新台幣',
-    ...(lng === 'en' && {
-      buyArea: 'Taiwan',
-      currency: 'NTD',
-    }),
-  },
-  {
-    buyDate: '2020.12.29',
-    unit: '344,000',
-    buyArea: '捷克',
-    buyUnit: '156,000',
-    price: '150,000',
-    currency: '捷克克朗',
-    ...(lng === 'en' && {
-      buyArea: 'Czech Republic',
-      currency: 'CZK',
-    }),
-  },
+  // {
+  //   buyDate: '2020.12.29',
+  //   unit: '344,000',
+  //   buyArea: '台灣',
+  //   buyUnit: '0',
+  //   price: '0',
+  //   currency: '新台幣',
+  //   ...(lng === 'en' && {
+  //     buyArea: 'Taiwan',
+  //     currency: 'NTD',
+  //   }),
+  // },
+  // {
+  //   buyDate: '2020.12.29',
+  //   unit: '344,000',
+  //   buyArea: '捷克',
+  //   buyUnit: '156,000',
+  //   price: '150,000',
+  //   currency: '捷克克朗',
+  //   ...(lng === 'en' && {
+  //     buyArea: 'Czech Republic',
+  //     currency: 'CZK',
+  //   }),
+  // },
 ];
 
 export default function Trec({ className, canEdit }) {
