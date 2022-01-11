@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { chunk, isNil } from 'lodash';
 
+import { setDateInfo, setMissingPlants } from '../app/appSlice';
 import axios from '../axios';
 import APP_CONFIG from '../constants/app-config';
 import { getMaxDate } from '../utils/date';
@@ -83,30 +84,44 @@ export const appApi = createApi({
   tagTypes: ['YEAR_GOAL', 'CARBON_INDEX'],
   endpoints: (builder) => ({
     getSummary: builder.query({
-      query: (query) => ({ query, url: 'summary' }),
       providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
-      transformResponse: (res) => {
-        const latestDate = getMaxDate(
-          res.revenue?.latestDate,
-          res.electricPowerUtilization?.latestDate,
-          res.CO2Emission?.latestDate,
-          res.waterUse?.latestDate,
-          res.waste?.latestDate
-        );
+      queryFn: (query, { dispatch }) => {
+        return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
+          const latestDate = getMaxDate(
+            res.data.revenue?.latestDate,
+            res.data.electricPowerUtilization?.latestDate,
+            res.data.CO2Emission?.latestDate,
+            res.data.waterUse?.latestDate,
+            res.data.waste?.latestDate
+          );
 
-        const ld = new Date(latestDate);
-        const currYear = ld.getFullYear();
-        const lastYear = currYear - 1;
-        const currMonth = ld.getMonth() + 1;
-        const yearOptions = APP_CONFIG.YEAR_OPTIONS.filter((option) => Number(option.key) <= currYear);
-        return {
-          ...res,
-          latestDate,
-          yearOptions,
-          currYear: String(currYear),
-          lastYear: String(lastYear),
-          currMonth: String(currMonth),
-        };
+          const ld = new Date(latestDate);
+          const currYear = ld.getFullYear();
+          const lastYear = currYear - 1;
+          const currMonth = ld.getMonth() + 1;
+          const yearOptions = APP_CONFIG.YEAR_OPTIONS.filter((option) => Number(option.key) <= currYear);
+          dispatch(
+            setDateInfo({
+              latestDate,
+              yearOptions,
+              currYear: String(currYear),
+              lastYear: String(lastYear),
+              currMonth: String(currMonth),
+            })
+          );
+
+          dispatch(setMissingPlants(res.data.missing || []));
+          return {
+            data: {
+              ...res.data,
+              latestDate,
+              yearOptions,
+              currYear: String(currYear),
+              lastYear: String(lastYear),
+              currMonth: String(currMonth),
+            },
+          };
+        });
       },
     }),
     getGoal: builder.query({

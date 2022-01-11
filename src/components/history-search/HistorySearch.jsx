@@ -3,26 +3,29 @@ import { useState } from 'react';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { selectYearOptions } from '../../app/appSlice';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetSummaryQuery } from '../../services/app';
 import Button from '../button/Button';
 import Select from '../select/Select';
 
-export function isSameYear({ startYear, endYear } = {}) {
-  const sy = startYear || APP_CONFIG.YEAR_OPTIONS.slice(-1)[0].key;
-  const ey = endYear || APP_CONFIG.YEAR_OPTIONS[0].key;
+export function isSameYear({ yearOptions, startYear, endYear } = {}) {
+  const sy = startYear || yearOptions.slice(-1)[0].key;
+  const ey = endYear || yearOptions[0].key;
   return sy === ey;
 }
 
-export function getStartYearOptions(searchOption) {
-  return APP_CONFIG.YEAR_OPTIONS.map((option) => ({
+export function getStartYearOptions({ yearOptions, searchOption }) {
+  return yearOptions.map((option) => ({
     ...option,
     disabled: Number(option.key) > Number(searchOption.endYear),
   }));
 }
 
-export function getEndYearOptions(searchOption) {
-  return APP_CONFIG.YEAR_OPTIONS.map((option) => ({
+export function getEndYearOptions({ yearOptions, searchOption }) {
+  return yearOptions.map((option) => ({
     ...option,
     disabled: Number(option.key) < Number(searchOption.startYear),
   }));
@@ -70,11 +73,13 @@ export function getQuery({
 export default function HistorySearch({ downloadResource, option = {}, onSearch = () => {} }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const sameYear = isSameYear(searchOption);
-  const startYearOptions = getStartYearOptions(searchOption);
-  const endYearOptions = getEndYearOptions(searchOption);
+  const yearOptions = useSelector(selectYearOptions);
+  const sameYear = isSameYear({ yearOptions, searchOption });
+  const startYearOptions = getStartYearOptions({ yearOptions, searchOption });
+  const endYearOptions = getEndYearOptions({ yearOptions, searchOption });
   const startMonthOptions = getStartMonthOptions(searchOption);
   const endMonthOptions = getEndMonthOptions(searchOption);
+  useGetSummaryQuery();
   return (
     <div className="w-full grid grid-cols-12 py-4 items-center">
       <div></div>

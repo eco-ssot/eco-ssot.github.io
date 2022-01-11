@@ -3,14 +3,15 @@ import { useMemo } from 'react';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { selectMissingPlants } from '../../app/appSlice';
 import Dot from '../../components/dot/Dot';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { useGetSummaryQuery } from '../../services/app';
 import { useGetElectricityQuery } from '../../services/electricity';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -136,11 +137,11 @@ const COLUMNS = ({ t, business, missing, currYear = APP_CONFIG.CURRENT_YEAR, las
 export default function ElectricityTable({ business }) {
   const { t } = useTranslation(['electricityPage', 'common']);
   const { data } = useGetElectricityQuery({ business });
-  const { data: summary } = useGetSummaryQuery({ business });
+  const missingPlants = useSelector(selectMissingPlants);
   const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, currYear, lastYear: baseYear, missing: summary?.missing }),
-    [business, currYear, baseYear, t, summary?.missing]
+    () => COLUMNS({ t, business, currYear, lastYear: baseYear, missing: missingPlants }),
+    [business, currYear, baseYear, t, missingPlants]
   );
 
   return (

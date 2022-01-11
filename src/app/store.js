@@ -17,8 +17,11 @@ import { wasteApi } from '../services/waste';
 import { waterApi } from '../services/water';
 import { weatherApi } from '../services/weather';
 
+import appReducer from './appSlice';
+
 export const store = configureStore({
   reducer: {
+    app: appReducer,
     location: locationReducer,
     loader: loaderReducer,
     errorHandler: errorHandlerReducer,

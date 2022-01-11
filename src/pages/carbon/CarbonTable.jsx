@@ -1,12 +1,13 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { selectMissingPlants } from '../../app/appSlice';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { useGetSummaryQuery } from '../../services/app';
 import { useGetCarbonQuery } from '../../services/carbon';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -98,11 +99,11 @@ const COLUMNS = ({
 export default function CarbonTable({ business }) {
   const { t } = useTranslation(['carbonPage', 'common']);
   const { data } = useGetCarbonQuery({ business });
-  const { data: summary } = useGetSummaryQuery({ business });
+  const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '碳排放量' });
   const columns = useMemo(
-    () => COLUMNS({ t, pct, currYear, baseYear, missing: summary?.missing }),
-    [pct, currYear, baseYear, t, summary?.missing]
+    () => COLUMNS({ t, pct, currYear, baseYear, missing: missingPlants }),
+    [pct, currYear, baseYear, t, missingPlants]
   );
 
   return (

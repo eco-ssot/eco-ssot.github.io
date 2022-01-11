@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { selectMissingPlants } from '../../app/appSlice';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
-import { useGetSummaryQuery } from '../../services/app';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -84,9 +85,9 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
 export default function RenewableEnergyTable({ business }) {
   const { t } = useTranslation(['renewableEnergyPage', 'common']);
   const { data } = useGetRenewableEnergyQuery({ business });
-  const { data: summary } = useGetSummaryQuery({ business });
+  const missingPlants = useSelector(selectMissingPlants);
   const { label, pct } = useGoal({ keyword: '可再生能源' });
-  const columns = useMemo(() => COLUMNS({ t, pct, missing: summary?.missing }), [pct, t, summary?.missing]);
+  const columns = useMemo(() => COLUMNS({ t, pct, missing: missingPlants }), [pct, t, missingPlants]);
   return (
     <>
       <DualTag

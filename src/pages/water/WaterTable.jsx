@@ -3,14 +3,15 @@ import { useMemo } from 'react';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { selectMissingPlants } from '../../app/appSlice';
 import Dot from '../../components/dot/Dot';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
-import { useGetSummaryQuery } from '../../services/app';
 import { useGetWaterQuery } from '../../services/water';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -147,11 +148,11 @@ const COLUMNS = ({
 export default function WaterTable({ business }) {
   const { t } = useTranslation(['waterPage', 'common']);
   const { data } = useGetWaterQuery({ business });
-  const { data: summary } = useGetSummaryQuery({ business });
+  const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, pct, currYear, baseYear, lastYear: currYear - 1, missing: summary?.missing }),
-    [business, pct, currYear, baseYear, t, summary?.missing]
+    () => COLUMNS({ t, business, pct, currYear, baseYear, lastYear: currYear - 1, missing: missingPlants }),
+    [business, pct, currYear, baseYear, t, missingPlants]
   );
 
   return (

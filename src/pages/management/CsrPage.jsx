@@ -5,6 +5,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import { selectCurrMonth, selectCurrYear, selectYearOptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
@@ -66,13 +67,12 @@ export default function CsrPage() {
   const { t } = useTranslation(['managementPage']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
-  const { data: summary } = useGetSummaryQuery();
+  const yearOptions = useSelector(selectYearOptions);
+  const currYear = useSelector(selectCurrYear);
+  const currMonth = useSelector(selectCurrMonth);
   const [searchOption, setSearchOption] = useState({ year, month });
-  const { data } = useGetCsrStatusQuery(
-    { year: year || summary?.currYear, month: month || summary?.currMonth },
-    { skip: !summary }
-  );
-
+  const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
+  useGetSummaryQuery();
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-2">
@@ -80,10 +80,8 @@ export default function CsrPage() {
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
-            options={summary?.yearOptions || APP_CONFIG.YEAR_OPTIONS}
-            selected={(summary?.yearOptions || APP_CONFIG.YEAR_OPTIONS).find(
-              (option) => option.key === searchOption.year
-            )}
+            options={yearOptions || APP_CONFIG.YEAR_OPTIONS}
+            selected={(yearOptions || APP_CONFIG.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
             buttonClassName="min-w-28"
           />
@@ -93,17 +91,15 @@ export default function CsrPage() {
             options={APP_CONFIG.MONTH_OPTIONS}
             selected={
               APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(summary?.currMonth))
+              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth)
             }
             onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
           />
           <Button
             onClick={() =>
               navigate({
-                year: searchOption.year || summary?.currYear,
-                month:
-                  searchOption.month ||
-                  APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(summary?.currMonth)).key,
+                year: searchOption.year || currYear,
+                month: searchOption.month || APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
               })
             }>
             搜尋

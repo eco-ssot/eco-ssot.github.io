@@ -7,8 +7,10 @@ import { get, isEmpty, isNil } from 'lodash';
 import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
+import { selectCurrMonth, selectYearOptions } from '../../app/appSlice';
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -17,6 +19,7 @@ import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
+import { useGetSummaryQuery } from '../../services/app';
 import { useGetElectricityPredictionQuery, useGetElectricityBaselineQuery } from '../../services/electricity';
 import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
@@ -544,18 +547,21 @@ export function TabPanel({ children }) {
 export function BaselineSearch({ business, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
+  const yearOptions = useSelector(selectYearOptions);
   const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
   useEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0].key });
     }
   }, [plantOptions, option]);
+
+  useGetSummaryQuery();
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
         label={`${t('component:selectLabel.searchYear')} : `}
-        options={APP_CONFIG.YEAR_OPTIONS}
-        selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+        options={yearOptions}
+        selected={yearOptions.find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         buttonClassName="min-w-28"
       />
@@ -570,7 +576,7 @@ export function BaselineSearch({ business, ...option }) {
         onClick={() =>
           navigate({
             ...searchOption,
-            ...(!searchOption.year && { year: APP_CONFIG.YEAR_OPTIONS[0].key }),
+            ...(!searchOption.year && { year: yearOptions[0].key }),
             ...(!searchOption.plant && { plant: plantOptions[0].key }),
           })
         }>
@@ -583,6 +589,8 @@ export function BaselineSearch({ business, ...option }) {
 export function PredictionSearch({ business, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
+  const yearOptions = useSelector(selectYearOptions);
+  const currMonth = useSelector(selectCurrMonth);
   const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
   const byMonth = searchOption.categorized === 'month';
   useEffect(() => {
@@ -591,6 +599,7 @@ export function PredictionSearch({ business, ...option }) {
     }
   }, [plantOptions, option]);
 
+  useGetSummaryQuery();
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
@@ -604,8 +613,8 @@ export function PredictionSearch({ business, ...option }) {
       />
       <Select
         label={`${t('component:selectLabel.searchYear')} : `}
-        options={APP_CONFIG.YEAR_OPTIONS}
-        selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+        options={yearOptions}
+        selected={yearOptions.find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         buttonClassName="min-w-28"
       />
@@ -624,7 +633,7 @@ export function PredictionSearch({ business, ...option }) {
           options={APP_CONFIG.MONTH_OPTIONS}
           selected={
             APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === String(new Date().getMonth() + 1))
+            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth)
           }
           onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
         />
@@ -634,8 +643,8 @@ export function PredictionSearch({ business, ...option }) {
           navigate({
             ...searchOption,
             ...(!searchOption.categorized && { categorized: DIMENSION_OPTIONS[0].key }),
-            ...(!searchOption.year && { year: APP_CONFIG.YEAR_OPTIONS[0].key }),
-            ...(!byMonth && !searchOption.month && { month: String(new Date().getMonth() + 1) }),
+            ...(!searchOption.year && { year: yearOptions[0].key }),
+            ...(!byMonth && !searchOption.month && { month: currMonth }),
             ...(byMonth && !searchOption.plant && { plant: plantOptions[0].key }),
           })
         }>

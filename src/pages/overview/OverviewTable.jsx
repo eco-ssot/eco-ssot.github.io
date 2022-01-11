@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { selectCurrYear, selectLastYear, selectMissingPlants } from '../../app/appSlice';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetSummaryQuery } from '../../services/app';
 import { useGetOverviewQuery } from '../../services/overview';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -62,10 +63,12 @@ export const COLUMNS = ({ t, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYe
 export default function OverviewTable({ business }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const { data } = useGetOverviewQuery({ business });
-  const { data: summary } = useGetSummaryQuery({ business });
+  const missingPlants = useSelector(selectMissingPlants);
+  const currYear = useSelector(selectCurrYear);
+  const lastYear = useSelector(selectLastYear);
   const columns = useMemo(
-    () => COLUMNS({ t, missing: summary?.missing, currYear: summary?.currYear, lastYear: summary?.lastYear }),
-    [t, summary?.missing, summary?.currYear, summary?.lastYear]
+    () => COLUMNS({ t, currYear, lastYear, missing: missingPlants }),
+    [t, currYear, lastYear, missingPlants]
   );
 
   return (

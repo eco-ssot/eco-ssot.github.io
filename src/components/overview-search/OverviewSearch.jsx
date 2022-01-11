@@ -2,22 +2,27 @@ import { useState } from 'react';
 
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { selectYearOptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
+import { useGetSummaryQuery } from '../../services/app';
 
 export default function OverviewSearch({ downloadResource, option = {}, onSearch = () => {} }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
+  const yearOptions = useSelector(selectYearOptions);
+  useGetSummaryQuery();
   return (
     <div className="w-full grid grid-cols-12 py-4 items-center">
       <div></div>
       <div className="flex justify-center space-x-8 col-span-10">
         <Select
           label={`${t('selectLabel.searchYear')} : `}
-          options={APP_CONFIG.YEAR_OPTIONS}
-          selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === searchOption.year)}
+          options={yearOptions}
+          selected={yearOptions.find((option) => option.key === searchOption.year)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
           buttonClassName="min-w-28"
         />
@@ -32,7 +37,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
           onClick={() =>
             onSearch({
               ...searchOption,
-              year: searchOption.year || APP_CONFIG.YEAR_OPTIONS[0].key,
+              year: searchOption.year || yearOptions[0].key,
               dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
             })
           }>
@@ -47,7 +52,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
           className="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
           href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify({
             ...searchOption,
-            year: searchOption.year || APP_CONFIG.YEAR_OPTIONS[0].key,
+            year: searchOption.year || yearOptions[0].key,
             dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
           })}`}>
           Excel
