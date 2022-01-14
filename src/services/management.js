@@ -1,7 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import APP_CONFIG from '../constants/app-config';
-
 import { axiosBaseQuery } from './helpers';
 
 export const managementApi = createApi({
@@ -10,12 +8,6 @@ export const managementApi = createApi({
   endpoints: (builder) => ({
     getDataStatus: builder.query({
       query: () => ({ url: 'data-status' }),
-      transformResponse: (res) => {
-        return {
-          ...res,
-          data: res.data.filter(({ plant }) => !APP_CONFIG.HIDE_PLANTS.some((val) => String(plant).startsWith(val))),
-        };
-      },
     }),
     getDataStatusPic: builder.query({
       query: () => ({ url: 'data-status/pic' }),
@@ -37,12 +29,6 @@ export const managementApi = createApi({
     }),
     getCsrStatus: builder.query({
       query: (query) => ({ query, url: 'data-status/csr-compare' }),
-      transformResponse: (res) => {
-        return {
-          ...res,
-          data: res.data.filter(({ plant }) => !APP_CONFIG.HIDE_PLANTS.some((val) => String(plant).startsWith(val))),
-        };
-      },
     }),
   }),
 });

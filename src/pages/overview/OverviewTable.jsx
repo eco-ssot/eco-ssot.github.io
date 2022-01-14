@@ -10,7 +10,7 @@ import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 export const HEADERS = [
   { key: 'electricity' },
@@ -80,7 +80,7 @@ export default function OverviewTable({ business }) {
         <>
           <div className="w-full h-6 text-right">{t('common:gapDesc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table columns={columns} data={data?.data || []} />
+            <Table columns={columns} data={data?.data || []} getRowProps={getHidePlantRowProps} />
           </div>
         </>
       )}

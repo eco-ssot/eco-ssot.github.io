@@ -38,9 +38,18 @@ export const noDataRenderer =
     return plantRenderer(cell);
   };
 
-export const plantRenderer = (cell) =>
-  APP_CONFIG.DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val)) ? (
-    <div className="line-through text-gray-300">{cell.value}</div>
-  ) : (
-    cell.value
-  );
+export const plantRenderer = (cell) => {
+  if (APP_CONFIG.DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val))) {
+    return <div className="line-through text-gray-300">{cell.value}</div>;
+  }
+
+  return cell.value;
+};
+
+export const getHidePlantRowProps = (row) => {
+  if (APP_CONFIG.HIDE_PLANTS.includes(row.original.site || row.original.plant)) {
+    return { className: 'bg-gray-500 bg-opacity-50 opacity-50' };
+  }
+
+  return {};
+};

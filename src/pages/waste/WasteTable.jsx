@@ -21,7 +21,7 @@ import useGoal from '../../hooks/useGoal';
 import { useGetWasteQuery, useUploadWasteExcelMutation } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
-import { addPaddingColumns, EXPAND_COLUMN, noDataRenderer } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({
   t,
@@ -292,7 +292,7 @@ export default function WasteTable({ business }) {
         <>
           <div className="w-full h-6 text-right">{t('wastePage:desc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table columns={columns} data={data?.data || []} />
+            <Table columns={columns} data={data?.data || []} getRowProps={getHidePlantRowProps} />
           </div>
         </>
       )}
