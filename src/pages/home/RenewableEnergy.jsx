@@ -13,7 +13,7 @@ const DATA = {
     color: colors.primary['500'],
     dotClassName: 'bg-primary-500',
   },
-  tRec: { value: null, color: colors.divider, dotClassName: 'bg-unit' },
+  tRec: { value: null, color: colors.gray['100'], dotClassName: 'bg-unit' },
 };
 
 const NAME_MAPPING = {
