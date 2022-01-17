@@ -39,7 +39,7 @@ export const noDataRenderer =
   };
 
 export const plantRenderer = (cell) => {
-  if (APP_CONFIG.DEPRECIATED_PLANTS.some((val) => cell.value.startsWith(val))) {
+  if (APP_CONFIG.DEPRECIATED_PLANTS.some((val) => cell.value?.startsWith(val))) {
     return <div className="line-through text-gray-300">{cell.value}</div>;
   }
 
