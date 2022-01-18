@@ -211,7 +211,7 @@ const LINE_OPTION = ({ t, dataset, lineColors, type, typeName, compareName, actu
       scale: true,
       name: `(${t('common:mwh')})`,
       nameTextStyle: { color: colors.gray['50'] },
-      axisLine: { lineStyle: { color: colors.gray['500'] } },
+      axisLine: { show: true, lineStyle: { color: colors.gray['500'] } },
       axisTick: { show: false },
       axisLabel: { color: colors.gray['50'], formatter: (value) => baseFormatter(value, { unit: 1e3 }) },
       splitLine: { show: false },
