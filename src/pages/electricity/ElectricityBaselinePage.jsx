@@ -237,6 +237,7 @@ const LINE_OPTION = ({ t, dataset, lineColors, type, typeName, compareName, actu
       formatter: LineTooltipFormatter({ t, type, typeName, compareName, actualName, year }),
       backgroundColor: 'transparent',
       padding: 0,
+      borderWidth: 0,
       axisPointer: {
         type: 'shadow',
         shadowStyle: {

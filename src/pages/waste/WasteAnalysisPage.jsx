@@ -90,7 +90,7 @@ const OPTION = (values, labels, target) => {
       {
         data: values.map((value, i) => ({
           value,
-          itemStyle: { color: COLORS[i], barBorderRadius: [4, 4, 0, 0] },
+          itemStyle: { color: COLORS[i], borderRadius: [4, 4, 0, 0] },
         })),
         type: 'bar',
         barWidth: 48,

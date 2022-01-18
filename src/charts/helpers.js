@@ -83,8 +83,8 @@ export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } =
           ...(itemStyle && {
             itemStyle: {
               ...itemStyle,
-              ...(itemStyle.barBorderRadius && {
-                barBorderRadius: itemStyle.barBorderRadius.map((value) => setFontSize(value, fontSizeRatio)),
+              ...(itemStyle.borderRadius && {
+                borderRadius: itemStyle.borderRadius.map((value) => setFontSize(value, fontSizeRatio)),
               }),
             },
           }),
