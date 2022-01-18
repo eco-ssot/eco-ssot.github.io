@@ -30,7 +30,7 @@ const HEADERS = ({ t, pct } = {}) => [
         <div className="text-right">( (b+c) / a )</div>
       </>
     ),
-    renderer: targetFormatter(-pct, { formatter: ratioFormatter }),
+    renderer: targetFormatter(-pct, { formatter: ratioFormatter, reverse: true }),
     rowSpan: 0,
   },
   {
