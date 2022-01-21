@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
+import { PencilIcon, PlusIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { addMonths, isFuture } from 'date-fns';
 import { get, isEmpty, isNil } from 'lodash';
@@ -15,6 +16,7 @@ import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
+import EditableTable, { EditableButton, EditableIconButton, TextareaCell } from '../../components/table/EditableTable';
 import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
@@ -23,6 +25,7 @@ import { useGetElectricityPredictionQuery, useGetElectricityBaselineQuery } from
 import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
+import { trimNumber } from '../../utils/number';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
 import { gapFormatter, getYtmLabel } from './helpers';
@@ -30,6 +33,7 @@ import { gapFormatter, getYtmLabel } from './helpers';
 const BUTTON_GROUP_OPTIONS = [
   { key: 'BASELINE', value: 'baseline' },
   { key: 'PREDICTION', value: 'prediction' },
+  { key: 'POWER_SAVING', value: 'powerSaving' },
 ];
 
 const DIMENSION_OPTIONS = [
@@ -103,6 +107,227 @@ const HISTORY_COLUMNS = (t) => [
         Cell: gapFormatter,
       },
     ],
+  },
+];
+
+export const POWER_SAVING_COLUMNS = ({ setData }) => [
+  {
+    Header: '用電類型',
+    accessor: 'category',
+    rowSpan: 0,
+    className: 'w-[6%] text-center',
+  },
+  {
+    Header: '改善措施',
+    accessor: 'name',
+    className: 'w-[10%] text-center',
+    rowSpan: 0,
+  },
+  {
+    id: 'expect',
+    Header: <div className="border-b border-divider py-3">預計效益 (度)</div>,
+    columns: Array.from({ length: 12 }, (_, i) => ({
+      Header: `${i + 1}月`,
+      accessor: String(i + 1),
+      editable: true,
+      className: '!px-1 w-[4%] text-right',
+      formatter: baseFormatter,
+    })).concat({
+      id: 'total',
+      Header: '總計',
+      className: '!px-1 w-[4%] text-right',
+      Cell: (cell) => {
+        const ttl = Object.entries(cell.row.original)
+          .filter(([key]) => !isNaN(Number(key)))
+          .reduce((prev, curr) => prev + trimNumber(curr[1]), 0);
+
+        return baseFormatter(ttl);
+      },
+    }),
+  },
+  {
+    Header: 'PIC',
+    accessor: 'PIC',
+    rowSpan: 0,
+    className: 'w-[5%] text-center',
+  },
+  {
+    Header: '計算邏輯',
+    accessor: 'logic',
+    rowSpan: 0,
+    editable: true,
+    EditableComponent: TextareaCell,
+    className: 'w-[12%] py-2',
+  },
+  {
+    Header: '備註',
+    accessor: 'desc',
+    rowSpan: 0,
+    editable: true,
+    EditableComponent: TextareaCell,
+    className: 'w-[10%]',
+  },
+  {
+    id: 'action',
+    Header: '編輯',
+    className: 'w-[5%] text-center',
+    rowSpan: 0,
+    Cell: (cell) => {
+      return cell.row.original.editing ? (
+        <EditableButton
+          onClick={() =>
+            setData((prev) =>
+              prev.map((r, i) => ({
+                ...r,
+                ...(i === cell.row.index && { editing: false }),
+              }))
+            )
+          }>
+          儲存
+        </EditableButton>
+      ) : (
+        <EditableIconButton
+          onClick={() =>
+            setData((prev) =>
+              prev.map((r, i) => ({
+                ...r,
+                ...(i === cell.row.index && { editing: true }),
+              }))
+            )
+          }>
+          <PencilIcon className="w-5 h-5" />
+        </EditableIconButton>
+      );
+    },
+  },
+];
+
+export const POWER_SAVING_PLAN_COLUMNS = addPaddingColumns([
+  {
+    Header: '用電類型',
+    accessor: 'category',
+    className: 'text-center w-24',
+  },
+  ...Array.from({ length: 12 }, (_, i) => ({
+    Header: `${i + 1}月`,
+    accessor: String(i + 1),
+    className: 'text-right',
+    Cell: baseFormatter,
+  })),
+  {
+    Header: '總計',
+    accessor: 'total',
+    className: 'text-right',
+    Cell: baseFormatter,
+  },
+]);
+
+export const POWER_SAVING_DATA = [
+  {
+    category: '空調用電',
+    name: '空調箱智慧控制',
+    1: 1065,
+    2: 0,
+    3: 3861,
+    4: 2471,
+    5: 0,
+    6: 0,
+    7: 1798,
+    8: 2816,
+    9: 2592,
+    10: 3402,
+    11: 0,
+    12: 2366,
+    PIC: '王一二',
+    logic:
+      '2020年空調箱總用電 127.5萬度 利用送/回/新風溫度、冰水溫度、CO2濃度自動調節風閥、變頻器管理節電，減少主系統負載過剩狀況，預估空調 箱效益5%127.5萬度 *5%=63,741KWH',
+    remark: '',
+  },
+  {
+    category: '基礎用電',
+    name: '智慧照明控制系統',
+    1: 0,
+    2: 1928,
+    3: 2017,
+    4: 3917,
+    5: 2463,
+    6: 0,
+    7: 926,
+    8: 1261,
+    9: 3160,
+    10: 2715,
+    11: 1182,
+    12: 0,
+    PIC: '王一二',
+    logic: '年度照明用電160.5萬 度，按時間、照度進行管控，減少人員未落實節電相關行為。',
+    remark: '',
+  },
+];
+
+export const POWER_SAVING_PLAN_DATA = [
+  {
+    category: '基礎用電',
+    1: 1337,
+    2: 0,
+    3: 2514,
+    4: 916,
+    5: 0,
+    6: 7561,
+    7: 3165,
+    8: 1434,
+    9: 1027,
+    10: 2027,
+    11: 0,
+    12: 725,
+    total: 20706,
+  },
+  {
+    category: '空調用電',
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 1073,
+    5: 729,
+    6: 2615,
+    7: 0,
+    8: 0,
+    9: 1127,
+    10: 819,
+    11: 3721,
+    12: 2367,
+    total: 12001,
+  },
+  {
+    category: '空壓用電',
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 3471,
+    8: 4017,
+    9: 3977,
+    10: 5836,
+    11: 0,
+    12: 0,
+    total: 17301,
+  },
+  {
+    category: '生產用電',
+    1: 652,
+    2: 1026,
+    3: 829,
+    4: 2071,
+    5: 4167,
+    6: 3882,
+    7: 3716,
+    8: 2860,
+    9: 1396,
+    10: 3755,
+    11: 1928,
+    12: 2937,
+    total: 29219,
   },
 ];
 
@@ -533,14 +758,59 @@ export function BaselinePanel({ year, plant, business }) {
   );
 }
 
+export function PowerSavingPanel({ year, plant, business }) {
+  const [data, setData] = useState(POWER_SAVING_DATA);
+  const updateMyData = (rowIndex, columnId, value) => {
+    setData((old) =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          };
+        }
+
+        return row;
+      })
+    );
+  };
+
+  return (
+    <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg">
+      <EditableTable columns={POWER_SAVING_COLUMNS({ setData })} data={data} updateMyData={updateMyData} />
+    </div>
+  );
+}
+
+export function PowerSavingPlanPanel({ year, plant, business }) {
+  return (
+    <div className="row-span-2 bg-primary-900 rounded shadow p-4">
+      <div className="flex flex-col w-full shadow overflow-auto rounded-t-lg">
+        <Table columns={POWER_SAVING_PLAN_COLUMNS} data={POWER_SAVING_PLAN_DATA} />
+      </div>
+    </div>
+  );
+}
+
 export function TabPanel({ children }) {
   const { hash, search } = useLocation();
   const { lng, business, ...option } = qs.parse(search);
-  const isPrediction = hash.slice(1) === BUTTON_GROUP_OPTIONS[1].key;
+  const tabIndex = BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === hash.slice(1));
+  const baselineRef = useRef({});
+  const predictionRef = useRef({});
+  const powerSavingRef = useRef({});
+  const refs = [baselineRef, predictionRef, powerSavingRef];
+  const isBaseline = tabIndex <= 0;
+  const isPrediction = tabIndex === 1;
+  const isPowerSaving = tabIndex === 2;
   return children({
     business,
     option,
+    isBaseline,
     isPrediction,
+    isPowerSaving,
+    refs,
+    tabIndex: tabIndex < 0 ? 0 : tabIndex,
   });
 }
 
@@ -656,13 +926,11 @@ export function PredictionSearch({ business, ...option }) {
 
 export default function ElectricityBaselinePage() {
   const { t } = useTranslation(['baselinePage', 'component']);
-  const baselineRef = useRef({});
-  const predictionRef = useRef({});
   return (
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
         <TabPanel>
-          {({ isPrediction, option, business }) => (
+          {({ isBaseline, isPrediction, isPowerSaving, option, business, tabIndex, refs }) => (
             <>
               <div
                 className={clsx(
@@ -673,40 +941,37 @@ export default function ElectricityBaselinePage() {
                 <ButtonGroup
                   className="self-center"
                   options={BUTTON_GROUP_OPTIONS}
-                  selected={isPrediction ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
+                  selected={BUTTON_GROUP_OPTIONS[tabIndex]}
                   onChange={(e) => {
                     navigate(
                       {
+                        business,
                         hash: e.key,
-                        ...(isPrediction
-                          ? { ...baselineRef.current, business }
-                          : { ...predictionRef.current, business }),
+                        ...refs[BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === e.key)].current,
                       },
                       { merge: false }
                     );
 
-                    if (e.key === BUTTON_GROUP_OPTIONS[0].key) {
-                      predictionRef.current = option;
-                    } else {
-                      baselineRef.current = option;
-                    }
+                    refs[tabIndex].current = option;
                   }}
                 />
                 <div className="flex w-full justify-center items-center">
-                  {isPrediction ? (
-                    <PredictionSearch {...option} business={business} />
-                  ) : (
-                    <BaselineSearch {...option} business={business} />
+                  {isBaseline && <BaselineSearch {...option} business={business} />}
+                  {isPrediction && <PredictionSearch {...option} business={business} />}
+                  {isPowerSaving && <BaselineSearch {...option} business={business} />}
+                  {isPowerSaving && (
+                    <Button className="absolute right-8">
+                      <PlusIcon className="h-5 w-5" />
+                      新增技改項目
+                    </Button>
                   )}
-                  <Button className="absolute right-8">Excel</Button>
                 </div>
-                {isPrediction ? (
-                  <PredictionPanel {...option} business={business} />
-                ) : (
-                  <BaselinePanel {...option} business={business} />
-                )}
+                {isBaseline && <BaselinePanel {...option} business={business} />}
+                {isPrediction && <PredictionPanel {...option} business={business} />}
+                {isPowerSaving && <PowerSavingPanel {...option} business={business} />}
               </div>
-              {!isPrediction && !isEmpty(option) && <ChartPanel {...option} business={business} />}
+              {isBaseline && !isEmpty(option) && <ChartPanel {...option} business={business} />}
+              {isPowerSaving && <PowerSavingPlanPanel {...option} business={business} />}
             </>
           )}
         </TabPanel>

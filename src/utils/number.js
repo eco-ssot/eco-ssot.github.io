@@ -23,3 +23,7 @@ export function getDecimalNumber(value = '') {
   const [num] = value.match(/[1-9]\d*(\.\d+)?/g) || [];
   return num;
 }
+
+export function trimNumber(value) {
+  return Number(String(value).trim().replace(/,/g, ''));
+}

@@ -3,7 +3,8 @@
     "currentYear": "Current Year",
     "historyYear": "History Years",
     "baseline": "Baseline",
-    "prediction": "Prediction"
+    "prediction": "Prediction",
+    "powerSaving": "Power Saving"
   },
   "selectLabel": {
     "searchYear": "Year",

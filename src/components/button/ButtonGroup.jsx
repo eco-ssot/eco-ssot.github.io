@@ -13,6 +13,7 @@ export default function ButtonGroup({ className, options = [], selected = option
             'relative inline-flex items-center px-4 py-2 border border-primary-800 bg-transparent text-sm font-medium text-gray-50',
             i === 0 && 'rounded-r-none',
             i === options.length - 1 && 'rounded-l-none',
+            i > 0 && '-ml-px',
             selected.value === value && 'bg-primary-800'
           )}
           onClick={() => onChange({ key, value })}>
