@@ -14,6 +14,7 @@ import { selectLanguage } from '../../renderless/location/locationSlice';
 import { usePatchGoalMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
 import { getDecimalNumber } from '../../utils/number';
+import { updateMyData } from '../../utils/table';
 
 import ErrorModal from './ErrorModal';
 
@@ -134,27 +135,12 @@ export default function YearGoal({ className, year, data, canEdit }) {
   const [dataSource, setData] = useState(data);
   const [open, setOpen] = useState(false);
   const columns = COLUMNS({ t, lng, setData, patchGoal, setOpen, year, canEdit });
-  const updateMyData = (rowIndex, columnId, value) => {
-    setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-
-        return row;
-      })
-    );
-  };
-
   useEffect(() => data && setData(data), [data]);
   return (
     <>
       <ErrorModal open={open} setOpen={setOpen} />
       <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
-        <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData} />
+        <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
       </div>
     </>
   );

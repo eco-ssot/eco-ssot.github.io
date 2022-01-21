@@ -53,3 +53,25 @@ export const getHidePlantRowProps = (row) => {
 
   return {};
 };
+
+export const updateMyData = (setData) => (rowIndex, columnId, value) => {
+  const [p1, p2] = columnId.split('.');
+  return setData((prev) =>
+    prev.map((row, index) => {
+      if (index === rowIndex) {
+        return {
+          ...row,
+          [p1]: value,
+          ...(p2 && {
+            [p1]: {
+              ...row[p1],
+              [p2]: value,
+            },
+          }),
+        };
+      }
+
+      return row;
+    })
+  );
+};

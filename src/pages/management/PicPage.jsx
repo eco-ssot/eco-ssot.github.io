@@ -9,6 +9,7 @@ import EditableTable, {
   EditableIconButton,
 } from '../../components/table/EditableTable';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
+import { updateMyData } from '../../utils/table';
 
 const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
@@ -129,21 +130,6 @@ export default function PicPage({ canEdit, users }) {
   const [dataSource, setData] = useState(data);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
   const columns = COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
-  const updateMyData = (rowIndex, columnId, value) => {
-    setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-
-        return row;
-      })
-    );
-  };
-
   useEffect(() => data && setData(data), [data]);
   return (
     <div className="row-span-2 col-span-7">
@@ -151,7 +137,7 @@ export default function PicPage({ canEdit, users }) {
         <div className="text-xl font-medium">{t('managementPage:pic.title')}</div>
         {data && (
           <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
-            <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData} />
+            <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
           </div>
         )}
       </div>

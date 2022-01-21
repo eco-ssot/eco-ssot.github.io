@@ -17,7 +17,7 @@ import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
 import { useGetCsrStatusQuery } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
-import { plantRenderer } from '../../utils/table';
+import { plantRenderer, updateMyData } from '../../utils/table';
 
 export const STATUS_MAPPING = {
   0: 'bg-gray-50',
@@ -123,28 +123,6 @@ export default function CsrPage() {
   const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
   const [_data, setData] = useState();
   const columns = useMemo(() => COLUMNS({ setData }), []);
-  const updateMyData = (rowIndex, columnId, value) => {
-    const [p1, p2] = columnId.split('.');
-    setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...row,
-            [p1]: value,
-            ...(p2 && {
-              [p1]: {
-                ...row[p1],
-                [p2]: value,
-              },
-            }),
-          };
-        }
-
-        return row;
-      })
-    );
-  };
-
   useEffect(() => data && setData(data.data), [data]);
   useGetSummaryQuery();
   return (
@@ -194,7 +172,7 @@ export default function CsrPage() {
             data={_data || []}
             getCellProps={(cell) => ({ className: '!py-1' })}
             getHeaderProps={(header) => ({ className: '!py-1' })}
-            updateMyData={updateMyData}
+            updateMyData={updateMyData(setData)}
           />
         </div>
       </div>

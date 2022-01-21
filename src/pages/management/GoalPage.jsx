@@ -36,7 +36,7 @@ export default function GoalPage({ business, canEdit }) {
           <YearGoal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} canEdit={canEdit} />
         </div>
       </div>
-      <div className="row-span-1 col-span-3">
+      <div className="row-span-1 col-span-2">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
             <div className="flex space-x-2 items-baseline">
@@ -61,7 +61,7 @@ export default function GoalPage({ business, canEdit }) {
           />
         </div>
       </div>
-      <div className="row-span-1 col-span-4">
+      <div className="row-span-1 col-span-5">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
             <div className="text-xl font-medium">{t('managementPage:tRec.title')}</div>

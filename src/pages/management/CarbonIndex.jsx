@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { usePatchCarbonIndexMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
+import { updateMyData } from '../../utils/table';
 
 const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
   {
@@ -65,25 +66,10 @@ export default function CarbonIndex({ className, year, data, canEdit }) {
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);
   const columns = COLUMNS({ t, setData, patchCarbonIndex, year, canEdit });
-  const updateMyData = (rowIndex, columnId, value) => {
-    setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-
-        return row;
-      })
-    );
-  };
-
   useEffect(() => data && setData(data), [data]);
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
-      <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData} />
+      <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
     </div>
   );
 }

@@ -26,7 +26,7 @@ import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
-import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
+import { addPaddingColumns, EXPAND_COLUMN, updateMyData } from '../../utils/table';
 
 import { gapFormatter, getYtmLabel } from './helpers';
 
@@ -760,24 +760,9 @@ export function BaselinePanel({ year, plant, business }) {
 
 export function PowerSavingPanel({ year, plant, business }) {
   const [data, setData] = useState(POWER_SAVING_DATA);
-  const updateMyData = (rowIndex, columnId, value) => {
-    setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-
-        return row;
-      })
-    );
-  };
-
   return (
     <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg">
-      <EditableTable columns={POWER_SAVING_COLUMNS({ setData })} data={data} updateMyData={updateMyData} />
+      <EditableTable columns={POWER_SAVING_COLUMNS({ setData })} data={data} updateMyData={updateMyData(setData)} />
     </div>
   );
 }
