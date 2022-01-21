@@ -1,6 +1,6 @@
 {
   "name": "eco-ssot-frontend",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.4.0",
