@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
+import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -9,14 +10,14 @@ import { selectCurrMonth, selectCurrYear, selectYearOptions } from '../../app/ap
 import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
-import Table from '../../components/table/Table';
+import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import APP_CONFIG from '../../constants/app-config';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
 import { useGetCsrStatusQuery } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
-import { addPaddingColumns, plantRenderer } from '../../utils/table';
+import { plantRenderer } from '../../utils/table';
 
 export const STATUS_MAPPING = {
   0: 'bg-gray-50',
@@ -27,7 +28,7 @@ export const STATUS_MAPPING = {
 const csrRenderer = (cell) => {
   const status = get(cell.row.original, cell.column.id.replace('_amount', ''));
   return (
-    <div className="flex flex-col items-center justify-center space-y-1">
+    <div className="flex items-center justify-between px-8">
       <div className={clsx('rounded-full h-3 w-3 text-center', STATUS_MAPPING[status])}></div>
       <div>{baseFormatter(cell.value)}</div>
     </div>
@@ -36,32 +37,80 @@ const csrRenderer = (cell) => {
 
 const ratioRenderer = (cell) => baseFormatter(cell.value, { precision: 1, unit: 1e-2, suffix: '%' });
 
-const COLUMNS = addPaddingColumns([
+const COLUMNS = ({ setData }) => [
   {
     Header: 'Plant',
     accessor: 'plant',
     rowSpan: 0,
+    className: 'w-[10%] text-center',
     Cell: plantRenderer,
   },
   {
     id: 'electric',
-    Header: () => <div className="border-b border-divider py-3">用電</div>,
+    Header: () => <div className="border-b border-divider py-1">用電</div>,
     columns: [
-      { Header: 'FEM 智慧電表', accessor: 'electric.fem_amount', Cell: csrRenderer },
-      { Header: 'CSR 電費帳單', accessor: 'electric.csr_amount', Cell: csrRenderer },
-      { Header: '差異 *', accessor: 'electric.diff', Cell: ratioRenderer, className: 'text-right' },
+      { Header: 'FEM 智慧電表', accessor: 'electric.fem_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
+      { Header: 'CSR 電費帳單', accessor: 'electric.csr_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
+      { Header: '差異 *', accessor: 'electric.diff', Cell: ratioRenderer, className: 'text-right w-[6%] px-2' },
+      {
+        Header: '描述',
+        accessor: 'electric.desc',
+        className: 'w-[12%]',
+        editable: true,
+        editableComponentProps: { className: 'text-left' },
+      },
     ],
   },
   {
     id: 'water',
-    Header: () => <div className="border-b border-divider py-3">用水</div>,
+    Header: () => <div className="border-b border-divider py-1">用水</div>,
     columns: [
-      { Header: 'FEM 智慧水表', accessor: 'water.fem_amount', Cell: csrRenderer },
-      { Header: 'CSR 水費帳單', accessor: 'water.csr_amount', Cell: csrRenderer },
-      { Header: '差異 *', accessor: 'water.diff', Cell: ratioRenderer, className: 'text-right' },
+      { Header: 'FEM 智慧水表', accessor: 'water.fem_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
+      { Header: 'CSR 水費帳單', accessor: 'water.csr_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
+      { Header: '差異 *', accessor: 'water.diff', Cell: ratioRenderer, className: 'text-right w-[6%] px-2' },
+      {
+        Header: '描述',
+        accessor: 'water.desc',
+        className: 'w-[12%]',
+        editable: true,
+        editableComponentProps: { className: 'text-left' },
+      },
     ],
   },
-]);
+  {
+    id: 'action',
+    Header: '編輯',
+    rowSpan: 0,
+    className: 'w-[6%] text-center',
+    Cell: (cell) => {
+      return cell.row.original.editing ? (
+        <EditableButton
+          onClick={() =>
+            setData((prev) =>
+              prev.map((r, i) => ({
+                ...r,
+                ...(i === cell.row.index && { editing: false }),
+              }))
+            )
+          }>
+          儲存
+        </EditableButton>
+      ) : (
+        <EditableIconButton
+          onClick={() =>
+            setData((prev) =>
+              prev.map((r, i) => ({
+                ...r,
+                ...(i === cell.row.index && { editing: true }),
+              }))
+            )
+          }>
+          <PencilIcon className="w-5 h-5" />
+        </EditableIconButton>
+      );
+    },
+  },
+];
 
 export default function CsrPage() {
   const { t } = useTranslation(['managementPage']);
@@ -72,11 +121,36 @@ export default function CsrPage() {
   const currMonth = useSelector(selectCurrMonth);
   const [searchOption, setSearchOption] = useState({ year, month });
   const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
+  const [_data, setData] = useState();
+  const columns = useMemo(() => COLUMNS({ setData }), []);
+  const updateMyData = (rowIndex, columnId, value) => {
+    const [p1, p2] = columnId.split('.');
+    setData((old) =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...row,
+            [p1]: value,
+            ...(p2 && {
+              [p1]: {
+                ...row[p1],
+                [p2]: value,
+              },
+            }),
+          };
+        }
+
+        return row;
+      })
+    );
+  };
+
+  useEffect(() => data && setData(data.data), [data]);
   useGetSummaryQuery();
   return (
     <div className="row-span-2 col-span-7">
-      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-2">
-        <div className="text-xl font-medium space-y-2">CSR 對照 (每月最後一日更新)</div>
+      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
+        <div className="text-xl font-medium">CSR 對照 (每月最後一日更新)</div>
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
@@ -105,15 +179,23 @@ export default function CsrPage() {
             搜尋
           </Button>
         </div>
-        <div className="flex justify-end space-x-4">
-          <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
-          <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
-          <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
-          <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
+        <div className="absolute right-10">
+          <div className="flex justify-end space-x-4">
+            <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
+            <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
+            <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
+            <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
+          </div>
+          <div className="flex justify-end">＊差異 = ( FEM - CSR ) / CSR * 100%</div>
         </div>
-        <div className="flex justify-end">＊差異 = ( FEM - CSR ) / CSR * 100%</div>
         <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
-          <Table columns={COLUMNS} data={data?.data || []} />
+          <EditableTable
+            columns={columns}
+            data={_data || []}
+            getCellProps={(cell) => ({ className: '!py-1' })}
+            getHeaderProps={(header) => ({ className: '!py-1' })}
+            updateMyData={updateMyData}
+          />
         </div>
       </div>
     </div>

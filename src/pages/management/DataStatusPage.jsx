@@ -33,7 +33,7 @@ const COLUMNS = (t) =>
     {
       id: 'dpm',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
           <div className="px-2">DPM</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
         </div>
@@ -43,7 +43,7 @@ const COLUMNS = (t) =>
     {
       id: 'opm',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
           <div className="px-2">OPM</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
         </div>
@@ -57,7 +57,7 @@ const COLUMNS = (t) =>
     {
       id: 'fem',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
           <div className="px-2">FEM</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
         </div>
@@ -75,7 +75,7 @@ const COLUMNS = (t) =>
     {
       id: 'benefit',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
           <div className="px-2">Benefit</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
         </div>
@@ -85,7 +85,7 @@ const COLUMNS = (t) =>
     {
       id: 'waste',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
           <div className="px-2">{t('dataStatus.table.waste')}</div>
           <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.manualSync')}</div>
         </div>
@@ -134,7 +134,12 @@ export default function DataStatusPage() {
         <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
         {data && (
           <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
-            <Table columns={COLUMNS(t)} data={data?.data || []} />
+            <Table
+              columns={COLUMNS(t)}
+              data={data?.data || []}
+              getHeaderProps={(header) => ({ className: '!py-1' })}
+              getCellProps={(cell) => ({ className: '!py-1' })}
+            />
           </div>
         )}
       </div>
