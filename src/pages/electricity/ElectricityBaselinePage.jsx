@@ -39,6 +39,7 @@ import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
 import { addPaddingColumns, EXPAND_COLUMN, updateMyData } from '../../utils/table';
 
+import ConfirmModal from './ConfirmModal';
 import { gapFormatter, getYtmLabel } from './helpers';
 
 const BUTTON_GROUP_OPTIONS = [
@@ -121,7 +122,7 @@ const HISTORY_COLUMNS = (t) => [
   },
 ];
 
-export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions, postPowerSaving }) => [
+export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions, postPowerSaving, setOpen }) => [
   {
     Header: '用電類型',
     accessor: 'category',
@@ -225,17 +226,13 @@ export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions,
               ...rest,
             });
 
-            setData((prev) =>
-              prev.map((r, i) => ({
-                ...r,
-                ...(i === cell.row.index && { editing: false }),
-              }))
-            );
+            setOpen(true);
           }}>
           儲存
         </EditableButton>
       ) : (
         <EditableIconButton
+          disabled={!cell.row.original.by_copy}
           onClick={() =>
             setData((prev) =>
               prev.map((r, i) => ({
@@ -703,7 +700,9 @@ export function PowerSavingPanel({ year, plant, business }) {
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
   const { data: users = [] } = useGetUsersQuery();
   const [_data, setData] = useState();
+  const [open, setOpen] = useState(false);
   const [postPowerSaving] = usePostElectricityPowerSavingMutationMutation();
+  const confirmRef = useRef({});
   const electricityOptions = useMemo(
     () =>
       APP_CONFIG.ELECTRICITY_OPTIONS.map((option) => ({
@@ -717,11 +716,12 @@ export function PowerSavingPanel({ year, plant, business }) {
     () =>
       POWER_SAVING_COLUMNS({
         electricityOptions,
+        setOpen,
         setData,
         userOptions: users.map(({ id, email }) => ({ value: id, label: email })),
-        postPowerSaving: (payload) => postPowerSaving({ year, plant, data: payload }),
+        postPowerSaving: (payload) => (confirmRef.current = { year, plant, data: payload }),
       }),
-    [electricityOptions, year, plant, users, postPowerSaving]
+    [electricityOptions, year, plant, users]
   );
 
   useEffect(() => data && setData(data.data), [data]);
@@ -746,6 +746,12 @@ export function PowerSavingPanel({ year, plant, business }) {
           </>
         )}
       </Button>
+      <ConfirmModal
+        open={open}
+        setOpen={setOpen}
+        onConfirm={() => postPowerSaving(confirmRef.current).then(() => (confirmRef.current = {}))}
+        onCancel={() => (confirmRef.current = {})}
+      />
       <div className="col-span-5 w-full h-full flex flex-col shadow overflow-auto rounded-t-lg">
         <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
       </div>
