@@ -271,115 +271,6 @@ export const POWER_SAVING_PLAN_COLUMNS = addPaddingColumns([
   },
 ]);
 
-export const POWER_SAVING_DATA = [
-  {
-    category: '空調用電',
-    name: '空調箱智慧控制',
-    1: 1065,
-    2: 0,
-    3: 3861,
-    4: 2471,
-    5: 0,
-    6: 0,
-    7: 1798,
-    8: 2816,
-    9: 2592,
-    10: 3402,
-    11: 0,
-    12: 2366,
-    PIC: '王一二',
-    logic:
-      '2020年空調箱總用電 127.5萬度 利用送/回/新風溫度、冰水溫度、CO2濃度自動調節風閥、變頻器管理節電，減少主系統負載過剩狀況，預估空調 箱效益5%127.5萬度 *5%=63,741KWH',
-    remark: '',
-  },
-  {
-    category: '基礎用電',
-    name: '智慧照明控制系統',
-    1: 0,
-    2: 1928,
-    3: 2017,
-    4: 3917,
-    5: 2463,
-    6: 0,
-    7: 926,
-    8: 1261,
-    9: 3160,
-    10: 2715,
-    11: 1182,
-    12: 0,
-    PIC: '王一二',
-    logic: '年度照明用電160.5萬 度，按時間、照度進行管控，減少人員未落實節電相關行為。',
-    remark: '',
-  },
-];
-
-export const POWER_SAVING_PLAN_DATA = [
-  {
-    category: '基礎用電',
-    1: 1337,
-    2: 0,
-    3: 2514,
-    4: 916,
-    5: 0,
-    6: 7561,
-    7: 3165,
-    8: 1434,
-    9: 1027,
-    10: 2027,
-    11: 0,
-    12: 725,
-    total: 20706,
-  },
-  {
-    category: '空調用電',
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 1073,
-    5: 729,
-    6: 2615,
-    7: 0,
-    8: 0,
-    9: 1127,
-    10: 819,
-    11: 3721,
-    12: 2367,
-    total: 12001,
-  },
-  {
-    category: '空壓用電',
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 3471,
-    8: 4017,
-    9: 3977,
-    10: 5836,
-    11: 0,
-    12: 0,
-    total: 17301,
-  },
-  {
-    category: '生產用電',
-    1: 652,
-    2: 1026,
-    3: 829,
-    4: 2071,
-    5: 4167,
-    6: 3882,
-    7: 3716,
-    8: 2860,
-    9: 1396,
-    10: 3755,
-    11: 1928,
-    12: 2937,
-    total: 29219,
-  },
-];
-
 const PREDICTION_COLUMNS_BY_SITE = ({ t, year, month } = {}) => {
   const m = Number(month);
   const nextMonth = m + 1;
@@ -896,9 +787,9 @@ export function PowerSavingPlanPanel({ year, plant, business }) {
   }
 
   return (
-    <div className="row-span-2 bg-primary-900 rounded shadow p-4 space-y-2">
+    <div className="row-span-2 bg-primary-900 rounded shadow p-4 space-y-2 h-full flex flex-col">
       <div className="font-medium text-lg">計畫節電總量 (度)</div>
-      <div className="flex flex-col w-full shadow overflow-auto rounded-t-lg">
+      <div className="flex flex-col flex-grow w-full shadow overflow-auto rounded-t-lg">
         <Table columns={POWER_SAVING_PLAN_COLUMNS} data={_data} />
       </div>
     </div>
