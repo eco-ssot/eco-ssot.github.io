@@ -29,7 +29,7 @@ export default function ConfirmModal({ open = false, setOpen = () => {}, onConfi
       }>
       <div className="flex items-center justify-center pt-8 space-x-2">
         <InformationCircleIcon className="w-5 h-5 text-_yellow" />
-        <div>項目新增後即不可再編輯 您確定要新增嗎？</div>
+        <div>項目新增後即不可再編輯，您確定要新增嗎？</div>
       </div>
     </Modal>
   );

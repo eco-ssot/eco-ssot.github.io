@@ -213,7 +213,14 @@ export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions,
       return cell.row.original.editing ? (
         <EditableButton
           onClick={() => {
-            const { editing, expected_benefits, category = electricityOptions[0].value, ...rest } = cell.row.original;
+            const {
+              isNew,
+              editing,
+              expected_benefits = {},
+              category = electricityOptions[0].value,
+              ...rest
+            } = cell.row.original;
+
             postPowerSaving({
               category,
               expected_benefits: Object.entries(expected_benefits).reduce(
@@ -749,7 +756,12 @@ export function PowerSavingPanel({ year, plant, business }) {
       <ConfirmModal
         open={open}
         setOpen={setOpen}
-        onConfirm={() => postPowerSaving(confirmRef.current).then(() => (confirmRef.current = {}))}
+        onConfirm={() => {
+          postPowerSaving(confirmRef.current).then(() => {
+            setData((prev) => prev.map((d) => (d.isNew ? { ...confirmRef.current.data, isNew: false } : d)));
+            confirmRef.current = {};
+          });
+        }}
         onCancel={() => (confirmRef.current = {})}
       />
       <div className="col-span-5 w-full h-full flex flex-col shadow overflow-auto rounded-t-lg">
