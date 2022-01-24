@@ -15,7 +15,7 @@ import APP_CONFIG from '../../constants/app-config';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
-import { useGetCsrStatusQuery } from '../../services/management';
+import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { plantRenderer, updateMyData } from '../../utils/table';
 
@@ -37,7 +37,7 @@ const csrRenderer = (cell) => {
 
 const ratioRenderer = (cell) => baseFormatter(cell.value, { precision: 1, unit: 1e-2, suffix: '%' });
 
-const COLUMNS = ({ setData }) => [
+const COLUMNS = ({ setData, postCsrComment }) => [
   {
     Header: 'Plant',
     accessor: 'plant',
@@ -54,8 +54,8 @@ const COLUMNS = ({ setData }) => [
       { Header: '差異 *', accessor: 'electric.diff', Cell: ratioRenderer, className: 'text-right w-[6%] px-2' },
       {
         Header: '描述',
-        accessor: 'electric.desc',
-        className: 'w-[12%]',
+        accessor: 'electric.comment',
+        className: 'w-[12%] text-center',
         editable: true,
         editableComponentProps: { className: 'text-left' },
       },
@@ -70,8 +70,8 @@ const COLUMNS = ({ setData }) => [
       { Header: '差異 *', accessor: 'water.diff', Cell: ratioRenderer, className: 'text-right w-[6%] px-2' },
       {
         Header: '描述',
-        accessor: 'water.desc',
-        className: 'w-[12%]',
+        accessor: 'water.comment',
+        className: 'w-[12%] text-center',
         editable: true,
         editableComponentProps: { className: 'text-left' },
       },
@@ -85,26 +85,32 @@ const COLUMNS = ({ setData }) => [
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <EditableButton
-          onClick={() =>
+          onClick={() => {
+            const { plant, electric, water } = cell.row.original;
+            postCsrComment({
+              plant: String(plant).split('(')[0].trim(),
+              water_comment: water.comment,
+              electric_comment: electric.comment,
+            });
             setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
                 ...(i === cell.row.index && { editing: false }),
               }))
-            )
-          }>
+            );
+          }}>
           儲存
         </EditableButton>
       ) : (
         <EditableIconButton
-          onClick={() =>
+          onClick={() => {
             setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
                 ...(i === cell.row.index && { editing: true }),
               }))
-            )
-          }>
+            );
+          }}>
           <PencilIcon className="w-5 h-5" />
         </EditableIconButton>
       );
@@ -122,7 +128,16 @@ export default function CsrPage() {
   const [searchOption, setSearchOption] = useState({ year, month });
   const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
   const [_data, setData] = useState();
-  const columns = useMemo(() => COLUMNS({ setData }), []);
+  const [postCsrComment] = usePostCsrCommentMutation();
+  const columns = useMemo(
+    () =>
+      COLUMNS({
+        setData,
+        postCsrComment: (payload) => postCsrComment({ year: year || currYear, month: month || currMonth, ...payload }),
+      }),
+    [postCsrComment, year, month, currYear, currMonth]
+  );
+
   useEffect(() => data && setData(data.data), [data]);
   useGetSummaryQuery();
   return (

@@ -4,6 +4,7 @@ import { axiosBaseQuery } from './helpers';
 
 export const managementApi = createApi({
   reducerPath: 'managementApi',
+  tagTypes: ['CSR'],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getDataStatus: builder.query({
@@ -28,7 +29,16 @@ export const managementApi = createApi({
         })),
     }),
     getCsrStatus: builder.query({
+      providesTags: ['CSR'],
       query: (query) => ({ query, url: 'data-status/csr-compare' }),
+    }),
+    postCsrComment: builder.mutation({
+      invalidatesTags: ['CSR'],
+      query: ({ plant, ...data }) => ({
+        data,
+        url: `data-status/csr-compare/${plant}`,
+        method: 'PATCH',
+      }),
     }),
   }),
 });
@@ -39,4 +49,5 @@ export const {
   useGetPlantOptionsQuery,
   useGetCsrStatusQuery,
   usePatchDataStatusPicMutation,
+  usePostCsrCommentMutation,
 } = managementApi;
