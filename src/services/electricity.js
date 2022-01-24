@@ -51,7 +51,7 @@ export function toRow({ plants = [], ...data } = {}) {
 export const electricityApi = createApi({
   reducerPath: 'electricityApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: ['EXPLANATION'],
+  tagTypes: ['EXPLANATION', 'POWER_SAVING'],
   endpoints: (builder) => ({
     getElectricity: builder.query({
       query: (query) => ({ query, url: 'electric' }),
@@ -91,6 +91,10 @@ export const electricityApi = createApi({
     getElectricityBaseline: builder.query({
       query: (query) => ({ query, url: 'electric/inference/baseline' }),
     }),
+    getElectricityPowerSaving: builder.query({
+      query: ({ year, plant } = {}) => ({ url: `electric/inference/saving-tech/${year}/${plant}` }),
+      providesTags: ['POWER_SAVING'],
+    }),
     postElectricityExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'electric/anaysis/explanation', method: 'POST' }),
       invalidatesTags: ['EXPLANATION'],
@@ -120,6 +124,14 @@ export const electricityApi = createApi({
       }),
       invalidatesTags: ['EXPLANATION'],
     }),
+    postElectricityPowerSavingMutation: builder.mutation({
+      query: ({ year, plant, data } = {}) => ({
+        data,
+        url: `electric/inference/saving-tech/${year}/${plant}`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['POWER_SAVING'],
+    }),
   }),
 });
 
@@ -130,10 +142,12 @@ export const {
   useGetElectricityExplanationQuery,
   useGetElectricityPredictionQuery,
   useGetElectricityBaselineQuery,
+  useGetElectricityPowerSavingQuery,
   usePatchElectricityExplanationMutation,
   usePatchElectricityImprovementMutation,
   usePostElectricityExplanationMutation,
   usePostElectricityImprovementMutation,
+  usePostElectricityPowerSavingMutationMutation,
   useDeleteElectricityExplanationMutation,
   useDeleteElectricityImprovementMutation,
 } = electricityApi;

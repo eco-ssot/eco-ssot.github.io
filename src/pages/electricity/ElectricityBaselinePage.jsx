@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 
-import { PencilIcon, PlusIcon } from '@heroicons/react/solid';
+import { PencilIcon, PlusIcon, XIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { addMonths, isFuture } from 'date-fns';
-import { get, isEmpty, isNil } from 'lodash';
+import { get, isEmpty, isNil, groupBy } from 'lodash';
 import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
 import { useTranslation } from 'react-i18next';
@@ -16,12 +16,23 @@ import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
-import EditableTable, { EditableButton, EditableIconButton, TextareaCell } from '../../components/table/EditableTable';
+import EditableTable, {
+  AdSearchSelectCell,
+  EditableButton,
+  EditableIconButton,
+  TextareaCell,
+} from '../../components/table/EditableTable';
 import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
-import { useGetElectricityPredictionQuery, useGetElectricityBaselineQuery } from '../../services/electricity';
+import {
+  useGetElectricityPredictionQuery,
+  useGetElectricityBaselineQuery,
+  useGetElectricityPowerSavingQuery,
+  usePostElectricityPowerSavingMutationMutation,
+} from '../../services/electricity';
+import { useGetUsersQuery } from '../../services/keycloakAdmin';
 import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
@@ -110,36 +121,49 @@ const HISTORY_COLUMNS = (t) => [
   },
 ];
 
-export const POWER_SAVING_COLUMNS = ({ setData }) => [
+export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions, postPowerSaving }) => [
   {
     Header: '用電類型',
     accessor: 'category',
     rowSpan: 0,
     className: 'w-[6%] text-center',
+    editable: true,
+    EditableComponent: ({ defaultValue, onBlur }) => (
+      <Select
+        className="text-left"
+        options={electricityOptions}
+        selected={electricityOptions.find((option) => option.value === defaultValue)}
+        onChange={(e) => onBlur(e.value)}
+      />
+    ),
   },
   {
     Header: '改善措施',
-    accessor: 'name',
-    className: 'w-[10%] text-center',
+    accessor: 'modified_method',
+    className: 'w-[8%] text-center',
     rowSpan: 0,
+    editable: true,
+    editableComponentProps: { className: 'text-left' },
   },
   {
     id: 'expect',
     Header: <div className="border-b border-divider py-3">預計效益 (度)</div>,
     columns: Array.from({ length: 12 }, (_, i) => ({
       Header: `${i + 1}月`,
-      accessor: String(i + 1),
+      accessor: `expected_benefits.${i + 1}`,
       editable: true,
       className: '!px-1 w-[4%] text-right',
       formatter: baseFormatter,
+      editableComponentProps: { className: 'text-left' },
     })).concat({
       id: 'total',
       Header: '總計',
       className: '!px-1 w-[4%] text-right',
       Cell: (cell) => {
-        const ttl = Object.entries(cell.row.original)
-          .filter(([key]) => !isNaN(Number(key)))
-          .reduce((prev, curr) => prev + trimNumber(curr[1]), 0);
+        const ttl = Object.entries(cell.row.original.expected_benefits || {}).reduce(
+          (prev, curr) => prev + trimNumber(curr[1]),
+          0
+        );
 
         return baseFormatter(ttl);
       },
@@ -147,21 +171,33 @@ export const POWER_SAVING_COLUMNS = ({ setData }) => [
   },
   {
     Header: 'PIC',
-    accessor: 'PIC',
+    accessor: 'pic',
     rowSpan: 0,
-    className: 'w-[5%] text-center',
+    className: 'w-[8%] text-center',
+    Cell: (cell) =>
+      cell.row.original.editing ? (
+        <AdSearchSelectCell
+          options={userOptions}
+          defaultValue={{ value: cell.row.original.pic, label: cell.row.original.pic }}
+          onBlur={(e) => {
+            e.label && setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, pic: e.label } : d)));
+          }}
+        />
+      ) : (
+        cell.value || ''
+      ),
   },
   {
     Header: '計算邏輯',
-    accessor: 'logic',
+    accessor: 'computational_logic',
     rowSpan: 0,
     editable: true,
     EditableComponent: TextareaCell,
-    className: 'w-[12%] py-2',
+    className: 'w-[10%] py-2',
   },
   {
     Header: '備註',
-    accessor: 'desc',
+    accessor: 'remark',
     rowSpan: 0,
     editable: true,
     EditableComponent: TextareaCell,
@@ -175,14 +211,27 @@ export const POWER_SAVING_COLUMNS = ({ setData }) => [
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <EditableButton
-          onClick={() =>
+          onClick={() => {
+            const { editing, expected_benefits, category = electricityOptions[0].value, ...rest } = cell.row.original;
+            postPowerSaving({
+              category,
+              expected_benefits: Object.entries(expected_benefits).reduce(
+                (prev, [key, value]) => ({
+                  ...prev,
+                  [key]: trimNumber(value),
+                }),
+                {}
+              ),
+              ...rest,
+            });
+
             setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
                 ...(i === cell.row.index && { editing: false }),
               }))
-            )
-          }>
+            );
+          }}>
           儲存
         </EditableButton>
       ) : (
@@ -216,7 +265,7 @@ export const POWER_SAVING_PLAN_COLUMNS = addPaddingColumns([
   })),
   {
     Header: '總計',
-    accessor: 'total',
+    accessor: 'ttl',
     className: 'text-right',
     Cell: baseFormatter,
   },
@@ -759,19 +808,98 @@ export function BaselinePanel({ year, plant, business }) {
 }
 
 export function PowerSavingPanel({ year, plant, business }) {
-  const [data, setData] = useState(POWER_SAVING_DATA);
+  const { t } = useTranslation(['component']);
+  const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
+  const { data: users = [] } = useGetUsersQuery();
+  const [_data, setData] = useState();
+  const [postPowerSaving] = usePostElectricityPowerSavingMutationMutation();
+  const electricityOptions = useMemo(
+    () =>
+      APP_CONFIG.ELECTRICITY_OPTIONS.map((option) => ({
+        ...option,
+        value: t(`component:electricityOptions.${option.key}`),
+      })),
+    [t]
+  );
+
+  const columns = useMemo(
+    () =>
+      POWER_SAVING_COLUMNS({
+        electricityOptions,
+        setData,
+        userOptions: users.map(({ id, email }) => ({ value: id, label: email })),
+        postPowerSaving: (payload) => postPowerSaving({ year, plant, data: payload }),
+      }),
+    [electricityOptions, year, plant, users, postPowerSaving]
+  );
+
+  useEffect(() => data && setData(data.data), [data]);
+  if (isNil(_data)) {
+    return null;
+  }
+
   return (
-    <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg">
-      <EditableTable columns={POWER_SAVING_COLUMNS({ setData })} data={data} updateMyData={updateMyData(setData)} />
-    </div>
+    <>
+      <Button
+        className="absolute right-8 top-44 translate-y-1"
+        onClick={() =>
+          setData((prev) => (prev.slice(-1)[0]?.isNew ? prev.slice(0, -1) : [...prev, { isNew: true, editing: true }]))
+        }>
+        {_data?.slice(-1)?.[0]?.isNew ? (
+          <>
+            <XIcon className="w-5 h-5" /> 取消新增
+          </>
+        ) : (
+          <>
+            <PlusIcon className="w-5 h-5" /> 新增技改項目
+          </>
+        )}
+      </Button>
+      <div className="col-span-5 w-full h-full flex flex-col shadow overflow-auto rounded-t-lg">
+        <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
+      </div>
+    </>
   );
 }
 
 export function PowerSavingPlanPanel({ year, plant, business }) {
+  const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
+  const [_data, setData] = useState(data?.data);
+  useEffect(() => {
+    if (data) {
+      const groupByCategory = groupBy(data.data, ({ category }) => category);
+      const table = Object.entries(groupByCategory).reduce((prev, [key, values]) => {
+        const ttlByMonth = values.reduce(
+          (_prev, _curr) => ({
+            ..._prev,
+            ...Array.from({ length: 12 }).reduce(
+              (__prev, __curr, i) => ({
+                ...__prev,
+                [i + 1]: (_prev[i + 1] || 0) + (_curr.expected_benefits?.[i + 1] || 0),
+              }),
+              {}
+            ),
+          }),
+          {}
+        );
+
+        const ttl = Object.values(ttlByMonth).reduce((prev, curr) => prev + curr, 0);
+        return prev.concat({ ...ttlByMonth, ttl, category: key });
+      }, []);
+
+      setData(table);
+    }
+  }, [data]);
+
+  if (isNil(data)) {
+    return null;
+  }
+
   return (
-    <div className="row-span-2 bg-primary-900 rounded shadow p-4">
+    <div className="row-span-2 bg-primary-900 rounded shadow p-4 space-y-2">
+      <div className="font-medium text-lg">計畫節電總量 (度)</div>
       <div className="flex flex-col w-full shadow overflow-auto rounded-t-lg">
-        <Table columns={POWER_SAVING_PLAN_COLUMNS} data={POWER_SAVING_PLAN_DATA} />
+        <Table columns={POWER_SAVING_PLAN_COLUMNS} data={_data} />
       </div>
     </div>
   );
@@ -922,7 +1050,9 @@ export default function ElectricityBaselinePage() {
                   'bg-primary-900 rounded shadow p-4 flex flex-col space-y-4 overflow-auto',
                   isPrediction || isEmpty(option) ? 'row-span-5' : 'row-span-3'
                 )}>
-                <div className="text-xl font-medium">{t('baselinePage:title')}</div>
+                <div className="text-xl font-medium">
+                  {isPowerSaving ? '節能技改項目 & 預期節電效益規劃表' : t('baselinePage:title')}
+                </div>
                 <ButtonGroup
                   className="self-center"
                   options={BUTTON_GROUP_OPTIONS}
@@ -944,12 +1074,6 @@ export default function ElectricityBaselinePage() {
                   {isBaseline && <BaselineSearch {...option} business={business} />}
                   {isPrediction && <PredictionSearch {...option} business={business} />}
                   {isPowerSaving && <BaselineSearch {...option} business={business} />}
-                  {isPowerSaving && (
-                    <Button className="absolute right-8">
-                      <PlusIcon className="h-5 w-5" />
-                      新增技改項目
-                    </Button>
-                  )}
                 </div>
                 {isBaseline && <BaselinePanel {...option} business={business} />}
                 {isPrediction && <PredictionPanel {...option} business={business} />}
