@@ -45,7 +45,7 @@ export function toRow({ plants = [], ...data } = {}) {
 export const wasteApi = createApi({
   reducerPath: 'wasteApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: ['EXPLANATION'],
+  tagTypes: ['EXPLANATION', 'WASTE_UPLOAD'],
   endpoints: (builder) => ({
     getWaste: builder.query({
       query: (query) => ({ query, url: 'waste' }),
@@ -63,6 +63,7 @@ export const wasteApi = createApi({
           data: [...records, ...total].map(toRow),
         };
       },
+      providesTags: ['WASTE_UPLOAD'],
     }),
     getWasteHistory: builder.query({
       query: (query) => ({ query, url: 'waste/history' }),
@@ -114,6 +115,7 @@ export const wasteApi = createApi({
         method: 'POST',
         data: formData,
       }),
+      invalidatesTags: ['WASTE_UPLOAD'],
     }),
   }),
 });
