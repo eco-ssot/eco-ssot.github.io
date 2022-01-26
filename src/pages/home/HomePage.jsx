@@ -56,7 +56,7 @@ export default function HomePage() {
                 <TagSelect
                   options={yearOptions}
                   selected={yearOptions?.find((option) => option.key === y)}
-                  onChange={navigate}
+                  onChange={(e) => navigate({ ...e, compare_year: Number(e.y) - 1 })}
                   queryKey="y"
                 />
                 {`01 - `}
