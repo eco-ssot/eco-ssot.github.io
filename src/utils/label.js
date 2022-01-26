@@ -7,7 +7,7 @@ export function getTargetLabel(target = '', baseYear = '', isHistory = false, ln
     }
 
     if (/占比|佔比/.test(target)) {
-      return `Target : ${target.replace(/占比|佔比/, 'Percentage')}`;
+      return `Target : ${String(target).replace(/占比|佔比/, 'Percentage')}`;
     }
 
     const decimalNumber = getDecimalNumber(target);

@@ -14,7 +14,7 @@ export function formatYtm(date) {
   return `1-${month}`;
 }
 
-export function formatTarget(target, lng = 'en') {
+export function formatTarget(target = '', lng = 'en') {
   if (isNil(target)) {
     return '-';
   }
@@ -23,5 +23,5 @@ export function formatTarget(target, lng = 'en') {
     return target;
   }
 
-  return target.replace(/下降/, 'Baseline - ');
+  return String(target).replace(/下降/, 'Baseline - ');
 }
