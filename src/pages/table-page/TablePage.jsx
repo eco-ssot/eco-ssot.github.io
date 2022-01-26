@@ -29,6 +29,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
                       business: option.business,
                       y: option.y,
                       m: option.m,
+                      cy: option.cy,
                       ...(!isHistory && { ...prevOption }),
                     },
                     { merge: false }
