@@ -827,6 +827,7 @@ export function TabPanel({ children }) {
   return children({
     y,
     m,
+    cy,
     business,
     option,
     isBaseline,
@@ -970,6 +971,7 @@ export default function ElectricityBaselinePage() {
                       {
                         y,
                         m,
+                        cy,
                         business,
                         hash: e.key,
                         ...refs[BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === e.key)].current,
