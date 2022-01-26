@@ -20,7 +20,7 @@ export function Nav({ hidden, children, to, pathname, search }) {
   const match = pathname.endsWith(to);
   return (
     <Link
-      to={{ pathname: to, search: qs.pick(search, ['business', 'y', 'm']) }}
+      to={{ pathname: to, search: qs.pick(search, ['business', 'y', 'm', 'cy']) }}
       className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10', hidden && 'hidden')}>
       {match && <div className="absolute w-1 h-full bg-primary-600"></div>}
       <div className={clsx('ml-4', match && 'font-medium')}>{children}</div>
@@ -96,7 +96,7 @@ export default function ManagementPage() {
         <Redirect
           exact
           from="/management"
-          to={{ pathname: '/management/goal', search: qs.pick(search, ['business', 'y', 'm']) }}
+          to={{ pathname: '/management/goal', search: qs.pick(search, ['business', 'y', 'm', 'cy']) }}
         />
       </Switch>
     </div>

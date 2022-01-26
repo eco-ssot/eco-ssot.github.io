@@ -25,7 +25,7 @@ export default function NavBar({ className }) {
                 to={{
                   pathname: path,
                   state: { from: pathname },
-                  search: qs.pick(search, ['business', 'y', 'm']),
+                  search: qs.pick(search, ['business', 'y', 'm', 'cy']),
                 }}
                 className="text-current text-lg font-medium">
                 <span className="block truncate">{t(key)}</span>
