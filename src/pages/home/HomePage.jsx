@@ -76,7 +76,7 @@ export default function HomePage() {
                 label={`${t('compareYear')} : `}
                 selected={compareYearOptions.find((option) => option.key === compareYear)}
                 onChange={navigate}
-                queryKey="year"
+                queryKey="compare_year"
               />
             </div>
           </>
