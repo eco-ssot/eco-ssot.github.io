@@ -118,7 +118,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('electricityIntensity')} to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
-          baseYear={compareYear || APP_CONFIG.BASE_YEAR_ELECTRICITY}
+          baseYear={compareYear || compareYearOptions[0].key}
           compareYear={compareYear || compareYearOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={electricPowerUtilization?.latestDate || latestDate}
@@ -136,7 +136,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('unitElectricity')} to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
-          baseYear={compareYear || APP_CONFIG.BASE_YEAR_UNIT_ELECTRICITY}
+          baseYear={compareYear || compareYearOptions[0].key}
           compareYear={compareYear || compareYearOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={singleElectric?.latestDate || latestDate}
