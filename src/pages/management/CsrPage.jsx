@@ -3,11 +3,14 @@ import { useMemo, useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { get } from 'lodash';
+import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { selectLatestMonth, selectLatestYear, selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
+import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
@@ -17,6 +20,11 @@ import { navigate } from '../../router/helpers';
 import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { plantRenderer, updateMyData } from '../../utils/table';
+
+const BUTTON_GROUP_OPTIONS = [
+  { key: 'ELECTRICITY', value: 'electricity' },
+  { key: 'WATER', value: 'water' },
+];
 
 export const STATUS_MAPPING = {
   0: 'bg-gray-50',
@@ -36,61 +44,44 @@ const csrRenderer = (cell) => {
 
 const ratioRenderer = (cell) => baseFormatter(cell.value, { precision: 1, unit: 1e-2, suffix: '%' });
 
-const COLUMNS = ({ setData, postCsrComment }) => [
+const COLUMNS = ({ setData, postCsrComment, isWater }) => [
   {
     Header: 'Plant',
     accessor: 'plant',
     rowSpan: 0,
-    className: 'w-[10%] text-center',
+    className: 'text-center',
     Cell: plantRenderer,
   },
   {
-    id: 'electric',
-    Header: () => <div className="border-b border-divider py-1">用電</div>,
-    columns: [
-      { Header: 'FEM 智慧電表', accessor: 'electric.fem_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
-      { Header: 'CSR 電費帳單', accessor: 'electric.csr_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
-      { Header: '差異 *', accessor: 'electric.diff', Cell: ratioRenderer, className: 'text-right w-[6%] px-2' },
-      {
-        Header: '描述',
-        accessor: 'electric.comment',
-        className: 'w-[12%] text-center',
-        editable: true,
-        editableComponentProps: { className: 'text-left' },
-      },
-    ],
+    Header: `FEM 智慧${isWater ? '水' : '電'}表`,
+    accessor: 'fem_amount',
+    Cell: csrRenderer,
   },
+  { Header: 'CSR 電費帳單', accessor: 'csr_amount', Cell: csrRenderer },
+  { Header: '差異 *', accessor: 'diff', Cell: ratioRenderer, className: 'text-right' },
   {
-    id: 'water',
-    Header: () => <div className="border-b border-divider py-1">用水</div>,
-    columns: [
-      { Header: 'FEM 智慧水表', accessor: 'water.fem_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
-      { Header: 'CSR 水費帳單', accessor: 'water.csr_amount', Cell: csrRenderer, className: 'w-[12%] px-2' },
-      { Header: '差異 *', accessor: 'water.diff', Cell: ratioRenderer, className: 'text-right w-[6%] px-2' },
-      {
-        Header: '描述',
-        accessor: 'water.comment',
-        className: 'w-[12%] text-center',
-        editable: true,
-        editableComponentProps: { className: 'text-left' },
-      },
-    ],
+    Header: '描述',
+    accessor: 'comment',
+    className: 'w-[50%] px-8 !text-left',
+    editable: true,
+    editableComponentProps: { className: 'text-left', wrapperClassName: 'w-full' },
   },
   {
     id: 'action',
     Header: '編輯',
     rowSpan: 0,
-    className: 'w-[6%] text-center',
+    className: 'text-center px-4',
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <EditableButton
           onClick={() => {
-            const { plant, electric, water } = cell.row.original;
+            const { plant, comment } = cell.row.original;
             postCsrComment({
               plant: String(plant).split('(')[0].trim(),
-              water_comment: water.comment,
-              electric_comment: electric.comment,
+              electric_comment: comment,
+              ...(isWater && { water_comment: comment }),
             });
+
             setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
@@ -124,24 +115,38 @@ export default function CsrPage() {
   const yearOptions = useSelector(selectYoptions);
   const currYear = useSelector(selectLatestYear);
   const currMonth = useSelector(selectLatestMonth);
+  const { hash, search } = useLocation();
+  const { y, m, cy } = qs.parse(search);
   const [searchOption, setSearchOption] = useState({ year, month });
   const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
   const [_data, setData] = useState();
   const [postCsrComment] = usePostCsrCommentMutation();
+  const isWater = BUTTON_GROUP_OPTIONS[1].key === hash.slice(1);
   const columns = useMemo(
     () =>
       COLUMNS({
+        isWater,
         setData,
         postCsrComment: (payload) => postCsrComment({ year: year || currYear, month: month || currMonth, ...payload }),
       }),
-    [postCsrComment, year, month, currYear, currMonth]
+    [postCsrComment, setData, year, month, currYear, currMonth, isWater]
   );
 
-  useEffect(() => data && setData(data.data), [data]);
+  useEffect(() => {
+    if (data) {
+      setData(isWater ? data.water : data.electricity);
+    }
+  }, [data, isWater]);
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
         <div className="text-xl font-medium">CSR 對照 (每月最後一日更新)</div>
+        <ButtonGroup
+          className="self-center"
+          options={BUTTON_GROUP_OPTIONS}
+          selected={isWater ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
+          onChange={(e) => navigate({ y, m, cy, hash: e.key })}
+        />
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
@@ -182,9 +187,9 @@ export default function CsrPage() {
         <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
           <EditableTable
             columns={columns}
-            data={_data || []}
+            data={_data}
             getCellProps={(cell) => ({ className: '!py-1' })}
-            getHeaderProps={(header) => ({ className: '!py-1' })}
+            getHeaderProps={(header) => ({ className: '!py-2' })}
             updateMyData={updateMyData(setData)}
           />
         </div>

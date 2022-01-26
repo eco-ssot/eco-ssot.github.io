@@ -31,6 +31,13 @@ export const managementApi = createApi({
     getCsrStatus: builder.query({
       providesTags: ['CSR'],
       query: (query) => ({ query, url: 'data-status/csr-compare' }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          electricity: res.data.map(({ plant, electric }) => ({ plant, ...electric })),
+          water: res.data.map(({ plant, water }) => ({ plant, ...water })),
+        };
+      },
     }),
     postCsrComment: builder.mutation({
       invalidatesTags: ['CSR'],

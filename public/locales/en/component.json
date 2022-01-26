@@ -4,7 +4,9 @@
     "historyYear": "History Years",
     "baseline": "Baseline",
     "prediction": "Prediction",
-    "powerSaving": "Power Saving"
+    "powerSaving": "Power Saving",
+    "water": "Water",
+    "electricity": "Electricity"
   },
   "selectLabel": {
     "searchYear": "Year",
