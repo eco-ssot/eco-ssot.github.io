@@ -20,7 +20,7 @@ export function toFormattedNumber(
 }
 
 export function getDecimalNumber(value = '') {
-  const [num] = value.match(/[1-9]\d*(\.\d+)?/g) || [];
+  const [num] = String(value).match(/[1-9]\d*(\.\d+)?/g) || [];
   return num;
 }
 
