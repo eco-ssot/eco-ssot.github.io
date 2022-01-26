@@ -6,7 +6,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { selectCurrMonth, selectCurrYear, selectYearOptions } from '../../app/appSlice';
+import { selectCurrMonth, selectCurrYear, selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
@@ -121,7 +121,7 @@ export default function CsrPage() {
   const { t } = useTranslation(['managementPage']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
-  const yearOptions = useSelector(selectYearOptions);
+  const yearOptions = useSelector(selectYoptions);
   const currYear = useSelector(selectCurrYear);
   const currMonth = useSelector(selectCurrMonth);
   const [searchOption, setSearchOption] = useState({ year, month });

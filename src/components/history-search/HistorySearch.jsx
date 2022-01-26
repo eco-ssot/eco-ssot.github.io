@@ -5,7 +5,7 @@ import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { selectYearOptions } from '../../app/appSlice';
+import { selectYoptions } from '../../app/appSlice';
 import APP_CONFIG from '../../constants/app-config';
 import Button from '../button/Button';
 import Select from '../select/Select';
@@ -72,7 +72,7 @@ export function getQuery({
 export default function HistorySearch({ downloadResource, option = {}, onSearch = () => {} }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const yearOptions = useSelector(selectYearOptions);
+  const yearOptions = useSelector(selectYoptions);
   const sameYear = isSameYear({ yearOptions, ...searchOption });
   const startYearOptions = getStartYearOptions({ yearOptions, searchOption });
   const endYearOptions = getEndYearOptions({ yearOptions, searchOption });

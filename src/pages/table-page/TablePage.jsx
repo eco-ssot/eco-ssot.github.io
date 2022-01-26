@@ -24,7 +24,13 @@ export default function TablePage({ title, downloadResource, table: Table, histo
                 selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
                 onChange={(e) =>
                   navigate(
-                    { hash: e.key, business: option.business, ...(!isHistory && { ...prevOption }) },
+                    {
+                      hash: e.key,
+                      business: option.business,
+                      y: option.y,
+                      m: option.m,
+                      ...(!isHistory && { ...prevOption }),
+                    },
                     { merge: false }
                   )
                 }

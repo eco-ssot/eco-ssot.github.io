@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
-import { selectCurrMonth, selectYearOptions } from '../../app/appSlice';
+import { selectCurrMonth, selectYoptions } from '../../app/appSlice';
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -815,7 +815,7 @@ export function PowerSavingPlanPanel({ year, plant, business }) {
 
 export function TabPanel({ children }) {
   const { hash, search } = useLocation();
-  const { lng, business, ...option } = qs.parse(search);
+  const { lng, business, y, m, ...option } = qs.parse(search);
   const tabIndex = BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === hash.slice(1));
   const baselineRef = useRef({});
   const predictionRef = useRef({});
@@ -825,6 +825,8 @@ export function TabPanel({ children }) {
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
   return children({
+    y,
+    m,
     business,
     option,
     isBaseline,
@@ -835,10 +837,10 @@ export function TabPanel({ children }) {
   });
 }
 
-export function BaselineSearch({ business, ...option }) {
+export function BaselineSearch({ business, y, m, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const yearOptions = useSelector(selectYearOptions);
+  const yearOptions = useSelector(selectYoptions);
   const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
   useEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
@@ -876,10 +878,10 @@ export function BaselineSearch({ business, ...option }) {
   );
 }
 
-export function PredictionSearch({ business, ...option }) {
+export function PredictionSearch({ business, y, m, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const yearOptions = useSelector(selectYearOptions);
+  const yearOptions = useSelector(selectYoptions);
   const currMonth = useSelector(selectCurrMonth);
   const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
   const byMonth = searchOption.categorized === 'month';
@@ -949,7 +951,7 @@ export default function ElectricityBaselinePage() {
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
         <TabPanel>
-          {({ isBaseline, isPrediction, isPowerSaving, option, business, tabIndex, refs }) => (
+          {({ isBaseline, isPrediction, isPowerSaving, option, business, y, m, tabIndex, refs }) => (
             <>
               <div
                 className={clsx(
@@ -966,6 +968,8 @@ export default function ElectricityBaselinePage() {
                   onChange={(e) => {
                     navigate(
                       {
+                        y,
+                        m,
                         business,
                         hash: e.key,
                         ...refs[BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === e.key)].current,

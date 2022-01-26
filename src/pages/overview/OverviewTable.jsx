@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { selectCurrYear, selectLastYear, selectMissingPlants } from '../../app/appSlice';
+import { selectCurrY, selectLastY, selectMissingPlants } from '../../app/appSlice';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
@@ -64,8 +64,8 @@ export default function OverviewTable({ business, y, m }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const { data } = useGetOverviewQuery({ business, year: y, month: m });
   const missingPlants = useSelector(selectMissingPlants);
-  const currYear = useSelector(selectCurrYear);
-  const lastYear = useSelector(selectLastYear);
+  const currYear = useSelector(selectCurrY);
+  const lastYear = useSelector(selectLastY);
   const columns = useMemo(
     () => COLUMNS({ t, currYear, lastYear, missing: missingPlants }),
     [t, currYear, lastYear, missingPlants]
