@@ -36,8 +36,12 @@ export default function HomePage() {
     []
   );
 
-  const compareYearOptions = useMemo(
-    () => (y ? yearOptions.filter((option) => Number(option.key) < Number(y)) : yearOptions.slice(1)),
+  const yOptions = useMemo(() => yearOptions.filter((option) => Number(option.key) > 2020), [yearOptions]);
+  const cyOptions = useMemo(
+    () =>
+      (y ? yearOptions.filter((option) => Number(option.key) < Number(y)) : yearOptions.slice(1)).filter(
+        (option) => Number(option.key) > 2019
+      ),
     [yearOptions, y]
   );
 
@@ -54,8 +58,8 @@ export default function HomePage() {
               <div className="pl-3 flex items-center">
                 {`${t('accumulationRange')} : `}
                 <TagSelect
-                  options={yearOptions}
-                  selected={yearOptions?.find((option) => option.key === y)}
+                  options={yOptions}
+                  selected={yOptions?.find((option) => option.key === y)}
                   onChange={(e) => navigate({ ...e, cy: Number(e.y) - 1 })}
                   queryKey="y"
                 />
@@ -72,20 +76,16 @@ export default function HomePage() {
               </div>
               <Divider className="border-primary-600 ml-0" />
               <TagSelect
-                options={compareYearOptions}
+                options={cyOptions}
                 label={`${t('compareYear')} : `}
-                selected={compareYearOptions.find((option) => option.key === compareYear)}
+                selected={cyOptions.find((option) => option.key === compareYear)}
                 onChange={navigate}
                 queryKey="cy"
               />
             </div>
           </>
         }>
-        <Overview
-          data={data}
-          compareYear={compareYear || compareYearOptions[0].key}
-          currentYear={y || yearOptions[0].key}
-        />
+        <Overview data={data} compareYear={compareYear || cyOptions[0].key} currentYear={y || yearOptions[0].key} />
       </Panel>
       <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
@@ -107,7 +107,7 @@ export default function HomePage() {
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONFIG.BASE_YEAR_CARBON}
-          compareYear={compareYear || compareYearOptions[0].key}
+          compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={CO2Emission?.latestDate || latestDate}
         />
@@ -118,8 +118,8 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('electricityIntensity')} to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
-          baseYear={compareYear || compareYearOptions[0].key}
-          compareYear={compareYear || compareYearOptions[0].key}
+          baseYear={compareYear || cyOptions[0].key}
+          compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={electricPowerUtilization?.latestDate || latestDate}
         />
@@ -128,7 +128,7 @@ export default function HomePage() {
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WATER}
-          compareYear={compareYear || compareYearOptions[0].key}
+          compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={waterUse?.latestDate || latestDate}
         />
@@ -136,8 +136,8 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('unitElectricity')} to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
-          baseYear={compareYear || compareYearOptions[0].key}
-          compareYear={compareYear || compareYearOptions[0].key}
+          baseYear={compareYear || cyOptions[0].key}
+          compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={singleElectric?.latestDate || latestDate}
         />
@@ -146,7 +146,7 @@ export default function HomePage() {
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONFIG.BASE_YEAR_WASTE}
-          compareYear={compareYear || compareYearOptions[0].key}
+          compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={waste?.latestDate || latestDate}
         />
