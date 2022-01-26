@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
-import { selectCurrMonth, selectYoptions } from '../../app/appSlice';
+import { selectLatestMonth, selectYoptions } from '../../app/appSlice';
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -883,7 +883,7 @@ export function PredictionSearch({ business, y, m, cy, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYoptions);
-  const currMonth = useSelector(selectCurrMonth);
+  const currMonth = useSelector(selectLatestMonth);
   const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
   const byMonth = searchOption.categorized === 'month';
   useEffect(() => {

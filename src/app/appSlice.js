@@ -44,5 +44,14 @@ export const selectCurrM = createSelector(selectReducer, selectM, (state, m) => 
 export const selectMissingPlants = createSelector(selectReducer, (state) => state.missingPlants);
 export const selectLatestDate = createSelector(selectReducer, (state) => state.dateInfo.latestDate);
 export const selectYoptions = createSelector(selectReducer, (state) => state.dateInfo.yOptions);
+export const selectLatestYear = createSelector(
+  selectReducer,
+  (state) => state.dateInfo.latestYear || state.dateInfo.currYear
+);
+
+export const selectLatestMonth = createSelector(
+  selectReducer,
+  (state) => state.dateInfo.latestMonth || state.dateInfo.currMonth
+);
 
 export default appSlice.reducer;
