@@ -34,8 +34,18 @@ export const managementApi = createApi({
       transformResponse: (res) => {
         return {
           ...res,
-          electricity: res.data.map(({ plant, electric }) => ({ plant, ...electric })),
-          water: res.data.map(({ plant, water }) => ({ plant, ...water })),
+          electricity: res.data.map(({ plant, electric, water }) => ({
+            plant,
+            electric_comment: electric.comment,
+            water_comment: water.comment,
+            ...electric,
+          })),
+          water: res.data.map(({ plant, electric, water }) => ({
+            plant,
+            electric_comment: electric.comment,
+            water_comment: water.comment,
+            ...water,
+          })),
         };
       },
     }),

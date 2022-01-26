@@ -57,7 +57,7 @@ const COLUMNS = ({ setData, postCsrComment, isWater }) => [
     accessor: 'fem_amount',
     Cell: csrRenderer,
   },
-  { Header: 'CSR 電費帳單', accessor: 'csr_amount', Cell: csrRenderer },
+  { Header: `CSR ${isWater ? '水' : '電'}費帳單`, accessor: 'csr_amount', Cell: csrRenderer },
   { Header: '差異 *', accessor: 'diff', Cell: ratioRenderer, className: 'text-right' },
   {
     Header: '描述',
@@ -75,11 +75,12 @@ const COLUMNS = ({ setData, postCsrComment, isWater }) => [
       return cell.row.original.editing ? (
         <EditableButton
           onClick={() => {
-            const { plant, comment } = cell.row.original;
+            const { plant, comment, electric_comment, water_comment } = cell.row.original;
             postCsrComment({
               plant: String(plant).split('(')[0].trim(),
-              electric_comment: comment,
-              ...(isWater && { water_comment: comment }),
+              electric_comment,
+              water_comment,
+              ...(isWater ? { water_comment: comment } : { electric_comment: comment }),
             });
 
             setData((prev) =>
