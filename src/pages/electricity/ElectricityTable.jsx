@@ -134,9 +134,9 @@ const COLUMNS = ({ t, business, missing, currYear = APP_CONFIG.CURRENT_YEAR, las
     })),
   ]);
 
-export default function ElectricityTable({ business }) {
+export default function ElectricityTable({ business, y, m }) {
   const { t } = useTranslation(['electricityPage', 'common']);
-  const { data } = useGetElectricityQuery({ business });
+  const { data } = useGetElectricityQuery({ business, year: y, month: m });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(

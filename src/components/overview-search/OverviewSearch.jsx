@@ -8,13 +8,11 @@ import { selectYearOptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetSummaryQuery } from '../../services/app';
 
 export default function OverviewSearch({ downloadResource, option = {}, onSearch = () => {} }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYearOptions);
-  useGetSummaryQuery();
   return (
     <div className="w-full grid grid-cols-12 py-4 items-center">
       <div></div>

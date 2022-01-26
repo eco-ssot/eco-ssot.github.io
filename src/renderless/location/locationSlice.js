@@ -42,5 +42,7 @@ export const selectStartMonth = createSelector(selectQuery, (state) => state.sta
 export const selectEndMonth = createSelector(selectQuery, (state) => state.endMonth);
 export const selectCategorized = createSelector(selectQuery, (state) => state.categorized);
 export const selectMonth = createSelector(selectQuery, (state) => state.month);
+export const selectY = createSelector(selectQuery, (state) => state.y);
+export const selectM = createSelector(selectQuery, (state) => state.m);
 
 export default locationSlice.reducer;

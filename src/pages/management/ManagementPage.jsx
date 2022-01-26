@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import clsx from 'clsx';
+import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation, Link } from 'react-router-dom';
@@ -15,14 +16,11 @@ import DataStatusPage from './DataStatusPage';
 import GoalPage from './GoalPage';
 import PicPage from './PicPage';
 
-export function Nav({ hidden, children, to, pathname, business }) {
+export function Nav({ hidden, children, to, pathname, search }) {
   const match = pathname.endsWith(to);
   return (
     <Link
-      to={{
-        pathname: to,
-        ...(business && { search: `?business=${business}` }),
-      }}
+      to={{ pathname: to, search: qs.pick(search, ['business', 'y', 'm']) }}
       className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10', hidden && 'hidden')}>
       {match && <div className="absolute w-1 h-full bg-primary-600"></div>}
       <div className={clsx('ml-4', match && 'font-medium')}>{children}</div>
@@ -34,7 +32,7 @@ export default function ManagementPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
   const { keycloak, roles, canEdit } = useAdmin();
   const { data: users = [] } = useGetUsersQuery();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const business = useSelector(selectBusiness);
   const logout = useCallback(() => {
     keycloak?.logout();
@@ -61,16 +59,16 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col py-4 space-y-2">
-              <Nav to="/management/goal" pathname={pathname} business={business}>
+              <Nav to="/management/goal" pathname={pathname} search={search}>
                 {t('managementPage:nav.goal')}
               </Nav>
-              <Nav to="/management/data-status" pathname={pathname} business={business}>
+              <Nav to="/management/data-status" pathname={pathname} search={search}>
                 {t('managementPage:nav.dataStatus')}
               </Nav>
-              <Nav to="/management/csr" pathname={pathname} business={business}>
+              <Nav to="/management/csr" pathname={pathname} search={search}>
                 CSR 對照
               </Nav>
-              <Nav to="/management/pic" pathname={pathname} business={business}>
+              <Nav to="/management/pic" pathname={pathname} search={search}>
                 {t('managementPage:nav.pic')}
               </Nav>
             </div>
@@ -98,7 +96,7 @@ export default function ManagementPage() {
         <Redirect
           exact
           from="/management"
-          to={{ pathname: '/management/goal', ...(business && { search: `?business=${business}` }) }}
+          to={{ pathname: '/management/goal', search: qs.pick(search, ['business', 'y', 'm']) }}
         />
       </Switch>
     </div>

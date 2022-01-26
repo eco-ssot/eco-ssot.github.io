@@ -14,7 +14,6 @@ import EditableTable, { EditableButton, EditableIconButton } from '../../compone
 import APP_CONFIG from '../../constants/app-config';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
-import { useGetSummaryQuery } from '../../services/app';
 import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { plantRenderer, updateMyData } from '../../utils/table';
@@ -139,7 +138,6 @@ export default function CsrPage() {
   );
 
   useEffect(() => data && setData(data.data), [data]);
-  useGetSummaryQuery();
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">

@@ -60,9 +60,9 @@ export const COLUMNS = ({ t, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYe
     })),
   ]);
 
-export default function OverviewTable({ business }) {
+export default function OverviewTable({ business, y, m }) {
   const { t } = useTranslation(['overviewPage', 'common']);
-  const { data } = useGetOverviewQuery({ business });
+  const { data } = useGetOverviewQuery({ business, year: y, month: m });
   const missingPlants = useSelector(selectMissingPlants);
   const currYear = useSelector(selectCurrYear);
   const lastYear = useSelector(selectLastYear);

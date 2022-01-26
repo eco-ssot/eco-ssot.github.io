@@ -82,9 +82,9 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
     })),
   ]);
 
-export default function RenewableEnergyTable({ business }) {
+export default function RenewableEnergyTable({ business, y, m }) {
   const { t } = useTranslation(['renewableEnergyPage', 'common']);
-  const { data } = useGetRenewableEnergyQuery({ business });
+  const { data } = useGetRenewableEnergyQuery({ business, year: y, month: m });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, pct } = useGoal({ keyword: '可再生能源' });
   const columns = useMemo(() => COLUMNS({ t, pct, missing: missingPlants }), [pct, t, missingPlants]);

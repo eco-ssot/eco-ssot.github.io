@@ -107,6 +107,9 @@ export const appApi = createApi({
               currYear: String(currYear),
               lastYear: String(lastYear),
               currMonth: String(currMonth),
+              ...(!query && {
+                yOptions: yearOptions,
+              }),
             })
           );
 

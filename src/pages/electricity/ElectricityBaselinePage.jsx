@@ -25,7 +25,6 @@ import EditableTable, {
 import Table from '../../components/table/Table';
 import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
-import { useGetSummaryQuery } from '../../services/app';
 import {
   useGetElectricityPredictionQuery,
   useGetElectricityBaselineQuery,
@@ -847,7 +846,6 @@ export function BaselineSearch({ business, ...option }) {
     }
   }, [plantOptions, option]);
 
-  useGetSummaryQuery();
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
@@ -891,7 +889,6 @@ export function PredictionSearch({ business, ...option }) {
     }
   }, [plantOptions, option]);
 
-  useGetSummaryQuery();
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select

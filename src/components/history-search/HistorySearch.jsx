@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 import { selectYearOptions } from '../../app/appSlice';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetSummaryQuery } from '../../services/app';
 import Button from '../button/Button';
 import Select from '../select/Select';
 
@@ -79,7 +78,6 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
   const endYearOptions = getEndYearOptions({ yearOptions, searchOption });
   const startMonthOptions = getStartMonthOptions(searchOption);
   const endMonthOptions = getEndMonthOptions(searchOption);
-  useGetSummaryQuery();
   return (
     <div className="w-full grid grid-cols-12 py-4 items-center">
       <div></div>
