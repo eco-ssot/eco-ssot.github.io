@@ -1,9 +1,18 @@
+import { useState } from 'react';
+
 import clsx from 'clsx';
 import { subMonths } from 'date-fns';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { selectLatestMonth, selectLatestYear, selectYoptions } from '../../app/appSlice';
+import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
+import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
+import APP_CONFIG from '../../constants/app-config';
+import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
+import { navigate } from '../../router/helpers';
 import { useGetDataStatusQuery } from '../../services/management';
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
@@ -120,18 +129,54 @@ function getLabel(t) {
 
 export default function DataStatusPage() {
   const { t } = useTranslation(['managementPage']);
+  const year = useSelector(selectYear);
+  const month = useSelector(selectMonth);
+  const yearOptions = useSelector(selectYoptions);
+  const currYear = useSelector(selectLatestYear);
+  const currMonth = useSelector(selectLatestMonth);
+  const [searchOption, setSearchOption] = useState({ year: year || currYear, month: month || currMonth });
   const { data } = useGetDataStatusQuery();
   return (
     <div className="row-span-2 col-span-7">
-      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-2">
+      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
         <div className="text-xl font-medium space-y-2">{getLabel(t)}</div>
-        <div className="flex justify-end space-x-4">
-          <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
-          <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
-          <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
-          <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
+        <div className="flex space-x-8 justify-center">
+          <Select
+            label="查詢年度 : "
+            options={yearOptions || APP_CONFIG.YEAR_OPTIONS}
+            selected={(yearOptions || APP_CONFIG.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+            onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+            buttonClassName="min-w-28"
+          />
+          <Select
+            label="查詢月份 : "
+            buttonClassName="w-24"
+            options={APP_CONFIG.MONTH_OPTIONS}
+            selected={
+              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth)
+            }
+            onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
+          />
+          <Button
+            onClick={() =>
+              navigate({
+                year: searchOption.year || currYear,
+                month: searchOption.month || APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
+              })
+            }>
+            搜尋
+          </Button>
         </div>
-        <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
+        <div className="absolute right-10">
+          <div className="flex justify-end space-x-4">
+            <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
+            <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
+            <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
+            <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
+          </div>
+          <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
+        </div>
         {data && (
           <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
             <Table
