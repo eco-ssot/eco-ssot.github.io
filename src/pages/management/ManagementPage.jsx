@@ -15,6 +15,7 @@ import CsrPage from './CsrPage';
 import DataStatusPage from './DataStatusPage';
 import GoalPage from './GoalPage';
 import PicPage from './PicPage';
+import VersionPage from './VersionPage';
 
 export function Nav({ hidden, children, to, pathname, search }) {
   const match = pathname.endsWith(to);
@@ -71,6 +72,9 @@ export default function ManagementPage() {
               <Nav to="/management/pic" pathname={pathname} search={search}>
                 {t('managementPage:nav.pic')}
               </Nav>
+              <Nav to="/management/version" pathname={pathname} search={search}>
+                版本異動
+              </Nav>
             </div>
           </div>
           <div className="border-t border-divider text-center mx-4">
@@ -92,6 +96,9 @@ export default function ManagementPage() {
         </Route>
         <Route exact path="/management/pic">
           <PicPage canEdit={canEdit} users={users} />
+        </Route>
+        <Route exact path="/management/version">
+          <VersionPage />
         </Route>
         <Redirect
           exact

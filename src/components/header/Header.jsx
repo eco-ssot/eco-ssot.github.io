@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import packageJson from '../../../package.json';
+import version from '../../../version.json';
 import APP_CONFIG from '../../constants/app-config';
 import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage } from '../../renderless/location/locationSlice';
@@ -23,7 +23,9 @@ export default function Header({ className }) {
       <Link className="flex items-center space-x-4" to="/">
         <img className="h-10 w-10" src="/logo-64x64.png" alt="logo" />
         <div className="block truncate font-medium text-xl">{t('title')}</div>
-        <div className="block truncate text-unit text-sm">Ver {packageJson.version}</div>
+        <div className="block truncate text-unit text-sm">
+          Ver {Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}
+        </div>
       </Link>
       <Divider className="h-1/2" />
       {keycloak?.authenticated ? (
