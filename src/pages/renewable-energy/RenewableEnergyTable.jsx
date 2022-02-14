@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { selectMissingPlants } from '../../app/appSlice';
+import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
-import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
@@ -93,10 +93,10 @@ export default function RenewableEnergyTable({ business, y, m }) {
       <DualTag
         className="absolute top-2 right-4"
         labels={[
-          <>
+          <div className="flex items-center">
             {`${t('common:accumulationRange')} : `}
-            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
-          </>,
+            <GlobalDateSelect />
+          </div>,
           label,
         ]}
       />

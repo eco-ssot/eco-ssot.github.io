@@ -14,6 +14,7 @@ import IconButton from '../../components/button/IconButton';
 import Dot from '../../components/dot/Dot';
 import FileInput from '../../components/input/FileInput';
 import Modal from '../../components/modal/Modal';
+import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
@@ -281,10 +282,10 @@ export default function WasteTable({ business, y, m }) {
       <DualTag
         className="absolute top-2 right-4"
         labels={[
-          <>
+          <div className="flex items-center">
             {`${t('common:accumulationRange')} : `}
-            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
-          </>,
+            <GlobalDateSelect />
+          </div>,
           label,
         ]}
       />

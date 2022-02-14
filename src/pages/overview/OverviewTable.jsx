@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { selectCurrY, selectLastY, selectMissingPlants } from '../../app/appSlice';
+import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
-import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
@@ -73,8 +73,8 @@ export default function OverviewTable({ business, y, m }) {
 
   return (
     <>
-      <Tag className="absolute top-2 right-4">
-        {t('common:accumulationRange')} : <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
+      <Tag className="absolute top-2 right-4 pr-0">
+        {t('common:accumulationRange')} : <GlobalDateSelect />
       </Tag>
       {data && (
         <>

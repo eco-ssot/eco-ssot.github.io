@@ -7,7 +7,7 @@ export default function DualTag({ className, labels = [] }) {
   return (
     <div className={clsx('flex h-8 rounded shadow px-2 bg-primary-800 border-primary-600 items-center', className)}>
       <div>{left}</div>
-      <Divider className="border-primary-600 border-r-2 h-5" />
+      <Divider className="border-primary-600 border-r-2 h-5 ml-0" />
       <div>{right}</div>
     </div>
   );

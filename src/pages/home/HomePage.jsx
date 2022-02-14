@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { selectLatestDate, selectMissingPlants, selectYoptions } from '../../app/appSlice';
 import Divider from '../../components/divider/Divider';
 import Panel from '../../components/panel/Panel';
+import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import TagSelect from '../../components/select/TagSelect';
 import APP_CONFIG from '../../constants/app-config';
 import { selectBusiness, selectCompareYear, selectY, selectM } from '../../renderless/location/locationSlice';
@@ -31,12 +32,6 @@ export default function HomePage() {
   const missingPlants = useSelector(selectMissingPlants);
   const latestDate = useSelector(selectLatestDate);
   const { data = {} } = useGetSummaryQuery({ business, year: y, month: m, compare_year: compareYear });
-  const mOptions = useMemo(
-    () => APP_CONFIG.MONTH_OPTIONS.map((option) => ({ ...option, value: option.value.padStart(2, 0) })),
-    []
-  );
-
-  const yOptions = useMemo(() => yearOptions.filter((option) => Number(option.key) > 2020), [yearOptions]);
   const cyOptions = useMemo(
     () =>
       (y ? yearOptions.filter((option) => Number(option.key) < Number(y)) : yearOptions.slice(1)).filter(
@@ -45,7 +40,7 @@ export default function HomePage() {
     [yearOptions, y]
   );
 
-  const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, currMonth } = data;
+  const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse } = data;
   return (
     <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
@@ -57,22 +52,7 @@ export default function HomePage() {
             <div className="w-auto h-8 items-center flex rounded shadow bg-primary-800">
               <div className="pl-3 flex items-center">
                 {`${t('accumulationRange')} : `}
-                <TagSelect
-                  options={yOptions}
-                  selected={yOptions?.find((option) => option.key === y)}
-                  onChange={(e) => navigate({ ...e, cy: Number(e.y) - 1 })}
-                  queryKey="y"
-                />
-                {`01 - `}
-                <TagSelect
-                  className="w-16"
-                  options={mOptions}
-                  selected={
-                    mOptions.find((option) => option.key === m) || mOptions.find((option) => option.key === currMonth)
-                  }
-                  onChange={navigate}
-                  queryKey="m"
-                />
+                <GlobalDateSelect />
               </div>
               <Divider className="border-primary-600 ml-0" />
               <TagSelect

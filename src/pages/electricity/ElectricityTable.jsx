@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 import { selectMissingPlants } from '../../app/appSlice';
 import Dot from '../../components/dot/Dot';
+import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetElectricityQuery } from '../../services/electricity';
-import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
@@ -149,10 +149,10 @@ export default function ElectricityTable({ business, y, m }) {
       <DualTag
         className="absolute top-2 right-4"
         labels={[
-          <>
+          <div className="flex items-center">
             {`${t('common:accumulationRange')} : `}
-            <span className="text-lg font-medium">{formatMonthRange(data?.maxDate)}</span>
-          </>,
+            <GlobalDateSelect />
+          </div>,
           label,
         ]}
       />
