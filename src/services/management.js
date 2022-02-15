@@ -8,7 +8,7 @@ export const managementApi = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getDataStatus: builder.query({
-      query: () => ({ url: 'data-status' }),
+      query: (query) => ({ query, url: 'data-status' }),
     }),
     getDataStatusPic: builder.query({
       query: () => ({ url: 'data-status/pic' }),
