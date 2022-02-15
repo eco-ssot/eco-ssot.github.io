@@ -121,7 +121,12 @@ export default function CarbonTable({ business, y, m }) {
       <div className="h-6"></div>
       {data && (
         <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-          <Table columns={columns} data={data?.data || []} getRowProps={getHidePlantRowProps} />
+          <Table
+            columns={columns}
+            data={data?.data || []}
+            getRowProps={getHidePlantRowProps}
+            autoResetExpanded={false}
+          />
         </div>
       )}
     </>

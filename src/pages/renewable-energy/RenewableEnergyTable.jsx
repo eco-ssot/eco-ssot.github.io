@@ -104,7 +104,12 @@ export default function RenewableEnergyTable({ business, y, m }) {
         <>
           <div className="w-full h-6 text-right">{t('renewableEnergyPage:ratioDesc')}</div>
           <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
-            <Table columns={columns} data={data?.data || []} getRowProps={getHidePlantRowProps} />
+            <Table
+              columns={columns}
+              data={data?.data || []}
+              getRowProps={getHidePlantRowProps}
+              autoResetExpanded={false}
+            />
           </div>
         </>
       )}

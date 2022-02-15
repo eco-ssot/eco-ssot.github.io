@@ -13,11 +13,13 @@ export default function Table({
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
   stickyHeader = true,
+  autoResetExpanded = true,
 }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
       data,
+      autoResetExpanded,
     },
     useExpanded
   );
