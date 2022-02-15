@@ -139,7 +139,9 @@ export default function DataStatusPage() {
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
-        <div className="text-xl font-medium space-y-2">{getLabel(t)}</div>
+        <div className="text-xl font-medium space-y-2 h-10">
+          {((!year && !month) || (year === currYear && month === currMonth)) && getLabel(t)}
+        </div>
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
