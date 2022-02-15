@@ -14,11 +14,10 @@ import { updateMyData } from '../../utils/table';
 const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
   {
-    hidden: true,
     id: 'opm',
     Header: () => (
       <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-        <div className="px-2">OPM</div>
+        <div className="px-2">營收 & 出貨 (WT)</div>
         <div className="px-2 text-gray-400 text-sm">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
