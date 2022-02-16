@@ -106,7 +106,7 @@ const COLUMNS_BY_SITE = ({ setData, canEdit, year }) => [
   {
     Header: 'Site',
     accessor: 'site',
-    className: 'text-center w-1/3',
+    className: 'text-center w-1/3 py-3',
   },
   {
     Header: (header) => {
@@ -161,6 +161,7 @@ export default function Trec({ className, canEdit, data, dataBySite, year }) {
           data={_dataBySite || []}
           updateMyData={updateMyData(setDataBySite)}
           setData={setDataBySite}
+          getHeaderProps={() => ({ className: '!py-0 h-[3.25rem]' })}
         />
       </div>
     </div>
