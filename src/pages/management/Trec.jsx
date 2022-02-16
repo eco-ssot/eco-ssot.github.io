@@ -2,42 +2,44 @@ import { useEffect, useState, useMemo } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import { partition } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
-import { selectLanguage } from '../../renderless/location/locationSlice';
+import { usePatchTrecBySiteMutation, usePatchTrecMutation, usePostTrecMutation } from '../../services/app';
 import { baseFormatter } from '../../utils/formatter';
+import { trimNumber } from '../../utils/number';
 import { updateMyData } from '../../utils/table';
 
-const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
+const COLUMNS = ({ t, setData, year, canEdit, data = [] }) => [
   {
     Header: t('managementPage:tRec.table.buyDate'),
-    accessor: 'buyDate',
+    accessor: 'date_at',
     rowSpan: data.length || 1,
     className: 'w-[15%] text-center',
     editable: true,
   },
   {
     Header: t('managementPage:tRec.table.unit'),
-    accessor: 'unit',
+    accessor: 'total_amount',
     rowSpan: data.length || 1,
     className: 'w-[15%] text-center',
-    editable: true,
+    formatter: baseFormatter,
   },
   {
     Header: t('managementPage:tRec.table.buyArea'),
-    accessor: 'buyArea',
+    accessor: 'region',
     className: 'w-[15%] text-center py-2',
     editable: true,
     placeholder: '地區',
   },
   {
     Header: t('managementPage:tRec.table.buyUnit'),
-    accessor: 'buyUnit',
+    accessor: 'buy_amount',
     className: 'w-[15%] text-center',
     editable: true,
-    placeholder: '張數',
+    placeholder: '度數',
+    formatter: baseFormatter,
   },
   {
     Header: t('managementPage:tRec.table.price'),
@@ -45,6 +47,7 @@ const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
     className: 'w-[15%] text-center',
     editable: true,
     placeholder: '價格',
+    formatter: baseFormatter,
   },
   {
     Header: t('managementPage:tRec.table.currency'),
@@ -59,11 +62,26 @@ const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
     className: 'w-[10%] text-center',
     rowSpan: data.length || 1,
     Cell: (cell) => {
+      const [patchTrec] = usePatchTrecMutation();
+      const [postTrec] = usePostTrecMutation();
       return cell.row.original.editing ? (
         <EditableButton
-          onClick={() =>
-            setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'))
-          }>
+          onClick={() => {
+            const rows = cell.rows.map((row) => row.original).filter((row) => row.id !== 'addRow');
+            const [oldRows, newRows] = partition(rows, ({ id }) => id);
+            oldRows
+              .filter(({ modified }) => modified)
+              .forEach(({ id, buy_amount, price, ...rest }) =>
+                patchTrec({
+                  year,
+                  id,
+                  data: { ...rest, buy_amount: trimNumber(buy_amount), price: trimNumber(price) },
+                })
+              );
+
+            newRows.forEach((row) => postTrec({ year, data: { date_at: rows[0]?.date_at, ...row } }));
+            setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'));
+          }}>
           {t('component:button.save')}
         </EditableButton>
       ) : (
@@ -84,109 +102,63 @@ const COLUMNS = ({ t, setData, canEdit, data = [] }) => [
   },
 ];
 
-const COLUMNS_BY_SITE = ({ setData }) => [
+const COLUMNS_BY_SITE = ({ setData, canEdit, year }) => [
   {
     Header: 'Site',
     accessor: 'site',
-    className: 'text-center',
+    className: 'text-center w-1/3',
   },
   {
     Header: (header) => {
       const isEditing = header.data.some(({ editing }) => editing);
+      const [patchTrec] = usePatchTrecBySiteMutation();
       return (
         <div className="flex space-x-2 justify-end items-center">
           <div>綠證</div>
           {isEditing ? (
-            <EditableButton onClick={() => setData((prev) => prev.map((d) => ({ ...d, editing: false })))}>
+            <EditableButton
+              onClick={() => {
+                const rows = header.rows.map((row) => row.original).filter((row) => row.modified);
+                rows.forEach(({ site, amount }) => patchTrec({ year, site, data: { amount: trimNumber(amount) } }));
+                setData((prev) => prev.map((d) => ({ ...d, editing: false })));
+              }}>
               儲存
             </EditableButton>
           ) : (
-            <EditableIconButton onClick={() => setData((prev) => prev.map((d) => ({ ...d, editing: true })))}>
+            <EditableIconButton
+              onClick={() => setData((prev) => prev.map((d) => ({ ...d, editing: true })))}
+              disabled={!canEdit}>
               <PencilIcon className="w-5 h-5" />
             </EditableIconButton>
           )}
         </div>
       );
     },
-    accessor: 'value',
+    accessor: 'amount',
     className: 'text-right pr-4 py-2',
     editable: true,
     formatter: baseFormatter,
-    editableComponentProps: { className: 'text-left' },
+    editableComponentProps: { className: 'text-right', wrapperClassName: 'translate-x-3' },
   },
 ];
 
-const DATA = (lng) => [
-  {
-    buyDate: '2021.12.24',
-    unit: '200,517',
-    buyArea: '中國',
-    buyUnit: '200,517',
-    price: '620,641',
-    currency: '人民幣',
-    ...(lng === 'en' && {
-      buyArea: 'China',
-      currency: 'CNY',
-    }),
-  },
-  // {
-  //   buyDate: '2020.12.29',
-  //   unit: '344,000',
-  //   buyArea: '台灣',
-  //   buyUnit: '0',
-  //   price: '0',
-  //   currency: '新台幣',
-  //   ...(lng === 'en' && {
-  //     buyArea: 'Taiwan',
-  //     currency: 'NTD',
-  //   }),
-  // },
-  // {
-  //   buyDate: '2020.12.29',
-  //   unit: '344,000',
-  //   buyArea: '捷克',
-  //   buyUnit: '156,000',
-  //   price: '150,000',
-  //   currency: '捷克克朗',
-  //   ...(lng === 'en' && {
-  //     buyArea: 'Czech Republic',
-  //     currency: 'CZK',
-  //   }),
-  // },
-];
-
-const DATA_BY_SITE = [
-  { site: 'WKS', value: 19009837 },
-  { site: 'WOK', value: 26786129 },
-  { site: 'WTZ', value: 18163901 },
-  { site: 'WZS', value: 61511384 },
-  { site: 'WCD', value: 20795157 },
-  { site: 'WCQ', value: 7729877 },
-  { site: 'WIH', value: 9550922 },
-  { site: 'WCZ', value: 3372709 },
-  { site: 'WMX', value: 8156708 },
-  { site: 'Wiwynn', value: 15275268 },
-  { site: 'WNH', value: 3600284 },
-  { site: 'WNH', value: 6564824 },
-];
-
-export default function Trec({ className, canEdit }) {
+export default function Trec({ className, canEdit, data, dataBySite, year }) {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
-  const lng = useSelector(selectLanguage);
-  const [data, setData] = useState(DATA(lng));
-  const [dataBySite, setDataBySite] = useState(DATA_BY_SITE);
-  const columns = useMemo(() => COLUMNS({ t, setData, data, canEdit }), [t, data, canEdit]);
-  const columnsBySite = useMemo(() => COLUMNS_BY_SITE({ setData: setDataBySite }), []);
-  useEffect(() => setData(DATA(lng)), [lng]);
+  const [_data, setData] = useState(data);
+  const [_dataBySite, setDataBySite] = useState(dataBySite);
+  const columns = useMemo(() => COLUMNS({ t, setData, canEdit, year, data: _data }), [t, _data, canEdit, year]);
+  const columnsBySite = useMemo(() => COLUMNS_BY_SITE({ canEdit, year, setData: setDataBySite }), [canEdit, year]);
+  useEffect(() => data && setData(data), [data]);
+  useEffect(() => dataBySite && setDataBySite(dataBySite), [dataBySite]);
   return (
     <div className="grid grid-cols-4 gap-4 h-full overflow-auto">
       <div className={clsx('col-span-3 flex flex-col shadow overflow-auto rounded-t-lg', className)}>
-        <EditableTable columns={columns} data={data} updateMyData={updateMyData(setData)} setData={setData} />
+        <EditableTable columns={columns} data={_data || []} updateMyData={updateMyData(setData)} setData={setData} />
       </div>
       <div className={clsx('col-span-1 flex flex-col shadow overflow-auto rounded-t-lg', className)}>
         <EditableTable
           columns={columnsBySite}
-          data={dataBySite}
+          data={_dataBySite || []}
           updateMyData={updateMyData(setDataBySite)}
           setData={setDataBySite}
         />

@@ -10,7 +10,7 @@ export function toFormattedNumber(
   const formattedValue = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: nextPrecision,
     maximumFractionDigits: nextPrecision,
-  }).format(value / unit);
+  }).format(trimNumber(value) / unit);
 
   if (/NaN|∞|Infinity/gi.test(String(formattedValue))) {
     return defaultValue;

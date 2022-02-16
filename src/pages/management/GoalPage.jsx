@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import Select from '../../components/select/Select';
 import APP_CONFIG from '../../constants/app-config';
-import { useGetGoalQuery, useGetCarbonIndexQuery } from '../../services/app';
+import { useGetGoalQuery, useGetCarbonIndexQuery, useGetTrecQuery, useGetTrecBySiteQuery } from '../../services/app';
 
 import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';
@@ -17,6 +17,8 @@ export default function GoalPage({ business, canEdit }) {
   const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
   const goalRes = useGetGoalQuery({ business, year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
+  const tRecRes = useGetTrecQuery({ year: tRecYear });
+  const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear });
   return (
     <>
       <div className="row-span-1 col-span-7">
@@ -75,7 +77,13 @@ export default function GoalPage({ business, canEdit }) {
               />
             </div>
           </div>
-          <Trec className="flex flex-col flex-grow" canEdit={canEdit} />
+          <Trec
+            className="flex flex-col flex-grow"
+            year={tRecYear}
+            data={tRecRes.data?.data}
+            dataBySite={tRecBySiteRes.data?.data}
+            canEdit={canEdit}
+          />
         </div>
       </div>
     </>

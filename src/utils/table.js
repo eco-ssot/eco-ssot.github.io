@@ -68,6 +68,7 @@ export const updateMyData = (setData) => (rowIndex, columnId, value) => {
               [p2]: value,
             },
           }),
+          modified: true,
         };
       }
 

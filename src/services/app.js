@@ -84,7 +84,7 @@ const syncGoals =
 export const appApi = createApi({
   reducerPath: 'appApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: ['YEAR_GOAL', 'CARBON_INDEX'],
+  tagTypes: ['YEAR_GOAL', 'CARBON_INDEX', 'TREC'],
   endpoints: (builder) => ({
     getSummary: builder.query({
       providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
@@ -157,6 +157,13 @@ export const appApi = createApi({
       },
       providesTags: ['CARBON_INDEX'],
     }),
+    getTrec: builder.query({
+      query: ({ year }) => ({ url: `settings/${year}/rec` }),
+      providesTags: ['TREC'],
+    }),
+    getTrecBySite: builder.query({
+      query: ({ year }) => ({ url: `settings/${year}/rec/sites` }),
+    }),
     patchGoal: builder.mutation({
       queryFn: (query) => {
         return syncGoals()(query);
@@ -171,6 +178,30 @@ export const appApi = createApi({
       }),
       invalidatesTags: ['CARBON_INDEX'],
     }),
+    patchTrec: builder.mutation({
+      query: ({ year, id, data }) => ({
+        data,
+        url: `settings/${year}/rec/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['TREC'],
+    }),
+    patchTrecBySite: builder.mutation({
+      query: ({ year, site, data }) => ({
+        data,
+        url: `settings/${year}/rec/sites/${site}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['TREC'],
+    }),
+    postTrec: builder.mutation({
+      query: ({ year, data }) => ({
+        data,
+        url: `settings/${year}/rec`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['TREC'],
+    }),
   }),
 });
 
@@ -178,6 +209,11 @@ export const {
   useGetSummaryQuery,
   useGetGoalQuery,
   useGetCarbonIndexQuery,
+  useGetTrecQuery,
+  useGetTrecBySiteQuery,
   usePatchGoalMutation,
   usePatchCarbonIndexMutation,
+  usePatchTrecMutation,
+  usePatchTrecBySiteMutation,
+  usePostTrecMutation,
 } = appApi;
