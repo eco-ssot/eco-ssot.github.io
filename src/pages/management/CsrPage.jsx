@@ -3,18 +3,17 @@ import { useMemo, useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { get } from 'lodash';
-import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectLatestMonth, selectLatestYear, selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
-import APP_CONFIG from '../../constants/app-config';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
@@ -116,8 +115,7 @@ export default function CsrPage() {
   const yearOptions = useSelector(selectYoptions);
   const currYear = useSelector(selectLatestYear);
   const currMonth = useSelector(selectLatestMonth);
-  const { hash, search } = useLocation();
-  const { y, m, cy } = qs.parse(search);
+  const { hash } = useLocation();
   const [searchOption, setSearchOption] = useState({ year, month });
   const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
   const [_data, setData] = useState();
@@ -146,23 +144,23 @@ export default function CsrPage() {
           className="self-center"
           options={BUTTON_GROUP_OPTIONS}
           selected={isWater ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
-          onChange={(e) => navigate({ y, m, cy, hash: e.key })}
+          onChange={(e) => navigate({ hash: e.key })}
         />
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
-            options={yearOptions || APP_CONFIG.YEAR_OPTIONS}
-            selected={(yearOptions || APP_CONFIG.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+            options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+            selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
             buttonClassName="min-w-28"
           />
           <Select
             label="查詢月份 : "
             buttonClassName="w-24"
-            options={APP_CONFIG.MONTH_OPTIONS}
+            options={APP_CONSTANTS.MONTH_OPTIONS}
             selected={
-              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth)
+              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
             }
             onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
           />
@@ -170,7 +168,7 @@ export default function CsrPage() {
             onClick={() =>
               navigate({
                 year: searchOption.year || currYear,
-                month: searchOption.month || APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
+                month: searchOption.month || APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
               })
             }>
             搜尋

@@ -6,18 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectMissingPlants } from '../../app/appSlice';
 import Dot from '../../components/dot/Dot';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
-import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetElectricityQuery } from '../../services/electricity';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
+const HEADERS = ({ t, business, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) => [
   {
     key: 'electricity',
     name: t('electricityPage:table.electricity.header'),
@@ -113,7 +113,13 @@ const HEADERS = ({ t, business, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = A
   },
 ];
 
-const COLUMNS = ({ t, business, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({
+  t,
+  business,
+  missing,
+  currYear = APP_CONSTANTS.CURRENT_YEAR,
+  lastYear = APP_CONSTANTS.LAST_YEAR,
+} = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {

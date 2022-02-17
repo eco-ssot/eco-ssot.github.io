@@ -3,11 +3,11 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectCurrY, selectLastY, selectMissingPlants } from '../../app/appSlice';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
-import APP_CONFIG from '../../constants/app-config';
 import { useGetOverviewQuery } from '../../services/overview';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
@@ -19,7 +19,12 @@ export const HEADERS = [
   { key: 'asp', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
 ];
 
-export const COLUMNS = ({ t, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+export const COLUMNS = ({
+  t,
+  missing,
+  currYear = APP_CONSTANTS.CURRENT_YEAR,
+  lastYear = APP_CONSTANTS.LAST_YEAR,
+} = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {

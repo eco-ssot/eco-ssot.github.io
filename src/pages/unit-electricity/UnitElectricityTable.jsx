@@ -3,17 +3,17 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectMissingPlants } from '../../app/appSlice';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
-import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) => [
+const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) => [
   {
     key: 'electricity',
     name: t('unitElectricityPage:table.electricity.header'),
@@ -55,7 +55,7 @@ const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CO
   },
 ];
 
-const COLUMNS = ({ t, pct, missing, currYear = APP_CONFIG.CURRENT_YEAR, lastYear = APP_CONFIG.LAST_YEAR } = {}) =>
+const COLUMNS = ({ t, pct, missing, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {

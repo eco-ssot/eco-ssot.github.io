@@ -3,6 +3,7 @@ import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { privateRoutes } from '../../router/routes';
 
 export default function NavBar({ className }) {
@@ -25,7 +26,7 @@ export default function NavBar({ className }) {
                 to={{
                   pathname: path,
                   state: { from: pathname },
-                  search: qs.pick(search, ['business', 'y', 'm', 'cy']),
+                  search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
                 }}
                 className="text-current text-lg font-medium">
                 <span className="block truncate">{t(key)}</span>

@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import HistorySearch from '../../components/history-search/HistorySearch';
 import Legend from '../../components/legend/Legend';
 import OverviewSearch from '../../components/overview-search/OverviewSearch';
 import PageContainer from '../../components/page-container/PageContainer';
-import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
 
 import TablePanel from './TablePanel';
@@ -20,16 +20,12 @@ export default function TablePage({ title, downloadResource, table: Table, histo
           <>
             <div className="flex justify-center items-end">
               <ButtonGroup
-                options={APP_CONFIG.HISTORY_OPTIONS}
-                selected={isHistory ? APP_CONFIG.HISTORY_OPTIONS[1] : APP_CONFIG.HISTORY_OPTIONS[0]}
+                options={APP_CONSTANTS.HISTORY_OPTIONS}
+                selected={isHistory ? APP_CONSTANTS.HISTORY_OPTIONS[1] : APP_CONSTANTS.HISTORY_OPTIONS[0]}
                 onChange={(e) =>
                   navigate(
                     {
                       hash: e.key,
-                      business: option.business,
-                      y: option.y,
-                      m: option.m,
-                      cy: option.cy,
                       ...(!isHistory && { ...prevOption }),
                     },
                     { merge: false }

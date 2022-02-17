@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { isNil } from 'lodash';
 import { useTable } from 'react-table';
 
-import APP_CONFIG from '../../constants/app-config';
+import APP_CONSTANTS from '../../app/appConstants';
 import { formatTarget } from '../../pages/management/helpers';
 import { getDecimalNumber } from '../../utils/number';
 import Button from '../button/Button';
@@ -162,8 +162,8 @@ const EditableCell = ({
       {isNil(initialValue) || initialValue === ''
         ? id === 'baseYear'
           ? category === '可再生能源'
-            ? year || APP_CONFIG.BASE_YEAR
-            : (year && year - 1) || APP_CONFIG.LAST_YEAR
+            ? year || APP_CONSTANTS.BASE_YEAR
+            : (year && year - 1) || APP_CONSTANTS.LAST_YEAR
           : '-'
         : id === 'target'
         ? formatTarget(initialValue, lng)

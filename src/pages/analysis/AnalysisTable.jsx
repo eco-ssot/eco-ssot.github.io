@@ -8,6 +8,7 @@ import { differenceInWeeks, isValid, isPast } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import Dot from '../../components/dot/Dot';
 import DatePicker from '../../components/input/DatePicker';
 import Legend from '../../components/legend/Legend';
@@ -19,7 +20,6 @@ import {
   EditableIconButton,
   AdSearchSelectCell,
 } from '../../components/table/EditableTable';
-import APP_CONFIG from '../../constants/app-config';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
 import DeleteModal from './DeleteModal';
@@ -59,7 +59,7 @@ export function AnalysisSubTable({
   const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
   const electricityOptions = useMemo(
     () =>
-      APP_CONFIG.ELECTRICITY_OPTIONS.map((option) => ({
+      APP_CONSTANTS.ELECTRICITY_OPTIONS.map((option) => ({
         ...option,
         value: t(`component:electricityOptions.${option.key}`),
       })),
@@ -183,7 +183,7 @@ export function AnalysisSubTable({
                                 completedDate,
                                 PIC,
                                 ...(hasCategory && {
-                                  category: category || APP_CONFIG.ELECTRICITY_OPTIONS[0].value,
+                                  category: category || APP_CONSTANTS.ELECTRICITY_OPTIONS[0].value,
                                 }),
                               });
 

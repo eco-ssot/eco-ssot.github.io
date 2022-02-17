@@ -7,7 +7,7 @@ const YEAR_OPTIONS = Array.from({ length: CURRENT_YEAR - BASE_YEAR + 1 }, (_, i)
 }));
 
 const BUSINESS_OPTIONS = [
-  { key: 'ALL', value: 'ALL', alias: 'W.W' },
+  { key: 'ALL', value: 'ALL', alias: 'ALL' },
   { key: 'WT', value: 'WT', alias: 'WT' },
   { key: 'WSD', value: 'WSD', alias: 'WSD' },
 ];
@@ -110,8 +110,9 @@ const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
 const NO_DATA = 'No Data';
+const GLOBAL_QUERY_KEYS = ['business', 'y', 'm', 'cy', 's', 'p'];
 
-const APP_CONFIG = {
+const APP_CONSTANTS = {
   NO_DATA,
   BUSINESS_OPTIONS,
   YEAR_OPTIONS,
@@ -134,6 +135,7 @@ const APP_CONFIG = {
   ELECTRICITY_OPTIONS,
   DEPRECIATED_PLANTS,
   HIDE_PLANTS,
+  GLOBAL_QUERY_KEYS,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),
@@ -144,4 +146,4 @@ const APP_CONFIG = {
   BASE_YEAR_WASTE: process.env.REACT_APP_BASE_YEAR_WASTE || '2018',
 };
 
-export default APP_CONFIG;
+export default APP_CONSTANTS;

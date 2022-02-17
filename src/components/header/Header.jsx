@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { ReactComponent as PdfIcon } from '../../../public/icons/file-pdf-solid.svg';
 import version from '../../../version.json';
-import APP_CONFIG from '../../constants/app-config';
+import APP_CONSTANTS from '../../app/appConstants';
 import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
@@ -33,9 +33,9 @@ export default function Header({ className }) {
         <>
           <GhostSelect
             className="w-32"
-            options={APP_CONFIG.BUSINESS_OPTIONS}
+            options={APP_CONSTANTS.BUSINESS_OPTIONS}
             onChange={navigate}
-            selected={APP_CONFIG.BUSINESS_OPTIONS.find((option) => option.key === business)}
+            selected={APP_CONSTANTS.BUSINESS_OPTIONS.find((option) => option.key === business)}
             queryKey="business"
           />
           <Divider className="h-1/2" />
@@ -47,12 +47,15 @@ export default function Header({ className }) {
           <Divider className="h-1/2" />
         </>
       ) : (
-        <div className="flex-grow"></div>
+        <>
+          <div className="flex-grow"></div>
+          <Divider className="h-1/2" />
+        </>
       )}
       <GhostSelect
         className="w-32"
-        options={APP_CONFIG.LANGUAGE_OPTIONS}
-        selected={APP_CONFIG.LANGUAGE_OPTIONS.find((option) => lng?.startsWith(option.key))}
+        options={APP_CONSTANTS.LANGUAGE_OPTIONS}
+        selected={APP_CONSTANTS.LANGUAGE_OPTIONS.find((option) => lng?.startsWith(option.key))}
         onChange={navigate}
         queryKey="lng"
       />

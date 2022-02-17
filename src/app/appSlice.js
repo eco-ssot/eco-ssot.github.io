@@ -1,18 +1,19 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { subMonths } from 'date-fns';
 
-import APP_CONFIG from '../constants/app-config';
 import { selectM, selectY } from '../renderless/location/locationSlice';
+
+import APP_CONSTANTS from './appConstants';
 
 const initialState = {
   missingPlants: [],
   dateInfo: {
     latestDate: String(new Date()),
-    yearOptions: APP_CONFIG.YEAR_OPTIONS,
-    currYear: APP_CONFIG.CURRENT_YEAR,
-    lastYear: APP_CONFIG.LAST_YEAR,
+    yearOptions: APP_CONSTANTS.YEAR_OPTIONS,
+    currYear: APP_CONSTANTS.CURRENT_YEAR,
+    lastYear: APP_CONSTANTS.LAST_YEAR,
     currMonth: String(subMonths(new Date(), 1).getMonth() + 1),
-    yOptions: APP_CONFIG.YEAR_OPTIONS,
+    yOptions: APP_CONSTANTS.YEAR_OPTIONS,
   },
 };
 

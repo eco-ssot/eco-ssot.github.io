@@ -5,12 +5,12 @@ import { subMonths } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectLatestMonth, selectLatestYear, selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
-import APP_CONFIG from '../../constants/app-config';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetDataStatusQuery } from '../../services/management';
@@ -145,18 +145,18 @@ export default function DataStatusPage() {
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
-            options={yearOptions || APP_CONFIG.YEAR_OPTIONS}
-            selected={(yearOptions || APP_CONFIG.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+            options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+            selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
             buttonClassName="min-w-28"
           />
           <Select
             label="查詢月份 : "
             buttonClassName="w-24"
-            options={APP_CONFIG.MONTH_OPTIONS}
+            options={APP_CONSTANTS.MONTH_OPTIONS}
             selected={
-              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-              APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth)
+              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
             }
             onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
           />
@@ -164,7 +164,7 @@ export default function DataStatusPage() {
             onClick={() =>
               navigate({
                 year: searchOption.year || currYear,
-                month: searchOption.month || APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
+                month: searchOption.month || APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
               })
             }>
             搜尋

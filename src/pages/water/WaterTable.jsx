@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectMissingPlants } from '../../app/appSlice';
 import Dot from '../../components/dot/Dot';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
-import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetWaterQuery } from '../../services/water';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -21,9 +21,9 @@ const HEADERS = ({
   t,
   business,
   pct,
-  currYear = APP_CONFIG.CURRENT_YEAR,
-  lastYear = APP_CONFIG.LAST_YEAR,
-  baseYear = APP_CONFIG.BASE_YEAR_WATER,
+  currYear = APP_CONSTANTS.CURRENT_YEAR,
+  lastYear = APP_CONSTANTS.LAST_YEAR,
+  baseYear = APP_CONSTANTS.BASE_YEAR_WATER,
 } = {}) => [
   {
     key: 'water',
@@ -119,9 +119,9 @@ const COLUMNS = ({
   business,
   pct,
   missing,
-  currYear = APP_CONFIG.CURRENT_YEAR,
-  lastYear = APP_CONFIG.LAST_YEAR,
-  baseYear = APP_CONFIG.BASE_YEAR_WATER,
+  currYear = APP_CONSTANTS.CURRENT_YEAR,
+  lastYear = APP_CONSTANTS.LAST_YEAR,
+  baseYear = APP_CONSTANTS.BASE_YEAR_WATER,
 } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },

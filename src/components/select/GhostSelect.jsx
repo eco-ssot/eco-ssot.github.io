@@ -23,7 +23,7 @@ export default function GhostSelect({
                 open ? 'border-primary-600' : 'border-primary-800',
                 buttonClassName
               )}>
-              <span className="block truncate text-lg">{selected.value}</span>
+              <span className="block truncate text-lg">{selected.alias || selected.value}</span>
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                 <ChevronDownIcon className="h-5 w-5 text-gray-50" aria-hidden="true" />
               </span>

@@ -1,9 +1,9 @@
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
-import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetWasteHistoryQuery } from '../../services/waste';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
@@ -14,14 +14,17 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
   if (!isNil(monthType)) {
     columns = Array.from({ length: Number(endYear) - Number(startYear) + 1 }, (_, i) => {
       const key = Number(startYear) + i;
-      const header = t(monthType === APP_CONFIG.MONTH_RANGE_MAPPING.YTM ? 'common:history.ytm' : 'common:history.m', {
-        startYear: key,
-        endMonthNum: endMonth,
-        endMonth: new Date().setMonth(Number(endMonth) - 1),
-        formatParams: {
-          endMonth: { month: 'short' },
-        },
-      });
+      const header = t(
+        monthType === APP_CONSTANTS.MONTH_RANGE_MAPPING.YTM ? 'common:history.ytm' : 'common:history.m',
+        {
+          startYear: key,
+          endMonthNum: endMonth,
+          endMonth: new Date().setMonth(Number(endMonth) - 1),
+          formatParams: {
+            endMonth: { month: 'short' },
+          },
+        }
+      );
 
       return {
         id: key,

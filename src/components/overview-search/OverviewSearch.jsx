@@ -4,10 +4,10 @@ import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Select from '../../components/select/Select';
-import APP_CONFIG from '../../constants/app-config';
 
 export default function OverviewSearch({ downloadResource, option = {}, onSearch = () => {} }) {
   const { t } = useTranslation(['component']);
@@ -27,8 +27,8 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
         <Select
           buttonClassName="w-36"
           label={`${t('selectLabel.dimension')} : `}
-          options={APP_CONFIG.DIMENSION_OPTIONS}
-          selected={APP_CONFIG.DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
+          options={APP_CONSTANTS.DIMENSION_OPTIONS}
+          selected={APP_CONSTANTS.DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, dimension: e.key }))}
         />
         <Button
@@ -36,7 +36,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
             onSearch({
               ...searchOption,
               year: searchOption.year || yearOptions[0].key,
-              dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
+              dimension: searchOption.dimension || APP_CONSTANTS.DIMENSION_OPTIONS[0].key,
             })
           }>
           {t('button.search')}
@@ -51,7 +51,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
           href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify({
             ...searchOption,
             year: searchOption.year || yearOptions[0].key,
-            dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
+            dimension: searchOption.dimension || APP_CONSTANTS.DIMENSION_OPTIONS[0].key,
           })}`}>
           Excel
         </a>

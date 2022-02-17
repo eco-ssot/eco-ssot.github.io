@@ -1,9 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { chunk, isNil } from 'lodash';
 
+import APP_CONSTANTS from '../app/appConstants';
 import { setDateInfo, setMissingPlants } from '../app/appSlice';
 import axios from '../axios';
-import APP_CONFIG from '../constants/app-config';
 import { getMaxDate } from '../utils/date';
 import { getDecimalNumber } from '../utils/number';
 
@@ -25,7 +25,7 @@ const syncGoals =
       const decimal = getDecimalNumber(target);
       let patches = [];
       if (category === '可再生能源') {
-        const promises = APP_CONFIG.BUSINESS_OPTIONS.map((option) =>
+        const promises = APP_CONSTANTS.BUSINESS_OPTIONS.map((option) =>
           axios.get(`${baseUrl}settings/${year}/${option.value}/objective`)
         );
 
@@ -39,7 +39,7 @@ const syncGoals =
           return null;
         });
       } else {
-        const promises = APP_CONFIG.BUSINESS_OPTIONS.reduce(
+        const promises = APP_CONSTANTS.BUSINESS_OPTIONS.reduce(
           (prev, curr) =>
             prev.concat([
               axios.get(`${baseUrl}settings/${year}/${curr.value}/objective`),
@@ -102,7 +102,7 @@ export const appApi = createApi({
           const currYear = ld.getFullYear();
           const lastYear = currYear - 1;
           const currMonth = ld.getMonth() + 1;
-          const yearOptions = APP_CONFIG.YEAR_OPTIONS.filter((option) => Number(option.key) <= currYear);
+          const yearOptions = APP_CONSTANTS.YEAR_OPTIONS.filter((option) => Number(option.key) <= currYear);
           dispatch(
             setDateInfo({
               latestDate,
@@ -133,7 +133,7 @@ export const appApi = createApi({
       },
     }),
     getGoal: builder.query({
-      query: ({ year, business = APP_CONFIG.BUSINESS_MAPPING.ALL }) => ({
+      query: ({ year, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL }) => ({
         url: `settings/${year}/${business}/objective`,
       }),
       transformResponse: (res) => {

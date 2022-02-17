@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectCurrMonth, selectYoptions } from '../../app/appSlice';
-import APP_CONFIG from '../../constants/app-config';
 import { selectM, selectY } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 
@@ -15,7 +15,7 @@ export default function GlobalDateSelect() {
   const currMonth = useSelector(selectCurrMonth);
   const yearOptions = useSelector(selectYoptions);
   const mOptions = useMemo(
-    () => APP_CONFIG.MONTH_OPTIONS.map((option) => ({ ...option, value: option.value.padStart(2, 0) })),
+    () => APP_CONSTANTS.MONTH_OPTIONS.map((option) => ({ ...option, value: option.value.padStart(2, 0) })),
     []
   );
 

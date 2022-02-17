@@ -3,17 +3,17 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectMissingPlants } from '../../app/appSlice';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
-import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetCarbonQuery } from '../../services/carbon';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({ t, pct, currYear = APP_CONFIG.CURRENT_YEAR, baseYear = APP_CONFIG.BASE_YEAR_CARBON } = {}) => [
+const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, baseYear = APP_CONSTANTS.BASE_YEAR_CARBON } = {}) => [
   {
     key: 'electricity',
     name: t('carbonPage:table.electricity.header'),
@@ -67,8 +67,8 @@ const COLUMNS = ({
   t,
   pct,
   missing,
-  currYear = APP_CONFIG.CURRENT_YEAR,
-  baseYear = APP_CONFIG.BASE_YEAR_CARBON,
+  currYear = APP_CONSTANTS.CURRENT_YEAR,
+  baseYear = APP_CONSTANTS.BASE_YEAR_CARBON,
 } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },

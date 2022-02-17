@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useKeycloak as _useKeycloak } from '@react-keycloak/web';
 import { useUpdateEffect } from 'react-use';
 
-import APP_CONFIG from '../constants/app-config';
+import APP_CONSTANTS from '../app/appConstants';
 import history from '../router/history';
 
 import _KeycloakProvider from './KeycloakProvider';
@@ -15,7 +15,7 @@ const idTokenParsed = {
   preferred_username: 'dummy',
 };
 
-const realmAccess = { roles: [APP_CONFIG.DEVELOPER_ROLE, APP_CONFIG.MAINTAINER_ROLE] };
+const realmAccess = { roles: [APP_CONSTANTS.DEVELOPER_ROLE, APP_CONSTANTS.MAINTAINER_ROLE] };
 const authClient = {
   token,
   idTokenParsed,

@@ -5,8 +5,8 @@ import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectYoptions } from '../../app/appSlice';
-import APP_CONFIG from '../../constants/app-config';
 import Button from '../button/Button';
 import Select from '../select/Select';
 
@@ -31,14 +31,14 @@ export function getEndYearOptions({ yearOptions, searchOption }) {
 }
 
 export function getStartMonthOptions(searchOption) {
-  return APP_CONFIG.MONTH_OPTIONS.map((option) => ({
+  return APP_CONSTANTS.MONTH_OPTIONS.map((option) => ({
     ...option,
     disabled: Number(option.key) > Number(searchOption.endMonth),
   }));
 }
 
 export function getEndMonthOptions(searchOption) {
-  return APP_CONFIG.MONTH_OPTIONS.map((option) => ({
+  return APP_CONSTANTS.MONTH_OPTIONS.map((option) => ({
     ...option,
     disabled: Number(option.key) < Number(searchOption.startMonth),
   }));
@@ -57,14 +57,14 @@ export function getQuery({
     startYear: searchOption.startYear || startYearOptions.slice(-1)[0].key,
     endYear: searchOption.endYear || endYearOptions[0].key,
     endMonth: searchOption.endMonth || endMonthOptions.slice(-1)[0].key,
-    dimension: searchOption.dimension || APP_CONFIG.DIMENSION_OPTIONS[0].key,
+    dimension: searchOption.dimension || APP_CONSTANTS.DIMENSION_OPTIONS[0].key,
     ...(sameYear && {
       startMonth: searchOption.startMonth || startMonthOptions[0].key,
       monthType: null,
     }),
     ...(!sameYear && {
       startMonth: null,
-      monthType: searchOption.monthType || APP_CONFIG.MONTH_RANGE_OPTIONS[0].key,
+      monthType: searchOption.monthType || APP_CONSTANTS.MONTH_RANGE_OPTIONS[0].key,
     }),
   };
 }
@@ -102,10 +102,10 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         {!sameYear && (
           <Select
             label={`${t('selectLabel.searchMonth')} : `}
-            options={APP_CONFIG.MONTH_RANGE_OPTIONS}
+            options={APP_CONSTANTS.MONTH_RANGE_OPTIONS}
             buttonClassName="w-48"
             className="mr-2"
-            selected={APP_CONFIG.MONTH_RANGE_OPTIONS.find((option) => option.key === searchOption.monthType)}
+            selected={APP_CONSTANTS.MONTH_RANGE_OPTIONS.find((option) => option.key === searchOption.monthType)}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, monthType: e.key }))}
           />
         )}
@@ -120,13 +120,13 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           />
         )}
         <Select
-          options={APP_CONFIG.MONTH_OPTIONS}
+          options={APP_CONSTANTS.MONTH_OPTIONS}
           buttonClassName="w-24"
           optionClassName="max-h-screen"
           className="mr-8"
           selected={
-            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.endMonth) ||
-            APP_CONFIG.MONTH_OPTIONS.slice(-1)[0]
+            APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.endMonth) ||
+            APP_CONSTANTS.MONTH_OPTIONS.slice(-1)[0]
           }
           onChange={(e) => setSearchOption((prev) => ({ ...prev, endMonth: e.key }))}
           {...(sameYear && {
@@ -138,11 +138,11 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         />
         <Select
           label={`${t('selectLabel.dimension')} : `}
-          options={APP_CONFIG.DIMENSION_OPTIONS}
+          options={APP_CONSTANTS.DIMENSION_OPTIONS}
           buttonClassName="w-36"
           optionClassName="max-h-screen"
           className="mr-8"
-          selected={APP_CONFIG.DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
+          selected={APP_CONSTANTS.DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, dimension: e.key }))}
         />
         <Button

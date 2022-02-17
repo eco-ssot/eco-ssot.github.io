@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectMissingPlants } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
@@ -17,7 +18,6 @@ import Modal from '../../components/modal/Modal';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
-import APP_CONFIG from '../../constants/app-config';
 import useGoal from '../../hooks/useGoal';
 import { useGetWasteQuery, useUploadWasteExcelMutation } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
@@ -30,7 +30,7 @@ const HEADERS = ({
   pct,
   maxDate,
   currYear,
-  baseYear = APP_CONFIG.BASE_YEAR_WASTE,
+  baseYear = APP_CONSTANTS.BASE_YEAR_WASTE,
   setOpen = () => {},
 } = {}) => [
   {
@@ -164,7 +164,7 @@ const COLUMNS = ({
   maxDate,
   currYear,
   missing,
-  baseYear = APP_CONFIG.BASE_YEAR_WASTE,
+  baseYear = APP_CONSTANTS.BASE_YEAR_WASTE,
   setOpen = () => {},
 } = {}) =>
   addPaddingColumns([

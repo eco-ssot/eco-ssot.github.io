@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectLatestDate, selectMissingPlants, selectYoptions } from '../../app/appSlice';
 import Divider from '../../components/divider/Divider';
 import Panel from '../../components/panel/Panel';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import TagSelect from '../../components/select/TagSelect';
-import APP_CONFIG from '../../constants/app-config';
 import { selectBusiness, selectCompareYear, selectY, selectM } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
@@ -86,7 +86,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('carbonEmission')} to="/carbon">
         <Carbon
           data={CO2Emission}
-          baseYear={APP_CONFIG.BASE_YEAR_CARBON}
+          baseYear={APP_CONSTANTS.BASE_YEAR_CARBON}
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={CO2Emission?.latestDate || latestDate}
@@ -107,7 +107,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('waterIntensity')} to="/water">
         <Water
           data={waterUse?.intensity}
-          baseYear={APP_CONFIG.BASE_YEAR_WATER}
+          baseYear={APP_CONSTANTS.BASE_YEAR_WATER}
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={waterUse?.latestDate || latestDate}
@@ -125,7 +125,7 @@ export default function HomePage() {
       <Panel className="row-span-1 col-span-3 pb-2" title={t('wasteEmissionDensity')} to="/waste">
         <Waste
           data={waste?.intensity}
-          baseYear={APP_CONFIG.BASE_YEAR_WASTE}
+          baseYear={APP_CONSTANTS.BASE_YEAR_WASTE}
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={waste?.latestDate || latestDate}

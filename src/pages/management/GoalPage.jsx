@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import Select from '../../components/select/Select';
-import APP_CONFIG from '../../constants/app-config';
 import { useGetGoalQuery, useGetCarbonIndexQuery, useGetTrecQuery, useGetTrecBySiteQuery } from '../../services/app';
 
 import CarbonIndex from './CarbonIndex';
@@ -12,9 +12,9 @@ import YearGoal from './YearGoal';
 
 export default function GoalPage({ business, canEdit }) {
   const { t } = useTranslation(['managementPage', 'component']);
-  const [goalYear, setGoalYear] = useState(APP_CONFIG.CURRENT_YEAR);
-  const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONFIG.CURRENT_YEAR);
-  const [tRecYear, setTrecYear] = useState(APP_CONFIG.CURRENT_YEAR);
+  const [goalYear, setGoalYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
+  const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
+  const [tRecYear, setTrecYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const goalRes = useGetGoalQuery({ business, year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const tRecRes = useGetTrecQuery({ year: tRecYear });
@@ -28,8 +28,8 @@ export default function GoalPage({ business, canEdit }) {
             <div className="flex items-center">
               <Select
                 label={`${t('component:selectLabel.searchYear')} : `}
-                options={APP_CONFIG.YEAR_OPTIONS}
-                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === goalYear)}
+                options={APP_CONSTANTS.YEAR_OPTIONS}
+                selected={APP_CONSTANTS.YEAR_OPTIONS.find((option) => option.key === goalYear)}
                 onChange={(e) => setGoalYear(e.key)}
                 buttonClassName="min-w-28"
               />
@@ -48,8 +48,8 @@ export default function GoalPage({ business, canEdit }) {
             <div className="flex items-center">
               <Select
                 label={`${t('component:selectLabel.searchYear')} : `}
-                options={APP_CONFIG.YEAR_OPTIONS}
-                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
+                options={APP_CONSTANTS.YEAR_OPTIONS}
+                selected={APP_CONSTANTS.YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
                 onChange={(e) => setCarbonIndexYear(e.key)}
                 buttonClassName="min-w-28"
               />
@@ -70,8 +70,8 @@ export default function GoalPage({ business, canEdit }) {
             <div className="flex items-center">
               <Select
                 label={`${t('component:selectLabel.searchYear')} : `}
-                options={APP_CONFIG.YEAR_OPTIONS}
-                selected={APP_CONFIG.YEAR_OPTIONS.find((option) => option.key === tRecYear)}
+                options={APP_CONSTANTS.YEAR_OPTIONS}
+                selected={APP_CONSTANTS.YEAR_OPTIONS.find((option) => option.key === tRecYear)}
                 onChange={(e) => setTrecYear(e.key)}
                 buttonClassName="min-w-28"
               />

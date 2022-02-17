@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import { selectLatestMonth, selectYoptions } from '../../app/appSlice';
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
@@ -23,7 +24,6 @@ import EditableTable, {
   TextareaCell,
 } from '../../components/table/EditableTable';
 import Table from '../../components/table/Table';
-import APP_CONFIG from '../../constants/app-config';
 import { navigate } from '../../router/helpers';
 import {
   useGetElectricityPredictionQuery,
@@ -77,7 +77,7 @@ const BASE_LINE_COLUMNS = (t) =>
       rowSpan: 0,
       Cell: (cell) => `${t(`common:month.${Number(cell.value)}`)}${t(`common:month.text`)}`,
     },
-    ...APP_CONFIG.ELECTRICITY_TYPES.map(({ key, value }) => ({
+    ...APP_CONSTANTS.ELECTRICITY_TYPES.map(({ key, value }) => ({
       id: key,
       Header: <div className="border-b border-divider py-3">{t(`baselinePage:baselinePanel.table.${value}`)}</div>,
       columns: BASE_LINE_SUB_COLUMNS.map(({ key: _key, value: _value }) => ({
@@ -611,7 +611,7 @@ export function ChartPanel({ plant, year, business }) {
 
   return (
     <div className="row-span-2 bg-primary-900 rounded shadow p-4 grid grid-cols-4 gap-4">
-      {APP_CONFIG.ELECTRICITY_TYPES.map(({ key }, i) => {
+      {APP_CONSTANTS.ELECTRICITY_TYPES.map(({ key }, i) => {
         const dataset = data?.data?.reduce(
           (prev, curr) => ({
             ...prev,
@@ -628,7 +628,7 @@ export function ChartPanel({ plant, year, business }) {
                 {t(`baselinePage:${key}`)}
                 {t('baselinePage:modelPrediction')}
               </div>
-              {i === APP_CONFIG.ELECTRICITY_TYPES.length - 1 && (
+              {i === APP_CONSTANTS.ELECTRICITY_TYPES.length - 1 && (
                 <div className="flex space-x-4 absolute right-2 top-8">
                   <Legend dotClassName="bg-_yellow" label={t('baselinePage:predictionBaseline')} />
                   <Legend dotClassName="bg-primary-600" label={t('baselinePage:actualElectricity')} />
@@ -711,7 +711,7 @@ export function PowerSavingPanel({ year, plant, business }) {
   const confirmRef = useRef({});
   const electricityOptions = useMemo(
     () =>
-      APP_CONFIG.ELECTRICITY_OPTIONS.map((option) => ({
+      APP_CONSTANTS.ELECTRICITY_OPTIONS.map((option) => ({
         ...option,
         value: t(`component:electricityOptions.${option.key}`),
       })),
@@ -825,9 +825,6 @@ export function TabPanel({ children }) {
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
   return children({
-    y,
-    m,
-    cy,
     business,
     option,
     isBaseline,
@@ -861,7 +858,7 @@ export function BaselineSearch({ business, y, m, cy, ...option }) {
       <Select
         buttonClassName="w-36"
         label="Plant : "
-        options={plantOptions || APP_CONFIG.PLANT_OPTIONS}
+        options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
         selected={plantOptions?.find((option) => option.key === searchOption.plant)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
       />
@@ -914,7 +911,7 @@ export function PredictionSearch({ business, y, m, cy, ...option }) {
         <Select
           buttonClassName="w-36"
           label="Plant : "
-          options={plantOptions || APP_CONFIG.PLANT_OPTIONS}
+          options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
           selected={plantOptions?.find((option) => option.key === searchOption.plant)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
         />
@@ -922,10 +919,10 @@ export function PredictionSearch({ business, y, m, cy, ...option }) {
         <Select
           buttonClassName="w-20"
           label={`${t('component:selectLabel.predictionMonth')} : `}
-          options={APP_CONFIG.MONTH_OPTIONS}
+          options={APP_CONSTANTS.MONTH_OPTIONS}
           selected={
-            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-            APP_CONFIG.MONTH_OPTIONS.find((option) => option.key === currMonth)
+            APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+            APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
           }
           onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
         />
@@ -952,7 +949,7 @@ export default function ElectricityBaselinePage() {
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
         <TabPanel>
-          {({ isBaseline, isPrediction, isPowerSaving, option, business, y, m, cy, tabIndex, refs }) => (
+          {({ isBaseline, isPrediction, isPowerSaving, option, business, tabIndex, refs }) => (
             <>
               <div
                 className={clsx(
@@ -969,10 +966,6 @@ export default function ElectricityBaselinePage() {
                   onChange={(e) => {
                     navigate(
                       {
-                        y,
-                        m,
-                        cy,
-                        business,
                         hash: e.key,
                         ...refs[BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === e.key)].current,
                       },
