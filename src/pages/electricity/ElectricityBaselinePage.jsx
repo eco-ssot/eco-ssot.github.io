@@ -9,6 +9,7 @@ import { renderToString } from 'react-dom/server';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { useDeepCompareEffect } from 'react-use';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import { selectLatestMonth, selectYoptions } from '../../app/appSlice';
@@ -843,12 +844,13 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const yearOptions = useSelector(selectYoptions);
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
     }
   }, [plantOptions, option]);
 
+  useDeepCompareEffect(() => option && setSearchOption(option), [option]);
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
@@ -887,12 +889,13 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
   const byMonth = searchOption.categorized === 'month';
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
     }
   }, [plantOptions, option]);
 
+  useDeepCompareEffect(() => option && setSearchOption(option), [option]);
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
