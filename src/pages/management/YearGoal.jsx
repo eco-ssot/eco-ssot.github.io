@@ -95,7 +95,7 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
           <EditableButton
             onClick={() => {
               const { baseYear, target, category } = cell.row.original;
-              if (Number(baseYear) >= Number(year) || Number(getDecimalNumber(target)) > 100) {
+              if (Number(baseYear) > Number(year) || Number(getDecimalNumber(target)) > 100) {
                 return setOpen(true);
               }
 
