@@ -133,6 +133,7 @@ const EditableCell = ({
     original: { editing, category },
   },
   column: {
+    year,
     lng,
     id,
     editable,
@@ -161,8 +162,8 @@ const EditableCell = ({
       {isNil(initialValue) || initialValue === ''
         ? id === 'baseYear'
           ? category === '可再生能源'
-            ? APP_CONFIG.CURRENT_YEAR
-            : APP_CONFIG.LAST_YEAR
+            ? year || APP_CONFIG.BASE_YEAR
+            : (year && year - 1) || APP_CONFIG.LAST_YEAR
           : '-'
         : id === 'target'
         ? formatTarget(initialValue, lng)

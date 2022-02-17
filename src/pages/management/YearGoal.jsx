@@ -52,6 +52,7 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
       }),
     },
     {
+      year,
       Header: t('managementPage:yearGoal.table.baseYear'),
       accessor: 'baseYear',
       editable: true,
