@@ -39,7 +39,7 @@ import { trimNumber } from '../../utils/number';
 import { addPaddingColumns, EXPAND_COLUMN, updateMyData } from '../../utils/table';
 
 import ConfirmModal from './ConfirmModal';
-import { gapFormatter, getYtmLabel } from './helpers';
+import { gapFormatter, getPlants, getYtmLabel } from './helpers';
 
 const BUTTON_GROUP_OPTIONS = [
   { key: 'BASELINE', value: 'baseline' },
@@ -825,6 +825,8 @@ export function TabPanel({ children }) {
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
   return children({
+    s,
+    p,
     business,
     option,
     isBaseline,
@@ -839,7 +841,8 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYoptions);
-  const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
+  const { data } = useGetPlantOptionsQuery({ bo: business });
+  const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
   useEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0].key });
@@ -881,7 +884,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYoptions);
   const currMonth = useSelector(selectLatestMonth);
-  const { data: plantOptions } = useGetPlantOptionsQuery({ bo: business });
+  const { data } = useGetPlantOptionsQuery({ bo: business });
+  const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
   const byMonth = searchOption.categorized === 'month';
   useEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
@@ -949,7 +953,7 @@ export default function ElectricityBaselinePage() {
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
         <TabPanel>
-          {({ isBaseline, isPrediction, isPowerSaving, option, business, tabIndex, refs }) => (
+          {({ isBaseline, isPrediction, isPowerSaving, option, business, s, p, tabIndex, refs }) => (
             <>
               <div
                 className={clsx(
@@ -976,9 +980,9 @@ export default function ElectricityBaselinePage() {
                   }}
                 />
                 <div className="flex w-full justify-center items-center">
-                  {isBaseline && <BaselineSearch {...option} business={business} />}
-                  {isPrediction && <PredictionSearch {...option} business={business} />}
-                  {isPowerSaving && <BaselineSearch {...option} business={business} />}
+                  {isBaseline && <BaselineSearch {...option} business={business} s={s} p={p} />}
+                  {isPrediction && <PredictionSearch {...option} business={business} s={s} p={p} />}
+                  {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} />}
                 </div>
                 {isBaseline && <BaselinePanel {...option} business={business} />}
                 {isPrediction && <PredictionPanel {...option} business={business} />}

@@ -22,3 +22,17 @@ export function gapFormatter(cell) {
     </div>
   );
 }
+
+export function getPlants({ data, s, p }) {
+  return data?.filter(({ key }) => {
+    if (p) {
+      return key === p;
+    }
+
+    if (s) {
+      return key.startsWith(s);
+    }
+
+    return key;
+  });
+}
