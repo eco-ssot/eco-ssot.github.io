@@ -254,9 +254,9 @@ export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
   );
 }
 
-export default function WasteTable({ business, y, m }) {
+export default function WasteTable({ business, y, m, s, p }) {
   const { t } = useTranslation(['wastePage', 'common']);
-  const { data } = useGetWasteQuery({ business, year: y, month: m });
+  const { data } = useGetWasteQuery({ business, year: y, month: m, site: s, plant: p });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
   const [uploadExcel, { isSuccess }] = useUploadWasteExcelMutation();

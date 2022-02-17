@@ -4,19 +4,28 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
-export default function GhostSelect({
+export default function GroupSelect({
   className,
   buttonClassName,
-  queryKey,
+  parentKey,
+  childKey,
   options = [],
   selected = options[0] || {},
   onChange = () => {},
 }) {
   return (
-    <Listbox value={selected} onChange={(e) => queryKey && onChange({ [queryKey]: e.key })}>
+    <Listbox
+      value={selected}
+      onChange={(e) => {
+        onChange({
+          [e.group ? parentKey : childKey]: e.key,
+          ...(e.group && { [childKey]: null }),
+          ...(!e.group && { [parentKey]: e.parent }),
+        });
+      }}>
       {({ open }) => (
         <>
-          <div className={clsx('mt-1 relative min-w-28', className)}>
+          <div className={clsx('mt-1 relative min-w-44', className)}>
             <Listbox.Button
               className={clsx(
                 'bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',
@@ -43,13 +52,18 @@ export default function GhostSelect({
                     className={({ active }) =>
                       clsx(
                         active ? 'text-gray-50 bg-primary-600' : 'text-gray-50',
-                        'cursor-default select-none relative py-2 pl-3 pr-9'
+                        'cursor-default select-none relative pl-3 pr-9'
                       )
                     }
                     value={option}>
                     {({ selected, active }) => (
                       <>
-                        <span className={clsx(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                        <span
+                          className={clsx(
+                            selected ? 'font-semibold' : 'font-normal',
+                            'block truncate py-2',
+                            !option.group && 'border-l-2 border-primary-700 pl-2'
+                          )}>
                           {option.value}
                         </span>
                         {selected ? (

@@ -137,11 +137,13 @@ export default function RenewableEnergyHistoryTable({
   startMonth,
   endMonth,
   dimension,
+  s,
+  p,
 }) {
   const { t } = useTranslation(['renewableEnergyPage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
   const { data } = useGetRenewableEnergyHistoryQuery(
-    { business, ...option },
+    { business, site: s, plant: p, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 

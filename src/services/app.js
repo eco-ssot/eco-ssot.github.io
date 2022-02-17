@@ -88,7 +88,7 @@ export const appApi = createApi({
   endpoints: (builder) => ({
     getSummary: builder.query({
       providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
-      queryFn: (query, { dispatch }) => {
+      queryFn: (query, { dispatch, getState }) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
           const latestDate = getMaxDate(
             res.data.revenue?.latestDate,

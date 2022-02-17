@@ -17,6 +17,8 @@ export default function TablePanel({ children }) {
     year: option?.y,
     month: option?.m,
     compare_year: option?.compareYear,
+    site: option?.s,
+    plant: option.p,
   });
 
   return children({

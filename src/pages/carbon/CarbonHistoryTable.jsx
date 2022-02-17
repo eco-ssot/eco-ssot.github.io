@@ -137,10 +137,16 @@ export default function CarbonHistoryTable({
   startMonth,
   endMonth,
   dimension,
+  s,
+  p,
 }) {
   const { t } = useTranslation(['carbonPage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetCarbonHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetCarbonHistoryQuery(
+    { business, site: s, plant: p, ...option },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   const { label } = useGoal({ keyword: '碳排放量', isHistory: true });
   return (
     <>

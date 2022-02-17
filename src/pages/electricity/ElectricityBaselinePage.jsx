@@ -815,7 +815,7 @@ export function PowerSavingPlanPanel({ year, plant, business }) {
 
 export function TabPanel({ children }) {
   const { hash, search } = useLocation();
-  const { lng, business, y, m, cy, ...option } = qs.parse(search);
+  const { lng, business, y, m, cy, s, p, ...option } = qs.parse(search);
   const tabIndex = BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === hash.slice(1));
   const baselineRef = useRef({});
   const predictionRef = useRef({});
@@ -835,7 +835,7 @@ export function TabPanel({ children }) {
   });
 }
 
-export function BaselineSearch({ business, y, m, cy, ...option }) {
+export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYoptions);
@@ -876,7 +876,7 @@ export function BaselineSearch({ business, y, m, cy, ...option }) {
   );
 }
 
-export function PredictionSearch({ business, y, m, cy, ...option }) {
+export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYoptions);

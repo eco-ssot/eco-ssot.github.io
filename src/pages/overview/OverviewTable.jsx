@@ -65,9 +65,9 @@ export const COLUMNS = ({
     })),
   ]);
 
-export default function OverviewTable({ business, y, m }) {
+export default function OverviewTable({ business, y, m, s, p }) {
   const { t } = useTranslation(['overviewPage', 'common']);
-  const { data } = useGetOverviewQuery({ business, year: y, month: m });
+  const { data } = useGetOverviewQuery({ business, year: y, month: m, site: s, plant: p });
   const missingPlants = useSelector(selectMissingPlants);
   const currYear = useSelector(selectCurrY);
   const lastYear = useSelector(selectLastY);

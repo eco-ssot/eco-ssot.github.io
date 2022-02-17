@@ -137,11 +137,13 @@ export default function UnitElectricityHistoryTable({
   startMonth,
   endMonth,
   dimension,
+  s,
+  p,
 }) {
   const { t } = useTranslation(['unitElectricityPage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
   const { data } = useGetUnitElectricityHistoryQuery(
-    { business, ...option },
+    { business, site: s, plant: p, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 

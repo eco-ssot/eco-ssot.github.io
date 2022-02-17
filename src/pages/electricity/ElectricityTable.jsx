@@ -140,9 +140,9 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function ElectricityTable({ business, y, m }) {
+export default function ElectricityTable({ business, y, m, s, p }) {
   const { t } = useTranslation(['electricityPage', 'common']);
-  const { data } = useGetElectricityQuery({ business, year: y, month: m });
+  const { data } = useGetElectricityQuery({ business, year: y, month: m, site: s, plant: p });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(

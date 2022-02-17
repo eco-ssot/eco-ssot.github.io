@@ -96,9 +96,9 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function CarbonTable({ business, y, m }) {
+export default function CarbonTable({ business, y, m, s, p }) {
   const { t } = useTranslation(['carbonPage', 'common']);
-  const { data } = useGetCarbonQuery({ business, year: y, month: m });
+  const { data } = useGetCarbonQuery({ business, year: y, month: m, site: s, plant: p });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '碳排放量' });
   const columns = useMemo(

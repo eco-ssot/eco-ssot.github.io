@@ -78,9 +78,9 @@ const COLUMNS = ({ t, pct, missing, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
     })),
   ]);
 
-export default function UnitElectricityTable({ business, y, m }) {
+export default function UnitElectricityTable({ business, y, m, s, p }) {
   const { t } = useTranslation(['unitElectricityPage', 'common']);
-  const { data } = useGetUnitElectricityQuery({ business, year: y, month: m });
+  const { data } = useGetUnitElectricityQuery({ business, year: y, month: m, site: s, plant: p });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '單台用電' });
   const columns = useMemo(

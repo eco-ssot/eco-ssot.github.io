@@ -10,7 +10,14 @@ import Divider from '../../components/divider/Divider';
 import Panel from '../../components/panel/Panel';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import TagSelect from '../../components/select/TagSelect';
-import { selectBusiness, selectCompareYear, selectY, selectM } from '../../renderless/location/locationSlice';
+import {
+  selectBusiness,
+  selectCompareYear,
+  selectY,
+  selectM,
+  selectP,
+  selectS,
+} from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetSummaryQuery } from '../../services/app';
 
@@ -26,12 +33,22 @@ export default function HomePage() {
   const { t } = useTranslation(['homePage']);
   const y = useSelector(selectY);
   const m = useSelector(selectM);
+  const s = useSelector(selectS);
+  const p = useSelector(selectP);
   const compareYear = useSelector(selectCompareYear);
   const business = useSelector(selectBusiness);
   const yearOptions = useSelector(selectYoptions);
   const missingPlants = useSelector(selectMissingPlants);
   const latestDate = useSelector(selectLatestDate);
-  const { data = {} } = useGetSummaryQuery({ business, year: y, month: m, compare_year: compareYear });
+  const { data = {} } = useGetSummaryQuery({
+    business,
+    year: y,
+    month: m,
+    compare_year: compareYear,
+    site: s,
+    plant: p,
+  });
+
   const cyOptions = useMemo(
     () =>
       (y ? yearOptions.filter((option) => Number(option.key) < Number(y)) : yearOptions.slice(1)).filter(

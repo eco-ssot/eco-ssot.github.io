@@ -137,10 +137,16 @@ export default function WasteHistoryTable({
   startMonth,
   endMonth,
   dimension,
+  s,
+  p,
 }) {
   const { t } = useTranslation(['wastePage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetWasteHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetWasteHistoryQuery(
+    { business, site: s, plant: p, ...option },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   const { label } = useGoal({ keyword: '廢棄物密度', isHistory: true });
   return (
     <>

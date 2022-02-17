@@ -137,10 +137,16 @@ export default function ElectricityHistoryTable({
   startMonth,
   endMonth,
   dimension,
+  s,
+  p,
 }) {
   const { t } = useTranslation(['electricityPage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetElectricityHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetElectricityHistoryQuery(
+    { business, site: s, plant: p, ...option },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   const { label } = useGoal({ keyword: '用電強度', isHistory: true });
   return (
     <>

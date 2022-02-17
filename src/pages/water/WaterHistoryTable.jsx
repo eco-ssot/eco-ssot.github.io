@@ -137,10 +137,16 @@ export default function WaterHistoryTable({
   startMonth,
   endMonth,
   dimension,
+  s,
+  p,
 }) {
   const { t } = useTranslation(['waterPage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
-  const { data } = useGetWaterHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetWaterHistoryQuery(
+    { business, site: s, plant: p, ...option },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   const { label } = useGoal({ keyword: '用水強度', isHistory: true });
   return (
     <>

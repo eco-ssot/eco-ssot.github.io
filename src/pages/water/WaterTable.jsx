@@ -145,9 +145,9 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function WaterTable({ business, y, m }) {
+export default function WaterTable({ business, y, m, s, p }) {
   const { t } = useTranslation(['waterPage', 'common']);
-  const { data } = useGetWaterQuery({ business, year: y, month: m });
+  const { data } = useGetWaterQuery({ business, year: y, month: m, site: s, plant: p });
   const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(

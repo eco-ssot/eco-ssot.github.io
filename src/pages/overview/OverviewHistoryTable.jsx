@@ -8,10 +8,14 @@ import { useGetOverviewHistoryQuery } from '../../services/overview';
 
 import { COLUMNS } from './OverviewTable';
 
-export default function OverviewHistoryTable({ business, year, dimension }) {
+export default function OverviewHistoryTable({ business, year, dimension, s, p }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const option = { year, dimension };
-  const { data } = useGetOverviewHistoryQuery({ business, ...option }, { skip: Object.values(option).every(isNil) });
+  const { data } = useGetOverviewHistoryQuery(
+    { business, site: s, plant: p, ...option },
+    { skip: Object.values(option).every(isNil) }
+  );
+
   const columns = useMemo(() => COLUMNS({ t, currYear: year, lastYear: year - 1 }), [year, t]);
   return (
     <>
