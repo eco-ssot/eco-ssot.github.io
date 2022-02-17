@@ -25,7 +25,7 @@ export default function GroupSelect({
       }}>
       {({ open }) => (
         <>
-          <div className={clsx('mt-1 relative min-w-44', className)}>
+          <div className={clsx('mt-1 relative min-w-32', className)}>
             <Listbox.Button
               className={clsx(
                 'bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',
