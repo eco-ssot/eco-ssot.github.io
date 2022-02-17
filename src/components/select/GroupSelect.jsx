@@ -17,15 +17,19 @@ export default function GroupSelect({
     <Listbox
       value={selected}
       onChange={(e) => {
-        onChange({
-          [e.group ? parentKey : childKey]: e.key,
-          ...(e.group && { [childKey]: null }),
-          ...(!e.group && { [parentKey]: e.parent }),
-        });
+        onChange(
+          e.key === 'ALL'
+            ? { [parentKey]: null, [childKey]: null }
+            : {
+                [e.group ? parentKey : childKey]: e.key,
+                ...(e.group && { [childKey]: null }),
+                ...(!e.group && { [parentKey]: e.parent }),
+              }
+        );
       }}>
       {({ open }) => (
         <>
-          <div className={clsx('mt-1 relative min-w-32', className)}>
+          <div className={clsx('mt-1 relative min-w-36', className)}>
             <Listbox.Button
               className={clsx(
                 'bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',

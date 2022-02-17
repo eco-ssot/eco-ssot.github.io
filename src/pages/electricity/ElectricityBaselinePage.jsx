@@ -845,7 +845,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
   useEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
-      navigate({ plant: plantOptions[0].key });
+      navigate({ plant: plantOptions[0]?.key });
     }
   }, [plantOptions, option]);
 
@@ -889,7 +889,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const byMonth = searchOption.categorized === 'month';
   useEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
-      navigate({ plant: plantOptions[0].key });
+      navigate({ plant: plantOptions[0]?.key });
     }
   }, [plantOptions, option]);
 
