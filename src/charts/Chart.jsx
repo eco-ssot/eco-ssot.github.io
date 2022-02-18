@@ -29,21 +29,26 @@ export default function Chart({ className, option = {} }) {
   const dataset = (option.series || []).map(({ data }) => data);
 
   useDeepCompareEffect(() => {
-    const instance = echarts.init(chartRef.current, 'dark') || { setOption: () => {}, dispose: () => {} };
-    instance.setOption(updateChartFontSize(option), true);
-    return () => instance.dispose();
+    let instance = {};
+    setTimeout(() => {
+      instance = echarts.init(chartRef.current, 'dark');
+      instance.setOption(updateChartFontSize(option), true);
+    });
+
+    return () => instance.dispose?.();
   }, [dataset]);
 
   useDebounce(
     () => {
-      const instance = echarts.getInstanceByDom(chartRef.current);
-      if (instance && (Math.abs(instance.getWidth() - width) > 2 || Math.abs(instance.getHeight() - height) > 2)) {
+      let instance = echarts.getInstanceByDom(chartRef.current);
+      if (
+        instance &&
+        width &&
+        height &&
+        (Math.abs(instance.getWidth() - width) > 4 || Math.abs(instance.getHeight() - height) > 4)
+      ) {
         instance.setOption(updateChartFontSize(option), true);
-        instance.resize({
-          animation: {
-            duration: 500,
-          },
-        });
+        instance.resize({ animation: { duration: 500 } });
       }
     },
     100,
