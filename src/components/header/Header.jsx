@@ -41,7 +41,7 @@ export default function Header({ className }) {
           <Divider className="h-1/2" />
           <NavBar />
           <Divider className="h-1/2" />
-          <a href="/guidebook.pdf" target="_blank">
+          <a href="/ECO系統說明手冊_1.0.3.pdf" target="_blank">
             <PdfIcon className="w-5 h-5 fill-gray-50" />
           </a>
           <Divider className="h-1/2" />
