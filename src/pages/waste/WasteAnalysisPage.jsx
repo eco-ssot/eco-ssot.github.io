@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
-import { selectBusiness, selectPlant, selectSite } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectM, selectPlant, selectSite, selectY } from '../../renderless/location/locationSlice';
 import {
   useDeleteWasteExplanationMutation,
   useDeleteWasteImprovementMutation,
@@ -130,9 +130,11 @@ export default function WasteAnalysisPage() {
   const business = useSelector(selectBusiness);
   const site = useSelector(selectSite);
   const plant = useSelector(selectPlant);
+  const y = useSelector(selectY);
+  const m = useSelector(selectM);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度', labelType: 'analysis' });
-  const { data } = useGetWasteAnalysisQuery({ business, site, plant });
-  const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant });
+  const { data } = useGetWasteAnalysisQuery({ business, site, plant, year: y, month: m });
+  const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant, year: y, month: m });
   const [postExplanation] = usePostWasteExplanationMutation();
   const [postImprovement] = usePostWasteImprovementMutation();
   const [patchExplanation] = usePatchWasteExplanationMutation();

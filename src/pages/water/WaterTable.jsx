@@ -20,6 +20,8 @@ import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer 
 const HEADERS = ({
   t,
   business,
+  y,
+  m,
   pct,
   currYear = APP_CONSTANTS.CURRENT_YEAR,
   lastYear = APP_CONSTANTS.LAST_YEAR,
@@ -89,7 +91,7 @@ const HEADERS = ({
             isFinite(cell.value) &&
             cell.value > -pct
           ) {
-            let query = { business, site: cell.row.original.site };
+            let query = { business, y, m, site: cell.row.original.site };
             if (cell.row.depth > 0) {
               query = {
                 ...query,
@@ -117,6 +119,8 @@ const HEADERS = ({
 const COLUMNS = ({
   t,
   business,
+  y,
+  m,
   pct,
   missing,
   currYear = APP_CONSTANTS.CURRENT_YEAR,
@@ -131,7 +135,7 @@ const COLUMNS = ({
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
     },
-    ...HEADERS({ t, business, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ t, business, y, m, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
@@ -151,8 +155,8 @@ export default function WaterTable({ business, y, m, s, p }) {
   const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, pct, currYear, baseYear, lastYear: currYear - 1, missing: missingPlants }),
-    [business, pct, currYear, baseYear, t, missingPlants]
+    () => COLUMNS({ t, business, y, m, pct, currYear, baseYear, lastYear: currYear - 1, missing: missingPlants }),
+    [business, pct, currYear, baseYear, t, missingPlants, y, m]
   );
 
   return (

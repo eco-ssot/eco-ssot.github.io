@@ -27,6 +27,8 @@ import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer 
 const HEADERS = ({
   t,
   business,
+  y,
+  m,
   pct,
   maxDate,
   currYear,
@@ -109,7 +111,7 @@ const HEADERS = ({
             isFinite(cell.value) &&
             cell.value > -pct
           ) {
-            let query = { business, site: cell.row.original.site };
+            let query = { business, y, m, site: cell.row.original.site };
             if (cell.row.depth > 0) {
               query = {
                 ...query,
@@ -160,6 +162,8 @@ const HEADERS = ({
 const COLUMNS = ({
   t,
   business,
+  y,
+  m,
   pct,
   maxDate,
   currYear,
@@ -175,7 +179,7 @@ const COLUMNS = ({
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
     },
-    ...HEADERS({ t, business, pct, maxDate, currYear, baseYear, setOpen }).map(
+    ...HEADERS({ t, business, y, m, pct, maxDate, currYear, baseYear, setOpen }).map(
       ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
         Header: name,
         Cell: renderer,
@@ -266,6 +270,8 @@ export default function WasteTable({ business, y, m, s, p }) {
       COLUMNS({
         t,
         business,
+        y,
+        m,
         pct,
         currYear,
         setOpen,
@@ -273,7 +279,7 @@ export default function WasteTable({ business, y, m, s, p }) {
         maxDate: data?.maxDate,
         missing: missingPlants,
       }),
-    [business, pct, currYear, baseYear, data?.maxDate, t, missingPlants]
+    [business, y, m, pct, currYear, baseYear, data?.maxDate, t, missingPlants]
   );
 
   return (

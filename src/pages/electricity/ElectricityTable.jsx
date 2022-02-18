@@ -17,7 +17,14 @@ import { useGetElectricityQuery } from '../../services/electricity';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({ t, business, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) => [
+const HEADERS = ({
+  t,
+  business,
+  y,
+  m,
+  currYear = APP_CONSTANTS.CURRENT_YEAR,
+  lastYear = APP_CONSTANTS.LAST_YEAR,
+} = {}) => [
   {
     key: 'electricity',
     name: t('electricityPage:table.electricity.header'),
@@ -75,7 +82,7 @@ const HEADERS = ({ t, business, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear 
             isFinite(cell.value) &&
             cell.value > 0
           ) {
-            let query = { business, site: cell.row.original.site };
+            let query = { business, y, m, site: cell.row.original.site };
             if (cell.row.depth > 0) {
               query = {
                 ...query,
@@ -116,6 +123,8 @@ const HEADERS = ({ t, business, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear 
 const COLUMNS = ({
   t,
   business,
+  y,
+  m,
   missing,
   currYear = APP_CONSTANTS.CURRENT_YEAR,
   lastYear = APP_CONSTANTS.LAST_YEAR,
@@ -128,7 +137,7 @@ const COLUMNS = ({
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
     },
-    ...HEADERS({ t, business, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ t, business, y, m, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
@@ -146,8 +155,8 @@ export default function ElectricityTable({ business, y, m, s, p }) {
   const missingPlants = useSelector(selectMissingPlants);
   const { label, currYear, baseYear } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, currYear, lastYear: baseYear, missing: missingPlants }),
-    [business, currYear, baseYear, t, missingPlants]
+    () => COLUMNS({ t, business, y, m, currYear, lastYear: baseYear, missing: missingPlants }),
+    [business, currYear, baseYear, t, missingPlants, y, m]
   );
 
   return (

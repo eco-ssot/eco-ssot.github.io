@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import useGoal from '../../hooks/useGoal';
-import { selectBusiness, selectSite, selectPlant } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectSite, selectPlant, selectY, selectM } from '../../renderless/location/locationSlice';
 import {
   useDeleteElectricityExplanationMutation,
   useDeleteElectricityImprovementMutation,
@@ -128,9 +128,11 @@ export default function ElectricityAnalysisPage() {
   const business = useSelector(selectBusiness);
   const site = useSelector(selectSite);
   const plant = useSelector(selectPlant);
+  const y = useSelector(selectY);
+  const m = useSelector(selectM);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '用電強度', labelType: 'analysis' });
-  const { data } = useGetElectricityAnalysisQuery({ business, site, plant });
-  const { data: tableData } = useGetElectricityExplanationQuery({ business, site, plant });
+  const { data } = useGetElectricityAnalysisQuery({ business, site, plant, year: y, month: m });
+  const { data: tableData } = useGetElectricityExplanationQuery({ business, site, plant, year: y, month: m });
   const [postExplanation] = usePostElectricityExplanationMutation();
   const [postImprovement] = usePostElectricityImprovementMutation();
   const [patchExplanation] = usePatchElectricityExplanationMutation();
