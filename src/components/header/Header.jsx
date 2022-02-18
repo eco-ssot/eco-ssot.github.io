@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as PdfIcon } from '../../../public/icons/file-pdf-solid.svg';
 import version from '../../../version.json';
 import APP_CONFIG from '../../constants/app-config';
 import { useKeycloak } from '../../keycloak';
@@ -39,6 +40,10 @@ export default function Header({ className }) {
           />
           <Divider className="h-1/2" />
           <NavBar />
+          <Divider className="h-1/2" />
+          <a href="/guidebook.pdf" target="_blank">
+            <PdfIcon className="w-5 h-5 fill-gray-50" />
+          </a>
           <Divider className="h-1/2" />
         </>
       ) : (
