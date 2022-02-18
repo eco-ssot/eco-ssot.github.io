@@ -134,7 +134,7 @@ export default function WasteAnalysisPage() {
   const m = useSelector(selectM);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度', labelType: 'analysis' });
   const { data } = useGetWasteAnalysisQuery({ business, site, plant, year: y, month: m });
-  const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant, year: y, month: m });
+  const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant, year: y });
   const [postExplanation] = usePostWasteExplanationMutation();
   const [postImprovement] = usePostWasteImprovementMutation();
   const [patchExplanation] = usePatchWasteExplanationMutation();

@@ -133,7 +133,7 @@ export default function WaterAnalysisPage() {
   const m = useSelector(selectM);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '用水強度', labelType: 'analysis' });
   const { data } = useGetWaterAnalysisQuery({ business, site, plant, year: y, month: m });
-  const { data: tableData } = useGetWaterExplanationQuery({ business, site, plant, year: y, month: m });
+  const { data: tableData } = useGetWaterExplanationQuery({ business, site, plant, year: y });
   const [postExplanation] = usePostWaterExplanationMutation();
   const [postImprovement] = usePostWaterImprovementMutation();
   const [patchExplanation] = usePatchWaterExplanationMutation();
