@@ -10,9 +10,9 @@ import TabTitle from '../renderless/tab-title/TabTitle';
 import Router from '../router';
 
 const trackingId = 'UA-171033255-1';
+ReactGA.initialize(trackingId, { debug: true, gaOptions: { cookieDomain: 'auto' } });
 
 export default function App() {
-  ReactGA.initialize(trackingId);
   return (
     <Suspense fallback={null}>
       <Language />
