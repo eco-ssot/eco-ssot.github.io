@@ -16,7 +16,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
     <PageContainer className="flex flex-col relative space-y-2">
       <div className="text-xl font-medium">{title}</div>
       <TablePanel>
-        {({ isHistory, isOverview, option, prevOption }) => (
+        {({ isHistory, isOverview, option, prevOption, missingPlants }) => (
           <>
             <div className="flex justify-center items-end">
               <ButtonGroup
@@ -51,7 +51,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
               </>
             ) : (
               <>
-                <Table {...option} />
+                <Table {...option} missingPlants={missingPlants} />
               </>
             )}
           </>

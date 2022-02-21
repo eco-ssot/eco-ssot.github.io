@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectLatestDate, selectMissingPlants, selectYoptions } from '../../app/appSlice';
+import { selectLatestDate, selectYoptions } from '../../app/appSlice';
 import Divider from '../../components/divider/Divider';
 import Panel from '../../components/panel/Panel';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
@@ -38,7 +38,6 @@ export default function HomePage() {
   const compareYear = useSelector(selectCompareYear);
   const business = useSelector(selectBusiness);
   const yearOptions = useSelector(selectYoptions);
-  const missingPlants = useSelector(selectMissingPlants);
   const latestDate = useSelector(selectLatestDate);
   const { data = {} } = useGetSummaryQuery({
     business,
@@ -57,7 +56,7 @@ export default function HomePage() {
     [yearOptions, y]
   );
 
-  const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse } = data;
+  const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, missing } = data;
   return (
     <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
       <Panel
@@ -87,7 +86,7 @@ export default function HomePage() {
       <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
         <div className="grid grid-cols-2 overflow-y-auto max-h-[60%] ">
-          {missingPlants?.map((val, i) => (
+          {missing?.map((val, i) => (
             <div key={i} className="text-center">
               {val}
             </div>

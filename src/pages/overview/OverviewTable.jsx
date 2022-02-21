@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectCurrY, selectLastY, selectMissingPlants } from '../../app/appSlice';
+import { selectCurrY, selectLastY } from '../../app/appSlice';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
@@ -65,10 +65,9 @@ export const COLUMNS = ({
     })),
   ]);
 
-export default function OverviewTable({ business, y, m, s, p }) {
+export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const { data } = useGetOverviewQuery({ business, year: y, month: m, site: s, plant: p });
-  const missingPlants = useSelector(selectMissingPlants);
   const currYear = useSelector(selectCurrY);
   const lastYear = useSelector(selectLastY);
   const columns = useMemo(

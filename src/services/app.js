@@ -132,6 +132,10 @@ export const appApi = createApi({
         });
       },
     }),
+    getMissingPlants: builder.query({
+      query: (query) => ({ query, url: 'summary' }),
+      transformResponse: (res) => res.missing,
+    }),
     getGoal: builder.query({
       query: ({ year, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL }) => ({
         url: `settings/${year}/${business}/objective`,
@@ -211,6 +215,7 @@ export const {
   useGetCarbonIndexQuery,
   useGetTrecQuery,
   useGetTrecBySiteQuery,
+  useGetMissingPlantsQuery,
   usePatchGoalMutation,
   usePatchCarbonIndexMutation,
   usePatchTrecMutation,

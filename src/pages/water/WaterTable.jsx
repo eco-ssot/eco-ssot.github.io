@@ -3,11 +3,9 @@ import { useMemo } from 'react';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectMissingPlants } from '../../app/appSlice';
 import Dot from '../../components/dot/Dot';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
@@ -149,14 +147,13 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function WaterTable({ business, y, m, s, p }) {
+export default function WaterTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['waterPage', 'common']);
   const { data } = useGetWaterQuery({ business, year: y, month: m, site: s, plant: p });
-  const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(
     () => COLUMNS({ t, business, y, m, pct, currYear, baseYear, lastYear: currYear - 1, missing: missingPlants }),
-    [business, pct, currYear, baseYear, t, missingPlants, y, m]
+    [t, business, pct, currYear, baseYear, missingPlants, y, m]
   );
 
   return (

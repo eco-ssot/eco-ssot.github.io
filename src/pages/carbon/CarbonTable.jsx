@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectMissingPlants } from '../../app/appSlice';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
@@ -96,10 +94,9 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function CarbonTable({ business, y, m, s, p }) {
+export default function CarbonTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['carbonPage', 'common']);
   const { data } = useGetCarbonQuery({ business, year: y, month: m, site: s, plant: p });
-  const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '碳排放量' });
   const columns = useMemo(
     () => COLUMNS({ t, pct, currYear, baseYear, missing: missingPlants }),

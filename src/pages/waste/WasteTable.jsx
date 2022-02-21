@@ -5,11 +5,9 @@ import { get, isNil } from 'lodash';
 import qs from 'query-string';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectMissingPlants } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import Dot from '../../components/dot/Dot';
@@ -258,10 +256,9 @@ export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
   );
 }
 
-export default function WasteTable({ business, y, m, s, p }) {
+export default function WasteTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['wastePage', 'common']);
   const { data } = useGetWasteQuery({ business, year: y, month: m, site: s, plant: p });
-  const missingPlants = useSelector(selectMissingPlants);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
   const [uploadExcel, { isSuccess }] = useUploadWasteExcelMutation();
   const [open, setOpen] = useState(false);
