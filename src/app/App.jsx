@@ -9,9 +9,10 @@ import Location from '../renderless/location/Location';
 import TabTitle from '../renderless/tab-title/TabTitle';
 import Router from '../router';
 
+const trackingId = 'UA-171033255-1';
+
 export default function App() {
-  ReactGA.initialize('UA-221054544-1');
-  ReactGA.pageview(window.location.pathname + window.location.search);
+  ReactGA.initialize(trackingId);
   return (
     <Suspense fallback={null}>
       <Language />
