@@ -97,5 +97,14 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('daisyui')],
+  daisyui: {
+    styled: false,
+    themes: false,
+    base: false,
+    utils: false,
+    logs: true,
+    rtl: false,
+    darkTheme: 'dark',
+  },
 };

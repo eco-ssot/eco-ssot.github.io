@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 
 import App from './app/App';
@@ -11,6 +12,9 @@ import * as serviceWorker from './serviceWorker';
 import './i18n';
 import './index.css';
 import './styles/react-datepicker.css';
+
+ReactGA.initialize('G-0ZE34F2WT5');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
   <React.StrictMode>
