@@ -9,7 +9,7 @@ import Location from '../renderless/location/Location';
 import TabTitle from '../renderless/tab-title/TabTitle';
 import Router from '../router';
 
-const trackingId = 'UA-171033255-1';
+const trackingId = 'UA-221054544-1';
 ReactGA.initialize(trackingId, { debug: true, gaOptions: { cookieDomain: 'auto' } });
 
 export default function App() {
