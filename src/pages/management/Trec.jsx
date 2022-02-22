@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 
+import { TrashIcon } from '@heroicons/react/outline';
 import { PencilIcon, XIcon, CheckIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { format } from 'date-fns';
@@ -139,7 +140,7 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
             deleteRef.current = [...deleteRef.current, cell.row.original.id];
             setData((prev) => prev.filter((d, i) => i !== cell.row.index));
           }}>
-          <XIcon className="w-5 h-5" />
+          <TrashIcon className="w-5 h-5" />
         </EditableIconButton>
       ) : null;
     },
@@ -153,7 +154,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
     className: 'text-center py-2',
     Cell: (cell) => {
       return cell.row.original.editing ? (
-        <XIcon
+        <TrashIcon
           className="w-5 h-5 cursor-pointer"
           onClick={() => {
             deleteRef.current = [...deleteRef.current, cell.row.original.plant];
