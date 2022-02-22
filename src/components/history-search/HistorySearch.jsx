@@ -161,7 +161,8 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           rel="noopener noreferrer"
           className="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
           href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify(
-            getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions })
+            getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions }),
+            { skipNull: true }
           )}`}>
           Excel
         </a>
