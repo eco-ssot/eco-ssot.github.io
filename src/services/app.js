@@ -84,7 +84,7 @@ const syncGoals =
 export const appApi = createApi({
   reducerPath: 'appApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: ['YEAR_GOAL', 'CARBON_INDEX', 'TREC'],
+  tagTypes: ['YEAR_GOAL', 'CARBON_INDEX', 'TREC', 'TREC_BY_SITE'],
   endpoints: (builder) => ({
     getSummary: builder.query({
       providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
@@ -167,6 +167,13 @@ export const appApi = createApi({
     }),
     getTrecBySite: builder.query({
       query: ({ year }) => ({ url: `settings/${year}/rec/sites` }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: res.data?.map(({ plant, ...rest }) => ({ plant, id: plant, ...rest })),
+        };
+      },
+      providesTags: ['TREC_BY_SITE'],
     }),
     patchGoal: builder.mutation({
       queryFn: (query) => {
@@ -190,13 +197,27 @@ export const appApi = createApi({
       }),
       invalidatesTags: ['TREC'],
     }),
-    patchTrecBySite: builder.mutation({
-      query: ({ year, site, data }) => ({
-        data,
-        url: `settings/${year}/rec/sites/${site}`,
-        method: 'PATCH',
+    deleteTrec: builder.mutation({
+      query: ({ year, id }) => ({
+        url: `settings/${year}/rec/${id}`,
+        method: 'DELETE',
       }),
       invalidatesTags: ['TREC'],
+    }),
+    patchTrecBySite: builder.mutation({
+      query: ({ year, plant, data }) => ({
+        data,
+        url: `settings/${year}/rec/sites/${plant}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['TREC_BY_SITE'],
+    }),
+    deleteTrecBySite: builder.mutation({
+      query: ({ year, plant }) => ({
+        url: `settings/${year}/rec/sites/${plant}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['TREC_BY_SITE'],
     }),
     postTrec: builder.mutation({
       query: ({ year, data }) => ({
@@ -205,6 +226,14 @@ export const appApi = createApi({
         method: 'POST',
       }),
       invalidatesTags: ['TREC'],
+    }),
+    postTrecBySite: builder.mutation({
+      query: ({ year, data }) => ({
+        data,
+        url: `settings/${year}/rec/sites`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['TREC_BY_SITE'],
     }),
   }),
 });
@@ -221,4 +250,7 @@ export const {
   usePatchTrecMutation,
   usePatchTrecBySiteMutation,
   usePostTrecMutation,
+  usePostTrecBySiteMutation,
+  useDeleteTrecMutation,
+  useDeleteTrecBySiteMutation,
 } = appApi;
