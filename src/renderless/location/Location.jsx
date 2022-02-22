@@ -15,11 +15,14 @@ export default function Location() {
   useEffect(() => dispatch(setQueryParams(search)), [search, dispatch]);
   useEffect(() => dispatch(setHash(hash)), [hash, dispatch]);
   useEffect(() => {
-    const { given_name = '', preferred_username = '' } = keycloak?.idTokenParsed || {};
-    if (given_name && preferred_username) {
-      ReactGA.set({ userId: `${preferred_username} ${given_name}` });
-      ReactGA.pageview(pathname + search);
+    if (process.env.REACT_APP_STAGE === 'production') {
+      const { given_name = '', preferred_username = '', email = '' } = keycloak?.idTokenParsed || {};
+      if (given_name && preferred_username) {
+        ReactGA.set({ userId: `${preferred_username}-${given_name}-${email}` });
+        ReactGA.pageview(pathname + search);
+      }
     }
   }, [pathname, search, keycloak?.idTokenParsed]);
+
   return null;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 
 import App from './app/App';
@@ -29,5 +30,6 @@ ReactDOM.render(
 serviceWorker.unregister();
 
 if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_STAGE === 'production') {
+  ReactGA.initialize(process.env.REACT_APP_GA_ID, { debug: false, gaOptions: { cookieDomain: 'auto' } });
   console.log = () => {};
 }
