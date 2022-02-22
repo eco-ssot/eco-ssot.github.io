@@ -136,6 +136,31 @@ export const appApi = createApi({
       query: (query) => ({ query, url: 'summary' }),
       transformResponse: (res) => res.missing,
     }),
+    getLatestDate: builder.query({
+      query: (query) => ({ query, url: 'summary' }),
+      transformResponse: (res) => {
+        const latestDate = getMaxDate(
+          res.revenue?.latestDate,
+          res.electricPowerUtilization?.latestDate,
+          res.CO2Emission?.latestDate,
+          res.waterUse?.latestDate,
+          res.waste?.latestDate
+        );
+
+        const ld = new Date(latestDate);
+        const currYear = ld.getFullYear();
+        const lastYear = currYear - 1;
+        const currMonth = ld.getMonth() + 1;
+        const yearOptions = APP_CONSTANTS.YEAR_OPTIONS.filter((option) => Number(option.key) <= currYear);
+        return {
+          latestDate,
+          yearOptions,
+          currYear: String(currYear),
+          lastYear: String(lastYear),
+          currMonth: String(currMonth),
+        };
+      },
+    }),
     getGoal: builder.query({
       query: ({ year, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL }) => ({
         url: `settings/${year}/${business}/objective`,
@@ -245,6 +270,7 @@ export const {
   useGetTrecQuery,
   useGetTrecBySiteQuery,
   useGetMissingPlantsQuery,
+  useGetLatestDateQuery,
   usePatchGoalMutation,
   usePatchCarbonIndexMutation,
   usePatchTrecMutation,

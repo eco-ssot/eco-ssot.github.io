@@ -6,13 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectLatestMonth, selectLatestYear, selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
+import { useGetLatestDateQuery } from '../../services/app';
 import { useGetDataStatusQuery } from '../../services/management';
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
@@ -131,11 +131,13 @@ export default function DataStatusPage() {
   const { t } = useTranslation(['managementPage']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
-  const yearOptions = useSelector(selectYoptions);
-  const currYear = useSelector(selectLatestYear);
-  const currMonth = useSelector(selectLatestMonth);
+  const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
   const [searchOption, setSearchOption] = useState({ year: year || currYear, month: month || currMonth });
-  const { data } = useGetDataStatusQuery({ year: year || currYear, month: month || currMonth });
+  const { data } = useGetDataStatusQuery(
+    { year: year || currYear, month: month || currMonth },
+    { skip: !currYear || !currMonth }
+  );
+
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">

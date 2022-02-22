@@ -7,12 +7,10 @@ import { get, isEmpty, isNil, groupBy } from 'lodash';
 import qs from 'query-string';
 import { renderToString } from 'react-dom/server';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useDeepCompareEffect } from 'react-use';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectLatestMonth, selectYoptions } from '../../app/appSlice';
 import Chart from '../../charts/Chart';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -26,6 +24,7 @@ import EditableTable, {
 } from '../../components/table/EditableTable';
 import Table from '../../components/table/Table';
 import { navigate } from '../../router/helpers';
+import { useGetLatestDateQuery } from '../../services/app';
 import {
   useGetElectricityPredictionQuery,
   useGetElectricityBaselineQuery,
@@ -466,12 +465,16 @@ export const LineTooltipFormatter =
     );
   };
 
-export function PredictionPanel({ categorized, year, month, plant, business }) {
+export function PredictionPanel({ categorized, year, month, plant, business, s, p }) {
   const { t } = useTranslation(['baselinePage', 'common']);
   const byMonth = categorized === 'month';
   const option = byMonth ? { categorized, year, plant } : { categorized, year, month };
   const skip = Object.values(option).every(isNil);
-  const { data } = useGetElectricityPredictionQuery({ ...option, bo: business }, { skip });
+  const { data } = useGetElectricityPredictionQuery(
+    { ...option, bo: business, ...(!byMonth && { site: s, plant: p }) },
+    { skip }
+  );
+
   const [selectedRow, setSelectedRow] = useState(-1);
   if (isNil(data)) {
     return null;
@@ -841,7 +844,7 @@ export function TabPanel({ children }) {
 export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const yearOptions = useSelector(selectYoptions);
+  const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
   useDeepCompareEffect(() => {
@@ -855,8 +858,8 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
         label={`${t('component:selectLabel.searchYear')} : `}
-        options={yearOptions}
-        selected={yearOptions.find((option) => option.key === searchOption.year)}
+        options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+        selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         buttonClassName="min-w-28"
       />
@@ -884,8 +887,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
 export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const yearOptions = useSelector(selectYoptions);
-  const currMonth = useSelector(selectLatestMonth);
+  const { data: { currMonth, yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
   const byMonth = searchOption.categorized === 'month';
@@ -909,8 +911,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
       />
       <Select
         label={`${t('component:selectLabel.searchYear')} : `}
-        options={yearOptions}
-        selected={yearOptions.find((option) => option.key === searchOption.year)}
+        options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+        selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         buttonClassName="min-w-28"
       />
@@ -988,7 +990,7 @@ export default function ElectricityBaselinePage() {
                   {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} />}
                 </div>
                 {isBaseline && <BaselinePanel {...option} business={business} />}
-                {isPrediction && <PredictionPanel {...option} business={business} />}
+                {isPrediction && <PredictionPanel {...option} business={business} s={s} p={p} />}
                 {isPowerSaving && <PowerSavingPanel {...option} business={business} />}
               </div>
               {isBaseline && !isEmpty(option) && <ChartPanel {...option} business={business} />}

@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectLatestMonth, selectLatestYear, selectYoptions } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
@@ -16,6 +15,7 @@ import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
+import { useGetLatestDateQuery } from '../../services/app';
 import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { plantRenderer, updateMyData } from '../../utils/table';
@@ -112,12 +112,14 @@ export default function CsrPage() {
   const { t } = useTranslation(['managementPage']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
-  const yearOptions = useSelector(selectYoptions);
-  const currYear = useSelector(selectLatestYear);
-  const currMonth = useSelector(selectLatestMonth);
   const { hash } = useLocation();
   const [searchOption, setSearchOption] = useState({ year, month });
-  const { data } = useGetCsrStatusQuery({ year: year || currYear, month: month || currMonth });
+  const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
+  const { data } = useGetCsrStatusQuery(
+    { year: year || currYear, month: month || currMonth },
+    { skip: !currYear || !currMonth }
+  );
+
   const [_data, setData] = useState();
   const [postCsrComment] = usePostCsrCommentMutation();
   const isWater = BUTTON_GROUP_OPTIONS[1].key === hash.slice(1);
