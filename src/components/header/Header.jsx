@@ -21,11 +21,12 @@ import GroupSelect from '../select/GroupSelect';
 
 export default function Header({ className }) {
   const { t } = useTranslation(['common']);
+  const { keycloak } = useKeycloak();
   const lng = useSelector(selectLanguage);
   const business = useSelector(selectBusiness);
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
-  const { data } = useGetPlantOptionsQuery({ bo: business });
+  const { data } = useGetPlantOptionsQuery({ bo: business }, { skip: !keycloak?.authenticated });
   const sitePlantOptions = useMemo(() => {
     const grouped = groupBy(data, ({ key }) => key.split(/-|_/)[0]);
     return Object.entries(grouped).reduce(
@@ -48,7 +49,6 @@ export default function Header({ className }) {
     );
   }, [data]);
 
-  const { keycloak } = useKeycloak();
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">
