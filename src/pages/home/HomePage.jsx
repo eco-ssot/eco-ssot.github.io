@@ -86,7 +86,7 @@ export default function HomePage() {
       <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
         <div className="grid grid-cols-2 overflow-y-auto max-h-[60%] ">
-          {missing?.map((val, i) => (
+          {(y && y < 2022 ? [] : missing)?.map((val, i) => (
             <div key={i} className="text-center">
               {val}
             </div>
@@ -135,7 +135,7 @@ export default function HomePage() {
           baseYear={compareYear || cyOptions[0].key}
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
-          latestDate={singleElectric?.latestDate || latestDate}
+          latestDate={CO2Emission?.latestDate || latestDate}
         />
       </Panel>
       <Panel className="row-span-1 col-span-3 pb-2" title={t('wasteEmissionDensity')} to="/waste">

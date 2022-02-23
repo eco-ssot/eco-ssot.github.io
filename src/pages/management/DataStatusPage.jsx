@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 import { subMonths } from 'date-fns';
@@ -138,6 +138,11 @@ export default function DataStatusPage() {
     { skip: !currYear || !currMonth }
   );
 
+  const disabledYearOptions = useMemo(
+    () => yearOptions?.map((option) => ({ ...option, disabled: option.key < 2022 })),
+    [yearOptions]
+  );
+
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
@@ -147,8 +152,10 @@ export default function DataStatusPage() {
         <div className="flex space-x-8 justify-center">
           <Select
             label="查詢年度 : "
-            options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
-            selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+            options={disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+            selected={(disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find(
+              (option) => option.key === searchOption.year
+            )}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
             buttonClassName="min-w-28"
           />

@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { chunk, isNil } from 'lodash';
 
 import APP_CONSTANTS from '../app/appConstants';
-import { setDateInfo, setMissingPlants } from '../app/appSlice';
+import { setDateInfo } from '../app/appSlice';
 import axios from '../axios';
 import { getMaxDate } from '../utils/date';
 import { getDecimalNumber } from '../utils/number';
@@ -118,7 +118,6 @@ export const appApi = createApi({
             })
           );
 
-          dispatch(setMissingPlants(res.data.missing || []));
           return {
             data: {
               ...res.data,
@@ -133,8 +132,14 @@ export const appApi = createApi({
       },
     }),
     getMissingPlants: builder.query({
-      query: (query) => ({ query, url: 'summary' }),
-      transformResponse: (res) => res.missing,
+      queryFn: (query) => {
+        return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
+          console.log({ res });
+          return {
+            data: query.year && query.year < 2022 ? [] : res.data.missing,
+          };
+        });
+      },
     }),
     getLatestDate: builder.query({
       query: (query) => ({ query, url: 'summary' }),
