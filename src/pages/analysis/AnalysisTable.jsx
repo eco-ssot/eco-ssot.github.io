@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import { Disclosure } from '@headlessui/react';
 import { PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
-import { PencilIcon, ChevronUpIcon } from '@heroicons/react/solid';
+import { PencilIcon, ChevronUpIcon, CheckIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
@@ -44,6 +44,37 @@ export function trimRow(row = {}) {
 
     return { ...prev, [key]: nextValue };
   }, {});
+}
+
+export function Complete({ editing, label, completedDate, onChange }) {
+  const [done, setDone] = useState(!!completedDate);
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div
+        className={clsx('group flex items-center space-x-1 cursor-pointer', !editing && 'pointer-events-none')}
+        onClick={() => {
+          onChange(done ? null : new Date());
+          setDone((prev) => !prev);
+        }}>
+        <div
+          className={clsx(
+            'p-0.5 border rounded-full',
+            done ? 'border-transparent bg-primary-600' : 'border-gray-500 group-hover:border-primary-600'
+          )}>
+          <CheckIcon
+            className={clsx('w-4 h-4', done ? 'text-gray-50' : 'text-gray-500 group-hover:text-primary-600')}
+          />
+        </div>
+        <div
+          className={clsx(
+            'font-medium',
+            done ? 'text-gray-50' : 'text-gray-400 underline group-hover:text-primary-600'
+          )}>
+          {label}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function AnalysisSubTable({
@@ -158,7 +189,12 @@ export function AnalysisSubTable({
                           <DatePicker value={dd} onChange={updateRow('dd', i)} />
                         </div>
                         <div className="col-span-1 text-center h-full">
-                          <DatePicker value={completedDate} onChange={updateRow('completedDate', i)} />
+                          <Complete
+                            label={t('analysisPage:table.done')}
+                            editing={true}
+                            completedDate={completedDate}
+                            onChange={updateRow('completedDate', i)}
+                          />
                         </div>
                         <div className="col-span-2 text-center">
                           <AdSearchSelectCell
@@ -223,7 +259,13 @@ export function AnalysisSubTable({
                         )}
                         <div className="col-span-1 pl-4">{contribution && `${contribution} %`}</div>
                         <div className="col-span-1 text-center">{dd}</div>
-                        <div className="col-span-1 text-center">{completedDate}</div>
+                        <div className="col-span-1 text-center">
+                          <Complete
+                            editing={false}
+                            completedDate={completedDate}
+                            label={t('analysisPage:table.done')}
+                          />
+                        </div>
                         <div className="col-span-2 text-center px-2">{PIC}</div>
                         <div className="col-span-1 text-center space-x-2">
                           <EditableIconButton

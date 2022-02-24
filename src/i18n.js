@@ -32,7 +32,7 @@ i18n
       backendOptions: [
         {
           expirationTime: 7 * 24 * 60 * 60 * 1000, // 7 days
-          defaultVersion: '1.0.0',
+          defaultVersion: '1.0.1',
         },
         {
           loadPath: '/locales/{{lng}}/{{ns}}.json',
