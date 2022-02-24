@@ -15,7 +15,8 @@ export const keepPrecisionFormatter = (value, option = {}) =>
 export const targetFormatter =
   (target, { className, reverse = false, formatter = originalFormatter, ...option } = {}) =>
   ({ value, ...cell }) => {
-    const val = /^revenue$|^asp$|^revenue.delta$|^asp.delta$/gi.test(cell.column.id) || reverse ? value * -1 : value;
+    const val =
+      /^revenue$|^asp$|^revenue.delta$|^asp.delta$|^production/gi.test(cell.column.id) || reverse ? value * -1 : value;
     return (
       <div
         className={clsx(
