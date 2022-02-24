@@ -84,7 +84,7 @@
     "category": "Category",
     "expect": "Expected Value",
     "contribution": "Attribution",
-    "finishDate": "Closed",
+    "finishDate": "Close Date",
     "done": "Done"
   }
 }
