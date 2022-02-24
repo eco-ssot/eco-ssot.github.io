@@ -17,14 +17,15 @@ export const targetFormatter =
   ({ value, ...cell }) => {
     const val =
       /^revenue$|^asp$|^revenue.delta$|^asp.delta$|^production/gi.test(cell.column.id) || reverse ? value * -1 : value;
+
     return (
       <div
         className={clsx(
-          val > target
+          target === 0 || isNaN(Number(value)) || !isFinite(Number(value))
+            ? ''
+            : val > target
             ? 'text-dangerous-500 font-semibold'
-            : val < target && cell.row.original.isFooter
-            ? 'text-green-500 font-semibold'
-            : '',
+            : val < target && 'text-green-500 font-semibold',
           className
         )}>
         {formatter(value, option)}
