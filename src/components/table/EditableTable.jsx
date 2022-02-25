@@ -112,6 +112,7 @@ export const AdSearchSelectCell = ({
   label = '',
   placeholder = '',
   onBlur = () => {},
+  ...props
 } = {}) => {
   const ref = useRef(defaultValue);
   return (
@@ -122,6 +123,7 @@ export const AdSearchSelectCell = ({
       label={label}
       onBlur={() => onBlur(ref.current)}
       placeholder={placeholder}
+      {...props}
     />
   );
 };

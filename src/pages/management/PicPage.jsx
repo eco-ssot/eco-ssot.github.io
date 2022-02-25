@@ -29,10 +29,11 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
         Cell: (cell) =>
           cell.row.original.editing ? (
             <AdSearchSelectCell
+              isClearable={true}
               options={userOptions}
               defaultValue={{ value: cell.row.original.OPMPIC, label: cell.row.original.OPMPIC }}
               onBlur={(e) =>
-                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, OPMPIC: e.label } : d)))
+                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, OPMPIC: e?.label || null } : d)))
               }
             />
           ) : (
@@ -64,10 +65,11 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
         Cell: (cell) =>
           cell.row.original.editing ? (
             <AdSearchSelectCell
+              isClearable={true}
               options={userOptions}
               defaultValue={{ value: cell.row.original.wastePIC, label: cell.row.original.wastePIC }}
               onBlur={(e) =>
-                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, wastePIC: e.label } : d)))
+                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, wastePIC: e?.label || null } : d)))
               }
             />
           ) : (

@@ -49,6 +49,10 @@ const customStyles = {
     ...provided,
     ...tw`text-base`,
   }),
+  clearIndicator: (provided, state) => ({
+    ...provided,
+    ...tw`text-gray-300 hover:text-gray-50 cursor-pointer`,
+  }),
 };
 
 export function CustomOption(props) {
