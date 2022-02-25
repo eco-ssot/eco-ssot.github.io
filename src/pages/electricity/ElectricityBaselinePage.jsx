@@ -741,7 +741,6 @@ export function PowerSavingPanel({ year, plant, business }) {
     [t]
   );
 
-  console.log({ _data });
   const columns = useMemo(
     () =>
       POWER_SAVING_COLUMNS({

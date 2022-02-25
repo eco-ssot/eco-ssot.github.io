@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
@@ -9,14 +9,14 @@ import { useKeycloak } from '../../keycloak';
 
 export default function LoginPage() {
   const { t } = useTranslation(['loginPage']);
-  const { state } = useLocation();
   const { keycloak } = useKeycloak();
   const login = useCallback(() => {
     keycloak?.login();
   }, [keycloak]);
 
   if (keycloak?.authenticated) {
-    return <Redirect to={state?.from || '/'} />;
+    const from = JSON.parse(localStorage.getItem('location-from'));
+    return <Redirect to={from || '/'} />;
   }
 
   return (

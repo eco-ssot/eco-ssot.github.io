@@ -6,6 +6,18 @@ import keycloak from './keycloak';
 
 const onEvent = (event, error) => {
   console.log('onKeycloakEvent', { event, error });
+  const from = JSON.parse(localStorage.getItem('location-from'));
+  if (window.location.pathname !== '/login') {
+    localStorage.setItem(
+      'location-from',
+      JSON.stringify(
+        from?.logout
+          ? { pathname: '/', search: '', hash: '' }
+          : { pathname: window.location.pathname, search: window.location.search, hash: window.location.hash }
+      )
+    );
+  }
+
   if (event === 'onReady') {
     history.replace(window.location.href.replace(window.location.origin, ''));
   }
