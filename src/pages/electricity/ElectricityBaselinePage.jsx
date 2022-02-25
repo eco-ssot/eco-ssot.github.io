@@ -506,7 +506,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
     return null;
   }
 
-  const r = data.data[selectedRow] || {};
+  const r = targetData[selectedRow] || {};
   const m = Number(month);
   const dataset = data.data.reduce(
     (prev, curr) => ({
