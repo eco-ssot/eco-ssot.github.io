@@ -870,6 +870,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
+  const nextYearOptions = useMemo(() => yearOptions?.filter((option) => option.key > 2020), [yearOptions]);
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
@@ -881,8 +882,8 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
         label={`${t('component:selectLabel.searchYear')} : `}
-        options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
-        selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+        options={nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+        selected={(nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         buttonClassName="min-w-28"
       />
@@ -913,6 +914,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const { data: { currMonth, yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
+  const nextYearOptions = useMemo(() => yearOptions?.filter((option) => option.key > 2020), [yearOptions]);
   const byMonth = searchOption.categorized === 'month';
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
@@ -934,8 +936,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
       />
       <Select
         label={`${t('component:selectLabel.searchYear')} : `}
-        options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
-        selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+        options={nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+        selected={(nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
         buttonClassName="min-w-28"
       />
