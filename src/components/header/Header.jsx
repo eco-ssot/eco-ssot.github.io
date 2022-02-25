@@ -81,7 +81,7 @@ export default function Header({ className }) {
           <NavBar />
           <Divider className="h-1/2" />
           <div className="tooltip tooltip-left tooltip-bg-primary-900" data-tip="系統說明手冊">
-            <a href="/ECO系統說明手冊_1.0.3.pdf" target="_blank">
+            <a href="/ECO系統說明手冊_1.1.4.pdf" target="_blank">
               <PdfIcon className="w-5 h-5 fill-gray-50" />
             </a>
           </div>
