@@ -40,12 +40,12 @@ export function getPlants({ data, s, p }) {
     });
 
   if (!options?.length) {
-    if (s) {
-      return data?.filter(({ key }) => key.startsWith(s));
-    }
-
     if (p) {
       return data?.filter(({ key }) => key === p);
+    }
+
+    if (s) {
+      return data?.filter(({ key }) => key.startsWith(s));
     }
   }
 
