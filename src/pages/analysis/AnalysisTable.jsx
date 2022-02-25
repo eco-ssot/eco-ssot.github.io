@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 
 import { Disclosure } from '@headlessui/react';
 import { PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
@@ -97,16 +97,19 @@ export function AnalysisSubTable({
     [t]
   );
 
-  const [table, setData] = useState(data);
+  const [_data, setData] = useState(data);
   const [deleteId, setDeleteId] = useState(false);
   const [open, setOpen] = useState(false);
   const updateRow = (key, idx) => (value) =>
     setData((prev) => prev.map((d, i) => (i === idx ? { ...d, [key]: value } : d)));
 
-  useEffect(
-    () => data && setData((prev) => data.map((d, i) => (prev[i]?.id === d.id ? { ...prev[i], ...d } : d))),
-    [data]
-  );
+  const dataRef = useRef(data);
+  useEffect(() => {
+    if (data) {
+      setData((prev) => data.map((d, i) => (prev[i]?.id === d.id ? { ...prev[i], ...d } : d)));
+      dataRef.current = data;
+    }
+  }, [data]);
 
   return (
     <>
@@ -137,8 +140,8 @@ export function AnalysisSubTable({
               <div className="col-span-1"></div>
             </Disclosure.Button>
             <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
-              {table &&
-                table.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
+              {_data &&
+                _data.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
                   <div key={i} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
                     {editing ? (
                       <>
@@ -203,8 +206,8 @@ export function AnalysisSubTable({
                             onBlur={(user) => user.label && updateRow('PIC', i)(user.label)}
                           />
                         </div>
-                        <div className="col-span-1 text-center">
-                          <EditableButton
+                        <div className="col-span-1 text-center space-x-2">
+                          <EditableIconButton
                             onClick={() => {
                               if ([name, expect, contribution, dd, PIC].some(isEmpty)) {
                                 return setOpen(true);
@@ -225,8 +228,16 @@ export function AnalysisSubTable({
 
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
                             }}>
-                            {t('component:button.save')}
-                          </EditableButton>
+                            <CheckIcon className="w-5 h-5" />
+                          </EditableIconButton>
+                          <EditableIconButton
+                            onClick={() =>
+                              setData((prev) =>
+                                prev.map((d, j) => (i === j ? dataRef.current?.[j] : d)).filter(Boolean)
+                              )
+                            }>
+                            <XIcon className="w-5 h-5" />
+                          </EditableIconButton>
                         </div>
                       </>
                     ) : (
@@ -304,13 +315,14 @@ export default function AnalysisTable({
 }) {
   const { t } = useTranslation(['analysisPage', 'common', 'component']);
   const { data: users } = useGetUsersQuery();
-  const [table, setData] = useState(data);
+  const [_data, setData] = useState(data);
   const [isAddingRow, setIsAddingRow] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
   const [open, setOpen] = useState(false);
   const updateRow = (key, idx) => (value) =>
     setData((prev) => prev.map((d, i) => (i === idx ? { ...d, [key]: value } : d)));
 
+  const dataRef = useRef(data);
   useEffect(() => {
     if (isAddingRow) {
       setData((prev) => [...prev, { editing: true, isNewRow: true }]);
@@ -319,10 +331,12 @@ export default function AnalysisTable({
     }
   }, [isAddingRow]);
 
-  useEffect(
-    () => data && setData((prev) => data.map((d, i) => (prev[i]?.id === d.id ? { ...prev[i], ...d } : d))),
-    [data]
-  );
+  useEffect(() => {
+    if (data) {
+      setData((prev) => data.map((d, i) => (prev[i]?.id === d.id ? { ...prev[i], ...d } : d)));
+      dataRef.current = data;
+    }
+  }, [data]);
 
   return (
     <>
@@ -355,12 +369,12 @@ export default function AnalysisTable({
           <div className="col-span-5">{title}</div>
           <div className="col-span-1 text-center">{t('common:edit')}</div>
         </div>
-        {table &&
-          table.map(({ id, description, effect, editing, imrprovements }, i) => (
+        {_data &&
+          _data.map(({ id, description, effect, editing, imrprovements }, i) => (
             <div key={i} className="grid grid-cols-12 text-lg items-center border-b border-divider">
               <div className="col-span-1 text-center h-full flex flex-col justify-center">{i + 1}</div>
               <div className="col-span-11 grid grid-cols-11 items-center border-l border-primary-600 gap-x-2">
-                {editing || (isAddingRow && i === table.length - 1) ? (
+                {editing || (isAddingRow && i === _data.length - 1) ? (
                   <>
                     <div className="col-span-5 py-2 pl-2">
                       <TextareaCell
@@ -374,8 +388,8 @@ export default function AnalysisTable({
                       <InputCell className="h-10" defaultValue={effect} suffix="%" onBlur={updateRow('effect', i)} />
                     </div>
                     <div className="col-span-4"></div>
-                    <div className="col-span-1 text-center pr-3">
-                      <EditableButton
+                    <div className="col-span-1 text-center pr-3 space-x-2">
+                      <EditableIconButton
                         onClick={() => {
                           if ([description, effect].some(isEmpty)) {
                             return setOpen(true);
@@ -388,8 +402,21 @@ export default function AnalysisTable({
 
                           setIsAddingRow(false);
                         }}>
-                        {t('component:button.save')}
-                      </EditableButton>
+                        <CheckIcon className="w-5 h-5" />
+                      </EditableIconButton>
+                      <EditableIconButton
+                        onClick={() =>
+                          setData((prev) => {
+                            const nextData = prev.map((d, j) => (i === j ? dataRef.current?.[j] : d)).filter(Boolean);
+                            if (nextData.length < prev.length) {
+                              setIsAddingRow(false);
+                            }
+
+                            return nextData;
+                          })
+                        }>
+                        <XIcon className="w-5 h-5" />
+                      </EditableIconButton>
                     </div>
                   </>
                 ) : (
@@ -417,7 +444,7 @@ export default function AnalysisTable({
                     data={imrprovements}
                     users={users}
                     canEdit={canEdit}
-                    canAddRow={!isNil(id) && (editing || (isAddingRow && i === table.length - 1))}
+                    canAddRow={!isNil(id) && (editing || (isAddingRow && i === _data.length - 1))}
                     hasCategory={hasCategory}
                     onChange={({ id: _id, ...row }) => onSubRowChange({ id, subId: _id, data: trimRow(row) })}
                     onDeleteRow={(subId) => onDeleteSubRow({ id, subId })}

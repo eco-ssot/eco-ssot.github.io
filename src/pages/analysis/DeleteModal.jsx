@@ -13,7 +13,9 @@ export default function DeleteModal({ open = false, setOpen = () => {}, onConfir
       title={<div className="h-8"></div>}
       footer={
         <div className="flex my-4 justify-center space-x-8">
-          <Button onClick={() => setOpen(false)}>{t('component:button.cancel')}</Button>
+          <Button variant="plain" onClick={() => setOpen(false)}>
+            {t('component:button.cancel')}
+          </Button>
           <Button
             onClick={() => {
               onConfirm(open);
