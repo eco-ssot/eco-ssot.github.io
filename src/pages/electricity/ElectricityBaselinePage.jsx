@@ -23,6 +23,7 @@ import EditableTable, {
   TextareaCell,
 } from '../../components/table/EditableTable';
 import Table from '../../components/table/Table';
+import useAdmin from '../../hooks/useAdmin';
 import { navigate } from '../../router/helpers';
 import { useGetLatestDateQuery } from '../../services/app';
 import {
@@ -30,6 +31,7 @@ import {
   useGetElectricityBaselineQuery,
   useGetElectricityPowerSavingQuery,
   usePostElectricityPowerSavingMutationMutation,
+  usePatchElectricityPowerSavingMutationMutation,
 } from '../../services/electricity';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 import { useGetPlantOptionsQuery } from '../../services/management';
@@ -121,7 +123,16 @@ const HISTORY_COLUMNS = (t) => [
   },
 ];
 
-export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions, postPowerSaving, setOpen }) => [
+export const POWER_SAVING_COLUMNS = ({
+  year,
+  plant,
+  electricityOptions,
+  setData,
+  userOptions,
+  postPowerSaving,
+  setOpen,
+  canEdit,
+}) => [
   {
     Header: '用電類型',
     accessor: 'category',
@@ -209,10 +220,12 @@ export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions,
     className: 'w-[5%] text-center',
     rowSpan: 0,
     Cell: (cell) => {
+      const [patchPowerSaving] = usePatchElectricityPowerSavingMutationMutation();
       return cell.row.original.editing ? (
         <EditableButton
           onClick={() => {
             const {
+              modified,
               isNew,
               editing,
               expected_benefits = {},
@@ -220,7 +233,7 @@ export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions,
               ...rest
             } = cell.row.original;
 
-            postPowerSaving({
+            const payload = {
               category,
               expected_benefits: Object.entries(expected_benefits).reduce(
                 (prev, [key, value]) => ({
@@ -230,15 +243,20 @@ export const POWER_SAVING_COLUMNS = ({ electricityOptions, setData, userOptions,
                 {}
               ),
               ...rest,
-            });
+            };
 
-            setOpen(true);
+            if (modified) {
+              patchPowerSaving({ year, plant, data: payload });
+            } else {
+              postPowerSaving(payload);
+              setOpen(true);
+            }
           }}>
           儲存
         </EditableButton>
       ) : (
         <EditableIconButton
-          disabled={!cell.row.original.by_copy}
+          disabled={!cell.row.original.by_copy && !canEdit}
           onClick={() =>
             setData((prev) =>
               prev.map((r, i) => ({
@@ -712,6 +730,7 @@ export function PowerSavingPanel({ year, plant, business }) {
   const [_data, setData] = useState();
   const [open, setOpen] = useState(false);
   const [postPowerSaving] = usePostElectricityPowerSavingMutationMutation();
+  const { canEdit } = useAdmin();
   const confirmRef = useRef({});
   const electricityOptions = useMemo(
     () =>
@@ -722,16 +741,20 @@ export function PowerSavingPanel({ year, plant, business }) {
     [t]
   );
 
+  console.log({ _data });
   const columns = useMemo(
     () =>
       POWER_SAVING_COLUMNS({
+        year,
+        plant,
         electricityOptions,
         setOpen,
         setData,
+        canEdit,
         userOptions: users.map(({ id, email }) => ({ value: id, label: email })),
         postPowerSaving: (payload) => (confirmRef.current = { year, plant, data: payload }),
       }),
-    [electricityOptions, year, plant, users]
+    [electricityOptions, year, plant, users, canEdit]
   );
 
   useEffect(() => data && setData(data.data), [data]);
@@ -767,7 +790,7 @@ export function PowerSavingPanel({ year, plant, business }) {
         }}
         onCancel={() => (confirmRef.current = {})}
       />
-      <div className="col-span-5 w-full h-full flex flex-col shadow overflow-auto rounded-t-lg">
+      <div className="relative col-span-5 w-full h-full flex flex-col shadow overflow-auto rounded-t-lg">
         <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
       </div>
     </>

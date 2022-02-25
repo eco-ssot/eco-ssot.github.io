@@ -12,6 +12,7 @@ export default function ConfirmModal({ open = false, setOpen = () => {}, onConfi
       footer={
         <div className="flex items-center justify-center p-4 space-x-8">
           <Button
+            variant="plain"
             onClick={() => {
               setOpen(false);
               onCancel();

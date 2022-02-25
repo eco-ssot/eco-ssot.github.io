@@ -132,6 +132,14 @@ export const electricityApi = createApi({
       }),
       invalidatesTags: ['POWER_SAVING'],
     }),
+    patchElectricityPowerSavingMutation: builder.mutation({
+      query: ({ year, plant, data } = {}) => ({
+        data,
+        url: `electric/inference/saving-tech/${year}/${plant}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['POWER_SAVING'],
+    }),
   }),
 });
 
@@ -148,6 +156,7 @@ export const {
   usePostElectricityExplanationMutation,
   usePostElectricityImprovementMutation,
   usePostElectricityPowerSavingMutationMutation,
+  usePatchElectricityPowerSavingMutationMutation,
   useDeleteElectricityExplanationMutation,
   useDeleteElectricityImprovementMutation,
 } = electricityApi;
