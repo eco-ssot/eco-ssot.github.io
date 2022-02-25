@@ -2,6 +2,8 @@ import clsx from 'clsx';
 
 import { baseFormatter } from '../../utils/formatter';
 
+export const TARGET_SITES = ['WTZ', 'WZS'];
+
 export function getYtmLabel(m, t) {
   if (m === 1) {
     return '-';
@@ -24,9 +26,8 @@ export function gapFormatter(cell) {
 }
 
 export function getPlants({ data, s, p }) {
-  const plants = ['WZS', 'WTZ'];
   const options = data
-    ?.filter(({ key }) => plants.find((plant) => key.startsWith(plant)))
+    ?.filter(({ key }) => TARGET_SITES.find((plant) => key.startsWith(plant)))
     ?.filter(({ key }) => {
       if (p) {
         return key === p;

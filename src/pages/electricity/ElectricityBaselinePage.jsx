@@ -41,7 +41,7 @@ import { trimNumber } from '../../utils/number';
 import { addPaddingColumns, EXPAND_COLUMN, updateMyData } from '../../utils/table';
 
 import ConfirmModal from './ConfirmModal';
-import { gapFormatter, getPlants, getYtmLabel } from './helpers';
+import { gapFormatter, getPlants, getYtmLabel, TARGET_SITES } from './helpers';
 
 const BUTTON_GROUP_OPTIONS = [
   { key: 'BASELINE', value: 'baseline' },
@@ -493,6 +493,12 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
     { skip }
   );
 
+  const targetData = useMemo(
+    () =>
+      byMonth ? data?.data : data?.data?.filter(({ plant }) => TARGET_SITES.find((site) => plant?.startsWith(site))),
+    [data?.data, byMonth]
+  );
+
   const [selectedRow, setSelectedRow] = useState(-1);
   if (isNil(data)) {
     return null;
@@ -516,7 +522,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
         <div className="col-span-2 w-full flex flex-col shadow overflow-auto rounded-t-lg">
           <Table
             columns={byMonth ? PREDICTION_COLUMNS_BY_MONTH(t) : PREDICTION_COLUMNS_BY_SITE({ t, year, month })}
-            data={data.data}
+            data={targetData}
             getRowProps={(row) => ({
               className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
               onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
@@ -863,13 +869,17 @@ export function TabPanel({ children }) {
   });
 }
 
-export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
+export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
-  const nextYearOptions = useMemo(() => yearOptions?.filter((option) => option.key > 2020), [yearOptions]);
+  const nextYearOptions = useMemo(
+    () => yearOptions?.filter((option) => option.key > 2020 && option.key <= maxYear),
+    [yearOptions, maxYear]
+  );
+
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
@@ -898,7 +908,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
         onClick={() =>
           navigate({
             ...searchOption,
-            ...(!searchOption.year && { year: yearOptions[0].key }),
+            ...(!searchOption.year && { year: nextYearOptions[0]?.key }),
             ...(!searchOption.plant && { plant: plantOptions[0]?.key }),
           })
         }>
@@ -908,13 +918,18 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   );
 }
 
-export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
+export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
-  const { data: { currMonth, yearOptions } = {} } = useGetLatestDateQuery();
+  const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
-  const nextYearOptions = useMemo(() => yearOptions?.filter((option) => option.key > 2020), [yearOptions]);
+  const nextYearOptions = useMemo(
+    () => yearOptions?.filter((option) => option.key > 2020 && option.key <= maxYear),
+    [yearOptions, maxYear]
+  );
+
+  const monthOptions = useMemo(() => APP_CONSTANTS.MONTH_OPTIONS.filter((option) => option.key > 10), []);
   const byMonth = searchOption.categorized === 'month';
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
@@ -954,11 +969,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
         <Select
           buttonClassName="w-20"
           label={`${t('component:selectLabel.predictionMonth')} : `}
-          options={APP_CONSTANTS.MONTH_OPTIONS}
-          selected={
-            APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-            APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
-          }
+          options={monthOptions}
+          selected={monthOptions.find((option) => option.key === searchOption.month)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
         />
       )}
@@ -967,8 +979,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
           navigate({
             ...searchOption,
             ...(!searchOption.categorized && { categorized: DIMENSION_OPTIONS[0].key }),
-            ...(!searchOption.year && { year: yearOptions[0].key }),
-            ...(!byMonth && !searchOption.month && { month: currMonth }),
+            ...(!searchOption.year && { year: nextYearOptions[0]?.key }),
+            ...(!byMonth && !searchOption.month && { month: monthOptions[0]?.key }),
             ...(byMonth && !searchOption.plant && { plant: plantOptions[0]?.key }),
           })
         }>
@@ -1011,9 +1023,9 @@ export default function ElectricityBaselinePage() {
                   }}
                 />
                 <div className="flex w-full justify-center items-center">
-                  {isBaseline && <BaselineSearch {...option} business={business} s={s} p={p} />}
-                  {isPrediction && <PredictionSearch {...option} business={business} s={s} p={p} />}
-                  {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} />}
+                  {isBaseline && <BaselineSearch {...option} business={business} s={s} p={p} maxYear={2021} />}
+                  {isPrediction && <PredictionSearch {...option} business={business} s={s} p={p} maxYear={2021} />}
+                  {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} maxYear={2022} />}
                 </div>
                 {isBaseline && <BaselinePanel {...option} business={business} />}
                 {isPrediction && <PredictionPanel {...option} business={business} s={s} p={p} />}
