@@ -6,9 +6,9 @@ import keycloak from './keycloak';
 
 const onEvent = (event, error) => {
   console.log('onKeycloakEvent', { event, error });
-  const from = JSON.parse(localStorage.getItem('location-from'));
+  const from = JSON.parse(sessionStorage.getItem('location-from'));
   if (window.location.pathname !== '/login') {
-    localStorage.setItem(
+    sessionStorage.setItem(
       'location-from',
       JSON.stringify(
         from?.logout

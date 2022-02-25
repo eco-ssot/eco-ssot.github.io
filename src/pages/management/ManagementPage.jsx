@@ -37,8 +37,8 @@ export default function ManagementPage() {
   const { pathname, search } = useLocation();
   const business = useSelector(selectBusiness);
   const logout = useCallback(() => {
-    const from = JSON.parse(localStorage.getItem('location-from'));
-    localStorage.setItem('location-from', JSON.stringify({ ...from, logout: true }));
+    const from = JSON.parse(sessionStorage.getItem('location-from'));
+    sessionStorage.setItem('location-from', JSON.stringify({ ...from, logout: true }));
     keycloak?.logout();
   }, [keycloak]);
 

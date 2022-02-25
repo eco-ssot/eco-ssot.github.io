@@ -15,7 +15,7 @@ export default function LoginPage() {
   }, [keycloak]);
 
   if (keycloak?.authenticated) {
-    const from = JSON.parse(localStorage.getItem('location-from'));
+    const from = JSON.parse(sessionStorage.getItem('location-from'));
     return <Redirect to={from || '/'} />;
   }
 
