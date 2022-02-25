@@ -91,11 +91,11 @@ export const appApi = createApi({
       queryFn: (query, { dispatch, getState }) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
           const latestDate = getMaxDate(
-            res.data.revenue?.latestDate,
-            res.data.electricPowerUtilization?.latestDate,
-            res.data.CO2Emission?.latestDate,
-            res.data.waterUse?.latestDate,
-            res.data.waste?.latestDate
+            res.data?.revenue?.latestDate,
+            res.data?.electricPowerUtilization?.latestDate,
+            res.data?.CO2Emission?.latestDate,
+            res.data?.waterUse?.latestDate,
+            res.data?.waste?.latestDate
           );
 
           const ld = new Date(latestDate);
@@ -144,11 +144,11 @@ export const appApi = createApi({
       query: (query) => ({ query, url: 'summary' }),
       transformResponse: (res) => {
         const latestDate = getMaxDate(
-          res.revenue?.latestDate,
-          res.electricPowerUtilization?.latestDate,
-          res.CO2Emission?.latestDate,
-          res.waterUse?.latestDate,
-          res.waste?.latestDate
+          res?.revenue?.latestDate,
+          res?.electricPowerUtilization?.latestDate,
+          res?.CO2Emission?.latestDate,
+          res?.waterUse?.latestDate,
+          res?.waste?.latestDate
         );
 
         const ld = new Date(latestDate);

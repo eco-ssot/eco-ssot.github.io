@@ -890,6 +890,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
       <Select
         buttonClassName="w-36"
         label="Plant : "
+        placeholder="Select Plant"
         options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
         selected={plantOptions?.find((option) => option.key === searchOption.plant)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
@@ -899,7 +900,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
           navigate({
             ...searchOption,
             ...(!searchOption.year && { year: yearOptions[0].key }),
-            ...(!searchOption.plant && { plant: plantOptions[0].key }),
+            ...(!searchOption.plant && { plant: plantOptions[0]?.key }),
           })
         }>
         {t('component:button.search')}
@@ -945,6 +946,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
         <Select
           buttonClassName="w-36"
           label="Plant : "
+          placeholder="Select Plant"
           options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
           selected={plantOptions?.find((option) => option.key === searchOption.plant)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
@@ -968,7 +970,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
             ...(!searchOption.categorized && { categorized: DIMENSION_OPTIONS[0].key }),
             ...(!searchOption.year && { year: yearOptions[0].key }),
             ...(!byMonth && !searchOption.month && { month: currMonth }),
-            ...(byMonth && !searchOption.plant && { plant: plantOptions[0].key }),
+            ...(byMonth && !searchOption.plant && { plant: plantOptions[0]?.key }),
           })
         }>
         {t('component:button.search')}

@@ -11,6 +11,7 @@ export default function Select({
   label,
   options = [],
   selected = options[0] || {},
+  placeholder = '',
   onChange = () => {},
 }) {
   return (
@@ -21,11 +22,13 @@ export default function Select({
           <div className="relative">
             <Listbox.Button
               className={clsx(
-                'bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',
+                'bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9',
                 open ? 'border-primary-600' : 'border-primary-800',
                 buttonClassName
               )}>
-              <span className="block truncate">{selected.value}</span>
+              <span className={clsx('block truncate', options.length === 0 && 'opacity-50')}>
+                {options.length === 0 ? placeholder : selected.value}
+              </span>
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                 <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
               </span>
@@ -75,6 +78,11 @@ export default function Select({
                     )}
                   </Listbox.Option>
                 ))}
+                {options.length === 0 && (
+                  <Listbox.Option disabled className="text-gray-50 cursor-default select-none relative py-2 pl-3 pr-9">
+                    <span className="block truncate opacity-50">No Options</span>
+                  </Listbox.Option>
+                )}
               </Listbox.Options>
             </Transition>
           </div>

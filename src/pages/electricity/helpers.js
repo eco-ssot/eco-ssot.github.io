@@ -24,15 +24,30 @@ export function gapFormatter(cell) {
 }
 
 export function getPlants({ data, s, p }) {
-  return data?.filter(({ key }) => {
-    if (p) {
-      return key === p;
-    }
+  const plants = ['WZS', 'WTZ'];
+  const options = data
+    ?.filter(({ key }) => plants.find((plant) => key.startsWith(plant)))
+    ?.filter(({ key }) => {
+      if (p) {
+        return key === p;
+      }
 
+      if (s) {
+        return key.startsWith(s);
+      }
+
+      return key;
+    });
+
+  if (!options?.length) {
     if (s) {
-      return key.startsWith(s);
+      return data?.filter(({ key }) => key.startsWith(s));
     }
 
-    return key;
-  });
+    if (p) {
+      return data?.filter(({ key }) => key === p);
+    }
+  }
+
+  return options;
 }

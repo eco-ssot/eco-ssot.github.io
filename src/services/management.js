@@ -23,10 +23,12 @@ export const managementApi = createApi({
     getPlantOptions: builder.query({
       query: (query) => ({ query, url: 'plants' }),
       transformResponse: (res) =>
-        res?.data?.map((plant) => ({
-          key: plant,
-          value: plant,
-        })),
+        res?.data
+          ?.map((plant) => ({
+            key: plant,
+            value: plant,
+          }))
+          ?.sort((a, b) => a.key.localeCompare(b.key)),
     }),
     getCsrStatus: builder.query({
       providesTags: ['CSR'],

@@ -40,10 +40,7 @@ export default function Header({ className }) {
           return prev.concat(siteOption, { ...values[0], parent: site });
         }
 
-        return prev.concat([
-          siteOption,
-          ...values.sort((a, b) => a.key.localeCompare(b.key)).map((value) => ({ ...value, parent: site })),
-        ]);
+        return prev.concat([siteOption, ...values.map((value) => ({ ...value, parent: site }))]);
       },
       [{ key: 'ALL', value: 'ALL', alias: 'Sites / Plants', group: true }]
     );
