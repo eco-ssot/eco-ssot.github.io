@@ -495,7 +495,9 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
 
   const targetData = useMemo(
     () =>
-      byMonth ? data?.data : data?.data?.filter(({ plant }) => TARGET_SITES.find((site) => plant?.startsWith(site))),
+      byMonth
+        ? data?.data?.filter(({ month }) => month > 10)
+        : data?.data?.filter(({ plant }) => TARGET_SITES.find((site) => plant?.startsWith(site))),
     [data?.data, byMonth]
   );
 
