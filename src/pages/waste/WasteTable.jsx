@@ -22,17 +22,7 @@ import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({
-  t,
-  business,
-  y,
-  m,
-  pct,
-  maxDate,
-  currYear,
-  baseYear = APP_CONSTANTS.BASE_YEAR_WASTE,
-  setOpen = () => {},
-} = {}) => [
+const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR_WASTE, setOpen = () => {} } = {}) => [
   {
     key: 'nonRecyclable',
     name: t('wastePage:table.nonRecyclable.header'),
@@ -109,7 +99,11 @@ const HEADERS = ({
             isFinite(cell.value) &&
             cell.value > -pct
           ) {
-            let query = { business, y, m, site: cell.row.original.site };
+            let query = {
+              ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
+              site: cell.row.original.site,
+            };
+
             if (cell.row.depth > 0) {
               query = {
                 ...query,
@@ -159,9 +153,6 @@ const HEADERS = ({
 
 const COLUMNS = ({
   t,
-  business,
-  y,
-  m,
   pct,
   maxDate,
   currYear,
@@ -177,7 +168,7 @@ const COLUMNS = ({
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
     },
-    ...HEADERS({ t, business, y, m, pct, maxDate, currYear, baseYear, setOpen }).map(
+    ...HEADERS({ t, pct, maxDate, currYear, baseYear, setOpen }).map(
       ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
         Header: name,
         Cell: renderer,
@@ -266,9 +257,6 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
     () =>
       COLUMNS({
         t,
-        business,
-        y,
-        m,
         pct,
         currYear,
         setOpen,
@@ -276,7 +264,7 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
         maxDate: data?.maxDate,
         missing: missingPlants,
       }),
-    [business, y, m, pct, currYear, baseYear, data?.maxDate, t, missingPlants]
+    [pct, currYear, baseYear, data?.maxDate, t, missingPlants]
   );
 
   return (

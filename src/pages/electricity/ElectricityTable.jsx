@@ -15,15 +15,7 @@ import { useGetElectricityQuery } from '../../services/electricity';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({
-  t,
-  business,
-  y,
-  m,
-  pct,
-  currYear = APP_CONSTANTS.CURRENT_YEAR,
-  lastYear = APP_CONSTANTS.LAST_YEAR,
-} = {}) => [
+const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) => [
   {
     key: 'electricity',
     name: t('electricityPage:table.electricity.header'),
@@ -81,7 +73,11 @@ const HEADERS = ({
             isFinite(cell.value) &&
             cell.value > 0
           ) {
-            let query = { business, y, m, site: cell.row.original.site };
+            let query = {
+              ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
+              site: cell.row.original.site,
+            };
+
             if (cell.row.depth > 0) {
               query = {
                 ...query,
@@ -119,16 +115,7 @@ const HEADERS = ({
   },
 ];
 
-const COLUMNS = ({
-  t,
-  business,
-  y,
-  m,
-  missing,
-  pct,
-  currYear = APP_CONSTANTS.CURRENT_YEAR,
-  lastYear = APP_CONSTANTS.LAST_YEAR,
-} = {}) =>
+const COLUMNS = ({ t, missing, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) =>
   addPaddingColumns([
     { ...EXPAND_COLUMN },
     {
@@ -137,7 +124,7 @@ const COLUMNS = ({
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
     },
-    ...HEADERS({ t, business, y, m, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
+    ...HEADERS({ t, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
@@ -154,8 +141,8 @@ export default function ElectricityTable({ business, y, m, s, p, missingPlants }
   const { data } = useGetElectricityQuery({ business, year: y, month: m, site: s, plant: p });
   const { label, currYear, baseYear, pct } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, business, y, m, pct, currYear, lastYear: baseYear, missing: missingPlants }),
-    [business, currYear, baseYear, t, missingPlants, y, m, pct]
+    () => COLUMNS({ t, pct, currYear, lastYear: baseYear, missing: missingPlants }),
+    [currYear, baseYear, t, missingPlants, pct]
   );
 
   return (
