@@ -10,7 +10,6 @@
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
-    "daisyui": "^2.1.0",
     "date-fns": "^2.23.0",
     "echarts": "5",
     "i18next": "^21.4.2",
@@ -33,6 +32,7 @@
     "react-scripts": "5",
     "react-select": "^5.2.2",
     "react-table": "^7.7.0",
+    "react-tooltip": "^4.2.21",
     "react-use": "^17.2.4"
   },
   "scripts": {
