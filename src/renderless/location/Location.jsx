@@ -19,10 +19,10 @@ export default function Location() {
       const { given_name = '', preferred_username = '', email = '' } = keycloak?.idTokenParsed || {};
       if (given_name && preferred_username) {
         ReactGA.set({ userId: `${preferred_username}-${given_name}-${email}` });
-        ReactGA.pageview(pathname + search);
+        ReactGA.pageview(`${pathname}${search}${hash}`);
       }
     }
-  }, [pathname, search, keycloak?.idTokenParsed]);
+  }, [pathname, search, hash, keycloak?.idTokenParsed]);
 
   return null;
 }
