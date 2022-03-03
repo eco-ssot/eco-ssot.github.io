@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 
+import { UploadIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { subMonths } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +11,7 @@ import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
+import UploadModal from '../../components/upload-modal/UploadModal';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetLatestDateQuery } from '../../services/app';
@@ -133,6 +135,7 @@ export default function DataStatusPage() {
   const month = useSelector(selectMonth);
   const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
   const [searchOption, setSearchOption] = useState({ year: year || currYear, month: month || currMonth });
+  const [open, setOpen] = useState(false);
   const { data } = useGetDataStatusQuery(
     { year: year || currYear, month: month || currMonth },
     { skip: !currYear || !currMonth }
@@ -144,61 +147,71 @@ export default function DataStatusPage() {
   );
 
   return (
-    <div className="row-span-2 col-span-7">
-      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
-        <div className="text-xl font-medium space-y-2 h-10">
-          {((!year && !month) || (year === currYear && month === currMonth)) && getLabel(t)}
-        </div>
-        <div className="flex space-x-8 justify-center">
-          <Select
-            label="查詢年度 : "
-            options={disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
-            selected={(disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find(
-              (option) => option.key === searchOption.year
-            )}
-            onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
-            buttonClassName="min-w-28"
-          />
-          <Select
-            label="查詢月份 : "
-            buttonClassName="w-24"
-            options={APP_CONSTANTS.MONTH_OPTIONS}
-            selected={
-              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
-            }
-            onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
-          />
-          <Button
-            onClick={() =>
-              navigate({
-                year: searchOption.year || currYear,
-                month: searchOption.month || APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
-              })
-            }>
-            搜尋
-          </Button>
-        </div>
-        <div className="absolute right-10">
-          <div className="flex justify-end space-x-4">
-            <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
-            <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
-            <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
-            <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
+    <>
+      <UploadModal title="匯入月報表" open={open} setOpen={setOpen} uploadExcel={() => {}} isSuccess={false} />
+      <div className="row-span-2 col-span-7">
+        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
+          <div className="text-xl font-medium space-y-2 h-10">
+            {((!year && !month) || (year === currYear && month === currMonth)) && getLabel(t)}
           </div>
-          <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
-        </div>
-        {data && (
-          <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
-            <Table
-              columns={COLUMNS(t)}
-              data={data?.data || []}
-              getHeaderProps={(header) => ({ className: '!py-1' })}
-              getCellProps={(cell) => ({ className: '!py-1' })}
-            />
+          <div className="relative flex justify-center items-center">
+            <Button className="absolute space-x-1 left-0" onClick={() => setOpen(true)}>
+              <UploadIcon className="w-5 h-5" />
+              <div>匯入月報表</div>
+            </Button>
+            <div className="flex space-x-8">
+              <Select
+                label="查詢年度 : "
+                options={disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+                selected={(disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find(
+                  (option) => option.key === searchOption.year
+                )}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+                buttonClassName="min-w-28"
+              />
+              <Select
+                label="查詢月份 : "
+                buttonClassName="w-24"
+                options={APP_CONSTANTS.MONTH_OPTIONS}
+                selected={
+                  APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+                  APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
+                }
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
+              />
+              <Button
+                onClick={() =>
+                  navigate({
+                    year: searchOption.year || currYear,
+                    month:
+                      searchOption.month || APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
+                  })
+                }>
+                搜尋
+              </Button>
+            </div>
           </div>
-        )}
+          <div className="absolute right-10">
+            <div className="flex justify-end space-x-4">
+              <Legend dotClassName="bg-gray-50" label={t('dataStatus.noData')} />
+              <Legend dotClassName="bg-primary-500" label={t('dataStatus.updated')} />
+              <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
+              <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
+            </div>
+            <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
+          </div>
+          {data && (
+            <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
+              <Table
+                columns={COLUMNS(t)}
+                data={data?.data || []}
+                getHeaderProps={(header) => ({ className: '!py-1' })}
+                getCellProps={(cell) => ({ className: '!py-1' })}
+              />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
