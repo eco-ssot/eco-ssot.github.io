@@ -75,7 +75,8 @@ export const COLUMNS = ({
                   <IconButton
                     className={clsx(
                       'bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600',
-                      !MANUAL_UPLOAD_PLANTS.includes(cell.row.original.site) && 'invisible'
+                      (!MANUAL_UPLOAD_PLANTS.includes(cell.row.original.site) || window.location.hash === '#HISTORY') &&
+                        'invisible'
                     )}
                     onClick={() => setOpen(true)}>
                     <UploadIcon className="w-5 h-5" />
