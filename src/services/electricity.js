@@ -1,9 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery, sortExplanationsById } from './helpers';
+import { appApi } from './app';
+import { sortExplanationsById } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -48,10 +48,7 @@ export function toRow({ plants = [], ...data } = {}) {
   };
 }
 
-export const electricityApi = createApi({
-  reducerPath: 'electricityApi',
-  baseQuery: axiosBaseQuery(),
-  tagTypes: ['EXPLANATION', 'POWER_SAVING'],
+export const electricityApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getElectricity: builder.query({
       query: (query) => ({ query, url: 'electric' }),
@@ -83,7 +80,7 @@ export const electricityApi = createApi({
     getElectricityExplanation: builder.query({
       query: (query) => ({ query, url: 'electric/anaysis/explanation' }),
       transformResponse: sortExplanationsById,
-      providesTags: ['EXPLANATION'],
+      providesTags: ['ELECTRICITY_EXPLANATION'],
     }),
     getElectricityPrediction: builder.query({
       query: (query) => ({ query, url: 'electric/inference/prediction' }),
@@ -97,11 +94,11 @@ export const electricityApi = createApi({
     }),
     postElectricityExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'electric/anaysis/explanation', method: 'POST' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
     }),
     postElectricityImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}/improvements`, method: 'POST' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
     }),
     patchElectricityExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}`, method: 'PATCH' }),
@@ -115,14 +112,14 @@ export const electricityApi = createApi({
     }),
     deleteElectricityExplanation: builder.mutation({
       query: ({ id }) => ({ url: `electric/anaysis/explanation/${id}`, method: 'DELETE' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
     }),
     deleteElectricityImprovement: builder.mutation({
       query: ({ id, subId }) => ({
         url: `electric/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
     }),
     postElectricityPowerSavingMutation: builder.mutation({
       query: ({ year, plant, data } = {}) => ({
@@ -141,6 +138,7 @@ export const electricityApi = createApi({
       invalidatesTags: ['POWER_SAVING'],
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {

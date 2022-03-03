@@ -1,9 +1,8 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { appApi } from './app';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -56,9 +55,7 @@ export function toRow({ plants = [], ...data } = {}) {
   };
 }
 
-export const overviewApi = createApi({
-  reducerPath: 'overviewApi',
-  baseQuery: axiosBaseQuery(),
+export const overviewApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getOverview: builder.query({
       query: (query) => ({ query, url: 'overall' }),
@@ -85,6 +82,7 @@ export const overviewApi = createApi({
       },
     }),
   }),
+  overrideExisting: false,
 });
 
 export const { useGetOverviewQuery, useGetOverviewHistoryQuery } = overviewApi;

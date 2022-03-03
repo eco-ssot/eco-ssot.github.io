@@ -44,5 +44,8 @@
     "air_condition": "空調用電",
     "air_compressor": "空壓用電",
     "air_production": "生產用電"
+  },
+  "upload": {
+    "selectExcel": "請選擇欲匯入之Excel檔"
   }
 }

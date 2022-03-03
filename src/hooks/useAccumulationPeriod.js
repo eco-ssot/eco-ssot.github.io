@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { selectBusiness, selectM, selectY } from '../renderless/location/locationSlice';
-import { useGetSummaryQuery } from '../services/app';
+import { useGetSummaryQuery } from '../services/summary';
 import { formatMonthRange, getMaxDate } from '../utils/date';
 
 export default function useAccumulationPeriod() {

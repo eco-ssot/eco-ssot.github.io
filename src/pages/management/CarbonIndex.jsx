@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
-import { usePatchCarbonIndexMutation } from '../../services/app';
+import { usePatchCarbonIndexMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { updateMyData } from '../../utils/table';
 

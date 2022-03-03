@@ -1,9 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery, sortExplanationsById } from './helpers';
+import { appApi } from './app';
+import { sortExplanationsById } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -42,10 +42,7 @@ export function toRow({ plants = [], ...data } = {}) {
   };
 }
 
-export const wasteApi = createApi({
-  reducerPath: 'wasteApi',
-  baseQuery: axiosBaseQuery(),
-  tagTypes: ['EXPLANATION', 'WASTE_UPLOAD'],
+export const wasteApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getWaste: builder.query({
       query: (query) => ({ query, url: 'waste' }),
@@ -78,15 +75,15 @@ export const wasteApi = createApi({
     getWasteExplanation: builder.query({
       query: (query) => ({ query, url: 'waste/anaysis/explanation' }),
       transformResponse: sortExplanationsById,
-      providesTags: ['EXPLANATION'],
+      providesTags: ['WASTE_EXPLANATION'],
     }),
     postWasteExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'waste/anaysis/explanation', method: 'POST' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WASTE_EXPLANATION'],
     }),
     postWasteImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}/improvements`, method: 'POST' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WASTE_EXPLANATION'],
     }),
     patchWasteExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}`, method: 'PATCH' }),
@@ -100,14 +97,14 @@ export const wasteApi = createApi({
     }),
     deleteWasteExplanation: builder.mutation({
       query: ({ id }) => ({ url: `waste/anaysis/explanation/${id}`, method: 'DELETE' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WASTE_EXPLANATION'],
     }),
     deleteWasteImprovement: builder.mutation({
       query: ({ id, subId }) => ({
         url: `waste/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WASTE_EXPLANATION'],
     }),
     uploadWasteExcel: builder.mutation({
       query: (formData) => ({
@@ -118,6 +115,7 @@ export const wasteApi = createApi({
       invalidatesTags: ['WASTE_UPLOAD'],
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {

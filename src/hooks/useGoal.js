@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { selectCurrY } from '../app/appSlice';
 import { selectBusiness, selectLanguage } from '../renderless/location/locationSlice';
-import { useGetGoalQuery } from '../services/app';
+import { useGetGoalQuery } from '../services/management';
 import { getTargetLabel } from '../utils/label';
 import { getDecimalNumber } from '../utils/number';
 

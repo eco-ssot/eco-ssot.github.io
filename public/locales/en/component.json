@@ -44,5 +44,8 @@
     "air_condition": "Air Condition",
     "air_compressor": "Air Compressor",
     "air_production": "Production"
+  },
+  "upload": {
+    "selectExcel": "Select Excel File"
   }
 }

@@ -19,7 +19,7 @@ import {
   selectS,
 } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
-import { useGetSummaryQuery } from '../../services/app';
+import { useGetSummaryQuery } from '../../services/summary';
 
 import Carbon from './Carbon';
 import Electricity from './Electricity';

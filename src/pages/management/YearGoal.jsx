@@ -11,7 +11,7 @@ import EditableTable, {
   EditableIconButton,
 } from '../../components/table/EditableTable';
 import { selectLanguage } from '../../renderless/location/locationSlice';
-import { usePatchGoalMutation } from '../../services/app';
+import { usePatchGoalMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { getDecimalNumber } from '../../utils/number';
 import { updateMyData } from '../../utils/table';

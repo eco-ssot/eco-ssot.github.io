@@ -14,7 +14,7 @@ import {
   usePatchTrecMutation,
   usePostTrecBySiteMutation,
   usePostTrecMutation,
-} from '../../services/app';
+} from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
 import { updateMyData } from '../../utils/table';

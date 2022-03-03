@@ -1,9 +1,8 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { appApi } from './app';
 
 export function toRow({ plants = [], ...data } = {}) {
   const { name, area, percent, solarElectric, structure, tRec, target, totalElectric } = data;
@@ -23,9 +22,7 @@ export function toRow({ plants = [], ...data } = {}) {
   };
 }
 
-export const renewableEnergyApi = createApi({
-  reducerPath: 'renewableEnergyApi',
-  baseQuery: axiosBaseQuery(),
+export const renewableEnergyApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getRenewableEnergy: builder.query({
       query: (query) => ({ query, url: 'renewableenergy' }),
@@ -52,6 +49,7 @@ export const renewableEnergyApi = createApi({
       },
     }),
   }),
+  overrideExisting: false,
 });
 
 export const { useGetRenewableEnergyQuery, useGetRenewableEnergyHistoryQuery } = renewableEnergyApi;

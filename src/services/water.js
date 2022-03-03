@@ -1,9 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { partition } from 'lodash';
 
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery, sortExplanationsById } from './helpers';
+import { appApi } from './app';
+import { sortExplanationsById } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -52,10 +52,7 @@ export function toRow({ plants = [], ...data } = {}) {
   };
 }
 
-export const waterApi = createApi({
-  reducerPath: 'waterApi',
-  baseQuery: axiosBaseQuery(),
-  tagTypes: ['EXPLANATION'],
+export const waterApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getWater: builder.query({
       query: (query) => ({ query, url: 'water' }),
@@ -87,15 +84,15 @@ export const waterApi = createApi({
     getWaterExplanation: builder.query({
       query: (query) => ({ query, url: 'water/anaysis/explanation' }),
       transformResponse: sortExplanationsById,
-      providesTags: ['EXPLANATION'],
+      providesTags: ['WATER_EXPLANATION'],
     }),
     postWaterExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'water/anaysis/explanation', method: 'POST' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WATER_EXPLANATION'],
     }),
     postWaterImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}/improvements`, method: 'POST' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WATER_EXPLANATION'],
     }),
     patchWaterExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}`, method: 'PATCH' }),
@@ -109,16 +106,17 @@ export const waterApi = createApi({
     }),
     deleteWaterExplanation: builder.mutation({
       query: ({ id }) => ({ url: `water/anaysis/explanation/${id}`, method: 'DELETE' }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WATER_EXPLANATION'],
     }),
     deleteWaterImprovement: builder.mutation({
       query: ({ id, subId }) => ({
         url: `water/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['EXPLANATION'],
+      invalidatesTags: ['WATER_EXPLANATION'],
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {

@@ -4,7 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Select from '../../components/select/Select';
-import { useGetGoalQuery, useGetCarbonIndexQuery, useGetTrecQuery, useGetTrecBySiteQuery } from '../../services/app';
+import {
+  useGetGoalQuery,
+  useGetCarbonIndexQuery,
+  useGetTrecQuery,
+  useGetTrecBySiteQuery,
+} from '../../services/management';
 
 import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';

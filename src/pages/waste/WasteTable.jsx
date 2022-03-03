@@ -1,21 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { UploadIcon } from '@heroicons/react/outline';
-import { get, isNil } from 'lodash';
+import clsx from 'clsx';
+import { get } from 'lodash';
 import qs from 'query-string';
-import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import Button from '../../components/button/Button';
 import IconButton from '../../components/button/IconButton';
 import Dot from '../../components/dot/Dot';
-import FileInput from '../../components/input/FileInput';
-import Modal from '../../components/modal/Modal';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
+import UploadModal from '../../components/upload-modal/UploadModal';
 import useGoal from '../../hooks/useGoal';
 import { useGetWasteQuery, useUploadWasteExcelMutation } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
@@ -131,23 +129,22 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
     name: <div className="text-center">{t('wastePage:table.recycleRate')}</div>,
     renderer: (cell) => {
       const value = ratioFormatter(cell, { precision: 2 });
-      if (cell.row.canExpand) {
-        return (
-          <div className="relative ">
-            {value}
-            <IconButton
-              className="absolute ml-2 p-1 bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
-              onClick={() => setOpen(true)}>
-              <UploadIcon className="w-5 h-5" />
-            </IconButton>
-          </div>
-        );
-      }
-
-      return value;
+      return (
+        <div className="flex justify-end items-center space-x-2">
+          <div>{value}</div>
+          <IconButton
+            className={clsx(
+              'bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600',
+              !cell.row.canExpand && 'invisible'
+            )}
+            onClick={() => setOpen(true)}>
+            <UploadIcon className="w-5 h-5" />
+          </IconButton>
+        </div>
+      );
     },
+    className: 'pr-0',
     rowSpan: 0,
-    className: 'text-center',
   },
 ];
 
@@ -190,63 +187,6 @@ const COLUMNS = ({
     ),
   ]);
 
-export function UploadModal({ open, setOpen, uploadExcel, isSuccess }) {
-  const { t } = useTranslation(['wastePage', 'component']);
-  const [name, setName] = useState('');
-  const fileRef = useRef();
-  useEffect(() => !open && setName(''), [open]);
-  useEffect(() => {
-    if (!!isSuccess) {
-      toast.success(t('component:toast.uploadSuccess'));
-      fileRef.current = null;
-      setOpen(false);
-    }
-  }, [isSuccess, setOpen, t]);
-
-  return (
-    <Modal
-      open={open}
-      setOpen={setOpen}
-      title={t('wastePage:upload.uploadWaste')}
-      footer={
-        <Button
-          className="mb-8"
-          onClick={() => {
-            if (isNil(fileRef.current)) {
-              return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', fileRef.current);
-            uploadExcel(formData);
-          }}>
-          <UploadIcon className="w-5 h-5 mr-2" />
-          Import
-        </Button>
-      }>
-      <form className="p-8 flex flex-col items-start space-y-4">
-        <div>{t('wastePage:upload.selectExcel')}</div>
-        <div className="flex items-center space-x-4 w-full">
-          <FileInput
-            id="excel"
-            type="file"
-            value={name}
-            onChange={(e) => {
-              const file = Array.from(e.target.files)[0];
-              fileRef.current = file;
-              setName(e.target.value);
-            }}
-            accept=".xlsx,xls"
-          />
-          <label htmlFor="excel" className="underline cursor-pointer">
-            Browse
-          </label>
-        </div>
-      </form>
-    </Modal>
-  );
-}
-
 export default function WasteTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['wastePage', 'common']);
   const { data } = useGetWasteQuery({ business, year: y, month: m, site: s, plant: p });
@@ -257,19 +197,25 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
     () =>
       COLUMNS({
         t,
+        setOpen,
         pct,
         currYear,
-        setOpen,
         lastYear: baseYear,
         maxDate: data?.maxDate,
         missing: missingPlants,
       }),
-    [pct, currYear, baseYear, data?.maxDate, t, missingPlants]
+    [t, pct, currYear, baseYear, data?.maxDate, missingPlants]
   );
 
   return (
     <>
-      <UploadModal open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
+      <UploadModal
+        title={t('wastePage:upload.uploadWaste')}
+        open={open}
+        setOpen={setOpen}
+        uploadExcel={uploadExcel}
+        isSuccess={isSuccess}
+      />
       <DualTag
         className="absolute top-2 right-4"
         labels={[

@@ -1,16 +1,22 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
+import { UploadIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import { selectCurrY, selectLastY } from '../../app/appSlice';
+import IconButton from '../../components/button/IconButton';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
+import UploadModal from '../../components/upload-modal/UploadModal';
 import { useGetOverviewQuery } from '../../services/overview';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
+
+export const MANUAL_UPLOAD_PLANTS = ['WIH', 'WZS-1'];
 
 export const HEADERS = [
   { key: 'electricity' },
@@ -22,6 +28,7 @@ export const HEADERS = [
 export const COLUMNS = ({
   t,
   missing,
+  setOpen,
   currYear = APP_CONSTANTS.CURRENT_YEAR,
   lastYear = APP_CONSTANTS.LAST_YEAR,
 } = {}) =>
@@ -58,8 +65,25 @@ export const COLUMNS = ({
         {
           Header: t('common:gap'),
           accessor: [key, 'delta'].join('.'),
-          Cell: targetFormatter(0, { formatter: ratioFormatter }),
           className: 'text-right',
+          Cell: targetFormatter(0, { formatter: ratioFormatter }),
+          ...(key === 'revenue' && {
+            Cell: (cell) => {
+              return (
+                <div className="flex justify-end items-center space-x-2">
+                  <div>{targetFormatter(0, { formatter: ratioFormatter })(cell)}</div>
+                  <IconButton
+                    className={clsx(
+                      'bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600',
+                      !MANUAL_UPLOAD_PLANTS.includes(cell.row.original.site) && 'invisible'
+                    )}
+                    onClick={() => setOpen(true)}>
+                    <UploadIcon className="w-5 h-5" />
+                  </IconButton>
+                </div>
+              );
+            },
+          }),
         },
       ],
     })),
@@ -70,13 +94,15 @@ export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
   const { data } = useGetOverviewQuery({ business, year: y, month: m, site: s, plant: p });
   const currYear = useSelector(selectCurrY);
   const lastYear = useSelector(selectLastY);
+  const [open, setOpen] = useState(false);
   const columns = useMemo(
-    () => COLUMNS({ t, currYear, lastYear, missing: missingPlants }),
+    () => COLUMNS({ t, setOpen, currYear, lastYear, missing: missingPlants }),
     [t, currYear, lastYear, missingPlants]
   );
 
   return (
     <>
+      <UploadModal title="匯入營收資料" open={open} setOpen={setOpen} uploadExcel={() => {}} isSuccess={false} />
       <Tag className="absolute top-2 right-4 pr-0">
         {t('common:accumulationRange')} : <GlobalDateSelect />
       </Tag>
