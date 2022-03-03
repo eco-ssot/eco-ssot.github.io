@@ -4,6 +4,8 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
+import Ellipsis from '../ellipsis/Ellipsis';
+
 export default function GroupSelect({
   className,
   buttonClassName,
@@ -36,7 +38,7 @@ export default function GroupSelect({
                 open ? 'border-primary-600' : 'border-primary-800',
                 buttonClassName
               )}>
-              <span className="block truncate text-lg">{selected.alias || selected.value}</span>
+              <Ellipsis className="text-lg" label={selected.alias || selected.value} />
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                 <ChevronDownIcon className="h-5 w-5 text-gray-50" aria-hidden="true" />
               </span>

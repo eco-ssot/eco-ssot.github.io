@@ -14,8 +14,8 @@ import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage, selectP, selectS } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetPlantOptionsQuery } from '../../services/management';
-import Avatar from '../avatar/Avatar';
 import Divider from '../divider/Divider';
+import Ellipsis from '../ellipsis/Ellipsis';
 import NavBar from '../nav-bar/NavBar';
 import GhostSelect from '../select/GhostSelect';
 import GroupSelect from '../select/GroupSelect';
@@ -51,10 +51,11 @@ export default function Header({ className }) {
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">
         <img className="h-10 w-10" src="/logo-64x64.png" alt="logo" />
-        <div className="block truncate font-medium text-xl">{t('title')}</div>
-        <div className="block truncate text-unit text-sm">
-          Ver {Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}
-        </div>
+        <Ellipsis label={t('title')} className="font-medium text-xl" />
+        <Ellipsis
+          label={`Ver${Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}`}
+          className="text-unit text-sm"
+        />
       </Link>
       <Divider className="h-1/2" />
       {keycloak?.authenticated ? (
@@ -103,7 +104,7 @@ export default function Header({ className }) {
         queryKey="lng"
       />
       <Divider className="h-1/2" />
-      {keycloak?.authenticated ? <Avatar>{keycloak?.idTokenParsed?.given_name}</Avatar> : <div>Login</div>}
+      {keycloak?.authenticated ? <Ellipsis label={keycloak?.idTokenParsed?.given_name} /> : <div>Login</div>}
     </div>
   );
 }
