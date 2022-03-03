@@ -12,7 +12,7 @@ import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import UploadModal from '../../components/upload-modal/UploadModal';
-import { useGetOverviewQuery } from '../../services/overview';
+import { useGetOverviewQuery, useUploadShipmentExcelMutation } from '../../services/overview';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
@@ -65,7 +65,7 @@ export const COLUMNS = ({
         {
           Header: t('common:gap'),
           accessor: [key, 'delta'].join('.'),
-          className: 'text-right',
+          className: key === 'revenue' ? 'text-center' : 'text-right',
           Cell: targetFormatter(0, { formatter: ratioFormatter }),
           ...(key === 'revenue' && {
             Cell: (cell) => {
@@ -95,6 +95,7 @@ export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
   const currYear = useSelector(selectCurrY);
   const lastYear = useSelector(selectLastY);
   const [open, setOpen] = useState(false);
+  const [uploadExcel, { isSuccess }] = useUploadShipmentExcelMutation();
   const columns = useMemo(
     () => COLUMNS({ t, setOpen, currYear, lastYear, missing: missingPlants }),
     [t, currYear, lastYear, missingPlants]
@@ -102,7 +103,7 @@ export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
 
   return (
     <>
-      <UploadModal title="匯入營收資料" open={open} setOpen={setOpen} uploadExcel={() => {}} isSuccess={false} />
+      <UploadModal title="匯入營收資料" open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
       <Tag className="absolute top-2 right-4 pr-0">
         {t('common:accumulationRange')} : <GlobalDateSelect />
       </Tag>

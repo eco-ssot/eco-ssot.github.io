@@ -58,6 +58,7 @@ export function toRow({ plants = [], ...data } = {}) {
 export const overviewApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getOverview: builder.query({
+      providesTags: ['SHIPMENT_UPLOAD'],
       query: (query) => ({ query, url: 'overall' }),
       transformResponse: (res) => {
         const [total, records] = partition(res.data, ({ site }) => site === 'Total');
@@ -81,8 +82,16 @@ export const overviewApi = appApi.injectEndpoints({
         return { data: [...records, ...total].map(toRow) };
       },
     }),
+    uploadShipmentExcel: builder.mutation({
+      query: (formData) => ({
+        url: 'shipment/upload',
+        method: 'POST',
+        data: formData,
+      }),
+      invalidatesTags: ['SHIPMENT_UPLOAD'],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetOverviewQuery, useGetOverviewHistoryQuery } = overviewApi;
+export const { useGetOverviewQuery, useGetOverviewHistoryQuery, useUploadShipmentExcelMutation } = overviewApi;

@@ -8,7 +8,7 @@ import { axiosBaseQuery } from './helpers';
 export const summaryApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getSummary: builder.query({
-      providesTags: ['YEAR_GOAL', 'CARBON_INDEX'],
+      providesTags: ['YEAR_GOAL', 'CARBON_INDEX', 'SHIPMENT_UPLOAD', 'WASTE_UPLOAD'],
       queryFn: (query, { dispatch, getState }) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
           const latestDate = getMaxDate(
