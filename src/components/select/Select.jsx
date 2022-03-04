@@ -4,6 +4,8 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 
+import Ellipse from '../ellipsis/Ellipsis';
+
 export default function Select({
   className,
   buttonClassName,
@@ -57,14 +59,11 @@ export default function Select({
                     value={option}>
                     {({ selected, active, disabled }) => (
                       <>
-                        <span
-                          className={clsx(
-                            selected ? 'font-semibold' : 'font-normal',
-                            'block truncate',
-                            disabled && 'opacity-50'
-                          )}>
-                          {option.value}
-                        </span>
+                        <Ellipse
+                          place="left"
+                          label={option.value}
+                          className={clsx(selected ? 'font-semibold' : 'font-normal', disabled && 'opacity-50')}
+                        />
                         {selected ? (
                           <span
                             className={clsx(

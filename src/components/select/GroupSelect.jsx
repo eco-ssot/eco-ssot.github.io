@@ -64,14 +64,15 @@ export default function GroupSelect({
                     value={option}>
                     {({ selected, active }) => (
                       <>
-                        <span
+                        <Ellipsis
+                          place="left"
+                          label={option.value}
                           className={clsx(
+                            'py-2',
                             selected ? 'font-semibold' : 'font-normal',
-                            'block truncate py-2',
                             !option.group && 'border-l-2 border-primary-700 pl-2'
-                          )}>
-                          {option.value}
-                        </span>
+                          )}
+                        />
                         {selected ? (
                           <span
                             className={clsx(

@@ -51,9 +51,11 @@ export default function GhostSelect({
                     value={option}>
                     {({ selected, active }) => (
                       <>
-                        <span className={clsx(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                          {option.value}
-                        </span>
+                        <Ellipsis
+                          place="left"
+                          label={option.value}
+                          className={clsx(selected ? 'font-semibold' : 'font-normal')}
+                        />
                         {selected ? (
                           <span
                             className={clsx(
