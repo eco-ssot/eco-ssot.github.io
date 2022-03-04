@@ -23,6 +23,7 @@ export const appApi = createApi({
   ],
   endpoints: (builder) => ({
     getMissingPlants: builder.query({
+      providesTags: ['SHIPMENT_UPLOAD', 'WASTE_UPLOAD'],
       queryFn: (query) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
           return {
