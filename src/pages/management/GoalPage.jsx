@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import Ellipsis from '../../components/ellipsis/Ellipsis';
 import Select from '../../components/select/Select';
 import {
   useGetGoalQuery,
@@ -46,9 +47,9 @@ export default function GoalPage({ business, canEdit }) {
       <div className="row-span-1 col-span-2">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="flex justify-between">
-            <div className="flex space-x-2 items-baseline">
-              <div className="text-xl font-medium">{t('managementPage:carbonIndex.title')}</div>
-              <div className="text-unit">{t('managementPage:carbonIndex.unit')}</div>
+            <div className="flex space-x-2 items-baseline truncate">
+              <Ellipsis className="text-xl font-medium" label={t('managementPage:carbonIndex.title')} />
+              <Ellipsis className="text-unit" label={t('managementPage:carbonIndex.unit')} />
             </div>
             <div className="flex items-center">
               <Select
