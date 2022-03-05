@@ -8,6 +8,7 @@
     "@popperjs/core": "^2.10.2",
     "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^1.5.1",
+    "@tippyjs/react": "^4.2.6",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "date-fns": "^2.23.0",
@@ -33,7 +34,6 @@
     "react-scripts": "5",
     "react-select": "^5.2.2",
     "react-table": "^7.7.0",
-    "react-tooltip": "^4.2.21",
     "react-use": "^17.2.4"
   },
   "scripts": {

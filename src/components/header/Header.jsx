@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
+import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import { groupBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 
 import { ReactComponent as PdfIcon } from '../../../public/icons/file-pdf-solid.svg';
 import version from '../../../version.json';
@@ -82,12 +82,11 @@ export default function Header({ className }) {
           <Divider className="h-1/2" />
           <NavBar />
           <Divider className="h-1/2" />
-          <a href="/ESG績效管理平台使用手冊.pdf" target="_blank" data-tip data-for="guidebook">
-            <PdfIcon className="w-5 h-5 fill-gray-50" />
-          </a>
-          <ReactTooltip id="guidebook" effect="solid" place="left" className="bg-gray-900 !px-2 !py-1">
-            <span>系統說明手冊</span>
-          </ReactTooltip>
+          <Tippy content="系統說明手冊">
+            <a href="/ESG績效管理平台使用手冊.pdf" target="_blank" data-tip data-for="guidebook">
+              <PdfIcon className="w-5 h-5 fill-gray-50" />
+            </a>
+          </Tippy>
           <Divider className="h-1/2" />
         </>
       ) : (

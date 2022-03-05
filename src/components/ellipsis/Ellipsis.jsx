@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 
+import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
-import ReactTooltip from 'react-tooltip';
 import { useMeasure } from 'react-use';
 
-export default function Ellipsis({ label, className, place }) {
-  const id = nanoid();
+export default function Ellipsis({ label, className, placement = 'auto' }) {
   const ref = useRef();
   const [containerRef, { width }] = useMeasure();
   const [isTruncated, setIsTruncated] = useState(false);
@@ -15,17 +13,12 @@ export default function Ellipsis({ label, className, place }) {
   }, [width]);
 
   return (
-    <span ref={containerRef} className="block truncate">
-      <span ref={ref} className={clsx('block truncate', className)} data-tip data-for={id}>
-        {label}
+    <Tippy content={label} placement={placement} className={clsx(className, !isTruncated && '!invisible')}>
+      <span ref={containerRef} className="block truncate">
+        <span ref={ref} className={clsx('block truncate', className)}>
+          {label}
+        </span>
       </span>
-      <ReactTooltip
-        id={id}
-        effect="solid"
-        className={clsx('bg-gray-900 !px-2 !py-1', !isTruncated && '!invisible')}
-        {...(place && { place })}>
-        <span>{label}</span>
-      </ReactTooltip>
-    </span>
+    </Tippy>
   );
 }
