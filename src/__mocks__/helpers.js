@@ -2,20 +2,20 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 import { store } from '../app/store';
 
-export function storeWrapper({ children }) {
+export function wrapper({ children }) {
   return (
-    <BrowserRouter>
-      <Provider store={store}>{children}</Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <MemoryRouter>{children} </MemoryRouter>
+    </Provider>
   );
 }
 
 export function renderWithProviders(ui, { preloadedState = {}, ...renderOptions } = {}) {
-  return { store, ...render(ui, { wrapper: storeWrapper, ...renderOptions }) };
+  return { store, ...render(ui, { wrapper, ...renderOptions }) };
 }
 
 export function sleep(ms) {

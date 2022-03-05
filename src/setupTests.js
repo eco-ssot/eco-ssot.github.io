@@ -3,14 +3,8 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
-import { JSDOM } from 'jsdom';
-
-import packageJson from '../package.json';
 
 import { server } from './__mocks__/server';
-
-// make debug output for TestingLibrary Errors larger
-process.env.DEBUG_PRINT_LIMIT = '15000';
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' });
@@ -25,16 +19,6 @@ afterEach(() => {
 });
 
 jest.mock('./charts/Chart.jsx', () => () => <></>);
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useLocation: () => ({
-    pathname: '/',
-    search: '',
-    hash: '',
-    state: {},
-  }),
-}));
-
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   Suspense: ({ children }) => children,
@@ -70,8 +54,3 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 });
-
-const dom = new JSDOM();
-global.document = dom.window.document;
-global.window = dom.window;
-packageJson.version = '0.7.13';
