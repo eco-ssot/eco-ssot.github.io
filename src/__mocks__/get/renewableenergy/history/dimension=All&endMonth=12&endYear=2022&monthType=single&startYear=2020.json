@@ -1,0 +1,178 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2020", "electricity": 2358399, "percent": 0.6953747012274004 },
+        { "year": "2021", "electricity": 2677395, "percent": 6.784169313829301 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2020", "electricity": 4814191.6, "percent": 8.875126532147164 },
+        { "year": "2021", "electricity": 3122125, "percent": 8.594719301757618 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2020", "electricity": 3446393, "percent": 7.552008433164761 },
+        { "year": "2021", "electricity": 2698376.54, "percent": 7.111081517185144 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2020", "electricity": 763590, "percent": 10.222921986930158 },
+            { "year": "2021", "electricity": 1010889.44336566, "percent": 5.143531466335354 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2020", "electricity": 621399, "percent": 3.394936264783175 },
+            { "year": "2021", "electricity": 0, "percent": 0 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2020", "electricity": 401048, "percent": 13.565091959067244 },
+            { "year": "2021", "electricity": 890152.2410235689, "percent": 5.191536616497052 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2020", "electricity": 1660356, "percent": 6.427058413978689 },
+            { "year": "2021", "electricity": 797334.8556107711, "percent": 11.748609583054062 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2020", "electricity": 8790078.90625, "percent": 2.245372324498296 },
+        { "year": "2021", "electricity": 10395800.31312626, "percent": 5.960949104058399 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2020", "electricity": 1806465, "percent": 2.3869313825620755 },
+            { "year": "2021", "electricity": 1741372.9556558942, "percent": 6.0215984635823965 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2020", "electricity": 2163587, "percent": 1.9530367856712025 },
+            { "year": "2021", "electricity": 2967582.6835072488, "percent": 5.694597402739681 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2020", "electricity": 1531661, "percent": 2.0310160015825955 },
+            { "year": "2021", "electricity": 1769316.426143308, "percent": 5.5910334410284515 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2020", "electricity": 3288365.90625, "percent": 2.4597928384053294 },
+            { "year": "2021", "electricity": 3917528.2478198083, "percent": 6.302824214144744 },
+            { "year": "2022", "electricity": 0, "percent": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2020", "electricity": 2233830, "percent": 11.996982312888626 },
+        { "year": "2021", "electricity": 3815752, "percent": 6.140854017766354 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2020", "electricity": 435354, "percent": 9.082328404011449 },
+        { "year": "2021", "electricity": 390396.17, "percent": 8.639195922439505 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2020", "electricity": 1477604, "percent": 6.057972230719462 },
+        { "year": "2021", "electricity": 1201563.4468875313, "percent": 7.948745465535109 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2020", "electricity": 883800, "percent": -3.4790031681375875 },
+        { "year": "2021", "electricity": 2211500, "percent": 3.4953095184264074 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2020", "electricity": 2839162, "percent": 4.303015467239981 },
+        { "year": "2021", "electricity": 3390319.7150537632, "percent": 6.13368612631574 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2020", "electricity": 29087443.90625, "percent": 6.453018013931387 },
+        { "year": "2021", "electricity": 29903228.185067553, "percent": 6.728392294547361 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2020", "electricity": 1095645.4, "percent": 0 },
+        { "year": "2021", "electricity": 0, "percent": 0 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2020", "electricity": 712986, "percent": 4.671438148855658 },
+        { "year": "2021", "electricity": 0, "percent": 0 },
+        { "year": "2022", "electricity": 0, "percent": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

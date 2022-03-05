@@ -15,7 +15,9 @@ const instance = axios.create({
 });
 
 const keycloakInstance = axios.create({
-  baseURL: Number(REACT_APP_MOCK_KEYCLOAK) ? '' : `${REACT_APP_KEYCLOAK_URL}/admin/realms/${REACT_APP_KEYCLOAK_REALM}`,
+  baseURL: Number(REACT_APP_MOCK_KEYCLOAK)
+    ? 'api'
+    : `${REACT_APP_KEYCLOAK_URL}/admin/realms/${REACT_APP_KEYCLOAK_REALM}`,
 });
 
 instance.interceptors.request.use(tokenInterceptor);

@@ -1,0 +1,268 @@
+{
+  "data": [
+    {
+      "category": "基礎用電",
+      "modified_method": "1",
+      "expected_benefits": {
+        "1": 123,
+        "2": 123,
+        "3": 123,
+        "4": 123,
+        "5": 123,
+        "6": 123,
+        "7": 123,
+        "8": 123,
+        "9": 123,
+        "10": 12,
+        "11": 3132,
+        "12": 132
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "基礎用電",
+      "modified_method": "123",
+      "expected_benefits": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "10": 10,
+        "11": 11,
+        "12": 12
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "基礎用電",
+      "modified_method": "1234",
+      "expected_benefits": {
+        "1": 2,
+        "2": 5,
+        "3": 5,
+        "4": 5,
+        "5": 5,
+        "6": 55,
+        "7": 5,
+        "8": 5,
+        "9": 5,
+        "10": 5,
+        "11": 55,
+        "12": 5
+      },
+      "pic": "",
+      "computational_logic": "f",
+      "remark": "f",
+      "by_copy": false
+    },
+    {
+      "category": "基礎用電",
+      "modified_method": "sdf",
+      "expected_benefits": {
+        "1": 1,
+        "2": 0,
+        "3": 2,
+        "4": 5,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "emily_hsieh@wistron.com",
+      "computational_logic": "gh",
+      "remark": "gh",
+      "by_copy": false
+    },
+    {
+      "category": "基礎用電",
+      "modified_method": "open",
+      "expected_benefits": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "基礎用電",
+      "modified_method": "try",
+      "expected_benefits": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "空調用電",
+      "modified_method": "123",
+      "expected_benefits": {
+        "1": 2,
+        "2": 22,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "",
+      "computational_logic": "2",
+      "remark": "2",
+      "by_copy": false
+    },
+    {
+      "category": "空調用電",
+      "modified_method": "df",
+      "expected_benefits": {
+        "1": 50,
+        "2": 60,
+        "3": 70,
+        "4": 80,
+        "5": 90,
+        "6": 100,
+        "7": 200,
+        "8": 300,
+        "9": 400,
+        "10": 500,
+        "11": 600,
+        "12": 700
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "空調用電",
+      "modified_method": "test",
+      "expected_benefits": {
+        "1": 123,
+        "2": 123,
+        "3": 123,
+        "4": 132,
+        "5": 123,
+        "6": 123,
+        "7": 1111,
+        "8": 111,
+        "9": 1,
+        "10": 11,
+        "11": 11,
+        "12": 1
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "空調用電",
+      "modified_method": "dev",
+      "expected_benefits": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "leo_jhuo@wistron.com",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    },
+    {
+      "category": "空壓用電",
+      "modified_method": "44444444",
+      "expected_benefits": {
+        "1": 4444,
+        "2": 111,
+        "3": 111,
+        "4": 11,
+        "5": 111,
+        "6": 111,
+        "7": 111,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "leo_jhuo@wistron.com",
+      "computational_logic": "123",
+      "remark": "4",
+      "by_copy": false
+    },
+    {
+      "category": "生產用電",
+      "modified_method": "prod",
+      "expected_benefits": {
+        "1": 123,
+        "2": 123,
+        "3": 123,
+        "4": 123,
+        "5": 123,
+        "6": 123,
+        "7": 11,
+        "8": 0,
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+      },
+      "pic": "",
+      "computational_logic": 0,
+      "remark": "",
+      "by_copy": false
+    }
+  ]
+}

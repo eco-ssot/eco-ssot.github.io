@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "id": 2,
+      "total_amount": 200517,
+      "region": "中國",
+      "buy_amount": 200517,
+      "price": 620641,
+      "currency": "人民幣",
+      "date_at": "2021-12-24"
+    }
+  ]
+}

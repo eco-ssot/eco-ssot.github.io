@@ -1,0 +1,357 @@
+{
+  "data": [
+    {
+      "month": 1,
+      "basic": { "actual": 209817.08, "baseline": 209817.08519485168, "gap": -0.005194851692067459, "saving_tech": 0 },
+      "air_condition": {
+        "actual": 109817.56,
+        "baseline": 91787.40320625954,
+        "gap": 18030.15679374046,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 499415.19999999955,
+        "baseline": 499415.15625,
+        "gap": 0.043749999545980245,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1248430.1600000004,
+        "baseline": 1265695.1095557935,
+        "gap": -17264.94955579308,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1474343,
+      "FAProduction": null,
+      "manpower": 3225,
+      "PCBALines": 9.608681711678383,
+      "FALines": null,
+      "revenue": 0.681097233,
+      "temperature": 4
+    },
+    {
+      "month": 2,
+      "basic": { "actual": 108174.58, "baseline": 108174.58378023651, "gap": -0.0037802365113748237, "saving_tech": 0 },
+      "air_condition": {
+        "actual": 213964.46,
+        "baseline": 221226.95370015095,
+        "gap": -7262.493700150953,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 502814.0000000007,
+        "baseline": 502813.96875,
+        "gap": 0.03125000069849193,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1166446.9599999993,
+        "baseline": 1263260.414486601,
+        "gap": -96813.45448660175,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1496157,
+      "FAProduction": null,
+      "manpower": 3046,
+      "PCBALines": 11.460919040199109,
+      "FALines": null,
+      "revenue": 0.705788651,
+      "temperature": 9
+    },
+    {
+      "month": 3,
+      "basic": { "actual": 287845.84, "baseline": 287845.8521383402, "gap": -0.012138340156525373, "saving_tech": 0 },
+      "air_condition": {
+        "actual": 316813.16,
+        "baseline": 247412.0244638327,
+        "gap": 69401.13553616728,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 573060.800000002,
+        "baseline": 573060.75,
+        "gap": 0.0500000020256266,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1330400.1999999979,
+        "baseline": 1259422.052695447,
+        "gap": 70978.14730455074,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1642571,
+      "FAProduction": null,
+      "manpower": 2882,
+      "PCBALines": 10.938827353999766,
+      "FALines": null,
+      "revenue": 0.781280752,
+      "temperature": 10.7
+    },
+    {
+      "month": 4,
+      "basic": { "actual": 208809.92, "baseline": 208809.92046025678, "gap": -0.0004602567641995847, "saving_tech": 0 },
+      "air_condition": {
+        "actual": 300767.36,
+        "baseline": 289468.89290132205,
+        "gap": 11298.467098677938,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 519152.3999999989,
+        "baseline": 519152.40625,
+        "gap": -0.006250001082662493,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1317630.3200000012,
+        "baseline": 1202357.25146042,
+        "gap": 115273.06853958126,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1149563,
+      "FAProduction": null,
+      "manpower": 3004,
+      "PCBALines": 9.336822741840663,
+      "FALines": null,
+      "revenue": 0.696765344,
+      "temperature": 15
+    },
+    {
+      "month": 5,
+      "basic": { "actual": 308621.385, "baseline": 308621.39262792905, "gap": -0.007627929036971182, "saving_tech": 0 },
+      "air_condition": {
+        "actual": 443096.895,
+        "baseline": 476319.2525814979,
+        "gap": -33222.35758149787,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 566923.2000003724,
+        "baseline": 566923.125,
+        "gap": 0.0750003723660484,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1365878.5199996275,
+        "baseline": 1285421.2278099807,
+        "gap": 80457.29218964675,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1431083,
+      "FAProduction": null,
+      "manpower": 3461,
+      "PCBALines": 10.95410927960928,
+      "FALines": null,
+      "revenue": 0.696839346,
+      "temperature": 21.4
+    },
+    {
+      "month": 6,
+      "basic": { "actual": 367766, "baseline": 367765.9695134961, "gap": 0.030486503907013685, "saving_tech": 0 },
+      "air_condition": { "actual": 592181, "baseline": 658750.991075034, "gap": -66569.99107503402, "saving_tech": 0 },
+      "air_compressor": {
+        "actual": 617637.5999999999,
+        "baseline": 617637.375,
+        "gap": 0.2249999998603016,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1474255.4000000001,
+        "baseline": 1404448.649925934,
+        "gap": 69806.75007406622,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1706009,
+      "FAProduction": null,
+      "manpower": 3997,
+      "PCBALines": 12.466115561644017,
+      "FALines": null,
+      "revenue": 0.964703359,
+      "temperature": 26.2
+    },
+    {
+      "month": 7,
+      "basic": { "actual": 400270.02, "baseline": 367765.99836869043, "gap": 32504.021631309588, "saving_tech": 0 },
+      "air_condition": {
+        "actual": 714945.5,
+        "baseline": 727406.5092269542,
+        "gap": -12461.009226954193,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 678500.0000000026,
+        "baseline": 617637.375,
+        "gap": 60862.62500000256,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1521884.4799999974,
+        "baseline": 1456377.7554742051,
+        "gap": 65506.72452579229,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1657352,
+      "FAProduction": null,
+      "manpower": 3806,
+      "PCBALines": 12.775324478551752,
+      "FALines": null,
+      "revenue": 0.940118672,
+      "temperature": 28.3
+    },
+    {
+      "month": 8,
+      "basic": {
+        "actual": 409862.5399999996,
+        "baseline": 307420.9392612419,
+        "gap": 102441.6007387577,
+        "saving_tech": 0
+      },
+      "air_condition": {
+        "actual": 721808.7599999998,
+        "baseline": 592537.8759314055,
+        "gap": 129270.88406859431,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 665197.4000000006,
+        "baseline": 561785.875,
+        "gap": 103411.5250000006,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1563491.3,
+        "baseline": 1457894.617844487,
+        "gap": 105596.68215551297,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1570086,
+      "FAProduction": null,
+      "manpower": 3596,
+      "PCBALines": 10.7376173893918,
+      "FALines": null,
+      "revenue": 0.9994257909274266,
+      "temperature": 27.4
+    },
+    {
+      "month": 9,
+      "basic": {
+        "actual": 190003.0399999991,
+        "baseline": 298963.85243875167,
+        "gap": -108960.81243875256,
+        "saving_tech": 0
+      },
+      "air_condition": {
+        "actual": 563816.3000000006,
+        "baseline": 537362.1174578107,
+        "gap": 26454.182542189956,
+        "saving_tech": 0
+      },
+      "air_compressor": { "actual": 532482.1599999998, "baseline": 560041, "gap": -27558.8400000002, "saving_tech": 0 },
+      "air_production": {
+        "actual": 1543058.5000000005,
+        "baseline": 1445431.6070557148,
+        "gap": 97626.89294428565,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1451216,
+      "FAProduction": null,
+      "manpower": 3670,
+      "PCBALines": 10.360124461508954,
+      "FALines": null,
+      "revenue": 0.970775658550761,
+      "temperature": 25.7
+    },
+    {
+      "month": 10,
+      "basic": {
+        "actual": 348041.59999999957,
+        "baseline": 320425.92227760155,
+        "gap": 27615.677722398017,
+        "saving_tech": 0
+      },
+      "air_condition": {
+        "actual": 384238.40000000043,
+        "baseline": 495140.09027611755,
+        "gap": -110901.69027611712,
+        "saving_tech": 0
+      },
+      "air_compressor": {
+        "actual": 591338.0999999986,
+        "baseline": 614383.5625,
+        "gap": -23045.46250000142,
+        "saving_tech": 0
+      },
+      "air_production": {
+        "actual": 1233221.9000000013,
+        "baseline": 1461641.6820805497,
+        "gap": -228419.78208054835,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1540793,
+      "FAProduction": null,
+      "manpower": 3241,
+      "PCBALines": 12.633354909858074,
+      "FALines": null,
+      "revenue": 0.905222197786174,
+      "temperature": 19.2
+    },
+    {
+      "month": 11,
+      "basic": {
+        "actual": 293064.540000001,
+        "baseline": 271258.8427609454,
+        "gap": 21805.697239055648,
+        "saving_tech": 0
+      },
+      "air_condition": {
+        "actual": 236151.49999999942,
+        "baseline": 257962.08937230345,
+        "gap": -21810.589372304035,
+        "saving_tech": 0
+      },
+      "air_compressor": { "actual": 591443.86, "baseline": 567033.125, "gap": 24410.734999999986, "saving_tech": 0 },
+      "air_production": {
+        "actual": 1328300.0999999996,
+        "baseline": 1282350.7748083884,
+        "gap": 45949.32519161119,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1584554,
+      "FAProduction": null,
+      "manpower": 3107,
+      "PCBALines": 10.5,
+      "FALines": null,
+      "revenue": 0.945551288868458,
+      "temperature": 11.7
+    },
+    {
+      "month": 12,
+      "basic": {
+        "actual": 276063.3800000014,
+        "baseline": 271737.7038090866,
+        "gap": 4325.676190914819,
+        "saving_tech": 0
+      },
+      "air_condition": {
+        "actual": 155246.91999999768,
+        "baseline": 116667.01561896343,
+        "gap": 38579.904381034255,
+        "saving_tech": 0
+      },
+      "air_compressor": { "actual": 539140.3, "baseline": 510551.625, "gap": 28588.675000000047, "saving_tech": 0 },
+      "air_production": {
+        "actual": 1332229.4000000004,
+        "baseline": 1269715.1952567783,
+        "gap": 62514.2047432221,
+        "saving_tech": 0
+      },
+      "PCBAProduction": 1361914,
+      "FAProduction": null,
+      "manpower": 2706,
+      "PCBALines": 8.8,
+      "FALines": null,
+      "revenue": 0.936434878803731,
+      "temperature": 4.8
+    }
+  ]
+}

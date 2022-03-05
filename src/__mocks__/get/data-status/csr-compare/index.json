@@ -1,0 +1,229 @@
+{
+  "data": [
+    {
+      "plant": "WIH(WT)",
+      "electric": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 799042.9341501677,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      },
+      "water": { "fem": 1, "csr": 1, "fem_amount": 0, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WKS-1(WT)",
+      "electric": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 157167.84857528366,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      },
+      "water": { "fem": 2, "csr": 1, "fem_amount": 37636, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WKS-5(WSD)",
+      "electric": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 484191.4297437302,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      },
+      "water": { "fem": 2, "csr": 1, "fem_amount": 37636, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WKS-6A(WSD)",
+      "electric": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 3523.26901053427,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      },
+      "water": { "fem": 2, "csr": 1, "fem_amount": 37636, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WKS-6B(WSD)",
+      "electric": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 620831.2781533997,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      },
+      "water": { "fem": 2, "csr": 1, "fem_amount": 37636, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WOK(WSD)",
+      "electric": {
+        "fem": 3,
+        "csr": 2,
+        "fem_amount": 3357608.25,
+        "csr_amount": 3514445.63,
+        "diff": -0.044626492059289556,
+        "comment": ""
+      },
+      "water": { "fem": 3, "csr": 1, "fem_amount": 43108.890625, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WTZ(WSD)",
+      "electric": {
+        "fem": 3,
+        "csr": 2,
+        "fem_amount": 1611919.125,
+        "csr_amount": 2397567,
+        "diff": -0.3276854723976431,
+        "comment": ""
+      },
+      "water": {
+        "fem": 3,
+        "csr": 2,
+        "fem_amount": 18293,
+        "csr_amount": 44212,
+        "diff": -0.5862435537863023,
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WZS-1(WT)",
+      "electric": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 3233491.921044543,
+        "csr_amount": 2735875.9799853526,
+        "diff": 0.18188541611519046,
+        "comment": ""
+      },
+      "water": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 140133.79974722862,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WZS-3(WT)",
+      "electric": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 1376602.6363153234,
+        "csr_amount": 1100825.468107463,
+        "diff": 0.25051852105309286,
+        "comment": ""
+      },
+      "water": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 140133.79974722862,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WZS-6(WT)",
+      "electric": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 2734101.463781961,
+        "csr_amount": 1919506.5914128707,
+        "diff": 0.4243772206947724,
+        "comment": ""
+      },
+      "water": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 140133.79974722862,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WZS-8(WSD)",
+      "electric": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 1264146.1807610916,
+        "csr_amount": 1142001.0824213908,
+        "diff": 0.10695707755435394,
+        "comment": ""
+      },
+      "water": {
+        "fem": 3,
+        "csr": 1,
+        "fem_amount": 140133.79974722862,
+        "csr_amount": 0,
+        "diff": "Infinity",
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WCQ(WT)",
+      "electric": {
+        "fem": 3,
+        "csr": 2,
+        "fem_amount": 1561553.592946306,
+        "csr_amount": 2832128.87,
+        "diff": -0.4486290473970183,
+        "comment": ""
+      },
+      "water": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 12660,
+        "csr_amount": 13710.42,
+        "diff": -0.07661472077441829,
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WCD(WT)",
+      "electric": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 2691071.799999999,
+        "csr_amount": 2514050.25,
+        "diff": 0.07041289250284431,
+        "comment": ""
+      },
+      "water": {
+        "fem": 2,
+        "csr": 2,
+        "fem_amount": 9109.599999999977,
+        "csr_amount": 19190,
+        "diff": -0.5252944241792612,
+        "comment": ""
+      }
+    },
+    {
+      "plant": "WMX(WT)",
+      "electric": { "fem": 0, "csr": 2, "fem_amount": 0, "csr_amount": 3619613, "diff": -1, "comment": "" },
+      "water": { "fem": 0, "csr": 2, "fem_amount": 0, "csr_amount": 5131, "diff": -1, "comment": "" }
+    },
+    {
+      "plant": "WCZ(WT)",
+      "electric": { "fem": 0, "csr": 1, "fem_amount": 0, "csr_amount": 0, "diff": "Infinity", "comment": "" },
+      "water": { "fem": 0, "csr": 2, "fem_amount": 0, "csr_amount": 447.36, "diff": -1, "comment": "" }
+    },
+    {
+      "plant": "WHC()",
+      "electric": { "fem": 0, "csr": 1, "fem_amount": 0, "csr_amount": 0, "diff": "Infinity", "comment": "" },
+      "water": { "fem": 0, "csr": 1, "fem_amount": 0, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    },
+    {
+      "plant": "WNH()",
+      "electric": { "fem": 0, "csr": 1, "fem_amount": 0, "csr_amount": 0, "diff": "Infinity", "comment": "" },
+      "water": { "fem": 0, "csr": 1, "fem_amount": 0, "csr_amount": 0, "diff": "Infinity", "comment": "" }
+    }
+  ]
+}

@@ -3,80 +3,59 @@
     {
       "name": "WTZ",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 18366.658851413333, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 19290.978276382644, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 15090.7111731, "gradient": -0.21773219808271216 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WOK",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 72580.920454596, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 43308.54973627062, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 21024.313561814997, "gradient": -0.5145458878248403 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WKS",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 30863.51575580952, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 33797.25063723582, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 14265.418644972564, "gradient": -0.5779118604027581 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": [
         {
-          "name": "WKS-5",
-          "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 9497.003874769569, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
-          ]
-        },
-        {
           "name": "WKS-6B",
           "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 6062.582539579966, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
-          ]
-        },
-        {
-          "name": "WKS-1",
-          "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 12583.969244376196, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
+            { "year": "2020", "carbon": 6638.861989031341, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 3390.866261814331, "gradient": -0.4892398324567244 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
           ]
         },
         {
           "name": "WKS-6A",
           "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 2719.9600970837873, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
+            { "year": "2020", "carbon": 2978.506202979074, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 1018.1011305669201, "gradient": -0.6581839817729354 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2020", "carbon": 10399.742621608793, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 3653.362087530181, "gradient": -0.6487064901068655 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2020", "carbon": 13780.139823616608, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 6203.089165061133, "gradient": -0.549852959080271 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
           ]
         }
       ]
@@ -84,56 +63,41 @@
     {
       "name": "WZS",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 99944.4389220222, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 104039.71602763762, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 55115.9442284974, "gradient": -0.47024130463931557 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": [
         {
-          "name": "WZS-8",
-          "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 21817.25567591522, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
-          ]
-        },
-        {
           "name": "WZS-1",
           "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 40506.77881431535, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
+            { "year": "2020", "carbon": 43023.77410551693, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 21880.827601947454, "gradient": -0.49142472837728857 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
           ]
         },
         {
-          "name": "WZS-3",
+          "name": "WZS-8",
           "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 15923.736502423884, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
+            { "year": "2020", "carbon": 22809.990869888716, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 9497.101845485884, "gradient": -0.583642891412862 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
           ]
         },
         {
           "name": "WZS-6",
           "metaData": [
-            { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-            { "year": "2020", "carbon": 21696.667929367737, "gradient": "Infinity" },
-            { "year": "2021", "carbon": 0, "gradient": -1 }
+            { "year": "2020", "carbon": 21557.648001185404, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 14928.870602374549, "gradient": -0.3074907521658371 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2020", "carbon": 16648.303051046576, "gradient": "Infinity" },
+            { "year": "2021", "carbon": 8809.144178689501, "gradient": -0.47086834305699854 },
+            { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
           ]
         }
       ]
@@ -141,96 +105,72 @@
     {
       "name": "WMX",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 18098.494337999997, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 5438.597814999997, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 10754.793099999999, "gradient": 0.9774937338329373 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WIH",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 9207.969096139544, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 5032.744657949261, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 4626.373405847258, "gradient": -0.08074545396618438 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WCZ",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 2219.70188608, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 792.3607159999998, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 1244.865549, "gradient": 0.5710843860159271 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WCQ",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 12748.160068137933, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 12970.032799999999, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 7420.920333023999, "gradient": -0.4278410511788374 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WCD",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 26216.45615123333, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 17010.6621654, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 16232.909309283332, "gradient": -0.04572149211796306 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "Total",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 300353.5454174318, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 250092.81188369344, "gradient": "Infinity" },
+        { "year": "2021", "carbon": 140806.47646953954, "gradient": -0.4369831127532682 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WHC",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 6594.35366, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 6594.353835084553, "gradient": "Infinity" },
+        { "year": "2021", "carbon": -3141.542334, "gradient": -1.4763988121604517 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     },
     {
       "name": "WNH",
       "metaData": [
-        { "year": "2016", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2017", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2018", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2019", "carbon": 0, "gradient": "Infinity" },
-        { "year": "2020", "carbon": 3512.8762339999994, "gradient": "Infinity" },
-        { "year": "2021", "carbon": 0, "gradient": -1 }
+        { "year": "2020", "carbon": 1817.5652167328958, "gradient": "Infinity" },
+        { "year": "2021", "carbon": -1828.2305020000001, "gradient": -2.005867896881453 },
+        { "year": "2022", "carbon": "No Data", "gradient": "Infinity" }
       ],
       "plants": []
     }

@@ -1,14 +1,18 @@
 {
-  "revenue": { "compareYear": 67.11669299148512, "currentYear": 65.36679750660463, "gradient": -0.026072433054806554 },
-  "shipment": { "compareYear": 0, "currentYear": 0, "gradient": "Infinity" },
-  "ASP": { "compareYear": 0, "currentYear": 0, "gradient": "Infinity" },
-  "electrcity": { "compareYear": 14677385, "currentYear": 20187015, "gradient": 0.37538226325738533 },
+  "revenue": { "compareYear": 2.1203646765114, "currentYear": 0.5290619937800001, "gradient": -0.7504853765766101 },
+  "shipment": { "compareYear": 286.863836666667, "currentYear": 94.3613, "gradient": -0.6710589208578183 },
+  "ASP": { "compareYear": 7.3915370482032685, "currentYear": 5.60676881073067, "gradient": -0.2414610419772487 },
+  "electrcity": {
+    "compareYear": 840477.5050900942,
+    "currentYear": 484191.42974373006,
+    "gradient": -0.42390911498359773
+  },
   "electrcityIntensity": {
-    "compareYear": 218684.56781477705,
-    "currentYear": 308826.74033342866,
-    "gradient": 0.41220180015171826,
-    "ASP": 0,
-    "ASPGradient": -1,
-    "target": 214310.8764584815
+    "compareYear": 396383.4685611333,
+    "currentYear": 915188.4569978607,
+    "gradient": 1.3088461794836768,
+    "ASP": 694206.0985656069,
+    "ASPGradient": -0.2414610419772486,
+    "target": 388455.79918991064
   }
 }

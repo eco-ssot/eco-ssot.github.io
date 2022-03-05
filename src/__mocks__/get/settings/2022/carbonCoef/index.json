@@ -1,0 +1,15 @@
+{
+  "data": [
+    { "id": 25, "site": "WCZ", "amount": 0.428, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 26, "site": "WOK", "amount": 0.7921, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 27, "site": "WKS", "amount": 0.7921, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 28, "site": "WTZ", "amount": 0.7921, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 29, "site": "WIH", "amount": 0.509, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 30, "site": "WZS", "amount": 0.8042, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 31, "site": "WCQ", "amount": 0.8587, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 32, "site": "WCD", "amount": 0.8587, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 33, "site": "WHC", "amount": 0.509, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 34, "site": "WNH", "amount": 0.509, "lastUpdateTime": "2022-01-18T00:00:00+00:00" },
+    { "id": 24, "site": "WMX", "amount": 0.505, "lastUpdateTime": "2022-01-18T00:00:00+00:00" }
+  ]
+}

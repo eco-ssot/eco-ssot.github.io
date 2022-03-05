@@ -1,0 +1,178 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2020", "singleElectric": 2.969939420692575, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 2.076226905432709, "gradient": -0.3009194426772035 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2020", "singleElectric": 4.959563802796161, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 4.864395979010084, "gradient": -0.019188748763030894 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2020", "singleElectric": 2.515286994445422, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 2.2148035574959097, "gradient": -0.1194628834057816 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2020", "singleElectric": 1.9505901080882821, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 2.753465788174984, "gradient": 0.41160655780910194 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2020", "singleElectric": 3.0019224191817333, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 4.708343099958977, "gradient": 0.5684426319193092 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2020", "singleElectric": null, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 0, "gradient": -1 },
+            { "year": "2022", "singleElectric": 0, "gradient": "Infinity" }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2020", "singleElectric": 1.5156489407732232, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 1.2466070652656205, "gradient": -0.17750936135009499 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2020", "singleElectric": 1.9937838772658234, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 1.91244536795694, "gradient": -0.04079605128537156 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2020", "singleElectric": 1.0992829703378408, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 1.562766186895395, "gradient": 0.42162321173329254 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2020", "singleElectric": 1.8032776910972421, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 1.3832279064955826, "gradient": -0.23293682757538658 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2020", "singleElectric": 3.728403242091347, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 2.763134756648268, "gradient": -0.2588959462715299 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2020", "singleElectric": 2.240433265803158, "gradient": "Infinity" },
+            { "year": "2021", "singleElectric": 2.3329871084220515, "gradient": 0.04131068933477677 },
+            { "year": "2022", "singleElectric": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2020", "singleElectric": 54.2178587898352, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 105.99312857192153, "gradient": 0.9549486264808598 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2020", "singleElectric": 14.585700884481373, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 13.38072970935015, "gradient": -0.08261318291623987 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2020", "singleElectric": 5.974800449645379, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 7.747473721154234, "gradient": 0.2966916278541267 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2020", "singleElectric": 3.4318444133903085, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 1.5912063812304562, "gradient": -0.5363407574591914 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2020", "singleElectric": 1.7291436768569635, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 1.4105778850790174, "gradient": -0.18423326878018487 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2020", "singleElectric": 2.9798036575623783, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 2.3734274900722503, "gradient": -0.20349534304088102 },
+        { "year": "2022", "singleElectric": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2020", "singleElectric": 0, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 0, "gradient": "Infinity" },
+        { "year": "2022", "singleElectric": 0, "gradient": "Infinity" }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2020", "singleElectric": 0, "gradient": "Infinity" },
+        { "year": "2021", "singleElectric": 0, "gradient": "Infinity" },
+        { "year": "2022", "singleElectric": 0, "gradient": "Infinity" }
+      ],
+      "plants": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "data": [
+    {
+      "id": 19,
+      "category": "用電強度",
+      "baseYear": null,
+      "target": "下降 2 %",
+      "amount": 2150.3832346989657,
+      "unit": "千度 / 十億新臺幣"
+    },
+    {
+      "id": 25,
+      "category": "碳排放量",
+      "baseYear": 2016,
+      "target": "下降 21 %",
+      "amount": 241772.2154062739,
+      "unit": "公噸"
+    },
+    {
+      "id": 27,
+      "category": "單台用電",
+      "baseYear": null,
+      "target": "下降 5 %",
+      "amount": 2.0264078788051973,
+      "unit": "度 / 臺"
+    },
+    {
+      "id": 30,
+      "category": "廢棄物密度",
+      "baseYear": 2018,
+      "target": "下降 2 %",
+      "amount": 142.3180228803693,
+      "unit": "公噸 / 十億新臺幣"
+    },
+    { "id": 34, "category": "可再生能源", "baseYear": 2022, "target": "占比 > 60 %", "amount": 0.6, "unit": "%" },
+    {
+      "id": 23,
+      "category": "用水強度",
+      "baseYear": 2016,
+      "target": "下降 9 %",
+      "amount": 6.126227559125524,
+      "unit": "千噸 / 十億新臺幣"
+    }
+  ]
+}

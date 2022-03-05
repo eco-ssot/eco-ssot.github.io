@@ -35,5 +35,5 @@ if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_STAGE === 'pr
 
 if (process.env.REACT_APP_MOCK_API === '1') {
   const { worker } = require('./__mocks__/browser');
-  worker.start();
+  worker.start({ onUnhandledRequest: 'bypass' });
 }

@@ -1,0 +1,178 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 66814.78655827636, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 53027.71300385074, "gradient": -0.2063476404642921 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 35653.53656357821, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 56110.282335067765, "gradient": 0.5737648419536339 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 5720.720348705764, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 9652.104148421548, "gradient": 0.6872183151908844 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 19698.519812542912, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 16040.455009408353, "gradient": -0.18570252170954027 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 9233.937942531637, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 7079.303815955651, "gradient": -0.2333385972469788 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 3401.3120203691246, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 8620.631616407209, "gradient": 1.534501852456236 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2020", "billiRevenue": null, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 0, "gradient": -1 },
+            { "year": "2022", "billiRevenue": 0, "gradient": "Infinity" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 10073.6168361464, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 9006.49265781963, "gradient": -0.10593257572570058 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 9942.557611240629, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 7958.997672625807, "gradient": -0.19950198089597126 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 10244.788044163655, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 10703.648927285394, "gradient": 0.04478969024480173 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 5741.180395870981, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 7086.280329926232, "gradient": 0.23428978734453954 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2020", "billiRevenue": 24277.44963907046, "gradient": "Infinity" },
+            { "year": "2021", "billiRevenue": 19663.08184452584, "gradient": -0.19006806164345091 },
+            { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 456.6887774840054, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 298.77212923136744, "gradient": -0.34578613716464424 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 64.4455246475017, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 106.2413916510449, "gradient": 0.6485456861768828 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 8061.434204682608, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 7418.465903630664, "gradient": -0.07975854974769447 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 2372.4404028218773, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 880.409584941483, "gradient": -0.6289012849830546 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 798.6725765972296, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 943.6479356225807, "gradient": 0.18152039180188617 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 5297.366729710286, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 4085.808298242094, "gradient": -0.22870956331438508 },
+        { "year": "2022", "billiRevenue": 0, "gradient": -1 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2022", "billiRevenue": 0, "gradient": "Infinity" }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2020", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2021", "billiRevenue": 0, "gradient": "Infinity" },
+        { "year": "2022", "billiRevenue": 0, "gradient": "Infinity" }
+      ],
+      "plants": []
+    }
+  ]
+}

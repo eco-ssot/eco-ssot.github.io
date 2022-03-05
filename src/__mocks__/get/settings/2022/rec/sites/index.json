@@ -1,0 +1,20 @@
+{
+  "data": [
+    { "plant": "WOK", "amount": 26786129 },
+    { "plant": "WTZ", "amount": 18163901 },
+    { "plant": "WMX", "amount": 23431976 },
+    { "plant": "WCD", "amount": 20795157 },
+    { "plant": "WCQ", "amount": 7729877 },
+    { "plant": "WIH", "amount": 9550922 },
+    { "plant": "WCZ", "amount": 3372709 },
+    { "plant": "WNH", "amount": 3600284 },
+    { "plant": "WHC", "amount": 6564824 },
+    { "plant": "WZS-1", "amount": 24604553.6 },
+    { "plant": "WKS-1", "amount": 9314820.13 },
+    { "plant": "WKS-5", "amount": 5132655.99 },
+    { "plant": "WKS-6B", "amount": 4562360.88 },
+    { "plant": "WZS-3", "amount": 9841821.44 },
+    { "plant": "WZS-6", "amount": 16608073.68 },
+    { "plant": "WZS-8", "amount": 10456935.28 }
+  ]
+}
