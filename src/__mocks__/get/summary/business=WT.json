@@ -1,62 +1,77 @@
 {
   "revenue": {
-    "latestDate": "2021-06-01",
-    "compareYear": 270.812844826333,
-    "currentYear": 5.80039508538866,
-    "gradient": -0.9785815363037587
+    "latestDate": "2022-01-01",
+    "compareYear": 47.316288835298906,
+    "currentYear": 38.84690426419999,
+    "gradient": -0.1789951152039756
   },
   "electricPowerUtilization": {
-    "latestDate": "2021-06-01",
-    "compareYear": 100695.050174731,
-    "currentYear": 1747025.43112453,
-    "gradient": 16.34966543134946,
+    "latestDate": "2022-01-01",
+    "compareYear": 16250.555885536814,
+    "currentYear": 12553.032196813583,
+    "gradient": -0.22753213580921694,
     "intensity": {
-      "compareYear": 363.773437053286,
-      "compareYTM": 371.825236869044,
-      "currentYTM": 305587.603637389,
-      "target": 363.773437053286
+      "compareYear": 333.7077509936576,
+      "compareYTM": 343.4452761522069,
+      "currentYTM": 323.1411211415896,
+      "target": "下降 2 %",
+      "targetAmount": 511.0254272781765
     }
   },
   "CO2Emission": {
-    "latestDate": "2021-06-01",
-    "compareYear": 74288.1446878375,
-    "currentYear": 1347.74043266776,
-    "gradient": -0.9818579338825726,
-    "baseYear": 0,
-    "compareYTM": 74288.1446878375,
-    "currentYTM": 1347.74043266776,
-    "target": 0
+    "latestDate": "2022-01-01",
+    "compareYear": 12663.96838058153,
+    "currentYear": 10089.137371464167,
+    "gradient": -0.2033194439324023,
+    "baseYear": 182232.3462935773,
+    "compareYTM": 12663.96838058153,
+    "currentYTM": 10089.137371464167,
+    "target": "下降 21 %",
+    "targetAmount": 143963.55357192608
   },
   "waterUse": {
-    "latestDate": "2021-06-01",
-    "compareYear": 964.562880523756,
-    "currentYear": 22602.3092280575,
-    "gradient": 22.432696493342647,
+    "latestDate": "2022-01-01",
+    "compareYear": 150.33716738306882,
+    "currentYear": 21.707599999999978,
+    "gradient": -0.8556072302154822,
     "intensity": {
-      "baseYear": 0,
-      "compareYTM": 3.56173238807159,
-      "currentYTM": 3455.05144959835,
-      "target": 0
+      "baseYear": 4.659576117911207,
+      "compareYTM": 3.1772814623389114,
+      "currentYTM": 0.5587987102489651,
+      "target": "下降 9 %",
+      "targetAmount": 4.240214267299199
     }
   },
   "waste": {
-    "latestDate": "2021-06-01",
-    "compareYear": 0,
-    "currentYear": 917.19,
-    "gradient": "Infinity",
-    "intensity": { "baseYear": 0, "compareYTM": 0, "currentYTM": 3455.05144959835, "target": 0 }
+    "latestDate": "2022-01-01",
+    "compareYear": 2113.231533332088,
+    "currentYear": 2612.4033566544435,
+    "gradient": 0.23621255666920438,
+    "intensity": {
+      "baseYear": 51.32904523373633,
+      "compareYTM": 44.66181911873812,
+      "currentYTM": 67.24868830955849,
+      "target": "下降 2 %",
+      "targetAmount": 80.74506049390864
+    }
   },
-  "totalPowerSaving": { "amount": 11208, "digital": 7291, "manage": 3917 },
+  "totalPowerSaving": {
+    "amount": "No Data",
+    "digital": "No Data",
+    "manage": "No Data"
+  },
   "renewableEnergy": {
-    "nonRenewableEnergy": 0.12,
-    "selfConstructedSolarEnergy": 0.33,
-    "grid": 0.22,
-    "tRec": 0
+    "nonRenewableEnergy": 0.9719293091597854,
+    "selfConstructedSolarEnergy": 0.02807069084021458,
+    "tRec": "No Data",
+    "target": "占比 > 60 %"
   },
   "singleElectric": {
-    "compareYear": 4.82716792816885,
-    "compareYTM": 4.79567857189553,
-    "currentYTM": 3.21306453790883,
-    "target": 4.778896248887162
-  }
+    "compareYear": 3.180648826349588,
+    "compareYTM": 3.2278546768532155,
+    "currentYTM": 0.5542036477184179,
+    "target": "下降 5 %",
+    "targetAmount": 1.946708579486585
+  },
+  "missing": ["WIH", "WZS-1"]
 }

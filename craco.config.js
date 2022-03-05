@@ -14,6 +14,7 @@ module.exports = {
         resolve: {
           ...webpackConfig.resolve,
           fallback: {
+            ...webpackConfig.resolve.fallback,
             timers: false,
             tty: false,
             os: false,
@@ -21,7 +22,7 @@ module.exports = {
             https: false,
             zlib: false,
             util: false,
-            ...webpackConfig.resolve.fallback,
+            stream: false,
           },
         },
       };

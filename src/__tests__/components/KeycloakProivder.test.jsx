@@ -4,4 +4,5 @@ import KeycloakProvider from '../../keycloak/KeycloakProvider';
 
 test('KeycloakProvider', () => {
   const { asFragment } = render(<KeycloakProvider />);
+  expect(asFragment()).toMatchInlineSnapshot();
 });

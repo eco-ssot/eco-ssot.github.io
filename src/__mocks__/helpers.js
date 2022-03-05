@@ -6,43 +6,18 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { store } from '../app/store';
 
-function renderWithProviders(ui, { preloadedState = {}, ...renderOptions } = {}) {
-  function Wrapper({ children }) {
-    return (
-      <BrowserRouter>
-        <Provider store={store}>{children}</Provider>
-      </BrowserRouter>
-    );
-  }
-
-  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+export function storeWrapper({ children }) {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>{children}</Provider>
+    </BrowserRouter>
+  );
 }
 
-const storeWrapper = ({ children }) => (
-  <BrowserRouter>
-    <Provider store={store}>{children}</Provider>
-  </BrowserRouter>
-);
-
-async function getHistoryData(resource, req) {
-  const monthType = req.url.searchParams.get('monthType');
-  const startYear = req.url.searchParams.get('startYear');
-  const endYear = req.url.searchParams.get('endYear');
-  let type = monthType;
-  if (monthType === 'YTM') {
-    type = 'index';
-  }
-
-  if (startYear && endYear && startYear === endYear) {
-    type = 'sameYear';
-  }
-
-  const { default: data } = await import(`./get/${resource}/history/${type}.json`);
-  return data;
+export function renderWithProviders(ui, { preloadedState = {}, ...renderOptions } = {}) {
+  return { store, ...render(ui, { wrapper: storeWrapper, ...renderOptions }) };
 }
 
-function sleep(ms) {
+export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-export { renderWithProviders, getHistoryData, storeWrapper, sleep };

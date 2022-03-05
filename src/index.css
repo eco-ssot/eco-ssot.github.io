@@ -3,6 +3,8 @@
 @tailwind utilities;
 @tailwind variants;
 
+@import './styles/react-datepicker.css';
+
 ::-webkit-scrollbar {
   @apply w-2 h-2;
 }

@@ -1,14 +1,11 @@
 import { waitFor } from '@testing-library/dom';
-import MockDate from 'mockdate';
 
 import { renderWithProviders } from '../../__mocks__/helpers';
 import App from '../../app/App';
 
 test('App', async () => {
-  MockDate.set('2021/10/21');
-
   const { asFragment, queryByText } = renderWithProviders(<App />);
-  await waitFor(() => expect(queryByText(/2021.01 - 06/i)).toBeInTheDocument());
+  await waitFor(() => expect(queryByText(/title/i)).toBeInTheDocument());
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
@@ -1144,6 +1141,4 @@ test('App', async () => {
       </div>
     </DocumentFragment>
   `);
-
-  MockDate.reset();
 });

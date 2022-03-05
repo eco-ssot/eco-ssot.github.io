@@ -11,7 +11,6 @@ import * as serviceWorker from './serviceWorker';
 
 import './i18n';
 import './index.css';
-import './styles/react-datepicker.css';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,4 +31,9 @@ serviceWorker.unregister();
 if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_STAGE === 'production') {
   ReactGA.initialize(process.env.REACT_APP_GA_ID, { debug: false, gaOptions: { cookieDomain: 'auto' } });
   console.log = () => {};
+}
+
+if (process.env.REACT_APP_MOCK_API === '1') {
+  const { worker } = require('./__mocks__/browser');
+  worker.start();
 }

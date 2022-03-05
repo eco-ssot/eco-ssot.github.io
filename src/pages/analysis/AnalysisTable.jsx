@@ -208,6 +208,7 @@ export function AnalysisSubTable({
                         </div>
                         <div className="col-span-1 text-center space-x-2">
                           <EditableIconButton
+                            aria-label="icon-button-check"
                             onClick={() => {
                               if ([name, expect, contribution, dd, PIC].some(isEmpty)) {
                                 return setOpen(true);
@@ -231,6 +232,7 @@ export function AnalysisSubTable({
                             <CheckIcon className="w-5 h-5" />
                           </EditableIconButton>
                           <EditableIconButton
+                            aria-label="icon-button-x"
                             onClick={() =>
                               setData((prev) =>
                                 prev.map((d, j) => (i === j ? dataRef.current?.[j] : d)).filter(Boolean)
@@ -274,12 +276,16 @@ export function AnalysisSubTable({
                         <div className="col-span-2 text-center px-2">{PIC}</div>
                         <div className="col-span-1 text-center space-x-2">
                           <EditableIconButton
+                            aria-label="icon-button-pencil"
                             onClick={() =>
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))
                             }>
                             <PencilIcon className="w-5 h-5" />
                           </EditableIconButton>
-                          <EditableIconButton disabled={!canEdit} onClick={() => setDeleteId(id)}>
+                          <EditableIconButton
+                            aria-label="icon-button-trash"
+                            disabled={!canEdit}
+                            onClick={() => setDeleteId(id)}>
                             <TrashIcon className="w-5 h-5" />
                           </EditableIconButton>
                         </div>
@@ -289,7 +295,9 @@ export function AnalysisSubTable({
                 ))}
               {canAddRow && (
                 <div className="col-span-11 text-center py-2">
-                  <EditableIconButton onClick={() => setData((prev) => [...prev, { editing: true, isNewRow: true }])}>
+                  <EditableIconButton
+                    aria-label="icon-button-plus"
+                    onClick={() => setData((prev) => [...prev, { editing: true, isNewRow: true }])}>
                     <PlusIcon className="w-5 h-5" />
                   </EditableIconButton>
                 </div>
@@ -390,6 +398,7 @@ export default function AnalysisTable({
                     <div className="col-span-4"></div>
                     <div className="col-span-1 text-center pr-3 space-x-2">
                       <EditableIconButton
+                        aria-label="icon-button-check"
                         onClick={() => {
                           if ([description, effect].some(isEmpty)) {
                             return setOpen(true);
@@ -405,6 +414,7 @@ export default function AnalysisTable({
                         <CheckIcon className="w-5 h-5" />
                       </EditableIconButton>
                       <EditableIconButton
+                        aria-label="icon-button-x"
                         onClick={() =>
                           setData((prev) => {
                             const nextData = prev.map((d, j) => (i === j ? dataRef.current?.[j] : d)).filter(Boolean);
@@ -425,10 +435,12 @@ export default function AnalysisTable({
                     <div className="col-span-5 px-4">{effect && `${effect} %`}</div>
                     <div className="col-span-1 pr-3 text-center space-x-2">
                       <EditableIconButton
+                        aria-label="icon-button-pencil"
                         onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}>
                         <PencilIcon className="w-5 h-5" />
                       </EditableIconButton>
                       <EditableIconButton
+                        aria-label="icon-button-trash"
                         disabled={!canEdit}
                         onClick={() => {
                           setDeleteId(id);

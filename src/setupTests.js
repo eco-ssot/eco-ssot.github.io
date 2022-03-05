@@ -3,7 +3,6 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
-import echarts from 'echarts/lib/echarts';
 import { JSDOM } from 'jsdom';
 
 import packageJson from '../package.json';
@@ -13,35 +12,19 @@ import { server } from './__mocks__/server';
 // make debug output for TestingLibrary Errors larger
 process.env.DEBUG_PRINT_LIMIT = '15000';
 
-process.env.REACT_APP_MOCK_API = '0';
-process.env.REACT_APP_MOCK_KEYCLOAK = '1';
-process.env.REACT_APP_API_BASE_URL =
-  'http://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/api';
-
-process.env.REACT_APP_KEYCLOAK_REALM = 'k8sprdwhqecossot2021';
-process.env.REACT_APP_KEYCLOAK_URL = 'https://keycloak-prd.wistron.com/auth';
-process.env.REACT_APP_KEYCLOAK_CLIENT_ID = 'eco-ssot-frontend';
-
-const dom = new JSDOM();
-global.document = dom.window.document;
-global.window = dom.window;
-
-let echartsSpy;
-
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' });
-  echartsSpy = jest.spyOn(echarts, 'init').mockImplementation(() => null);
 });
 
 afterAll(() => {
   server.close();
-  echartsSpy.mockRestore();
 });
 
 afterEach(() => {
   server.resetHandlers();
 });
 
+jest.mock('./charts/Chart.jsx', () => () => <></>);
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useLocation: () => ({
@@ -49,6 +32,20 @@ jest.mock('react-router-dom', () => ({
     search: '',
     hash: '',
     state: {},
+  }),
+}));
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  Suspense: ({ children }) => children,
+}));
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => key,
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
   }),
 }));
 
@@ -60,4 +57,21 @@ Object.defineProperty(window, 'getComputedStyle', {
   }),
 });
 
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
+const dom = new JSDOM();
+global.document = dom.window.document;
+global.window = dom.window;
 packageJson.version = '0.7.13';
