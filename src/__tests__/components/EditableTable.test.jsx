@@ -33,8 +33,12 @@ test('AdSearchSelectCell', () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
-        class=" css-c47zjw-container"
+        class=" css-ktvv8x-container"
       >
+        <span
+          class="css-1f43avz-a11yText-A11yText"
+          id="react-select-2-live-region"
+        />
         <span
           aria-atomic="false"
           aria-live="polite"
@@ -42,37 +46,36 @@ test('AdSearchSelectCell', () => {
           class="css-1f43avz-a11yText-A11yText"
         />
         <div
-          class=" css-1xh1nu3-control"
+          class=" css-1najnp0-control"
         >
           <div
-            class=" css-g1d714-ValueContainer"
+            class=" css-319lph-ValueContainer"
           >
             <div
-              class=" css-18tcdx2-singleValue"
+              class=" css-d490ir-singleValue"
             />
             <div
-              class="css-1bpwcu6-Input"
+              class=" css-nr3ry-Input"
+              data-value=""
             >
-              <div
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-2-listbox"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-owns="react-select-2-listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
                 class=""
-                style="display: inline-block;"
-              >
-                <input
-                  aria-autocomplete="list"
-                  autocapitalize="none"
-                  autocomplete="off"
-                  autocorrect="off"
-                  id="react-select-2-input"
-                  spellcheck="false"
-                  style="box-sizing: content-box; width: 2px; border: 0px; opacity: 1; outline: 0; padding: 0px;"
-                  tabindex="0"
-                  type="text"
-                  value=""
-                />
-                <div
-                  style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre;"
-                />
-              </div>
+                id="react-select-2-input"
+                role="combobox"
+                spellcheck="false"
+                style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                tabindex="0"
+                type="text"
+                value=""
+              />
             </div>
           </div>
           <div
@@ -200,7 +203,7 @@ test('TextareaCell', () => {
     <DocumentFragment>
       <textarea
         class="bg-gray-50 bg-opacity-10 shadow-sm block w-full hover:border-primary-600 focus:ring-primary-600 focus:border-primary-600 border border-divider rounded-md bg-transparent border-opacity-50"
-        rows="3"
+        rows="1"
       />
     </DocumentFragment>
   `);

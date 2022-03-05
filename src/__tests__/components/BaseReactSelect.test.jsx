@@ -7,8 +7,12 @@ test('BaseReactSelect', () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
-        class=" css-c47zjw-container"
+        class=" css-ktvv8x-container"
       >
+        <span
+          class="css-1f43avz-a11yText-A11yText"
+          id="react-select-2-live-region"
+        />
         <span
           aria-atomic="false"
           aria-live="polite"
@@ -16,39 +20,40 @@ test('BaseReactSelect', () => {
           class="css-1f43avz-a11yText-A11yText"
         />
         <div
-          class=" css-1xh1nu3-control"
+          class=" css-1najnp0-control"
         >
           <div
-            class=" css-g1d714-ValueContainer"
+            class=" css-319lph-ValueContainer"
           >
             <div
-              class=" css-k4cph3-placeholder"
+              class=" css-1cc7sk8-placeholder"
+              id="react-select-2-placeholder"
             >
               Select...
             </div>
             <div
-              class="css-1bpwcu6-Input"
+              class=" css-nr3ry-Input"
+              data-value=""
             >
-              <div
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-2-listbox"
+                aria-describedby="react-select-2-placeholder"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-owns="react-select-2-listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
                 class=""
-                style="display: inline-block;"
-              >
-                <input
-                  aria-autocomplete="list"
-                  autocapitalize="none"
-                  autocomplete="off"
-                  autocorrect="off"
-                  id="react-select-2-input"
-                  spellcheck="false"
-                  style="box-sizing: content-box; width: 2px; border: 0px; opacity: 1; outline: 0; padding: 0px;"
-                  tabindex="0"
-                  type="text"
-                  value=""
-                />
-                <div
-                  style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre;"
-                />
-              </div>
+                id="react-select-2-input"
+                role="combobox"
+                spellcheck="false"
+                style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                tabindex="0"
+                type="text"
+                value=""
+              />
             </div>
           </div>
           <div
@@ -78,8 +83,12 @@ test('BaseAsyncReactSelect', () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
-        class=" css-c47zjw-container"
+        class=" css-ktvv8x-container"
       >
+        <span
+          class="css-1f43avz-a11yText-A11yText"
+          id="react-select-3-live-region"
+        />
         <span
           aria-atomic="false"
           aria-live="polite"
@@ -87,39 +96,40 @@ test('BaseAsyncReactSelect', () => {
           class="css-1f43avz-a11yText-A11yText"
         />
         <div
-          class=" css-1xh1nu3-control"
+          class=" css-1najnp0-control"
         >
           <div
-            class=" css-g1d714-ValueContainer"
+            class=" css-319lph-ValueContainer"
           >
             <div
-              class=" css-k4cph3-placeholder"
+              class=" css-1cc7sk8-placeholder"
+              id="react-select-3-placeholder"
             >
               Select...
             </div>
             <div
-              class="css-1bpwcu6-Input"
+              class=" css-nr3ry-Input"
+              data-value=""
             >
-              <div
+              <input
+                aria-autocomplete="list"
+                aria-controls="react-select-3-listbox"
+                aria-describedby="react-select-3-placeholder"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-owns="react-select-3-listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
                 class=""
-                style="display: inline-block;"
-              >
-                <input
-                  aria-autocomplete="list"
-                  autocapitalize="none"
-                  autocomplete="off"
-                  autocorrect="off"
-                  id="react-select-3-input"
-                  spellcheck="false"
-                  style="box-sizing: content-box; width: 2px; border: 0px; opacity: 1; outline: 0; padding: 0px;"
-                  tabindex="0"
-                  type="text"
-                  value=""
-                />
-                <div
-                  style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre;"
-                />
-              </div>
+                id="react-select-3-input"
+                role="combobox"
+                spellcheck="false"
+                style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                tabindex="0"
+                type="text"
+                value=""
+              />
             </div>
           </div>
           <div

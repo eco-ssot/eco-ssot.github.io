@@ -9,6 +9,7 @@ test('Layout', () => {
         style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
       />
       <div
+        aria-label="spinner"
         class="fixed flex items-center justify-center inset-0 transition-all z-50 bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen opacity-0 invisible"
       >
         <svg
@@ -33,236 +34,338 @@ test('Layout', () => {
         </svg>
       </div>
       <div
-        class="bg-gray-900 text-gray-50"
+        class="flex px-4 bg-primary-800 shadow-lg items-center z-10 flex fixed w-full h-16"
       >
-        <div
-          class="flex px-4 bg-primary-800 shadow-lg items-center z-10 flex fixed w-full h-16"
+        <a
+          class="flex items-center space-x-4"
+          href="/"
         >
-          <a
-            class="flex items-center space-x-4"
-            href="/"
+          <img
+            alt="logo"
+            class="h-10 w-10"
+            src="/logo-64x64.png"
+          />
+          <span
+            class="block truncate"
           >
-            <img
-              alt="logo"
-              class="h-10 w-10"
-              src="/logo-64x64.png"
-            />
-            <div
+            <span
               class="block truncate font-medium text-xl"
             >
-              ESG 績效管理平台
-            </div>
-            <div
+              title
+            </span>
+          </span>
+          <span
+            class="block truncate"
+          >
+            <span
               class="block truncate text-unit text-sm"
             >
-              Ver 0.7.13
-            </div>
-          </a>
-          <div
-            class="h-4 mx-4 border-0 border-r border-divider h-1/2"
-          />
-          <div
-            class="mt-1 relative w-32"
+              Ver3.0.1
+            </span>
+          </span>
+        </a>
+        <div
+          class="h-4 mx-4 border-0 border-r border-divider h-1/2"
+        />
+        <div
+          class="mt-1 relative min-w-28 w-28"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800"
+            id="headlessui-listbox-button-1"
+            type="button"
           >
-            <button
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800"
-              id="headlessui-listbox-button-1"
-              type="button"
+            <span
+              class="block truncate"
             >
               <span
                 class="block truncate text-lg"
               >
                 ALL
               </span>
+            </span>
+            <span
+              class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="h-5 w-5 text-gray-50"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div
+          class="h-4 mx-4 border-0 border-r border-divider h-1/2"
+        />
+        <div
+          class="mt-1 relative min-w-36"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800 w-42"
+            id="headlessui-listbox-button-2"
+            type="button"
+          >
+            <span
+              class="block truncate"
+            >
               <span
-                class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
+                class="block truncate text-lg"
               >
-                <svg
-                  aria-hidden="true"
-                  class="h-5 w-5 text-gray-50"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
+                Sites / Plants
               </span>
-            </button>
+            </span>
+            <span
+              class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="h-5 w-5 text-gray-50"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div
+          class="h-4 mx-4 border-0 border-r border-divider h-1/2"
+        />
+        <div
+          class="flex flex-grow space-x-4"
+        >
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/home"
+            >
+              <span
+                class="block truncate"
+              >
+                home
+              </span>
+            </a>
           </div>
           <div
-            class="h-4 mx-4 border-0 border-r border-divider h-1/2"
-          />
-          <div
-            class="flex flex-grow space-x-4"
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+            <a
+              class="text-current text-lg font-medium"
+              href="/overview"
             >
-              <a
-                class="text-current text-lg font-medium"
-                href="/home"
+              <span
+                class="block truncate"
               >
-                <span
-                  class="block truncate"
-                >
-                  首頁
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/overview"
-              >
-                <span
-                  class="block truncate"
-                >
-                  總覽比較
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/carbon"
-              >
-                <span
-                  class="block truncate"
-                >
-                  碳排放量
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/renewable-energy"
-              >
-                <span
-                  class="block truncate"
-                >
-                  可再生能源
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/electricity"
-              >
-                <span
-                  class="block truncate"
-                >
-                  用電
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/water"
-              >
-                <span
-                  class="block truncate"
-                >
-                  用水
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/unit-electricity"
-              >
-                <span
-                  class="block truncate"
-                >
-                  單台用電
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/waste"
-              >
-                <span
-                  class="block truncate"
-                >
-                  廢棄物
-                </span>
-              </a>
-            </div>
-            <div
-              class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
-            >
-              <a
-                class="text-current text-lg font-medium"
-                href="/management"
-              >
-                <span
-                  class="block truncate"
-                >
-                  後台設定
-                </span>
-              </a>
-            </div>
+                overview
+              </span>
+            </a>
           </div>
           <div
-            class="h-4 mx-4 border-0 border-r border-divider h-1/2"
-          />
-          <div
-            class="flex space-x-4 items-center"
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
-            <div
-              class="block truncate"
+            <a
+              class="text-current text-lg font-medium"
+              href="/carbon"
             >
-              2021年 10月 21日 00:00
-            </div>
-            <div
-              class="block truncate"
-            >
-              溫度 : - ºC
-            </div>
-            <div
-              class="block truncate"
-            >
-              濕度 : - %
-            </div>
+              <span
+                class="block truncate"
+              >
+                carbon
+              </span>
+            </a>
           </div>
           <div
-            class="h-4 mx-4 border-0 border-r border-divider h-1/2"
-          />
-          <div
-            class="block truncate"
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
-            dummy
+            <a
+              class="text-current text-lg font-medium"
+              href="/renewable-energy"
+            >
+              <span
+                class="block truncate"
+              >
+                renewableEnergy
+              </span>
+            </a>
+          </div>
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/electricity"
+            >
+              <span
+                class="block truncate"
+              >
+                electricity
+              </span>
+            </a>
+          </div>
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/analysis/electricity"
+            >
+              <span
+                class="block truncate"
+              >
+                electricityBaseline
+              </span>
+            </a>
+          </div>
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/water"
+            >
+              <span
+                class="block truncate"
+              >
+                water
+              </span>
+            </a>
+          </div>
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/unit-electricity"
+            >
+              <span
+                class="block truncate"
+              >
+                unitElectricity
+              </span>
+            </a>
+          </div>
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/waste"
+            >
+              <span
+                class="block truncate"
+              >
+                waste
+              </span>
+            </a>
+          </div>
+          <div
+            class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+          >
+            <a
+              class="text-current text-lg font-medium"
+              href="/management"
+            >
+              <span
+                class="block truncate"
+              >
+                management
+              </span>
+            </a>
           </div>
         </div>
         <div
-          class="pt-16"
+          class="h-4 mx-4 border-0 border-r border-divider h-1/2"
         />
+        <a
+          data-for="guidebook"
+          data-tip="true"
+          href="/ESG績效管理平台使用手冊.pdf"
+          target="_blank"
+        >
+          <svg
+            class="w-5 h-5 fill-gray-50"
+          >
+            file-pdf-solid.svg
+          </svg>
+        </a>
+        <div
+          class="h-4 mx-4 border-0 border-r border-divider h-1/2"
+        />
+        <div
+          class="mt-1 relative min-w-28 w-30"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800"
+            id="headlessui-listbox-button-3"
+            type="button"
+          >
+            <span
+              class="block truncate"
+            >
+              <span
+                class="block truncate text-lg"
+              >
+                中文
+              </span>
+            </span>
+            <span
+              class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="h-5 w-5 text-gray-50"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div
+          class="h-4 mx-4 border-0 border-r border-divider h-1/2"
+        />
+        <span
+          class="block truncate"
+        >
+          <span
+            class="block truncate"
+          >
+            dummy
+          </span>
+        </span>
       </div>
+      <div
+        class="pt-16"
+      />
+       
     </DocumentFragment>
   `);
 });

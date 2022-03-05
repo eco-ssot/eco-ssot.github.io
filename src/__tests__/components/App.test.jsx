@@ -52,200 +52,18 @@ test('App', async () => {
           >
             <span
               class="block truncate font-medium text-xl"
-              currentitem="false"
-              data-for="4eEFZghD-bpUTi6z8evb1"
-              data-tip="true"
             >
               title
             </span>
-            <div
-              class="__react_component_tooltip tb7f94363-1eae-4ac3-bd8c-1026f36382a4 place-top type-dark"
-              data-id="tooltip"
-              id="4eEFZghD-bpUTi6z8evb1"
-            >
-              <style
-                aria-hidden="true"
-              >
-                
-      	.tb7f94363-1eae-4ac3-bd8c-1026f36382a4 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-top {
-            margin-top: -10px;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-bottom {
-            margin-top: 10px;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-left {
-            margin-left: -10px;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-right {
-            margin-left: 10px;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .tb7f94363-1eae-4ac3-bd8c-1026f36382a4.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-              </style>
-              <span>
-                title
-              </span>
-            </div>
           </span>
           <span
             class="block truncate"
           >
             <span
               class="block truncate text-unit text-sm"
-              currentitem="false"
-              data-for="1J0g2TMQnObCjwEbgIRqL"
-              data-tip="true"
             >
               Ver3.0.1
             </span>
-            <div
-              class="__react_component_tooltip tc4915393-3da4-4a75-8ffa-465b66ab1e64 place-top type-dark"
-              data-id="tooltip"
-              id="1J0g2TMQnObCjwEbgIRqL"
-            >
-              <style
-                aria-hidden="true"
-              >
-                
-      	.tc4915393-3da4-4a75-8ffa-465b66ab1e64 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-top {
-            margin-top: -10px;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-bottom {
-            margin-top: 10px;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-left {
-            margin-left: -10px;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-right {
-            margin-left: 10px;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .tc4915393-3da4-4a75-8ffa-465b66ab1e64.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-              </style>
-              <span>
-                Ver3.0.1
-              </span>
-            </div>
           </span>
         </a>
         <div
@@ -266,100 +84,9 @@ test('App', async () => {
             >
               <span
                 class="block truncate text-lg"
-                currentitem="false"
-                data-for="qp8dUCN635s5fUvPAa9Ay"
-                data-tip="true"
               >
                 ALL
               </span>
-              <div
-                class="__react_component_tooltip tab56ef59-30c8-4e67-b888-ee4873aa1682 place-top type-dark"
-                data-id="tooltip"
-                id="qp8dUCN635s5fUvPAa9Ay"
-              >
-                <style
-                  aria-hidden="true"
-                >
-                  
-      	.tab56ef59-30c8-4e67-b888-ee4873aa1682 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.tab56ef59-30c8-4e67-b888-ee4873aa1682.place-top {
-            margin-top: -10px;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-bottom {
-            margin-top: 10px;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-left {
-            margin-left: -10px;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-right {
-            margin-left: 10px;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .tab56ef59-30c8-4e67-b888-ee4873aa1682.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-                </style>
-                <span>
-                  ALL
-                </span>
-              </div>
             </span>
             <span
               class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -398,100 +125,9 @@ test('App', async () => {
             >
               <span
                 class="block truncate text-lg"
-                currentitem="false"
-                data-for="e9VKAG7vYd6MbWc0hQRz2"
-                data-tip="true"
               >
                 Sites / Plants
               </span>
-              <div
-                class="__react_component_tooltip t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4 place-top type-dark"
-                data-id="tooltip"
-                id="e9VKAG7vYd6MbWc0hQRz2"
-              >
-                <style
-                  aria-hidden="true"
-                >
-                  
-      	.t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-top {
-            margin-top: -10px;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-bottom {
-            margin-top: 10px;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-left {
-            margin-left: -10px;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-right {
-            margin-left: 10px;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .t1e766bd5-ac2d-4c28-8fcb-740c9e5a63c4.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-                </style>
-                <span>
-                  Sites / Plants
-                </span>
-              </div>
             </span>
             <span
               class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -663,7 +299,6 @@ test('App', async () => {
           class="h-4 mx-4 border-0 border-r border-divider h-1/2"
         />
         <a
-          currentitem="false"
           data-for="guidebook"
           data-tip="true"
           href="/ESG績效管理平台使用手冊.pdf"
@@ -675,94 +310,6 @@ test('App', async () => {
             file-pdf-solid.svg
           </svg>
         </a>
-        <div
-          class="__react_component_tooltip t48d0b53b-2cb2-416c-9fe0-0cbf34ded938 place-left type-dark"
-          data-id="tooltip"
-          id="guidebook"
-        >
-          <style
-            aria-hidden="true"
-          >
-            
-      	.t48d0b53b-2cb2-416c-9fe0-0cbf34ded938 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-top {
-            margin-top: -10px;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-bottom {
-            margin-top: 10px;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-left {
-            margin-left: -10px;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-right {
-            margin-left: 10px;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .t48d0b53b-2cb2-416c-9fe0-0cbf34ded938.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-          </style>
-          <span>
-            系統說明手冊
-          </span>
-        </div>
         <div
           class="h-4 mx-4 border-0 border-r border-divider h-1/2"
         />
@@ -781,100 +328,9 @@ test('App', async () => {
             >
               <span
                 class="block truncate text-lg"
-                currentitem="false"
-                data-for="4zvbNopffn44GEhcbSzfg"
-                data-tip="true"
               >
                 中文
               </span>
-              <div
-                class="__react_component_tooltip tb89b4b13-1679-44d6-9307-6bef0e35aa12 place-top type-dark"
-                data-id="tooltip"
-                id="4zvbNopffn44GEhcbSzfg"
-              >
-                <style
-                  aria-hidden="true"
-                >
-                  
-      	.tb89b4b13-1679-44d6-9307-6bef0e35aa12 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-top {
-            margin-top: -10px;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-bottom {
-            margin-top: 10px;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-left {
-            margin-left: -10px;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-right {
-            margin-left: 10px;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .tb89b4b13-1679-44d6-9307-6bef0e35aa12.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-                </style>
-                <span>
-                  中文
-                </span>
-              </div>
             </span>
             <span
               class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -903,100 +359,9 @@ test('App', async () => {
         >
           <span
             class="block truncate"
-            currentitem="false"
-            data-for="PGk0ZF6yb2iDuvGudutqt"
-            data-tip="true"
           >
             dummy
           </span>
-          <div
-            class="__react_component_tooltip t41671b7d-b47f-453e-8609-b364ff438e86 place-top type-dark"
-            data-id="tooltip"
-            id="PGk0ZF6yb2iDuvGudutqt"
-          >
-            <style
-              aria-hidden="true"
-            >
-              
-      	.t41671b7d-b47f-453e-8609-b364ff438e86 {
-    	    color: #fff;
-    	    background: #222;
-    	    border: 1px solid transparent;
-      	}
-
-      	.t41671b7d-b47f-453e-8609-b364ff438e86.place-top {
-            margin-top: -10px;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-top::before {
-            border-top: 8px solid transparent;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-top::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            bottom: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-top-color: #222;
-            border-top-style: solid;
-            border-top-width: 6px;
-        }
-
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-bottom {
-            margin-top: 10px;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-bottom::before {
-            border-bottom: 8px solid transparent;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-bottom::after {
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            top: -6px;
-            left: 50%;
-            margin-left: -8px;
-            border-bottom-color: #222;
-            border-bottom-style: solid;
-            border-bottom-width: 6px;
-        }
-
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-left {
-            margin-left: -10px;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-left::before {
-            border-left: 8px solid transparent;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-left::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            right: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-left-color: #222;
-            border-left-style: solid;
-            border-left-width: 6px;
-        }
-
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-right {
-            margin-left: 10px;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-right::before {
-            border-right: 8px solid transparent;
-        }
-        .t41671b7d-b47f-453e-8609-b364ff438e86.place-right::after {
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            left: -6px;
-            top: 50%;
-            margin-top: -4px;
-            border-right-color: #222;
-            border-right-style: solid;
-            border-right-width: 6px;
-        }
-      
-            </style>
-            <span>
-              dummy
-            </span>
-          </div>
         </span>
       </div>
       <div

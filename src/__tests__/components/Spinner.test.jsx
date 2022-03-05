@@ -6,6 +6,7 @@ test('Spinner', () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
+        aria-label="spinner"
         class="fixed flex items-center justify-center inset-0 transition-all z-50 bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen opacity-0 invisible"
       >
         <svg
@@ -29,6 +30,7 @@ test('Spinner', () => {
           />
         </svg>
       </div>
+       
     </DocumentFragment>
   `);
 });

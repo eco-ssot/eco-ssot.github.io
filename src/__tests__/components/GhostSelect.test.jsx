@@ -7,7 +7,7 @@ test('GhostSelect', () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
-        class="mt-1 relative"
+        class="mt-1 relative min-w-28"
       >
         <button
           aria-expanded="false"
@@ -17,8 +17,12 @@ test('GhostSelect', () => {
           type="button"
         >
           <span
-            class="block truncate text-lg"
-          />
+            class="block truncate"
+          >
+            <span
+              class="block truncate text-lg"
+            />
+          </span>
           <span
             class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
           >

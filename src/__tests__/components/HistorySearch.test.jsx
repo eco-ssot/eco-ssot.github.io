@@ -16,10 +16,10 @@ test('HistorySearch', () => {
             class="flex items-center"
           >
             <label
-              class="block font-medium text-gray-50"
+              class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-1"
             >
-              查詢年度 :
+              selectLabel.searchYear : 
             </label>
             <div
               class="relative"
@@ -28,14 +28,14 @@ test('HistorySearch', () => {
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-labelledby="headlessui-listbox-label-1 headlessui-listbox-button-2"
-                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800"
+                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9 border-primary-800 min-w-28"
                 id="headlessui-listbox-button-2"
                 type="button"
               >
                 <span
                   class="block truncate"
                 >
-                  2016
+                  2020
                 </span>
                 <span
                   class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -61,7 +61,7 @@ test('HistorySearch', () => {
             class="flex items-center mr-8"
           >
             <label
-              class="block font-medium text-gray-50"
+              class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-3"
             >
               <svg
@@ -86,14 +86,14 @@ test('HistorySearch', () => {
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-labelledby="headlessui-listbox-label-3 headlessui-listbox-button-4"
-                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800"
+                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9 border-primary-800 min-w-28"
                 id="headlessui-listbox-button-4"
                 type="button"
               >
                 <span
                   class="block truncate"
                 >
-                  2021
+                  2022
                 </span>
                 <span
                   class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -119,10 +119,10 @@ test('HistorySearch', () => {
             class="flex items-center mr-2"
           >
             <label
-              class="block font-medium text-gray-50"
+              class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-5"
             >
-              查詢月份 :
+              selectLabel.searchMonth : 
             </label>
             <div
               class="relative"
@@ -131,7 +131,7 @@ test('HistorySearch', () => {
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-labelledby="headlessui-listbox-label-5 headlessui-listbox-button-6"
-                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800 w-48"
+                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9 border-primary-800 w-48"
                 id="headlessui-listbox-button-6"
                 type="button"
               >
@@ -169,14 +169,14 @@ test('HistorySearch', () => {
               <button
                 aria-expanded="false"
                 aria-haspopup="true"
-                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800 w-24"
+                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9 border-primary-800 w-24"
                 id="headlessui-listbox-button-7"
                 type="button"
               >
                 <span
                   class="block truncate"
                 >
-                  12月
+                  12
                 </span>
                 <span
                   class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -202,10 +202,10 @@ test('HistorySearch', () => {
             class="flex items-center mr-8"
           >
             <label
-              class="block font-medium text-gray-50"
+              class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-8"
             >
-              資料呈現 :
+              selectLabel.dimension : 
             </label>
             <div
               class="relative"
@@ -214,7 +214,7 @@ test('HistorySearch', () => {
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-labelledby="headlessui-listbox-label-8 headlessui-listbox-button-9"
-                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800 w-36"
+                class="bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9 border-primary-800 w-36"
                 id="headlessui-listbox-button-9"
                 type="button"
               >
@@ -247,7 +247,7 @@ test('HistorySearch', () => {
             class="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
             type="button"
           >
-            搜尋
+            button.search
           </button>
         </div>
         <div
@@ -256,7 +256,7 @@ test('HistorySearch', () => {
           <a
             class="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
             download=""
-            href="http://eco-ssot-2021-ingress-api.eco-ssot-2021-dev.10.37.66.1.k8sprd-whq.k8s.wistron.com/api/undefined/download?dimension=All&endMonth=12&endYear=2021&monthType=YTM&startMonth&startYear=2016"
+            href="http://localhost:3000/api/undefined/download?dimension=All&endMonth=12&endYear=2022&monthType=YTM&startYear=2020"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -264,6 +264,7 @@ test('HistorySearch', () => {
           </a>
         </div>
       </div>
+       
     </DocumentFragment>
   `);
 });

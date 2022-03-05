@@ -18,7 +18,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              首頁
+              home
             </span>
           </a>
         </div>
@@ -32,7 +32,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              總覽比較
+              overview
             </span>
           </a>
         </div>
@@ -46,7 +46,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              碳排放量
+              carbon
             </span>
           </a>
         </div>
@@ -60,7 +60,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              可再生能源
+              renewableEnergy
             </span>
           </a>
         </div>
@@ -74,7 +74,21 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              用電
+              electricity
+            </span>
+          </a>
+        </div>
+        <div
+          class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
+        >
+          <a
+            class="text-current text-lg font-medium"
+            href="/analysis/electricity"
+          >
+            <span
+              class="block truncate"
+            >
+              electricityBaseline
             </span>
           </a>
         </div>
@@ -88,7 +102,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              用水
+              water
             </span>
           </a>
         </div>
@@ -102,7 +116,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              單台用電
+              unitElectricity
             </span>
           </a>
         </div>
@@ -116,7 +130,7 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              廢棄物
+              waste
             </span>
           </a>
         </div>
@@ -130,11 +144,12 @@ test('NavBar', () => {
             <span
               class="block truncate"
             >
-              後台設定
+              management
             </span>
           </a>
         </div>
       </div>
+       
     </DocumentFragment>
   `);
 });

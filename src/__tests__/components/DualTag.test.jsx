@@ -11,7 +11,7 @@ test('DualTag', () => {
       >
         <div />
         <div
-          class="h-4 mx-4 border-0 border-r border-divider border-primary-600 border-r-2 h-5"
+          class="h-4 mx-4 border-0 border-r border-divider border-primary-600 border-r-2 h-5 ml-0"
         />
         <div />
       </div>

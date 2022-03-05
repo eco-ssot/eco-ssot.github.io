@@ -31,6 +31,7 @@ describe('WaterAnalysisPage', () => {
     expect(asFragment).toMatchInlineSnapshot(`[Function]`);
   });
 });
+
 describe('WasteAnalysisPage', () => {
   it('handles good response', async () => {
     const { asFragment, queryByText } = renderWithProviders(<WasteAnalysisPage />);

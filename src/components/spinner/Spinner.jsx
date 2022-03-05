@@ -7,6 +7,7 @@ export default function Spinner() {
   const isLoading = useSelector(selectIsLoading);
   return (
     <div
+      aria-label="spinner"
       className={clsx(
         'fixed flex items-center justify-center inset-0 transition-all z-50 bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen',
         isLoading ? 'opacity-100 visible' : 'opacity-0 invisible'
