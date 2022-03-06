@@ -16,6 +16,7 @@ export default function NavBar({ className }) {
         .map(({ path, key, group }) => {
           return (
             <div
+              aria-label={`nav-${key}`}
               key={key}
               className={
                 pathname === path || pathname.startsWith(group)

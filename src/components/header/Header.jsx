@@ -66,6 +66,7 @@ export default function Header({ className }) {
             onChange={(e) => navigate({ ...e, s: null, p: null })}
             selected={APP_CONSTANTS.BUSINESS_OPTIONS.find((option) => option.key === business)}
             queryKey="business"
+            ariaLabel="business"
           />
           <Divider className="h-1/2" />
           <GroupSelect
@@ -78,6 +79,7 @@ export default function Header({ className }) {
             }
             parentKey="s"
             childKey="p"
+            ariaLabel="site-plant"
           />
           <Divider className="h-1/2" />
           <NavBar />

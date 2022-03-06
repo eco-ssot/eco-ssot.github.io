@@ -12,6 +12,7 @@ export default function GhostSelect({
   queryKey,
   options = [],
   selected = options[0] || {},
+  ariaLabel = '',
   onChange = () => {},
 }) {
   return (
@@ -20,6 +21,7 @@ export default function GhostSelect({
         <>
           <div className={clsx('mt-1 relative min-w-28', className)}>
             <Listbox.Button
+              {...(ariaLabel && { 'aria-label': `select-${ariaLabel}` })}
               className={clsx(
                 'bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',
                 open ? 'border-primary-600' : 'border-primary-800',
@@ -41,6 +43,7 @@ export default function GhostSelect({
                 className="absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-gray-900 ring-opacity-5 overflow-auto border border-divider focus:outline-none">
                 {options.map((option) => (
                   <Listbox.Option
+                    aria-label={`option-${option.key}`}
                     key={option.key}
                     className={({ active }) =>
                       clsx(

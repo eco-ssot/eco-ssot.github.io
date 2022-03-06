@@ -76,6 +76,7 @@ test('App', async () => {
           <button
             aria-expanded="false"
             aria-haspopup="true"
+            aria-label="select-business"
             class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800"
             id="headlessui-listbox-button-1"
             type="button"
@@ -117,6 +118,7 @@ test('App', async () => {
           <button
             aria-expanded="false"
             aria-haspopup="true"
+            aria-label="select-site-plant"
             class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-800 w-42"
             id="headlessui-listbox-button-2"
             type="button"
@@ -156,6 +158,7 @@ test('App', async () => {
           class="flex flex-grow space-x-4"
         >
           <div
+            aria-label="nav-home"
             class="border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2"
           >
             <a
@@ -170,6 +173,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-overview"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -184,6 +188,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-carbon"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -198,6 +203,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-renewableEnergy"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -212,6 +218,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-electricity"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -226,6 +233,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-electricityBaseline"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -240,6 +248,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-water"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -254,6 +263,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-unitElectricity"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -268,6 +278,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-waste"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a
@@ -282,6 +293,7 @@ test('App', async () => {
             </a>
           </div>
           <div
+            aria-label="nav-management"
             class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
           >
             <a

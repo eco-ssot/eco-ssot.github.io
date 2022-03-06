@@ -15,6 +15,7 @@ export default function Select({
   selected = options[0] || {},
   placeholder = '',
   splitter = ':',
+  ariaLabel = '',
   onChange = () => {},
 }) {
   return (
@@ -29,6 +30,7 @@ export default function Select({
           )}
           <div className="relative">
             <Listbox.Button
+              {...(ariaLabel && { 'aria-label': ariaLabel })}
               className={clsx(
                 'bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9',
                 open ? 'border-primary-600' : 'border-primary-800',
@@ -54,6 +56,7 @@ export default function Select({
                 )}>
                 {options.map((option) => (
                   <Listbox.Option
+                    aria-label={`option-${option.key}`}
                     disabled={option.disabled}
                     key={option.key}
                     className={({ active }) =>

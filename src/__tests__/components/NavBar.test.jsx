@@ -9,6 +9,7 @@ test('NavBar', () => {
         class="flex flex-grow space-x-4"
       >
         <div
+          aria-label="nav-home"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -23,6 +24,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-overview"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -37,6 +39,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-carbon"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -51,6 +54,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-renewableEnergy"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -65,6 +69,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-electricity"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -79,6 +84,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-electricityBaseline"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -93,6 +99,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-water"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -107,6 +114,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-unitElectricity"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -121,6 +129,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-waste"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
@@ -135,6 +144,7 @@ test('NavBar', () => {
           </a>
         </div>
         <div
+          aria-label="nav-management"
           class="border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1"
         >
           <a
