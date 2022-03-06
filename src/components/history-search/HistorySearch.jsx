@@ -83,7 +83,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
       <div></div>
       <div className="flex justify-center col-span-10">
         <Select
-          label={`${t('selectLabel.searchYear')} : `}
+          label={t('selectLabel.searchYear')}
           options={startYearOptions}
           selected={
             startYearOptions.find((option) => option.key === searchOption.startYear) || startYearOptions.slice(-1)[0]
@@ -93,15 +93,16 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         />
         <Select
           className="mr-8"
-          label={<ArrowRightIcon className="h-5 w-5 mx-2" />}
+          label={<ArrowRightIcon className="h-5 w-5 ml-2 mr-1" />}
           options={endYearOptions}
           selected={endYearOptions.find((option) => option.key === searchOption.endYear)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, endYear: e.key }))}
           buttonClassName="min-w-28"
+          splitter=""
         />
         {!sameYear && (
           <Select
-            label={`${t('selectLabel.searchMonth')} : `}
+            label={t('selectLabel.searchMonth')}
             options={APP_CONSTANTS.MONTH_RANGE_OPTIONS}
             buttonClassName="w-48"
             className="mr-2"
@@ -111,7 +112,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         )}
         {sameYear && (
           <Select
-            label={`${t('selectLabel.searchMonth')} : `}
+            label={t('selectLabel.searchMonth')}
             options={startMonthOptions}
             buttonClassName="w-24"
             optionClassName="max-h-screen"
@@ -137,7 +138,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           })}
         />
         <Select
-          label={`${t('selectLabel.dimension')} : `}
+          label={t('selectLabel.dimension')}
           options={APP_CONSTANTS.DIMENSION_OPTIONS}
           buttonClassName="w-36"
           optionClassName="max-h-screen"

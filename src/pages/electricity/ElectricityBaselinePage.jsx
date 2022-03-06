@@ -892,7 +892,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option })
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
-        label={`${t('component:selectLabel.searchYear')} : `}
+        label={t('component:selectLabel.searchYear')}
         options={nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
         selected={(nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
@@ -900,7 +900,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option })
       />
       <Select
         buttonClassName="w-36"
-        label="Plant : "
+        label="Plant"
         placeholder="Select Plant"
         options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
         selected={plantOptions?.find((option) => option.key === searchOption.plant)}
@@ -943,7 +943,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
   return (
     <div className="flex w-full items-center justify-center space-x-8">
       <Select
-        label={`${t('component:selectLabel.dimension')} : `}
+        label={t('component:selectLabel.dimension')}
         buttonClassName="w-36"
         options={DIMENSION_OPTIONS}
         selected={DIMENSION_OPTIONS.find((option) => option.key === searchOption.categorized)}
@@ -952,7 +952,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
         }
       />
       <Select
-        label={`${t('component:selectLabel.searchYear')} : `}
+        label={t('component:selectLabel.searchYear')}
         options={nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
         selected={(nextYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
@@ -961,7 +961,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
       {byMonth ? (
         <Select
           buttonClassName="w-36"
-          label="Plant : "
+          label="Plant"
           placeholder="Select Plant"
           options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
           selected={plantOptions?.find((option) => option.key === searchOption.plant)}
@@ -970,7 +970,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
       ) : (
         <Select
           buttonClassName="w-20"
-          label={`${t('component:selectLabel.predictionMonth')} : `}
+          label={t('component:selectLabel.predictionMonth')}
           options={monthOptions}
           selected={monthOptions.find((option) => option.key === searchOption.month)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}

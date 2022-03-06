@@ -18,7 +18,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
       <div></div>
       <div className="flex justify-center space-x-8 col-span-10">
         <Select
-          label={`${t('selectLabel.searchYear')} : `}
+          label={t('selectLabel.searchYear')}
           options={yearOptions}
           selected={yearOptions.find((option) => option.key === searchOption.year)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
@@ -26,7 +26,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
         />
         <Select
           buttonClassName="w-36"
-          label={`${t('selectLabel.dimension')} : `}
+          label={t('selectLabel.dimension')}
           options={APP_CONSTANTS.DIMENSION_OPTIONS}
           selected={APP_CONSTANTS.DIMENSION_OPTIONS.find((option) => option.key === searchOption.dimension)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, dimension: e.key }))}

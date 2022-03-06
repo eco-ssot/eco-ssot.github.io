@@ -19,8 +19,13 @@ test('HistorySearch', () => {
               class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-1"
             >
-              selectLabel.searchYear : 
+              selectLabel.searchYear
             </label>
+            <div
+              class="mr-1"
+            >
+              :
+            </div>
             <div
               class="relative"
             >
@@ -65,7 +70,7 @@ test('HistorySearch', () => {
               id="headlessui-listbox-label-3"
             >
               <svg
-                class="h-5 w-5 mx-2"
+                class="h-5 w-5 ml-2 mr-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -122,8 +127,13 @@ test('HistorySearch', () => {
               class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-5"
             >
-              selectLabel.searchMonth : 
+              selectLabel.searchMonth
             </label>
+            <div
+              class="mr-1"
+            >
+              :
+            </div>
             <div
               class="relative"
             >
@@ -205,8 +215,13 @@ test('HistorySearch', () => {
               class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-8"
             >
-              selectLabel.dimension : 
+              selectLabel.dimension
             </label>
+            <div
+              class="mr-1"
+            >
+              :
+            </div>
             <div
               class="relative"
             >
@@ -264,7 +279,6 @@ test('HistorySearch', () => {
           </a>
         </div>
       </div>
-       
     </DocumentFragment>
   `);
 });

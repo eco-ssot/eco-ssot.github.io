@@ -4,14 +4,15 @@ import { renderWithProviders } from '../../__mocks__/helpers';
 import App from '../../app/App';
 
 test('App', async () => {
-  const { asFragment, queryByText } = renderWithProviders(<App />);
-  await waitFor(() => expect(queryByText('28,356')).toBeInTheDocument());
+  const { asFragment, getByText } = renderWithProviders(<App />);
+  await waitFor(() => expect(getByText('28,356')).toBeInTheDocument());
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       <div
         style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
       />
       <div
+        aria-label="spinner"
         class="fixed flex items-center justify-center inset-0 transition-all z-50 bg-gray-900 bg-opacity-50 ease-in-out duration-1000 w-screen h-screen opacity-0 invisible"
       >
         <svg
@@ -425,7 +426,7 @@ test('App', async () => {
                         </div>
                       </button>
                     </div>
-                    01 - 
+                    01 -
                     <div
                       class="relative w-16"
                     >
@@ -469,8 +470,13 @@ test('App', async () => {
                   class="font-medium"
                   id="headlessui-listbox-label-6"
                 >
-                  compareYear : 
+                  compareYear
                 </label>
+                <div
+                  class="ml-1"
+                >
+                  :
+                </div>
                 <div
                   class="relative"
                 >
@@ -1333,7 +1339,6 @@ test('App', async () => {
           </div>
         </div>
       </div>
-       
     </DocumentFragment>
   `);
 });

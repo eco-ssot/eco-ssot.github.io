@@ -8,9 +8,9 @@ import { store } from '../app/store';
 
 export function wrapper({ children }) {
   return (
-    <Provider store={store}>
-      <MemoryRouter>{children} </MemoryRouter>
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>{children}</Provider>
+    </MemoryRouter>
   );
 }
 

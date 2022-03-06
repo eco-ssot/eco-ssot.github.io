@@ -3,9 +3,12 @@ import UnauthorizedPage from '../../pages/unauthorized/UnauthorizedPage';
 
 describe('UnauthorizedPage', () => {
   it('handles good response', async () => {
-    const { asFragment, queryByText } = renderWithProviders(<UnauthorizedPage />);
-    expect(queryByText(/Unauthorized/i)).toBeInTheDocument();
-
-    expect(asFragment).toMatchInlineSnapshot(`[Function]`);
+    const { asFragment, getByText } = renderWithProviders(<UnauthorizedPage />);
+    expect(getByText(/Unauthorized/)).toBeInTheDocument();
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        Unauthorized
+      </DocumentFragment>
+    `);
   });
 });

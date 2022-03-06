@@ -12,13 +12,19 @@ export default function TagSelect({
   queryKey,
   options = [],
   selected = options[0] || {},
+  splitter = ':',
   onChange = () => {},
 }) {
   return (
     <Listbox value={selected} onChange={(e) => queryKey && onChange({ [queryKey]: e.key })}>
       {({ open }) => (
         <>
-          {label && <Listbox.Label className="font-medium">{label}</Listbox.Label>}
+          {label && (
+            <>
+              <Listbox.Label className="font-medium">{label}</Listbox.Label>
+              {splitter && <div className="ml-1">{splitter}</div>}
+            </>
+          )}
           <div className={clsx('relative', className)}>
             <Listbox.Button className="flex space-x-2 pl-2 py-1 items-center bg-transparent relative w-full text-left cursor-pointer">
               <div className="block truncate">{selected.value}</div>

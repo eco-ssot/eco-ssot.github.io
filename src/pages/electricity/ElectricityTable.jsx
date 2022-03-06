@@ -151,8 +151,7 @@ export default function ElectricityTable({ business, y, m, s, p, missingPlants }
         className="absolute top-2 right-4"
         labels={[
           <div className="flex items-center">
-            {`${t('common:accumulationRange')} : `}
-            <GlobalDateSelect />
+            {t('common:accumulationRange')} : <GlobalDateSelect />
           </div>,
           label,
         ]}

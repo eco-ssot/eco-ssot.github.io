@@ -150,14 +150,14 @@ export default function CsrPage() {
         />
         <div className="flex space-x-8 justify-center">
           <Select
-            label="查詢年度 : "
+            label="查詢年度"
             options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
             selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
             buttonClassName="min-w-28"
           />
           <Select
-            label="查詢月份 : "
+            label="查詢月份"
             buttonClassName="w-24"
             options={APP_CONSTANTS.MONTH_OPTIONS}
             selected={

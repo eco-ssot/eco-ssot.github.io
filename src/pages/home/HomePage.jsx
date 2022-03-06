@@ -67,13 +67,12 @@ export default function HomePage() {
           <>
             <div className="w-auto h-8 items-center flex rounded shadow bg-primary-800">
               <div className="pl-3 flex items-center">
-                {`${t('accumulationRange')} : `}
-                <GlobalDateSelect />
+                {t('accumulationRange')} : <GlobalDateSelect />
               </div>
               <Divider className="border-primary-600 ml-0" />
               <TagSelect
                 options={cyOptions}
-                label={`${t('compareYear')} : `}
+                label={t('compareYear')}
                 selected={cyOptions.find((option) => option.key === compareYear)}
                 onChange={navigate}
                 queryKey="cy"

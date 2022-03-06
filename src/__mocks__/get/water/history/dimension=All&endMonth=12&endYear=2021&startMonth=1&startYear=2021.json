@@ -1,0 +1,358 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 70753.48083206697 },
+        { "year": "2021", "month": "2", "billiRevenue": 64148.09862394324 },
+        { "year": "2021", "month": "3", "billiRevenue": 65084.15816112172 },
+        { "year": "2021", "month": "4", "billiRevenue": 71135.85714456216 },
+        { "year": "2021", "month": "5", "billiRevenue": 79649.63559474138 },
+        { "year": "2021", "month": "6", "billiRevenue": 53309.651647341554 },
+        { "year": "2021", "month": "7", "billiRevenue": 63932.35429851044 },
+        { "year": "2021", "month": "8", "billiRevenue": 60703.85670526036 },
+        { "year": "2021", "month": "9", "billiRevenue": 54095.91756595744 },
+        { "year": "2021", "month": "10", "billiRevenue": 55725.54464900071 },
+        { "year": "2021", "month": "11", "billiRevenue": 57139.15324958774 },
+        { "year": "2021", "month": "12", "billiRevenue": 53027.71300385074 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 18648.46153894476 },
+        { "year": "2021", "month": "2", "billiRevenue": 38638.825706828364 },
+        { "year": "2021", "month": "3", "billiRevenue": 39794.63678219628 },
+        { "year": "2021", "month": "4", "billiRevenue": 28684.954230591196 },
+        { "year": "2021", "month": "5", "billiRevenue": 47515.20375853981 },
+        { "year": "2021", "month": "6", "billiRevenue": 28626.437660580457 },
+        { "year": "2021", "month": "7", "billiRevenue": 30955.274364879962 },
+        { "year": "2021", "month": "8", "billiRevenue": 32272.69446098789 },
+        { "year": "2021", "month": "9", "billiRevenue": 38438.55865910222 },
+        { "year": "2021", "month": "10", "billiRevenue": 34425.72289535257 },
+        { "year": "2021", "month": "11", "billiRevenue": 44047.45709508859 },
+        { "year": "2021", "month": "12", "billiRevenue": 56110.282335067765 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 3149.6100804064226 },
+        { "year": "2021", "month": "2", "billiRevenue": 5907.57514004309 },
+        { "year": "2021", "month": "3", "billiRevenue": 4067.5213918222903 },
+        { "year": "2021", "month": "4", "billiRevenue": 4447.994110313926 },
+        { "year": "2021", "month": "5", "billiRevenue": 5803.431945477567 },
+        { "year": "2021", "month": "6", "billiRevenue": 5233.742070488949 },
+        { "year": "2021", "month": "7", "billiRevenue": 6780.390627310858 },
+        { "year": "2021", "month": "8", "billiRevenue": 6860.889029343067 },
+        { "year": "2021", "month": "9", "billiRevenue": 4844.555597864966 },
+        { "year": "2021", "month": "10", "billiRevenue": 5588.398392704199 },
+        { "year": "2021", "month": "11", "billiRevenue": 4239.06535774675 },
+        { "year": "2021", "month": "12", "billiRevenue": 9652.104148421548 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 2189.730452325378 },
+            { "year": "2021", "month": "2", "billiRevenue": 3842.13687321907 },
+            { "year": "2021", "month": "3", "billiRevenue": 2677.9123902766523 },
+            { "year": "2021", "month": "4", "billiRevenue": 2910.612595691006 },
+            { "year": "2021", "month": "5", "billiRevenue": 3921.7123565583424 },
+            { "year": "2021", "month": "6", "billiRevenue": 3744.9440403306567 },
+            { "year": "2021", "month": "7", "billiRevenue": 5413.983573441013 },
+            { "year": "2021", "month": "8", "billiRevenue": 5200.8699181681095 },
+            { "year": "2021", "month": "9", "billiRevenue": 3983.4203254770096 },
+            { "year": "2021", "month": "10", "billiRevenue": 4274.066096826608 },
+            { "year": "2021", "month": "11", "billiRevenue": 3161.6062326308534 },
+            { "year": "2021", "month": "12", "billiRevenue": 8620.631616407209 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 10525.401273864072 },
+            { "year": "2021", "month": "2", "billiRevenue": 12744.034367736349 },
+            { "year": "2021", "month": "3", "billiRevenue": 10514.086759096199 },
+            { "year": "2021", "month": "4", "billiRevenue": 15983.784620564096 },
+            { "year": "2021", "month": "5", "billiRevenue": 16553.083599339923 },
+            { "year": "2021", "month": "6", "billiRevenue": 18089.46786630019 },
+            { "year": "2021", "month": "7", "billiRevenue": 21666.243170903734 },
+            { "year": "2021", "month": "8", "billiRevenue": 19851.94496410609 },
+            { "year": "2021", "month": "9", "billiRevenue": 8543.459935002178 },
+            { "year": "2021", "month": "10", "billiRevenue": 9590.725232854355 },
+            { "year": "2021", "month": "11", "billiRevenue": 10262.071327795062 },
+            { "year": "2021", "month": "12", "billiRevenue": 16040.455009408353 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": null },
+            { "year": "2021", "month": "2", "billiRevenue": null },
+            { "year": "2021", "month": "3", "billiRevenue": null },
+            { "year": "2021", "month": "4", "billiRevenue": null },
+            { "year": "2021", "month": "5", "billiRevenue": null },
+            { "year": "2021", "month": "6", "billiRevenue": null },
+            { "year": "2021", "month": "7", "billiRevenue": null },
+            { "year": "2021", "month": "8", "billiRevenue": 0 },
+            { "year": "2021", "month": "9", "billiRevenue": 0 },
+            { "year": "2021", "month": "10", "billiRevenue": 0 },
+            { "year": "2021", "month": "11", "billiRevenue": 0 },
+            { "year": "2021", "month": "12", "billiRevenue": 0 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 3509.8767227083367 },
+            { "year": "2021", "month": "2", "billiRevenue": 9635.300213888058 },
+            { "year": "2021", "month": "3", "billiRevenue": 5595.186407682886 },
+            { "year": "2021", "month": "4", "billiRevenue": 5181.421824211715 },
+            { "year": "2021", "month": "5", "billiRevenue": 7363.993170594907 },
+            { "year": "2021", "month": "6", "billiRevenue": 7376.244973129567 },
+            { "year": "2021", "month": "7", "billiRevenue": 6211.5376168010835 },
+            { "year": "2021", "month": "8", "billiRevenue": 8728.63424357433 },
+            { "year": "2021", "month": "9", "billiRevenue": 6023.262150558416 },
+            { "year": "2021", "month": "10", "billiRevenue": 10225.380031490986 },
+            { "year": "2021", "month": "11", "billiRevenue": 4351.76297019525 },
+            { "year": "2021", "month": "12", "billiRevenue": 7079.303815955651 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 12159.228603369938 },
+        { "year": "2021", "month": "2", "billiRevenue": 13681.974018002951 },
+        { "year": "2021", "month": "3", "billiRevenue": 8301.418980913666 },
+        { "year": "2021", "month": "4", "billiRevenue": 11243.526436206119 },
+        { "year": "2021", "month": "5", "billiRevenue": 10391.469064809395 },
+        { "year": "2021", "month": "6", "billiRevenue": 11030.937373165098 },
+        { "year": "2021", "month": "7", "billiRevenue": 11425.561934684016 },
+        { "year": "2021", "month": "8", "billiRevenue": 11305.594792676668 },
+        { "year": "2021", "month": "9", "billiRevenue": 11019.65236836105 },
+        { "year": "2021", "month": "10", "billiRevenue": 12640.463638464731 },
+        { "year": "2021", "month": "11", "billiRevenue": 9755.624803057339 },
+        { "year": "2021", "month": "12", "billiRevenue": 9006.49265781963 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 8139.692476965933 },
+            { "year": "2021", "month": "2", "billiRevenue": 7991.93904500922 },
+            { "year": "2021", "month": "3", "billiRevenue": 5986.530069426619 },
+            { "year": "2021", "month": "4", "billiRevenue": 7250.975445504928 },
+            { "year": "2021", "month": "5", "billiRevenue": 7883.09043620943 },
+            { "year": "2021", "month": "6", "billiRevenue": 8222.15178675739 },
+            { "year": "2021", "month": "7", "billiRevenue": 8335.432600613407 },
+            { "year": "2021", "month": "8", "billiRevenue": 7525.04323909156 },
+            { "year": "2021", "month": "9", "billiRevenue": 8159.364720251504 },
+            { "year": "2021", "month": "10", "billiRevenue": 7029.827117650849 },
+            { "year": "2021", "month": "11", "billiRevenue": 7019.384205524932 },
+            { "year": "2021", "month": "12", "billiRevenue": 7086.280329926232 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 13754.468428467493 },
+            { "year": "2021", "month": "2", "billiRevenue": 13946.973578573608 },
+            { "year": "2021", "month": "3", "billiRevenue": 10032.009047260948 },
+            { "year": "2021", "month": "4", "billiRevenue": 12113.200481955784 },
+            { "year": "2021", "month": "5", "billiRevenue": 10436.73408244449 },
+            { "year": "2021", "month": "6", "billiRevenue": 10881.35248462907 },
+            { "year": "2021", "month": "7", "billiRevenue": 12278.881145929576 },
+            { "year": "2021", "month": "8", "billiRevenue": 12181.066768965613 },
+            { "year": "2021", "month": "9", "billiRevenue": 15441.436512808157 },
+            { "year": "2021", "month": "10", "billiRevenue": 18828.706949634638 },
+            { "year": "2021", "month": "11", "billiRevenue": 12471.925495438127 },
+            { "year": "2021", "month": "12", "billiRevenue": 10703.648927285394 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 10652.609820752907 },
+            { "year": "2021", "month": "2", "billiRevenue": 13449.271213234646 },
+            { "year": "2021", "month": "3", "billiRevenue": 7475.923175892677 },
+            { "year": "2021", "month": "4", "billiRevenue": 11041.781084321286 },
+            { "year": "2021", "month": "5", "billiRevenue": 9854.644302055445 },
+            { "year": "2021", "month": "6", "billiRevenue": 11083.900674983932 },
+            { "year": "2021", "month": "7", "billiRevenue": 10953.38980593245 },
+            { "year": "2021", "month": "8", "billiRevenue": 11245.103962527599 },
+            { "year": "2021", "month": "9", "billiRevenue": 9132.449839976587 },
+            { "year": "2021", "month": "10", "billiRevenue": 12426.571826262389 },
+            { "year": "2021", "month": "11", "billiRevenue": 8213.996909537507 },
+            { "year": "2021", "month": "12", "billiRevenue": 7958.997672625807 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenue": 24452.141645718937 },
+            { "year": "2021", "month": "2", "billiRevenue": 29880.43897817776 },
+            { "year": "2021", "month": "3", "billiRevenue": 12501.773033012692 },
+            { "year": "2021", "month": "4", "billiRevenue": 22300.916198022915 },
+            { "year": "2021", "month": "5", "billiRevenue": 23110.2845200226 },
+            { "year": "2021", "month": "6", "billiRevenue": 21477.793032208723 },
+            { "year": "2021", "month": "7", "billiRevenue": 21458.763788195705 },
+            { "year": "2021", "month": "8", "billiRevenue": 22915.615989587004 },
+            { "year": "2021", "month": "9", "billiRevenue": 20038.904201721165 },
+            { "year": "2021", "month": "10", "billiRevenue": 19770.577957782636 },
+            { "year": "2021", "month": "11", "billiRevenue": 23385.30729235257 },
+            { "year": "2021", "month": "12", "billiRevenue": 19663.08184452584 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 554.6591839120775 },
+        { "year": "2021", "month": "2", "billiRevenue": 548.1083412935275 },
+        { "year": "2021", "month": "3", "billiRevenue": 619.1109026816263 },
+        { "year": "2021", "month": "4", "billiRevenue": 631.9333295709998 },
+        { "year": "2021", "month": "5", "billiRevenue": 1020.9059500477687 },
+        { "year": "2021", "month": "6", "billiRevenue": 920.165534096104 },
+        { "year": "2021", "month": "7", "billiRevenue": 922.3143550633387 },
+        { "year": "2021", "month": "8", "billiRevenue": 1042.0466173328068 },
+        { "year": "2021", "month": "9", "billiRevenue": 822.266855417753 },
+        { "year": "2021", "month": "10", "billiRevenue": 708.8749773541225 },
+        { "year": "2021", "month": "11", "billiRevenue": 411.76737561916354 },
+        { "year": "2021", "month": "12", "billiRevenue": 298.77212923136744 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 3869.706995634853 },
+        { "year": "2021", "month": "2", "billiRevenue": 10381.318859281813 },
+        { "year": "2021", "month": "3", "billiRevenue": 5504.001829516884 },
+        { "year": "2021", "month": "4", "billiRevenue": 7236.673986414356 },
+        { "year": "2021", "month": "5", "billiRevenue": 8105.070910040228 },
+        { "year": "2021", "month": "6", "billiRevenue": 5187.071052211418 },
+        { "year": "2021", "month": "7", "billiRevenue": 6838.336930607578 },
+        { "year": "2021", "month": "8", "billiRevenue": 8060.593957557205 },
+        { "year": "2021", "month": "9", "billiRevenue": 9463.10720774785 },
+        { "year": "2021", "month": "10", "billiRevenue": 9571.101665977243 },
+        { "year": "2021", "month": "11", "billiRevenue": 9255.763835542017 },
+        { "year": "2021", "month": "12", "billiRevenue": 7418.465903630664 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 130.32833600371853 },
+        { "year": "2021", "month": "2", "billiRevenue": 106.65937892519062 },
+        { "year": "2021", "month": "3", "billiRevenue": 125.15213598524636 },
+        { "year": "2021", "month": "4", "billiRevenue": 93.08423577220766 },
+        { "year": "2021", "month": "5", "billiRevenue": 73.74315678090163 },
+        { "year": "2021", "month": "6", "billiRevenue": 205.53944311758087 },
+        { "year": "2021", "month": "7", "billiRevenue": 248.98609283411201 },
+        { "year": "2021", "month": "8", "billiRevenue": 197.2816129732901 },
+        { "year": "2021", "month": "9", "billiRevenue": 143.23544362954394 },
+        { "year": "2021", "month": "10", "billiRevenue": 89.7013188835843 },
+        { "year": "2021", "month": "11", "billiRevenue": 95.29844017439648 },
+        { "year": "2021", "month": "12", "billiRevenue": 106.2413916510449 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 2469.890167166677 },
+        { "year": "2021", "month": "2", "billiRevenue": 1904.3709011059877 },
+        { "year": "2021", "month": "3", "billiRevenue": 1690.9013666280412 },
+        { "year": "2021", "month": "4", "billiRevenue": 1818.271191599807 },
+        { "year": "2021", "month": "5", "billiRevenue": 2715.5898145971846 },
+        { "year": "2021", "month": "6", "billiRevenue": 1819.9832420944383 },
+        { "year": "2021", "month": "7", "billiRevenue": 2391.460059933383 },
+        { "year": "2021", "month": "8", "billiRevenue": 2445.423791102898 },
+        { "year": "2021", "month": "9", "billiRevenue": 1631.3128795414816 },
+        { "year": "2021", "month": "10", "billiRevenue": 2126.000844396506 },
+        { "year": "2021", "month": "11", "billiRevenue": 1181.7187348521588 },
+        { "year": "2021", "month": "12", "billiRevenue": 880.409584941483 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 889.8565021941835 },
+        { "year": "2021", "month": "2", "billiRevenue": 988.734194353976 },
+        { "year": "2021", "month": "3", "billiRevenue": 1117.598494036295 },
+        { "year": "2021", "month": "4", "billiRevenue": 834.0999191083091 },
+        { "year": "2021", "month": "5", "billiRevenue": 1070.3098544726233 },
+        { "year": "2021", "month": "6", "billiRevenue": 1184.162069316189 },
+        { "year": "2021", "month": "7", "billiRevenue": 880.2745165050711 },
+        { "year": "2021", "month": "8", "billiRevenue": 933.7549505816295 },
+        { "year": "2021", "month": "9", "billiRevenue": 858.7418110490885 },
+        { "year": "2021", "month": "10", "billiRevenue": 646.7424105345973 },
+        { "year": "2021", "month": "11", "billiRevenue": 885.4843298361553 },
+        { "year": "2021", "month": "12", "billiRevenue": 943.6479356225807 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 5344.944102986305 },
+        { "year": "2021", "month": "2", "billiRevenue": 6304.933719755459 },
+        { "year": "2021", "month": "3", "billiRevenue": 4667.447775019371 },
+        { "year": "2021", "month": "4", "billiRevenue": 4858.234818282915 },
+        { "year": "2021", "month": "5", "billiRevenue": 5556.52642367215 },
+        { "year": "2021", "month": "6", "billiRevenue": 5453.653844983109 },
+        { "year": "2021", "month": "7", "billiRevenue": 5441.265444591354 },
+        { "year": "2021", "month": "8", "billiRevenue": 5740.676638017657 },
+        { "year": "2021", "month": "9", "billiRevenue": 4734.144235991503 },
+        { "year": "2021", "month": "10", "billiRevenue": 4492.247747077723 },
+        { "year": "2021", "month": "11", "billiRevenue": 4181.267920679014 },
+        { "year": "2021", "month": "12", "billiRevenue": 4085.808298242094 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 0 },
+        { "year": "2021", "month": "2", "billiRevenue": 0 },
+        { "year": "2021", "month": "3", "billiRevenue": 0 },
+        { "year": "2021", "month": "4", "billiRevenue": 0 },
+        { "year": "2021", "month": "5", "billiRevenue": 0 },
+        { "year": "2021", "month": "6", "billiRevenue": 0 },
+        { "year": "2021", "month": "7", "billiRevenue": 0 },
+        { "year": "2021", "month": "8", "billiRevenue": 0 },
+        { "year": "2021", "month": "9", "billiRevenue": 0 },
+        { "year": "2021", "month": "10", "billiRevenue": 0 },
+        { "year": "2021", "month": "11", "billiRevenue": 0 },
+        { "year": "2021", "month": "12", "billiRevenue": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenue": 0 },
+        { "year": "2021", "month": "2", "billiRevenue": 0 },
+        { "year": "2021", "month": "3", "billiRevenue": 0 },
+        { "year": "2021", "month": "4", "billiRevenue": 0 },
+        { "year": "2021", "month": "5", "billiRevenue": 0 },
+        { "year": "2021", "month": "6", "billiRevenue": 0 },
+        { "year": "2021", "month": "7", "billiRevenue": 0 },
+        { "year": "2021", "month": "8", "billiRevenue": 0 },
+        { "year": "2021", "month": "9", "billiRevenue": 0 },
+        { "year": "2021", "month": "10", "billiRevenue": 0 },
+        { "year": "2021", "month": "11", "billiRevenue": 0 },
+        { "year": "2021", "month": "12", "billiRevenue": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

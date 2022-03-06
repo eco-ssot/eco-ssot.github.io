@@ -1,0 +1,358 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 2.8204337990050377 },
+        { "year": "2021", "month": "2", "singleElectric": 2.3884731323119786 },
+        { "year": "2021", "month": "3", "singleElectric": 2.5598397812502434 },
+        { "year": "2021", "month": "4", "singleElectric": 3.425568571841549 },
+        { "year": "2021", "month": "5", "singleElectric": 2.2806057143658993 },
+        { "year": "2021", "month": "6", "singleElectric": 2.4564712089997016 },
+        { "year": "2021", "month": "7", "singleElectric": 2.6023906730679762 },
+        { "year": "2021", "month": "8", "singleElectric": 2.745060327924219 },
+        { "year": "2021", "month": "9", "singleElectric": 2.168753794496695 },
+        { "year": "2021", "month": "10", "singleElectric": 2.0616808442830283 },
+        { "year": "2021", "month": "11", "singleElectric": 1.8649635256797075 },
+        { "year": "2021", "month": "12", "singleElectric": 2.076226905432709 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 5.52209642769387 },
+        { "year": "2021", "month": "2", "singleElectric": 6.420658180654134 },
+        { "year": "2021", "month": "3", "singleElectric": 10.231134002359894 },
+        { "year": "2021", "month": "4", "singleElectric": 6.15514290562129 },
+        { "year": "2021", "month": "5", "singleElectric": 7.994865950326865 },
+        { "year": "2021", "month": "6", "singleElectric": 6.4571889963226 },
+        { "year": "2021", "month": "7", "singleElectric": 6.286537280730107 },
+        { "year": "2021", "month": "8", "singleElectric": 7.310395836458404 },
+        { "year": "2021", "month": "9", "singleElectric": 6.697880022311026 },
+        { "year": "2021", "month": "10", "singleElectric": 5.4409503483552335 },
+        { "year": "2021", "month": "11", "singleElectric": 5.11826021273162 },
+        { "year": "2021", "month": "12", "singleElectric": 4.864395979010084 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 2.9854824788717647 },
+        { "year": "2021", "month": "2", "singleElectric": 2.5471736166130516 },
+        { "year": "2021", "month": "3", "singleElectric": 1.9448670307354317 },
+        { "year": "2021", "month": "4", "singleElectric": 2.591899007673123 },
+        { "year": "2021", "month": "5", "singleElectric": 2.7005467970095016 },
+        { "year": "2021", "month": "6", "singleElectric": 2.933117484018361 },
+        { "year": "2021", "month": "7", "singleElectric": 3.681175478408261 },
+        { "year": "2021", "month": "8", "singleElectric": 4.151294239795834 },
+        { "year": "2021", "month": "9", "singleElectric": 2.889763517274604 },
+        { "year": "2021", "month": "10", "singleElectric": 2.6516463196204345 },
+        { "year": "2021", "month": "11", "singleElectric": 1.918927649429512 },
+        { "year": "2021", "month": "12", "singleElectric": 2.2148035574959097 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 3.120038050704658 },
+            { "year": "2021", "month": "2", "singleElectric": 2.4102036400990086 },
+            { "year": "2021", "month": "3", "singleElectric": 1.521628280443272 },
+            { "year": "2021", "month": "4", "singleElectric": 2.331055225359331 },
+            { "year": "2021", "month": "5", "singleElectric": 2.074839135690817 },
+            { "year": "2021", "month": "6", "singleElectric": 3.410044411253403 },
+            { "year": "2021", "month": "7", "singleElectric": 3.6641745201592473 },
+            { "year": "2021", "month": "8", "singleElectric": 4.757562649515004 },
+            { "year": "2021", "month": "9", "singleElectric": 2.2881928717710927 },
+            { "year": "2021", "month": "10", "singleElectric": 2.0105714715211342 },
+            { "year": "2021", "month": "11", "singleElectric": 1.3191896663365947 },
+            { "year": "2021", "month": "12", "singleElectric": 1.2466070652656205 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": null },
+            { "year": "2021", "month": "2", "singleElectric": null },
+            { "year": "2021", "month": "3", "singleElectric": 285.42343476825766 },
+            { "year": "2021", "month": "4", "singleElectric": 2329.461468631711 },
+            { "year": "2021", "month": "5", "singleElectric": null },
+            { "year": "2021", "month": "6", "singleElectric": null },
+            { "year": "2021", "month": "7", "singleElectric": null },
+            { "year": "2021", "month": "8", "singleElectric": 0 },
+            { "year": "2021", "month": "9", "singleElectric": 0 },
+            { "year": "2021", "month": "10", "singleElectric": 0 },
+            { "year": "2021", "month": "11", "singleElectric": 0 },
+            { "year": "2021", "month": "12", "singleElectric": 0 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 2.8436011513089854 },
+            { "year": "2021", "month": "2", "singleElectric": 3.6092169269942707 },
+            { "year": "2021", "month": "3", "singleElectric": 3.3193645296768346 },
+            { "year": "2021", "month": "4", "singleElectric": 3.5706794473832644 },
+            { "year": "2021", "month": "5", "singleElectric": 3.991461979355198 },
+            { "year": "2021", "month": "6", "singleElectric": 4.871091592469846 },
+            { "year": "2021", "month": "7", "singleElectric": 5.258751499059641 },
+            { "year": "2021", "month": "8", "singleElectric": 5.728554649586638 },
+            { "year": "2021", "month": "9", "singleElectric": 4.539117486176146 },
+            { "year": "2021", "month": "10", "singleElectric": 5.158860486138069 },
+            { "year": "2021", "month": "11", "singleElectric": 4.13259341198923 },
+            { "year": "2021", "month": "12", "singleElectric": 4.708343099958977 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 2.6519251343858827 },
+            { "year": "2021", "month": "2", "singleElectric": 1.9525182507167562 },
+            { "year": "2021", "month": "3", "singleElectric": 1.5648612337477372 },
+            { "year": "2021", "month": "4", "singleElectric": 2.148904059076555 },
+            { "year": "2021", "month": "5", "singleElectric": 2.2329791994642267 },
+            { "year": "2021", "month": "6", "singleElectric": 2.2458887346301832 },
+            { "year": "2021", "month": "7", "singleElectric": 3.0239128583399584 },
+            { "year": "2021", "month": "8", "singleElectric": 3.4724361239338664 },
+            { "year": "2021", "month": "9", "singleElectric": 2.6828600692648252 },
+            { "year": "2021", "month": "10", "singleElectric": 2.4283089774904285 },
+            { "year": "2021", "month": "11", "singleElectric": 1.7144519497343607 },
+            { "year": "2021", "month": "12", "singleElectric": 2.753465788174984 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 2.325351316934464 },
+        { "year": "2021", "month": "2", "singleElectric": 2.8390057352262845 },
+        { "year": "2021", "month": "3", "singleElectric": 2.6884936014433736 },
+        { "year": "2021", "month": "4", "singleElectric": 2.7609582076759263 },
+        { "year": "2021", "month": "5", "singleElectric": 3.3614361340917305 },
+        { "year": "2021", "month": "6", "singleElectric": 3.438945873139223 },
+        { "year": "2021", "month": "7", "singleElectric": 3.2173610466603035 },
+        { "year": "2021", "month": "8", "singleElectric": 2.942590468824728 },
+        { "year": "2021", "month": "9", "singleElectric": 2.876168038799198 },
+        { "year": "2021", "month": "10", "singleElectric": 2.7251582769591502 },
+        { "year": "2021", "month": "11", "singleElectric": 2.147349535088891 },
+        { "year": "2021", "month": "12", "singleElectric": 1.91244536795694 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 3.5174302288290495 },
+            { "year": "2021", "month": "2", "singleElectric": 4.611104924099509 },
+            { "year": "2021", "month": "3", "singleElectric": 4.7795100856322215 },
+            { "year": "2021", "month": "4", "singleElectric": 4.681673534243674 },
+            { "year": "2021", "month": "5", "singleElectric": 5.2488456409149284 },
+            { "year": "2021", "month": "6", "singleElectric": 5.027119815707013 },
+            { "year": "2021", "month": "7", "singleElectric": 5.2294571897089375 },
+            { "year": "2021", "month": "8", "singleElectric": 4.178684185035208 },
+            { "year": "2021", "month": "9", "singleElectric": 4.069836419806734 },
+            { "year": "2021", "month": "10", "singleElectric": 3.8479471168091894 },
+            { "year": "2021", "month": "11", "singleElectric": 3.185598538802735 },
+            { "year": "2021", "month": "12", "singleElectric": 2.763134756648268 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 3.0382850043274447 },
+            { "year": "2021", "month": "2", "singleElectric": 3.5341712844264994 },
+            { "year": "2021", "month": "3", "singleElectric": 2.7049834283013396 },
+            { "year": "2021", "month": "4", "singleElectric": 2.90857700182752 },
+            { "year": "2021", "month": "5", "singleElectric": 3.566787949429966 },
+            { "year": "2021", "month": "6", "singleElectric": 3.4062536071876663 },
+            { "year": "2021", "month": "7", "singleElectric": 3.3830755389348663 },
+            { "year": "2021", "month": "8", "singleElectric": 2.7844903626551316 },
+            { "year": "2021", "month": "9", "singleElectric": 2.7753171548459816 },
+            { "year": "2021", "month": "10", "singleElectric": 2.5975035746571713 },
+            { "year": "2021", "month": "11", "singleElectric": 2.2545966042580217 },
+            { "year": "2021", "month": "12", "singleElectric": 2.3329871084220515 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 1.8578644810942961 },
+            { "year": "2021", "month": "2", "singleElectric": 1.9866018556973608 },
+            { "year": "2021", "month": "3", "singleElectric": 1.771925913766212 },
+            { "year": "2021", "month": "4", "singleElectric": 1.940844432855725 },
+            { "year": "2021", "month": "5", "singleElectric": 2.4177239662133045 },
+            { "year": "2021", "month": "6", "singleElectric": 2.580129306977454 },
+            { "year": "2021", "month": "7", "singleElectric": 2.3591847157898282 },
+            { "year": "2021", "month": "8", "singleElectric": 2.3344768488600733 },
+            { "year": "2021", "month": "9", "singleElectric": 2.3394366696470996 },
+            { "year": "2021", "month": "10", "singleElectric": 2.27745347348014 },
+            { "year": "2021", "month": "11", "singleElectric": 1.6393335257491208 },
+            { "year": "2021", "month": "12", "singleElectric": 1.3832279064955826 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2021", "month": "1", "singleElectric": 1.4477298620706387 },
+            { "year": "2021", "month": "2", "singleElectric": 1.9559004161417144 },
+            { "year": "2021", "month": "3", "singleElectric": 2.12589709881043 },
+            { "year": "2021", "month": "4", "singleElectric": 2.148545094591874 },
+            { "year": "2021", "month": "5", "singleElectric": 2.9993396572814848 },
+            { "year": "2021", "month": "6", "singleElectric": 3.021222467554914 },
+            { "year": "2021", "month": "7", "singleElectric": 2.612094434487211 },
+            { "year": "2021", "month": "8", "singleElectric": 2.4413132299456723 },
+            { "year": "2021", "month": "9", "singleElectric": 2.3699616246222646 },
+            { "year": "2021", "month": "10", "singleElectric": 2.0634807896845024 },
+            { "year": "2021", "month": "11", "singleElectric": 1.6825667331720775 },
+            { "year": "2021", "month": "12", "singleElectric": 1.562766186895395 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 76.06502217981264 },
+        { "year": "2021", "month": "2", "singleElectric": 73.250400438202 },
+        { "year": "2021", "month": "3", "singleElectric": 46.2012093534498 },
+        { "year": "2021", "month": "4", "singleElectric": 60.47056739820789 },
+        { "year": "2021", "month": "5", "singleElectric": 79.45912206850738 },
+        { "year": "2021", "month": "6", "singleElectric": 73.01219637818075 },
+        { "year": "2021", "month": "7", "singleElectric": 113.12216870218853 },
+        { "year": "2021", "month": "8", "singleElectric": 90.21773175538432 },
+        { "year": "2021", "month": "9", "singleElectric": 73.57011748102272 },
+        { "year": "2021", "month": "10", "singleElectric": 65.48785982738524 },
+        { "year": "2021", "month": "11", "singleElectric": 53.30770112437702 },
+        { "year": "2021", "month": "12", "singleElectric": 105.99312857192153 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 8.653875951228379 },
+        { "year": "2021", "month": "2", "singleElectric": 8.312393217004537 },
+        { "year": "2021", "month": "3", "singleElectric": 8.080621947478942 },
+        { "year": "2021", "month": "4", "singleElectric": 10.321317197018855 },
+        { "year": "2021", "month": "5", "singleElectric": 9.687913672225626 },
+        { "year": "2021", "month": "6", "singleElectric": 9.958461988577827 },
+        { "year": "2021", "month": "7", "singleElectric": 11.960184648790081 },
+        { "year": "2021", "month": "8", "singleElectric": 9.571378326888107 },
+        { "year": "2021", "month": "9", "singleElectric": 8.969955620080114 },
+        { "year": "2021", "month": "10", "singleElectric": 8.517081879131034 },
+        { "year": "2021", "month": "11", "singleElectric": 7.7142145244982725 },
+        { "year": "2021", "month": "12", "singleElectric": 7.747473721154234 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 15.86246364635171 },
+        { "year": "2021", "month": "2", "singleElectric": 13.282166147322432 },
+        { "year": "2021", "month": "3", "singleElectric": 13.166359881844539 },
+        { "year": "2021", "month": "4", "singleElectric": 13.45865560276155 },
+        { "year": "2021", "month": "5", "singleElectric": 20.822014537511297 },
+        { "year": "2021", "month": "6", "singleElectric": 20.218826183431954 },
+        { "year": "2021", "month": "7", "singleElectric": 26.97622899842198 },
+        { "year": "2021", "month": "8", "singleElectric": 31.352905943182474 },
+        { "year": "2021", "month": "9", "singleElectric": 26.323144425712186 },
+        { "year": "2021", "month": "10", "singleElectric": 25.432479386247937 },
+        { "year": "2021", "month": "11", "singleElectric": 17.187796941344455 },
+        { "year": "2021", "month": "12", "singleElectric": 13.38072970935015 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 5.454467970916819 },
+        { "year": "2021", "month": "2", "singleElectric": 3.260780617480347 },
+        { "year": "2021", "month": "3", "singleElectric": 2.185669556192805 },
+        { "year": "2021", "month": "4", "singleElectric": 2.4176188909000307 },
+        { "year": "2021", "month": "5", "singleElectric": 3.9796785201249416 },
+        { "year": "2021", "month": "6", "singleElectric": 2.664978388761825 },
+        { "year": "2021", "month": "7", "singleElectric": 4.39715246487012 },
+        { "year": "2021", "month": "8", "singleElectric": 3.4097142171335304 },
+        { "year": "2021", "month": "9", "singleElectric": 3.3224139910725823 },
+        { "year": "2021", "month": "10", "singleElectric": 3.3143543875239936 },
+        { "year": "2021", "month": "11", "singleElectric": 1.7114941855260695 },
+        { "year": "2021", "month": "12", "singleElectric": 1.5912063812304562 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 1.4916169463398539 },
+        { "year": "2021", "month": "2", "singleElectric": 1.7186312362247378 },
+        { "year": "2021", "month": "3", "singleElectric": 1.8529176441057518 },
+        { "year": "2021", "month": "4", "singleElectric": 1.4737186302242322 },
+        { "year": "2021", "month": "5", "singleElectric": 1.7679244536935477 },
+        { "year": "2021", "month": "6", "singleElectric": 1.7652790974473338 },
+        { "year": "2021", "month": "7", "singleElectric": 1.5342584767449596 },
+        { "year": "2021", "month": "8", "singleElectric": 1.9834183543480348 },
+        { "year": "2021", "month": "9", "singleElectric": 1.6052771790841058 },
+        { "year": "2021", "month": "10", "singleElectric": 1.3900137967358734 },
+        { "year": "2021", "month": "11", "singleElectric": 1.5362216884700206 },
+        { "year": "2021", "month": "12", "singleElectric": 1.4105778850790174 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 3.3783251437201502 },
+        { "year": "2021", "month": "2", "singleElectric": 3.5583478085961096 },
+        { "year": "2021", "month": "3", "singleElectric": 3.3441567206913247 },
+        { "year": "2021", "month": "4", "singleElectric": 3.4859265162478024 },
+        { "year": "2021", "month": "5", "singleElectric": 3.8594016814267578 },
+        { "year": "2021", "month": "6", "singleElectric": 3.934019451796804 },
+        { "year": "2021", "month": "7", "singleElectric": 3.7727299238640213 },
+        { "year": "2021", "month": "8", "singleElectric": 3.944880772994977 },
+        { "year": "2021", "month": "9", "singleElectric": 3.442850505584188 },
+        { "year": "2021", "month": "10", "singleElectric": 3.136476388495331 },
+        { "year": "2021", "month": "11", "singleElectric": 2.635063830387302 },
+        { "year": "2021", "month": "12", "singleElectric": 2.3734274900722503 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 0 },
+        { "year": "2021", "month": "2", "singleElectric": 0 },
+        { "year": "2021", "month": "3", "singleElectric": 0 },
+        { "year": "2021", "month": "4", "singleElectric": 0 },
+        { "year": "2021", "month": "5", "singleElectric": 0 },
+        { "year": "2021", "month": "6", "singleElectric": 0 },
+        { "year": "2021", "month": "7", "singleElectric": 0 },
+        { "year": "2021", "month": "8", "singleElectric": 0 },
+        { "year": "2021", "month": "9", "singleElectric": 0 },
+        { "year": "2021", "month": "10", "singleElectric": 0 },
+        { "year": "2021", "month": "11", "singleElectric": 0 },
+        { "year": "2021", "month": "12", "singleElectric": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2021", "month": "1", "singleElectric": 0 },
+        { "year": "2021", "month": "2", "singleElectric": 0 },
+        { "year": "2021", "month": "3", "singleElectric": 0 },
+        { "year": "2021", "month": "4", "singleElectric": 0 },
+        { "year": "2021", "month": "5", "singleElectric": 0 },
+        { "year": "2021", "month": "6", "singleElectric": 0 },
+        { "year": "2021", "month": "7", "singleElectric": 0 },
+        { "year": "2021", "month": "8", "singleElectric": 0 },
+        { "year": "2021", "month": "9", "singleElectric": 0 },
+        { "year": "2021", "month": "10", "singleElectric": 0 },
+        { "year": "2021", "month": "11", "singleElectric": 0 },
+        { "year": "2021", "month": "12", "singleElectric": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

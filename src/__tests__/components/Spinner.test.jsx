@@ -30,7 +30,6 @@ test('Spinner', () => {
           />
         </svg>
       </div>
-       
     </DocumentFragment>
   `);
 });

@@ -1,0 +1,358 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 6.784169313829301 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0.00866297944719038 },
+        { "year": "2021", "month": "2", "percent": 0.01197093364922445 },
+        { "year": "2021", "month": "3", "percent": 0.012007972200031325 },
+        { "year": "2021", "month": "4", "percent": 0.012460569613362947 },
+        { "year": "2021", "month": "5", "percent": 0.01456523246979059 },
+        { "year": "2021", "month": "6", "percent": 0.007712156120600881 },
+        { "year": "2021", "month": "7", "percent": 0.009533250716746239 },
+        { "year": "2021", "month": "8", "percent": 0.009556919101874383 },
+        { "year": "2021", "month": "9", "percent": 0.010779611852966074 },
+        { "year": "2021", "month": "10", "percent": 0.014988847707046817 },
+        { "year": "2021", "month": "11", "percent": 0.01640946157591944 },
+        { "year": "2021", "month": "12", "percent": 8.594719301757618 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0.018865398295366365 },
+        { "year": "2021", "month": "2", "percent": 0.027385043632054618 },
+        { "year": "2021", "month": "3", "percent": 0.024102673684905613 },
+        { "year": "2021", "month": "4", "percent": 0.03691547336271304 },
+        { "year": "2021", "month": "5", "percent": 0.03491930342234815 },
+        { "year": "2021", "month": "6", "percent": 0.026158015962266568 },
+        { "year": "2021", "month": "7", "percent": 0.025632150099620873 },
+        { "year": "2021", "month": "8", "percent": 0.02624047152600738 },
+        { "year": "2021", "month": "9", "percent": 0.025660103216345497 },
+        { "year": "2021", "month": "10", "percent": 0.052838531137705085 },
+        { "year": "2021", "month": "11", "percent": 0.07212693366160992 },
+        { "year": "2021", "month": "12", "percent": 7.111081517185144 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.018865398295366365 },
+            { "year": "2021", "month": "2", "percent": 0.027385043632054618 },
+            { "year": "2021", "month": "3", "percent": 0.024102673684905606 },
+            { "year": "2021", "month": "4", "percent": 0.03691547336271304 },
+            { "year": "2021", "month": "5", "percent": 0.03491930342234815 },
+            { "year": "2021", "month": "6", "percent": 0.026158015962266558 },
+            { "year": "2021", "month": "7", "percent": 0.02563215009962087 },
+            { "year": "2021", "month": "8", "percent": 0.02640310198480971 },
+            { "year": "2021", "month": "9", "percent": 0.025660103216345494 },
+            { "year": "2021", "month": "10", "percent": 0.05283853113770509 },
+            { "year": "2021", "month": "11", "percent": 0.07212693366160991 },
+            { "year": "2021", "month": "12", "percent": 5.191536616497052 }
+          ]
+        },
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.018865398295366362 },
+            { "year": "2021", "month": "2", "percent": 0.027385043632054615 },
+            { "year": "2021", "month": "3", "percent": 0.024102673684905613 },
+            { "year": "2021", "month": "4", "percent": 0.03691547336271304 },
+            { "year": "2021", "month": "5", "percent": 0.03491930342234815 },
+            { "year": "2021", "month": "6", "percent": 0.02615801596226656 },
+            { "year": "2021", "month": "7", "percent": 0.02563215009962087 },
+            { "year": "2021", "month": "8", "percent": 0 },
+            { "year": "2021", "month": "9", "percent": 0 },
+            { "year": "2021", "month": "10", "percent": 0 },
+            { "year": "2021", "month": "11", "percent": 0 },
+            { "year": "2021", "month": "12", "percent": 0 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.018865398295366365 },
+            { "year": "2021", "month": "2", "percent": 0.027385043632054618 },
+            { "year": "2021", "month": "3", "percent": 0.024102673684905613 },
+            { "year": "2021", "month": "4", "percent": 0.03691547336271304 },
+            { "year": "2021", "month": "5", "percent": 0.03491930342234815 },
+            { "year": "2021", "month": "6", "percent": 0.026158015962266565 },
+            { "year": "2021", "month": "7", "percent": 0.025632150099620877 },
+            { "year": "2021", "month": "8", "percent": 0.02576337438797564 },
+            { "year": "2021", "month": "9", "percent": 0.0256601032163455 },
+            { "year": "2021", "month": "10", "percent": 0.05283853113770508 },
+            { "year": "2021", "month": "11", "percent": 0.07212693366160991 },
+            { "year": "2021", "month": "12", "percent": 5.143531466335354 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.018865398295366365 },
+            { "year": "2021", "month": "2", "percent": 0.027385043632054618 },
+            { "year": "2021", "month": "3", "percent": 0.024102673684905613 },
+            { "year": "2021", "month": "4", "percent": 0.03691547336271304 },
+            { "year": "2021", "month": "5", "percent": 0.03491930342234814 },
+            { "year": "2021", "month": "6", "percent": 0.026158015962266568 },
+            { "year": "2021", "month": "7", "percent": 0.025632150099620873 },
+            { "year": "2021", "month": "8", "percent": 0.026403101984809715 },
+            { "year": "2021", "month": "9", "percent": 0.025660103216345494 },
+            { "year": "2021", "month": "10", "percent": 0.05283853113770509 },
+            { "year": "2021", "month": "11", "percent": 0.07212693366160991 },
+            { "year": "2021", "month": "12", "percent": 11.748609583054062 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0.04147393351809424 },
+        { "year": "2021", "month": "2", "percent": 0.05713178328324065 },
+        { "year": "2021", "month": "3", "percent": 0.03701614886134849 },
+        { "year": "2021", "month": "4", "percent": 0.0354788141111672 },
+        { "year": "2021", "month": "5", "percent": 0.04186646501377436 },
+        { "year": "2021", "month": "6", "percent": 0.031045986297189885 },
+        { "year": "2021", "month": "7", "percent": 0.03681977358551646 },
+        { "year": "2021", "month": "8", "percent": 0.03219884813161569 },
+        { "year": "2021", "month": "9", "percent": 0.03745826270199426 },
+        { "year": "2021", "month": "10", "percent": 0.03445353729043621 },
+        { "year": "2021", "month": "11", "percent": 0.050445080296984114 },
+        { "year": "2021", "month": "12", "percent": 5.960949104058399 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.021501368987428802 },
+            { "year": "2021", "month": "2", "percent": 0.02692607760232487 },
+            { "year": "2021", "month": "3", "percent": 0.015358893133305867 },
+            { "year": "2021", "month": "4", "percent": 0.015532443690017087 },
+            { "year": "2021", "month": "5", "percent": 0.017768659281373174 },
+            { "year": "2021", "month": "6", "percent": 0.015225834513162829 },
+            { "year": "2021", "month": "7", "percent": 0.01741316505247615 },
+            { "year": "2021", "month": "8", "percent": 0.014628424363317894 },
+            { "year": "2021", "month": "9", "percent": 0.017217895503015137 },
+            { "year": "2021", "month": "10", "percent": 0.018592407441654527 },
+            { "year": "2021", "month": "11", "percent": 0.024671911585150516 },
+            { "year": "2021", "month": "12", "percent": 6.302824214144744 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.131280810724269 },
+            { "year": "2021", "month": "2", "percent": 0.171339040393009 },
+            { "year": "2021", "month": "3", "percent": 0.11141040200027441 },
+            { "year": "2021", "month": "4", "percent": 0.10036890931243274 },
+            { "year": "2021", "month": "5", "percent": 0.11373128889394098 },
+            { "year": "2021", "month": "6", "percent": 0.08434423096214846 },
+            { "year": "2021", "month": "7", "percent": 0.09490561333215455 },
+            { "year": "2021", "month": "8", "percent": 0.0936124763630877 },
+            { "year": "2021", "month": "9", "percent": 0.10036708073690778 },
+            { "year": "2021", "month": "10", "percent": 0.07990750867635002 },
+            { "year": "2021", "month": "11", "percent": 0.11513387788900395 },
+            { "year": "2021", "month": "12", "percent": 5.694597402739681 }
+          ]
+        },
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0 },
+            { "year": "2021", "month": "2", "percent": 0 },
+            { "year": "2021", "month": "3", "percent": 0 },
+            { "year": "2021", "month": "4", "percent": 0 },
+            { "year": "2021", "month": "5", "percent": 0 },
+            { "year": "2021", "month": "6", "percent": 0 },
+            { "year": "2021", "month": "7", "percent": 0 },
+            { "year": "2021", "month": "8", "percent": 0 },
+            { "year": "2021", "month": "9", "percent": 0 },
+            { "year": "2021", "month": "10", "percent": 0.014859446209003598 },
+            { "year": "2021", "month": "11", "percent": 0.03035695351991148 },
+            { "year": "2021", "month": "12", "percent": 5.5910334410284515 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2021", "month": "1", "percent": 0.000791037548280392 },
+            { "year": "2021", "month": "2", "percent": 0.002611034752484891 },
+            { "year": "2021", "month": "3", "percent": 0.0013513949060999979 },
+            { "year": "2021", "month": "4", "percent": 0.0010192467350786424 },
+            { "year": "2021", "month": "5", "percent": 0.0011471133964886754 },
+            { "year": "2021", "month": "6", "percent": 0.0009881065000505054 },
+            { "year": "2021", "month": "7", "percent": 0.0010292202016581923 },
+            { "year": "2021", "month": "8", "percent": 0.000878212125015347 },
+            { "year": "2021", "month": "9", "percent": 0.000812190512086046 },
+            { "year": "2021", "month": "10", "percent": 0.010571899857842326 },
+            { "year": "2021", "month": "11", "percent": 0.018519242441314206 },
+            { "year": "2021", "month": "12", "percent": 6.0215984635823965 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 6.140854017766354 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 7.948745465535109 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 8.639195922439505 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 3.4953095184264074 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 6.13368612631574 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0.015630870959884892 },
+        { "year": "2021", "month": "2", "percent": 0.021703715012641997 },
+        { "year": "2021", "month": "3", "percent": 0.015990972817969996 },
+        { "year": "2021", "month": "4", "percent": 0.01659610360369063 },
+        { "year": "2021", "month": "5", "percent": 0.01910882235373607 },
+        { "year": "2021", "month": "6", "percent": 0.01347852268715538 },
+        { "year": "2021", "month": "7", "percent": 0.015864950264461646 },
+        { "year": "2021", "month": "8", "percent": 0.014354182308294609 },
+        { "year": "2021", "month": "9", "percent": 0.016293550303152635 },
+        { "year": "2021", "month": "10", "percent": 0.017087068907982266 },
+        { "year": "2021", "month": "11", "percent": 0.024381503632305818 },
+        { "year": "2021", "month": "12", "percent": 6.728392294547361 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2021", "month": "1", "percent": 0 },
+        { "year": "2021", "month": "2", "percent": 0 },
+        { "year": "2021", "month": "3", "percent": 0 },
+        { "year": "2021", "month": "4", "percent": 0 },
+        { "year": "2021", "month": "5", "percent": 0 },
+        { "year": "2021", "month": "6", "percent": 0 },
+        { "year": "2021", "month": "7", "percent": 0 },
+        { "year": "2021", "month": "8", "percent": 0 },
+        { "year": "2021", "month": "9", "percent": 0 },
+        { "year": "2021", "month": "10", "percent": 0 },
+        { "year": "2021", "month": "11", "percent": 0 },
+        { "year": "2021", "month": "12", "percent": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

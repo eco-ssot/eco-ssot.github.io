@@ -14,13 +14,19 @@ export default function Select({
   options = [],
   selected = options[0] || {},
   placeholder = '',
+  splitter = ':',
   onChange = () => {},
 }) {
   return (
     <Listbox value={selected} onChange={onChange}>
       {({ open }) => (
         <div className={clsx('flex items-center', className)}>
-          {label && <Listbox.Label className="block truncate font-medium text-gray-50 mr-1">{label}</Listbox.Label>}
+          {label && (
+            <>
+              <Listbox.Label className="block truncate font-medium text-gray-50 mr-1">{label}</Listbox.Label>
+              {splitter && <div className="mr-1">{splitter}</div>}
+            </>
+          )}
           <div className="relative">
             <Listbox.Button
               className={clsx(

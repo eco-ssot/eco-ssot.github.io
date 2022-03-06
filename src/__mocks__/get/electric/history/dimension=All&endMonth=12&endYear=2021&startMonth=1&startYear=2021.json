@@ -1,0 +1,358 @@
+{
+  "data": [
+    {
+      "name": "WTZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 3615726.0398294018 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 3190477.7675470184 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 3513672.8950102404 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 3568827.0378425973 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 4072855.551446967 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 3408762.880365601 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 3851296.766140583 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 3614473.463455292 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 3098665.4573629377 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 3009861.011653612 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 2830133.0996041643 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 2859136.3485096754 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WOK",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 1832877.6192093678 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 2520578.31447349 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 3618212.4736550027 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 2493213.618909131 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 3377627.64430088 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 2735489.446379011 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 2889727.1817111424 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 3185647.0633647977 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 3244204.766538315 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 2586958.3078958727 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 2759210.06389331 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 3453997.816111781 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WKS",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 415713.8589654649 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 410552.6610656804 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 317057.6325707925 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 398090.2676344727 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 441275.5390667802 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 466878.9240742159 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 610043.228404097 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 669717.123035286 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 482660.80643266125 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 345507.62743529136 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 274847.0074866582 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 518649.28999616427 }
+      ],
+      "plants": [
+        {
+          "name": "WKS-6A",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": null },
+            { "year": "2021", "month": "2", "billiRevenueElectric": null },
+            { "year": "2021", "month": "3", "billiRevenueElectric": null },
+            { "year": "2021", "month": "4", "billiRevenueElectric": null },
+            { "year": "2021", "month": "5", "billiRevenueElectric": null },
+            { "year": "2021", "month": "6", "billiRevenueElectric": null },
+            { "year": "2021", "month": "7", "billiRevenueElectric": null },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 0 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 0 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 0 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 0 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 0 }
+          ]
+        },
+        {
+          "name": "WKS-5",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 396383.4685611333 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 586926.3853045505 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 578197.82782633 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 598102.7776915429 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 659737.68050397 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 825349.5177294463 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 840355.3674020557 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 1011921.0364602049 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 715265.2115917245 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 842405.9672007173 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 468298.2060495871 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 609905.0484885372 }
+          ]
+        },
+        {
+          "name": "WKS-6B",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 1542318.6718747516 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 1030881.6519479138 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 674682.3375955883 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 1129972.1179713595 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 1066846.7217096537 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 1573726.536404496 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 1991195.8062072187 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 2159713.40808586 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 1001934.629056989 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 700859.9623217733 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 710852.8172678688 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 833817.8371387197 }
+          ]
+        },
+        {
+          "name": "WKS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 292859.924827539 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 246289.3360935594 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 189155.22914799047 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 254377.01442527352 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 274109.21928910434 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 300196.07936555106 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 393090.3669518517 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 450950.8030924637 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 344608.13613266614 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 216914.23698187296 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 142861.36450835963 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 321806.5214249423 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WZS",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 767073.5078975545 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 899260.4146158957 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 773860.6416014876 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 861471.8203436184 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 955518.7244991655 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 948225.8504555668 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 1018023.9862894355 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 998532.6352248695 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 900920.9170210072 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 856261.0564682572 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 675381.2419717135 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 592010.5575986876 }
+      ],
+      "plants": [
+        {
+          "name": "WZS-3",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 548092.7426037341 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 568744.9769479237 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 606748.1236818068 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 627096.7972715306 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 757035.9813706798 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 715513.7646170557 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 757425.9263884843 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 674407.8572656086 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 617767.2340939775 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 502011.9809753248 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 474756.5567189264 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 454950.2334949871 }
+          ]
+        },
+        {
+          "name": "WZS-6",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 466594.7612065165 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 584692.3599665818 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 452388.9749295602 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 548086.468637109 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 619564.6660207447 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 602843.0929798696 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 660289.2089344205 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 628342.5111823678 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 572863.2566430343 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 502910.7266282513 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 404862.93401586404 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 341673.2115709821 }
+          ]
+        },
+        {
+          "name": "WZS-8",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 1645439.652379814 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 1835238.6009858379 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 1464754.961495558 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 2111548.678522556 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 2877250.0410826253 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 2747259.86939437 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 2590558.1720370417 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 2929476.81266646 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 2313768.726804648 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 2220128.994179759 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 2202620.6846769354 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 1925130.5134231618 }
+          ]
+        },
+        {
+          "name": "WZS-1",
+          "metaData": [
+            { "year": "2021", "month": "1", "billiRevenueElectric": 1106431.6796005494 },
+            { "year": "2021", "month": "2", "billiRevenueElectric": 1358010.8191042796 },
+            { "year": "2021", "month": "3", "billiRevenueElectric": 1237505.7054039342 },
+            { "year": "2021", "month": "4", "billiRevenueElectric": 1289509.9699362163 },
+            { "year": "2021", "month": "5", "billiRevenueElectric": 1277508.6854699675 },
+            { "year": "2021", "month": "6", "billiRevenueElectric": 1337716.3474124805 },
+            { "year": "2021", "month": "7", "billiRevenueElectric": 1528242.3303396718 },
+            { "year": "2021", "month": "8", "billiRevenueElectric": 1484509.1796733958 },
+            { "year": "2021", "month": "9", "billiRevenueElectric": 1496948.8288728253 },
+            { "year": "2021", "month": "10", "billiRevenueElectric": 1849882.26824475 },
+            { "year": "2021", "month": "11", "billiRevenueElectric": 1072058.8532265623 },
+            { "year": "2021", "month": "12", "billiRevenueElectric": 959910.7617264064 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WMX",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 288736.349818777 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 304800.5034799714 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 305565.64505784935 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 274301.77207654255 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 355195.6286519707 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 320086.64908275474 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 381099.8708442787 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 405781.5242870681 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 339101.02793132566 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 364828.5133916622 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 241824.57274258422 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 219534.05539357767 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WIH",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 868503.7519432681 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 1041871.8936281498 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 962423.5260821587 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 1092626.9640605554 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 1292366.5711555006 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 904749.7155401736 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 824963.4292646691 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 957440.7087259253 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 989308.2349774126 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 979983.7832845672 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 1011369.7382084059 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 827299.5954418648 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCZ",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 182604.67393132052 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 124045.58373341881 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 151168.7478198599 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 123040.86937364374 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 123299.14021484407 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 203719.94208716654 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 222821.5563378936 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 237276.774520527 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 180048.3689414408 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 180612.8736125937 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 115952.81682816896 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 141857.28297434127 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCQ",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 535560.2035275542 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 362073.2573734917 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 259793.10954357637 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 273714.8527800698 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 494362.9211592833 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 322683.6383871092 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 388641.4722949383 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 393718.2304180247 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 303727.82447762095 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 380802.0247394936 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 199768.06559848797 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 147334.52872478924 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WCD",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 134862.56867826093 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 159936.5560310733 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 178501.5111915592 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 143307.26765010488 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 167891.13889087623 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 174615.08958368446 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 144143.2230524656 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 170010.47854969034 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 131714.44363564922 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 111414.50257923764 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 126848.72483159213 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 118491.41482263035 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "Total",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 522310.6703746069 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 529283.0435446412 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 496737.67497042386 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 480589.21191616484 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 559450.1283686582 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 582735.425680358 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 576273.9226773279 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 623029.9578353273 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 487280.59477569343 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 414710.4102206926 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 369770.92462197226 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 332956.55016312597 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WHC",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 0 }
+      ],
+      "plants": []
+    },
+    {
+      "name": "WNH",
+      "metaData": [
+        { "year": "2021", "month": "1", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "2", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "3", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "4", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "5", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "6", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "7", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "8", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "9", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "10", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "11", "billiRevenueElectric": 0 },
+        { "year": "2021", "month": "12", "billiRevenueElectric": 0 }
+      ],
+      "plants": []
+    }
+  ]
+}

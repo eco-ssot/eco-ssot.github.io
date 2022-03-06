@@ -19,8 +19,13 @@ test('OverviewSearch', () => {
               class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-1"
             >
-              selectLabel.searchYear : 
+              selectLabel.searchYear
             </label>
+            <div
+              class="mr-1"
+            >
+              :
+            </div>
             <div
               class="relative"
             >
@@ -64,8 +69,13 @@ test('OverviewSearch', () => {
               class="block truncate font-medium text-gray-50 mr-1"
               id="headlessui-listbox-label-3"
             >
-              selectLabel.dimension : 
+              selectLabel.dimension
             </label>
+            <div
+              class="mr-1"
+            >
+              :
+            </div>
             <div
               class="relative"
             >
@@ -123,7 +133,6 @@ test('OverviewSearch', () => {
           </a>
         </div>
       </div>
-       
     </DocumentFragment>
   `);
 });

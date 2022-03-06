@@ -28,7 +28,7 @@ export default function GlobalDateSelect() {
         onChange={(e) => navigate({ ...e, cy: Number(e.y) - 1 })}
         queryKey="y"
       />
-      {`01 - `}
+      01 -
       <TagSelect
         className="w-16"
         options={mOptions}

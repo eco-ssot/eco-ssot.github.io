@@ -5,7 +5,6 @@ import CarbonPage from '../pages/carbon/CarbonPage';
 import ElectricityAnalysisPage from '../pages/electricity/ElectricityAnalysisPage';
 import ElectricityBaselinePage from '../pages/electricity/ElectricityBaselinePage';
 import ElectricityPage from '../pages/electricity/ElectricityPage';
-import ErrorPage from '../pages/error/ErrorPage';
 import HomePage from '../pages/home/HomePage';
 import LoginPage from '../pages/login/LoginPage';
 import ManagementPage from '../pages/management/ManagementPage';
@@ -30,12 +29,6 @@ export const publicRoutes = [
     title: '',
     component: UnauthorizedPage,
     key: 'unauthorized',
-  },
-  {
-    path: '/error',
-    title: '',
-    component: ErrorPage,
-    key: 'error',
   },
 ];
 

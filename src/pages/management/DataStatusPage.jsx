@@ -161,7 +161,7 @@ export default function DataStatusPage() {
             </Button>
             <div className="flex space-x-8">
               <Select
-                label="查詢年度 : "
+                label="查詢年度"
                 options={disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
                 selected={(disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find(
                   (option) => option.key === searchOption.year
@@ -170,7 +170,7 @@ export default function DataStatusPage() {
                 buttonClassName="min-w-28"
               />
               <Select
-                label="查詢月份 : "
+                label="查詢月份"
                 buttonClassName="w-24"
                 options={APP_CONSTANTS.MONTH_OPTIONS}
                 selected={

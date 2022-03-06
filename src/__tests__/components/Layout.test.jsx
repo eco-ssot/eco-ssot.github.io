@@ -365,7 +365,6 @@ test('Layout', () => {
       <div
         class="pt-16"
       />
-       
     </DocumentFragment>
   `);
 });

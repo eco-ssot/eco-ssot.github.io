@@ -1,0 +1,63 @@
+import { waitFor } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
+
+import { renderWithProviders } from '../__mocks__/helpers';
+import App from '../app/App';
+
+describe('App', () => {
+  it('switches sites', async () => {
+    const { getByText } = renderWithProviders(<App />);
+    await waitFor(() => expect(getByText(/2021.01 - 06/i)).toBeInTheDocument());
+    const select = getByText('ALL');
+
+    userEvent.click(select);
+    userEvent.click(getByText('WT'));
+    await waitFor(() => expect(getByText(/WT/i)).toBeInTheDocument());
+    expect(window.location.search).toBe('?business=WT');
+
+    userEvent.click(select);
+    userEvent.click(getByText('WSD'));
+    await waitFor(() => expect(getByText(/WT/i)).toBeInTheDocument());
+    expect(window.location.search).toBe('?business=WSD');
+  });
+
+  it('switches tabs', async () => {
+    const { getByText } = renderWithProviders(<App />);
+    await waitFor(() => expect(getByText(/2021.01 - 06/i)).toBeInTheDocument());
+
+    userEvent.click(getByText('首頁'));
+    expect(window.location.pathname).toBe('/home');
+
+    userEvent.click(getByText('總覽比較'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/overview');
+
+    userEvent.click(getByText('碳排放量'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/carbon');
+
+    userEvent.click(getByText('可再生能源'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/renewable-energy');
+
+    userEvent.click(getByText('用電'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/electricity');
+
+    userEvent.click(getByText('用水'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/water');
+
+    userEvent.click(getByText('單台用電'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/unit-electricity');
+
+    userEvent.click(getByText('廢棄物'));
+    await waitFor(() => expect(getByText('Site')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/waste');
+
+    userEvent.click(getByText('後台設定'));
+    await waitFor(() => expect(getByText('用電強度')).toBeInTheDocument());
+    expect(window.location.pathname).toBe('/management/goal');
+  });
+});

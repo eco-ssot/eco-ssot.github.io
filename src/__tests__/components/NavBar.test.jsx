@@ -149,7 +149,6 @@ test('NavBar', () => {
           </a>
         </div>
       </div>
-       
     </DocumentFragment>
   `);
 });
