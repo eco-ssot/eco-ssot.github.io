@@ -2,7 +2,7 @@ import { renderWithProviders } from '../../__mocks__/helpers';
 import UnauthorizedPage from '../../pages/unauthorized/UnauthorizedPage';
 
 describe('UnauthorizedPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<UnauthorizedPage />);
     expect(getByText(/Unauthorized/)).toBeInTheDocument();
     expect(asFragment()).toMatchInlineSnapshot(`

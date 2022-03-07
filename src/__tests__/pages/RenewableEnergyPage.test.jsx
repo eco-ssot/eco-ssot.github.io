@@ -5,7 +5,7 @@ import RenewableEnergyHistoryTable from '../../pages/renewable-energy/RenewableE
 import RenewableEnergyPage from '../../pages/renewable-energy/RenewableEnergyPage';
 
 describe('RenewableEnergyPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<RenewableEnergyPage />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/19,895,252/)).toBeInTheDocument());
@@ -1184,7 +1184,7 @@ describe('RenewableEnergyPage', () => {
 });
 
 describe('RenewableEnergyHistoryTable', () => {
-  it('ytm', async () => {
+  test('ytm', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <RenewableEnergyHistoryTable startYear="2020" endYear="2022" monthType="YTM" endMonth="12" dimension="All" />
     );
@@ -2078,7 +2078,7 @@ describe('RenewableEnergyHistoryTable', () => {
     `);
   });
 
-  it('single', async () => {
+  test('single', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <RenewableEnergyHistoryTable startYear="2020" endYear="2022" monthType="single" endMonth="12" dimension="All" />
     );
@@ -2972,7 +2972,7 @@ describe('RenewableEnergyHistoryTable', () => {
     `);
   });
 
-  it('same year', async () => {
+  test('same year', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <RenewableEnergyHistoryTable startYear="2021" endYear="2021" startMonth="1" endMonth="12" dimension="All" />
     );

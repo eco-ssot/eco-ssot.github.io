@@ -7,7 +7,7 @@ import WasteAnalysisPage from '../pages/waste/WasteAnalysisPage';
 import WaterAnalysisPage from '../pages/water/WaterAnalysisPage';
 
 describe('Electricity Analysis', () => {
-  it('handles post electricity analysis response', async () => {
+  test('handles post electricity analysis response', async () => {
     const { getByText, getAllByRole, getByLabelText } = renderWithProviders(<ElectricityAnalysisPage />);
     await waitFor(() => expect(getByText(/14,677,385/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());
@@ -20,7 +20,7 @@ describe('Electricity Analysis', () => {
     await waitFor(() => expect(getByText(/Hello World! 0/)).toBeInTheDocument());
   });
 
-  it('handles patch electricity analysis response', async () => {
+  test('handles patch electricity analysis response', async () => {
     const { getByText, getAllByRole, getByLabelText, getAllByLabelText } = renderWithProviders(
       <ElectricityAnalysisPage />
     );
@@ -38,7 +38,7 @@ describe('Electricity Analysis', () => {
 });
 
 describe('Water Analysis', () => {
-  it('handles post water analysis response', async () => {
+  test('handles post water analysis response', async () => {
     const { getAllByRole, getByText, getByLabelText } = renderWithProviders(<WaterAnalysisPage />);
     await waitFor(() => expect(getByText(/221,384/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());
@@ -51,7 +51,7 @@ describe('Water Analysis', () => {
     await waitFor(() => expect(getByText(/Hello World! 0/)).toBeInTheDocument());
   });
 
-  it('handles patch water analysis response', async () => {
+  test('handles patch water analysis response', async () => {
     const { getByText, getAllByRole, getAllByLabelText, getByLabelText } = renderWithProviders(<WaterAnalysisPage />);
     await waitFor(() => expect(getByText(/221,384/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());
@@ -66,7 +66,7 @@ describe('Water Analysis', () => {
 });
 
 describe('Waste Analysis', () => {
-  it('handles post waste analysis response', async () => {
+  test('handles post waste analysis response', async () => {
     const { getAllByRole, getByText, getByLabelText } = renderWithProviders(<WasteAnalysisPage />);
     await waitFor(() => expect(getByText(/1,481.51/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());
@@ -79,7 +79,7 @@ describe('Waste Analysis', () => {
     await waitFor(() => expect(getByText(/Hello World! 0/)).toBeInTheDocument());
   });
 
-  it('handles patch waste analysis response', async () => {
+  test('handles patch waste analysis response', async () => {
     const { getByText, getAllByRole, getAllByLabelText, getByLabelText } = renderWithProviders(<WasteAnalysisPage />);
     await waitFor(() => expect(getByText(/1,481.51/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());

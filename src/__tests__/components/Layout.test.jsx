@@ -60,7 +60,7 @@ test('Layout', () => {
             <span
               class="block truncate text-unit text-sm"
             >
-              Ver3.0.1
+              Ver 3.0.1
             </span>
           </span>
         </a>

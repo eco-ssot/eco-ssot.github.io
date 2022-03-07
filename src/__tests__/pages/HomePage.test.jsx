@@ -1,10 +1,10 @@
 import { waitFor } from '@testing-library/react';
 
-import HomePage from '../../pages/home/HomePage';
 import { renderWithProviders } from '../../__mocks__/helpers';
+import HomePage from '../../pages/home/HomePage';
 
 describe('HomePage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<HomePage />);
     await waitFor(() => expect(getByText(/22,151/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/15,920/)).toBeInTheDocument());

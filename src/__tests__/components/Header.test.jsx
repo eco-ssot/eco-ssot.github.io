@@ -50,7 +50,7 @@ test('Header', async () => {
             <span
               class="block truncate text-unit text-sm"
             >
-              Ver3.0.1
+              Ver 3.0.1
             </span>
           </span>
         </a>
@@ -568,23 +568,6 @@ test('Header', async () => {
                 </span>
               </span>
             </li>
-            <li
-              aria-label="option-WZS-8"
-              class="text-gray-50 cursor-default select-none relative pl-3 pr-9"
-              id="headlessui-listbox-option-30"
-              role="option"
-              tabindex="-1"
-            >
-              <span
-                class="block truncate"
-              >
-                <span
-                  class="block truncate py-2 font-normal border-l-2 border-primary-700 pl-2"
-                >
-                  WZS-8
-                </span>
-              </span>
-            </li>
           </ul>
         </div>
         <div
@@ -766,7 +749,7 @@ test('Header', async () => {
           class="mt-1 relative min-w-28 w-30"
         >
           <button
-            aria-controls="headlessui-listbox-options-32"
+            aria-controls="headlessui-listbox-options-31"
             aria-expanded="true"
             aria-haspopup="true"
             class="bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 border-primary-600"
@@ -801,11 +784,11 @@ test('Header', async () => {
             </span>
           </button>
           <ul
-            aria-activedescendant="headlessui-listbox-option-33"
+            aria-activedescendant="headlessui-listbox-option-32"
             aria-labelledby="headlessui-listbox-button-3"
             aria-orientation="vertical"
             class="absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-gray-900 ring-opacity-5 overflow-auto border border-divider focus:outline-none"
-            id="headlessui-listbox-options-32"
+            id="headlessui-listbox-options-31"
             role="listbox"
             tabindex="0"
           >
@@ -813,7 +796,7 @@ test('Header', async () => {
               aria-label="option-zh"
               aria-selected="true"
               class="text-gray-50 bg-primary-600 cursor-default select-none relative py-2 pl-3 pr-9"
-              id="headlessui-listbox-option-33"
+              id="headlessui-listbox-option-32"
               role="option"
               tabindex="-1"
             >
@@ -847,7 +830,7 @@ test('Header', async () => {
             <li
               aria-label="option-en"
               class="text-gray-50 cursor-default select-none relative py-2 pl-3 pr-9"
-              id="headlessui-listbox-option-34"
+              id="headlessui-listbox-option-33"
               role="option"
               tabindex="-1"
             >

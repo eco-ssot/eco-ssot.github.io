@@ -5,7 +5,7 @@ import WaterHistoryTable from '../../pages/water/WaterHistoryTable';
 import WaterPage from '../../pages/water/WaterPage';
 
 describe('WaterPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<WaterPage />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/290,170/)).toBeInTheDocument());
@@ -1911,7 +1911,7 @@ describe('WaterPage', () => {
 });
 
 describe('WaterHistoryTable', () => {
-  it('ytm', async () => {
+  test('ytm', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <WaterHistoryTable startYear="2020" endYear="2022" monthType="YTM" endMonth="12" dimension="All" />
     );
@@ -2805,7 +2805,7 @@ describe('WaterHistoryTable', () => {
     `);
   });
 
-  it('single', async () => {
+  test('single', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <WaterHistoryTable startYear="2020" endYear="2022" monthType="single" endMonth="12" dimension="All" />
     );
@@ -3699,7 +3699,7 @@ describe('WaterHistoryTable', () => {
     `);
   });
 
-  it('same year', async () => {
+  test('same year', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <WaterHistoryTable startYear="2021" endYear="2021" startMonth="1" endMonth="12" dimension="All" />
     );

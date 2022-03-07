@@ -1,11 +1,11 @@
 import { waitFor } from '@testing-library/react';
 
+import { renderWithProviders } from '../../__mocks__/helpers';
 import CarbonHistoryTable from '../../pages/carbon/CarbonHistoryTable';
 import CarbonPage from '../../pages/carbon/CarbonPage';
-import { renderWithProviders } from '../../__mocks__/helpers';
 
 describe('CarbonPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<CarbonPage />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/451,495/)).toBeInTheDocument());
@@ -1507,7 +1507,7 @@ describe('CarbonPage', () => {
 });
 
 describe('CarbonHistoryTable', () => {
-  it('ytm', async () => {
+  test('ytm', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <CarbonHistoryTable startYear="2020" endYear="2022" monthType="YTM" endMonth="12" dimension="All" />
     );
@@ -2396,7 +2396,7 @@ describe('CarbonHistoryTable', () => {
     `);
   });
 
-  it('single', async () => {
+  test('single', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <CarbonHistoryTable startYear="2020" endYear="2022" monthType="single" endMonth="12" dimension="All" />
     );
@@ -3285,7 +3285,7 @@ describe('CarbonHistoryTable', () => {
     `);
   });
 
-  it('same year', async () => {
+  test('same year', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <CarbonHistoryTable startYear="2021" endYear="2021" startMonth="1" endMonth="12" dimension="All" />
     );

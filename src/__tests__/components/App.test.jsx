@@ -1,4 +1,4 @@
-import { waitFor } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 
 import { renderWithProviders } from '../../__mocks__/helpers';
 import App from '../../app/App';
@@ -63,7 +63,7 @@ test('App', async () => {
             <span
               class="block truncate text-unit text-sm"
             >
-              Ver3.0.1
+              Ver 3.0.1
             </span>
           </span>
         </a>

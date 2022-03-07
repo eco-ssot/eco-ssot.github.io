@@ -39,6 +39,9 @@ Object.defineProperty(window, 'getComputedStyle', {
     getComputedStyle: (prop) => {
       return '15px';
     },
+    getPropertyValue: (prop) => {
+      return '';
+    },
   }),
 });
 

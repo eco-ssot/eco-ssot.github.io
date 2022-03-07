@@ -1,12 +1,12 @@
 import { waitFor } from '@testing-library/react';
 
+import { renderWithProviders } from '../../__mocks__/helpers';
 import ElectricityAnalysisPage from '../../pages/electricity/ElectricityAnalysisPage';
 import WasteAnalysisPage from '../../pages/waste/WasteAnalysisPage';
 import WaterAnalysisPage from '../../pages/water/WaterAnalysisPage';
-import { renderWithProviders } from '../../__mocks__/helpers';
 
 describe('ElectricityAnalysisPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<ElectricityAnalysisPage />);
     await waitFor(() => expect(getByText(/840,478/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/用電強度超標/)).toBeInTheDocument());
@@ -704,7 +704,7 @@ describe('ElectricityAnalysisPage', () => {
 });
 
 describe('WaterAnalysisPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<WaterAnalysisPage />);
     await waitFor(() => expect(getByText(/221,384/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());
@@ -1395,7 +1395,7 @@ describe('WaterAnalysisPage', () => {
 });
 
 describe('WasteAnalysisPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<WasteAnalysisPage />);
     await waitFor(() => expect(getByText(/1,481.51/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/1234 %/)).toBeInTheDocument());

@@ -1,11 +1,11 @@
 import { waitFor } from '@testing-library/react';
 
+import { renderWithProviders } from '../../__mocks__/helpers';
 import ElectricityHistoryTable from '../../pages/electricity/ElectricityHistoryTable';
 import ElectricityPage from '../../pages/electricity/ElectricityPage';
-import { renderWithProviders } from '../../__mocks__/helpers';
 
 describe('ElectricityPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<ElectricityPage />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/28,355,567/)).toBeInTheDocument());
@@ -816,13 +816,9 @@ describe('ElectricityPage', () => {
                       role="cell"
                     >
                       <div
-                        class=" cursor-pointer"
+                        class="text-green-500 font-semibold"
                       >
-                        <div
-                          class="text-green-500 font-semibold underline"
-                        >
-                          -24%
-                        </div>
+                        -24%
                       </div>
                     </td>
                     <td
@@ -1770,7 +1766,7 @@ describe('ElectricityPage', () => {
 });
 
 describe('ElectricityHistoryTable', () => {
-  it('ytm', async () => {
+  test('ytm', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <ElectricityHistoryTable startYear="2020" endYear="2022" monthType="YTM" endMonth="12" dimension="All" />
     );
@@ -2659,7 +2655,7 @@ describe('ElectricityHistoryTable', () => {
     `);
   });
 
-  it('single', async () => {
+  test('single', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <ElectricityHistoryTable startYear="2020" endYear="2022" monthType="single" endMonth="12" dimension="All" />
     );
@@ -3548,7 +3544,7 @@ describe('ElectricityHistoryTable', () => {
     `);
   });
 
-  it('same year', async () => {
+  test('same year', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <ElectricityHistoryTable startYear="2021" endYear="2021" startMonth="1" endMonth="12" dimension="All" />
     );

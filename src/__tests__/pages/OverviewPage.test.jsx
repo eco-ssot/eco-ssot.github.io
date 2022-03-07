@@ -5,7 +5,7 @@ import OverviewHistoryTable from '../../pages/overview/OverviewHistoryTable';
 import OverviewPage from '../../pages/overview/OverviewPage';
 
 describe('OverviewPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<OverviewPage />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/28,355,567/)).toBeInTheDocument());
@@ -2362,7 +2362,7 @@ describe('OverviewPage', () => {
 });
 
 describe('OverviewHistoryTable', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<OverviewHistoryTable year="2021" dimension="All" />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/401,009,640/)).toBeInTheDocument());

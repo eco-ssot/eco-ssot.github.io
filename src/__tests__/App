@@ -1,11 +1,11 @@
-import { waitFor } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithProviders } from '../__mocks__/helpers';
 import App from '../app/App';
 
 describe('App', () => {
-  it('switches sites', async () => {
+  test('switches sites', async () => {
     const { getByText } = renderWithProviders(<App />);
     await waitFor(() => expect(getByText(/2021.01 - 06/i)).toBeInTheDocument());
     const select = getByText('ALL');
@@ -21,7 +21,7 @@ describe('App', () => {
     expect(window.location.search).toBe('?business=WSD');
   });
 
-  it('switches tabs', async () => {
+  test('switches tabs', async () => {
     const { getByText } = renderWithProviders(<App />);
     await waitFor(() => expect(getByText(/2021.01 - 06/i)).toBeInTheDocument());
 

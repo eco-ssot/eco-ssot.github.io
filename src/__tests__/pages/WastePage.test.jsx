@@ -5,7 +5,7 @@ import WasteHistoryTable from '../../pages/waste/WasteHistoryTable';
 import WastePage from '../../pages/waste/WastePage';
 
 describe('WastePage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<WastePage />);
     await waitFor(() => expect(getByText(/138.49/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/88.21/)).toBeInTheDocument());
@@ -1838,7 +1838,7 @@ describe('WastePage', () => {
 });
 
 describe('WasteHistoryTable', () => {
-  it('ytm', async () => {
+  test('ytm', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <WasteHistoryTable startYear="2020" endYear="2022" monthType="YTM" endMonth="12" dimension="All" />
     );
@@ -2732,7 +2732,7 @@ describe('WasteHistoryTable', () => {
     `);
   });
 
-  it('single', async () => {
+  test('single', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <WasteHistoryTable startYear="2020" endYear="2022" monthType="single" endMonth="12" dimension="All" />
     );
@@ -3626,7 +3626,7 @@ describe('WasteHistoryTable', () => {
     `);
   });
 
-  it('same year', async () => {
+  test('same year', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <WasteHistoryTable startYear="2021" endYear="2021" startMonth="1" endMonth="12" dimension="All" />
     );

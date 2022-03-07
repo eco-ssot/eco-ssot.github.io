@@ -5,7 +5,7 @@ import UnitElectricityHistoryTable from '../../pages/unit-electricity/UnitElectr
 import UnitElectricityPage from '../../pages/unit-electricity/UnitElectricityPage';
 
 describe('UnitElectricityPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<UnitElectricityPage />);
     await waitFor(() => expect(getByText(/Total/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/-76%/)).toBeInTheDocument());
@@ -1438,7 +1438,7 @@ describe('UnitElectricityPage', () => {
 });
 
 describe('UnitElectricityHistoryTable', () => {
-  it('ytm', async () => {
+  test('ytm', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <UnitElectricityHistoryTable startYear="2020" endYear="2022" monthType="YTM" endMonth="12" dimension="All" />
     );
@@ -2332,7 +2332,7 @@ describe('UnitElectricityHistoryTable', () => {
     `);
   });
 
-  it('single', async () => {
+  test('single', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <UnitElectricityHistoryTable startYear="2020" endYear="2022" monthType="single" endMonth="12" dimension="All" />
     );
@@ -3226,7 +3226,7 @@ describe('UnitElectricityHistoryTable', () => {
     `);
   });
 
-  it('same year', async () => {
+  test('same year', async () => {
     const { asFragment, getByText } = renderWithProviders(
       <UnitElectricityHistoryTable startYear="2021" endYear="2021" startMonth="1" endMonth="12" dimension="All" />
     );

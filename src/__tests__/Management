@@ -5,7 +5,7 @@ import { renderWithProviders, sleep } from '../__mocks__/helpers';
 import GoalPage from '../pages/management/GoalPage';
 
 describe('Management', () => {
-  it('handles year goal response', async () => {
+  test('handles year goal response', async () => {
     const { getAllByRole, getByText } = renderWithProviders(<GoalPage canEdit={true} />);
     await waitFor(() => expect(getByText(/用電強度/i)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/WNH/i)).toBeInTheDocument());
@@ -19,7 +19,7 @@ describe('Management', () => {
     expect(getByText(/儲存/i)).not.toBeInTheDocument();
   });
 
-  it('handles carbon index response', async () => {
+  test('handles carbon index response', async () => {
     const { getAllByRole, getByText } = renderWithProviders(<GoalPage canEdit={true} />);
     await waitFor(() => expect(getByText(/用電強度/i)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/WNH/i)).toBeInTheDocument());

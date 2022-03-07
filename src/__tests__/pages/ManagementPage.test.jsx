@@ -1,4 +1,4 @@
-import { waitFor, fireEvent } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 
 import usersJson from '../../__mocks__/get/users';
 import { renderWithProviders } from '../../__mocks__/helpers';
@@ -8,7 +8,7 @@ import ManagementPage from '../../pages/management/ManagementPage';
 import PicPage from '../../pages/management/PicPage';
 
 describe('ManagementPage', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<ManagementPage />);
     expect(getByText(/User Name/)).toBeInTheDocument();
     expect(getByText(/Dept \/ ID/)).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe('ManagementPage', () => {
                       Level
                     </div>
                     <div>
-                      developer / target_maintainer
+                      target_maintainer
                     </div>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ describe('ManagementPage', () => {
 });
 
 describe('Goal Page', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<GoalPage canEdit={true} />);
     await waitFor(() => expect(getByText(/2,150.4/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/241,772/)).toBeInTheDocument());
@@ -1764,27 +1764,6 @@ describe('Goal Page', () => {
                         16,608,074
                       </td>
                     </tr>
-                    <tr
-                      class="border-b border-divider"
-                      role="row"
-                    >
-                      <td
-                        class="px-2 text-gray-50 text-lg text-center py-2"
-                        role="cell"
-                      />
-                      <td
-                        class="px-2 text-gray-50 text-lg text-center"
-                        role="cell"
-                      >
-                        WZS-8
-                      </td>
-                      <td
-                        class="px-2 text-gray-50 text-lg text-right py-2 pr-4"
-                        role="cell"
-                      >
-                        10,456,935
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1797,7 +1776,7 @@ describe('Goal Page', () => {
 });
 
 describe('Data Status Page', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<DataStatusPage />);
     await waitFor(() => expect(getByText(/WCD/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/WCQ/)).toBeInTheDocument());
@@ -1815,7 +1794,6 @@ describe('Data Status Page', () => {
     await waitFor(() => expect(getByText(/WZS-1/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/WZS-3/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/WZS-6/)).toBeInTheDocument());
-    await waitFor(() => expect(getByText(/WZS-8/)).toBeInTheDocument());
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         <div
@@ -4279,133 +4257,6 @@ describe('Data Status Page', () => {
                       role="cell"
                     />
                   </tr>
-                  <tr
-                    class="border-b border-divider"
-                    role="row"
-                  >
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 w-1 !py-1"
-                      role="cell"
-                    />
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      WZS-8(WSD)
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-gray-50"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-primary-500"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-gray-50"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-primary-500"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-primary-500"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-yellow-500"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-primary-500"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-gray-50"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 !py-1"
-                      role="cell"
-                    >
-                      <div
-                        class="flex justify-center"
-                      >
-                        <div
-                          class="rounded-full h-3 w-3 text-center bg-primary-500"
-                        />
-                      </div>
-                    </td>
-                    <td
-                      class="py-3 text-gray-50 text-center text-lg px-2 w-1 !py-1"
-                      role="cell"
-                    />
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -4417,7 +4268,7 @@ describe('Data Status Page', () => {
 });
 
 describe('PIC Page', () => {
-  it('handles good response', async () => {
+  test('handles good response', async () => {
     const { asFragment, getByText } = renderWithProviders(<PicPage users={usersJson} />);
     await waitFor(() => expect(getByText(/Barry Cao 曹俊傑/)).toBeInTheDocument());
     await waitFor(() => expect(getByText(/Fly Zhang 張翔/)).toBeInTheDocument());
@@ -5289,64 +5140,6 @@ describe('PIC Page', () => {
                       class="px-2 text-gray-50 text-lg w-1/5 text-center"
                       role="cell"
                     />
-                    <td
-                      class="px-2 text-gray-50 text-lg w-1/5 text-center"
-                      role="cell"
-                    >
-                      -
-                    </td>
-                    <td
-                      class="px-2 text-gray-50 text-lg w-1/5 text-center"
-                      role="cell"
-                    />
-                    <td
-                      class="px-2 text-gray-50 text-lg w-1/5 text-center"
-                      role="cell"
-                    >
-                      -
-                    </td>
-                    <td
-                      class="px-2 text-gray-50 text-lg w-[10%] text-center"
-                      role="cell"
-                    >
-                      <button
-                        class="inline-flex items-center p-1 border border-transparent rounded-full shadow-sm text-gray-50 focus:outline-none cursor-not-allowed"
-                        disabled=""
-                        type="button"
-                      >
-                        <div
-                          class="opacity-50"
-                        >
-                          <svg
-                            class="w-5 h-5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                            />
-                          </svg>
-                        </div>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-divider"
-                    role="row"
-                  >
-                    <td
-                      class="px-2 text-gray-50 text-lg w-[10%] text-center py-3"
-                      role="cell"
-                    >
-                      WZS-8
-                    </td>
-                    <td
-                      class="px-2 text-gray-50 text-lg w-1/5 text-center"
-                      role="cell"
-                    >
-                      Joann zhang 張小梅
-                    </td>
                     <td
                       class="px-2 text-gray-50 text-lg w-1/5 text-center"
                       role="cell"
