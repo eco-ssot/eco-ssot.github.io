@@ -59,7 +59,7 @@ export default function ManagementPage() {
               </div>
               <div className="space-y-2">
                 <div className="text-primary-600">Level</div>
-                <div>{roles.join(' / ')}</div>
+                <div>{roles.filter((role) => role !== APP_CONSTANTS.DEVELOPER_ROLE).join(' / ')}</div>
               </div>
             </div>
             <div className="flex flex-col py-4 space-y-2">
