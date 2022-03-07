@@ -69,7 +69,6 @@ export default function Select({
                     {({ selected, active, disabled }) => (
                       <>
                         <Ellipse
-                          place="left"
                           label={option.value}
                           className={clsx(selected ? 'font-semibold' : 'font-normal', disabled && 'opacity-50')}
                         />

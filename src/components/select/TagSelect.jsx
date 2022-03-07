@@ -53,11 +53,7 @@ export default function TagSelect({
                     value={option}>
                     {({ selected, active }) => (
                       <>
-                        <Ellipsis
-                          place="left"
-                          label={option.value}
-                          className={clsx(selected ? 'font-semibold' : 'font-normal')}
-                        />
+                        <Ellipsis label={option.value} className={clsx(selected ? 'font-semibold' : 'font-normal')} />
                         {selected ? (
                           <span
                             className={clsx(

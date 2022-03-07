@@ -68,7 +68,6 @@ export default function GroupSelect({
                     {({ selected, active }) => (
                       <>
                         <Ellipsis
-                          place="left"
                           label={option.value}
                           className={clsx(
                             'py-2',
