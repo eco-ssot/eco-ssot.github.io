@@ -3,6 +3,7 @@ import { partition } from 'lodash';
 import { getMaxDate } from '../utils/date';
 
 import { appApi } from './app';
+import { getPlantData } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -43,10 +44,11 @@ export const unitElectricityApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getUnitElectricity: builder.query({
       query: (query) => ({ query, url: 'singleelectric' }),
-      transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+      transformResponse: (res, { permission }) => {
+        const data = getPlantData(res.data, permission?.plant, 'name');
+        const [total, records] = partition(data, ({ name }) => name === 'Total');
         const maxDate = getMaxDate(
-          ...res.data.reduce(
+          ...data.reduce(
             (prev, { latestDate, plants = [] }) => prev.concat(latestDate).concat(plants.map((p) => p.latestDate)),
             []
           )
@@ -60,8 +62,9 @@ export const unitElectricityApi = appApi.injectEndpoints({
     }),
     getUnitElectricityHistory: builder.query({
       query: (query) => ({ query, url: 'singleelectric/history' }),
-      transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+      transformResponse: (res, { permission }) => {
+        const data = getPlantData(res.data, permission?.plant, 'name');
+        const [total, records] = partition(data, ({ name }) => name === 'Total');
         return { data: [...records, ...total] };
       },
     }),

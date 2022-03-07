@@ -1,8 +1,5 @@
-import { useMemo } from 'react';
-
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
-import { groupBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,10 +7,10 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as PdfIcon } from '../../../public/icons/file-pdf-solid.svg';
 import version from '../../../version.json';
 import APP_CONSTANTS from '../../app/appConstants';
+import useSitePlantOptions from '../../hooks/useSitePlantOptions';
 import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage, selectP, selectS } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
-import { useGetPlantOptionsQuery } from '../../services/management';
 import Divider from '../divider/Divider';
 import Ellipsis from '../ellipsis/Ellipsis';
 import NavBar from '../nav-bar/NavBar';
@@ -27,26 +24,7 @@ export default function Header({ className }) {
   const business = useSelector(selectBusiness);
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
-  const { data } = useGetPlantOptionsQuery({ bo: business }, { skip: !keycloak?.authenticated });
-  const sitePlantOptions = useMemo(() => {
-    const grouped = groupBy(data, ({ key }) => key.split(/-|_/)[0]);
-    return Object.entries(grouped).reduce(
-      (prev, [site, values]) => {
-        const siteOption = { key: site, value: site, group: true };
-        if (values.length === 1) {
-          if (values[0].key === site) {
-            return prev.concat(siteOption);
-          }
-
-          return prev.concat(siteOption, { ...values[0], parent: site });
-        }
-
-        return prev.concat([siteOption, ...values.map((value) => ({ ...value, parent: site }))]);
-      },
-      [{ key: 'ALL', value: 'ALL', alias: 'Sites / Plants', group: true }]
-    );
-  }, [data]);
-
+  const sitePlantOptions = useSitePlantOptions();
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">

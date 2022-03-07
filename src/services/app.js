@@ -32,6 +32,10 @@ export const appApi = createApi({
         });
       },
     }),
+    getPlants: builder.query({
+      query: (query) => ({ query, url: 'plants' }),
+      transformResponse: (res) => res.data?.sort((a, b) => a.localeCompare(b)),
+    }),
     getLatestDate: builder.query({
       query: (query) => ({ query, url: 'summary' }),
       transformResponse: (res) => {
@@ -60,4 +64,4 @@ export const appApi = createApi({
   }),
 });
 
-export const { useGetMissingPlantsQuery, useGetLatestDateQuery } = appApi;
+export const { useGetMissingPlantsQuery, useGetLatestDateQuery, useGetPlantsQuery } = appApi;

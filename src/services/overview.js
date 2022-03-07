@@ -3,6 +3,7 @@ import { partition } from 'lodash';
 import { getMaxDate } from '../utils/date';
 
 import { appApi } from './app';
+import { getPlantData } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -60,10 +61,11 @@ export const overviewApi = appApi.injectEndpoints({
     getOverview: builder.query({
       providesTags: ['SHIPMENT_UPLOAD'],
       query: (query) => ({ query, url: 'overall' }),
-      transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ site }) => site === 'Total');
+      transformResponse: (res, { permission }) => {
+        const data = getPlantData(res.data, permission?.plant);
+        const [total, records] = partition(data, ({ site }) => site === 'Total');
         const maxDate = getMaxDate(
-          ...res.data.reduce(
+          ...data.reduce(
             (prev, { latestDate, plants = [] }) => prev.concat(latestDate).concat(plants.map((p) => p.latestDate)),
             []
           )
@@ -77,8 +79,9 @@ export const overviewApi = appApi.injectEndpoints({
     }),
     getOverviewHistory: builder.query({
       query: (query) => ({ query, url: 'overall/history' }),
-      transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ site }) => site === 'Total');
+      transformResponse: (res, { permission }) => {
+        const data = getPlantData(res.data, permission?.plant);
+        const [total, records] = partition(data, ({ site }) => site === 'Total');
         return { data: [...records, ...total].map(toRow) };
       },
     }),

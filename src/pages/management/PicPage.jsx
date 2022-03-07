@@ -8,6 +8,7 @@ import EditableTable, {
   EditableButton,
   EditableIconButton,
 } from '../../components/table/EditableTable';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
@@ -126,7 +127,8 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
 
 export default function PicPage({ canEdit, users }) {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
-  const { data: { data } = {} } = useGetDataStatusPicQuery();
+  const plantPermission = usePlantPermission();
+  const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: { plant: plantPermission } });
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));

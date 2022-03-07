@@ -4,6 +4,7 @@ import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import Table from '../../components/table/Table';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetOverviewHistoryQuery } from '../../services/overview';
 
 import { COLUMNS } from './OverviewTable';
@@ -11,8 +12,9 @@ import { COLUMNS } from './OverviewTable';
 export default function OverviewHistoryTable({ business, year, dimension, s, p }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const option = { year, dimension };
+  const plantPermission = usePlantPermission();
   const { data } = useGetOverviewHistoryQuery(
-    { business, site: s, plant: p, ...option },
+    { business, site: s, plant: p, permission: { plant: plantPermission }, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 

@@ -15,6 +15,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import useGoal from '../../hooks/useGoal';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetWasteQuery, useUploadWasteExcelMutation } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
@@ -189,7 +190,16 @@ const COLUMNS = ({
 
 export default function WasteTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['wastePage', 'common']);
-  const { data } = useGetWasteQuery({ business, year: y, month: m, site: s, plant: p });
+  const plantPermission = usePlantPermission();
+  const { data } = useGetWasteQuery({
+    business,
+    year: y,
+    month: m,
+    site: s,
+    plant: p,
+    permission: { plant: plantPermission },
+  });
+
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
   const [uploadExcel, { isSuccess }] = useUploadWasteExcelMutation();
   const [open, setOpen] = useState(false);

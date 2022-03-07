@@ -11,6 +11,7 @@ import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetWaterQuery } from '../../services/water';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
@@ -147,7 +148,16 @@ const COLUMNS = ({
 
 export default function WaterTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['waterPage', 'common']);
-  const { data } = useGetWaterQuery({ business, year: y, month: m, site: s, plant: p });
+  const plantPermission = usePlantPermission();
+  const { data } = useGetWaterQuery({
+    business,
+    year: y,
+    month: m,
+    site: s,
+    plant: p,
+    permission: { plant: plantPermission },
+  });
+
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });
   const columns = useMemo(
     () => COLUMNS({ t, pct, currYear, baseYear, lastYear: currYear - 1, missing: missingPlants }),

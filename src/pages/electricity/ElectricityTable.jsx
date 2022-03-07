@@ -11,6 +11,7 @@ import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetElectricityQuery } from '../../services/electricity';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
@@ -138,7 +139,16 @@ const COLUMNS = ({ t, missing, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
 
 export default function ElectricityTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['electricityPage', 'common']);
-  const { data } = useGetElectricityQuery({ business, year: y, month: m, site: s, plant: p });
+  const plantPermission = usePlantPermission();
+  const { data } = useGetElectricityQuery({
+    business,
+    year: y,
+    month: m,
+    site: s,
+    plant: p,
+    permission: { plant: plantPermission },
+  });
+
   const { label, currYear, baseYear, pct } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(
     () => COLUMNS({ t, pct, currYear, lastYear: baseYear, missing: missingPlants }),

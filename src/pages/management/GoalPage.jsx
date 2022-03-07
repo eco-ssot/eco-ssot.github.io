@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import APP_CONSTANTS from '../../app/appConstants';
 import Ellipsis from '../../components/ellipsis/Ellipsis';
 import Select from '../../components/select/Select';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import {
   useGetGoalQuery,
   useGetCarbonIndexQuery,
@@ -21,10 +22,11 @@ export default function GoalPage({ business, canEdit }) {
   const [goalYear, setGoalYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
+  const plantPermission = usePlantPermission();
   const goalRes = useGetGoalQuery({ business, year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const tRecRes = useGetTrecQuery({ year: tRecYear });
-  const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear });
+  const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: { plant: plantPermission } });
   return (
     <>
       <div className="row-span-1 col-span-7">

@@ -12,6 +12,7 @@ import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import UploadModal from '../../components/upload-modal/UploadModal';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetOverviewQuery, useUploadShipmentExcelMutation } from '../../services/overview';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
@@ -92,7 +93,16 @@ export const COLUMNS = ({
 
 export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['overviewPage', 'common']);
-  const { data } = useGetOverviewQuery({ business, year: y, month: m, site: s, plant: p });
+  const plantPermission = usePlantPermission();
+  const { data } = useGetOverviewQuery({
+    business,
+    year: y,
+    month: m,
+    site: s,
+    plant: p,
+    permission: { plant: plantPermission },
+  });
+
   const currYear = useSelector(selectCurrY);
   const lastYear = useSelector(selectLastY);
   const [open, setOpen] = useState(false);

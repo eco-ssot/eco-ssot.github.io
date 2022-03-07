@@ -24,6 +24,7 @@ import EditableTable, {
 } from '../../components/table/EditableTable';
 import Table from '../../components/table/Table';
 import useAdmin from '../../hooks/useAdmin';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { navigate } from '../../router/helpers';
 import { useGetLatestDateQuery } from '../../services/app';
 import {
@@ -488,6 +489,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
   const byMonth = categorized === 'month';
   const option = byMonth ? { categorized, year, plant } : { categorized, year, month };
   const skip = Object.values(option).every(isNil);
+  const plantPermission = usePlantPermission();
   const { data } = useGetElectricityPredictionQuery(
     { ...option, bo: business, ...(!byMonth && { site: s, plant: p }) },
     { skip }
@@ -497,8 +499,10 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
     () =>
       byMonth
         ? data?.data?.filter(({ month }) => month > 10)
-        : data?.data?.filter(({ plant }) => TARGET_SITES.find((site) => plant?.startsWith(site))),
-    [data?.data, byMonth]
+        : data?.data?.filter(({ plant }) =>
+            TARGET_SITES.find((site) => plant?.startsWith(site) && plantPermission?.includes(plant))
+          ),
+    [data?.data, byMonth, plantPermission]
   );
 
   const [selectedRow, setSelectedRow] = useState(-1);
@@ -876,7 +880,8 @@ export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option })
   const [searchOption, setSearchOption] = useState(option);
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
-  const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
+  const plantPermission = usePlantPermission();
+  const plantOptions = useMemo(() => getPlants({ data, s, p, plantPermission }), [data, s, p, plantPermission]);
   const nextYearOptions = useMemo(
     () => yearOptions?.filter((option) => option.key > 2020 && option.key <= maxYear),
     [yearOptions, maxYear]
@@ -925,7 +930,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
   const [searchOption, setSearchOption] = useState(option);
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
-  const plantOptions = useMemo(() => getPlants({ data, s, p }), [data, s, p]);
+  const plantPermission = usePlantPermission();
+  const plantOptions = useMemo(() => getPlants({ data, s, p, plantPermission }), [data, s, p, plantPermission]);
   const nextYearOptions = useMemo(
     () => yearOptions?.filter((option) => option.key > 2020 && option.key <= maxYear),
     [yearOptions, maxYear]

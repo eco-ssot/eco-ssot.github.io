@@ -37,7 +37,6 @@
     "start": "cross-env TAILWIND_MODE=watch dotenv -e .env craco start",
     "build": "craco build",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && gh-pages -d build --remote github",
     "start:dev": "cross-env TAILWIND_MODE=watch dotenv -e .env.development craco start",
     "start:prod": "cross-env TAILWIND_MODE=watch dotenv -e .env.production craco start",
     "build:dev": "dotenv -e .env.development craco build",

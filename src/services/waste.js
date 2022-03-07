@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 import { getMaxDate } from '../utils/date';
 
 import { appApi } from './app';
-import { sortExplanationsById } from './helpers';
+import { getPlantData, sortExplanationsById } from './helpers';
 
 export function toRow({ plants = [], ...data } = {}) {
   const {
@@ -46,10 +46,11 @@ export const wasteApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getWaste: builder.query({
       query: (query) => ({ query, url: 'waste' }),
-      transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ site }) => site === 'Total');
+      transformResponse: (res, { permission }) => {
+        const data = getPlantData(res.data, permission?.plant);
+        const [total, records] = partition(data, ({ site }) => site === 'Total');
         const maxDate = getMaxDate(
-          ...res.data.reduce(
+          ...data.reduce(
             (prev, { latestDate, plants = [] }) => prev.concat(latestDate).concat(plants.map((p) => p.latestDate)),
             []
           )
@@ -64,8 +65,9 @@ export const wasteApi = appApi.injectEndpoints({
     }),
     getWasteHistory: builder.query({
       query: (query) => ({ query, url: 'waste/history' }),
-      transformResponse: (res) => {
-        const [total, records] = partition(res.data, ({ name }) => name === 'Total');
+      transformResponse: (res, { permission }) => {
+        const data = getPlantData(res.data, permission?.plant, 'name');
+        const [total, records] = partition(data, ({ name }) => name === 'Total');
         return { data: [...records, ...total] };
       },
     }),

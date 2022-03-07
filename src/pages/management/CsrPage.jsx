@@ -13,6 +13,7 @@ import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetLatestDateQuery } from '../../services/app';
@@ -115,8 +116,9 @@ export default function CsrPage() {
   const { hash } = useLocation();
   const [searchOption, setSearchOption] = useState({ year, month });
   const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
+  const plantPermission = usePlantPermission();
   const { data } = useGetCsrStatusQuery(
-    { year: year || currYear, month: month || currMonth },
+    { year: year || currYear, month: month || currMonth, permission: { plant: plantPermission } },
     { skip: !currYear || !currMonth }
   );
 

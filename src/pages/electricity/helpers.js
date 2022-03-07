@@ -25,9 +25,9 @@ export function gapFormatter(cell) {
   );
 }
 
-export function getPlants({ data, s, p }) {
+export function getPlants({ data, s, p, plantPermission }) {
   const options = data
-    ?.filter(({ key }) => TARGET_SITES.find((plant) => key.startsWith(plant)))
+    ?.filter(({ key }) => TARGET_SITES.find((plant) => key.startsWith(plant) && plantPermission?.includes(key)))
     ?.filter(({ key }) => {
       if (p) {
         return key === p;

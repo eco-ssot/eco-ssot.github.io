@@ -5,6 +5,7 @@ import APP_CONSTANTS from '../../app/appConstants';
 import Table from '../../components/table/Table';
 import Tag from '../../components/tag/Tag';
 import useGoal from '../../hooks/useGoal';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetWasteHistoryQuery } from '../../services/waste';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
@@ -142,8 +143,9 @@ export default function WasteHistoryTable({
 }) {
   const { t } = useTranslation(['wastePage', 'common']);
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
+  const plantPermission = usePlantPermission();
   const { data } = useGetWasteHistoryQuery(
-    { business, site: s, plant: p, ...option },
+    { business, site: s, plant: p, permission: { plant: plantPermission }, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 

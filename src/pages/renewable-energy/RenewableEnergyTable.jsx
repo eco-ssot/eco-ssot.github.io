@@ -6,6 +6,7 @@ import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
+import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
 import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
@@ -82,7 +83,16 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
 
 export default function RenewableEnergyTable({ business, y, m, s, p, missingPlants }) {
   const { t } = useTranslation(['renewableEnergyPage', 'common']);
-  const { data } = useGetRenewableEnergyQuery({ business, year: y, month: m, site: s, plant: p });
+  const plantPermission = usePlantPermission();
+  const { data } = useGetRenewableEnergyQuery({
+    business,
+    year: y,
+    month: m,
+    site: s,
+    plant: p,
+    permission: { plant: plantPermission },
+  });
+
   const { label, pct } = useGoal({ keyword: '可再生能源' });
   const columns = useMemo(() => COLUMNS({ t, pct, missing: missingPlants }), [pct, t, missingPlants]);
   return (

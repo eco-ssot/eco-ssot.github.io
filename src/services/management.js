@@ -82,9 +82,21 @@ export const managementApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getDataStatus: builder.query({
       query: (query) => ({ query, url: 'data-status' }),
+      transformResponse: (res, { permission }) => {
+        return {
+          ...res,
+          data: res.data?.filter(({ plant }) => permission.plant?.find((p) => plant.startsWith(p))),
+        };
+      },
     }),
     getDataStatusPic: builder.query({
-      query: () => ({ url: 'data-status/pic' }),
+      query: (query) => ({ query, url: 'data-status/pic' }),
+      transformResponse: (res, { permission }) => {
+        return {
+          ...res,
+          data: res.data?.filter(({ plant }) => permission.plant?.find((p) => plant.startsWith(p))),
+        };
+      },
     }),
     patchDataStatusPic: builder.mutation({
       query: ({ plant, ...data }) => ({
@@ -106,16 +118,17 @@ export const managementApi = appApi.injectEndpoints({
     getCsrStatus: builder.query({
       providesTags: ['CSR'],
       query: (query) => ({ query, url: 'data-status/csr-compare' }),
-      transformResponse: (res) => {
+      transformResponse: (res, { permission }) => {
+        const data = res.data?.filter(({ plant }) => permission.plant?.find((p) => plant.startsWith(p)));
         return {
           ...res,
-          electricity: res.data.map(({ plant, electric, water }) => ({
+          electricity: data?.map(({ plant, electric, water }) => ({
             plant,
             electric_comment: electric.comment,
             water_comment: water.comment,
             ...electric,
           })),
-          water: res.data.map(({ plant, electric, water }) => ({
+          water: data?.map(({ plant, electric, water }) => ({
             plant,
             electric_comment: electric.comment,
             water_comment: water.comment,
@@ -162,11 +175,13 @@ export const managementApi = appApi.injectEndpoints({
       providesTags: ['TREC'],
     }),
     getTrecBySite: builder.query({
-      query: ({ year }) => ({ url: `settings/${year}/rec/sites` }),
-      transformResponse: (res) => {
+      query: ({ year, permission }) => ({ query: { permission }, url: `settings/${year}/rec/sites` }),
+      transformResponse: (res, { permission }) => {
         return {
           ...res,
-          data: res.data?.map(({ plant, ...rest }) => ({ plant, id: plant, ...rest })),
+          data: res.data
+            ?.filter(({ plant }) => permission.plant?.includes(plant))
+            ?.map(({ plant, ...rest }) => ({ plant, id: plant, ...rest })),
         };
       },
       providesTags: ['TREC_BY_SITE'],

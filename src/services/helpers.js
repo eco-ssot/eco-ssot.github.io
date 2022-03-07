@@ -6,8 +6,9 @@ import axios from '../axios';
 export const axiosBaseQuery =
   ({ baseUrl = '/' } = {}) =>
   async ({ headers, url = '', method = 'GET', data = {}, query = {} } = {}) => {
+    const { permission, ...q } = query;
+    const search = qs.stringify(q);
     try {
-      const search = qs.stringify(query);
       const result = await axios({
         method,
         data,
@@ -15,11 +16,11 @@ export const axiosBaseQuery =
         ...(headers && { headers }),
       });
 
-      return { data: result.data };
+      return { data: result.data, meta: { permission, query: q } };
     } catch (axiosError) {
       let err = axiosError;
       return {
-        error: { status: err.response?.status, data: err.response?.data },
+        error: { status: err.response?.status, data: err.response?.data, meta: { permission, query: q } },
       };
     }
   };
@@ -34,4 +35,14 @@ export function sortExplanationsById(res) {
       ({ id }) => id
     ),
   };
+}
+
+export function getPlantData(data, plantPermission, key = 'site') {
+  if (!plantPermission) {
+    return data;
+  }
+
+  return data
+    ?.filter((d) => [...plantPermission, 'Total'].find((plant) => plant.startsWith(String(d[key]))))
+    ?.map((_d) => ({ ..._d, plants: _d.plants?.filter((r) => plantPermission.includes(r[key])) }));
 }
