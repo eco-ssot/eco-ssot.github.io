@@ -37,8 +37,8 @@ const HEADERS = ({
     key: 'revenue',
     name: t('waterPage:table.revenue'),
     subHeaders: [
-      { key: 'lastYear', name: lastYear, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
-      { key: 'currYear', name: currYear, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'lastYear', name: lastYear, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
+      { key: 'currYear', name: currYear, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
       { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       { key: 'delta', name: t('common:gap'), renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],

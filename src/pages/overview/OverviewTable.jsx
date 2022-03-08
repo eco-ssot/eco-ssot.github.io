@@ -22,8 +22,8 @@ export const MANUAL_UPLOAD_PLANTS = ['WIH', 'WZS-1'];
 export const HEADERS = [
   { key: 'electricity' },
   { key: 'water' },
-  { key: 'revenue', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
-  { key: 'asp', renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+  { key: 'revenue', renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
+  { key: 'asp', renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
 ];
 
 export const COLUMNS = ({

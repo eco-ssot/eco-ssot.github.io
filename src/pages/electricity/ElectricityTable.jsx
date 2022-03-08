@@ -34,8 +34,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'revenue',
     name: t('electricityPage:table.revenue.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (c)` },
-      { key: 'currYear', name: `${currYear} (d)` },
+      { key: 'lastYear', name: `${lastYear} (c)`, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
+      { key: 'currYear', name: `${currYear} (d)`, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
       {
         key: 'delta',
         name: t('electricityPage:table.revenue.delta'),
@@ -105,8 +105,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'asp',
     name: t('electricityPage:table.asp.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (g)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
-      { key: 'currYear', name: `${currYear} (h)`, renderer: (value) => baseFormatter(value, { precision: 1 }) },
+      { key: 'lastYear', name: `${lastYear} (g)`, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+      { key: 'currYear', name: `${currYear} (h)`, renderer: (value) => baseFormatter(value, { precision: 2 }) },
       {
         key: 'delta',
         name: t('electricityPage:table.asp.delta'),
