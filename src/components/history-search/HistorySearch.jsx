@@ -135,6 +135,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
             options: endMonthOptions,
             selected:
               endMonthOptions.find((option) => option.key === searchOption.endMonth) || endMonthOptions.slice(-1)[0],
+            splitter: '',
           })}
         />
         <Select
