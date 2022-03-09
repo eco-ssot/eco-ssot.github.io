@@ -159,8 +159,8 @@ export default function ElectricityAnalysisPage() {
       unit: t('analysisPage:electricity.revenue.unit'),
       value: revenue?.gradient,
       subData: [
-        { key: lastYearKey, value: revenue?.compareYear },
-        { key: currYearKey, value: revenue?.currentYear },
+        { key: lastYearKey, value: revenue?.compareYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+        { key: currYearKey, value: revenue?.currentYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
       ],
     },
     {
