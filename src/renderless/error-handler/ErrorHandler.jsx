@@ -10,7 +10,10 @@ export default function ErrorHandler() {
         return response;
       },
       (error) => {
-        toast.error(error.response?.data?.message || error.message);
+        toast.error(error.response?.data?.message || error.message, {
+          id: error.response?.data?.message || error.message,
+        });
+
         return Promise.reject(error);
       }
     );
