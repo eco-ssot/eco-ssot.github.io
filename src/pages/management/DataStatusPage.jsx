@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { UploadIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
@@ -148,6 +148,11 @@ export default function DataStatusPage() {
     [yearOptions]
   );
 
+  useEffect(
+    () => setSearchOption({ year: year || currYear, month: month || currMonth }),
+    [year, month, currYear, currMonth]
+  );
+
   return (
     <>
       <UploadModal title="匯入月報表" open={open} setOpen={setOpen} uploadExcel={() => {}} isSuccess={false} />
@@ -185,8 +190,7 @@ export default function DataStatusPage() {
                 onClick={() =>
                   navigate({
                     year: searchOption.year || currYear,
-                    month:
-                      searchOption.month || APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
+                    month: searchOption.month || currMonth,
                   })
                 }>
                 搜尋

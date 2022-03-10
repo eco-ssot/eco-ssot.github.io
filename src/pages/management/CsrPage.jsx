@@ -140,6 +140,12 @@ export default function CsrPage() {
       setData(isWater ? data.water : data.electricity);
     }
   }, [data, isWater]);
+
+  useEffect(
+    () => setSearchOption({ year: year || currYear, month: month || currMonth }),
+    [year, month, currYear, currMonth]
+  );
+
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
@@ -172,7 +178,7 @@ export default function CsrPage() {
             onClick={() =>
               navigate({
                 year: searchOption.year || currYear,
-                month: searchOption.month || APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth).key,
+                month: searchOption.month || currMonth,
               })
             }>
             搜尋
