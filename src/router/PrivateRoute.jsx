@@ -23,7 +23,7 @@ export default function PrivateRoute({ component: Component, skeleton: Skeleton 
       render={(props) =>
         keycloak?.authenticated ? (
           <Layout match={props.match}>
-            <Suspense fallback={<Skeleton />}>
+            <Suspense fallback={<Skeleton pathname={props.location.pathname} />}>
               <Component {...props} />
             </Suspense>
           </Layout>

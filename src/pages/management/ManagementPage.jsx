@@ -10,18 +10,20 @@ import APP_CONSTANTS from '../../app/appConstants';
 import Button from '../../components/button/Button';
 import useAdmin from '../../hooks/useAdmin';
 import { selectBusiness } from '../../renderless/location/locationSlice';
+import { lazyPreload } from '../../router/helpers';
 import { useGetUsersQuery } from '../../services/keycloakAdmin';
 
-import CsrPage from './CsrPage';
-import DataStatusPage from './DataStatusPage';
-import GoalPage from './GoalPage';
-import PicPage from './PicPage';
-import VersionPage from './VersionPage';
+const CsrPage = lazyPreload(() => import('./CsrPage'));
+const DataStatusPage = lazyPreload(() => import('./DataStatusPage'));
+const GoalPage = lazyPreload(() => import('./GoalPage'));
+const PicPage = lazyPreload(() => import('./PicPage'));
+const VersionPage = lazyPreload(() => import('./VersionPage'));
 
-export function Nav({ hidden, children, to, pathname, search }) {
+export function Nav({ hidden, children, to, pathname, search, onMouseEnter = () => {} }) {
   const match = pathname.endsWith(to);
   return (
     <Link
+      onMouseEnter={onMouseEnter}
       to={{ pathname: to, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
       className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10', hidden && 'hidden')}>
       {match && <div className="absolute w-1 h-full bg-primary-600"></div>}
@@ -63,19 +65,27 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col py-4 space-y-2">
-              <Nav to="/management/goal" pathname={pathname} search={search}>
+              <Nav to="/management/goal" pathname={pathname} search={search} onMouseEnter={() => GoalPage.preload()}>
                 {t('managementPage:nav.goal')}
               </Nav>
-              <Nav to="/management/data-status" pathname={pathname} search={search}>
+              <Nav
+                to="/management/data-status"
+                pathname={pathname}
+                search={search}
+                onMouseEnter={() => DataStatusPage.preload()}>
                 {t('managementPage:nav.dataStatus')}
               </Nav>
-              <Nav to="/management/csr" pathname={pathname} search={search}>
+              <Nav to="/management/csr" pathname={pathname} search={search} onMouseEnter={() => CsrPage.preload()}>
                 CSR 對照
               </Nav>
-              <Nav to="/management/pic" pathname={pathname} search={search}>
+              <Nav to="/management/pic" pathname={pathname} search={search} onMouseEnter={() => PicPage.preload()}>
                 {t('managementPage:nav.pic')}
               </Nav>
-              <Nav to="/management/version" pathname={pathname} search={search}>
+              <Nav
+                to="/management/version"
+                pathname={pathname}
+                search={search}
+                onMouseEnter={() => VersionPage.preload()}>
                 版本異動
               </Nav>
             </div>

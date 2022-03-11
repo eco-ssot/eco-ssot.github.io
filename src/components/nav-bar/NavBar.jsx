@@ -13,9 +13,10 @@ export default function NavBar({ className }) {
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
         .filter(({ show = true }) => show)
-        .map(({ path, key, group }) => {
+        .map(({ path, key, group, component }) => {
           return (
             <div
+              onMouseEnter={() => component?.preload?.()}
               aria-label={`nav-${key}`}
               key={key}
               className={

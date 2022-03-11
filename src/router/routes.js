@@ -1,33 +1,20 @@
 import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
-import CarbonPage from '../pages/carbon/CarbonPage';
-import ElectricityAnalysisPage from '../pages/electricity/ElectricityAnalysisPage';
-import ElectricityBaselinePage from '../pages/electricity/ElectricityBaselinePage';
-import ElectricityPage from '../pages/electricity/ElectricityPage';
-import HomePage from '../pages/home/HomePage';
-import LoginPage from '../pages/login/LoginPage';
-import ManagementPage from '../pages/management/ManagementPage';
-import OverviewPage from '../pages/overview/OverviewPage';
-import RenewableEnergyPage from '../pages/renewable-energy/RenewableEnergyPage';
-import UnauthorizedPage from '../pages/unauthorized/UnauthorizedPage';
-import UnitElectricityPage from '../pages/unit-electricity/UnitElectricityPage';
-import WasteAnalysisPage from '../pages/waste/WasteAnalysisPage';
-import WastePage from '../pages/waste/WastePage';
-import WaterAnalysisPage from '../pages/water/WaterAnalysisPage';
-import WaterPage from '../pages/water/WaterPage';
+
+import { lazyPreload } from './helpers';
 
 export const publicRoutes = [
   {
     path: '/login',
     title: '登入',
-    component: LoginPage,
+    component: lazyPreload(() => import('../pages/login/LoginPage')),
     key: 'login',
   },
   {
     path: '/unauthorized',
     title: '',
-    component: UnauthorizedPage,
+    component: lazyPreload(() => import('../pages/unauthorized/UnauthorizedPage')),
     key: 'unauthorized',
   },
 ];
@@ -36,65 +23,65 @@ export const privateRoutes = [
   {
     path: '/home',
     title: '首頁',
-    component: HomePage,
+    component: lazyPreload(() => import('../pages/home/HomePage')),
     skeleton: HomeSkeleton,
     key: 'home',
   },
   {
     path: '/overview',
     title: '總覽比較',
-    component: OverviewPage,
+    component: lazyPreload(() => import('../pages/overview/OverviewPage')),
     key: 'overview',
   },
   {
     path: '/carbon',
     title: '碳排放量',
-    component: CarbonPage,
+    component: lazyPreload(() => import('../pages/carbon/CarbonPage')),
     key: 'carbon',
   },
   {
     path: '/renewable-energy',
     title: '可再生能源',
-    component: RenewableEnergyPage,
+    component: lazyPreload(() => import('../pages/renewable-energy/RenewableEnergyPage')),
     key: 'renewableEnergy',
   },
   {
     path: '/electricity',
     title: '用電',
-    component: ElectricityPage,
+    component: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
     key: 'electricity',
     group: '/electricity',
   },
   {
     path: '/analysis/electricity',
     title: '用電分析',
-    component: ElectricityBaselinePage,
+    component: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
     key: 'electricityBaseline',
   },
   {
     path: '/water',
     title: '用水',
-    component: WaterPage,
+    component: lazyPreload(() => import('../pages/water/WaterPage')),
     key: 'water',
     group: '/water',
   },
   {
     path: '/unit-electricity',
     title: '約當單台用電',
-    component: UnitElectricityPage,
+    component: lazyPreload(() => import('../pages/unit-electricity/UnitElectricityPage')),
     key: 'unitElectricity',
   },
   {
     path: '/waste',
     title: '廢棄物',
-    component: WastePage,
+    component: lazyPreload(() => import('../pages/waste/WastePage')),
     key: 'waste',
     group: '/waste',
   },
   {
     path: '/management',
     title: '後台設定',
-    component: ManagementPage,
+    component: lazyPreload(() => import('../pages/management/ManagementPage')),
     skeleton: ManagementSkeleton,
     exact: false,
     key: 'management',
@@ -103,7 +90,7 @@ export const privateRoutes = [
   {
     path: '/electricity/analysis',
     title: '用電第三階段分析',
-    component: ElectricityAnalysisPage,
+    component: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'electricityAnalysis',
@@ -112,7 +99,7 @@ export const privateRoutes = [
   {
     path: '/water/analysis',
     title: '用水第三階段分析',
-    component: WaterAnalysisPage,
+    component: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'waterAnalysis',
@@ -121,7 +108,7 @@ export const privateRoutes = [
   {
     path: '/waste/analysis',
     title: '廢棄物第三階段分析',
-    component: WasteAnalysisPage,
+    component: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
     skeleton: AnalysisSkeleton,
     show: false,
     key: 'wasteAnalysis',

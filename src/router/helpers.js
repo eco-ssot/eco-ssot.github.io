@@ -1,3 +1,5 @@
+import { lazy } from 'react';
+
 import qs from 'query-string';
 
 import APP_CONSTANTS from '../app/appConstants';
@@ -20,3 +22,9 @@ export function navigate({ hash = window.location.hash.slice(1), ...query } = {}
     history.push(nextUrl);
   }
 }
+
+export const lazyPreload = (factory) => {
+  const component = lazy(factory);
+  component.preload = factory;
+  return component;
+};
