@@ -39,15 +39,21 @@ const syncGoals =
         return axios.get(`${baseUrl}settings/${year}/${d?.business}/objective?${qs.stringify(query)}`).then((res) => {
           const targetGoal = res?.data?.data?.find((_d) => _d.category === category);
           if (targetGoal) {
+            const amount = isNil(baseValue)
+              ? null
+              : category === '可再生能源'
+              ? decimal * 1e-2
+              : baseValue * (1 - decimal * 1e-2);
+
+            if (targetGoal.amount === amount && targetGoal.baseYear === baseYear) {
+              return null;
+            }
+
             return {
+              amount,
               baseYear,
               target,
               id: targetGoal.id,
-              amount: isNil(baseValue)
-                ? null
-                : category === '可再生能源'
-                ? decimal * 1e-2
-                : baseValue * (1 - decimal * 1e-2),
             };
           }
 
