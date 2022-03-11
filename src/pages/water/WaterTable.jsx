@@ -156,7 +156,7 @@ export default function WaterTable({ business, y, m, s, p, missingPlants }) {
     month: m,
     site: s,
     plant: p,
-    permission: { plant: plantPermission },
+    permission: plantPermission,
   });
 
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });

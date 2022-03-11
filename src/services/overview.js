@@ -62,7 +62,7 @@ export const overviewApi = appApi.injectEndpoints({
       providesTags: ['SHIPMENT_UPLOAD'],
       query: (query) => ({ query, url: 'overall' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant);
+        const data = getPlantData(res.data, permission);
         const [total, records] = partition(data, ({ site }) => site === 'Total');
         const maxDate = getMaxDate(
           ...data.reduce(
@@ -80,7 +80,7 @@ export const overviewApi = appApi.injectEndpoints({
     getOverviewHistory: builder.query({
       query: (query) => ({ query, url: 'overall/history' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant);
+        const data = getPlantData(res.data, permission);
         const [total, records] = partition(data, ({ site }) => site === 'Total');
         return { data: [...records, ...total].map(toRow) };
       },

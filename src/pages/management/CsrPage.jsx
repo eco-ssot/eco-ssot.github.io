@@ -118,7 +118,7 @@ export default function CsrPage() {
   const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
   const plantPermission = usePlantPermission();
   const { data } = useGetCsrStatusQuery(
-    { year: year || currYear, month: month || currMonth, permission: { plant: plantPermission } },
+    { year: year || currYear, month: month || currMonth, permission: plantPermission },
     { skip: !currYear || !currMonth }
   );
 

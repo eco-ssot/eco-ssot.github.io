@@ -139,7 +139,7 @@ export default function DataStatusPage() {
   const [open, setOpen] = useState(false);
   const plantPermission = usePlantPermission();
   const { data } = useGetDataStatusQuery(
-    { year: year || currYear, month: month || currMonth, permission: { plant: plantPermission } },
+    { year: year || currYear, month: month || currMonth, permission: plantPermission },
     { skip: !currYear || !currMonth }
   );
 

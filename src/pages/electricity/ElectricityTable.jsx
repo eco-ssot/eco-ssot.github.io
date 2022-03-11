@@ -147,7 +147,7 @@ export default function ElectricityTable({ business, y, m, s, p, missingPlants }
     month: m,
     site: s,
     plant: p,
-    permission: { plant: plantPermission },
+    permission: plantPermission,
   });
 
   const { label, currYear, baseYear, pct } = useGoal({ keyword: '用電強度' });

@@ -128,7 +128,7 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
 export default function PicPage({ canEdit, users }) {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
   const plantPermission = usePlantPermission();
-  const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: { plant: plantPermission } });
+  const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: plantPermission });
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
   const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));

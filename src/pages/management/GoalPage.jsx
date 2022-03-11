@@ -26,7 +26,7 @@ export default function GoalPage({ business, canEdit }) {
   const goalRes = useGetGoalQuery({ business, year: goalYear });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const tRecRes = useGetTrecQuery({ year: tRecYear });
-  const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: { plant: plantPermission } });
+  const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: plantPermission });
   return (
     <>
       <div className="row-span-1 col-span-7">

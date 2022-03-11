@@ -85,7 +85,7 @@ export const managementApi = appApi.injectEndpoints({
       transformResponse: (res, { permission }) => {
         return {
           ...res,
-          data: res.data?.filter(({ plant }) => permission.plant?.find((p) => plant.startsWith(p))),
+          data: res.data?.filter(({ plant }) => permission?.find((p) => plant.startsWith(p))),
         };
       },
     }),
@@ -94,7 +94,7 @@ export const managementApi = appApi.injectEndpoints({
       transformResponse: (res, { permission }) => {
         return {
           ...res,
-          data: res.data?.filter(({ plant }) => permission.plant?.find((p) => plant.startsWith(p))),
+          data: res.data?.filter(({ plant }) => permission?.find((p) => plant.startsWith(p))),
         };
       },
     }),
@@ -119,7 +119,7 @@ export const managementApi = appApi.injectEndpoints({
       providesTags: ['CSR'],
       query: (query) => ({ query, url: 'data-status/csr-compare' }),
       transformResponse: (res, { permission }) => {
-        const data = res.data?.filter(({ plant }) => permission.plant?.find((p) => plant.startsWith(p)));
+        const data = res.data?.filter(({ plant }) => permission?.find((p) => plant.startsWith(p)));
         return {
           ...res,
           electricity: data?.map(({ plant, electric, water }) => ({
@@ -180,7 +180,7 @@ export const managementApi = appApi.injectEndpoints({
         return {
           ...res,
           data: res.data
-            ?.filter(({ plant }) => permission.plant?.includes(plant))
+            ?.filter(({ plant }) => permission?.includes(plant))
             ?.map(({ plant, ...rest }) => ({ plant, id: plant, ...rest })),
         };
       },

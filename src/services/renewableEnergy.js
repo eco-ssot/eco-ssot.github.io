@@ -28,7 +28,7 @@ export const renewableEnergyApi = appApi.injectEndpoints({
     getRenewableEnergy: builder.query({
       query: (query) => ({ query, url: 'renewableenergy' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         const maxDate = getMaxDate(
           ...data.reduce(
@@ -46,7 +46,7 @@ export const renewableEnergyApi = appApi.injectEndpoints({
     getRenewableEnergyHistory: builder.query({
       query: (query) => ({ query, url: 'renewableenergy/history' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         return { data: [...records, ...total] };
       },

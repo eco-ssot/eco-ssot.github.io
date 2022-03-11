@@ -145,7 +145,7 @@ export default function RenewableEnergyHistoryTable({
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
   const plantPermission = usePlantPermission();
   const { data } = useGetRenewableEnergyHistoryQuery(
-    { business, site: s, plant: p, permission: { plant: plantPermission }, ...option },
+    { business, site: s, plant: p, permission: plantPermission, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 

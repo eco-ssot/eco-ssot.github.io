@@ -86,7 +86,7 @@ export default function UnitElectricityTable({ business, y, m, s, p, missingPlan
     month: m,
     site: s,
     plant: p,
-    permission: { plant: plantPermission },
+    permission: plantPermission,
   });
 
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '單台用電' });

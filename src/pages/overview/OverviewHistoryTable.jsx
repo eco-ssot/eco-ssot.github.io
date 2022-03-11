@@ -14,7 +14,7 @@ export default function OverviewHistoryTable({ business, year, dimension, s, p }
   const option = { year, dimension };
   const plantPermission = usePlantPermission();
   const { data } = useGetOverviewHistoryQuery(
-    { business, site: s, plant: p, permission: { plant: plantPermission }, ...option },
+    { business, site: s, plant: p, permission: plantPermission, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 

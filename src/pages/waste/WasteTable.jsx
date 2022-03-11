@@ -198,7 +198,7 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
     month: m,
     site: s,
     plant: p,
-    permission: { plant: plantPermission },
+    permission: plantPermission,
   });
 
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });

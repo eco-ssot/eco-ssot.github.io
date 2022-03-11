@@ -90,7 +90,7 @@ export default function RenewableEnergyTable({ business, y, m, s, p, missingPlan
     month: m,
     site: s,
     plant: p,
-    permission: { plant: plantPermission },
+    permission: plantPermission,
   });
 
   const { label, pct } = useGoal({ keyword: '可再生能源' });

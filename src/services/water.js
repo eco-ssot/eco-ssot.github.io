@@ -57,7 +57,7 @@ export const waterApi = appApi.injectEndpoints({
     getWater: builder.query({
       query: (query) => ({ query, url: 'water' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         const maxDate = getMaxDate(
           ...data.reduce(
@@ -75,7 +75,7 @@ export const waterApi = appApi.injectEndpoints({
     getWaterHistory: builder.query({
       query: (query) => ({ query, url: 'water/history' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         return { data: [...records, ...total] };
       },

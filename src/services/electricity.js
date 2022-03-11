@@ -53,7 +53,7 @@ export const electricityApi = appApi.injectEndpoints({
     getElectricity: builder.query({
       query: (query) => ({ query, url: 'electric' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         const maxDate = getMaxDate(
           ...data.reduce(
@@ -71,7 +71,7 @@ export const electricityApi = appApi.injectEndpoints({
     getElectricityHistory: builder.query({
       query: (query) => ({ query, url: 'electric/history' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         return { data: [...records, ...total] };
       },

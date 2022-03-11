@@ -37,7 +37,7 @@ jest.mock('react-i18next', () => ({
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => ({
     getComputedStyle: (prop) => {
-      return '15px';
+      return { ...prop, fontSize: '15px' };
     },
     getPropertyValue: (prop) => {
       return '';

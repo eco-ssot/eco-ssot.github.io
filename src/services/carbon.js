@@ -47,7 +47,7 @@ export const carbonApi = appApi.injectEndpoints({
     getCarbon: builder.query({
       query: (query) => ({ query, url: 'carbon' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         const maxDate = getMaxDate(
           ...data.reduce(
@@ -65,7 +65,7 @@ export const carbonApi = appApi.injectEndpoints({
     getCarbonHistory: builder.query({
       query: (query) => ({ query, url: 'carbon/history' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission?.plant, 'name');
+        const data = getPlantData(res.data, permission, 'name');
         const [total, records] = partition(data, ({ name }) => name === 'Total');
         return { data: [...records, ...total] };
       },

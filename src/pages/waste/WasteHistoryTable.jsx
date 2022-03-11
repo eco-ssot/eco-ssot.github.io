@@ -145,7 +145,7 @@ export default function WasteHistoryTable({
   const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
   const plantPermission = usePlantPermission();
   const { data } = useGetWasteHistoryQuery(
-    { business, site: s, plant: p, permission: { plant: plantPermission }, ...option },
+    { business, site: s, plant: p, permission: plantPermission, ...option },
     { skip: Object.values(option).every(isNil) }
   );
 
