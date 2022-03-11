@@ -28,7 +28,7 @@ export const keycloakAdminApi = createApi({
   baseQuery: keycloakBaseQuery(),
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => ({ url: 'users' }),
+      query: (query) => ({ query: { max: 10, ...query }, url: 'users' }),
     }),
   }),
 });
