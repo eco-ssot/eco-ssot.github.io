@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Ellipsis from '../../components/ellipsis/Ellipsis';
 import Select from '../../components/select/Select';
 import usePlantPermission from '../../hooks/usePlantPermission';
+import { selectP, selectS } from '../../renderless/location/locationSlice';
 import {
   useGetGoalQuery,
   useGetCarbonIndexQuery,
@@ -23,7 +25,9 @@ export default function GoalPage({ business, canEdit }) {
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const plantPermission = usePlantPermission();
-  const goalRes = useGetGoalQuery({ business, year: goalYear });
+  const s = useSelector(selectS);
+  const p = useSelector(selectP);
+  const goalRes = useGetGoalQuery({ business, year: goalYear, site: s, plant: p });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const tRecRes = useGetTrecQuery({ year: tRecYear });
   const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: plantPermission });
@@ -43,7 +47,13 @@ export default function GoalPage({ business, canEdit }) {
               />
             </div>
           </div>
-          <YearGoal className="flex flex-col flex-grow" year={goalYear} data={goalRes.data?.data} canEdit={canEdit} />
+          <YearGoal
+            className="flex flex-col flex-grow"
+            business={business}
+            year={goalYear}
+            data={goalRes.data?.data}
+            canEdit={canEdit}
+          />
         </div>
       </div>
       <div className="row-span-1 col-span-2">

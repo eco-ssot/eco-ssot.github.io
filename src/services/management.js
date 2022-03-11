@@ -1,4 +1,5 @@
-import { chunk, isNil } from 'lodash';
+import { isNil, uniqBy } from 'lodash';
+import qs from 'query-string';
 
 import APP_CONSTANTS from '../app/appConstants';
 import axios from '../axios';
@@ -20,56 +21,44 @@ const syncGoals =
     try {
       const targetYear = baseYear || Number(year) - 1;
       const decimal = getDecimalNumber(target);
-      let patches = [];
-      if (category === '可再生能源') {
-        const promises = APP_CONSTANTS.BUSINESS_OPTIONS.map((option) =>
-          axios.get(`${baseUrl}settings/${year}/${option.value}/objective`)
-        );
+      const query = {
+        year: targetYear,
+        category: CATEGORY_MAPPING[category],
+      };
 
-        const responses = await Promise.all(promises);
-        patches = responses.map((res) => {
-          const targetGoal = res.data?.data.find((d) => d.category === category);
-          if (targetGoal) {
-            return { baseYear, target, id: targetGoal.id, amount: decimal * 1e-2 };
-          }
+      const baseRes = await axios.get(`${baseUrl}pure/summary?${qs.stringify(query)}`);
+      const baseData = baseRes?.data?.data?.sort((a, b) => b?.period_start?.localeCompare(a?.period_start));
+      const maxDate = baseData[0]?.period_start;
+      const filteredBaseData = baseData?.filter(
+        (d) => d?.period_start === maxDate && APP_CONSTANTS.BUSINESS_MAPPING[d?.business]
+      );
 
-          return null;
-        });
-      } else {
-        const promises = APP_CONSTANTS.BUSINESS_OPTIONS.reduce(
-          (prev, curr) =>
-            prev.concat([
-              axios.get(`${baseUrl}settings/${year}/${curr.value}/objective`),
-              axios.get(
-                `${baseUrl}pure/summary?category=${CATEGORY_MAPPING[category]}&business=${curr.value}&year=${targetYear}`
-              ),
-            ]),
-          []
-        );
-
-        const responses = await Promise.all(promises);
-        patches = chunk(responses, 2).map(([goalRes, baseRes]) => {
-          const targetGoal = (goalRes.data?.data || []).find((d) => d.category === category);
-          const baseValue = (baseRes.data?.data || [])
-            .sort((a, b) => a.period_start.localeCompare(b.period_start))
-            .slice(-1)[0]?.ytm;
-
+      const promises = filteredBaseData?.map((d) => {
+        const query = { site: d?.site, plant: d?.plant };
+        const baseValue = d?.ytm;
+        return axios.get(`${baseUrl}settings/${year}/${d?.business}/objective?${qs.stringify(query)}`).then((res) => {
+          const targetGoal = res?.data?.data?.find((_d) => _d.category === category);
           if (targetGoal) {
             return {
               baseYear,
               target,
               id: targetGoal.id,
-              amount: isNil(baseValue) ? null : baseValue * (1 - decimal * 1e-2),
+              amount: isNil(baseValue)
+                ? null
+                : category === '可再生能源'
+                ? decimal * 1e-2
+                : baseValue * (1 - decimal * 1e-2),
             };
           }
 
           return null;
         });
-      }
+      });
 
-      const patchPromises = patches
-        .filter(Boolean)
-        .map(({ id, ...data }) => axios({ data, url: `${baseUrl}settings/${year}/objective/${id}`, method: 'PATCH' }));
+      const patches = await Promise.all(promises);
+      const patchPromises = uniqBy(patches.filter(Boolean), ({ id }) => id).map(({ id, ...data }) =>
+        axios({ data, url: `${baseUrl}settings/${year}/objective/${id}`, method: 'PATCH' })
+      );
 
       await Promise.all(patchPromises);
       return { data: patches };
@@ -146,7 +135,8 @@ export const managementApi = appApi.injectEndpoints({
       }),
     }),
     getGoal: builder.query({
-      query: ({ year, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL }) => ({
+      query: ({ year, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL, ...query }) => ({
+        query,
         url: `settings/${year}/${business}/objective`,
       }),
       transformResponse: (res) => {
@@ -158,7 +148,7 @@ export const managementApi = appApi.injectEndpoints({
       providesTags: ['YEAR_GOAL'],
     }),
     getGoalBase: builder.query({
-      query: (query) => ({ query, url: 'pure/summary' }),
+      query: ({ category, year } = {}) => ({ query: { category, year }, url: 'pure/summary' }),
     }),
     getCarbonIndex: builder.query({
       query: ({ year }) => ({ url: `settings/${year}/carbonCoef` }),
@@ -252,6 +242,7 @@ export const managementApi = appApi.injectEndpoints({
 
 export const {
   useGetGoalQuery,
+  useGetGoalBaseQuery,
   useGetCarbonIndexQuery,
   useGetTrecQuery,
   useGetTrecBySiteQuery,

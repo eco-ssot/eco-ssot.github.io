@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
@@ -135,7 +135,11 @@ export default function YearGoal({ className, year, data, canEdit }) {
   const [patchGoal] = usePatchGoalMutation();
   const [dataSource, setData] = useState(data);
   const [open, setOpen] = useState(false);
-  const columns = COLUMNS({ t, lng, setData, patchGoal, setOpen, year, canEdit });
+  const columns = useMemo(
+    () => COLUMNS({ t, lng, setData, patchGoal, setOpen, year, canEdit }),
+    [t, patchGoal, lng, year, canEdit]
+  );
+
   useEffect(() => data && setData(data), [data]);
   return (
     <>
