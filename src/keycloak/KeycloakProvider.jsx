@@ -1,5 +1,6 @@
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 
+import Picture from '../components/picture/Picture';
 import history from '../router/history';
 
 import keycloak from './keycloak';
@@ -37,7 +38,12 @@ export default function KeycloakProvider({ children }) {
       onTokens={onTokens}
       LoadingComponent={
         <div className="flex flex-col space-y-2 items-center justify-center w-screen h-screen">
-          <img className="w-32 h-32 animate-pulse" src="/logo-128x128.png" alt="logo" />
+          <Picture
+            className="w-32 h-32 animate-pulse"
+            src="/logo-128x128.webp"
+            fallback="/logo-128x128.png"
+            alt="logo"
+          />
         </div>
       }>
       {children}
