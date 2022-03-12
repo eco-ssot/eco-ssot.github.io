@@ -1,7 +1,9 @@
-import resolveConfig from 'tailwindcss/resolveConfig';
+import preval from 'preval.macro';
 
-import tailwindConfig from '../../tailwind.config.js';
-
-const config = resolveConfig(tailwindConfig);
+const config = preval`
+  const resolveConfig = require('tailwindcss/resolveConfig');
+  const tailwindConfig = require('../../tailwind.config');
+  module.exports = resolveConfig(tailwindConfig);
+`;
 
 export const { colors, screens } = config.theme;

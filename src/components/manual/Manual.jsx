@@ -3,7 +3,7 @@ import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import Tippy from '@tippyjs/react';
 
-import { ReactComponent as PdfIcon } from '../../../public/icons/file-pdf-solid.svg';
+import { ReactComponent as PdfIcon } from '../../icons/file-pdf-solid.svg';
 
 const PATH = {
   zh: '/ESG績效管理平台使用手冊.pdf',

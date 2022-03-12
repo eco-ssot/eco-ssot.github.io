@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import version from '../../../version.json';
 import APP_CONSTANTS from '../../app/appConstants';
 import useSitePlantOptions from '../../hooks/useSitePlantOptions';
 import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage, selectP, selectS } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
+import { useGetVersionQuery } from '../../services/public';
 import Divider from '../divider/Divider';
 import Ellipsis from '../ellipsis/Ellipsis';
 import Manual from '../manual/Manual';
@@ -25,6 +25,7 @@ export default function Header({ className }) {
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
+  const { data: version = {} } = useGetVersionQuery();
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">
