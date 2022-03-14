@@ -80,7 +80,11 @@ export default function Header({ className }) {
         queryKey="lng"
       />
       <Divider className="h-1/2" />
-      {keycloak?.authenticated ? <Ellipsis label={keycloak?.idTokenParsed?.given_name} /> : <div>Login</div>}
+      {keycloak?.authenticated ? (
+        <Ellipsis label={keycloak?.idTokenParsed?.given_name} placement="left" />
+      ) : (
+        <div>Login</div>
+      )}
     </div>
   );
 }
