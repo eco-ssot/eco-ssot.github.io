@@ -25,16 +25,18 @@ export default function Header({ className }) {
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
-  const { data: version = {} } = useGetVersionQuery();
+  const { data: version } = useGetVersionQuery();
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">
         <Picture className="h-10 w-10" src="/logo-64x64.webp" fallback="/logo-64x64.png" alt="logo" />
         <Ellipsis label={t('title')} className="font-medium text-xl" />
-        <Ellipsis
-          label={`Ver ${Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}`}
-          className="text-unit text-sm"
-        />
+        {version && (
+          <Ellipsis
+            label={`Ver ${Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}`}
+            className="text-unit text-sm"
+          />
+        )}
       </Link>
       <Divider className="h-1/2" />
       {keycloak?.authenticated ? (
