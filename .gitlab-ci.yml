@@ -58,7 +58,7 @@ deploy:dev:
     STAGE: dev
     TAG: $CI_COMMIT_BRANCH
   script:
-    - export VERSION=$(cat version.json | jq -r "keys[-1]")
+    - export VERSION=$(cat ./public/version.json | jq -r "keys[-1]")
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
     - docker build --build-arg STAGE=$STAGE -t $IMAGE .
     - docker push $IMAGE
