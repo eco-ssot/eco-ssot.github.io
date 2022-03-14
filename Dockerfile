@@ -17,7 +17,7 @@ RUN rm /app/src/serviceWorker.js
 RUN rm /app/src/setupTests.js
 
 # install node modules and build assets
-RUN yarn install --network-timeout 1000000 && yarn build:${STAGE}
+RUN yarn install --network-timeout 1000000 && yarn build:${STAGE} && yarn cache clean
 
 # nginx state for serving content
 FROM nginx:alpine
