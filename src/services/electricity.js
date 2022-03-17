@@ -1,5 +1,6 @@
 import { partition } from 'lodash';
 
+import APP_CONSTANTS from '../app/appConstants';
 import { getMaxDate } from '../utils/date';
 
 import { appApi } from './app';
@@ -92,6 +93,16 @@ export const electricityApi = appApi.injectEndpoints({
     }),
     getElectricityPowerSaving: builder.query({
       query: ({ year, plant } = {}) => ({ url: `electric/inference/saving-tech/${year}/${plant}` }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: res.data?.map((d, i) => ({
+            ...d,
+            id: i,
+            category: APP_CONSTANTS.ELECTRICITY_TYPE_MAPPING[d.category] || d.category,
+          })),
+        };
+      },
       providesTags: ['POWER_SAVING'],
     }),
     postElectricityExplanation: builder.mutation({
@@ -100,7 +111,7 @@ export const electricityApi = appApi.injectEndpoints({
     }),
     postElectricityImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}/improvements`, method: 'POST' }),
-      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     patchElectricityExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}`, method: 'PATCH' }),
@@ -111,6 +122,7 @@ export const electricityApi = appApi.injectEndpoints({
         url: `electric/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'PATCH',
       }),
+      invalidatesTags: ['POWER_SAVING'],
     }),
     deleteElectricityExplanation: builder.mutation({
       query: ({ id }) => ({ url: `electric/anaysis/explanation/${id}`, method: 'DELETE' }),
@@ -121,7 +133,7 @@ export const electricityApi = appApi.injectEndpoints({
         url: `electric/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     postElectricityPowerSavingMutation: builder.mutation({
       query: ({ year, plant, data } = {}) => ({

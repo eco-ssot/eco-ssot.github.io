@@ -226,6 +226,7 @@ export const POWER_SAVING_COLUMNS = ({
         <EditableButton
           onClick={() => {
             const {
+              id,
               modified,
               isNew,
               editing,
@@ -246,8 +247,9 @@ export const POWER_SAVING_COLUMNS = ({
               ...rest,
             };
 
-            if (modified) {
+            if (modified || id !== undefined) {
               patchPowerSaving({ year, plant, data: payload });
+              setData((prev) => prev.map((r, i) => (i === cell.row.index ? { ...r, editing: false } : r)));
             } else {
               postPowerSaving(payload);
               setOpen(true);
@@ -735,7 +737,7 @@ export function BaselinePanel({ year, plant, business }) {
   );
 }
 
-export function PowerSavingPanel({ year, plant, business }) {
+export function PowerSavingPanel({ year, plant }) {
   const { t } = useTranslation(['component']);
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
   const { data: users = [] } = useGetUsersQuery();
@@ -808,7 +810,7 @@ export function PowerSavingPanel({ year, plant, business }) {
   );
 }
 
-export function PowerSavingPlanPanel({ year, plant, business }) {
+export function PowerSavingPlanPanel({ year, plant }) {
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
   const [_data, setData] = useState(data?.data);
   useEffect(() => {
