@@ -149,7 +149,7 @@ export default function CsrPage() {
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
-        <div className="text-xl font-medium">CSR 對照 (每月最後一日更新)</div>
+        <div className="text-xl font-medium">FEM & CSR數值狀態 (每月最後一日更新)</div>
         <ButtonGroup
           className="self-center"
           options={BUTTON_GROUP_OPTIONS}

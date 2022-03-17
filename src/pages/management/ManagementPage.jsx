@@ -76,7 +76,7 @@ export default function ManagementPage() {
                 {t('managementPage:nav.dataStatus')}
               </Nav>
               <Nav to="/management/csr" pathname={pathname} search={search} onMouseEnter={() => CsrPage.preload()}>
-                CSR 對照
+                FEM & CSR數值狀態
               </Nav>
               <Nav to="/management/pic" pathname={pathname} search={search} onMouseEnter={() => PicPage.preload()}>
                 {t('managementPage:nav.pic')}
