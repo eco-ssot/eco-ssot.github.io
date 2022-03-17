@@ -76,6 +76,7 @@ const syncGoals =
 export const managementApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getDataStatus: builder.query({
+      providesTags: ['ENERGY_UPLOAD'],
       query: (query) => ({ query, url: 'data-status' }),
       transformResponse: (res, { permission }) => {
         return {
@@ -242,6 +243,14 @@ export const managementApi = appApi.injectEndpoints({
       }),
       invalidatesTags: ['TREC_BY_SITE'],
     }),
+    uploadEnergyExcel: builder.mutation({
+      query: (formData) => ({
+        url: 'energy/upload',
+        method: 'POST',
+        data: formData,
+      }),
+      invalidatesTags: ['ENERGY_UPLOAD'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -266,4 +275,5 @@ export const {
   usePostTrecBySiteMutation,
   useDeleteTrecMutation,
   useDeleteTrecBySiteMutation,
+  useUploadEnergyExcelMutation,
 } = managementApi;

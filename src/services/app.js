@@ -20,6 +20,7 @@ export const appApi = createApi({
     'WATER_EXPLANATION',
     'CSR',
     'SHIPMENT_UPLOAD',
+    'ENERGY_UPLOAD',
   ],
   endpoints: (builder) => ({
     getMissingPlants: builder.query({

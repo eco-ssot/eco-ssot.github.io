@@ -16,7 +16,7 @@ import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import { navigate } from '../../router/helpers';
 import { useGetLatestDateQuery } from '../../services/app';
-import { useGetDataStatusQuery } from '../../services/management';
+import { useGetDataStatusQuery, useUploadEnergyExcelMutation } from '../../services/management';
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
 export const STATUS_MAPPING = {
@@ -148,6 +148,7 @@ export default function DataStatusPage() {
     [yearOptions]
   );
 
+  const [uploadExcel, { isSuccess }] = useUploadEnergyExcelMutation();
   useEffect(
     () => setSearchOption({ year: year || currYear, month: month || currMonth }),
     [year, month, currYear, currMonth]
@@ -155,7 +156,7 @@ export default function DataStatusPage() {
 
   return (
     <>
-      <UploadModal title="匯入月報表" open={open} setOpen={setOpen} uploadExcel={() => {}} isSuccess={false} />
+      <UploadModal title="匯入月報表" open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
       <div className="row-span-2 col-span-7">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="text-xl font-medium space-y-2 h-10">
