@@ -18,7 +18,7 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
     id: 'opm',
     Header: () => (
       <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
-        <div className="px-2">營收 & 出貨 (WT)</div>
+        <div className="px-2">{t('managementPage:pic.table.revenueAndShipment')}</div>
         <div className="px-2 text-gray-400 text-sm">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),

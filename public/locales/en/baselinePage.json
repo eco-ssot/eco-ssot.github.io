@@ -34,7 +34,7 @@
     }
   },
   "predictionPanel": {
-    "desc": "＊ Predicted Electricity Consumption YTM = Actual + Predicted Electricity Consumption of 2 months",
+    "desc": "* Predicted Electricity Consumption YTM = Actual + Predicted Electricity Consumption of 2 months",
     "chartTitle": "Electricity Baseline Model",
     "buyTrecTarget": "Predicted Annual REC Target Total",
     "calcEveryNov": "Only calculated in November",

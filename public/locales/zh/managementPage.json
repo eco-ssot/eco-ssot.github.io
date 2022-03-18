@@ -2,14 +2,16 @@
   "nav": {
     "goal": "年度目標維護",
     "dataStatus": "資料更新狀態",
-    "pic": "資料維護PIC"
+    "pic": "資料維護PIC",
+    "csrAndFemStatus": "FEM & CSR數值狀態",
+    "changelog": "版本異動"
   },
   "yearGoal": {
     "title": "年度目標",
     "table": {
       "category": "項目",
       "baseYear": "基準年",
-      "target": "Target 訂定標準（對比基準年）",
+      "target": "Target 訂定標準(對比基準年)",
       "unit": "單位"
     }
   },
@@ -28,18 +30,20 @@
       "buyArea": "購買地區",
       "buyUnit": "購買度數 (千度)",
       "price": "購買價格",
-      "currency": "金額幣別"
+      "currency": "金額幣別",
+      "tRec": "綠證"
     }
   },
   "dataStatus": {
     "title": "下表為{{currMonthNum}}月資料狀態",
     "subTitle": "預計下次更新: {{nextMonth}}/10",
     "csrTitle": "(CSR為 {{csrMonthNum}}月)",
-    "csrDesc": "＊CSR 更新日期 : 每月最後一日",
+    "csrDesc": "* CSR 更新日期 : 每月最後一日",
     "noData": "無資料",
     "updated": "已更新",
     "notUpdated": "未更新",
     "incorrectData": "資料不正確",
+    "importMonthlyReport": "匯入月報表",
     "table": {
       "autoSync": "自動同步",
       "manualSync": "手動更新",
@@ -62,7 +66,27 @@
     "table": {
       "waste": "廢棄物",
       "manualSync": "手動更新",
-      "remark": "備註"
+      "remark": "備註",
+      "revenueAndShipment": "營收 & 出貨 (WT)"
     }
+  },
+  "csr": {
+    "title": "FEM & CSR數值狀態 (每月最後一日更新)",
+    "desc": "* 差異 = ( FEM - CSR ) / CSR * 100%",
+    "table": {
+      "femElectricitySmartMeter": "FEM 智慧電表",
+      "csrElectricityBill": "CSR 電費帳單",
+      "femWaterSmartMeter": "FEM 智慧水表",
+      "csrWaterBill": "CSR 水費帳單",
+      "gap": "差異 *",
+      "description": "描述",
+      "edit": "編輯"
+    }
+  },
+  "changelog": {
+    "title": "版本異動",
+    "3.0.0": "V3.0.0 正式上線",
+    "3.0.1": "整合 Google Analytics",
+    "3.0.2": "新增英文版使用手冊"
   }
 }

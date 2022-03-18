@@ -178,7 +178,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
       const [deleteTrec] = useDeleteTrecBySiteMutation();
       return (
         <div className="flex space-x-2 justify-end items-center">
-          <div>綠證</div>
+          <div>{t('managementPage:tRec.table.tRec')}</div>
           {isEditing ? (
             <div className="flex space-x-2">
               <EditableIconButton

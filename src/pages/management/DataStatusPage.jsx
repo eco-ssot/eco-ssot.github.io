@@ -131,7 +131,7 @@ function getLabel(t) {
 }
 
 export default function DataStatusPage() {
-  const { t } = useTranslation(['managementPage']);
+  const { t } = useTranslation(['managementPage', 'component']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
   const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
@@ -156,7 +156,13 @@ export default function DataStatusPage() {
 
   return (
     <>
-      <UploadModal title="匯入月報表" open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
+      <UploadModal
+        title={t('managementPage:dataStatus.importMonthlyReport')}
+        open={open}
+        setOpen={setOpen}
+        uploadExcel={uploadExcel}
+        isSuccess={isSuccess}
+      />
       <div className="row-span-2 col-span-7">
         <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
           <div className="text-xl font-medium space-y-2 h-10">
@@ -165,11 +171,11 @@ export default function DataStatusPage() {
           <div className="relative flex justify-center items-center">
             <Button className="absolute space-x-1 left-0" onClick={() => setOpen(true)}>
               <UploadIcon className="w-5 h-5" />
-              <div>匯入月報表</div>
+              <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
             </Button>
             <div className="flex space-x-8">
               <Select
-                label="查詢年度"
+                label={t('component:selectLabel.searchYear')}
                 options={disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS}
                 selected={(disabledYearOptions || APP_CONSTANTS.YEAR_OPTIONS).find(
                   (option) => option.key === searchOption.year
@@ -178,7 +184,7 @@ export default function DataStatusPage() {
                 buttonClassName="min-w-28"
               />
               <Select
-                label="查詢月份"
+                label={t('component:selectLabel.searchMonth')}
                 buttonClassName="w-24"
                 options={APP_CONSTANTS.MONTH_OPTIONS}
                 selected={
@@ -194,7 +200,7 @@ export default function DataStatusPage() {
                     month: searchOption.month || currMonth,
                   })
                 }>
-                搜尋
+                {t('component:button.search')}
               </Button>
             </div>
           </div>

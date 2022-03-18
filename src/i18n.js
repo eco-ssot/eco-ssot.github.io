@@ -28,12 +28,16 @@ i18n
       escapeValue: false, // not needed for react as it escapes by default
     },
     backend: {
-      backends: [LocalStorageBackend, HttpBackend],
+      backends: [...(process.env.NODE_ENV === 'production' ? [LocalStorageBackend] : []), HttpBackend],
       backendOptions: [
-        {
-          expirationTime: 7 * 24 * 60 * 60 * 1000, // 7 days
-          defaultVersion: '1.0.3',
-        },
+        ...(process.env.NODE_ENV === 'production'
+          ? [
+              {
+                expirationTime: 7 * 24 * 60 * 60 * 1000, // 7 days
+                defaultVersion: '1.0.4',
+              },
+            ]
+          : []),
         {
           loadPath: '/locales/{{lng}}/{{ns}}.json',
         },

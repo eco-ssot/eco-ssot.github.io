@@ -1,6 +1,6 @@
 {
   "backDesc": "Back",
-  "aspDesc": "＊ASP Reduction = Current YTM Electricity Consumption / (Current YTM Shipment * Last year YTM ASP)",
+  "aspDesc": "* ASP Reduction = Current YTM Electricity Consumption / (Current YTM Shipment * Last year YTM ASP)",
   "aspReduction": "ASP Reduction *",
   "missingTargetDesc": "Missing Target Data Analysis",
   "overdue": "Already passed D.D",

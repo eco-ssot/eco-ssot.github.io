@@ -44,7 +44,7 @@ const csrRenderer = (cell) => {
 
 const ratioRenderer = (cell) => baseFormatter(cell.value, { precision: 1, unit: 1e-2, suffix: '%' });
 
-const COLUMNS = ({ setData, postCsrComment, isWater }) => [
+const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
   {
     Header: 'Plant',
     accessor: 'plant',
@@ -53,14 +53,18 @@ const COLUMNS = ({ setData, postCsrComment, isWater }) => [
     Cell: plantRenderer,
   },
   {
-    Header: `FEM 智慧${isWater ? '水' : '電'}表`,
+    Header: t(`managementPage:csr.table.fem${isWater ? 'Water' : 'Electricity'}SmartMeter`),
     accessor: 'fem_amount',
     Cell: csrRenderer,
   },
-  { Header: `CSR ${isWater ? '水' : '電'}費帳單`, accessor: 'csr_amount', Cell: csrRenderer },
-  { Header: '差異 *', accessor: 'diff', Cell: ratioRenderer, className: 'text-right' },
   {
-    Header: '描述',
+    Header: t(`managementPage:csr.table.csr${isWater ? 'Water' : 'Electricity'}Bill`),
+    accessor: 'csr_amount',
+    Cell: csrRenderer,
+  },
+  { Header: t('managementPage:csr.table.gap'), accessor: 'diff', Cell: ratioRenderer, className: 'text-right' },
+  {
+    Header: t('managementPage:csr.table.description'),
     accessor: 'comment',
     className: 'w-[50%] px-8 !text-left',
     editable: true,
@@ -68,7 +72,7 @@ const COLUMNS = ({ setData, postCsrComment, isWater }) => [
   },
   {
     id: 'action',
-    Header: '編輯',
+    Header: t('managementPage:csr.table.edit'),
     rowSpan: 0,
     className: 'text-center px-4',
     Cell: (cell) => {
@@ -90,7 +94,7 @@ const COLUMNS = ({ setData, postCsrComment, isWater }) => [
               }))
             );
           }}>
-          儲存
+          {t('component:button.save')}
         </EditableButton>
       ) : (
         <EditableIconButton
@@ -110,7 +114,7 @@ const COLUMNS = ({ setData, postCsrComment, isWater }) => [
 ];
 
 export default function CsrPage() {
-  const { t } = useTranslation(['managementPage']);
+  const { t } = useTranslation(['managementPage', 'component']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
   const { hash } = useLocation();
@@ -128,11 +132,12 @@ export default function CsrPage() {
   const columns = useMemo(
     () =>
       COLUMNS({
+        t,
         isWater,
         setData,
         postCsrComment: (payload) => postCsrComment({ year: year || currYear, month: month || currMonth, ...payload }),
       }),
-    [postCsrComment, setData, year, month, currYear, currMonth, isWater]
+    [t, postCsrComment, setData, year, month, currYear, currMonth, isWater]
   );
 
   useEffect(() => {
@@ -149,7 +154,7 @@ export default function CsrPage() {
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
-        <div className="text-xl font-medium">FEM & CSR數值狀態 (每月最後一日更新)</div>
+        <div className="text-xl font-medium">{t('managementPage:csr.title')}</div>
         <ButtonGroup
           className="self-center"
           options={BUTTON_GROUP_OPTIONS}
@@ -158,14 +163,14 @@ export default function CsrPage() {
         />
         <div className="flex space-x-8 justify-center">
           <Select
-            label="查詢年度"
+            label={t('component:selectLabel.searchYear')}
             options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
             selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
             onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
             buttonClassName="min-w-28"
           />
           <Select
-            label="查詢月份"
+            label={t('component:selectLabel.searchMonth')}
             buttonClassName="w-24"
             options={APP_CONSTANTS.MONTH_OPTIONS}
             selected={
@@ -181,7 +186,7 @@ export default function CsrPage() {
                 month: searchOption.month || currMonth,
               })
             }>
-            搜尋
+            {t('component:button.search')}
           </Button>
         </div>
         <div className="absolute right-10">
@@ -191,7 +196,7 @@ export default function CsrPage() {
             <Legend dotClassName="bg-dangerous-700" label={t('dataStatus.notUpdated')} />
             <Legend dotClassName="bg-yellow-500" label={t('dataStatus.incorrectData')} />
           </div>
-          <div className="flex justify-end">＊差異 = ( FEM - CSR ) / CSR * 100%</div>
+          <div className="flex justify-end">{t('managementPage:csr.desc')}</div>
         </div>
         <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
           <EditableTable

@@ -2,14 +2,16 @@
   "nav": {
     "goal": "Annual Target",
     "dataStatus": "Data Update Status",
-    "pic": "Data Maintain PIC"
+    "pic": "Data Maintain PIC",
+    "csrAndFemStatus": "FEM & CSR Status",
+    "changelog": "Changelog"
   },
   "yearGoal": {
     "title": "Annual Target",
     "table": {
       "category": "Item",
       "baseYear": "Baseline Year",
-      "target": "Target Definition （Compared to Baseline Year）",
+      "target": "Target Definition (Compared to Baseline Year)",
       "unit": "Unit"
     }
   },
@@ -28,18 +30,20 @@
       "buyArea": "Area",
       "buyUnit": "Amount (MWh)",
       "price": "Price",
-      "currency": "Currency"
+      "currency": "Currency",
+      "tRec": "REC"
     }
   },
   "dataStatus": {
     "title": "{{currMonth, datetime}}. Data Status",
     "subTitle": "Next update: {{nextMonth}}/10, CSR next update: {{nextMonth}}/30",
     "csrTitle": "(CSR is {{csrMonth, datetime}}.)",
-    "csrDesc": "＊CSR Update : on the last day of each month",
+    "csrDesc": "* CSR Update : on the last day of each month",
     "noData": "No Data",
     "updated": "Updated",
     "notUpdated": "Not-Updated",
     "incorrectData": "Incorrect Data",
+    "importMonthlyReport": "Import Monthly Report",
     "table": {
       "autoSync": "Auto",
       "manualSync": "Manual",
@@ -47,7 +51,7 @@
       "OPMRevenue": "Revenue",
       "OPMManual": "Manpower",
       "OPMShipment": "Shipment",
-      "FEMElectric": "Smart  Meter",
+      "FEMElectric": "Smart Meter",
       "FEMWater": "Smart Water Meter",
       "FEMSolar": "Solar Power",
       "CSRElectric": "Electricity bill / Gap",
@@ -62,7 +66,27 @@
     "table": {
       "waste": "Waste",
       "manualSync": "Manual",
-      "remark": "Remark"
+      "remark": "Remark",
+      "revenueAndShipment": "Revenue & Shipment (WT)"
     }
+  },
+  "csr": {
+    "title": "CSR Comparison (Updated on the last date of every month)",
+    "desc": "* GAP = ( FEM - CSR ) / CSR * 100%",
+    "table": {
+      "femElectricitySmartMeter": "FEM Smart Meter",
+      "csrElectricityBill": "CSR Electricity Bill",
+      "femWaterSmartMeter": "FEM Smart Meter",
+      "csrWaterBill": "CSR Water Bill",
+      "gap": "Gap *",
+      "description": "Description",
+      "edit": "Edit"
+    }
+  },
+  "changelog": {
+    "title": "Changelog",
+    "3.0.0": "V3.0.0 released",
+    "3.0.1": "Integrate Google Analytics",
+    "3.0.2": "Add English manual"
   }
 }

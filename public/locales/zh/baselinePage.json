@@ -34,7 +34,7 @@
     }
   },
   "predictionPanel": {
-    "desc": "＊工廠用電預測 YTM = 實際工廠用電 + 2個月工廠用電預測",
+    "desc": "* 工廠用電預測 YTM = 實際工廠用電 + 2個月工廠用電預測",
     "chartTitle": "工廠用電模型預測",
     "buyTrecTarget": "預測今年綠證總購買量",
     "calcEveryNov": "每年11月計算",
