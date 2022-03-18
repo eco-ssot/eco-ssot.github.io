@@ -126,7 +126,7 @@ export const electricityApi = appApi.injectEndpoints({
     }),
     deleteElectricityExplanation: builder.mutation({
       query: ({ id }) => ({ url: `electric/anaysis/explanation/${id}`, method: 'DELETE' }),
-      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     deleteElectricityImprovement: builder.mutation({
       query: ({ id, subId }) => ({
