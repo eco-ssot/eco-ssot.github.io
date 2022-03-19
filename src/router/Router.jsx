@@ -48,6 +48,7 @@ export function toRoute({
 export default function Router({ children }) {
   return (
     <BrowserRouter>
+      {children}
       <Routes>
         {publicRoutes.map(({ path, element: Element }) => (
           <Route
@@ -71,7 +72,6 @@ export default function Router({ children }) {
           {privateRoutes.map(toRoute)}
         </Route>
       </Routes>
-      {children}
     </BrowserRouter>
   );
 }
