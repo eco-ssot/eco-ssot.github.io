@@ -1,4 +1,5 @@
 import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
+import GoalSkeleton from '../components/skeleton/GoalSkeleton';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
 
@@ -22,6 +23,41 @@ export const publicRoutes = [
     title: '',
     element: lazyPreload(() => import('../pages/not-found/NotFoundPage')),
     i18nKey: 'not-found',
+  },
+];
+
+export const managementRoutes = [
+  {
+    index: true,
+    indexPath: '/management',
+    path: 'goal',
+    element: lazyPreload(() => import('../pages/management/GoalPage')),
+    i18nKey: 'goal',
+    skeleton: GoalSkeleton,
+  },
+  {
+    path: 'data-status',
+    element: lazyPreload(() => import('../pages/management/DataStatusPage')),
+    i18nKey: 'dataStatus',
+    skeleton: ManagementSkeleton,
+  },
+  {
+    path: 'csr',
+    element: lazyPreload(() => import('../pages/management/CsrPage')),
+    i18nKey: 'csrAndFemStatus',
+    skeleton: ManagementSkeleton,
+  },
+  {
+    path: 'pic',
+    element: lazyPreload(() => import('../pages/management/PicPage')),
+    i18nKey: 'pic',
+    skeleton: ManagementSkeleton,
+  },
+  {
+    path: 'version',
+    element: lazyPreload(() => import('../pages/management/VersionPage')),
+    i18nKey: 'changelog',
+    skeleton: ManagementSkeleton,
   },
 ];
 
@@ -90,9 +126,10 @@ export const privateRoutes = [
     path: '/management',
     title: '後台設定',
     element: lazyPreload(() => import('../pages/management/ManagementPage')),
-    skeleton: ManagementSkeleton,
+    skeleton: GoalSkeleton,
     i18nKey: 'management',
     group: '/management',
+    routes: managementRoutes,
   },
   {
     path: '/electricity/analysis',

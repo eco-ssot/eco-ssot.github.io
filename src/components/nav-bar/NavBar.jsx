@@ -13,7 +13,7 @@ export default function NavBar({ className }) {
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
         .filter(({ show = true }) => show)
-        .map(({ index, indexPath, path, i18nKey, group, element }) => {
+        .map(({ index, indexPath, path, i18nKey, element, group }) => {
           return (
             <div
               onMouseEnter={() => element?.preload?.()}
