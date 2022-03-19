@@ -92,9 +92,22 @@ export const privateRoutes = [
   {
     path: '/electricity',
     title: '用電',
-    element: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
     i18nKey: 'electricity',
-    group: '/electricity',
+    routes: [
+      {
+        index: true,
+        title: '用電',
+        element: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
+        i18nKey: 'electricity',
+      },
+      {
+        path: 'analysis',
+        title: '用電第三階段分析',
+        element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
+        skeleton: AnalysisSkeleton,
+        i18nKey: 'electricityAnalysis',
+      },
+    ],
   },
   {
     path: '/analysis/electricity',
@@ -105,9 +118,22 @@ export const privateRoutes = [
   {
     path: '/water',
     title: '用水',
-    element: lazyPreload(() => import('../pages/water/WaterPage')),
     i18nKey: 'water',
-    group: '/water',
+    routes: [
+      {
+        index: true,
+        title: '用水',
+        element: lazyPreload(() => import('../pages/water/WaterPage')),
+        i18nKey: 'water',
+      },
+      {
+        path: 'analysis',
+        title: '用水第三階段分析',
+        element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
+        skeleton: AnalysisSkeleton,
+        i18nKey: 'waterAnalysis',
+      },
+    ],
   },
   {
     path: '/unit-electricity',
@@ -118,9 +144,22 @@ export const privateRoutes = [
   {
     path: '/waste',
     title: '廢棄物',
-    element: lazyPreload(() => import('../pages/waste/WastePage')),
     i18nKey: 'waste',
-    group: '/waste',
+    routes: [
+      {
+        index: true,
+        title: '廢棄物',
+        element: lazyPreload(() => import('../pages/waste/WastePage')),
+        i18nKey: 'waste',
+      },
+      {
+        path: 'analysis',
+        title: '廢棄物第三階段分析',
+        element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
+        skeleton: AnalysisSkeleton,
+        i18nKey: 'wasteAnalysis',
+      },
+    ],
   },
   {
     path: '/management',
@@ -128,35 +167,7 @@ export const privateRoutes = [
     element: lazyPreload(() => import('../pages/management/ManagementPage')),
     skeleton: GoalSkeleton,
     i18nKey: 'management',
-    group: '/management',
     routes: managementRoutes,
-  },
-  {
-    path: '/electricity/analysis',
-    title: '用電第三階段分析',
-    element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
-    skeleton: AnalysisSkeleton,
-    show: false,
-    i18nKey: 'electricityAnalysis',
-    group: '/electricity',
-  },
-  {
-    path: '/water/analysis',
-    title: '用水第三階段分析',
-    element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
-    skeleton: AnalysisSkeleton,
-    show: false,
-    i18nKey: 'waterAnalysis',
-    group: '/water',
-  },
-  {
-    path: '/waste/analysis',
-    title: '廢棄物第三階段分析',
-    element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
-    skeleton: AnalysisSkeleton,
-    show: false,
-    i18nKey: 'wasteAnalysis',
-    group: '/waste',
   },
 ];
 

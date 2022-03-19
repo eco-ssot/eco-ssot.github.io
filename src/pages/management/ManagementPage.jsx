@@ -55,12 +55,11 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col py-4 space-y-2">
-              {managementRoutes.map(({ index, indexPath, path, i18nKey, element }) => {
+              {managementRoutes.map(({ index, indexPath, path, i18nKey }) => {
                 const match = pathname.endsWith(path) || (index && pathname === indexPath);
                 return (
                   <Link
                     key={nanoid()}
-                    onMouseEnter={() => element?.preload?.()}
                     to={{ pathname: path, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
                     className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10')}>
                     {match && <div className="absolute w-1 h-full bg-primary-600"></div>}

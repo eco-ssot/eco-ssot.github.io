@@ -1,7 +1,7 @@
 import { Fragment, Suspense } from 'react';
 
 import { nanoid } from 'nanoid';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Outlet } from 'react-router-dom';
 
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
@@ -9,7 +9,14 @@ import PageContainer from '../components/page-container/PageContainer';
 import RequireAuth from './RequireAuth';
 import { publicRoutes, privateRoutes } from './routes';
 
-export function toRoute({ index, indexPath, path, routes, element: Element, skeleton: Skeleton = PageContainer }) {
+export function toRoute({
+  index,
+  indexPath,
+  path,
+  routes,
+  element: Element = Outlet,
+  skeleton: Skeleton = PageContainer,
+}) {
   return (
     <Fragment key={nanoid()}>
       {index && (
@@ -23,15 +30,17 @@ export function toRoute({ index, indexPath, path, routes, element: Element, skel
           }
         />
       )}
-      <Route
-        path={path}
-        element={
-          <Suspense fallback={<Skeleton />}>
-            <Element />
-          </Suspense>
-        }>
-        {routes && routes.map(toRoute)}
-      </Route>
+      {path && (
+        <Route
+          path={path}
+          element={
+            <Suspense fallback={<Skeleton />}>
+              <Element />
+            </Suspense>
+          }>
+          {routes && routes.map(toRoute)}
+        </Route>
+      )}
     </Fragment>
   );
 }

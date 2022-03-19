@@ -6,21 +6,26 @@ import { Link, useLocation } from 'react-router-dom';
 import APP_CONSTANTS from '../../app/appConstants';
 import { privateRoutes } from '../../router/routes';
 
+export function preloadElements({ element, routes }) {
+  element?.preload?.();
+  routes?.forEach(preloadElements);
+}
+
 export default function NavBar({ className }) {
   const { t } = useTranslation(['homePage'], { keyPrefix: 'navbar' });
   const { pathname, search } = useLocation();
   return (
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
-        .filter(({ show = true }) => show)
-        .map(({ index, indexPath, path, i18nKey, element, group }) => {
+        .filter(({ hidden }) => !hidden)
+        .map(({ index, indexPath, path, i18nKey, element, routes }) => {
           return (
             <div
-              onMouseEnter={() => element?.preload?.()}
+              onMouseEnter={() => preloadElements({ element, routes })}
               aria-label={`nav-${i18nKey}`}
               key={i18nKey}
               className={
-                pathname === path || (index && pathname === indexPath) || pathname.startsWith(group)
+                pathname === path || (index && pathname === indexPath) || pathname.startsWith(path)
                   ? 'border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2'
                   : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
               }>
