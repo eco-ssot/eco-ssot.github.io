@@ -1,6 +1,5 @@
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
 import Arrow from '../../components/arrow/Arrow';
@@ -8,6 +7,7 @@ import Legend from '../../components/legend/Legend';
 import Tag from '../../components/tag/Tag';
 import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 import useAdmin from '../../hooks/useAdmin';
+import history from '../../router/history';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
 
@@ -28,7 +28,6 @@ export default function AnalysisPage({
   onDeleteSubRow = () => {},
 }) {
   const { t } = useTranslation(['analysisPage', 'common']);
-  const history = useHistory();
   const { accumulationPeriod } = useAccumulationPeriod();
   const { canEdit } = useAdmin();
   return (

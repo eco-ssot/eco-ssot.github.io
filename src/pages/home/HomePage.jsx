@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { nanoid } from 'nanoid';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -86,7 +87,7 @@ export default function HomePage() {
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
         <div className="grid grid-cols-2 overflow-y-auto max-h-[60%] ">
           {(y && y < 2022 ? [] : missing)?.map((val, i) => (
-            <div key={i} className="text-center">
+            <div key={nanoid()} className="text-center">
               {val}
             </div>
           ))}

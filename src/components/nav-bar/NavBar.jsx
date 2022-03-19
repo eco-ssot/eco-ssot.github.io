@@ -13,14 +13,14 @@ export default function NavBar({ className }) {
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {privateRoutes
         .filter(({ show = true }) => show)
-        .map(({ path, key, group, component }) => {
+        .map(({ index, indexPath, path, i18nKey, group, element }) => {
           return (
             <div
-              onMouseEnter={() => component?.preload?.()}
-              aria-label={`nav-${key}`}
-              key={key}
+              onMouseEnter={() => element?.preload?.()}
+              aria-label={`nav-${i18nKey}`}
+              key={i18nKey}
               className={
-                pathname === path || pathname.startsWith(group)
+                pathname === path || (index && pathname === indexPath) || pathname.startsWith(group)
                   ? 'border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2'
                   : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
               }>
@@ -31,7 +31,7 @@ export default function NavBar({ className }) {
                   search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
                 }}
                 className="text-current text-lg font-medium">
-                <span className="block truncate">{t(key)}</span>
+                <span className="block truncate">{t(i18nKey)}</span>
               </Link>
             </div>
           );

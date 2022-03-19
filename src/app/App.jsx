@@ -5,7 +5,7 @@ import Language from '../renderless/language/Language';
 import Loader from '../renderless/loader/Loader';
 import Location from '../renderless/location/Location';
 import TabTitle from '../renderless/tab-title/TabTitle';
-import Router from '../router';
+import Router from '../router/Router';
 
 export default function App() {
   return (

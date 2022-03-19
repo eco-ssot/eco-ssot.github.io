@@ -6,6 +6,7 @@ import { PencilIcon, ChevronUpIcon, CheckIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast, format } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
+import { nanoid } from 'nanoid';
 import { useTranslation } from 'react-i18next';
 
 import APP_CONSTANTS from '../../app/appConstants';
@@ -142,7 +143,7 @@ export function AnalysisSubTable({
             <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
               {_data &&
                 _data.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
-                  <div key={i} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
+                  <div key={nanoid()} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
                     {editing ? (
                       <>
                         <div className={clsx('h-full', hasCategory ? 'col-span-2' : 'col-span-3')}>
@@ -379,7 +380,7 @@ export default function AnalysisTable({
         </div>
         {_data &&
           _data.map(({ id, description, effect, editing, imrprovements }, i) => (
-            <div key={i} className="grid grid-cols-12 text-lg items-center border-b border-divider">
+            <div key={nanoid()} className="grid grid-cols-12 text-lg items-center border-b border-divider">
               <div className="col-span-1 text-center h-full flex flex-col justify-center">{i + 1}</div>
               <div className="col-span-11 grid grid-cols-11 items-center border-l border-primary-600 gap-x-2">
                 {editing || (isAddingRow && i === _data.length - 1) ? (

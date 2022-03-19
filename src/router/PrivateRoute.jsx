@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 
 import APP_CONSTANTS from '../app/appConstants';
 import Layout from '../components/layout/Layout';
@@ -14,7 +14,7 @@ export default function PrivateRoute({ component: Component, skeleton: Skeleton 
     (keycloak?.realmAccess?.roles || []).filter((role) => !APP_CONSTANTS.KEYCLOAK_DEFAULT_ROLES.includes(role))
       .length === 0
   ) {
-    return <Redirect to="/unauthorized" />;
+    return <Navigate to="/unauthorized" />;
   }
 
   return (
@@ -28,7 +28,7 @@ export default function PrivateRoute({ component: Component, skeleton: Skeleton 
             </Suspense>
           </Layout>
         ) : (
-          <Redirect
+          <Navigate
             to={{
               pathname: '/login',
               state: { from: props.location.pathname },

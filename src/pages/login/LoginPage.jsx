@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   if (keycloak?.authenticated) {
     const from = JSON.parse(sessionStorage.getItem('location-from'));
-    return <Redirect to={from || '/'} />;
+    return <Navigate to={from || '/'} />;
   }
 
   return (

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useLocation, Link } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Button from '../../components/button/Button';
@@ -97,7 +97,7 @@ export default function ManagementPage() {
           </div>
         </div>
       </div>
-      <Switch>
+      <Routes>
         <Route exact path="/management/goal">
           <GoalPage business={business} canEdit={canEdit} />
         </Route>
@@ -113,12 +113,12 @@ export default function ManagementPage() {
         <Route exact path="/management/version">
           <VersionPage />
         </Route>
-        <Redirect
+        <Navigate
           exact
           from="/management"
           to={{ pathname: '/management/goal', search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
         />
-      </Switch>
+      </Routes>
     </div>
   );
 }
