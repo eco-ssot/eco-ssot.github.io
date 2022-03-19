@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import { useKeycloak as _useKeycloak } from '@react-keycloak/web';
+import { useNavigate } from 'react-router-dom';
 import { useUpdateEffect } from 'react-use';
 
 import APP_CONSTANTS from '../app/appConstants';
-import history from '../router/history';
 
 import _KeycloakProvider from './KeycloakProvider';
 
@@ -43,11 +43,12 @@ export const useKeycloak = Number(process.env.REACT_APP_MOCK_KEYCLOAK)
         logout: () => setAuthenticated(false),
       });
 
+      const navigate = useNavigate();
       useUpdateEffect(() => {
         authClient.authenticated = authenticated;
         setKeycloak((prev) => ({ ...prev, authenticated }));
         if (!authenticated) {
-          history.push('/login');
+          navigate('/login');
         }
       }, [authenticated]);
 

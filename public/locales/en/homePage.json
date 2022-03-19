@@ -23,17 +23,5 @@
   "tRec": "REC",
   "dataMissing": "Data Incomplete",
   "seeDetail": "See details",
-  "onSettingsPage": "on settings page",
-  "navbar": {
-    "home": "Home",
-    "overview": "Overview",
-    "carbon": "Carbon",
-    "renewableEnergy": "Renewable Energy",
-    "electricity": "Electricity",
-    "water": "Water",
-    "unitElectricity": "Unit Electricity",
-    "waste": "Waste",
-    "management": "Settings",
-    "electricityBaseline": "Analysis"
-  }
+  "onSettingsPage": "on settings page"
 }

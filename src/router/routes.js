@@ -18,7 +18,7 @@ export const publicRoutes = [
   },
   {
     element: lazyPreload(() => import('../pages/not-found/NotFoundPage')),
-    i18nKey: 'not-found',
+    i18nKey: 'notFound',
   },
 ];
 

@@ -13,7 +13,7 @@ export function preloadElements({ element, routes }) {
 }
 
 export default function NavBar({ className }) {
-  const { t } = useTranslation(['homePage'], { keyPrefix: 'navbar' });
+  const { t } = useTranslation(['location']);
   const { pathname, search } = useLocation();
   return (
     <div className={clsx('flex flex-grow space-x-4', className)}>

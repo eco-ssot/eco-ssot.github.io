@@ -1,5 +1,6 @@
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
 import Arrow from '../../components/arrow/Arrow';
@@ -7,7 +8,6 @@ import Legend from '../../components/legend/Legend';
 import Tag from '../../components/tag/Tag';
 import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 import useAdmin from '../../hooks/useAdmin';
-import history from '../../router/history';
 import { ratioFormatter, baseFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
 
@@ -30,13 +30,14 @@ export default function AnalysisPage({
   const { t } = useTranslation(['analysisPage', 'common']);
   const { accumulationPeriod } = useAccumulationPeriod();
   const { canEdit } = useAdmin();
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col p-4 gap-4 w-screen max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
       <div className="text-xl font-medium">{title}</div>
       <div className="flex justify-between items-end">
         <div
           className="flex text-gray-300 cursor-pointer space-x-2 items-center hover:text-green-50"
-          onClick={() => history.goBack()}>
+          onClick={() => navigate(-1)}>
           <ChevronLeftIcon className="w-5 h-5" />
           <div>{t('analysisPage:backDesc')}</div>
         </div>

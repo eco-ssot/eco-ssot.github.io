@@ -9,7 +9,7 @@ import routes from '../../router/routes';
 
 export default function TabTitle() {
   const { pathname } = useLocation();
-  const { t } = useTranslation(['homePage'], { keyPrefix: 'navbar' });
+  const { t } = useTranslation(['location']);
   const title = useMemo(() => routes.find(isMatched(pathname))?.i18nKey, [pathname]);
   useTitle(title ? `${t(title)} - ECO SSOT` : 'ECO SSOT');
   return null;

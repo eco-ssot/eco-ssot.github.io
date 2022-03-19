@@ -1,3 +1,3 @@
 export default function UnauthorizedPage() {
-  return <>Unauthorized</>;
+  return <>401 Unauthorized</>;
 }

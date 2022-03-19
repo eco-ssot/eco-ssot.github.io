@@ -19,7 +19,7 @@ import {
   selectP,
   selectS,
 } from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 import { useGetSummaryQuery } from '../../services/summary';
 
 import Carbon from './Carbon';
@@ -57,6 +57,7 @@ export default function HomePage() {
     [yearOptions, y]
   );
 
+  const navigate = useNavigate();
   const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, missing } = data;
   return (
     <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
