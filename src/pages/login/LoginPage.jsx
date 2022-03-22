@@ -21,7 +21,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex w-screen h-screen overflow-hidden items-center justify-center">
+    <div className="flex w-screen h-screen overflow-hidden items-center justify-center -mt-16">
       <Header className="fixed z-50 h-16 w-full top-0" />
       <Picture className="fixed w-full h-full -z-1" src="/login.webp" fallback="/login.png" alt="login" />
       <div className="flex flex-col space-y-4 items-center">

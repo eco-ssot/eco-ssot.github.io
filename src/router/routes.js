@@ -17,6 +17,7 @@ export const publicRoutes = [
     i18nKey: 'unauthorized',
   },
   {
+    path: '*',
     element: lazyPreload(() => import('../pages/not-found/NotFoundPage')),
     i18nKey: 'notFound',
   },

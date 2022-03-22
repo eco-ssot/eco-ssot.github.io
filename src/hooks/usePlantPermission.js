@@ -9,7 +9,7 @@ import { useGetPlantsQuery } from '../services/app';
 export default function usePlantPermission() {
   const { keycloak } = useKeycloak();
   const bo = useSelector(selectBusiness);
-  const { data } = useGetPlantsQuery({ bo });
+  const { data } = useGetPlantsQuery({ bo }, { skip: !keycloak?.authenticated });
   const plantPermission = useMemo(() => {
     if (keycloak?.realmAccess?.roles?.includes('DEV') || keycloak?.realmAccess?.roles?.includes('WZS-8')) {
       return data;

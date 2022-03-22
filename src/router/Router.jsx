@@ -50,18 +50,20 @@ export default function Router({ children }) {
     <BrowserRouter>
       {children}
       <Routes>
-        {publicRoutes.map(({ path, element: Element }) => (
-          <Route
-            exact
-            key={nanoid()}
-            path={path}
-            element={
-              <Suspense fallback={<></>}>
-                <Element />
-              </Suspense>
-            }
-          />
-        ))}
+        <Route path="/" element={<Layout />}>
+          {publicRoutes.map(({ path, element: Element }) => (
+            <Route
+              exact
+              key={nanoid()}
+              path={path}
+              element={
+                <Suspense fallback={<></>}>
+                  <Element />
+                </Suspense>
+              }
+            />
+          ))}
+        </Route>
         <Route
           path="/"
           element={
