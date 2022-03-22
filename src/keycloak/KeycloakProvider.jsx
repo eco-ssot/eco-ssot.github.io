@@ -27,9 +27,9 @@ const onTokens = (keycloak) => (tokens) => {
   localStorage.setItem(
     'roles',
     JSON.stringify(
-      keycloak?.tokenParsed?.realm_access?.roles?.filter(
+      keycloak?.tokenParsed?.realm_access?.roles?.filter?.(
         (role) => !APP_CONSTANTS.KEYCLOAK_DEFAULT_ROLES.includes(role)
-      ) || []
+      )
     )
   );
 };
