@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import APP_CONSTANTS from '../../app/appConstants';
 import { selectCurrMonth, selectYoptions } from '../../app/appSlice';
 import { selectM, selectY } from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 
 import TagSelect from './TagSelect';
 
@@ -20,6 +20,7 @@ export default function GlobalDateSelect() {
   );
 
   const yOptions = useMemo(() => yearOptions.filter((option) => Number(option.key) > 2020), [yearOptions]);
+  const navigate = useNavigate();
   return (
     <div className="flex items-center">
       <TagSelect

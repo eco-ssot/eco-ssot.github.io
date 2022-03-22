@@ -25,7 +25,7 @@ import EditableTable, {
 import Table from '../../components/table/Table';
 import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
 import {
   useGetElectricityPredictionQuery,
@@ -889,6 +889,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option })
     [yearOptions, maxYear]
   );
 
+  const navigate = useNavigate();
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
@@ -941,6 +942,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
 
   const monthOptions = useMemo(() => APP_CONSTANTS.MONTH_OPTIONS.filter((option) => option.key > 10), []);
   const byMonth = searchOption.categorized === 'month';
+  const navigate = useNavigate();
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
@@ -1002,6 +1004,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
 
 export default function ElectricityBaselinePage() {
   const { t } = useTranslation(['baselinePage', 'component']);
+  const navigate = useNavigate();
   return (
     <>
       <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">

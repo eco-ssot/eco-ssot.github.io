@@ -14,7 +14,7 @@ import Table from '../../components/table/Table';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
 import { useGetDataStatusQuery, useUploadEnergyExcelMutation } from '../../services/management';
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
@@ -149,6 +149,7 @@ export default function DataStatusPage() {
   );
 
   const [uploadExcel, { isSuccess }] = useUploadEnergyExcelMutation();
+  const navigate = useNavigate();
   useEffect(
     () => setSearchOption({ year: year || currYear, month: month || currMonth }),
     [year, month, currYear, currMonth]

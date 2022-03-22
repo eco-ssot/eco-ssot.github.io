@@ -90,7 +90,7 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <Link className="flex items-center justify-end space-x-2 " to={`/electricity/analysis?${search}`}>
+              <Link className="flex items-center justify-end space-x-2 " to={`analysis?${search}`}>
                 <Dot />
                 {targetFormatter(pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </Link>

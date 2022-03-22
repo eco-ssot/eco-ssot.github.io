@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import APP_CONSTANTS from '../../app/appConstants';
 import Ellipsis from '../../components/ellipsis/Ellipsis';
 import Select from '../../components/select/Select';
+import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import { selectP, selectS } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectP, selectS } from '../../renderless/location/locationSlice';
 import {
   useGetGoalQuery,
   useGetCarbonIndexQuery,
@@ -19,14 +20,16 @@ import CarbonIndex from './CarbonIndex';
 import Trec from './Trec';
 import YearGoal from './YearGoal';
 
-export default function GoalPage({ business, canEdit }) {
+export default function GoalPage() {
   const { t } = useTranslation(['managementPage', 'component']);
   const [goalYear, setGoalYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const [tRecYear, setTrecYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
   const plantPermission = usePlantPermission();
+  const business = useSelector(selectBusiness);
   const s = useSelector(selectS);
   const p = useSelector(selectP);
+  const { canEdit } = useAdmin();
   const goalRes = useGetGoalQuery({ business, year: goalYear, site: s, plant: p });
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const tRecRes = useGetTrecQuery({ year: tRecYear });

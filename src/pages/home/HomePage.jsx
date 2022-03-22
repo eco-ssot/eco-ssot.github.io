@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { nanoid } from 'nanoid';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -18,7 +19,7 @@ import {
   selectP,
   selectS,
 } from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 import { useGetSummaryQuery } from '../../services/summary';
 
 import Carbon from './Carbon';
@@ -56,6 +57,7 @@ export default function HomePage() {
     [yearOptions, y]
   );
 
+  const navigate = useNavigate();
   const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, missing } = data;
   return (
     <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
@@ -86,7 +88,7 @@ export default function HomePage() {
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
         <div className="grid grid-cols-2 overflow-y-auto max-h-[60%] ">
           {(y && y < 2022 ? [] : missing)?.map((val, i) => (
-            <div key={i} className="text-center">
+            <div key={nanoid()} className="text-center">
               {val}
             </div>
           ))}

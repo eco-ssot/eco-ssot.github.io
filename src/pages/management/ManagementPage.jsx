@@ -1,26 +1,18 @@
 import { useCallback } from 'react';
 
 import clsx from 'clsx';
+import { nanoid } from 'nanoid';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, Outlet } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Button from '../../components/button/Button';
 import useAdmin from '../../hooks/useAdmin';
-import { selectBusiness } from '../../renderless/location/locationSlice';
-import { lazyPreload } from '../../router/helpers';
-import { useGetUsersQuery } from '../../services/keycloakAdmin';
+import { managementRoutes } from '../../router/routes';
 
-const CsrPage = lazyPreload(() => import('./CsrPage'));
-const DataStatusPage = lazyPreload(() => import('./DataStatusPage'));
-const GoalPage = lazyPreload(() => import('./GoalPage'));
-const PicPage = lazyPreload(() => import('./PicPage'));
-const VersionPage = lazyPreload(() => import('./VersionPage'));
-
-export function Nav({ hidden, children, to, pathname, search, onMouseEnter = () => {} }) {
-  const match = pathname.endsWith(to);
+export function Nav({ hidden, children, to, search, onMouseEnter = () => {} }) {
+  const match = false;
   return (
     <Link
       onMouseEnter={onMouseEnter}
@@ -34,10 +26,8 @@ export function Nav({ hidden, children, to, pathname, search, onMouseEnter = () 
 
 export default function ManagementPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
-  const { keycloak, roles, canEdit } = useAdmin();
-  const { data: users = [] } = useGetUsersQuery();
+  const { keycloak, roles } = useAdmin();
   const { pathname, search } = useLocation();
-  const business = useSelector(selectBusiness);
   const logout = useCallback(() => {
     const from = JSON.parse(sessionStorage.getItem('location-from'));
     sessionStorage.setItem('location-from', JSON.stringify({ ...from, logout: true }));
@@ -65,29 +55,18 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col py-4 space-y-2">
-              <Nav to="/management/goal" pathname={pathname} search={search} onMouseEnter={() => GoalPage.preload()}>
-                {t('managementPage:nav.goal')}
-              </Nav>
-              <Nav
-                to="/management/data-status"
-                pathname={pathname}
-                search={search}
-                onMouseEnter={() => DataStatusPage.preload()}>
-                {t('managementPage:nav.dataStatus')}
-              </Nav>
-              <Nav to="/management/csr" pathname={pathname} search={search} onMouseEnter={() => CsrPage.preload()}>
-                {t('managementPage:nav.csrAndFemStatus')}
-              </Nav>
-              <Nav to="/management/pic" pathname={pathname} search={search} onMouseEnter={() => PicPage.preload()}>
-                {t('managementPage:nav.pic')}
-              </Nav>
-              <Nav
-                to="/management/version"
-                pathname={pathname}
-                search={search}
-                onMouseEnter={() => VersionPage.preload()}>
-                {t('managementPage:nav.changelog')}
-              </Nav>
+              {managementRoutes.map(({ index, indexPath, path, i18nKey }) => {
+                const match = pathname.endsWith(path) || (index && pathname === indexPath);
+                return (
+                  <Link
+                    key={nanoid()}
+                    to={{ pathname: path, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
+                    className={clsx('flex items-center h-10 relative', match && 'bg-gray-50 bg-opacity-10')}>
+                    {match && <div className="absolute w-1 h-full bg-primary-600"></div>}
+                    <div className={clsx('ml-4', match && 'font-medium')}>{t(`managementPage:nav.${i18nKey}`)}</div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
           <div className="border-t border-divider text-center mx-4">
@@ -97,28 +76,7 @@ export default function ManagementPage() {
           </div>
         </div>
       </div>
-      <Switch>
-        <Route exact path="/management/goal">
-          <GoalPage business={business} canEdit={canEdit} />
-        </Route>
-        <Route exact path="/management/data-status">
-          <DataStatusPage />
-        </Route>
-        <Route exact path="/management/csr">
-          <CsrPage />
-        </Route>
-        <Route exact path="/management/pic">
-          <PicPage canEdit={canEdit} users={users} />
-        </Route>
-        <Route exact path="/management/version">
-          <VersionPage />
-        </Route>
-        <Redirect
-          exact
-          from="/management"
-          to={{ pathname: '/management/goal', search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
-        />
-      </Switch>
+      <Outlet />
     </div>
   );
 }

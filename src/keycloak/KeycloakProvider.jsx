@@ -1,7 +1,6 @@
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 
 import Picture from '../components/picture/Picture';
-import history from '../router/history';
 
 import keycloak from './keycloak';
 
@@ -17,10 +16,6 @@ const onEvent = (event, error) => {
           : { pathname: window.location.pathname, search: window.location.search, hash: window.location.hash }
       )
     );
-  }
-
-  if (event === 'onReady') {
-    history.replace(window.location.href.replace(window.location.origin, ''));
   }
 };
 

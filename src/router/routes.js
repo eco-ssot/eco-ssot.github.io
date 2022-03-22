@@ -1,4 +1,5 @@
 import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
+import GoalSkeleton from '../components/skeleton/GoalSkeleton';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
 
@@ -7,112 +8,141 @@ import { lazyPreload } from './helpers';
 export const publicRoutes = [
   {
     path: '/login',
-    title: '登入',
-    component: lazyPreload(() => import('../pages/login/LoginPage')),
-    key: 'login',
+    element: lazyPreload(() => import('../pages/login/LoginPage')),
+    i18nKey: 'login',
   },
   {
     path: '/unauthorized',
-    title: '',
-    component: lazyPreload(() => import('../pages/unauthorized/UnauthorizedPage')),
-    key: 'unauthorized',
+    element: lazyPreload(() => import('../pages/unauthorized/UnauthorizedPage')),
+    i18nKey: 'unauthorized',
+  },
+  {
+    element: lazyPreload(() => import('../pages/not-found/NotFoundPage')),
+    i18nKey: 'notFound',
+  },
+];
+
+export const managementRoutes = [
+  {
+    index: true,
+    indexPath: '/management',
+    path: 'goal',
+    element: lazyPreload(() => import('../pages/management/GoalPage')),
+    i18nKey: 'goal',
+    skeleton: GoalSkeleton,
+  },
+  {
+    path: 'data-status',
+    element: lazyPreload(() => import('../pages/management/DataStatusPage')),
+    i18nKey: 'dataStatus',
+    skeleton: ManagementSkeleton,
+  },
+  {
+    path: 'csr',
+    element: lazyPreload(() => import('../pages/management/CsrPage')),
+    i18nKey: 'csrAndFemStatus',
+    skeleton: ManagementSkeleton,
+  },
+  {
+    path: 'pic',
+    element: lazyPreload(() => import('../pages/management/PicPage')),
+    i18nKey: 'pic',
+    skeleton: ManagementSkeleton,
+  },
+  {
+    path: 'version',
+    element: lazyPreload(() => import('../pages/management/VersionPage')),
+    i18nKey: 'changelog',
+    skeleton: ManagementSkeleton,
   },
 ];
 
 export const privateRoutes = [
   {
+    index: true,
+    indexPath: '/',
     path: '/home',
-    title: '首頁',
-    component: lazyPreload(() => import('../pages/home/HomePage')),
+    element: lazyPreload(() => import('../pages/home/HomePage')),
     skeleton: HomeSkeleton,
-    key: 'home',
+    i18nKey: 'home',
   },
   {
     path: '/overview',
-    title: '總覽比較',
-    component: lazyPreload(() => import('../pages/overview/OverviewPage')),
-    key: 'overview',
+    element: lazyPreload(() => import('../pages/overview/OverviewPage')),
+    i18nKey: 'overview',
   },
   {
     path: '/carbon',
-    title: '碳排放量',
-    component: lazyPreload(() => import('../pages/carbon/CarbonPage')),
-    key: 'carbon',
+    element: lazyPreload(() => import('../pages/carbon/CarbonPage')),
+    i18nKey: 'carbon',
   },
   {
     path: '/renewable-energy',
-    title: '可再生能源',
-    component: lazyPreload(() => import('../pages/renewable-energy/RenewableEnergyPage')),
-    key: 'renewableEnergy',
+    element: lazyPreload(() => import('../pages/renewable-energy/RenewableEnergyPage')),
+    i18nKey: 'renewableEnergy',
   },
   {
     path: '/electricity',
-    title: '用電',
-    component: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
-    key: 'electricity',
-    group: '/electricity',
+    i18nKey: 'electricity',
+    routes: [
+      {
+        index: true,
+        element: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
+      },
+      {
+        path: 'analysis',
+        element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
+        skeleton: AnalysisSkeleton,
+      },
+    ],
   },
   {
     path: '/analysis/electricity',
-    title: '用電分析',
-    component: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
-    key: 'electricityBaseline',
+    element: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
+    i18nKey: 'electricityBaseline',
   },
   {
     path: '/water',
-    title: '用水',
-    component: lazyPreload(() => import('../pages/water/WaterPage')),
-    key: 'water',
-    group: '/water',
+    i18nKey: 'water',
+    routes: [
+      {
+        index: true,
+        element: lazyPreload(() => import('../pages/water/WaterPage')),
+      },
+      {
+        path: 'analysis',
+        element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
+        skeleton: AnalysisSkeleton,
+      },
+    ],
   },
   {
     path: '/unit-electricity',
     title: '約當單台用電',
-    component: lazyPreload(() => import('../pages/unit-electricity/UnitElectricityPage')),
-    key: 'unitElectricity',
+    element: lazyPreload(() => import('../pages/unit-electricity/UnitElectricityPage')),
+    i18nKey: 'unitElectricity',
   },
   {
     path: '/waste',
-    title: '廢棄物',
-    component: lazyPreload(() => import('../pages/waste/WastePage')),
-    key: 'waste',
-    group: '/waste',
+    i18nKey: 'waste',
+    routes: [
+      {
+        index: true,
+        element: lazyPreload(() => import('../pages/waste/WastePage')),
+      },
+      {
+        path: 'analysis',
+        element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
+        skeleton: AnalysisSkeleton,
+      },
+    ],
   },
   {
     path: '/management',
-    title: '後台設定',
-    component: lazyPreload(() => import('../pages/management/ManagementPage')),
-    skeleton: ManagementSkeleton,
-    exact: false,
-    key: 'management',
-    group: '/management',
-  },
-  {
-    path: '/electricity/analysis',
-    title: '用電第三階段分析',
-    component: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
-    skeleton: AnalysisSkeleton,
-    show: false,
-    key: 'electricityAnalysis',
-    group: '/electricity',
-  },
-  {
-    path: '/water/analysis',
-    title: '用水第三階段分析',
-    component: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
-    skeleton: AnalysisSkeleton,
-    show: false,
-    key: 'waterAnalysis',
-    group: '/water',
-  },
-  {
-    path: '/waste/analysis',
-    title: '廢棄物第三階段分析',
-    component: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
-    skeleton: AnalysisSkeleton,
-    show: false,
-    key: 'wasteAnalysis',
-    group: '/waste',
+    element: lazyPreload(() => import('../pages/management/ManagementPage')),
+    skeleton: GoalSkeleton,
+    i18nKey: 'management',
+    routes: managementRoutes,
   },
 ];
 

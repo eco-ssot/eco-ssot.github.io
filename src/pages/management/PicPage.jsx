@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,9 @@ import EditableTable, {
   EditableButton,
   EditableIconButton,
 } from '../../components/table/EditableTable';
+import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
+import { useGetUsersQuery } from '../../services/keycloakAdmin';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
@@ -125,13 +127,15 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   },
 ];
 
-export default function PicPage({ canEdit, users }) {
+export default function PicPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
   const plantPermission = usePlantPermission();
   const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: plantPermission });
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [dataSource, setData] = useState(data);
-  const userOptions = users.map(({ id, email }) => ({ value: id, label: email }));
+  const { data: users = [] } = useGetUsersQuery();
+  const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
+  const { canEdit } = useAdmin();
   const columns = COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
   useEffect(() => data && setData(data), [data]);
   return (

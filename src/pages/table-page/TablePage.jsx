@@ -6,12 +6,13 @@ import HistorySearch from '../../components/history-search/HistorySearch';
 import Legend from '../../components/legend/Legend';
 import OverviewSearch from '../../components/overview-search/OverviewSearch';
 import PageContainer from '../../components/page-container/PageContainer';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 
 import TablePanel from './TablePanel';
 
 export default function TablePage({ title, downloadResource, table: Table, historyTable: HistoryTable }) {
   const { t } = useTranslation(['component']);
+  const navigate = useNavigate();
   return (
     <PageContainer className="flex flex-col relative space-y-2">
       <div className="text-xl font-medium">{title}</div>

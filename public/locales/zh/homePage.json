@@ -23,17 +23,5 @@
   "tRec": "綠證",
   "dataMissing": "資料缺漏 Plant",
   "seeDetail": "前往後台設定",
-  "onSettingsPage": "查看資料詳情",
-  "navbar": {
-    "home": "首頁",
-    "overview": "總覽比較",
-    "carbon": "碳排放量",
-    "renewableEnergy": "可再生能源",
-    "electricity": "用電",
-    "water": "用水",
-    "unitElectricity": "約當單台用電",
-    "waste": "廢棄物",
-    "management": "後台設定",
-    "electricityBaseline": "用電分析"
-  }
+  "onSettingsPage": "查看資料詳情"
 }

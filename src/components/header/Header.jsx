@@ -7,7 +7,7 @@ import APP_CONSTANTS from '../../app/appConstants';
 import useSitePlantOptions from '../../hooks/useSitePlantOptions';
 import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage, selectP, selectS } from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 import { useGetVersionQuery } from '../../services/public';
 import Divider from '../divider/Divider';
 import Ellipsis from '../ellipsis/Ellipsis';
@@ -26,6 +26,7 @@ export default function Header({ className }) {
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
   const { data: version } = useGetVersionQuery();
+  const navigate = useNavigate();
   return (
     <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
       <Link className="flex items-center space-x-4" to="/">

@@ -15,7 +15,7 @@ import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
-import { navigate } from '../../router/helpers';
+import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
 import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
@@ -140,6 +140,7 @@ export default function CsrPage() {
     [t, postCsrComment, setData, year, month, currYear, currMonth, isWater]
   );
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (data) {
       setData(isWater ? data.water : data.electricity);
