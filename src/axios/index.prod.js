@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import tokenInterceptor from './tokenInterceptor';
+import wzs8Interceptor from './wzs8Interceptor';
 
 const { REACT_APP_KEYCLOAK_REALM, REACT_APP_KEYCLOAK_URL } = process.env;
 
@@ -13,6 +14,7 @@ const keycloakInstance = axios.create({
 });
 
 instance.interceptors.request.use(tokenInterceptor);
+instance.interceptors.request.use(wzs8Interceptor);
 keycloakInstance.interceptors.request.use(tokenInterceptor);
 
 export { keycloakInstance };

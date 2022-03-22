@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import tokenInterceptor from './tokenInterceptor';
+import wzs8Interceptor from './wzs8Interceptor';
 
 const {
   REACT_APP_MOCK_API,
@@ -21,6 +22,7 @@ const keycloakInstance = axios.create({
 });
 
 instance.interceptors.request.use(tokenInterceptor);
+instance.interceptors.request.use(wzs8Interceptor);
 keycloakInstance.interceptors.request.use(tokenInterceptor);
 
 export { keycloakInstance };
