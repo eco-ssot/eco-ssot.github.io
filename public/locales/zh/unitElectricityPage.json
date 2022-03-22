@@ -6,7 +6,7 @@
       "delta": "增減率 (b/a-1)"
     },
     "production": {
-      "header": "生產量 (台)",
+      "header": "約當生產量 (台)",
       "delta": "增減率 (d/c-1)"
     },
     "unitElectricity": {
