@@ -86,7 +86,7 @@ export default function Header({ className }) {
       {keycloak?.authenticated ? (
         <Ellipsis label={keycloak?.idTokenParsed?.given_name} placement="left" />
       ) : (
-        <div>Login</div>
+        <Link to="/login">Login</Link>
       )}
     </div>
   );
