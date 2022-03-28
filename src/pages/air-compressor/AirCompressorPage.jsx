@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import clsx from 'clsx';
+import { format, subDays } from 'date-fns';
 import { isEmpty, pick } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
 
@@ -50,8 +51,23 @@ const NEW_MACHINE_COLUMNS = addPaddingColumns([
   { Header: '設備價格', accessor: 'cost', className: 'text-right', Cell: baseFormatter },
 ]);
 
+const DUMMY_ROI_DATA = [
+  { building: '-', machine_id: '-', born_year: '-', power: '-', eer: '-', predict_eer: '-', predict_roi: '-' },
+];
+
+const DUMMY_OLD_MACHINE_DATA = [
+  { rank: '1', machine: '-', born_year: '-', power: '-', predict_eer: '-', predict_roi: '-' },
+];
+
+const DUMMY_NEW_MACHING_DATA = [
+  { rank: '1', oil_type: '-', compress_type: '-', power: '-', flow: '-', predict_eer: '-', cost: '-' },
+];
+
 const OPTION = ({ data, name, target }) => {
-  const labels = data?.map(({ date }) => date);
+  const labels =
+    data?.map(({ date }) => format(new Date(date), 'M/d')) ||
+    Array.from({ length: 7 }, (_, i) => format(subDays(new Date(), 7 - i), 'M/d'));
+
   const values = data?.map(({ value }) => ({ value }));
   return {
     xAxis: {
@@ -91,7 +107,7 @@ const OPTION = ({ data, name, target }) => {
 };
 
 const COST_OPTION = (data) => {
-  const labels = data?.map(({ year }) => year);
+  const labels = data?.map(({ year }) => year) || Array.from({ length: 5 }, (_, i) => i + 1);
   const oldCost = data?.map(({ old_cost }) => ({ value: old_cost }));
   const newCost = data?.map(({ new_cost }) => ({ value: new_cost }));
   return {
@@ -128,7 +144,7 @@ const COST_OPTION = (data) => {
         },
       },
     ],
-    grid: { bottom: 0, top: 48, left: 24, right: 0, containLabel: true },
+    grid: { bottom: 0, top: 48, left: 24, right: 48, containLabel: true },
   };
 };
 
@@ -157,101 +173,101 @@ export default function AirCompressorPage() {
   const costOption = useMemo(() => COST_OPTION(data?.cost), [data?.cost]);
   const navigate = useNavigate();
   return (
-    <div className="grid grid-rows-5 gap-4 p-4 pt-20 -mt-16 h-screen w-screen overflow-hidden">
-      <div className={clsx('bg-primary-900 rounded shadow flex flex-col p-4')}>
-        <div>
-          <div className="text-xl font-medium">空壓設備智能推薦</div>
-          <div className="flex flex-grow justify-center space-x-8">
-            <div className="border-r-2 border-divider pr-8 space-y-4">
-              <div>欲評估設備</div>
-              <div className="flex space-x-4">
-                <Select
-                  label="廠區資訊"
-                  options={BUILDING_OPTIONS}
-                  onChange={(e) => setSearchOption((prev) => ({ ...prev, building: e.key }))}
-                />
-                <Select
-                  label="設備編號"
-                  options={MACHINE_OPTIONS}
-                  onChange={(e) => setSearchOption((prev) => ({ ...prev, machine: e.key }))}
-                />
-              </div>
-            </div>
-            <div className="border-r-2 border-divider pr-8 space-y-4">
-              <div>新機台規格</div>
-              <div className="flex space-x-4">
-                <Select
-                  label="潤滑類型"
-                  options={OIL_TYPES}
-                  onChange={(e) => setSearchOption((prev) => ({ ...prev, oil_type: e.key }))}
-                />
-                <Select
-                  label="壓縮類型"
-                  options={COMPRESS_TYPES}
-                  onChange={(e) => setSearchOption((prev) => ({ ...prev, compress_type: e.key }))}
-                />
-                <Select
-                  label="運轉類型"
-                  options={OPERATION_TYPES}
-                  onChange={(e) => setSearchOption((prev) => ({ ...prev, operation_type: e.key }))}
-                />
-              </div>
-            </div>
-            <Button
-              className="self-end"
-              onClick={() =>
-                navigate({
-                  ...searchOption,
-                  ...(!option.building && { building: BUILDING_OPTIONS[0].key }),
-                  ...(!option.machine && { machine: MACHINE_OPTIONS[0].key }),
-                  ...(!option.oil_type && { oil_type: OIL_TYPES[0].key }),
-                  ...(!option.compress_type && { compress_type: COMPRESS_TYPES[0].key }),
-                  ...(!option.operation_type && { operation_type: OPERATION_TYPES[0].key }),
-                })
-              }>
-              計算能效
-            </Button>
-          </div>
-        </div>
-      </div>
-      <div className="row-span-2 bg-primary-900 rounded shadow flex space-x-8 p-4 overflow-auto">
-        <div className="w-[40%] flex flex-col space-y-4">
-          <div className="text-xl font-medium">設備能效 / ROI資訊</div>
-          <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
-            <Table columns={ROI_COLUMNS} data={[].concat(data?.summary).filter(Boolean)} />
-          </div>
-        </div>
-        <div className="w-[30%] flex flex-col">
-          <div>設備能效近一週狀況</div>
-          <Chart option={machineOption} className="flex-grow" />
-        </div>
-        <div className="w-[30%] flex flex-col">
-          <div>設備ROI近一週狀況</div>
-          <Chart option={roiOption} className="flex-grow" />
-        </div>
-      </div>
-      <div className="row-span-2 bg-primary-900 rounded shadow p-4 flex space-x-4 overflow-auto">
-        <div className="w-[36%] flex flex-col space-y-4 overflow-auto">
-          <div className="text-xl font-medium">既有備機設備推薦資訊</div>
-          <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
-            <Table columns={OLD_MACHINE_COLUMNS} data={data?.recommand?.old || []} />
-          </div>
-        </div>
-        <div className="w-[36%] flex flex-col space-y-4 overflow-auto">
-          <div className="text-xl font-medium">新機設備推薦資訊</div>
-          <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
-            <Table columns={NEW_MACHINE_COLUMNS} data={data?.recommand?.new || []} />
-          </div>
-        </div>
-        <div className="w-[28%] flex flex-col space-y-4">
-          <div className="flex justify-between">
-            <div className="text-xl font-medium">汰換後累積減少成本預估</div>
+    <div className="flex flex-col space-y-4 p-4 pt-20 -mt-16 h-screen w-screen overflow-hidden">
+      <div className={clsx('bg-primary-900 rounded shadow p-4')}>
+        <div className="text-xl font-medium">空壓設備智能推薦</div>
+        <div className="flex flex-grow justify-center space-x-8">
+          <div className="border-r-2 border-divider pr-8 space-y-4">
+            <div>欲評估設備</div>
             <div className="flex space-x-4">
-              <Legend label="備機設備" dotClassName="bg-_blue" />
-              <Legend label="新設備" dotClassName="bg-_yellow" />
+              <Select
+                label="廠區資訊"
+                options={BUILDING_OPTIONS}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, building: e.key }))}
+              />
+              <Select
+                label="設備編號"
+                options={MACHINE_OPTIONS}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, machine: e.key }))}
+              />
             </div>
           </div>
-          <Chart option={costOption} className="flex-grow" />
+          <div className="border-r-2 border-divider pr-8 space-y-4">
+            <div>新機台規格</div>
+            <div className="flex space-x-4">
+              <Select
+                label="潤滑類型"
+                options={OIL_TYPES}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, oil_type: e.key }))}
+              />
+              <Select
+                label="壓縮類型"
+                options={COMPRESS_TYPES}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, compress_type: e.key }))}
+              />
+              <Select
+                label="運轉類型"
+                options={OPERATION_TYPES}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, operation_type: e.key }))}
+              />
+            </div>
+          </div>
+          <Button
+            className="self-end"
+            onClick={() =>
+              navigate({
+                ...searchOption,
+                ...(!option.building && { building: BUILDING_OPTIONS[0].key }),
+                ...(!option.machine && { machine: MACHINE_OPTIONS[0].key }),
+                ...(!option.oil_type && { oil_type: OIL_TYPES[0].key }),
+                ...(!option.compress_type && { compress_type: COMPRESS_TYPES[0].key }),
+                ...(!option.operation_type && { operation_type: OPERATION_TYPES[0].key }),
+              })
+            }>
+            計算能效
+          </Button>
+        </div>
+      </div>
+      <div className="flex-grow grid grid-rows-2 gap-4 overflow-auto">
+        <div className="row-span-1 bg-primary-900 rounded shadow flex space-x-8 p-4 overflow-auto">
+          <div className="w-[40%] flex flex-col space-y-4">
+            <div className="text-xl font-medium">設備能效 / ROI資訊</div>
+            <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
+              <Table columns={ROI_COLUMNS} data={[].concat(data?.summary || DUMMY_ROI_DATA)} />
+            </div>
+          </div>
+          <div className="w-[30%] flex flex-col">
+            <div>設備能效近一週狀況</div>
+            <Chart option={machineOption} className="flex-grow" />
+          </div>
+          <div className="w-[30%] flex flex-col">
+            <div>設備ROI近一週狀況</div>
+            <Chart option={roiOption} className="flex-grow" />
+          </div>
+        </div>
+        <div className="row-span-1 bg-primary-900 rounded shadow p-4 flex space-x-4 overflow-auto">
+          <div className="w-[36%] flex flex-col space-y-4 overflow-auto">
+            <div className="text-xl font-medium">既有備機設備推薦資訊</div>
+            <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
+              <Table columns={OLD_MACHINE_COLUMNS} data={data?.recommand?.old || DUMMY_OLD_MACHINE_DATA} />
+            </div>
+          </div>
+          <div className="w-[36%] flex flex-col space-y-4 overflow-auto">
+            <div className="text-xl font-medium">新機設備推薦資訊</div>
+            <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
+              <Table columns={NEW_MACHINE_COLUMNS} data={data?.recommand?.new || DUMMY_NEW_MACHING_DATA} />
+            </div>
+          </div>
+          <div className="w-[28%] flex flex-col space-y-4">
+            <div className="flex justify-between">
+              <div className="text-xl font-medium">汰換後累積減少成本預估</div>
+              <div className="flex space-x-4">
+                <Legend label="備機設備" dotClassName="bg-_blue" />
+                <Legend label="新設備" dotClassName="bg-_yellow" />
+              </div>
+            </div>
+            <Chart option={costOption} className="flex-grow" />
+          </div>
         </div>
       </div>
     </div>
