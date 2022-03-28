@@ -4,7 +4,8 @@
     "dataStatus": "資料更新狀態",
     "pic": "資料維護PIC",
     "csrAndFemStatus": "FEM & CSR數值狀態",
-    "changelog": "版本異動"
+    "changelog": "版本異動",
+    "permission": "權限管理"
   },
   "yearGoal": {
     "title": "年度目標",

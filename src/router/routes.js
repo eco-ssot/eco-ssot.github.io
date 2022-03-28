@@ -51,6 +51,12 @@ export const managementRoutes = [
     skeleton: ManagementSkeleton,
   },
   {
+    path: 'permission',
+    element: lazyPreload(() => import('../pages/management/PermissionPage')),
+    i18nKey: 'permission',
+    skeleton: ManagementSkeleton,
+  },
+  {
     path: 'version',
     element: lazyPreload(() => import('../pages/management/VersionPage')),
     i18nKey: 'changelog',
@@ -138,6 +144,12 @@ export const privateRoutes = [
       },
     ],
   },
+  // {
+  //   path: '/air-compressor',
+  //   title: '空壓設備',
+  //   element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
+  //   i18nKey: 'airCompressor',
+  // },
   {
     path: '/management',
     element: lazyPreload(() => import('../pages/management/ManagementPage')),

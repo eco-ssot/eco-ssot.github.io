@@ -11,5 +11,6 @@
   "electricityBaseline": "Analysis",
   "login": "Login",
   "unauthorized": "401 Unauthorized",
-  "notFound": "404 Page Not Found"
+  "notFound": "404 Page Not Found",
+  "airCompressor": "Air Compressor"
 }

@@ -4,7 +4,8 @@
     "dataStatus": "Data Update Status",
     "pic": "Data Maintain PIC",
     "csrAndFemStatus": "FEM & CSR Status",
-    "changelog": "Changelog"
+    "changelog": "Changelog",
+    "permission": "Permission"
   },
   "yearGoal": {
     "title": "Annual Target",

@@ -30,7 +30,10 @@ export const keycloakAdminApi = createApi({
     getUsers: builder.query({
       query: (query) => ({ query: { max: 10, ...query }, url: 'users' }),
     }),
+    getUsersByRole: builder.query({
+      query: ({ roleName } = {}) => ({ url: `roles/${roleName}/users` }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = keycloakAdminApi;
+export const { useGetUsersQuery, useGetUsersByRoleQuery } = keycloakAdminApi;

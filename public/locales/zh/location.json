@@ -11,5 +11,6 @@
   "electricityBaseline": "用電分析",
   "login": "登入",
   "unauthorized": "401 未經授權",
-  "notFound": "404 找不到網頁"
+  "notFound": "404 找不到網頁",
+  "airCompressor": "空壓設備"
 }
