@@ -11,4 +11,15 @@ export const darkTheme = {
       color: colors.gray['50'],
     },
   },
+  label: {
+    color: colors.gray['50'],
+  },
+  legend: {
+    textStyle: {
+      color: colors.gray['50'],
+    },
+  },
+  axisLabel: {
+    color: colors.gray['50'],
+  },
 };

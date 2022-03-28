@@ -1,3 +1,4 @@
+import AirCompressorSkeleton from '../components/skeleton/AirCompressorSkeleton';
 import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
 import GoalSkeleton from '../components/skeleton/GoalSkeleton';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
@@ -144,12 +145,13 @@ export const privateRoutes = [
       },
     ],
   },
-  // {
-  //   path: '/air-compressor',
-  //   title: '空壓設備',
-  //   element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
-  //   i18nKey: 'airCompressor',
-  // },
+  {
+    path: '/air-compressor',
+    title: '空壓設備',
+    element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
+    skeleton: AirCompressorSkeleton,
+    i18nKey: 'airCompressor',
+  },
   {
     path: '/management',
     element: lazyPreload(() => import('../pages/management/ManagementPage')),
