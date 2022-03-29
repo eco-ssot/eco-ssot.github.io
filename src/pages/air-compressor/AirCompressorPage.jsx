@@ -100,7 +100,7 @@ const DUMMY_OLD_MACHINE_DATA = [
 ];
 
 const DUMMY_NEW_MACHING_DATA = [
-  { rank: '1', oil_type: '-', compress_type: '-', power: '-', flow: '-', predict_eer: '-', cost: '-' },
+  { reank: '1', oil_type: '-', compress_type: '-', power: '-', flow: '-', predict_eer: '-', cost: '-' },
 ];
 
 const OPTION = ({ data, name, target }) => {
