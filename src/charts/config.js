@@ -10,6 +10,8 @@ export const darkTheme = {
     textStyle: {
       color: colors.gray['50'],
     },
+    backgroundColor: colors.gray['900'],
+    borderColor: colors.divider,
   },
   label: {
     color: colors.gray['50'],

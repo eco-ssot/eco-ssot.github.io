@@ -13,7 +13,7 @@ export default function Ellipsis({ label, className, placement = 'auto' }) {
   }, [width]);
 
   return (
-    <Tippy content={label} placement={placement} className={clsx(className, !isTruncated && '!invisible')}>
+    <Tippy content={label} placement={placement} className={clsx(!isTruncated && '!invisible')}>
       <span ref={containerRef} className="block truncate">
         <span ref={ref} className={clsx('block truncate', className)}>
           {label}

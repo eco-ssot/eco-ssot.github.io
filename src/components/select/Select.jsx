@@ -13,7 +13,7 @@ export default function Select({
   label,
   options = [],
   selected = options[0] || {},
-  placeholder = '',
+  placeholder = 'Select',
   splitter = ':',
   ariaLabel = '',
   onChange = () => {},
@@ -87,7 +87,7 @@ export default function Select({
                 ))}
                 {options.length === 0 && (
                   <Listbox.Option disabled className="text-gray-50 cursor-default select-none relative py-2 pl-3 pr-9">
-                    <span className="block truncate opacity-50">No Options</span>
+                    <Ellipse label="No Options" className="opacity-50"></Ellipse>
                   </Listbox.Option>
                 )}
               </Listbox.Options>

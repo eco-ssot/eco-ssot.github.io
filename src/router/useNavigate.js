@@ -8,7 +8,7 @@ import APP_CONSTANTS from '../app/appConstants';
 export default function useNavigate() {
   const _navigate = _useNavigate();
   const navigate = useCallback(
-    ({ hash = window.location.hash.slice(1), ...query } = {}, { merge = true } = {}) => {
+    ({ hash = window.location.hash.slice(1), ...query } = {}, { merge = true, skipNull = true } = {}) => {
       const search = qs.stringify(
         {
           ...(merge
@@ -16,7 +16,7 @@ export default function useNavigate() {
             : qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS))),
           ...query,
         },
-        { skipNull: true }
+        { skipNull }
       );
 
       _navigate({ search, hash });
