@@ -12,8 +12,14 @@ export default function Location() {
   const { pathname, search, hash } = useLocation();
   const { keycloak } = useKeycloak();
   const dispatch = useDispatch();
-  useEffect(() => dispatch(setQueryParams(search)), [search, dispatch]);
-  useEffect(() => dispatch(setHash(hash)), [hash, dispatch]);
+  useEffect(() => {
+    dispatch(setQueryParams(search));
+  }, [search, dispatch]);
+
+  useEffect(() => {
+    dispatch(setHash(hash));
+  }, [hash, dispatch]);
+
   useEffect(() => {
     if (process.env.REACT_APP_STAGE === 'production') {
       const { given_name = '', preferred_username = '', email = '' } = keycloak?.idTokenParsed || {};

@@ -770,7 +770,10 @@ export function PowerSavingPanel({ year, plant }) {
     [electricityOptions, year, plant, users, canEdit]
   );
 
-  useEffect(() => data && setData(data.data), [data]);
+  useEffect(() => {
+    data && setData(data.data);
+  }, [data]);
+
   if (isNil(_data)) {
     return null;
   }

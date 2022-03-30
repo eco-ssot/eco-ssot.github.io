@@ -264,7 +264,10 @@ export default function AirCompressorPage() {
     [data?.recommand, machineIndex.old, machineIndex.new]
   );
 
-  useEffect(() => data && setMachineIndex({ old: 0, new: 0 }), [data]);
+  useEffect(() => {
+    data && setMachineIndex({ old: 0, new: 0 });
+  }, [data]);
+
   const navigate = useNavigate();
   return (
     <div className="flex flex-col space-y-4 p-4 pt-20 -mt-16 h-screen w-screen overflow-hidden">

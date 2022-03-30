@@ -147,10 +147,9 @@ export default function CsrPage() {
     }
   }, [data, isWater]);
 
-  useEffect(
-    () => setSearchOption({ year: year || currYear, month: month || currMonth }),
-    [year, month, currYear, currMonth]
-  );
+  useEffect(() => {
+    setSearchOption({ year: year || currYear, month: month || currMonth });
+  }, [year, month, currYear, currMonth]);
 
   return (
     <div className="row-span-2 col-span-7">

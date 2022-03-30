@@ -140,7 +140,10 @@ export default function YearGoal({ className, year, data, canEdit }) {
     [t, patchGoal, lng, year, canEdit]
   );
 
-  useEffect(() => data && setData(data), [data]);
+  useEffect(() => {
+    data && setData(data);
+  }, [data]);
+
   return (
     <>
       <ErrorModal open={open} setOpen={setOpen} />

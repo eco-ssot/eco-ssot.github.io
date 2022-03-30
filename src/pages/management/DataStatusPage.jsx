@@ -150,10 +150,9 @@ export default function DataStatusPage() {
 
   const [uploadExcel, { isSuccess }] = useUploadEnergyExcelMutation();
   const navigate = useNavigate();
-  useEffect(
-    () => setSearchOption({ year: year || currYear, month: month || currMonth }),
-    [year, month, currYear, currMonth]
-  );
+  useEffect(() => {
+    setSearchOption({ year: year || currYear, month: month || currMonth });
+  }, [year, month, currYear, currMonth]);
 
   return (
     <>

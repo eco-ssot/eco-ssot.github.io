@@ -137,7 +137,10 @@ export default function PicPage() {
   const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
   const { canEdit } = useAdmin();
   const columns = COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
-  useEffect(() => data && setData(data), [data]);
+  useEffect(() => {
+    data && setData(data);
+  }, [data]);
+
   return (
     <div className="row-span-2 col-span-7">
       <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-6">

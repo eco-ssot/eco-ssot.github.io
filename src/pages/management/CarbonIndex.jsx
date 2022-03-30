@@ -66,7 +66,10 @@ export default function CarbonIndex({ className, year, data, canEdit }) {
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);
   const columns = COLUMNS({ t, setData, patchCarbonIndex, year, canEdit });
-  useEffect(() => data && setData(data), [data]);
+  useEffect(() => {
+    data && setData(data);
+  }, [data]);
+
   return (
     <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
       <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />

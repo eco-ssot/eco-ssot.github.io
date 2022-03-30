@@ -13,7 +13,10 @@ export default function UploadModal({ title, open, setOpen, uploadExcel, isSucce
   const { t } = useTranslation(['component']);
   const [name, setName] = useState('');
   const fileRef = useRef();
-  useEffect(() => !open && setName(''), [open]);
+  useEffect(() => {
+    !open && setName('');
+  }, [open]);
+
   useEffect(() => {
     if (!!isSuccess) {
       toast.success(t('component:toast.uploadSuccess'));
