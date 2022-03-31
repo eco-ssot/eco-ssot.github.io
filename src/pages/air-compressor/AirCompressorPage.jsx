@@ -103,7 +103,7 @@ const DUMMY_NEW_MACHING_DATA = [
   { reank: '1', oil_type: '-', compress_type: '-', power: '-', flow: '-', predict_eer: '-', cost: '-' },
 ];
 
-const OPTION = ({ data, name, target }) => {
+const OPTION = ({ data, name, targets }) => {
   const labels =
     data?.map(({ date }) => date) ||
     Array.from({ length: 7 }, (_, i) => format(subDays(new Date(), 7 - i), 'yyyy-MM-dd HH:mm:ss'));
@@ -130,7 +130,7 @@ const OPTION = ({ data, name, target }) => {
       type: 'value',
       axisLine: { show: true, lineStyle: { color: colors.gray['500'] } },
       splitLine: { show: false },
-      ...(target && { max: (value) => Math.max(Math.ceil(value.max), Math.ceil(target)) }),
+      ...(targets && { max: (value) => Math.max(Math.ceil(value.max), ...targets.map((target) => Math.ceil(target))) }),
     },
     series: [
       {
@@ -139,17 +139,18 @@ const OPTION = ({ data, name, target }) => {
         data: values,
         symbol: 'none',
         color: colors.primary['600'],
-        ...(target && {
-          markLine: {
-            data: [{ yAxis: target }],
-            symbol: 'none',
-            lineStyle: { color: colors._orange },
-            label: { show: false },
-          },
+        ...(targets && {
+          markLine: targets.reduce(
+            (prev, curr) => ({
+              ...prev,
+              data: prev.data.concat({ yAxis: curr }),
+            }),
+            { symbol: 'none', lineStyle: { color: colors._orange }, label: { show: false }, data: [] }
+          ),
         }),
       },
     ],
-    grid: { bottom: 0, top: 48, left: 12, right: 12, containLabel: true },
+    grid: { bottom: 0, top: 48, left: 12, right: 24, containLabel: true },
   };
 };
 
@@ -245,16 +246,12 @@ export default function AirCompressorPage() {
     [listByBuilding?.operation_type]
   );
 
-  const machineOption = useMemo(
-    () => OPTION({ data: data?.weekly?.eer, name: 'EER', target: data?.summary?.eer }),
-    [data?.weekly?.eer, data?.summary?.eer]
+  const eerOption = useMemo(
+    () => OPTION({ data: data?.weekly?.eer, name: 'EER', targets: [7.8, 8.7, 9.5] }),
+    [data?.weekly?.eer]
   );
 
-  const roiOption = useMemo(
-    () => OPTION({ data: data?.weekly?.roi, name: 'ROI', target: data?.summary?.predict_roi }),
-    [data?.weekly?.roi, data?.summary?.predict_roi]
-  );
-
+  const roiOption = useMemo(() => OPTION({ data: data?.weekly?.roi, name: 'ROI', targets: [3] }), [data?.weekly?.roi]);
   const costOption = useMemo(
     () =>
       COST_OPTION({
@@ -357,7 +354,7 @@ export default function AirCompressorPage() {
           </div>
           <div className="w-[30%] flex flex-col">
             <div>設備能效近一週狀況</div>
-            <Chart option={machineOption} className="flex-grow" />
+            <Chart option={eerOption} className="flex-grow" />
           </div>
           <div className="w-[30%] flex flex-col">
             <div>設備ROI近一週狀況</div>
