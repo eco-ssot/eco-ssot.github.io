@@ -103,7 +103,7 @@ const DUMMY_NEW_MACHING_DATA = [
   { reank: '1', oil_type: '-', compress_type: '-', power: '-', flow: '-', predict_eer: '-', cost: '-' },
 ];
 
-const OPTION = ({ data, name, targets }) => {
+const OPTION = ({ data, name, targets, targetColors }) => {
   const labels =
     data?.map(({ date }) => date) ||
     Array.from({ length: 7 }, (_, i) => format(subDays(new Date(), 7 - i), 'yyyy-MM-dd HH:mm:ss'));
@@ -131,6 +131,7 @@ const OPTION = ({ data, name, targets }) => {
       axisLine: { show: true, lineStyle: { color: colors.gray['500'] } },
       splitLine: { show: false },
       ...(targets && { max: (value) => Math.max(Math.ceil(value.max), ...targets.map((target) => Math.ceil(target))) }),
+      ...(!data && { min: 0, max: 10 }),
     },
     series: [
       {
@@ -141,16 +142,16 @@ const OPTION = ({ data, name, targets }) => {
         color: colors.primary['600'],
         ...(targets && {
           markLine: targets.reduce(
-            (prev, curr) => ({
+            (prev, curr, i) => ({
               ...prev,
-              data: prev.data.concat({ yAxis: curr }),
+              data: prev.data.concat({ yAxis: curr, lineStyle: { color: targetColors[i] } }),
             }),
-            { symbol: 'none', lineStyle: { color: colors._orange }, label: { show: false }, data: [] }
+            { symbol: 'none', label: { show: true }, data: [] }
           ),
         }),
       },
     ],
-    grid: { bottom: 0, top: 48, left: 12, right: 24, containLabel: true },
+    grid: { bottom: 0, top: 48, left: 12, right: 36, containLabel: true },
   };
 };
 
@@ -209,7 +210,7 @@ export default function AirCompressorPage() {
     'machine',
     'oil_type',
     'compress_type',
-    'operation_type',
+    'run_type',
   ]);
 
   const [searchOption, setSearchOption] = useState(query);
@@ -241,17 +242,27 @@ export default function AirCompressorPage() {
     [listByBuilding?.compress_type]
   );
 
-  const operationOptions = useMemo(
-    () => listByBuilding?.operation_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.operation_type]
+  const runOptions = useMemo(
+    () => listByBuilding?.run_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
+    [listByBuilding?.run_type]
   );
 
   const eerOption = useMemo(
-    () => OPTION({ data: data?.weekly?.eer, name: 'EER', targets: [7.8, 8.7, 9.5] }),
+    () =>
+      OPTION({
+        data: data?.weekly?.eer,
+        name: 'EER',
+        targets: [7.8, 8.7, 9.5],
+        targetColors: [colors._yellow, colors._orange, colors._blue],
+      }),
     [data?.weekly?.eer]
   );
 
-  const roiOption = useMemo(() => OPTION({ data: data?.weekly?.roi, name: 'ROI', targets: [3] }), [data?.weekly?.roi]);
+  const roiOption = useMemo(
+    () => OPTION({ data: data?.weekly?.roi, name: 'ROI', targets: [3], targetColors: [colors._orange] }),
+    [data?.weekly?.roi]
+  );
+
   const costOption = useMemo(
     () =>
       COST_OPTION({
@@ -286,7 +297,7 @@ export default function AirCompressorPage() {
                     machine: null,
                     oil_type: null,
                     compress_type: null,
-                    operation_type: null,
+                    run_type: null,
                   }))
                 }
               />
@@ -319,9 +330,9 @@ export default function AirCompressorPage() {
               <Select
                 buttonClassName="min-w-32"
                 label="運轉類型"
-                options={operationOptions}
-                selected={operationOptions?.find((opt) => opt.key === searchOption.operation_type)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, operation_type: e.key }))}
+                options={runOptions}
+                selected={runOptions?.find((opt) => opt.key === searchOption.run_type)}
+                onChange={(e) => setSearchOption((prev) => ({ ...prev, run_type: e.key }))}
               />
             </div>
           </div>
@@ -335,7 +346,7 @@ export default function AirCompressorPage() {
                   ...(!searchOption.machine && { machine: machineOptions?.[0]?.key || null }),
                   ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
                   ...(!searchOption.compress_type && { compress_type: compressOptions?.[0]?.key || null }),
-                  ...(!searchOption.operation_type && { operation_type: operationOptions?.[0]?.key || null }),
+                  ...(!searchOption.run_type && { run_type: runOptions?.[0]?.key || null }),
                 },
                 { skipNull: false }
               )
@@ -353,7 +364,14 @@ export default function AirCompressorPage() {
             </div>
           </div>
           <div className="w-[30%] flex flex-col">
-            <div>設備能效近一週狀況</div>
+            <div className="flex justify-between">
+              <div>設備能效近一週狀況</div>
+              <div className="flex space-x-4 translate-y-8 -translate-x-12">
+                <Legend label="一級能效值" dotClassName="bg-_blue" />
+                <Legend label="二級能效值" dotClassName="bg-_orange" />
+                <Legend label="三級能效值" dotClassName="bg-_yellow" />
+              </div>
+            </div>
             <Chart option={eerOption} className="flex-grow" />
           </div>
           <div className="w-[30%] flex flex-col">
