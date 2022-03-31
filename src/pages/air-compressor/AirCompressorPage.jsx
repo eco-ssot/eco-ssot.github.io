@@ -172,7 +172,7 @@ const COST_OPTION = ({ oldCost, newCost }) => {
                 {dataset[0]?.name} (年)
               </div>
               <div className="flex px-4 items-center space-x-2 py-1 pt-2">
-                <div className="block rounded-full w-4 h-4 bg-_blue"></div>
+                <div className="block rounded-full w-3 h-3 bg-_blue"></div>
                 <div>備機設備 :</div>
                 <div>
                   {baseFormatter(dataset.find((d) => d.seriesName === oldCost.name)?.value, {
@@ -182,7 +182,7 @@ const COST_OPTION = ({ oldCost, newCost }) => {
                 </div>
               </div>
               <div className="flex px-4 items-center space-x-2 py-1">
-                <div className="block rounded-full w-4 h-4 bg-_yellow"></div>
+                <div className="block rounded-full w-3 h-3 bg-_yellow"></div>
                 <div>新設備 :</div>
                 <div className="flex items-baseline">
                   {baseFormatter(dataset.find((d) => d.seriesName === newCost.name)?.value, {
