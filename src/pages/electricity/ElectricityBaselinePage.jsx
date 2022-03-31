@@ -12,6 +12,7 @@ import { useDeepCompareEffect } from 'react-use';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Chart from '../../charts/Chart';
+import { tooltip } from '../../charts/tooltip';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
@@ -421,33 +422,7 @@ const LINE_OPTION = ({ t, dataset, lineColors, type, typeName, compareName, actu
       containLabel: true,
     },
     tooltip: {
-      trigger: 'axis',
-      formatter: LineTooltipFormatter({ t, type, typeName, compareName, actualName, year }),
-      backgroundColor: 'transparent',
-      padding: 0,
-      borderWidth: 0,
-      axisPointer: {
-        type: 'shadow',
-        shadowStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: '#FAFAFA3F',
-              },
-              {
-                offset: 1,
-                color: '#FAFAFA00',
-              },
-            ],
-          },
-        },
-      },
+      ...tooltip({ formatter: LineTooltipFormatter({ t, type, typeName, compareName, actualName, year }) }),
     },
   };
 };

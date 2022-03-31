@@ -3,9 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { format, subDays } from 'date-fns';
 import { isEmpty, pick } from 'lodash';
+import { renderToString } from 'react-dom/server';
 import { useSearchParams } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
+import { tooltip } from '../../charts/tooltip';
 import Button from '../../components/button/Button';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
@@ -156,11 +158,44 @@ const OPTION = ({ data, name, targets, targetColors }) => {
 };
 
 const COST_OPTION = ({ oldCost, newCost }) => {
-  const labels = oldCost?.slice(0, 6)?.map(({ year }) => year) || Array.from({ length: 6 }, (_, i) => i + 1);
-  const oldValues = oldCost?.slice(0, 6)?.map(({ cost }) => ({ value: cost }));
-  const newValues = newCost?.slice(0, 6)?.map(({ cost }) => ({ value: cost }));
-  const target = newCost?.slice(-1)?.[0].year;
+  const labels = oldCost?.data?.slice(0, 6)?.map(({ year }) => year) || Array.from({ length: 6 }, (_, i) => i + 1);
+  const oldValues = oldCost?.data?.slice(0, 6)?.map(({ cost }) => ({ value: cost }));
+  const newValues = newCost?.data?.slice(0, 6)?.map(({ cost }) => ({ value: cost }));
+  const target = newCost?.data?.slice(-1)?.[0].year;
   return {
+    tooltip: {
+      ...tooltip({
+        formatter: (dataset) => {
+          return renderToString(
+            <div className="flex flex-col bg-gray-900 rounded shadow py-2 bg-opacity-75">
+              <div className="flex justify-between items-baseline px-4 border-b pb-2 border-divider space-x-4">
+                {dataset[0]?.name} (年)
+              </div>
+              <div className="flex px-4 items-center space-x-2 py-1 pt-2">
+                <div className="block rounded-full w-4 h-4 bg-_blue"></div>
+                <div>備機設備 :</div>
+                <div>
+                  {baseFormatter(dataset.find((d) => d.seriesName === oldCost.name)?.value, {
+                    unit: 1e4,
+                    suffix: ' (萬元)',
+                  })}
+                </div>
+              </div>
+              <div className="flex px-4 items-center space-x-2 py-1">
+                <div className="block rounded-full w-4 h-4 bg-_yellow"></div>
+                <div>新設備 :</div>
+                <div className="flex items-baseline">
+                  {baseFormatter(dataset.find((d) => d.seriesName === newCost.name)?.value, {
+                    unit: 1e4,
+                    suffix: ' (萬元)',
+                  })}
+                </div>
+              </div>
+            </div>
+          );
+        },
+      }),
+    },
     xAxis: {
       name: '(年)',
       nameTextStyle: { color: colors.gray['50'] },
@@ -179,12 +214,14 @@ const COST_OPTION = ({ oldCost, newCost }) => {
     },
     series: [
       {
+        name: oldCost.name,
         type: 'line',
         data: oldValues,
         symbol: 'none',
         color: colors._blue,
       },
       {
+        name: newCost.name,
         type: 'line',
         data: newValues,
         symbol: 'none',
@@ -266,8 +303,8 @@ export default function AirCompressorPage() {
   const costOption = useMemo(
     () =>
       COST_OPTION({
-        oldCost: data?.recommand?.old?.[machineIndex.old]?.predict_cost,
-        newCost: data?.recommand?.new?.[machineIndex.new]?.predict_cost,
+        oldCost: { data: data?.recommand?.old?.[machineIndex.old]?.predict_cost, name: '備機設備' },
+        newCost: { data: data?.recommand?.new?.[machineIndex.new]?.predict_cost, name: '新設備' },
       }),
     [data?.recommand, machineIndex.old, machineIndex.new]
   );
