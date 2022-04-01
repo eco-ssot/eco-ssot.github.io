@@ -75,7 +75,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
 
   return (
     <div className={clsx('grid h-full w-full divide-x divide-divider grid-cols-6', className)}>
-      {nextData.map(({ title, unit, value, name, subData = [], renderer = ratioFormatter }, i) => {
+      {nextData.map(({ title, unit, value, name, subData = [], renderer = ratioFormatter }) => {
         const trend = getTrend(value, name);
         return (
           <div key={title} className="h-full px-4 flex flex-col justify-between">
@@ -88,7 +88,7 @@ export default function Overview({ className, compareYear, currentYear, data = {
               <div className={`text-4xl font-bold ${trend.color}`}>{renderer(trend.value)}</div>
             </div>
             <div className="space-y-2 py-2">
-              {subData.map(({ key, value: _value, renderer: _renderer = baseFormatter }, i) => {
+              {subData.map(({ key, value: _value, renderer: _renderer = baseFormatter }) => {
                 return (
                   <div className="flex justify-between w-full items-center px-4" key={nanoid()}>
                     <div className="text-unit">{key}</div>
