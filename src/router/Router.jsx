@@ -1,6 +1,5 @@
 import { Fragment, Suspense } from 'react';
 
-import { nanoid } from 'nanoid';
 import { Route, Routes, BrowserRouter, Outlet } from 'react-router-dom';
 
 import Layout from '../components/layout/Layout';
@@ -9,16 +8,12 @@ import PageContainer from '../components/page-container/PageContainer';
 import RequireAuth from './RequireAuth';
 import { publicRoutes, privateRoutes } from './routes';
 
-export function toRoute({
-  index,
-  indexPath,
-  path,
-  routes,
-  element: Element = Outlet,
-  skeleton: Skeleton = PageContainer,
-}) {
+export function toRoute(
+  { index, indexPath, path, routes, element: Element = Outlet, skeleton: Skeleton = PageContainer },
+  i
+) {
   return (
-    <Fragment key={nanoid()}>
+    <Fragment key={i}>
       {index && (
         <Route
           index
@@ -51,10 +46,10 @@ export default function Router({ children }) {
       {children}
       <Routes>
         <Route path="/" element={<Layout />}>
-          {publicRoutes.map(({ path, element: Element }) => (
+          {publicRoutes.map(({ path, element: Element }, i) => (
             <Route
               exact
-              key={nanoid()}
+              key={i}
               path={path}
               element={
                 <Suspense fallback={<></>}>
