@@ -124,7 +124,7 @@ const OPTION = ({ data, name, targets, targetColors }) => {
       data: labels,
       axisTick: { show: false },
       axisLine: { lineStyle: { color: colors.gray['500'], lineHeight: 16 } },
-      axisLabel: { formatter: (value) => format(new Date(value), 'MM/dd') },
+      axisLabel: { formatter: (value) => format(new Date(value), 'M/d') },
     },
     yAxis: {
       name,
