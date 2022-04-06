@@ -7,7 +7,7 @@ import { getTrend } from '../../utils/trend';
 
 export default function Overview({ className, compareYear, currentYear, data = {} }) {
   const { t } = useTranslation(['homePage', 'common']);
-  const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste, totalPowerSaving } = data;
+  const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste } = data;
   const nextData = [
     {
       name: '營業額',
@@ -59,21 +59,21 @@ export default function Overview({ className, compareYear, currentYear, data = {
         { key: currentYear, value: waste?.currentYear },
       ],
     },
-    {
-      name: '總節電量',
-      title: t('electricitySaving'),
-      unit: `(${t('common:mwh')})`,
-      value: totalPowerSaving?.amount,
-      subData: [
-        { key: t('digitization'), value: totalPowerSaving?.digital },
-        { key: t('technologyImprovementAndManagement'), value: totalPowerSaving?.manage },
-      ],
-      renderer: baseFormatter,
-    },
+    // {
+    //   name: '總節電量',
+    //   title: t('electricitySaving'),
+    //   unit: `(${t('common:mwh')})`,
+    //   value: totalPowerSaving?.amount,
+    //   subData: [
+    //     { key: t('digitization'), value: totalPowerSaving?.digital },
+    //     { key: t('technologyImprovementAndManagement'), value: totalPowerSaving?.manage },
+    //   ],
+    //   renderer: baseFormatter,
+    // },
   ];
 
   return (
-    <div className={clsx('grid h-full w-full divide-x divide-divider grid-cols-6', className)}>
+    <div className={clsx('grid h-full w-full divide-x divide-divider grid-cols-5', className)}>
       {nextData.map(({ title, unit, value, name, subData = [], renderer = ratioFormatter }) => {
         const trend = getTrend(value, name);
         return (
