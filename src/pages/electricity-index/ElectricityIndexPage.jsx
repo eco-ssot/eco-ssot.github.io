@@ -1,5 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
+import { Switch } from '@headlessui/react';
+import clsx from 'clsx';
 import { sum } from 'lodash';
 
 import Chart from '../../charts/Chart';
@@ -170,6 +172,29 @@ const ACC_OPTION = (data) => {
   };
 };
 
+export function Toggle({ on = true }) {
+  const [enabled, setEnabled] = useState(on);
+  return (
+    <Switch
+      checked={enabled}
+      onChange={setEnabled}
+      className={clsx(
+        'bg-primary-800 relative inline-flex flex-shrink-0 h-7 w-24 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600 focus:ring-offset-primary-900 items-center'
+      )}>
+      <span
+        aria-hidden="true"
+        className={clsx(
+          enabled ? 'translate-x-11' : 'translate-x-0',
+          'pointer-events-none inline-block h-6 w-12 rounded-full bg-primary-600 text-gray-50 shadow transform ring-0 transition ease-in-out duration-200 z-10'
+        )}>
+        {enabled ? 'On' : 'Off'}
+      </span>
+      <span className="absolute left-2 text-primary-600">Off</span>
+      <span className="absolute right-2 text-primary-600">On</span>
+    </Switch>
+  );
+}
+
 export default function ElectricityIndexPage({ className }) {
   const overviewOption = useMemo(() => OVERVIEW_OPTION(OVERVIEW_DATA), []);
   const accOption = useMemo(() => ACC_OPTION(ACC_DATA), []);
@@ -192,13 +217,23 @@ export default function ElectricityIndexPage({ className }) {
             <Chart className="w-full h-full" option={overviewOption} />
           </div>
         </div>
-        <div className="col-start-2 col-span-1 row-span-2 p-4 rounded shadow bg-primary-900 flex flex-col">
+        <div className="col-start-2 col-span-1 row-span-2 p-4 rounded shadow bg-primary-900 flex flex-col space-y-2">
           <div className="flex justify-between">
             <div className="text-xl font-medium">用電指標關係圖</div>
             <div className="flex justify-end space-x-4">
               <Legend dotClassName="bg-_blue" label="2021年" />
               <Legend dotClassName="bg-primary-500" label="2022年" />
               <Legend dotClassName="bg-_yellow" label="各月基線數值" />
+            </div>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="flex space-x-4 items-center">
+              <div className="text-gray-200">顯示去年資訊</div>
+              <Toggle />
+            </div>
+            <div className="flex justify-end space-x-4 items-center">
+              <Legend dotClassName="bg-_orange" label="單台用電強度基準線" />
+              <Legend dotClassName="bg-dangerous-700" label="用電強度基準線 (百萬度/十億營業額)" />
             </div>
           </div>
         </div>
