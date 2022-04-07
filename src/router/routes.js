@@ -18,6 +18,11 @@ export const publicRoutes = [
     i18nKey: 'unauthorized',
   },
   {
+    path: '/electricity-index',
+    element: lazyPreload(() => import('../pages/electricity-index/ElectricityIndexPage')),
+    i18nKey: '',
+  },
+  {
     path: '*',
     element: lazyPreload(() => import('../pages/not-found/NotFoundPage')),
     i18nKey: 'notFound',
