@@ -24,6 +24,7 @@ import { useGetSummaryQuery } from '../../services/summary';
 import Carbon from './Carbon';
 import Electricity from './Electricity';
 import Overview from './Overview';
+import OverviewNewMargin from './OverviewNewMargin';
 import RenewableEnergy from './RenewableEnergy';
 import UnitElectricity from './UnitElectricity';
 import Waste from './Waste';
@@ -56,6 +57,7 @@ export default function HomePage() {
     [yearOptions, y]
   );
 
+  const isNewMargin = useMemo(() => business === 'Others', [business]);
   const navigate = useNavigate();
   const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, missing } = data;
   return (
@@ -81,7 +83,11 @@ export default function HomePage() {
             </div>
           </>
         }>
-        <Overview data={data} compareYear={compareYear || cyOptions[0].key} currentYear={y || yearOptions[0].key} />
+        {isNewMargin ? (
+          <OverviewNewMargin data={data} />
+        ) : (
+          <Overview data={data} compareYear={compareYear || cyOptions[0].key} currentYear={y || yearOptions[0].key} />
+        )}
       </Panel>
       <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
@@ -106,6 +112,7 @@ export default function HomePage() {
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={CO2Emission?.latestDate || latestDate}
+          isNewMargin={isNewMargin}
         />
       </Panel>
       <Panel className="row-span-1 col-span-3 pb-1" title={t('renewableEnergyRatio')} to="/renewable-energy">
@@ -118,6 +125,7 @@ export default function HomePage() {
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={electricPowerUtilization?.latestDate || latestDate}
+          isNewMargin={isNewMargin}
         />
       </Panel>
       <Panel className="row-span-1 col-span-3 pb-2" title={t('waterIntensity')} to="/water">
@@ -127,6 +135,7 @@ export default function HomePage() {
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={waterUse?.latestDate || latestDate}
+          isNewMargin={isNewMargin}
         />
       </Panel>
       <Panel className="row-span-1 col-span-3 pb-2" title={t('unitElectricity')} to="/unit-electricity">
@@ -136,6 +145,7 @@ export default function HomePage() {
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={CO2Emission?.latestDate || latestDate}
+          isNewMargin={isNewMargin}
         />
       </Panel>
       <Panel className="row-span-1 col-span-3 pb-2" title={t('wasteEmissionDensity')} to="/waste">
@@ -145,6 +155,7 @@ export default function HomePage() {
           compareYear={compareYear || cyOptions[0].key}
           currentYear={y || yearOptions[0].key}
           latestDate={waste?.latestDate || latestDate}
+          isNewMargin={isNewMargin}
         />
       </Panel>
     </div>

@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -9,9 +11,7 @@ import { baseFormatter } from '../../utils/formatter';
 
 import { formatTarget, formatYtm } from './helpers';
 
-const COLORS = [colors._yellow, colors.primary['600'], colors.primary['500']];
-
-const OPTION = (values, labels, target) => ({
+const OPTION = (values, labels, target, barColors) => ({
   xAxis: {
     type: 'category',
     data: labels,
@@ -37,7 +37,7 @@ const OPTION = (values, labels, target) => ({
     {
       data: values.map((value, i) => ({
         value,
-        itemStyle: { color: COLORS[i], borderRadius: [4, 4, 0, 0] },
+        itemStyle: { color: barColors[i], borderRadius: [4, 4, 0, 0] },
       })),
       type: 'bar',
       barWidth: 32,
@@ -60,22 +60,37 @@ const OPTION = (values, labels, target) => ({
   grid: { top: 24, bottom: 48, left: 16, right: 60, containerLabel: true },
 });
 
-export default function UnitElectricity({ baseYear, compareYear, currentYear, latestDate, data = {} }) {
+export default function UnitElectricity({ baseYear, compareYear, currentYear, latestDate, isNewMargin, data = {} }) {
   const { t } = useTranslation(['common']);
   const lng = useSelector(selectLanguage);
-  const labels = [
-    `${baseYear} Total`,
-    `${compareYear} ${formatYtm(latestDate)}`,
-    `${currentYear} ${formatYtm(latestDate)}`,
-  ];
+  const labels = useMemo(
+    () => [
+      ...(isNewMargin ? [] : [`${baseYear} Total`, `${compareYear} ${formatYtm(latestDate)}`]),
+      `${currentYear} ${formatYtm(latestDate)}`,
+    ],
+    [isNewMargin, baseYear, compareYear, currentYear, latestDate]
+  );
 
-  const values = [data.compareYear, data.compareYTM, data.currentYTM];
-  const option = OPTION(values, labels, data.targetAmount);
+  const values = useMemo(
+    () => [...(isNewMargin ? [] : [data.compareYear, data.compareYTM]), data.currentYTM],
+    [isNewMargin, data.compareYear, data.compareYTM, data.currentYTM]
+  );
+
+  const barColors = useMemo(
+    () => [...(isNewMargin ? [] : [colors._yellow, colors.primary['600']]), colors.primary['500']],
+    [isNewMargin]
+  );
+
+  const option = useMemo(
+    () => OPTION(values, labels, data.targetAmount, barColors),
+    [values, labels, data.targetAmount, barColors]
+  );
+
   return (
     <div className="flex w-full h-full items-center justify-around">
       <Chart className="w-3/5 h-full" option={option} />
       <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
-        <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />
+        {!isNewMargin && <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />}
         <Legend dotClassName="bg-_orange" label={`${t('common:target')} : ${formatTarget(data.target, lng)}`} />
         <div>{`${t('common:unit')} : ${t('common:kwh')} / ${t('common:dai')}`}</div>
       </div>

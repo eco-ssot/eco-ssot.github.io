@@ -11,12 +11,14 @@ const BUSINESS_OPTIONS = [
   { key: 'ALL', value: 'ALL', alias: 'ALL' },
   { key: 'WT', value: 'WT', alias: 'WT' },
   { key: 'WSD', value: 'WSD', alias: 'WSD' },
+  { key: 'Others', value: '新邊界', alias: '新邊界' },
 ];
 
 const BUSINESS_MAPPING = {
   ALL: 'ALL',
   WT: 'WT',
   WSD: 'WSD',
+  Others: '新邊界',
 };
 
 const HISTORY_OPTIONS = [
