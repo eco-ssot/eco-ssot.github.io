@@ -247,7 +247,7 @@ const SCATTER_OPTION = (data) => {
   return {
     xAxis: {
       type: 'value',
-      name: 'ASP (千元)',
+      name: 'ASP\n(千元)',
       nameTextStyle: { color: colors.gray['50'] },
       splitLine: { show: false },
       axisTick: { show: false },
@@ -295,7 +295,7 @@ const SCATTER_OPTION = (data) => {
         },
       },
     ],
-    grid: { left: 48, right: 96, bottom: 48, containLabel: false },
+    grid: { left: 48, right: 64, bottom: 48, containLabel: false },
   };
 };
 
@@ -305,7 +305,7 @@ const SCATTER_AREA_OPTION = (data) => {
   return {
     xAxis: {
       type: 'value',
-      name: 'ASP (千元)',
+      name: 'ASP\n(千元)',
       nameTextStyle: { color: colors.gray['50'] },
       splitLine: { show: false },
       axisTick: { show: false },
@@ -375,7 +375,7 @@ const SCATTER_AREA_OPTION = (data) => {
         symbol: 'none',
       },
     ],
-    grid: { left: 48, right: 96, bottom: 48, containLabel: false },
+    grid: { left: 48, right: 64, bottom: 48, containLabel: false },
   };
 };
 
