@@ -6,7 +6,12 @@ import { sum } from 'lodash';
 
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
+import Select from '../../components/select/Select';
+import Table from '../../components/table/Table';
 import { colors } from '../../styles';
+
+const TARGET = 3.5;
+const SLOPE = 2.571;
 
 const OVERVIEW_DATA = [
   { month: 1, prev: 10000, curr: 5000, target: 3000 },
@@ -55,6 +60,33 @@ const ACC_DATA = [
   { day: 29, value: NaN, target: null },
   { day: 30, value: NaN, target: null },
   { day: 31, value: NaN, target: null },
+];
+
+const SCATTER_DATA = [
+  { date: '2021-01-01', value: [10.0, 8.04] },
+  { date: '2021-02-01', value: [8.0, 6.95] },
+  { date: '2021-03-01', value: [13.0, 7.58] },
+  { date: '2021-04-01', value: [9.0, 8.81] },
+  { date: '2021-05-01', value: [11.0, 8.33] },
+  { date: '2021-06-01', value: [14.0, 9.96] },
+  { date: '2021-07-01', value: [6.0, 7.24] },
+  { date: '2021-08-01', value: [4.0, 4.26] },
+  { date: '2021-09-01', value: [12.0, 10.84] },
+  { date: '2021-10-01', value: [7.0, 4.82] },
+  { date: '2021-11-01', value: [5.0, 5.68] },
+  { date: '2021-12-01', value: [10.0, 9.14] },
+  { date: '2022-01-01', value: [8.0, 8.14] },
+  { date: '2022-02-01', value: [13.0, 8.74] },
+  { date: '2022-03-01', value: [9.0, 8.77] },
+  { date: '2022-04-01', value: [11.0, 9.26] },
+  { date: '2022-05-01', value: [14.0, 8.1] },
+  { date: '2022-06-01', value: [6.0, 6.13] },
+  { date: '2022-07-01', value: [4.0, 3.1] },
+  { date: '2022-08-01', value: [12.0, 9.13] },
+  { date: '2022-09-01', value: [7.0, 7.26] },
+  { date: '2022-10-01', value: [5.0, 4.74] },
+  { date: '2022-11-01', value: [10.0, 7.46] },
+  { date: '2022-12-01', value: [8.0, 6.77] },
 ];
 
 const OVERVIEW_OPTION = (data) => {
@@ -172,6 +204,209 @@ const ACC_OPTION = (data) => {
   };
 };
 
+const SCATTER_OPTION = (data) => {
+  const values = data.map((d) => {
+    const date = new Date(d.date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const currDate = new Date();
+    const currYear = currDate.getFullYear();
+    const currMonth = currDate.getMonth();
+    const highlight = month === currMonth && year === currYear;
+    return {
+      value: d.value,
+      label: {
+        show: true,
+        position: 'top',
+        formatter: ({ dataIndex }) => {
+          return new Date(data[dataIndex]?.date).getMonth() + 1;
+        },
+        ...(highlight && {
+          fontSize: 14,
+          fontWeight: 'bold',
+          color: colors._yellow,
+        }),
+      },
+      itemStyle: {
+        ...(year === 2022 && {
+          color: colors._blue,
+        }),
+        ...(year === 2021 && {
+          color: colors.primary['500'],
+        }),
+        ...(highlight && {
+          color: colors._yellow,
+        }),
+      },
+      symbolSize: highlight ? 10 : 6,
+    };
+  });
+
+  const maxX = Math.ceil(Math.max(...data.map((d) => d.value[0]))) + 1;
+  const maxY = Math.max(Math.ceil(Math.max(...data.map((d) => d.value[1]))), Math.ceil(maxX * SLOPE)) + 1;
+  return {
+    xAxis: {
+      type: 'value',
+      name: 'ASP (千元)',
+      nameTextStyle: { color: colors.gray['50'] },
+      splitLine: { show: false },
+      axisTick: { show: false },
+      min: 0,
+      max: maxX,
+    },
+    yAxis: {
+      type: 'value',
+      name: '單台用電\n(度/台)',
+      nameTextStyle: { color: colors.gray['50'] },
+      splitLine: { show: false },
+      axisTick: { show: false },
+      min: 0,
+      max: maxY,
+    },
+    series: [
+      {
+        data: values,
+        type: 'scatter',
+        symbolSize: (data) => {
+          return values.find((v) => v.value.join() === data.join())?.symbolSize || 6;
+        },
+        markLine: {
+          symbol: 'none',
+          data: [
+            {
+              yAxis: TARGET,
+              lineStyle: { color: colors._orange },
+              label: { position: 'insideEndTop', fontWeight: 'bold' },
+            },
+            [
+              {
+                coord: [0, 0],
+                name: SLOPE,
+                lineStyle: {
+                  type: 'solid',
+                  color: colors.dangerous['700'],
+                  width: 2,
+                },
+                label: { position: 'insideEndBottom', fontWeight: 'bold' },
+              },
+              { coord: [maxX, maxY] },
+            ],
+          ],
+        },
+      },
+    ],
+    grid: { left: 48, right: 96, containLabel: false },
+  };
+};
+
+const SCATTER_AREA_OPTION = (data) => {
+  const maxX = Math.ceil(Math.max(...data.map((d) => d.value[0]))) + 1;
+  const maxY = Math.max(Math.ceil(Math.max(...data.map((d) => d.value[1]))), Math.ceil(maxX * SLOPE)) + 1;
+  return {
+    xAxis: {
+      type: 'value',
+      name: 'ASP (千元)',
+      nameTextStyle: { color: colors.gray['50'] },
+      splitLine: { show: false },
+      axisTick: { show: false },
+      min: 0,
+      max: maxX,
+      show: false,
+    },
+    yAxis: {
+      type: 'value',
+      name: '單台用電\n(度/台)',
+      nameTextStyle: { color: colors.gray['50'] },
+      splitLine: { show: false },
+      axisTick: { show: false },
+      min: 0,
+      max: maxY,
+      show: false,
+    },
+    series: [
+      {
+        data: [{ value: [0, 0] }, { value: [TARGET / SLOPE, TARGET] }],
+        type: 'line',
+        areaStyle: {
+          color: colors.primary['600'],
+          opacity: 0.2,
+        },
+        lineStyle: {
+          color: 'transparent',
+        },
+        symbol: 'none',
+      },
+      {
+        data: [{ value: [TARGET / SLOPE, TARGET] }, { value: [maxX, TARGET] }],
+        type: 'line',
+        areaStyle: {
+          color: colors.primary['600'],
+          opacity: 0.2,
+        },
+        lineStyle: {
+          color: 'transparent',
+        },
+        symbol: 'none',
+      },
+      {
+        data: [{ value: [0, TARGET] }, { value: [TARGET / SLOPE, TARGET] }],
+        type: 'line',
+        areaStyle: {
+          color: colors.dangerous['700'],
+          opacity: 0.2,
+          origin: 'end',
+        },
+        lineStyle: {
+          color: 'transparent',
+        },
+        symbol: 'none',
+      },
+      {
+        data: [{ value: [TARGET / SLOPE, TARGET] }, { value: [maxX, maxY] }],
+        type: 'line',
+        areaStyle: {
+          color: colors.dangerous['700'],
+          opacity: 0.2,
+          origin: 'end',
+        },
+        lineStyle: {
+          color: 'transparent',
+        },
+        symbol: 'none',
+      },
+    ],
+    grid: { left: 48, right: 96, containLabel: false },
+  };
+};
+
+const COLUMNS = [
+  { Header: '', accessor: 'category' },
+  ...Array.from({ length: 12 }, (_, i) => ({
+    Header: `${i + 1}月`,
+    accessor: String(i),
+    Cell: (cell) => (
+      <div className="flex justify-center">
+        <div className={clsx('rounded-full w-3 h-3', cell.value ? 'bg-primary-500' : 'bg-dangerous-700')}></div>
+      </div>
+    ),
+  })),
+];
+
+const DATA = [
+  {
+    category: '單台用電',
+    ...Array.from({ length: 12 }).reduce((prev, curr, i) => ({ ...prev, [i]: i % 2 === 0 }), {}),
+  },
+  {
+    category: '用電強度',
+    ...Array.from({ length: 12 }).reduce((prev, curr, i) => ({ ...prev, [i]: i % 2 === 0 }), {}),
+  },
+  {
+    category: '總用電',
+    ...Array.from({ length: 12 }).reduce((prev, curr, i) => ({ ...prev, [i]: i % 2 === 0 }), {}),
+  },
+];
+
 export function Toggle({ on = true }) {
   const [enabled, setEnabled] = useState(on);
   return (
@@ -179,13 +414,13 @@ export function Toggle({ on = true }) {
       checked={enabled}
       onChange={setEnabled}
       className={clsx(
-        'bg-primary-800 relative inline-flex flex-shrink-0 h-7 w-24 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600 focus:ring-offset-primary-900 items-center'
+        'bg-primary-600 bg-opacity-20 relative inline-flex flex-shrink-0 h-7 w-24 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600 focus:ring-offset-primary-900 items-center'
       )}>
       <span
         aria-hidden="true"
         className={clsx(
           enabled ? 'translate-x-11' : 'translate-x-0',
-          'pointer-events-none inline-block h-6 w-12 rounded-full bg-primary-600 text-gray-50 shadow transform ring-0 transition ease-in-out duration-200 z-10'
+          'pointer-events-none inline-block h-6 w-12 rounded-full bg-primary-600 text-gray-50 shadow transform ring-0 transition ease-in-out duration-200 z-10 text-center'
         )}>
         {enabled ? 'On' : 'Off'}
       </span>
@@ -198,6 +433,10 @@ export function Toggle({ on = true }) {
 export default function ElectricityIndexPage({ className }) {
   const overviewOption = useMemo(() => OVERVIEW_OPTION(OVERVIEW_DATA), []);
   const accOption = useMemo(() => ACC_OPTION(ACC_DATA), []);
+  const scatterOption = useMemo(() => SCATTER_OPTION(SCATTER_DATA), []);
+  const scatterAreaOption = useMemo(() => SCATTER_AREA_OPTION(SCATTER_DATA), []);
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => DATA, []);
   return (
     <div className="h-screen w-screen pt-16 -mt-16 overflow-hidden">
       <div className="p-4 grid grid-rows-2 grid-cols-2 gap-4 w-full h-full">
@@ -234,6 +473,25 @@ export default function ElectricityIndexPage({ className }) {
             <div className="flex justify-end space-x-4 items-center">
               <Legend dotClassName="bg-_orange" label="單台用電強度基準線" />
               <Legend dotClassName="bg-dangerous-700" label="用電強度基準線 (百萬度/十億營業額)" />
+            </div>
+          </div>
+          <div className="flex-grow flex flex-col overflow-hidden">
+            <div className="flex-grow relative">
+              <Chart className="w-full h-full absolute" option={scatterAreaOption} />
+              <Chart className="w-full h-full absolute" option={scatterOption} />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <div className="text-xl font-medium">各月份達標情況</div>
+              <div className="flex justify-between">
+                <Select label="年度" />
+                <div className="flex space-x-4">
+                  <Legend dotClassName="bg-primary-500" label="達標" />
+                  <Legend dotClassName="bg-dangerous-700" label="未達標" />
+                </div>
+              </div>
+              <div className="flex flex-col flex-grow rounded-t-lg shadow mb-1">
+                <Table columns={columns} data={data} />
+              </div>
             </div>
           </div>
         </div>

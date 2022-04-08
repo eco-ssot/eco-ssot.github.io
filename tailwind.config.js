@@ -34,7 +34,6 @@ module.exports = {
         },
         dangerous: {
           500: '#FF4E4E',
-          600: '#D23B5F',
           700: '#D23B5F',
           900: '#69061E',
         },

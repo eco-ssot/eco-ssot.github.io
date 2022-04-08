@@ -36,7 +36,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
               <div className="flex absolute right-4 space-x-4">
                 <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
                 <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
-                <div className="bg-dangerous-900 rounded border border-dangerous-600 px-1">
+                <div className="bg-dangerous-900 rounded border border-dangerous-700 px-1">
                   {t('component:legend.missingData')}
                 </div>
               </div>

@@ -1,8 +1,14 @@
 import { useRef } from 'react';
 
 import clsx from 'clsx';
-import { LineChart, BarChart, PieChart } from 'echarts/charts';
-import { GridComponent, TooltipComponent, MarkLineComponent, LegendComponent } from 'echarts/components';
+import { LineChart, BarChart, PieChart, ScatterChart } from 'echarts/charts';
+import {
+  GridComponent,
+  TooltipComponent,
+  MarkLineComponent,
+  MarkAreaComponent,
+  LegendComponent,
+} from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useDeepCompareEffect, useMeasure, useDebounce } from 'react-use';
@@ -12,12 +18,16 @@ import { updateChartFontSize } from './helpers';
 
 echarts.use([
   CanvasRenderer,
+
   LineChart,
   BarChart,
   PieChart,
+  ScatterChart,
+
   GridComponent,
   TooltipComponent,
   MarkLineComponent,
+  MarkAreaComponent,
   LegendComponent,
 ]);
 

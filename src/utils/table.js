@@ -32,7 +32,7 @@ export const noDataRenderer =
   ({ missing = [], key = 'site' }) =>
   (cell) => {
     if (missing.includes(cell.row.original[key]) || cell.row.original.subRows?.some((r) => missing.includes(r[key]))) {
-      return <div className="bg-dangerous-900 rounded border border-dangerous-600 px-1">{cell.value}</div>;
+      return <div className="bg-dangerous-900 rounded border border-dangerous-700 px-1">{cell.value}</div>;
     }
 
     return plantRenderer(cell);
