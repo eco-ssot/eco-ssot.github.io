@@ -295,7 +295,7 @@ const SCATTER_OPTION = (data) => {
         },
       },
     ],
-    grid: { left: 48, right: 96, containLabel: false },
+    grid: { left: 48, right: 96, bottom: 48, containLabel: false },
   };
 };
 
@@ -375,7 +375,7 @@ const SCATTER_AREA_OPTION = (data) => {
         symbol: 'none',
       },
     ],
-    grid: { left: 48, right: 96, containLabel: false },
+    grid: { left: 48, right: 96, bottom: 48, containLabel: false },
   };
 };
 
