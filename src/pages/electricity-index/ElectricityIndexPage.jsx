@@ -481,7 +481,7 @@ export default function ElectricityIndexPage({ className }) {
               <Chart className="w-full h-full absolute" option={scatterOption} />
             </div>
             <div className="flex flex-col space-y-2">
-              <div className="text-xl font-medium">各月份達標情況</div>
+              <div className="text-xl font-medium text-left">各月份達標情況</div>
               <div className="flex justify-between">
                 <Select label="年度" />
                 <div className="flex space-x-4">
