@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 
-import { PencilIcon, PlusIcon, XIcon } from '@heroicons/react/solid';
+import { PencilIcon, PlusIcon, XIcon, ArrowUpIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { addMonths, isFuture } from 'date-fns';
 import { get, isEmpty, isNil, groupBy } from 'lodash';
@@ -16,6 +16,7 @@ import { tooltip } from '../../charts/tooltip';
 import Button from '../../components/button/Button';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
+import Modal from '../../components/modal/Modal';
 import Select from '../../components/select/Select';
 import EditableTable, {
   AdSearchSelectCell,
@@ -41,6 +42,7 @@ import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
 import { addPaddingColumns, EXPAND_COLUMN, updateMyData } from '../../utils/table';
+import ElectricityIndexPage from '../electricity-index/ElectricityIndexPage';
 
 import ConfirmModal from './ConfirmModal';
 import { gapFormatter, getPlants, getYtmLabel, TARGET_SITES } from './helpers';
@@ -72,9 +74,8 @@ const BASE_LINE_DETAIL_ENTRIES = [
   { key: 'temperature', name: '外氣平均溫度 (°C)' },
 ];
 
-const BASE_LINE_COLUMNS = (t) =>
+const BASE_LINE_COLUMNS = (t, setOpen) =>
   addPaddingColumns([
-    { ...EXPAND_COLUMN },
     {
       Header: t('baselinePage:baselinePanel.table.month'),
       accessor: 'month',
@@ -94,6 +95,36 @@ const BASE_LINE_COLUMNS = (t) =>
         }),
       })),
     })),
+    {
+      id: 'electricityIndex',
+      Header: (
+        <div className="border-b border-divider py-3 flex space-x-2 justify-center items-center">
+          <div>用電指標</div>
+          <div
+            className="border border-gray-200 rounded cursor-pointer hover:border-gray-50 group"
+            onClick={() => setOpen((prev) => !prev)}>
+            <ArrowUpIcon className="w-5 h-5 rotate-45 text-gray-200 group-hover:text-gray-50" />
+          </div>
+        </div>
+      ),
+      columns: [
+        {
+          Header: '用電強度 (千度)',
+          accessor: 'electricityIndex.0',
+          className: 'text-right',
+        },
+        {
+          Header: '單台用電 (度)',
+          accessor: 'electricityIndex.1',
+          className: 'text-right',
+        },
+        {
+          Header: 'ASP (千台幣/台)',
+          accessor: 'electricityIndex.2',
+          className: 'text-right',
+        },
+      ],
+    },
   ]);
 
 const HISTORY_COLUMNS = (t) => [
@@ -671,44 +702,56 @@ export function BaselinePanel({ year, plant, business }) {
   const skip = Object.values(option).every(isNil);
   const [selectedRow, setSelectedRow] = useState(-1);
   const { data } = useGetElectricityBaselineQuery({ ...option, bo: business }, { skip });
+  const [open, setOpen] = useState(false);
+  const columns = useMemo(() => BASE_LINE_COLUMNS(t, setOpen), [t]);
   if (isNil(data)) {
     return null;
   }
 
   const r = data.data[selectedRow] || {};
   return (
-    <div className="grid grid-cols-6 overflow-auto gap-4">
-      <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
-        <Table
-          columns={BASE_LINE_COLUMNS(t)}
-          data={data.data}
-          getRowProps={(row) => ({
-            className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
-            onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
-          })}
-        />
-      </div>
-      <div className="col-span-1 flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
-        <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
-          <div>
-            {t('baselinePage:baselineData')} :{' '}
-            {t(`common:month.${Number(r.month)}`, {
-              defaultValue: '-',
+    <>
+      <Modal
+        className="max-w-[calc(100vw-6rem)] bg-gray-900"
+        open={open}
+        setOpen={setOpen}
+        title="用電指標資訊"
+        defaultFooter={false}>
+        <ElectricityIndexPage className="w-[calc(100vw-6rem)] h-[calc(100vh-6rem)]" />
+      </Modal>
+      <div className="grid grid-cols-6 overflow-auto gap-4">
+        <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
+          <Table
+            columns={columns}
+            data={data.data}
+            getRowProps={(row) => ({
+              className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),
+              onClick: () => (selectedRow === row.index ? setSelectedRow(-1) : setSelectedRow(row.index)),
             })}
-            {t('common:month.text')}
-          </div>
-          <div className="text-gray-300 text-sm">{t('baselinePage:selectFromLeftDesc')}</div>
+          />
         </div>
-        <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
-          {BASE_LINE_DETAIL_ENTRIES.map(({ key }) => (
-            <div key={key} className="flex justify-between">
-              <div>{t(`baselinePage:${key}`)}</div>
-              <div>{baseFormatter(get(r, [key]))}</div>
+        <div className="col-span-1 flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
+          <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
+            <div>
+              {t('baselinePage:baselineData')} :{' '}
+              {t(`common:month.${Number(r.month)}`, {
+                defaultValue: '-',
+              })}
+              {t('common:month.text')}
             </div>
-          ))}
+            <div className="text-gray-300 text-sm">{t('baselinePage:selectFromLeftDesc')}</div>
+          </div>
+          <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
+            {BASE_LINE_DETAIL_ENTRIES.map(({ key }) => (
+              <div key={key} className="flex justify-between">
+                <div>{t(`baselinePage:${key}`)}</div>
+                <div>{baseFormatter(get(r, [key]))}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

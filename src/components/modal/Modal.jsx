@@ -2,11 +2,20 @@ import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
 
 import Button from '../button/Button';
 import IconButton from '../button/IconButton';
 
-export default function Modal({ children, footer, open = false, title = '', setOpen = () => {} }) {
+export default function Modal({
+  children,
+  className,
+  footer,
+  defaultFooter = true,
+  open = false,
+  title = '',
+  setOpen = () => {},
+}) {
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => {}}>
@@ -32,7 +41,11 @@ export default function Modal({ children, footer, open = false, title = '', setO
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95">
-            <div className="inline-block w-full max-w-md my-8 overflow-hidden text-center align-middle transition-all transform bg-primary-900 shadow-xl">
+            <div
+              className={clsx(
+                'inline-block w-full max-w-md my-8 overflow-hidden text-center align-middle transition-all transform bg-primary-900 shadow-xl',
+                className
+              )}>
               <Dialog.Title as="div" className="flex justify-center space-x-2 items-center py-2 bg-primary-800">
                 <div className="text-xl font-medium text-gray-50">{title}</div>
                 <IconButton className="absolute right-2" onClick={() => setOpen(false)}>
@@ -40,11 +53,12 @@ export default function Modal({ children, footer, open = false, title = '', setO
                 </IconButton>
               </Dialog.Title>
               {children}
-              {footer || (
-                <div className="flex my-4 justify-center">
-                  <Button onClick={() => setOpen(false)}>OK</Button>
-                </div>
-              )}
+              {footer ||
+                (defaultFooter && (
+                  <div className="flex my-4 justify-center">
+                    <Button onClick={() => setOpen(false)}>OK</Button>
+                  </div>
+                ))}
             </div>
           </Transition.Child>
         </div>

@@ -438,7 +438,7 @@ export default function ElectricityIndexPage({ className }) {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
   return (
-    <div className="h-screen w-screen pt-16 -mt-16 overflow-hidden">
+    <div className={clsx(className, !className && 'h-screen w-screen pt-16 -mt-16 overflow-hidden')}>
       <div className="p-4 grid grid-rows-2 grid-cols-2 gap-4 w-full h-full">
         <div className="col-span-1 p-4 rounded shadow bg-primary-900 flex flex-col">
           <div className="flex justify-between">
