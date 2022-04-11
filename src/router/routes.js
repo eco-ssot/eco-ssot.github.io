@@ -1,6 +1,7 @@
 import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
 import GoalSkeleton from '../components/skeleton/GoalSkeleton';
 import HomeSkeleton from '../components/skeleton/HomeSkeleton';
+import ManagementPageSkeleton from '../components/skeleton/ManagementPageSkeketon';
 import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
 
 import { lazyPreload } from './helpers';
@@ -153,7 +154,7 @@ export const privateRoutes = [
   {
     path: '/management',
     element: lazyPreload(() => import('../pages/management/ManagementPage')),
-    skeleton: GoalSkeleton,
+    skeleton: ManagementPageSkeleton,
     i18nKey: 'management',
     routes: managementRoutes,
   },
