@@ -18,7 +18,7 @@ const BUSINESS_MAPPING = {
   ALL: 'ALL',
   WT: 'WT',
   WSD: 'WSD',
-  Others: '新邊界',
+  Others: 'Others',
 };
 
 const HISTORY_OPTIONS = [
