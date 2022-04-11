@@ -132,15 +132,15 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
     renderer: (cell) => {
       const value = ratioFormatter(cell, { precision: 2 });
       return (
-        <div className="flex justify-end items-center space-x-2">
+        <div className="flex items-center justify-end space-x-2">
           <div>{value}</div>
           <IconButton
             className={clsx(
-              'bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600',
+              'rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
               !cell.row.canExpand && 'invisible'
             )}
             onClick={() => setOpen(true)}>
-            <UploadIcon className="w-5 h-5" />
+            <UploadIcon className="h-5 w-5" />
           </IconButton>
         </div>
       );
@@ -238,8 +238,8 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
       />
       {data && (
         <>
-          <div className="w-full h-6 text-right">{t('wastePage:desc')}</div>
-          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+          <div className="h-6 w-full text-right">{t('wastePage:desc')}</div>
+          <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
             <Table
               columns={columns}
               data={data?.data || []}

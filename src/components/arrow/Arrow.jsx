@@ -7,8 +7,8 @@ export default function Arrow({ className, direction = null }) {
   }
 
   return direction === 'up' ? (
-    <ArrowUpIcon className={clsx(`transform rotate-45`, className)} />
+    <ArrowUpIcon className={clsx(`rotate-45 transform`, className)} />
   ) : (
-    <ArrowDownIcon className={clsx(`transform -rotate-45`, className)} />
+    <ArrowDownIcon className={clsx(`-rotate-45 transform`, className)} />
   );
 }

@@ -61,15 +61,15 @@ export default function RenewableEnergy({ data = {} }) {
 
   const option = OPTION(nextData);
   return (
-    <div className="flex w-full h-full items-center justify-between">
-      <div className="w-1/2 h-full flex items-center justify-center">
-        <Chart className="w-full h-full" option={option} />
+    <div className="flex h-full w-full items-center justify-between">
+      <div className="flex h-full w-1/2 items-center justify-center">
+        <Chart className="h-full w-full" option={option} />
         <div className="absolute text-center text-lg font-medium">
           <div className="text-_orange">{`Target : > ${getDecimalNumber(target) || '-'}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>
-      <div className="flex flex-col justify-center w-1/2 space-y-4">
+      <div className="flex w-1/2 flex-col justify-center space-y-4">
         {Object.entries(nextData).map(([name, { dotClassName, value }]) => (
           <Legend
             key={name}

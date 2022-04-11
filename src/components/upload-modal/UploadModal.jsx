@@ -42,13 +42,13 @@ export default function UploadModal({ title, open, setOpen, uploadExcel, isSucce
             formData.append('file', fileRef.current);
             uploadExcel(formData);
           }}>
-          <UploadIcon className="w-5 h-5 mr-2" />
+          <UploadIcon className="mr-2 h-5 w-5" />
           Import
         </Button>
       }>
-      <form className="p-8 flex flex-col items-start space-y-4">
+      <form className="flex flex-col items-start space-y-4 p-8">
         <div>{t('component:upload.selectExcel')}</div>
-        <div className="flex items-center space-x-4 w-full">
+        <div className="flex w-full items-center space-x-4">
           <FileInput
             id="excel"
             type="file"
@@ -60,7 +60,7 @@ export default function UploadModal({ title, open, setOpen, uploadExcel, isSucce
             }}
             accept=".xlsx,xls"
           />
-          <label htmlFor="excel" className="underline cursor-pointer">
+          <label htmlFor="excel" className="cursor-pointer underline">
             Browse
           </label>
         </div>

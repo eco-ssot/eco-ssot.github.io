@@ -51,18 +51,18 @@ export function Complete({ editing, label, completedDate, onChange }) {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <div
-        className={clsx('group flex items-center space-x-1 cursor-pointer', !editing && 'pointer-events-none')}
+        className={clsx('group flex cursor-pointer items-center space-x-1', !editing && 'pointer-events-none')}
         onClick={() => {
           onChange(done ? null : format(new Date(), 'yyyy-MM-dd'));
           setDone((prev) => !prev);
         }}>
         <div
           className={clsx(
-            'p-0.5 border rounded-full',
+            'rounded-full border p-0.5',
             done ? 'border-transparent bg-primary-600' : 'border-gray-500 group-hover:border-primary-600'
           )}>
           <CheckIcon
-            className={clsx('w-4 h-4', done ? 'text-gray-50' : 'text-gray-500 group-hover:text-primary-600')}
+            className={clsx('h-4 w-4', done ? 'text-gray-50' : 'text-gray-500 group-hover:text-primary-600')}
           />
         </div>
         <div
@@ -120,13 +120,13 @@ export function AnalysisSubTable({
           <>
             <Disclosure.Button
               as="div"
-              className="grid grid-cols-11 items-center w-full py-2 font-medium text-left text-primary-600 bg-primary-600 bg-opacity-10 cursor-pointer gap-2 px-2 tracking-wider border-t border-b border-primary-600">
-              <div className={clsx('flex space-x-2 items-center', hasCategory ? 'col-span-2' : 'col-span-3')}>
-                <ChevronUpIcon className={clsx(`${open && 'transform rotate-180'} w-5 h-5 text-primary-600`)} />
+              className="grid w-full cursor-pointer grid-cols-11 items-center gap-2 border-t border-b border-primary-600 bg-primary-600 bg-opacity-10 py-2 px-2 text-left font-medium tracking-wider text-primary-600">
+              <div className={clsx('flex items-center space-x-2', hasCategory ? 'col-span-2' : 'col-span-3')}>
+                <ChevronUpIcon className={clsx(`${open && 'rotate-180 transform'} h-5 w-5 text-primary-600`)} />
                 <div className="">{t('analysisPage:table.strategy')}</div>
               </div>
               {hasCategory ? (
-                <div className="flex col-span-3 space-x-2">
+                <div className="col-span-3 flex space-x-2">
                   <div className="w-32">{t('analysisPage:table.category')}</div>
                   <div>{t('analysisPage:table.expect')}</div>
                 </div>
@@ -142,7 +142,7 @@ export function AnalysisSubTable({
             <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
               {_data &&
                 _data.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
-                  <div key={i} className="grid grid-cols-11 gap-2 px-2 py-2 items-center">
+                  <div key={i} className="grid grid-cols-11 items-center gap-2 px-2 py-2">
                     {editing ? (
                       <>
                         <div className={clsx('h-full', hasCategory ? 'col-span-2' : 'col-span-3')}>
@@ -154,7 +154,7 @@ export function AnalysisSubTable({
                           />
                         </div>
                         {hasCategory ? (
-                          <div className="flex col-span-3 h-full space-x-2">
+                          <div className="col-span-3 flex h-full space-x-2">
                             <Select
                               buttonClassName="w-32"
                               options={electricityOptions}
@@ -188,10 +188,10 @@ export function AnalysisSubTable({
                             onBlur={updateRow('contribution', i)}
                           />
                         </div>
-                        <div className="col-span-1 text-center h-full">
+                        <div className="col-span-1 h-full text-center">
                           <DatePicker value={dd} onChange={updateRow('dd', i)} />
                         </div>
-                        <div className="col-span-1 text-center h-full">
+                        <div className="col-span-1 h-full text-center">
                           <Complete
                             label={t('analysisPage:table.done')}
                             editing={true}
@@ -206,7 +206,7 @@ export function AnalysisSubTable({
                             onBlur={(user) => user.label && updateRow('PIC', i)(user.label)}
                           />
                         </div>
-                        <div className="col-span-1 text-center space-x-2">
+                        <div className="col-span-1 space-x-2 text-center">
                           <EditableIconButton
                             aria-label="icon-button-check"
                             onClick={() => {
@@ -229,7 +229,7 @@ export function AnalysisSubTable({
 
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
                             }}>
-                            <CheckIcon className="w-5 h-5" />
+                            <CheckIcon className="h-5 w-5" />
                           </EditableIconButton>
                           <EditableIconButton
                             aria-label="icon-button-x"
@@ -238,7 +238,7 @@ export function AnalysisSubTable({
                                 prev.map((d, j) => (i === j ? dataRef.current?.[j] : d)).filter(Boolean)
                               )
                             }>
-                            <XIcon className="w-5 h-5" />
+                            <XIcon className="h-5 w-5" />
                           </EditableIconButton>
                         </div>
                       </>
@@ -246,7 +246,7 @@ export function AnalysisSubTable({
                       <>
                         <div
                           className={clsx(
-                            'pl-2 flex items-center space-x-2',
+                            'flex items-center space-x-2 pl-2',
                             hasCategory ? 'col-span-2' : 'col-span-3'
                           )}>
                           <Dot
@@ -273,20 +273,20 @@ export function AnalysisSubTable({
                         <div className="col-span-1 pl-4">{contribution && `${contribution} %`}</div>
                         <div className="col-span-1 text-center">{dd}</div>
                         <div className="col-span-1 text-center">{completedDate}</div>
-                        <div className="col-span-2 text-center px-2">{PIC}</div>
-                        <div className="col-span-1 text-center space-x-2">
+                        <div className="col-span-2 px-2 text-center">{PIC}</div>
+                        <div className="col-span-1 space-x-2 text-center">
                           <EditableIconButton
                             aria-label="icon-button-pencil"
                             onClick={() =>
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))
                             }>
-                            <PencilIcon className="w-5 h-5" />
+                            <PencilIcon className="h-5 w-5" />
                           </EditableIconButton>
                           <EditableIconButton
                             aria-label="icon-button-trash"
                             disabled={!canEdit}
                             onClick={() => setDeleteId(id)}>
-                            <TrashIcon className="w-5 h-5" />
+                            <TrashIcon className="h-5 w-5" />
                           </EditableIconButton>
                         </div>
                       </>
@@ -294,11 +294,11 @@ export function AnalysisSubTable({
                   </div>
                 ))}
               {canAddRow && (
-                <div className="col-span-11 text-center py-2">
+                <div className="col-span-11 py-2 text-center">
                   <EditableIconButton
                     aria-label="icon-button-plus"
                     onClick={() => setData((prev) => [...prev, { editing: true, isNewRow: true }])}>
-                    <PlusIcon className="w-5 h-5" />
+                    <PlusIcon className="h-5 w-5" />
                   </EditableIconButton>
                 </div>
               )}
@@ -352,26 +352,26 @@ export default function AnalysisTable({
       <ErrorModal open={open} setOpen={setOpen} />
       <div className="flex justify-between">
         <div className="text-xl font-medium">{t('analysisPage:missingTargetDesc')}</div>
-        <div className="flex space-x-4 items-center">
+        <div className="flex items-center space-x-4">
           <Legend dotClassName="bg-_yellow" label={t('analysisPage:aboutToOverdue')} />
           <Legend dotClassName="bg-dangerous-700" label={t('analysisPage:overdue')} />
           <EditableButton className="flex items-center space-x-1" onClick={() => setIsAddingRow((prev) => !prev)}>
             {isAddingRow ? (
               <>
-                <XIcon className="w-4 h-4" />
+                <XIcon className="h-4 w-4" />
                 {t('analysisPage:cancelAdd')}
               </>
             ) : (
               <>
-                <PlusIcon className="w-4 h-4" />
+                <PlusIcon className="h-4 w-4" />
                 {t('analysisPage:addDesc')}
               </>
             )}
           </EditableButton>
         </div>
       </div>
-      <div className={clsx('w-full shadow overflow-auto rounded-t-lg', className)}>
-        <div className="grid grid-cols-12 grid-rows-1 text-lg bg-primary-800 items-center py-3 tracking-wider gap-2 px-2 font-medium">
+      <div className={clsx('w-full overflow-auto rounded-t-lg shadow', className)}>
+        <div className="grid grid-cols-12 grid-rows-1 items-center gap-2 bg-primary-800 py-3 px-2 text-lg font-medium tracking-wider">
           <div className="col-span-1 text-center">No.</div>
           <div className="col-span-5">{t('analysisPage:missingTargetDesc')}</div>
           <div className="col-span-5">{title}</div>
@@ -379,9 +379,9 @@ export default function AnalysisTable({
         </div>
         {_data &&
           _data.map(({ id, description, effect, editing, imrprovements }, i) => (
-            <div key={i} className="grid grid-cols-12 text-lg items-center border-b border-divider">
-              <div className="col-span-1 text-center h-full flex flex-col justify-center">{i + 1}</div>
-              <div className="col-span-11 grid grid-cols-11 items-center border-l border-primary-600 gap-x-2">
+            <div key={i} className="grid grid-cols-12 items-center border-b border-divider text-lg">
+              <div className="col-span-1 flex h-full flex-col justify-center text-center">{i + 1}</div>
+              <div className="col-span-11 grid grid-cols-11 items-center gap-x-2 border-l border-primary-600">
                 {editing || (isAddingRow && i === _data.length - 1) ? (
                   <>
                     <div className="col-span-5 py-2 pl-2">
@@ -396,7 +396,7 @@ export default function AnalysisTable({
                       <InputCell className="h-10" defaultValue={effect} suffix="%" onBlur={updateRow('effect', i)} />
                     </div>
                     <div className="col-span-4"></div>
-                    <div className="col-span-1 text-center pr-3 space-x-2">
+                    <div className="col-span-1 space-x-2 pr-3 text-center">
                       <EditableIconButton
                         aria-label="icon-button-check"
                         onClick={() => {
@@ -411,7 +411,7 @@ export default function AnalysisTable({
 
                           setIsAddingRow(false);
                         }}>
-                        <CheckIcon className="w-5 h-5" />
+                        <CheckIcon className="h-5 w-5" />
                       </EditableIconButton>
                       <EditableIconButton
                         aria-label="icon-button-x"
@@ -425,7 +425,7 @@ export default function AnalysisTable({
                             return nextData;
                           })
                         }>
-                        <XIcon className="w-5 h-5" />
+                        <XIcon className="h-5 w-5" />
                       </EditableIconButton>
                     </div>
                   </>
@@ -433,11 +433,11 @@ export default function AnalysisTable({
                   <>
                     <div className="col-span-5 px-4 py-3">{description}</div>
                     <div className="col-span-5 px-4">{effect && `${effect} %`}</div>
-                    <div className="col-span-1 pr-3 text-center space-x-2">
+                    <div className="col-span-1 space-x-2 pr-3 text-center">
                       <EditableIconButton
                         aria-label="icon-button-pencil"
                         onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}>
-                        <PencilIcon className="w-5 h-5" />
+                        <PencilIcon className="h-5 w-5" />
                       </EditableIconButton>
                       <EditableIconButton
                         aria-label="icon-button-trash"
@@ -446,7 +446,7 @@ export default function AnalysisTable({
                           setDeleteId(id);
                           setIsAddingRow(false);
                         }}>
-                        <TrashIcon className="w-5 h-5" />
+                        <TrashIcon className="h-5 w-5" />
                       </EditableIconButton>
                     </div>
                   </>

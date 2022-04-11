@@ -98,12 +98,12 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
     {
       id: 'electricityIndex',
       Header: (
-        <div className="border-b border-divider py-3 flex space-x-2 justify-center items-center">
+        <div className="flex items-center justify-center space-x-2 border-b border-divider py-3">
           <div>用電指標</div>
           <div
-            className="border border-gray-200 rounded cursor-pointer hover:border-gray-50 group"
+            className="group cursor-pointer rounded border border-gray-200 hover:border-gray-50"
             onClick={() => setOpen((prev) => !prev)}>
-            <ArrowUpIcon className="w-5 h-5 rotate-45 text-gray-200 group-hover:text-gray-50" />
+            <ArrowUpIcon className="h-5 w-5 rotate-45 text-gray-200 group-hover:text-gray-50" />
           </div>
         </div>
       ),
@@ -300,7 +300,7 @@ export const POWER_SAVING_COLUMNS = ({
               }))
             )
           }>
-          <PencilIcon className="w-5 h-5" />
+          <PencilIcon className="h-5 w-5" />
         </EditableIconButton>
       );
     },
@@ -466,24 +466,24 @@ export const LineTooltipFormatter =
     const baselineValue = baseline.value;
     const gap = actualValue - baselineValue;
     return renderToString(
-      <div className="flex flex-col bg-gray-900 rounded shadow py-2 bg-opacity-75">
-        <div className="flex justify-between items-baseline px-4 border-b pb-2 border-divider space-x-4">
+      <div className="flex flex-col rounded bg-gray-900 bg-opacity-75 py-2 shadow">
+        <div className="flex items-baseline justify-between space-x-4 border-b border-divider px-4 pb-2">
           <div>
             {year}.{String(actual.dataIndex + 1).padStart(2, '0')}
           </div>
           <div>{typeName || t(`baselinePage:${type}`)}</div>
         </div>
-        <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
+        <div className="flex items-baseline justify-between space-y-2 space-x-4 px-4">
           <div>{actualName || t('baselinePage:actualElectricity')}</div>
           <div>{baseFormatter(actualValue)}</div>
         </div>
-        <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
+        <div className="flex items-baseline justify-between space-y-2 space-x-4 px-4">
           <div>{compareName || t('baselinePage:baseline')}</div>
           <div>{baseFormatter(baselineValue)}</div>
         </div>
-        <div className="flex justify-between items-baseline px-4 space-y-2 space-x-4">
+        <div className="flex items-baseline justify-between space-y-2 space-x-4 px-4">
           <div>{t('baselinePage:gap')}</div>
-          <div className={clsx(gap > 0 ? 'text-dangerous-500 font-semibold' : 'text-green-500 font-semibold')}>
+          <div className={clsx(gap > 0 ? 'font-semibold text-dangerous-500' : 'font-semibold text-green-500')}>
             {gap > 0 && '+'}
             {baseFormatter(gap)}
           </div>
@@ -532,8 +532,8 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
   return (
     <>
       {!byMonth && <div className="self-end">{t('baselinePage:predictionPanel.desc')}</div>}
-      <div className="grid grid-cols-3 gap-4 h-full overflow-hidden">
-        <div className="col-span-2 w-full flex flex-col shadow overflow-auto rounded-t-lg">
+      <div className="grid h-full grid-cols-3 gap-4 overflow-hidden">
+        <div className="col-span-2 flex w-full flex-col overflow-auto rounded-t-lg shadow">
           <Table
             columns={byMonth ? PREDICTION_COLUMNS_BY_MONTH(t) : PREDICTION_COLUMNS_BY_SITE({ t, year, month })}
             data={targetData}
@@ -544,16 +544,16 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
           />
         </div>
         <div className="col-span-1 flex flex-col overflow-auto">
-          <div className="flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
-            <div className="flex flex-col bg-primary-800 p-4 pb-2 space-y-2 top-0 sticky">
+          <div className="mb-2 flex flex-col overflow-auto rounded-t-lg shadow">
+            <div className="sticky top-0 flex flex-col space-y-2 bg-primary-800 p-4 pb-2">
               <div className="border-b border-divider pb-1">{`${t('baselinePage:predicted')}${t(
                 'baselinePage:baselineData'
               )} : ${
                 (byMonth ? `${t(`common:month.${Number(r.month)}`)}${t('common:month.text')}` : r.plant) || '-'
               }  `}</div>
               <div className="flex">
-                <div className="w-1/2 text-gray-300 text-sm">{t('baselinePage:selectFromLeftDesc')}</div>
-                <div className="w-1/2 flex flex-row-reverse">
+                <div className="w-1/2 text-sm text-gray-300">{t('baselinePage:selectFromLeftDesc')}</div>
+                <div className="flex w-1/2 flex-row-reverse">
                   {byMonth ? (
                     <>
                       <div className="w-1/2 text-right">{t('baselinePage:actual')}</div>
@@ -576,11 +576,11 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
                 </div>
               </div>
             </div>
-            <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
+            <div className="flex flex-grow flex-col space-y-2.5 rounded-b border border-t-0 border-divider py-3 px-4">
               {BASE_LINE_DETAIL_ENTRIES.map(({ key }) => (
                 <div key={key} className="flex">
                   <div className="w-1/2">{t(`baselinePage:${key}`)}</div>
-                  <div className="w-1/2 flex flex-row-reverse">
+                  <div className="flex w-1/2 flex-row-reverse">
                     {byMonth ? (
                       <>
                         <div className="w-1/2 text-right">{baseFormatter(get(r, [key, 'actual']))}</div>
@@ -603,7 +603,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
               ))}
             </div>
           </div>
-          <div className="flex flex-col flex-grow border border-divider rounded shadow p-4 space-y-2 min-h-[256px] overflow-hidden">
+          <div className="flex min-h-[256px] flex-grow flex-col space-y-2 overflow-hidden rounded border border-divider p-4 shadow">
             {byMonth ? (
               <>
                 <div className="flex justify-between">
@@ -614,7 +614,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
                   </div>
                 </div>
                 <Chart
-                  className="w-full h-full pl-4"
+                  className="h-full w-full pl-4"
                   option={LINE_OPTION({
                     t,
                     year,
@@ -631,7 +631,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
                   {t('baselinePage:predictionPanel.buyTrecTarget')} : All plants
                 </div>
                 <div className="text-sm text-gray-300">{t('baselinePage:predictionPanel.calcEveryNov')}</div>
-                <div className="text-2xl font-semibold flex flex-grow flex-col items-center justify-center">
+                <div className="flex flex-grow flex-col items-center justify-center text-2xl font-semibold">
                   {baseFormatter(data.totalRec)} {t('common:kwh')}
                 </div>
               </>
@@ -652,7 +652,7 @@ export function ChartPanel({ plant, year, business }) {
   );
 
   return (
-    <div className="row-span-2 bg-primary-900 rounded shadow p-4 grid grid-cols-4 gap-4">
+    <div className="row-span-2 grid grid-cols-4 gap-4 rounded bg-primary-900 p-4 shadow">
       {APP_CONSTANTS.ELECTRICITY_TYPES.map(({ key }, i) => {
         const dataset = data?.data?.reduce(
           (prev, curr) => ({
@@ -665,13 +665,13 @@ export function ChartPanel({ plant, year, business }) {
 
         return (
           <div key={key} className="flex flex-col space-y-2">
-            <div className="flex justify-between relative">
-              <div className="text-xl font-medium whitespace-nowrap">
+            <div className="relative flex justify-between">
+              <div className="whitespace-nowrap text-xl font-medium">
                 {t(`baselinePage:${key}`)}
                 {t('baselinePage:modelPrediction')}
               </div>
               {i === APP_CONSTANTS.ELECTRICITY_TYPES.length - 1 && (
-                <div className="flex space-x-4 absolute right-2 top-8">
+                <div className="absolute right-2 top-8 flex space-x-4">
                   <Legend dotClassName="bg-_yellow" label={t('baselinePage:predictionBaseline')} />
                   <Legend dotClassName="bg-primary-600" label={t('baselinePage:actualElectricity')} />
                 </div>
@@ -679,7 +679,7 @@ export function ChartPanel({ plant, year, business }) {
             </div>
             {data && (
               <Chart
-                className="w-full h-full"
+                className="h-full w-full"
                 option={LINE_OPTION({
                   t,
                   year,
@@ -712,15 +712,15 @@ export function BaselinePanel({ year, plant, business }) {
   return (
     <>
       <Modal
-        className="max-w-[calc(100vw-6rem)] bg-gray-900 my-0"
+        className="my-0 max-w-[calc(100vw-6rem)] bg-gray-900"
         open={open}
         setOpen={setOpen}
         title="用電指標資訊"
         defaultFooter={false}>
-        <ElectricityIndexPage className="w-[calc(100vw-6rem)] h-[calc(100vh-6rem)]" />
+        <ElectricityIndexPage className="h-[calc(100vh-6rem)] w-[calc(100vw-6rem)]" />
       </Modal>
-      <div className="grid grid-cols-6 overflow-auto gap-4">
-        <div className="col-span-5 w-full flex flex-col shadow overflow-auto rounded-t-lg mb-2">
+      <div className="grid grid-cols-6 gap-4 overflow-auto">
+        <div className="col-span-5 mb-2 flex w-full flex-col overflow-auto rounded-t-lg shadow">
           <Table
             columns={columns}
             data={data.data}
@@ -730,8 +730,8 @@ export function BaselinePanel({ year, plant, business }) {
             })}
           />
         </div>
-        <div className="col-span-1 flex flex-col rounded-t-lg mb-2 overflow-auto shadow">
-          <div className="flex flex-col bg-primary-800 p-4 space-y-2 top-0 sticky">
+        <div className="col-span-1 mb-2 flex flex-col overflow-auto rounded-t-lg shadow">
+          <div className="sticky top-0 flex flex-col space-y-2 bg-primary-800 p-4">
             <div>
               {t('baselinePage:baselineData')} :{' '}
               {t(`common:month.${Number(r.month)}`, {
@@ -739,9 +739,9 @@ export function BaselinePanel({ year, plant, business }) {
               })}
               {t('common:month.text')}
             </div>
-            <div className="text-gray-300 text-sm">{t('baselinePage:selectFromLeftDesc')}</div>
+            <div className="text-sm text-gray-300">{t('baselinePage:selectFromLeftDesc')}</div>
           </div>
-          <div className="flex flex-col flex-grow border border-divider border-t-0 rounded-b space-y-2.5 py-3 px-4">
+          <div className="flex flex-grow flex-col space-y-2.5 rounded-b border border-t-0 border-divider py-3 px-4">
             {BASE_LINE_DETAIL_ENTRIES.map(({ key }) => (
               <div key={key} className="flex justify-between">
                 <div>{t(`baselinePage:${key}`)}</div>
@@ -805,11 +805,11 @@ export function PowerSavingPanel({ year, plant }) {
         }>
         {_data?.slice(-1)?.[0]?.isNew ? (
           <>
-            <XIcon className="w-5 h-5" /> 取消新增
+            <XIcon className="h-5 w-5" /> 取消新增
           </>
         ) : (
           <>
-            <PlusIcon className="w-5 h-5" /> 新增技改項目
+            <PlusIcon className="h-5 w-5" /> 新增技改項目
           </>
         )}
       </Button>
@@ -824,7 +824,7 @@ export function PowerSavingPanel({ year, plant }) {
         }}
         onCancel={() => (confirmRef.current = {})}
       />
-      <div className="relative col-span-5 w-full h-full flex flex-col shadow overflow-auto rounded-t-lg">
+      <div className="relative col-span-5 flex h-full w-full flex-col overflow-auto rounded-t-lg shadow">
         <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
       </div>
     </>
@@ -865,9 +865,9 @@ export function PowerSavingPlanPanel({ year, plant }) {
   }
 
   return (
-    <div className="row-span-2 bg-primary-900 rounded shadow p-4 space-y-2 h-full flex flex-col">
-      <div className="font-medium text-lg">計畫節電總量 (度)</div>
-      <div className="flex flex-col flex-grow w-full shadow overflow-auto rounded-t-lg">
+    <div className="row-span-2 flex h-full flex-col space-y-2 rounded bg-primary-900 p-4 shadow">
+      <div className="text-lg font-medium">計畫節電總量 (度)</div>
+      <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
         <Table columns={POWER_SAVING_PLAN_COLUMNS} data={_data} />
       </div>
     </div>
@@ -1028,13 +1028,13 @@ export default function ElectricityBaselinePage() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="grid grid-rows-5 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
+      <div className="-mt-16 grid h-screen w-screen grid-rows-5 gap-4 overflow-hidden p-4 pt-20">
         <TabPanel>
           {({ isBaseline, isPrediction, isPowerSaving, option, business, s, p, tabIndex, refs }) => (
             <>
               <div
                 className={clsx(
-                  'bg-primary-900 rounded shadow p-4 flex flex-col space-y-4 overflow-auto',
+                  'flex flex-col space-y-4 overflow-auto rounded bg-primary-900 p-4 shadow',
                   isPrediction || isEmpty(option) ? 'row-span-5' : 'row-span-3'
                 )}>
                 <div className="text-xl font-medium">
@@ -1056,7 +1056,7 @@ export default function ElectricityBaselinePage() {
                     refs[tabIndex].current = option;
                   }}
                 />
-                <div className="flex w-full justify-center items-center">
+                <div className="flex w-full items-center justify-center">
                   {isBaseline && <BaselineSearch {...option} business={business} s={s} p={p} maxYear={2021} />}
                   {isPrediction && <PredictionSearch {...option} business={business} s={s} p={p} maxYear={2021} />}
                   {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} maxYear={2022} />}

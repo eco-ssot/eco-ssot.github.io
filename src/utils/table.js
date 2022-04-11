@@ -18,9 +18,9 @@ export const EXPAND_COLUMN = {
     return row.canExpand ? (
       <div {...rest} className="flex justify-center">
         {row.isExpanded ? (
-          <ChevronUpIcon className="w-5 h-5 cursor-pointer" />
+          <ChevronUpIcon className="h-5 w-5 cursor-pointer" />
         ) : (
-          <ChevronDownIcon className="w-5 h-5 cursor-pointer" />
+          <ChevronDownIcon className="h-5 w-5 cursor-pointer" />
         )}
       </div>
     ) : null;
@@ -32,7 +32,7 @@ export const noDataRenderer =
   ({ missing = [], key = 'site' }) =>
   (cell) => {
     if (missing.includes(cell.row.original[key]) || cell.row.original.subRows?.some((r) => missing.includes(r[key]))) {
-      return <div className="bg-dangerous-900 rounded border border-dangerous-700 px-1">{cell.value}</div>;
+      return <div className="rounded border border-dangerous-700 bg-dangerous-900 px-1">{cell.value}</div>;
     }
 
     return plantRenderer(cell);
@@ -40,7 +40,7 @@ export const noDataRenderer =
 
 export const plantRenderer = (cell) => {
   if (APP_CONSTANTS.DEPRECIATED_PLANTS.some((val) => cell.value?.startsWith(val))) {
-    return <div className="line-through text-gray-300">{cell.value}</div>;
+    return <div className="text-gray-300 line-through">{cell.value}</div>;
   }
 
   return cell.value;

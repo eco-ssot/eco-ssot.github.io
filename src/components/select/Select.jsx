@@ -24,7 +24,7 @@ export default function Select({
         <div className={clsx('flex items-center', className)}>
           {label && (
             <>
-              <Listbox.Label className="block truncate font-medium text-gray-50 mr-1">{label}</Listbox.Label>
+              <Listbox.Label className="mr-1 block truncate font-medium text-gray-50">{label}</Listbox.Label>
               {splitter && <div className="mr-1">{splitter}</div>}
             </>
           )}
@@ -32,14 +32,14 @@ export default function Select({
             <Listbox.Button
               {...(ariaLabel && { 'aria-label': ariaLabel })}
               className={clsx(
-                'bg-transparent relative w-full border border-divider rounded-md shadow-sm pl-3 pr-10 py-1 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600 min-h-9',
+                'relative min-h-9 w-full cursor-pointer rounded-md border border-divider bg-transparent py-1 pl-3 pr-10 text-left shadow-sm hover:border-primary-600 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600',
                 open ? 'border-primary-600' : 'border-primary-800',
                 buttonClassName
               )}>
               <span className={clsx('block truncate', options.length === 0 && 'opacity-50')}>
                 {options.length === 0 ? placeholder : selected.value}
               </span>
-              <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
               </span>
             </Listbox.Button>
@@ -51,7 +51,7 @@ export default function Select({
               leaveTo="opacity-0">
               <Listbox.Options
                 className={clsx(
-                  'absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded-md py-1 overflow-auto border border-divider focus:outline-none text-sm',
+                  'absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-divider bg-primary-900 py-1 text-sm shadow-lg focus:outline-none',
                   optionClassName
                 )}>
                 {options.map((option) => (
@@ -61,8 +61,8 @@ export default function Select({
                     key={option.key}
                     className={({ active }) =>
                       clsx(
-                        active ? 'text-gray-50 bg-primary-600' : 'text-gray-50',
-                        'cursor-default select-none relative py-2 pl-3 pr-9'
+                        active ? 'bg-primary-600 text-gray-50' : 'text-gray-50',
+                        'relative cursor-default select-none py-2 pl-3 pr-9'
                       )
                     }
                     value={option}>
@@ -86,7 +86,7 @@ export default function Select({
                   </Listbox.Option>
                 ))}
                 {options.length === 0 && (
-                  <Listbox.Option disabled className="text-gray-50 cursor-default select-none relative py-2 pl-3 pr-9">
+                  <Listbox.Option disabled className="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-50">
                     <Ellipse label="No Options" className="opacity-50"></Ellipse>
                   </Listbox.Option>
                 )}

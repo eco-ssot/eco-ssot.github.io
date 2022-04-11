@@ -12,7 +12,7 @@ export default function DeleteModal({ open = false, setOpen = () => {}, onConfir
       setOpen={setOpen}
       title={<div className="h-8"></div>}
       footer={
-        <div className="flex my-4 justify-center space-x-8">
+        <div className="my-4 flex justify-center space-x-8">
           <Button variant="plain" onClick={() => setOpen(false)}>
             {t('component:button.cancel')}
           </Button>
@@ -25,8 +25,8 @@ export default function DeleteModal({ open = false, setOpen = () => {}, onConfir
           </Button>
         </div>
       }>
-      <div className="flex w-full items-center justify-center pt-8 pb-4 space-x-4">
-        <InformationCircleIcon className="w-5 h-5 text-_yellow" />
+      <div className="flex w-full items-center justify-center space-x-4 pt-8 pb-4">
+        <InformationCircleIcon className="h-5 w-5 text-_yellow" />
         <div>{t('component:modal.sureToDelete')}</div>
       </div>
     </Modal>

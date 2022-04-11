@@ -71,7 +71,7 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
       const [postTrec] = usePostTrecMutation();
       const [deleteTrec] = useDeleteTrecMutation();
       return (
-        <div className="flex space-x-2 justify-end items-center">
+        <div className="flex items-center justify-end space-x-2">
           {isEditing ? (
             <div className="flex space-x-2">
               <EditableIconButton
@@ -104,14 +104,14 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
 
                   setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'));
                 }}>
-                <CheckIcon className="w-5 h-5" />
+                <CheckIcon className="h-5 w-5" />
               </EditableIconButton>
               <EditableIconButton
                 onClick={() => {
                   deleteRef.current = [];
                   setData(dataRef.current);
                 }}>
-                <XIcon className="w-5 h-5" />
+                <XIcon className="h-5 w-5" />
               </EditableIconButton>
             </div>
           ) : (
@@ -125,7 +125,7 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
                 )
               }
               disabled={!canEdit}>
-              <PencilIcon className="w-5 h-5" />
+              <PencilIcon className="h-5 w-5" />
             </EditableIconButton>
           )}
         </div>
@@ -140,7 +140,7 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
             deleteRef.current = [...deleteRef.current, cell.row.original.id];
             setData((prev) => prev.filter((d, i) => i !== cell.row.index));
           }}>
-          <TrashIcon className="w-5 h-5" />
+          <TrashIcon className="h-5 w-5" />
         </EditableIconButton>
       ) : null;
     },
@@ -155,7 +155,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
     Cell: (cell) => {
       return cell.row.original.editing ? (
         <TrashIcon
-          className="w-5 h-5 cursor-pointer"
+          className="h-5 w-5 cursor-pointer"
           onClick={() => {
             deleteRef.current = [...deleteRef.current, cell.row.original.plant];
             setData((prev) => prev.filter((d, i) => i !== cell.row.index));
@@ -177,7 +177,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
       const [postTrec] = usePostTrecBySiteMutation();
       const [deleteTrec] = useDeleteTrecBySiteMutation();
       return (
-        <div className="flex space-x-2 justify-end items-center">
+        <div className="flex items-center justify-end space-x-2">
           <div>{t('managementPage:tRec.table.tRec')}</div>
           {isEditing ? (
             <div className="flex space-x-2">
@@ -201,14 +201,14 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
 
                   setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'));
                 }}>
-                <CheckIcon className="w-5 h-5" />
+                <CheckIcon className="h-5 w-5" />
               </EditableIconButton>
               <EditableIconButton
                 onClick={() => {
                   deleteRef.current = [];
                   setData(dataRef.current);
                 }}>
-                <XIcon className="w-5 h-5" />
+                <XIcon className="h-5 w-5" />
               </EditableIconButton>
             </div>
           ) : (
@@ -222,7 +222,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
                 )
               }
               disabled={!canEdit}>
-              <PencilIcon className="w-5 h-5" />
+              <PencilIcon className="h-5 w-5" />
             </EditableIconButton>
           )}
         </div>
@@ -271,11 +271,11 @@ export default function Trec({ className, canEdit, data, dataBySite, year }) {
     }
   }, [dataBySite]);
   return (
-    <div className="grid grid-cols-7 gap-4 h-full overflow-auto">
-      <div className={clsx('col-span-5 flex flex-col shadow overflow-auto rounded-t-lg', className)}>
+    <div className="grid h-full grid-cols-7 gap-4 overflow-auto">
+      <div className={clsx('col-span-5 flex flex-col overflow-auto rounded-t-lg shadow', className)}>
         <EditableTable columns={columns} data={_data || []} updateMyData={updateMyData(setData)} setData={setData} />
       </div>
-      <div className={clsx('col-span-2 flex flex-col shadow overflow-auto rounded-t-lg', className)}>
+      <div className={clsx('col-span-2 flex flex-col overflow-auto rounded-t-lg shadow', className)}>
         <EditableTable
           columns={columnsBySite}
           data={_dataBySite || []}

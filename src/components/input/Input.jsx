@@ -15,7 +15,7 @@ export default function Input({
       value={isNil(value) ? '' : value}
       type={type}
       className={clsx(
-        'bg-gray-50 bg-opacity-10 shadow-sm hover:border-primary-600 focus:ring-primary-600 focus:border-primary-600 block w-full border-gray-50 border-opacity-10 rounded py-1 px-2 placeholder-gray-50 placeholder-opacity-50',
+        'block w-full rounded border-gray-50 border-opacity-10 bg-gray-50 bg-opacity-10 py-1 px-2 placeholder-gray-50 placeholder-opacity-50 shadow-sm hover:border-primary-600 focus:border-primary-600 focus:ring-primary-600',
         className
       )}
       onChange={onChange}

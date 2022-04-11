@@ -74,7 +74,7 @@ const HEADERS = ({
 
             if (canExpand) {
               return (
-                <div className="underline cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
+                <div className="cursor-pointer underline" onClick={() => cell.row.toggleRowExpanded()}>
                   {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
                 </div>
               );
@@ -178,8 +178,8 @@ export default function WaterTable({ business, y, m, s, p, missingPlants }) {
       />
       {data && (
         <>
-          <div className="w-full h-6 text-right">{t('common:gapDesc')}</div>
-          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg space-y-2">
+          <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
+          <div className="flex w-full flex-col space-y-2 overflow-auto rounded-t-lg shadow">
             <Table
               columns={columns}
               data={data?.data || []}

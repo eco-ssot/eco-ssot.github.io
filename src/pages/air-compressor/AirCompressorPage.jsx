@@ -167,12 +167,12 @@ const COST_OPTION = ({ oldCost, newCost }) => {
       ...tooltip({
         formatter: (dataset) => {
           return renderToString(
-            <div className="flex flex-col bg-gray-900 rounded shadow py-2 bg-opacity-75">
-              <div className="flex justify-between items-baseline px-4 border-b pb-2 border-divider space-x-4">
+            <div className="flex flex-col rounded bg-gray-900 bg-opacity-75 py-2 shadow">
+              <div className="flex items-baseline justify-between space-x-4 border-b border-divider px-4 pb-2">
                 {dataset[0]?.name} (年)
               </div>
-              <div className="flex px-4 items-center space-x-2 py-1 pt-2">
-                <div className="block rounded-full w-3 h-3 bg-_blue"></div>
+              <div className="flex items-center space-x-2 px-4 py-1 pt-2">
+                <div className="block h-3 w-3 rounded-full bg-_blue"></div>
                 <div>備機設備 :</div>
                 <div>
                   {baseFormatter(dataset.find((d) => d.seriesName === oldCost.name)?.value, {
@@ -181,8 +181,8 @@ const COST_OPTION = ({ oldCost, newCost }) => {
                   })}
                 </div>
               </div>
-              <div className="flex px-4 items-center space-x-2 py-1">
-                <div className="block rounded-full w-3 h-3 bg-_yellow"></div>
+              <div className="flex items-center space-x-2 px-4 py-1">
+                <div className="block h-3 w-3 rounded-full bg-_yellow"></div>
                 <div>新設備 :</div>
                 <div className="flex items-baseline">
                   {baseFormatter(dataset.find((d) => d.seriesName === newCost.name)?.value, {
@@ -315,11 +315,11 @@ export default function AirCompressorPage() {
 
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col space-y-4 p-4 pt-20 -mt-16 h-screen w-screen overflow-hidden">
-      <div className={clsx('bg-primary-900 rounded shadow p-4')}>
+    <div className="-mt-16 flex h-screen w-screen flex-col space-y-4 overflow-hidden p-4 pt-20">
+      <div className={clsx('rounded bg-primary-900 p-4 shadow')}>
         <div className="text-xl font-medium">空壓設備智能推薦</div>
         <div className="flex flex-grow justify-center space-x-8">
-          <div className="border-r-2 border-divider pr-8 space-y-4">
+          <div className="space-y-4 border-r-2 border-divider pr-8">
             <div>欲評估設備</div>
             <div className="flex space-x-4">
               <Select
@@ -347,7 +347,7 @@ export default function AirCompressorPage() {
               />
             </div>
           </div>
-          <div className="border-r-2 border-divider pr-8 space-y-4">
+          <div className="space-y-4 border-r-2 border-divider pr-8">
             <div>新機台規格</div>
             <div className="flex space-x-4">
               <Select
@@ -392,18 +392,18 @@ export default function AirCompressorPage() {
           </Button>
         </div>
       </div>
-      <div className="flex-grow grid grid-rows-2 gap-4 overflow-auto">
-        <div className="row-span-1 bg-primary-900 rounded shadow flex space-x-8 p-4 overflow-auto">
-          <div className="w-[40%] flex flex-col space-y-4">
+      <div className="grid flex-grow grid-rows-2 gap-4 overflow-auto">
+        <div className="row-span-1 flex space-x-8 overflow-auto rounded bg-primary-900 p-4 shadow">
+          <div className="flex w-[40%] flex-col space-y-4">
             <div className="text-xl font-medium">設備能效 / ROI資訊</div>
-            <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
+            <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table columns={ROI_COLUMNS} data={[].concat(data?.summary || DUMMY_ROI_DATA)} />
             </div>
           </div>
-          <div className="w-[30%] flex flex-col">
+          <div className="flex w-[30%] flex-col">
             <div className="flex justify-between">
               <div>設備能效近一週狀況</div>
-              <div className="flex space-x-4 translate-y-8 -translate-x-12">
+              <div className="flex translate-y-8 -translate-x-12 space-x-4">
                 <Legend label="一級能效值" dotClassName="bg-_blue" />
                 <Legend label="二級能效值" dotClassName="bg-_orange" />
                 <Legend label="三級能效值" dotClassName="bg-_yellow" />
@@ -411,15 +411,15 @@ export default function AirCompressorPage() {
             </div>
             <Chart option={eerOption} className="flex-grow" />
           </div>
-          <div className="w-[30%] flex flex-col">
+          <div className="flex w-[30%] flex-col">
             <div>設備ROI近一週狀況</div>
             <Chart option={roiOption} className="flex-grow" />
           </div>
         </div>
-        <div className="row-span-1 bg-primary-900 rounded shadow p-4 flex space-x-4 overflow-auto">
-          <div className="w-[36%] flex flex-col space-y-4 overflow-auto">
+        <div className="row-span-1 flex space-x-4 overflow-auto rounded bg-primary-900 p-4 shadow">
+          <div className="flex w-[36%] flex-col space-y-4 overflow-auto">
             <div className="text-xl font-medium">既有備機設備推薦資訊</div>
-            <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
+            <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
                 columns={OLD_MACHINE_COLUMNS}
                 data={data?.recommand?.old || DUMMY_OLD_MACHINE_DATA}
@@ -433,9 +433,9 @@ export default function AirCompressorPage() {
               />
             </div>
           </div>
-          <div className="w-[36%] flex flex-col space-y-4 overflow-auto">
+          <div className="flex w-[36%] flex-col space-y-4 overflow-auto">
             <div className="text-xl font-medium">新機設備推薦資訊</div>
-            <div className="flex flex-col flex-grow rounded-t-lg overflow-auto shadow mb-1">
+            <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
                 columns={NEW_MACHINE_COLUMNS}
                 data={data?.recommand?.new || DUMMY_NEW_MACHING_DATA}
@@ -449,7 +449,7 @@ export default function AirCompressorPage() {
               />
             </div>
           </div>
-          <div className="w-[28%] flex flex-col space-y-4">
+          <div className="flex w-[28%] flex-col space-y-4">
             <div className="flex justify-between">
               <div className="text-xl font-medium">汰換後累積減少成本預估</div>
               <div className="flex space-x-4">

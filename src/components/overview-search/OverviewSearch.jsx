@@ -14,9 +14,9 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
   const [searchOption, setSearchOption] = useState(option);
   const yearOptions = useSelector(selectYoptions);
   return (
-    <div className="w-full grid grid-cols-12 py-4 items-center">
+    <div className="grid w-full grid-cols-12 items-center py-4">
       <div></div>
-      <div className="flex justify-center space-x-8 col-span-10">
+      <div className="col-span-10 flex justify-center space-x-8">
         <Select
           label={t('selectLabel.searchYear')}
           options={yearOptions}
@@ -47,7 +47,7 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
           download
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
+          className="inline-flex items-center rounded border border-transparent bg-primary-600 px-4 py-1 text-base font-medium text-gray-50 shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900"
           href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify({
             ...searchOption,
             year: searchOption.year || yearOptions[0].key,

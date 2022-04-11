@@ -43,10 +43,10 @@ export default function Modal({
             leaveTo="opacity-0 scale-95">
             <div
               className={clsx(
-                'inline-block w-full max-w-md my-8 overflow-hidden text-center align-middle transition-all transform bg-primary-900 shadow-xl',
+                'my-8 inline-block w-full max-w-md transform overflow-hidden bg-primary-900 text-center align-middle shadow-xl transition-all',
                 className
               )}>
-              <Dialog.Title as="div" className="flex justify-center space-x-2 items-center py-2 bg-primary-800">
+              <Dialog.Title as="div" className="flex items-center justify-center space-x-2 bg-primary-800 py-2">
                 <div className="text-xl font-medium text-gray-50">{title}</div>
                 <IconButton className="absolute right-2" onClick={() => setOpen(false)}>
                   <XIcon className="h-5 w-5 " />
@@ -55,7 +55,7 @@ export default function Modal({
               {children}
               {footer ||
                 (defaultFooter && (
-                  <div className="flex my-4 justify-center">
+                  <div className="my-4 flex justify-center">
                     <Button onClick={() => setOpen(false)}>OK</Button>
                   </div>
                 ))}

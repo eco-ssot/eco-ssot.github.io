@@ -386,7 +386,7 @@ const COLUMNS = [
     accessor: String(i),
     Cell: (cell) => (
       <div className="flex justify-center">
-        <div className={clsx('rounded-full w-3 h-3', cell.value ? 'bg-primary-500' : 'bg-dangerous-700')}></div>
+        <div className={clsx('h-3 w-3 rounded-full', cell.value ? 'bg-primary-500' : 'bg-dangerous-700')}></div>
       </div>
     ),
   })),
@@ -414,13 +414,13 @@ export function Toggle({ on = true }) {
       checked={enabled}
       onChange={setEnabled}
       className={clsx(
-        'bg-primary-600 bg-opacity-20 relative inline-flex flex-shrink-0 h-7 w-24 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600 focus:ring-offset-primary-900 items-center'
+        'relative inline-flex h-7 w-24 flex-shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-primary-600 bg-opacity-20 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900'
       )}>
       <span
         aria-hidden="true"
         className={clsx(
           enabled ? 'translate-x-11' : 'translate-x-0',
-          'pointer-events-none inline-block h-6 w-12 rounded-full bg-primary-600 text-gray-50 shadow transform ring-0 transition ease-in-out duration-200 z-10 text-center'
+          'pointer-events-none z-10 inline-block h-6 w-12 transform rounded-full bg-primary-600 text-center text-gray-50 shadow ring-0 transition duration-200 ease-in-out'
         )}>
         {enabled ? 'On' : 'Off'}
       </span>
@@ -438,9 +438,9 @@ export default function ElectricityIndexPage({ className }) {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
   return (
-    <div className={clsx(className, !className && 'h-screen w-screen pt-16 -mt-16 overflow-hidden')}>
-      <div className="p-4 grid grid-rows-2 grid-cols-2 gap-4 w-full h-full">
-        <div className="col-span-1 p-4 rounded shadow bg-primary-900 flex flex-col">
+    <div className={clsx(className, !className && '-mt-16 h-screen w-screen overflow-hidden pt-16')}>
+      <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-4 p-4">
+        <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
             <div className="text-xl font-medium">總用電比較</div>
             <div className="space-y-4">
@@ -453,10 +453,10 @@ export default function ElectricityIndexPage({ className }) {
             </div>
           </div>
           <div className="flex flex-grow">
-            <Chart className="w-full h-full" option={overviewOption} />
+            <Chart className="h-full w-full" option={overviewOption} />
           </div>
         </div>
-        <div className="col-start-2 col-span-1 row-span-2 p-4 rounded shadow bg-primary-900 flex flex-col space-y-2">
+        <div className="col-span-1 col-start-2 row-span-2 flex flex-col space-y-2 rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
             <div className="text-xl font-medium">用電指標關係圖</div>
             <div className="flex justify-end space-x-4">
@@ -465,23 +465,23 @@ export default function ElectricityIndexPage({ className }) {
               <Legend dotClassName="bg-_yellow" label="各月基線數值" />
             </div>
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex space-x-4 items-center">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
               <div className="text-gray-200">顯示去年資訊</div>
               <Toggle />
             </div>
-            <div className="flex justify-end space-x-4 items-center">
+            <div className="flex items-center justify-end space-x-4">
               <Legend dotClassName="bg-_orange" label="單台用電強度基準線" />
               <Legend dotClassName="bg-dangerous-700" label="用電強度基準線 (百萬度/十億營業額)" />
             </div>
           </div>
-          <div className="flex-grow flex flex-col overflow-hidden">
-            <div className="flex-grow relative">
-              <Chart className="w-full h-full absolute" option={scatterAreaOption} />
-              <Chart className="w-full h-full absolute" option={scatterOption} />
+          <div className="flex flex-grow flex-col overflow-hidden">
+            <div className="relative flex-grow">
+              <Chart className="absolute h-full w-full" option={scatterAreaOption} />
+              <Chart className="absolute h-full w-full" option={scatterOption} />
             </div>
             <div className="flex flex-col space-y-2">
-              <div className="text-xl font-medium text-left">各月份達標情況</div>
+              <div className="text-left text-xl font-medium">各月份達標情況</div>
               <div className="flex justify-between">
                 <Select label="年度" />
                 <div className="flex space-x-4">
@@ -489,13 +489,13 @@ export default function ElectricityIndexPage({ className }) {
                   <Legend dotClassName="bg-dangerous-700" label="未達標" />
                 </div>
               </div>
-              <div className="flex flex-col flex-grow rounded-t-lg shadow mb-1">
+              <div className="mb-1 flex flex-grow flex-col rounded-t-lg shadow">
                 <Table columns={columns} data={data} />
               </div>
             </div>
           </div>
         </div>
-        <div className="col-span-1 p-4 rounded shadow bg-primary-900 flex flex-col">
+        <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
             <div className="text-xl font-medium">用電指標關係圖</div>
             <div className="space-y-4">
@@ -510,7 +510,7 @@ export default function ElectricityIndexPage({ className }) {
             </div>
           </div>
           <div className="flex flex-grow">
-            <Chart className="w-full h-full" option={accOption} />
+            <Chart className="h-full w-full" option={accOption} />
           </div>
         </div>
       </div>

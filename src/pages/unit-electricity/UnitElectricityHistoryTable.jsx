@@ -155,8 +155,8 @@ export default function UnitElectricityHistoryTable({
       <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
         <>
-          <div className="w-full h-6 text-right">{t('common:gapDesc')}</div>
-          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+          <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
+          <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
             <Table columns={COLUMNS({ ...option, t })} data={(data?.data || []).map(toRow(option))} />
           </div>
         </>

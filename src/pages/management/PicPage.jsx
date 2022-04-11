@@ -19,9 +19,9 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   {
     id: 'opm',
     Header: () => (
-      <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+      <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-3">
         <div className="px-2">{t('managementPage:pic.table.revenueAndShipment')}</div>
-        <div className="px-2 text-gray-400 text-sm">{t('managementPage:pic.table.manualSync')}</div>
+        <div className="px-2 text-sm text-gray-400">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
     columns: [
@@ -55,9 +55,9 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   {
     id: 'waste',
     Header: () => (
-      <div className="flex items-center justify-center border-b border-divider py-3 divide-x divide-divider">
+      <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-3">
         <div className="px-2">{t('managementPage:pic.table.waste')}</div>
-        <div className="px-2 text-gray-400 text-sm">{t('managementPage:pic.table.manualSync')}</div>
+        <div className="px-2 text-sm text-gray-400">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
     columns: [
@@ -120,7 +120,7 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
               }))
             )
           }>
-          <PencilIcon className="w-5 h-5" />
+          <PencilIcon className="h-5 w-5" />
         </EditableIconButton>
       );
     },
@@ -142,11 +142,11 @@ export default function PicPage() {
   }, [data]);
 
   return (
-    <div className="row-span-2 col-span-7">
-      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-6">
+    <div className="col-span-7 row-span-2">
+      <div className="flex h-full flex-col space-y-6 rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium">{t('managementPage:pic.title')}</div>
         {data && (
-          <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
+          <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
             <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
           </div>
         )}

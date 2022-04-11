@@ -22,28 +22,28 @@ export default function Manual({ lng }) {
     <>
       <Tooltip label={title}>
         <a href={path} target="_blank" rel="noreferrer">
-          <PdfIcon className="w-5 h-5 fill-gray-50" />
+          <PdfIcon className="h-5 w-5 fill-gray-50" />
         </a>
       </Tooltip>
       <Popover className="relative ml-2">
         <Popover.Button className="align-bottom">
-          <ChevronDownIcon className="w-5 h-5 fill-gray-50" />
+          <ChevronDownIcon className="h-5 w-5 fill-gray-50" />
         </Popover.Button>
-        <Popover.Panel className="flex flex-col mt-2 absolute z-10 bg-primary-900 p-2 border border-divider rounded shadow space-y-2">
+        <Popover.Panel className="absolute z-10 mt-2 flex flex-col space-y-2 rounded border border-divider bg-primary-900 p-2 shadow">
           <a
             target="_blank"
-            className="flex cursor-pointer items-center underline text-blue-400 visited:text-purple-400"
+            className="flex cursor-pointer items-center text-blue-400 underline visited:text-purple-400"
             href={PATH.zh}
             rel="noreferrer">
-            <ExternalLinkIcon className="w-5 h-5" />
+            <ExternalLinkIcon className="h-5 w-5" />
             <div className="whitespace-nowrap">中文</div>
           </a>
           <a
             target="_blank"
-            className="flex cursor-pointer items-center underline text-blue-400 visited:text-purple-400"
+            className="flex cursor-pointer items-center text-blue-400 underline visited:text-purple-400"
             href={PATH.en}
             rel="noreferrer">
-            <ExternalLinkIcon className="w-5 h-5" />
+            <ExternalLinkIcon className="h-5 w-5" />
             <div className="whitespace-nowrap">English</div>
           </a>
         </Popover.Panel>

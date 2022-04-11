@@ -29,7 +29,7 @@ export const STATUS_MAPPING = {
 const statusRenderer = (cell) => {
   return (
     <div className="flex justify-center">
-      <div className={clsx('rounded-full h-3 w-3 text-center', STATUS_MAPPING[cell.value])}></div>
+      <div className={clsx('h-3 w-3 rounded-full text-center', STATUS_MAPPING[cell.value])}></div>
     </div>
   );
 };
@@ -45,9 +45,9 @@ const COLUMNS = (t) =>
     {
       id: 'dpm',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
+        <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
           <div className="px-2">DPM</div>
-          <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
+          <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
       columns: [{ Header: t('dataStatus.table.DPMEquProduction'), accessor: 'DPMEquProduction', Cell: statusRenderer }],
@@ -55,9 +55,9 @@ const COLUMNS = (t) =>
     {
       id: 'opm',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
+        <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
           <div className="px-2">OPM</div>
-          <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
+          <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
       columns: [
@@ -69,9 +69,9 @@ const COLUMNS = (t) =>
     {
       id: 'fem',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
+        <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
           <div className="px-2">FEM</div>
-          <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
+          <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
       columns: [
@@ -87,9 +87,9 @@ const COLUMNS = (t) =>
     {
       id: 'benefit',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
+        <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
           <div className="px-2">Benefit</div>
-          <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.autoSync')}</div>
+          <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
       columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer }],
@@ -97,9 +97,9 @@ const COLUMNS = (t) =>
     {
       id: 'waste',
       Header: () => (
-        <div className="flex items-center justify-center border-b border-divider py-1 divide-x divide-divider">
+        <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
           <div className="px-2">{t('dataStatus.table.waste')}</div>
-          <div className="px-2 text-gray-400 text-sm">{t('dataStatus.table.manualSync')}</div>
+          <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.manualSync')}</div>
         </div>
       ),
       columns: [{ Header: t('dataStatus.table.wasteWeight'), accessor: 'waste', Cell: statusRenderer }],
@@ -163,14 +163,14 @@ export default function DataStatusPage() {
         uploadExcel={uploadExcel}
         isSuccess={isSuccess}
       />
-      <div className="row-span-2 col-span-7">
-        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
-          <div className="text-xl font-medium space-y-2 h-10">
+      <div className="col-span-7 row-span-2">
+        <div className="flex h-full flex-col space-y-4 rounded bg-primary-900 p-4 shadow">
+          <div className="h-10 space-y-2 text-xl font-medium">
             {((!year && !month) || (year === currYear && month === currMonth)) && getLabel(t)}
           </div>
-          <div className="relative flex justify-center items-center">
-            <Button className="absolute space-x-1 left-0" onClick={() => setOpen(true)}>
-              <UploadIcon className="w-5 h-5" />
+          <div className="relative flex items-center justify-center">
+            <Button className="absolute left-0 space-x-1" onClick={() => setOpen(true)}>
+              <UploadIcon className="h-5 w-5" />
               <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
             </Button>
             <div className="flex space-x-8">
@@ -214,7 +214,7 @@ export default function DataStatusPage() {
             <div className="flex justify-end">{t('dataStatus.csrDesc')}</div>
           </div>
           {data && (
-            <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
+            <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
                 columns={COLUMNS(t)}
                 data={data?.data || []}

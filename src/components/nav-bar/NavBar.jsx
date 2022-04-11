@@ -29,14 +29,16 @@ export default function NavBar({ className }) {
                 isMatched(pathname)({ index, indexPath, path })
                   ? 'border-primary-600 text-gray-50 inline-flex items-center px-1 pt-1 border-b-2'
                   : 'border-b-2 border-primary-800 text-gray-200 hover:text-gray-50 inline-flex items-center px-1 pt-1'
-              }>
+              }
+            >
               <Link
                 to={{
                   pathname: path,
                   state: { from: pathname },
                   search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
                 }}
-                className="text-current text-lg font-medium">
+                className="text-current text-lg font-medium"
+              >
                 <span className="block truncate">{t(i18nKey)}</span>
               </Link>
             </div>

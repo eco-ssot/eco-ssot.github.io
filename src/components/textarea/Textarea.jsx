@@ -9,7 +9,7 @@ export default function Textarea({ className, rows = 0, value = '', onChange = (
     <textarea
       rows={_rows || String(value).split('\n').length || 1}
       className={clsx(
-        'bg-gray-50 bg-opacity-10 shadow-sm block w-full hover:border-primary-600 focus:ring-primary-600 focus:border-primary-600 border border-divider rounded-md bg-transparent border-opacity-50',
+        'block w-full rounded-md border border-divider border-opacity-50 bg-gray-50 bg-transparent bg-opacity-10 shadow-sm hover:border-primary-600 focus:border-primary-600 focus:ring-primary-600',
         className
       )}
       value={isNil(value) ? '' : value}

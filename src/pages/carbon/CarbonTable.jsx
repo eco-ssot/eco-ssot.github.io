@@ -126,7 +126,7 @@ export default function CarbonTable({ business, y, m, s, p, missingPlants }) {
       />
       <div className="h-6"></div>
       {data && (
-        <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+        <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
           <Table
             columns={columns}
             data={data?.data || []}

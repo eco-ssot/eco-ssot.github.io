@@ -40,15 +40,15 @@ export default function OverviewNewMargin({ className, data = {} }) {
   ];
 
   return (
-    <div className={clsx('grid h-full w-full divide-x divide-divider grid-cols-5', className)}>
+    <div className={clsx('grid h-full w-full grid-cols-5 divide-x divide-divider', className)}>
       {nextData.map(({ title, unit, value, renderer = baseFormatter }) => {
         return (
-          <div key={title} className="h-full px-4 flex flex-col justify-between">
-            <div className="flex space-x-2 items-baseline">
+          <div key={title} className="flex h-full flex-col justify-between px-4">
+            <div className="flex items-baseline space-x-2">
               <div className="text-xl">{title}</div>
               <div className="text-unit">{unit}</div>
             </div>
-            <div className="flex flex-grow items-center space-x-2 justify-center">
+            <div className="flex flex-grow items-center justify-center space-x-2">
               <div className={`text-5xl font-bold `}>{renderer(value)}</div>
             </div>
           </div>

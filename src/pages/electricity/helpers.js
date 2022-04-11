@@ -18,7 +18,7 @@ export function getYtmLabel(m, t) {
 
 export function gapFormatter(cell) {
   return (
-    <div className={clsx(cell.value > 0 ? 'text-dangerous-500 font-semibold' : 'text-green-500 font-semibold')}>
+    <div className={clsx(cell.value > 0 ? 'font-semibold text-dangerous-500' : 'font-semibold text-green-500')}>
       {cell.value > 0 && '+'}
       {baseFormatter(cell)}
     </div>

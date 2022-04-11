@@ -24,8 +24,8 @@ export const targetFormatter =
           target === 0 || isNaN(Number(value)) || !isFinite(Number(value))
             ? ''
             : val > target
-            ? 'text-dangerous-500 font-semibold'
-            : val < target && 'text-green-500 font-semibold',
+            ? 'font-semibold text-dangerous-500'
+            : val < target && 'font-semibold text-green-500',
           className
         )}>
         {formatter(value, option)}

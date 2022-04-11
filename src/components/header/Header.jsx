@@ -28,14 +28,14 @@ export default function Header({ className }) {
   const { data: version } = useGetVersionQuery();
   const navigate = useNavigate();
   return (
-    <div className={clsx('flex px-4 bg-primary-800 shadow-lg items-center z-10', className)}>
+    <div className={clsx('z-10 flex items-center bg-primary-800 px-4 shadow-lg', className)}>
       <Link className="flex items-center space-x-4" to="/">
         <Picture className="h-10 w-10" src="/logo-64x64.webp" fallback="/logo-64x64.png" alt="logo" />
-        <Ellipsis label={t('title')} className="font-medium text-xl" />
+        <Ellipsis label={t('title')} className="text-xl font-medium" />
         {version && (
           <Ellipsis
             label={`Ver ${Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}`}
-            className="text-unit text-sm"
+            className="text-sm text-unit"
           />
         )}
       </Link>

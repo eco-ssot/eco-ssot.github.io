@@ -10,7 +10,7 @@ export default function ConfirmModal({ open = false, setOpen = () => {}, onConfi
       setOpen={setOpen}
       title={<div className="h-6"></div>}
       footer={
-        <div className="flex items-center justify-center p-4 space-x-8">
+        <div className="flex items-center justify-center space-x-8 p-4">
           <Button
             variant="plain"
             onClick={() => {
@@ -28,8 +28,8 @@ export default function ConfirmModal({ open = false, setOpen = () => {}, onConfi
           </Button>
         </div>
       }>
-      <div className="flex items-center justify-center pt-8 space-x-2">
-        <InformationCircleIcon className="w-5 h-5 text-_yellow" />
+      <div className="flex items-center justify-center space-x-2 pt-8">
+        <InformationCircleIcon className="h-5 w-5 text-_yellow" />
         <div>項目新增後即不可再編輯，您確定要新增嗎？</div>
       </div>
     </Modal>

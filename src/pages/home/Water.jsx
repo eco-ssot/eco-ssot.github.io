@@ -87,9 +87,9 @@ export default function Water({ baseYear, compareYear, currentYear, latestDate, 
   );
 
   return (
-    <div className="flex w-full h-full items-center justify-around">
-      <Chart className="w-3/5 h-full" option={option} />
-      <div className="flex flex-col h-full justify-center items-start space-y-4 text-lg">
+    <div className="flex h-full w-full items-center justify-around">
+      <Chart className="h-full w-3/5" option={option} />
+      <div className="flex h-full flex-col items-start justify-center space-y-4 text-lg">
         {!isNewMargin && <Legend dotClassName="bg-_yellow" label={t('common:baseYear')} />}
         <Legend dotClassName="bg-_orange" label={`${t('common:target')} : ${formatTarget(data.target, lng)}`} />
         <div>{`${t('unit')} : ${t('thousandTon')} / ${t('billionNtd')}`}</div>

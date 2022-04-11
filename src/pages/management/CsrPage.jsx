@@ -36,7 +36,7 @@ const csrRenderer = (cell) => {
   const status = get(cell.row.original, cell.column.id.replace('_amount', ''));
   return (
     <div className="flex items-center justify-between px-8">
-      <div className={clsx('rounded-full h-3 w-3 text-center', STATUS_MAPPING[status])}></div>
+      <div className={clsx('h-3 w-3 rounded-full text-center', STATUS_MAPPING[status])}></div>
       <div>{baseFormatter(cell.value)}</div>
     </div>
   );
@@ -106,7 +106,7 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
               }))
             );
           }}>
-          <PencilIcon className="w-5 h-5" />
+          <PencilIcon className="h-5 w-5" />
         </EditableIconButton>
       );
     },
@@ -152,8 +152,8 @@ export default function CsrPage() {
   }, [year, month, currYear, currMonth]);
 
   return (
-    <div className="row-span-2 col-span-7">
-      <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
+    <div className="col-span-7 row-span-2">
+      <div className="flex h-full flex-col space-y-4 rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium">{t('managementPage:csr.title')}</div>
         <ButtonGroup
           className="self-center"
@@ -161,7 +161,7 @@ export default function CsrPage() {
           selected={isWater ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
           onChange={(e) => navigate({ hash: e.key })}
         />
-        <div className="flex space-x-8 justify-center">
+        <div className="flex justify-center space-x-8">
           <Select
             label={t('component:selectLabel.searchYear')}
             options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
@@ -198,7 +198,7 @@ export default function CsrPage() {
           </div>
           <div className="flex justify-end">{t('managementPage:csr.desc')}</div>
         </div>
-        <div className="w-full flex flex-grow flex-col shadow overflow-auto rounded-t-lg">
+        <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
           <EditableTable
             columns={columns}
             data={_data}

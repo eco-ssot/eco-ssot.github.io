@@ -73,23 +73,23 @@ export default function Overview({ className, compareYear, currentYear, data = {
   ];
 
   return (
-    <div className={clsx('grid h-full w-full divide-x divide-divider grid-cols-5', className)}>
+    <div className={clsx('grid h-full w-full grid-cols-5 divide-x divide-divider', className)}>
       {nextData.map(({ title, unit, value, name, subData = [], renderer = ratioFormatter }) => {
         const trend = getTrend(value, name);
         return (
-          <div key={title} className="h-full px-4 flex flex-col justify-between">
-            <div className="flex space-x-2 items-baseline">
+          <div key={title} className="flex h-full flex-col justify-between px-4">
+            <div className="flex items-baseline space-x-2">
               <div className="text-xl">{title}</div>
               <div className="text-unit">{unit}</div>
             </div>
-            <div className="h-1/2 flex items-center space-x-2 justify-center border-b border-primary-600">
-              <Arrow className={`w-14 h-14 ${trend.color}`} direction={trend.direction} />
+            <div className="flex h-1/2 items-center justify-center space-x-2 border-b border-primary-600">
+              <Arrow className={`h-14 w-14 ${trend.color}`} direction={trend.direction} />
               <div className={`text-4xl font-bold ${trend.color}`}>{renderer(trend.value)}</div>
             </div>
             <div className="space-y-2 py-2">
               {subData.map(({ key, value: _value, renderer: _renderer = baseFormatter }, i) => {
                 return (
-                  <div className="flex justify-between w-full items-center px-4" key={i}>
+                  <div className="flex w-full items-center justify-between px-4" key={i}>
                     <div className="text-unit">{key}</div>
                     <div className="text-2xl font-medium">{_renderer(_value)}</div>
                   </div>

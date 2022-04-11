@@ -36,8 +36,8 @@ export default function GoalPage() {
   const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: plantPermission });
   return (
     <>
-      <div className="row-span-1 col-span-7">
-        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
+      <div className="col-span-7 row-span-1">
+        <div className="flex h-full flex-col space-y-4 rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
             <div className="text-xl font-medium">{t('managementPage:yearGoal.title')}</div>
             <div className="flex items-center">
@@ -51,7 +51,7 @@ export default function GoalPage() {
             </div>
           </div>
           <YearGoal
-            className="flex flex-col flex-grow"
+            className="flex flex-grow flex-col"
             business={business}
             year={goalYear}
             data={goalRes.data?.data}
@@ -59,10 +59,10 @@ export default function GoalPage() {
           />
         </div>
       </div>
-      <div className="row-span-1 col-span-2">
-        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
+      <div className="col-span-2 row-span-1">
+        <div className="flex h-full flex-col space-y-4 rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="flex space-x-2 items-baseline truncate">
+            <div className="flex items-baseline space-x-2 truncate">
               <Ellipsis className="text-xl font-medium" label={t('managementPage:carbonIndex.title')} />
               <Ellipsis className="text-unit" label={t('managementPage:carbonIndex.unit')} />
             </div>
@@ -77,15 +77,15 @@ export default function GoalPage() {
             </div>
           </div>
           <CarbonIndex
-            className="flex flex-col flex-grow"
+            className="flex flex-grow flex-col"
             year={carbonIndexYear}
             data={carbonIndexRes.data?.data}
             canEdit={canEdit}
           />
         </div>
       </div>
-      <div className="row-span-1 col-span-5">
-        <div className="flex flex-col bg-primary-900 rounded shadow p-4 h-full space-y-4">
+      <div className="col-span-5 row-span-1">
+        <div className="flex h-full flex-col space-y-4 rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
             <div className="text-xl font-medium">{t('managementPage:tRec.title')}</div>
             <div className="flex items-center">
@@ -99,7 +99,7 @@ export default function GoalPage() {
             </div>
           </div>
           <Trec
-            className="flex flex-col flex-grow"
+            className="flex flex-grow flex-col"
             year={tRecYear}
             data={tRecRes.data?.data}
             dataBySite={tRecBySiteRes.data?.data}

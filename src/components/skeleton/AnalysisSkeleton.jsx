@@ -4,19 +4,19 @@ import Tag from '../tag/Tag';
 
 export default function AnalysisSkeleton() {
   return (
-    <div className="flex flex-col p-4 gap-4 w-screen max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-screen flex-col gap-4 overflow-hidden p-4">
       <div className="text-xl font-medium">&#8203;</div>
-      <div className="flex justify-between items-end">
-        <div className="flex text-gray-300 cursor-pointer space-x-2 items-center hover:text-green-50">
-          <ChevronLeftIcon className="w-5 h-5" />
+      <div className="flex items-end justify-between">
+        <div className="flex cursor-pointer items-center space-x-2 text-gray-300 hover:text-green-50">
+          <ChevronLeftIcon className="h-5 w-5" />
           <div>返回上一頁</div>
         </div>
         <Tag>累計區間 : </Tag>
       </div>
-      <div className="grid grid-rows-5 grid-cols-7 flex-grow gap-4 overflow-auto">
-        <div className="row-span-2 col-span-7 bg-primary-900 rounded shadow py-8 grid h-full w-full divide-x divide-divider grid-cols-5"></div>
-        <div className="row-span-3 col-span-5 bg-primary-900 rounded shadow p-4 space-y-4 flex flex-col h-full"></div>
-        <div className="row-span-3 col-span-2 bg-primary-900 rounded shadow p-4 flex flex-col"></div>
+      <div className="grid flex-grow grid-cols-7 grid-rows-5 gap-4 overflow-auto">
+        <div className="col-span-7 row-span-2 grid h-full w-full grid-cols-5 divide-x divide-divider rounded bg-primary-900 py-8 shadow"></div>
+        <div className="col-span-5 row-span-3 flex h-full flex-col space-y-4 rounded bg-primary-900 p-4 shadow"></div>
+        <div className="col-span-2 row-span-3 flex flex-col rounded bg-primary-900 p-4 shadow"></div>
       </div>
     </div>
   );

@@ -19,16 +19,16 @@ export default function GhostSelect({
     <Listbox value={selected} onChange={(e) => queryKey && onChange({ [queryKey]: e.key })}>
       {({ open }) => (
         <>
-          <div className={clsx('mt-1 relative min-w-28', className)}>
+          <div className={clsx('relative mt-1 min-w-28', className)}>
             <Listbox.Button
               {...(ariaLabel && { 'aria-label': `select-${ariaLabel}` })}
               className={clsx(
-                'bg-transparent relative w-full border rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 hover:border-primary-600',
+                'relative w-full cursor-pointer rounded-md border bg-transparent py-2 pl-3 pr-10 text-left shadow-sm hover:border-primary-600 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600',
                 open ? 'border-primary-600' : 'border-primary-800',
                 buttonClassName
               )}>
               <Ellipsis className="text-lg" label={selected.alias || selected.value} />
-              <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDownIcon className="h-5 w-5 text-gray-50" aria-hidden="true" />
               </span>
             </Listbox.Button>
@@ -40,15 +40,15 @@ export default function GhostSelect({
               leaveTo="opacity-0">
               <Listbox.Options
                 static
-                className="absolute z-10 mt-1 w-full bg-primary-900 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-gray-900 ring-opacity-5 overflow-auto border border-divider focus:outline-none">
+                className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-divider bg-primary-900 py-1 text-base shadow-lg ring-1 ring-gray-900 ring-opacity-5 focus:outline-none">
                 {options.map((option) => (
                   <Listbox.Option
                     aria-label={`option-${option.key}`}
                     key={option.key}
                     className={({ active }) =>
                       clsx(
-                        active ? 'text-gray-50 bg-primary-600' : 'text-gray-50',
-                        'cursor-default select-none relative py-2 pl-3 pr-9'
+                        active ? 'bg-primary-600 text-gray-50' : 'text-gray-50',
+                        'relative cursor-default select-none py-2 pl-3 pr-9'
                       )
                     }
                     value={option}>

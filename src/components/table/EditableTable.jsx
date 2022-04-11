@@ -41,10 +41,10 @@ export const EditableInput = ({
   ...props
 }) => (
   <div className={clsx('flex h-full', containerClassName)}>
-    <div className={clsx('mx-auto h-full relative', wrapperClassName)}>
+    <div className={clsx('relative mx-auto h-full', wrapperClassName)}>
       <Input className={clsx(className)} {...props} />
-      {prefix && <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">{prefix}</div>}
-      {suffix && <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">{suffix}</div>}
+      {prefix && <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">{prefix}</div>}
+      {suffix && <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">{suffix}</div>}
     </div>
   </div>
 );
@@ -276,7 +276,7 @@ export default function EditableTable({
                             return [...prev.slice(0, -1), { editing: true }, ...action];
                           })
                         }>
-                        <PlusIcon className="w-5 h-5" />
+                        <PlusIcon className="h-5 w-5" />
                       </IconButton>
                     ) : (
                       cell.render('Cell')

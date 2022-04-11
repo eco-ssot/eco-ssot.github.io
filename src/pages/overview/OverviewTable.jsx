@@ -71,16 +71,16 @@ export const COLUMNS = ({
           ...(key === 'revenue' && {
             Cell: (cell) => {
               return (
-                <div className="flex justify-end items-center space-x-2">
+                <div className="flex items-center justify-end space-x-2">
                   <div>{targetFormatter(0, { formatter: ratioFormatter })(cell)}</div>
                   <IconButton
                     className={clsx(
-                      'bg-primary-600 rounded-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600',
+                      'rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
                       (!MANUAL_UPLOAD_PLANTS.includes(cell.row.original.site) || window.location.hash === '#HISTORY') &&
                         'invisible'
                     )}
                     onClick={() => setOpen(true)}>
-                    <UploadIcon className="w-5 h-5" />
+                    <UploadIcon className="h-5 w-5" />
                   </IconButton>
                 </div>
               );
@@ -120,8 +120,8 @@ export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
       </Tag>
       {data && (
         <>
-          <div className="w-full h-6 text-right">{t('common:gapDesc')}</div>
-          <div className="w-full flex flex-col shadow overflow-auto rounded-t-lg">
+          <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
+          <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
             <Table
               columns={columns}
               data={data?.data || []}

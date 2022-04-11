@@ -61,18 +61,18 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { CO2Emission, electricPowerUtilization, renewableEnergy, singleElectric, waste, waterUse, missing } = data;
   return (
-    <div className="grid grid-rows-3 grid-cols-9 p-4 pt-20 -mt-16 gap-4 h-screen w-screen overflow-hidden">
+    <div className="-mt-16 grid h-screen w-screen grid-cols-9 grid-rows-3 gap-4 overflow-hidden p-4 pt-20">
       <Panel
         title={t('overviewTitle')}
-        className="row-span-1 col-span-8"
+        className="col-span-8 row-span-1"
         to="/overview"
         subtitle={
           <>
-            <div className="w-auto h-8 items-center flex rounded shadow bg-primary-800">
-              <div className="pl-3 flex items-center">
+            <div className="flex h-8 w-auto items-center rounded bg-primary-800 shadow">
+              <div className="flex items-center pl-3">
                 {t('accumulationRange')} : <GlobalDateSelect />
               </div>
-              <Divider className="border-primary-600 ml-0" />
+              <Divider className="ml-0 border-primary-600" />
               <TagSelect
                 options={cyOptions}
                 label={t('compareYear')}
@@ -89,23 +89,23 @@ export default function HomePage() {
           <Overview data={data} compareYear={compareYear || cyOptions[0].key} currentYear={y || yearOptions[0].key} />
         )}
       </Panel>
-      <div className="row-span-1 col-span-1 h-full bg-primary-900 rounded shadow p-4 flex flex-col justify-between">
+      <div className="col-span-1 row-span-1 flex h-full flex-col justify-between rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
-        <div className="grid grid-cols-2 overflow-y-auto max-h-[60%] ">
+        <div className="grid max-h-[60%] grid-cols-2 overflow-y-auto ">
           {(y && y < 2022 ? [] : missing)?.map((val, i) => (
             <div key={i} className="text-center">
               {val}
             </div>
           ))}
         </div>
-        <div className="border-t border-primary-600 w-full p-2 pb-0 flex justify-center">
-          <Link to="/management/data-status" className="underline w-full items-center flex flex-col">
+        <div className="flex w-full justify-center border-t border-primary-600 p-2 pb-0">
+          <Link to="/management/data-status" className="flex w-full flex-col items-center underline">
             <div>{t('seeDetail')}</div>
             <div>{t('onSettingsPage')}</div>
           </Link>
         </div>
       </div>
-      <Panel className="row-span-1 col-span-3 pb-2" title={t('carbonEmission')} to="/carbon">
+      <Panel className="col-span-3 row-span-1 pb-2" title={t('carbonEmission')} to="/carbon">
         <Carbon
           data={CO2Emission}
           baseYear={APP_CONSTANTS.BASE_YEAR_CARBON}
@@ -115,10 +115,10 @@ export default function HomePage() {
           isNewMargin={isNewMargin}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-3 pb-1" title={t('renewableEnergyRatio')} to="/renewable-energy">
+      <Panel className="col-span-3 row-span-1 pb-1" title={t('renewableEnergyRatio')} to="/renewable-energy">
         <RenewableEnergy data={renewableEnergy} />
       </Panel>
-      <Panel className="row-span-1 col-span-3 pb-2" title={t('electricityIntensity')} to="/electricity">
+      <Panel className="col-span-3 row-span-1 pb-2" title={t('electricityIntensity')} to="/electricity">
         <Electricity
           data={electricPowerUtilization?.intensity}
           baseYear={compareYear || cyOptions[0].key}
@@ -128,7 +128,7 @@ export default function HomePage() {
           isNewMargin={isNewMargin}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-3 pb-2" title={t('waterIntensity')} to="/water">
+      <Panel className="col-span-3 row-span-1 pb-2" title={t('waterIntensity')} to="/water">
         <Water
           data={waterUse?.intensity}
           baseYear={APP_CONSTANTS.BASE_YEAR_WATER}
@@ -138,7 +138,7 @@ export default function HomePage() {
           isNewMargin={isNewMargin}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-3 pb-2" title={t('unitElectricity')} to="/unit-electricity">
+      <Panel className="col-span-3 row-span-1 pb-2" title={t('unitElectricity')} to="/unit-electricity">
         <UnitElectricity
           data={singleElectric}
           baseYear={compareYear || cyOptions[0].key}
@@ -148,7 +148,7 @@ export default function HomePage() {
           isNewMargin={isNewMargin}
         />
       </Panel>
-      <Panel className="row-span-1 col-span-3 pb-2" title={t('wasteEmissionDensity')} to="/waste">
+      <Panel className="col-span-3 row-span-1 pb-2" title={t('wasteEmissionDensity')} to="/waste">
         <Waste
           data={waste?.intensity}
           baseYear={APP_CONSTANTS.BASE_YEAR_WASTE}

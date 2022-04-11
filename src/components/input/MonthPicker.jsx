@@ -15,14 +15,14 @@ export default function MonthPicker({ className }) {
         onChange={(date) => setStartDate(date)}
         dateFormat="MM/yyyy"
         renderCustomHeader={({ monthDate, decreaseYear, increaseYear }) => (
-          <div className="flex pt-4 px-6 w-full justify-between items-center">
+          <div className="flex w-full items-center justify-between px-6 pt-4">
             <ChevronLeftIcon
-              className="w-6 h-6 cursor-pointer text-gray-300 hover:text-gray-50"
+              className="h-6 w-6 cursor-pointer text-gray-300 hover:text-gray-50"
               onClick={() => decreaseYear()}
             />
             <div className="flex h-full items-center">{format(monthDate, 'yyyy')}</div>
             <ChevronRightIcon
-              className="w-6 h-6 cursor-pointer text-gray-300 hover:text-gray-50"
+              className="h-6 w-6 cursor-pointer text-gray-300 hover:text-gray-50"
               onClick={() => increaseYear()}
             />
           </div>

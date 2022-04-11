@@ -54,7 +54,7 @@ const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
               }))
             )
           }>
-          <PencilIcon className="w-5 h-5" />
+          <PencilIcon className="h-5 w-5" />
         </EditableIconButton>
       );
     },
@@ -71,7 +71,7 @@ export default function CarbonIndex({ className, year, data, canEdit }) {
   }, [data]);
 
   return (
-    <div className={clsx('w-full shadow overflow-auto rounded-t-lg space-y-2', className)}>
+    <div className={clsx('w-full space-y-2 overflow-auto rounded-t-lg shadow', className)}>
       <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
     </div>
   );

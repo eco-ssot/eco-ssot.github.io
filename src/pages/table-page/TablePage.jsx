@@ -14,12 +14,12 @@ export default function TablePage({ title, downloadResource, table: Table, histo
   const { t } = useTranslation(['component']);
   const navigate = useNavigate();
   return (
-    <PageContainer className="flex flex-col relative space-y-2">
+    <PageContainer className="relative flex flex-col space-y-2">
       <div className="text-xl font-medium">{title}</div>
       <TablePanel>
         {({ isHistory, isOverview, option, prevOption, missingPlants }) => (
           <>
-            <div className="flex justify-center items-end">
+            <div className="flex items-end justify-center">
               <ButtonGroup
                 options={APP_CONSTANTS.HISTORY_OPTIONS}
                 selected={isHistory ? APP_CONSTANTS.HISTORY_OPTIONS[1] : APP_CONSTANTS.HISTORY_OPTIONS[0]}
@@ -33,10 +33,10 @@ export default function TablePage({ title, downloadResource, table: Table, histo
                   )
                 }
               />
-              <div className="flex absolute right-4 space-x-4">
+              <div className="absolute right-4 flex space-x-4">
                 <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
                 <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
-                <div className="bg-dangerous-900 rounded border border-dangerous-700 px-1">
+                <div className="rounded border border-dangerous-700 bg-dangerous-900 px-1">
                   {t('component:legend.missingData')}
                 </div>
               </div>

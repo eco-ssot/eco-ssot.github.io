@@ -79,9 +79,9 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
   const startMonthOptions = getStartMonthOptions(searchOption);
   const endMonthOptions = getEndMonthOptions(searchOption);
   return (
-    <div className="w-full grid grid-cols-12 py-4 items-center">
+    <div className="grid w-full grid-cols-12 items-center py-4">
       <div></div>
-      <div className="flex justify-center col-span-10">
+      <div className="col-span-10 flex justify-center">
         <Select
           label={t('selectLabel.searchYear')}
           options={startYearOptions}
@@ -93,7 +93,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
         />
         <Select
           className="mr-8"
-          label={<ArrowRightIcon className="h-5 w-5 ml-2 mr-1" />}
+          label={<ArrowRightIcon className="ml-2 mr-1 h-5 w-5" />}
           options={endYearOptions}
           selected={endYearOptions.find((option) => option.key === searchOption.endYear)}
           onChange={(e) => setSearchOption((prev) => ({ ...prev, endYear: e.key }))}
@@ -131,7 +131,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           }
           onChange={(e) => setSearchOption((prev) => ({ ...prev, endMonth: e.key }))}
           {...(sameYear && {
-            label: <ArrowRightIcon className="h-5 w-5 mx-2" />,
+            label: <ArrowRightIcon className="mx-2 h-5 w-5" />,
             options: endMonthOptions,
             selected:
               endMonthOptions.find((option) => option.key === searchOption.endMonth) || endMonthOptions.slice(-1)[0],
@@ -161,7 +161,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           download
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center px-4 py-1 border border-transparent text-base font-medium rounded shadow-sm text-gray-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-900 focus:ring-primary-600"
+          className="inline-flex items-center rounded border border-transparent bg-primary-600 px-4 py-1 text-base font-medium text-gray-50 shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900"
           href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify(
             getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions }),
             { skipNull: true }

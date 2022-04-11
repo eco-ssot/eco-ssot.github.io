@@ -21,10 +21,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex w-screen h-screen overflow-hidden items-center justify-center -mt-16">
-      <Header className="fixed z-50 h-16 w-full top-0" />
-      <Picture className="fixed w-full h-full -z-1" src="/login.webp" fallback="/login.png" alt="login" />
-      <div className="flex flex-col space-y-4 items-center">
+    <div className="-mt-16 flex h-screen w-screen items-center justify-center overflow-hidden">
+      <Header className="fixed top-0 z-50 h-16 w-full" />
+      <Picture className="fixed -z-1 h-full w-full" src="/login.webp" fallback="/login.png" alt="login" />
+      <div className="flex flex-col items-center space-y-4">
         <div className="text-lg font-medium">{t('loginDescription')}</div>
         <Button className="text-lg" onClick={() => login()}>
           Login with keycloak

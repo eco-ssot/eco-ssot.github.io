@@ -60,7 +60,7 @@ export function CustomOption(props) {
     <div className="flex items-center">
       <components.Option {...props} />
       {props.isSelected && (
-        <CheckIcon className={clsx('absolute w-5 h-5 right-2 text-gray-50', !props.isFocused && 'text-primary-600')} />
+        <CheckIcon className={clsx('absolute right-2 h-5 w-5 text-gray-50', !props.isFocused && 'text-primary-600')} />
       )}
     </div>
   );
@@ -96,7 +96,7 @@ export function BaseAsyncReactSelect(props) {
       theme={customTheme}
       styles={customStyles}
       components={{
-        DropdownIndicator: (props) => <ChevronDownIcon className="w-5 h-5 mr-2" />,
+        DropdownIndicator: (props) => <ChevronDownIcon className="mr-2 h-5 w-5" />,
         IndicatorSeparator: (props) => null,
         Option: CustomOption,
       }}
@@ -112,7 +112,7 @@ export default function BaseReactSelect(props) {
       theme={customTheme}
       styles={customStyles}
       components={{
-        DropdownIndicator: (props) => <ChevronDownIcon className="w-5 h-5 mr-2" />,
+        DropdownIndicator: (props) => <ChevronDownIcon className="mr-2 h-5 w-5" />,
         IndicatorSeparator: (props) => null,
         Option: CustomOption,
       }}

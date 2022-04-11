@@ -9,7 +9,7 @@ export default function Layout() {
     <>
       <Toaster />
       <Spinner />
-      <Header className="flex fixed w-full h-16" />
+      <Header className="fixed flex h-16 w-full" />
       <div className="pt-16">
         <Outlet />
       </div>
