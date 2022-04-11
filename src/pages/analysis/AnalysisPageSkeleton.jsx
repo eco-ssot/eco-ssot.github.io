@@ -1,8 +1,8 @@
 import { ChevronLeftIcon } from '@heroicons/react/solid';
 
-import Tag from '../tag/Tag';
+import Tag from '../../components/tag/Tag';
 
-export default function AnalysisSkeleton() {
+export default function AnalysisPageSkeleton() {
   return (
     <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-screen flex-col gap-4 overflow-hidden p-4">
       <div className="text-xl font-medium">&#8203;</div>

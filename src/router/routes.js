@@ -1,8 +1,9 @@
-import AnalysisSkeleton from '../components/skeleton/AnalysisSkeleton';
-import GoalSkeleton from '../components/skeleton/GoalSkeleton';
-import HomeSkeleton from '../components/skeleton/HomeSkeleton';
-import ManagementPageSkeleton from '../components/skeleton/ManagementPageSkeketon';
-import ManagementSkeleton from '../components/skeleton/ManagementSkeleton';
+import AirCompressorPageSkeleton from '../pages/air-compressor/AirCompressorPageSkeleton';
+import AnalysisPageSkeleton from '../pages/analysis/AnalysisPageSkeleton';
+import HomePageSkeleton from '../pages/home/HomePageSkeleton';
+import GoalSkeleton from '../pages/management/GoalSkeleton';
+import ManagementPageSkeleton from '../pages/management/ManagementPageSkeleton';
+import ManagementSkeleton from '../pages/management/ManagementSkeleton';
 
 import { lazyPreload } from './helpers';
 
@@ -76,7 +77,7 @@ export const privateRoutes = [
     indexPath: '/',
     path: '/home',
     element: lazyPreload(() => import('../pages/home/HomePage')),
-    skeleton: HomeSkeleton,
+    skeleton: HomePageSkeleton,
     i18nKey: 'home',
   },
   {
@@ -105,7 +106,7 @@ export const privateRoutes = [
       {
         path: 'analysis',
         element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
-        skeleton: AnalysisSkeleton,
+        skeleton: AnalysisPageSkeleton,
       },
     ],
   },
@@ -125,7 +126,7 @@ export const privateRoutes = [
       {
         path: 'analysis',
         element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
-        skeleton: AnalysisSkeleton,
+        skeleton: AnalysisPageSkeleton,
       },
     ],
   },
@@ -146,7 +147,7 @@ export const privateRoutes = [
       {
         path: 'analysis',
         element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
-        skeleton: AnalysisSkeleton,
+        skeleton: AnalysisPageSkeleton,
       },
     ],
   },
@@ -154,6 +155,7 @@ export const privateRoutes = [
     path: '/air-compressor',
     title: '空壓設備',
     element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
+    skeleton: AirCompressorPageSkeleton,
     i18nKey: 'airCompressor',
     hidden: process.env.REACT_APP_STAGE === 'production',
   },
