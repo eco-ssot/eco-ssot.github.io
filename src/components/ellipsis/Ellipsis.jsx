@@ -1,24 +1,25 @@
 import { useEffect, useState, useRef } from 'react';
 
-import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
-import { useMeasure } from 'react-use';
+import { useWindowSize } from 'react-use';
+
+import Tooltip from '../tooltip/Tooltip';
 
 export default function Ellipsis({ label, className, placement = 'auto' }) {
   const ref = useRef();
-  const [containerRef, { width }] = useMeasure();
+  const { width } = useWindowSize();
   const [isTruncated, setIsTruncated] = useState(false);
   useEffect(() => {
-    setIsTruncated(ref.current.offsetWidth < ref.current.scrollWidth);
-  }, [width]);
+    setIsTruncated(ref.current?.offsetWidth < ref.current?.scrollWidth);
+  }, [label, width]);
 
   return (
-    <Tippy content={label} placement={placement} className={clsx(!isTruncated && '!invisible')}>
-      <span ref={containerRef} className="block truncate">
+    <Tooltip label={label} placement={placement} show={isTruncated}>
+      <span className="block truncate">
         <span ref={ref} className={clsx('block truncate', className)}>
           {label}
         </span>
       </span>
-    </Tippy>
+    </Tooltip>
   );
 }

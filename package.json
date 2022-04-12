@@ -3,11 +3,11 @@
   "version": "3.2.1",
   "private": true,
   "dependencies": {
+    "@floating-ui/react-dom-interactions": "^0.1.1",
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.3",
     "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^1.5.1",
-    "@tippyjs/react": "^4.2.6",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "date-fns": "^2.23.0",

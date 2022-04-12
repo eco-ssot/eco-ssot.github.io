@@ -1,9 +1,9 @@
 import { Popover } from '@headlessui/react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import Tippy from '@tippyjs/react';
 
 import { ReactComponent as PdfIcon } from '../../icons/file-pdf-solid.svg';
+import Tooltip from '../tooltip/Tooltip';
 
 const PATH = {
   zh: '/ESG績效管理平台使用手冊.pdf',
@@ -20,11 +20,11 @@ export default function Manual({ lng }) {
   const path = PATH[lng] || PATH.en;
   return (
     <>
-      <Tippy content={title}>
+      <Tooltip label={title}>
         <a href={path} target="_blank" rel="noreferrer">
           <PdfIcon className="w-5 h-5 fill-gray-50" />
         </a>
-      </Tippy>
+      </Tooltip>
       <Popover className="relative ml-2">
         <Popover.Button className="align-bottom">
           <ChevronDownIcon className="w-5 h-5 fill-gray-50" />
