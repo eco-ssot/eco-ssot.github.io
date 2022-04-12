@@ -150,6 +150,7 @@ export const privateRoutes = [
     title: '空壓設備',
     element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
     i18nKey: 'airCompressor',
+    hidden: process.env.REACT_APP_STAGE === 'production',
   },
   {
     path: '/management',
