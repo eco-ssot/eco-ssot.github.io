@@ -6,6 +6,7 @@ export const handlers = [
     const pathname = req.url.pathname.split('/api/')[1];
     req.url.searchParams.sort();
     const search = req.url.searchParams.toString();
+    await new Promise((resolve) => setTimeout(resolve, 100));
     return import(`./${method}/${pathname}/${search}`)
       .then((data) => res(ctx.json(data.default)))
       .catch(() => import(`./${method}/${pathname}`).then((data) => res(ctx.json(data.default))))
