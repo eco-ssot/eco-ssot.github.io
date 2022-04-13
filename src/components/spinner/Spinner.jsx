@@ -12,10 +12,10 @@ export default function Spinner() {
       appear
       as={Fragment}
       show={isLoading}
-      enter="transition-opacity duration-500 ease-in delay-75"
+      enter="transition-opacity duration-500 ease-in-out delay-100"
       enterFrom="opacity-0"
       enterTo="opacity-100"
-      leave="transition-opacity duration-200 ease-out"
+      leave="transition-opacity duration-200 ease-in-out"
       leaveFrom="opacity-100"
       leaveTo="opacity-0">
       <div

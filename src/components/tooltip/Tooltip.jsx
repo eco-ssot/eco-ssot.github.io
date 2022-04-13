@@ -1,4 +1,4 @@
-import React, { cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
+import { cloneElement, Fragment, isValidElement, useEffect, useRef, useState } from 'react';
 
 import {
   offset,
@@ -13,6 +13,7 @@ import {
   useRole,
   useDismiss,
 } from '@floating-ui/react-dom-interactions';
+import { Transition } from '@headlessui/react';
 import clsx from 'clsx';
 
 const FLIP_SIDES = {
@@ -22,7 +23,7 @@ const FLIP_SIDES = {
   bottom: 'top',
 };
 
-export default function Tooltip({ children, label, placement, className, show = true }) {
+export default function Tooltip({ children, label, placement, className, strategy = 'fixed', show = true }) {
   const [open, setOpen] = useState(false);
   const arrowRef = useRef(null);
   const {
@@ -30,14 +31,15 @@ export default function Tooltip({ children, label, placement, className, show = 
     y,
     reference,
     floating,
-    strategy,
     context,
     refs,
     update,
     middlewareData,
+    strategy: _strategy,
     placement: _placement,
   } = useFloating({
     open,
+    strategy,
     onOpenChange: setOpen,
     middleware: [
       offset(8),
@@ -49,7 +51,7 @@ export default function Tooltip({ children, label, placement, className, show = 
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    useHover(context, { delay: { open: 500 }, restMs: 50 }),
+    useHover(context),
     useFocus(context),
     useRole(context, { role: 'tooltip' }),
     useDismiss(context),
@@ -64,35 +66,40 @@ export default function Tooltip({ children, label, placement, className, show = 
   return (
     <>
       {isValidElement(children) && cloneElement(children, getReferenceProps({ ref: reference }))}
-      {show && open && (
-        <>
-          <div
-            {...getFloatingProps({
-              ref: floating,
-              className: clsx(
-                'bg-gray-800 rounded shadow py-1 px-2 text-base whitespace-nowrap transition-opacity z-20',
-                className
-              ),
-              style: {
-                position: strategy,
-                top: y ?? '',
-                left: x ?? '',
-              },
-            })}>
-            {label}
-            <div
-              className="h-3 w-3 rotate-45 bg-gray-800"
-              ref={arrowRef}
-              style={{
-                position: strategy,
-                top: middlewareData?.arrow?.y ? middlewareData?.arrow?.y + middlewareData?.arrow?.centerOffset : '',
-                left: middlewareData?.arrow?.x ? middlewareData?.arrow?.x + middlewareData?.arrow?.centerOffset : '',
-                [FLIP_SIDES[_placement.split('-')[0]]]: '-0.375rem',
-              }}
-            />
-          </div>
-        </>
-      )}
+      <Transition appear show={show && open}>
+        <div
+          {...getFloatingProps({
+            ref: floating,
+            className: 'z-50',
+            style: {
+              position: _strategy,
+              top: y ?? '',
+              left: x ?? '',
+            },
+          })}>
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-in-out"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-in-out"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0">
+            <div className={clsx('whitespace-nowrap rounded bg-gray-800 py-1 px-2 text-base shadow', className)}>
+              {label}
+              <div
+                className="absolute h-3 w-3 rotate-45 bg-gray-800"
+                ref={arrowRef}
+                style={{
+                  top: middlewareData?.arrow?.y ? middlewareData?.arrow?.y + middlewareData?.arrow?.centerOffset : '',
+                  left: middlewareData?.arrow?.x ? middlewareData?.arrow?.x + middlewareData?.arrow?.centerOffset : '',
+                  [FLIP_SIDES[_placement.split('-')[0]]]: '-0.375rem',
+                }}
+              />
+            </div>
+          </Transition.Child>
+        </div>
+      </Transition>
     </>
   );
 }
