@@ -58,6 +58,12 @@ export const managementRoutes = [
     skeleton: ManagementSkeleton,
   },
   {
+    path: 'plant-changelog',
+    element: lazyPreload(() => import('../pages/management/PlantChangelogPage')),
+    i18nKey: 'plantChangelog',
+    skeleton: ManagementSkeleton,
+  },
+  {
     path: 'permission',
     element: lazyPreload(() => import('../pages/management/PermissionPage')),
     i18nKey: 'permission',

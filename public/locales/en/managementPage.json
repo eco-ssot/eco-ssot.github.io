@@ -5,7 +5,8 @@
     "pic": "Data Maintain PIC",
     "csrAndFemStatus": "FEM & CSR Status",
     "changelog": "Changelog",
-    "permission": "Permission List"
+    "permission": "Permission List",
+    "plantChangelog": "Plant Changelog"
   },
   "yearGoal": {
     "title": "Annual Target",

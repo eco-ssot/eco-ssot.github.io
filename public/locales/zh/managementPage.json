@@ -5,7 +5,8 @@
     "pic": "資料維護PIC",
     "csrAndFemStatus": "FEM & CSR數值狀態",
     "changelog": "版本異動",
-    "permission": "權限名單"
+    "permission": "權限名單",
+    "plantChangelog": "廠區異動"
   },
   "yearGoal": {
     "title": "年度目標",
