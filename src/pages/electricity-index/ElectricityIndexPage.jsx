@@ -103,7 +103,6 @@ const ACC_OPTION = (data) => {
         type: 'bar',
         data: day,
         color: colors.primary['500'],
-        z: 3,
       },
       {
         name: 'acc',
@@ -139,7 +138,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
     const currMonth = new Date(latestDate).getMonth();
     const highlight = month === currMonth && year === currYear;
     return {
-      name: format(date, 'yyyyMM'),
+      name: format(date, 'yyyy-MM'),
       value: [d.asp, d.unit_electricity],
       label: {
         show: true,
@@ -164,6 +163,10 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
           color: colors._yellow,
         }),
       },
+      emphasis: {
+        scale: 2,
+        label: { fontSize: 20 },
+      },
       symbolSize: highlight ? 10 : 6,
     };
   });
@@ -171,6 +174,19 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
   const maxX = Math.ceil(Math.max(...data?.map((d) => d.asp))) + 1;
   const maxY = Math.max(Math.ceil(Math.max(...data?.map((d) => d.unit_electricity))), Math.ceil(maxX * slope)) + 1;
   return {
+    tooltip: {
+      formatter: (params) => {
+        const { name, marker, value, seriesType } = params;
+        if (seriesType === 'scatter') {
+          return `${marker} ${name}  <br> ASP : ${baseFormatter(value[0], {
+            precision: 2,
+          })} <br> 單台用電 : ${baseFormatter(value[1], { precision: 2 })}`;
+        }
+
+        return null;
+      },
+      extraCssText: 'text-align: left;',
+    },
     xAxis: {
       type: 'value',
       name: 'ASP\n(千元)',
@@ -283,7 +299,7 @@ const COLUMNS = [
   { Header: '', accessor: 'category' },
   ...Array.from({ length: 12 }, (_, i) => ({
     Header: `${i + 1}月`,
-    accessor: String(i).padStart(2, 0),
+    accessor: String(i + 1).padStart(2, 0),
     Cell: (cell) => (
       <div className="flex justify-center">
         <div className={clsx('h-3 w-3 rounded-full', cell.value ? 'bg-primary-500' : 'bg-dangerous-700')}></div>
