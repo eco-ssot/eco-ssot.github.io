@@ -261,11 +261,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
         silent: true,
       },
       {
-        data: values,
-        type: 'scatter',
-        symbolSize: (data) => {
-          return values.find((v) => v.value.join() === data.join())?.symbolSize || 6;
-        },
+        type: 'line',
         markLine: {
           symbol: 'none',
           data: [
@@ -288,6 +284,13 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
               { coord: [maxX, maxX * slope] },
             ],
           ],
+        },
+      },
+      {
+        data: values,
+        type: 'scatter',
+        symbolSize: (data) => {
+          return values.find((v) => v.value.join() === data.join())?.symbolSize || 6;
         },
       },
     ],
