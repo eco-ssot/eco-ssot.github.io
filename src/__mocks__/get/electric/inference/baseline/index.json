@@ -21,6 +21,7 @@
         "gap": -17264.94955579308,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3615.7260398294015, "unit": 2.8204337990050377, "asp": 0.4619666066306138 },
       "PCBAProduction": 1474343,
       "FAProduction": null,
       "manpower": 3225,
@@ -50,6 +51,7 @@
         "gap": -96813.45448660175,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3190.477767547018, "unit": 2.3884731323119786, "asp": 0.47173435082320175 },
       "PCBAProduction": 1496157,
       "FAProduction": null,
       "manpower": 3046,
@@ -79,6 +81,7 @@
         "gap": 70978.14730455074,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3513.67289501024, "unit": 2.5598397812502434, "asp": 0.47564504153392645 },
       "PCBAProduction": 1642571,
       "FAProduction": null,
       "manpower": 2882,
@@ -108,6 +111,7 @@
         "gap": 115273.06853958126,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3568.8270378425973, "unit": 3.425568571841549, "asp": 0.6061132311709528 },
       "PCBAProduction": 1149563,
       "FAProduction": null,
       "manpower": 3004,
@@ -137,6 +141,7 @@
         "gap": 80457.29218964675,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 4072.8555514469667, "unit": 2.2806057143658993, "asp": 0.4869314681881079 },
       "PCBAProduction": 1431083,
       "FAProduction": null,
       "manpower": 3461,
@@ -161,6 +166,7 @@
         "gap": 69806.75007406622,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3408.7628803656007, "unit": 2.4564712089997016, "asp": 0.5956985115232638 },
       "PCBAProduction": 1706009,
       "FAProduction": null,
       "manpower": 3997,
@@ -190,6 +196,7 @@
         "gap": 65506.72452579229,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3851.296766140583, "unit": 2.6023906730679762, "asp": 0.5672414017494917 },
       "PCBAProduction": 1657352,
       "FAProduction": null,
       "manpower": 3806,
@@ -224,6 +231,7 @@
         "gap": 105596.68215551297,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3614.473463455292, "unit": 2.745060327924219, "asp": 0.6365420689869387 },
       "PCBAProduction": 1570086,
       "FAProduction": null,
       "manpower": 3596,
@@ -253,6 +261,7 @@
         "gap": 97626.89294428565,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3098.6654573629376, "unit": 2.168753794496695, "asp": 0.6689394676952023 },
       "PCBAProduction": 1451216,
       "FAProduction": null,
       "manpower": 3670,
@@ -287,6 +296,7 @@
         "gap": -228419.78208054835,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 3009.861011653612, "unit": 2.0616808442830283, "asp": 0.5875040954795188 },
       "PCBAProduction": 1540793,
       "FAProduction": null,
       "manpower": 3241,
@@ -316,6 +326,7 @@
         "gap": 45949.32519161119,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 2830.1330996041643, "unit": 1.8649635256797075, "asp": 0.5967302400981334 },
       "PCBAProduction": 1584554,
       "FAProduction": null,
       "manpower": 3107,
@@ -345,6 +356,7 @@
         "gap": 62514.2047432221,
         "saving_tech": 0
       },
+      "electricity_target": { "intensity": 2859.1363485096754, "unit": 2.076226905432709, "asp": 0.6875873798226108 },
       "PCBAProduction": 1361914,
       "FAProduction": null,
       "manpower": 2706,

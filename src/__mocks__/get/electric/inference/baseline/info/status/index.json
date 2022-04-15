@@ -1,0 +1,16 @@
+{
+  "data": [
+    { "month": "01", "unit_electricity": true, "electricity": true, "total": false },
+    { "month": "02", "unit_electricity": true, "electricity": true, "total": false },
+    { "month": "03", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "04", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "05", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "06", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "07", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "08", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "09", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "10", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "11", "unit_electricity": true, "electricity": false, "total": false },
+    { "month": "12", "unit_electricity": true, "electricity": false, "total": false }
+  ]
+}

@@ -91,6 +91,34 @@ export const electricityApi = appApi.injectEndpoints({
     getElectricityBaseline: builder.query({
       query: (query) => ({ query, url: 'electric/inference/baseline' }),
     }),
+    getElectricityBaselineInfo: builder.query({
+      query: (query) => ({ query, url: 'electric/inference/baseline/info' }),
+    }),
+    getElectricityBaselineInfoStatus: builder.query({
+      query: (query) => ({ query, url: 'electric/inference/baseline/info/status' }),
+      transformResponse: (res) => {
+        console.log({ res });
+        const data = res.data?.reduce(
+          (prev, curr) => {
+            return {
+              ...prev,
+              unit_electricity: { ...prev.unit_electricity, [curr.month]: curr.unit_electricity },
+              electricity: { ...prev.electricity, [curr.month]: curr.electricity },
+              total: { ...prev.total, [curr.month]: curr.total },
+            };
+          },
+          { unit_electricity: {}, electricity: {}, total: {} }
+        );
+
+        return {
+          data: [
+            { key: 'unit_electricity', category: '單台用電', ...data?.unit_electricity },
+            { key: 'electricity', category: '用電強度', ...data?.electricity },
+            { key: 'total', category: '總用電', ...data?.total },
+          ],
+        };
+      },
+    }),
     getElectricityPowerSaving: builder.query({
       query: ({ year, plant } = {}) => ({ url: `electric/inference/saving-tech/${year}/${plant}` }),
       transformResponse: (res) => {
@@ -162,6 +190,8 @@ export const {
   useGetElectricityExplanationQuery,
   useGetElectricityPredictionQuery,
   useGetElectricityBaselineQuery,
+  useGetElectricityBaselineInfoQuery,
+  useGetElectricityBaselineInfoStatusQuery,
   useGetElectricityPowerSavingQuery,
   usePatchElectricityExplanationMutation,
   usePatchElectricityImprovementMutation,

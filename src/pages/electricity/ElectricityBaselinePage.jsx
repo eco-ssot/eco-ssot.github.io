@@ -96,7 +96,7 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
       })),
     })),
     {
-      id: 'electricityIndex',
+      id: 'electricity_target',
       Header: (
         <div className="flex items-center justify-center space-x-2 border-b border-divider py-3">
           <div>用電指標</div>
@@ -110,18 +110,21 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
       columns: [
         {
           Header: '用電強度 (千度)',
-          accessor: 'electricityIndex.0',
+          accessor: 'electricity_target.intensity',
           className: 'text-right',
+          Cell: baseFormatter,
         },
         {
           Header: '單台用電 (度)',
-          accessor: 'electricityIndex.1',
+          accessor: 'electricity_target.unit',
           className: 'text-right',
+          Cell: (cell) => baseFormatter(cell.value, { precision: 1 }),
         },
         {
           Header: 'ASP (千台幣/台)',
-          accessor: 'electricityIndex.2',
+          accessor: 'electricity_target.asp',
           className: 'text-right',
+          Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
         },
       ],
     },

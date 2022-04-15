@@ -1,0 +1,64 @@
+{
+  "data": {
+    "total_compare": [
+      { "month": "01", "current_year_value": 0, "last_year_value": 3166843.839661092, "baseline": 0 },
+      { "month": "02", "current_year_value": 0, "last_year_value": 2935604.879981977, "baseline": 0 },
+      { "month": "03", "current_year_value": 0, "last_year_value": 3982546.5670640524, "baseline": 0 },
+      { "month": "04", "current_year_value": 0, "last_year_value": 3664538.8669397626, "baseline": 0 },
+      { "month": "05", "current_year_value": 0, "last_year_value": 3909789.4532498824, "baseline": 0 },
+      { "month": "06", "current_year_value": 0, "last_year_value": 4269415.548221135, "baseline": 0 },
+      { "month": "07", "current_year_value": 0, "last_year_value": 4454878.078176921, "baseline": 0 },
+      { "month": "08", "current_year_value": 0, "last_year_value": 4844733.2124698125, "baseline": 0 },
+      { "month": "09", "current_year_value": 0, "last_year_value": 4421562.13478386, "baseline": 0 },
+      { "month": "10", "current_year_value": 0, "last_year_value": 4122582.0808167704, "baseline": 0 },
+      { "month": "11", "current_year_value": 0, "last_year_value": 3912710.7075513992, "baseline": 0 },
+      { "month": "12", "current_year_value": 0, "last_year_value": 3839937.263411938, "baseline": 0 }
+    ],
+    "current_month_accu": [
+      { "day": "01", "value": 133.582365599066, "accu_value": 133.582365599066, "alert_value": 137590.13906127866 },
+      { "day": "02", "value": 124.02023317046464, "accu_value": 257.60259876953063, "alert_value": 137590.13906127866 },
+      { "day": "03", "value": 63.782992164773866, "accu_value": 321.3855909343045, "alert_value": 137590.13906127866 },
+      { "day": "04", "value": 88.21552138571813, "accu_value": 409.60111232002265, "alert_value": 349504.3041842997 },
+      { "day": "05", "value": 47.46366239651292, "accu_value": 457.06477471653557, "alert_value": 568120.6188013683 },
+      { "day": "06", "value": 109.43204751895368, "accu_value": 566.4968222354893, "alert_value": 873892.9608646894 },
+      { "day": "07", "value": 0, "accu_value": 0, "alert_value": 1293635.4081599426 },
+      { "day": "08", "value": 135.70729396831246, "accu_value": 702.2041162038017, "alert_value": 1818591.5676106138 },
+      { "day": "09", "value": 134.26283069675415, "accu_value": 836.4669469005559, "alert_value": 2400964.4859186145 },
+      { "day": "10", "value": 0, "accu_value": 0, "alert_value": 2400964.4859186145 },
+      { "day": "11", "value": 0, "accu_value": 0, "alert_value": 2400964.4859186145 },
+      { "day": "12", "value": 0, "accu_value": 0, "alert_value": 2400964.4859186145 },
+      { "day": "13", "value": 0, "accu_value": 0, "alert_value": 2400964.4859186145 },
+      { "day": "14", "value": 0, "accu_value": 0, "alert_value": 2400964.4859186145 }
+    ],
+    "indicators": {
+      "electricity_target": 1.2838018363900052,
+      "unit_electricity_target": 3.9220992134733983,
+      "data": [
+        { "date": "2022-01-01", "unit_electricity": 3.2040353692075048, "asp": 1.3258631876112998 },
+        { "date": "2022-02-01", "unit_electricity": 3.138696986263592, "asp": 1.330773330774484 },
+        { "date": "2022-03-01", "unit_electricity": 0.36051378221986463, "asp": 0 },
+        { "date": "2022-04-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-05-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-06-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-07-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-08-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-09-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-10-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-11-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2022-12-01", "unit_electricity": 0, "asp": 0 },
+        { "date": "2021-01-01", "unit_electricity": 3.5174302288290495, "asp": 0 },
+        { "date": "2021-02-01", "unit_electricity": 4.611104924099509, "asp": 0 },
+        { "date": "2021-03-01", "unit_electricity": 4.7795100856322215, "asp": 0 },
+        { "date": "2021-04-01", "unit_electricity": 4.681673534243674, "asp": 0 },
+        { "date": "2021-05-01", "unit_electricity": 5.2488456409149284, "asp": 0 },
+        { "date": "2021-06-01", "unit_electricity": 5.027119815707013, "asp": 0 },
+        { "date": "2021-07-01", "unit_electricity": 5.2294571897089375, "asp": 0 },
+        { "date": "2021-08-01", "unit_electricity": 4.178684185035208, "asp": 0 },
+        { "date": "2021-09-01", "unit_electricity": 4.069836419806734, "asp": 0 },
+        { "date": "2021-10-01", "unit_electricity": 3.8479471168091894, "asp": 0 },
+        { "date": "2021-11-01", "unit_electricity": 3.185598538802735, "asp": 0 },
+        { "date": "2021-12-01", "unit_electricity": 2.763134756648268, "asp": 0 }
+      ]
+    }
+  }
+}
