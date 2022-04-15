@@ -21,8 +21,8 @@ import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
 export const STATUS_MAPPING = {
   0: 'bg-gray-50',
-  2: 'bg-primary-500',
   1: 'bg-dangerous-700',
+  2: 'bg-primary-500',
   3: 'bg-yellow-500',
 };
 
