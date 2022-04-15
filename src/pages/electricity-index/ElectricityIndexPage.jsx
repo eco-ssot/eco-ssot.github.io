@@ -268,7 +268,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
             {
               yAxis: target?.toFixed(2),
               lineStyle: { color: colors._orange },
-              label: { position: 'insideEndBottom', fontWeight: 'bold' },
+              label: { position: 'insideEndTop', fontWeight: 'bold' },
             },
             [
               {
