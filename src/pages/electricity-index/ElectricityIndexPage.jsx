@@ -337,8 +337,8 @@ export default function ElectricityIndexPage({ className }) {
         data: showLastYear
           ? data?.data?.indicators?.data
           : data?.data?.indicators?.data?.filter((d) => d.date.startsWith(year)),
-        target: data?.data?.indicators?.electricity_target,
-        slope: data?.data?.indicators?.unit_electricity_target,
+        target: data?.data?.indicators?.unit_electricity_target,
+        slope: data?.data?.indicators?.electricity_target,
       }),
     [data?.data?.indicators, year, latestDate, showLastYear]
   );
