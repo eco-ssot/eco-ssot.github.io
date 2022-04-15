@@ -97,7 +97,6 @@ export const electricityApi = appApi.injectEndpoints({
     getElectricityBaselineInfoStatus: builder.query({
       query: (query) => ({ query, url: 'electric/inference/baseline/info/status' }),
       transformResponse: (res) => {
-        console.log({ res });
         const data = res.data?.reduce(
           (prev, curr) => {
             return {
