@@ -171,8 +171,8 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
     };
   });
 
-  const maxX = Math.ceil(Math.max(...data?.map((d) => d.asp))) + 1;
-  const maxY = Math.max(Math.ceil(Math.max(...data?.map((d) => d.unit_electricity))), Math.ceil(maxX * slope)) + 1;
+  const maxX = Math.ceil(Math.max(...data?.map((d) => d.asp)));
+  const maxY = Math.max(Math.ceil(Math.max(...data?.map((d) => d.unit_electricity))), Math.ceil(maxX * slope));
   return {
     tooltip: {
       formatter: (params) => {
@@ -268,7 +268,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
             {
               yAxis: target?.toFixed(2),
               lineStyle: { color: colors._orange },
-              label: { position: 'insideEndTop', fontWeight: 'bold' },
+              label: { position: 'insideEndBottom', fontWeight: 'bold' },
             },
             [
               {
@@ -279,7 +279,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, da
                   color: colors.dangerous['700'],
                   width: 2,
                 },
-                label: { position: 'insideEndBottom', fontWeight: 'bold' },
+                label: { position: 'insideEndTop', fontWeight: 'bold' },
               },
               { coord: [maxX, maxX * slope] },
             ],
