@@ -78,7 +78,7 @@ const OVERVIEW_OPTION = (data) => {
 const ACC_OPTION = (data) => {
   const labels = data?.map((d) => d.day);
   const day = data?.map((d) => ({ value: d.value }));
-  const dayAcc = data?.map((d, i) => ({ value: d.accu_value }));
+  const dayAcc = data?.map((d) => ({ value: d.accu_value }));
   const target = data?.map((d) => ({ value: d.alert_value }));
   return {
     xAxis: {
@@ -113,6 +113,7 @@ const ACC_OPTION = (data) => {
         itemStyle: {
           borderRadius: [4, 4, 0, 0],
         },
+        z: 1,
       },
       {
         name: '各月基線數值',
