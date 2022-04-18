@@ -345,7 +345,7 @@ export default function ElectricityIndexPage({ className }) {
     { skip: !selectedYear || !plant }
   );
 
-  const [showLastYear, setShowLastYear] = useState(true);
+  const [showLastYear, setShowLastYear] = useState(false);
   const overviewOption = useMemo(() => OVERVIEW_OPTION(data?.data?.total_compare), [data?.data?.total_compare]);
   const accOption = useMemo(() => ACC_OPTION(data?.data?.current_month_accu), [data?.data?.current_month_accu]);
   const scatterOption = useMemo(
@@ -364,6 +364,11 @@ export default function ElectricityIndexPage({ className }) {
   );
 
   const columns = useMemo(() => COLUMNS, []);
+  const _yearOptions = useMemo(
+    () => yearOptions.filter((option) => Number(option.key) <= Number(year)),
+    [year, yearOptions]
+  );
+
   return (
     <div className={clsx(className, !className && '-mt-16 h-screen w-screen overflow-hidden pt-16')}>
       <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-4 p-4">
@@ -409,8 +414,8 @@ export default function ElectricityIndexPage({ className }) {
               <div className="flex justify-between">
                 <Select
                   label="年度"
-                  options={yearOptions}
-                  selected={yearOptions.find((option) => option.key === selectedYear)}
+                  options={_yearOptions}
+                  selected={_yearOptions.find((option) => option.key === selectedYear)}
                   onChange={(e) => setSelectedYear(e.key)}
                 />
                 <div className="flex space-x-4">
