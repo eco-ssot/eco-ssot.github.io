@@ -431,7 +431,9 @@ export default function ElectricityIndexPage({ className }) {
         </div>
         <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="text-xl font-medium">用電指標關係圖</div>
+            <div className="text-left text-xl font-medium">
+              當月累積用電 : {format(new Date(latestDate), 'yyyy.MM')}
+            </div>
             <div className="space-y-4">
               <div className="flex justify-end space-x-4">
                 <Legend dotClassName="bg-_blue" label="累積總用電" />
