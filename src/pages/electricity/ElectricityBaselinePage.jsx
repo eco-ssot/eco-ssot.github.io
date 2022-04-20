@@ -901,18 +901,14 @@ export function TabPanel({ children }) {
   });
 }
 
-export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option }) {
+export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
   const plantPermission = usePlantPermission();
   const plantOptions = useMemo(() => getPlants({ data, s, p, plantPermission }), [data, s, p, plantPermission]);
-  const nextYearOptions = useMemo(
-    () => yearOptions?.filter((option) => option.key > 2020 && option.key <= maxYear),
-    [yearOptions, maxYear]
-  );
-
+  const nextYearOptions = useMemo(() => yearOptions?.filter((option) => Number(option.key) > 2020), [yearOptions]);
   const navigate = useNavigate();
   useDeepCompareEffect(() => {
     if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
@@ -952,7 +948,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, maxYear, ...option })
   );
 }
 
-export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option }) {
+export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const { t } = useTranslation(['component']);
   const [searchOption, setSearchOption] = useState(option);
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
@@ -960,8 +956,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, maxYear, ...option 
   const plantPermission = usePlantPermission();
   const plantOptions = useMemo(() => getPlants({ data, s, p, plantPermission }), [data, s, p, plantPermission]);
   const nextYearOptions = useMemo(
-    () => yearOptions?.filter((option) => option.key > 2020 && option.key <= maxYear),
-    [yearOptions, maxYear]
+    () => yearOptions?.filter((option) => option.key > 2020 && option.key),
+    [yearOptions]
   );
 
   const monthOptions = useMemo(() => APP_CONSTANTS.MONTH_OPTIONS.filter((option) => option.key > 10), []);
@@ -1060,9 +1056,9 @@ export default function ElectricityBaselinePage() {
                   }}
                 />
                 <div className="flex w-full items-center justify-center">
-                  {isBaseline && <BaselineSearch {...option} business={business} s={s} p={p} maxYear={2021} />}
-                  {isPrediction && <PredictionSearch {...option} business={business} s={s} p={p} maxYear={2021} />}
-                  {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} maxYear={2022} />}
+                  {isBaseline && <BaselineSearch {...option} business={business} s={s} p={p} />}
+                  {isPrediction && <PredictionSearch {...option} business={business} s={s} p={p} />}
+                  {isPowerSaving && <BaselineSearch {...option} business={business} s={s} p={p} />}
                 </div>
                 {isBaseline && <BaselinePanel {...option} business={business} />}
                 {isPrediction && <PredictionPanel {...option} business={business} s={s} p={p} />}
