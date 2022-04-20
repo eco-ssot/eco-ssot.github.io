@@ -720,7 +720,7 @@ export function BaselinePanel({ year, plant, business }) {
         setOpen={setOpen}
         title="用電指標資訊"
         defaultFooter={false}>
-        <ElectricityIndexPage className="h-[calc(100vh-6rem)] w-[calc(100vw-6rem)]" />
+        <ElectricityIndexPage className="h-[calc(100vh-6rem)] w-[calc(100vw-6rem)]" year={year} plant={plant} />
       </Modal>
       <div className="grid grid-cols-6 gap-4 overflow-auto">
         <div className="col-span-5 mb-2 flex w-full flex-col overflow-auto rounded-t-lg shadow">

@@ -3,13 +3,11 @@ import { useMemo, useState } from 'react';
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { useSelector } from 'react-redux';
 
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
-import { selectPlant, selectYear } from '../../renderless/location/locationSlice';
 import {
   useGetElectricityBaselineInfoQuery,
   useGetElectricityBaselineInfoStatusQuery,
@@ -333,9 +331,7 @@ export function Toggle({ enabled = true, onChange = () => {} }) {
   );
 }
 
-export default function ElectricityIndexPage({ className }) {
-  const year = useSelector(selectYear);
-  const plant = useSelector(selectPlant);
+export default function ElectricityIndexPage({ className, year, plant }) {
   const { data } = useGetElectricityBaselineInfoQuery({ year, plant }, { skip: !year || !plant });
   const [selectedYear, setSelectedYear] = useState(year);
   const { data: dataStatus } = useGetElectricityBaselineInfoStatusQuery(
