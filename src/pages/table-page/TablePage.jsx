@@ -18,10 +18,10 @@ export default function TablePage({ title, downloadResource, table: Table, histo
     <TablePanel>
       {({ isHistory, isOverview, option, prevOption, missingPlants, year, showElectricityIndex }) => (
         <>
-          <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full flex-col overflow-y-auto overflow-x-hidden">
+          <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full flex-col overflow-auto">
             <div
               className={clsx(
-                'relative m-4 mb-0 space-y-2 rounded bg-primary-900 p-4',
+                'relative m-4 mb-0 flex flex-col space-y-2 rounded bg-primary-900 p-4',
                 showElectricityIndex ? 'h-auto' : 'h-[calc(100vh-6rem)]'
               )}>
               <div className="text-xl font-medium">{title}</div>
