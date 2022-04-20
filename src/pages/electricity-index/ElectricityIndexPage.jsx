@@ -10,7 +10,6 @@ import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import { selectPlant, selectYear } from '../../renderless/location/locationSlice';
-import { useGetLatestDateQuery } from '../../services/app';
 import {
   useGetElectricityBaselineInfoQuery,
   useGetElectricityBaselineInfoStatusQuery,
@@ -131,12 +130,12 @@ const ACC_OPTION = (data) => {
   };
 };
 
-const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, latestDate = null, data = [] } = {}) => {
+const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => {
   const values = data?.map((d) => {
     const date = new Date(d.date);
     const year = date.getFullYear();
     const month = date.getMonth();
-    const currMonth = new Date(latestDate).getMonth();
+    const currMonth = new Date().getMonth();
     const highlight = month === currMonth && year === currYear;
     return {
       name: format(date, 'yyyy-MM'),
@@ -337,7 +336,6 @@ export function Toggle({ enabled = true, onChange = () => {} }) {
 export default function ElectricityIndexPage({ className }) {
   const year = useSelector(selectYear);
   const plant = useSelector(selectPlant);
-  const { data: { latestDate, yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetElectricityBaselineInfoQuery({ year, plant }, { skip: !year || !plant });
   const [selectedYear, setSelectedYear] = useState(year);
   const { data: dataStatus } = useGetElectricityBaselineInfoStatusQuery(
@@ -346,12 +344,16 @@ export default function ElectricityIndexPage({ className }) {
   );
 
   const [showLastYear, setShowLastYear] = useState(false);
+  const yearOptions = useMemo(
+    () => Array.from({ length: 2 }, (_, i) => ({ key: String(year - i), value: String(year - i) })),
+    [year]
+  );
+
   const overviewOption = useMemo(() => OVERVIEW_OPTION(data?.data?.total_compare), [data?.data?.total_compare]);
   const accOption = useMemo(() => ACC_OPTION(data?.data?.current_month_accu), [data?.data?.current_month_accu]);
   const scatterOption = useMemo(
     () =>
       SCATTER_OPTION({
-        latestDate,
         currYear: Number(year),
         lastYear: Number(year) - 1,
         data: showLastYear
@@ -360,7 +362,7 @@ export default function ElectricityIndexPage({ className }) {
         target: data?.data?.indicators?.unit_electricity_target,
         slope: data?.data?.indicators?.electricity_target,
       }),
-    [data?.data?.indicators, year, latestDate, showLastYear]
+    [data?.data?.indicators, year, showLastYear]
   );
 
   const columns = useMemo(() => COLUMNS, []);
@@ -431,9 +433,7 @@ export default function ElectricityIndexPage({ className }) {
         </div>
         <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="text-left text-xl font-medium">
-              當月累積用電 : {format(new Date(latestDate), 'yyyy.MM')}
-            </div>
+            <div className="text-left text-xl font-medium">當月累積用電 : {format(new Date(), 'yyyy.MM')}</div>
             <div className="space-y-4">
               <div className="flex justify-end space-x-4">
                 <Legend dotClassName="bg-_blue" label="累積總用電" />
