@@ -23,7 +23,7 @@ export default function TablePanel({ children }) {
   });
 
   const { data: { currYear } = {} } = useGetLatestDateQuery(undefined, {
-    skip: (!isElectricity && !option.p) || option.y,
+    skip: !isElectricity || !option.p || option.y,
   });
 
   return children({
