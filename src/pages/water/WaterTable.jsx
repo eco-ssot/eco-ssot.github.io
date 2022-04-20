@@ -74,7 +74,7 @@ const HEADERS = ({
 
             if (canExpand) {
               return (
-                <div className="cursor-pointer underline" onClick={() => cell.row.toggleRowExpanded()}>
+                <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
                   {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
                 </div>
               );
@@ -103,7 +103,7 @@ const HEADERS = ({
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <Link className="flex items-center justify-end space-x-2" to={`/water/analysis?${search}`}>
+              <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
                 <Dot />
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </Link>

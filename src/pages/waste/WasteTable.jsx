@@ -114,7 +114,7 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <Link className="flex items-center justify-end space-x-2" to={`/waste/analysis?${search}`}>
+              <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
                 <Dot />
                 {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
               </Link>

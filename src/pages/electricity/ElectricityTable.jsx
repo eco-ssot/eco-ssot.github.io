@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import clsx from 'clsx';
 import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
@@ -61,8 +62,17 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
 
             if (canExpand) {
               return (
-                <div className=" cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
-                  {targetFormatter(pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
+                <div
+                  className={clsx(
+                    'cursor-pointer underline',
+                    isFinite(cell.value)
+                      ? cell.value > 0
+                        ? 'font-semibold text-dangerous-500'
+                        : 'font-semibold text-green-500'
+                      : ''
+                  )}
+                  onClick={() => cell.row.toggleRowExpanded()}>
+                  {ratioFormatter(cell.value)}
                 </div>
               );
             }
@@ -90,14 +100,25 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <Link className="flex items-center justify-end space-x-2 " to={`analysis?${search}`}>
+              <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
                 <Dot />
-                {targetFormatter(pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
+                <div className="font-semibold text-dangerous-500 underline">{ratioFormatter(cell.value)}</div>
               </Link>
             );
           }
 
-          return targetFormatter(pct, { formatter: ratioFormatter })(cell);
+          return (
+            <div
+              className={clsx(
+                isFinite(cell.value)
+                  ? cell.value > 0
+                    ? 'font-semibold text-dangerous-500'
+                    : 'font-semibold text-green-500'
+                  : ''
+              )}>
+              {ratioFormatter(cell.value)}
+            </div>
+          );
         },
       },
     ],
