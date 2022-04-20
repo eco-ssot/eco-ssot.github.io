@@ -13,17 +13,20 @@ export default function TablePanel({ children }) {
   const isHistory = hash.slice(1) === APP_CONSTANTS.HISTORY_OPTIONS[1].key;
   const isOverview = pathname.startsWith('/overview');
   const isElectricity = pathname.startsWith('/electricity');
-  const { data: missingPlants = [] } = useGetMissingPlantsQuery({
-    business: option.business,
-    year: option.y,
-    month: option.m,
-    compare_year: option.compareYear,
-    site: option.s,
-    plant: option.p,
-  });
+  const { data: missingPlants = [] } = useGetMissingPlantsQuery(
+    {
+      business: option.business,
+      year: option.y,
+      month: option.m,
+      compare_year: option.compareYear,
+      site: option.s,
+      plant: option.p,
+    },
+    { skip: isHistory }
+  );
 
   const { data: { currYear } = {} } = useGetLatestDateQuery(undefined, {
-    skip: !isElectricity || !option.p || option.y,
+    skip: !isElectricity || !option.p || option.y || isHistory,
   });
 
   return children({
@@ -33,7 +36,7 @@ export default function TablePanel({ children }) {
     option,
     prevOption,
     missingPlants,
-    showElectricityIndex: isElectricity && option.p && (option.y || currYear),
+    showElectricityIndex: isElectricity && option.p && (option.y || currYear) && !isHistory,
     year: option.y || currYear,
   });
 }
