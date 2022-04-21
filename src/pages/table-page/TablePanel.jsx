@@ -46,7 +46,7 @@ export default function TablePanel({ children }) {
       (option.p || option.s) &&
       (option.y || currYear) &&
       !isHistory &&
-      plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === (option.p || option.s)),
+      plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === option.p || key === option.s),
     year: option.y || currYear,
   });
 }
