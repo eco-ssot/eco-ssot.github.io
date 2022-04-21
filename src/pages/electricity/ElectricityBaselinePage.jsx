@@ -45,7 +45,7 @@ import { addPaddingColumns, EXPAND_COLUMN, updateMyData } from '../../utils/tabl
 import ElectricityIndexPage from '../electricity-index/ElectricityIndexPage';
 
 import ConfirmModal from './ConfirmModal';
-import { gapFormatter, getPlants, getYtmLabel, TARGET_SITES } from './helpers';
+import { gapFormatter, getPlants, getYtmLabel } from './helpers';
 
 const BUTTON_GROUP_OPTIONS = [
   { key: 'BASELINE', value: 'baseline' },
@@ -510,9 +510,7 @@ export function PredictionPanel({ categorized, year, month, plant, business, s, 
     () =>
       byMonth
         ? data?.data?.filter(({ month }) => month > 10)
-        : data?.data?.filter(({ plant }) =>
-            TARGET_SITES.find((site) => plant?.startsWith(site) && plantPermission?.includes(plant))
-          ),
+        : data?.data?.filter(({ plant }) => plantPermission?.includes(plant)),
     [data?.data, byMonth, plantPermission]
   );
 
