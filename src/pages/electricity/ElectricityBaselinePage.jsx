@@ -653,7 +653,7 @@ export function ChartPanel({ plant, year, business }) {
   );
 
   return (
-    <div className="row-span-2 grid grid-cols-4 gap-4 rounded bg-primary-900 p-4 shadow">
+    <div className="row-span-2 grid grid-cols-4 grid-rows-1 gap-4 rounded bg-primary-900 p-4 shadow">
       {APP_CONSTANTS.ELECTRICITY_TYPES.map(({ key }, i) => {
         const dataset = data?.data?.reduce(
           (prev, curr) => ({

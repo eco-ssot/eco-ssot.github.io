@@ -11,7 +11,7 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { useDeepCompareEffect, useMeasure, useDebounce } from 'react-use';
+import { useDeepCompareEffect, useDebounce, useWindowSize, usePreviousDistinct } from 'react-use';
 
 import { darkTheme } from './config';
 import { updateChartFontSize } from './helpers';
@@ -34,10 +34,10 @@ echarts.use([
 echarts.registerTheme('dark', darkTheme);
 
 export default function Chart({ className, option = {} }) {
-  const [containerRef, { width, height }] = useMeasure();
+  const windowSize = useWindowSize();
   const chartRef = useRef();
   const dataset = (option.series || []).map(({ data }) => data);
-
+  const prevWindowSize = usePreviousDistinct(windowSize);
   useDeepCompareEffect(() => {
     let instance = {};
     setTimeout(() => {
@@ -53,20 +53,19 @@ export default function Chart({ className, option = {} }) {
       let instance = echarts.getInstanceByDom(chartRef.current);
       if (
         instance &&
-        width &&
-        height &&
-        (Math.abs(instance.getWidth() - width) > 4 || Math.abs(instance.getHeight() - height) > 4)
+        prevWindowSize &&
+        (prevWindowSize.height !== windowSize.height || prevWindowSize.width !== windowSize.width)
       ) {
         instance.setOption(updateChartFontSize(option), true);
         instance.resize({ animation: { duration: 500 } });
       }
     },
     100,
-    [{ width, height }]
+    [windowSize]
   );
 
   return (
-    <div ref={containerRef} className={clsx('grid', className)}>
+    <div className={clsx('grid', className)}>
       <div ref={chartRef} />
     </div>
   );
