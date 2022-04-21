@@ -67,7 +67,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
                 <ElectricityIndexPage
                   className="-mt-16 mr-2 h-screen w-full overflow-hidden pt-16"
                   year={year}
-                  plant={option.p}
+                  plant={option.p || option.s}
                 />
               )}
             </div>

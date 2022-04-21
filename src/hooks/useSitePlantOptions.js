@@ -13,13 +13,16 @@ export default function useSitePlantOptions() {
         const siteOption = { key: site, value: site, group: true };
         if (values.length === 1) {
           if (values[0] === site) {
-            return prev.concat(siteOption);
+            return prev.concat({ ...siteOption, isPlant: true });
           }
 
-          return prev.concat(siteOption, { key: values[0], value: values[0], parent: site });
+          return prev.concat(siteOption, { key: values[0], value: values[0], parent: site, isPlant: true });
         }
 
-        return prev.concat([siteOption, ...values.map((value) => ({ value, key: value, parent: site }))]);
+        return prev.concat([
+          siteOption,
+          ...values.map((value) => ({ value, key: value, parent: site, isPlant: true })),
+        ]);
       },
       [{ key: 'ALL', value: 'ALL', alias: 'Sites / Plants', group: true }]
     );

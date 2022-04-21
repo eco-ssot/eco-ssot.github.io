@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { usePrevious } from 'react-use';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import useSitePlantOptions from '../../hooks/useSitePlantOptions';
 import { useGetLatestDateQuery, useGetMissingPlantsQuery } from '../../services/app';
 
 export default function TablePanel({ children }) {
@@ -26,7 +27,11 @@ export default function TablePanel({ children }) {
   );
 
   const { data: { currYear } = {} } = useGetLatestDateQuery(undefined, {
-    skip: !isElectricity || !option.p || option.y || isHistory,
+    skip: !isElectricity || (!option.p && !option.s) || option.y || isHistory,
+  });
+
+  const plantOptions = useSitePlantOptions(undefined, {
+    skip: !isElectricity || (!option.p && !option.s) || option.y || isHistory,
   });
 
   return children({
@@ -36,7 +41,12 @@ export default function TablePanel({ children }) {
     option,
     prevOption,
     missingPlants,
-    showElectricityIndex: isElectricity && option.p && (option.y || currYear) && !isHistory,
+    showElectricityIndex:
+      isElectricity &&
+      (option.p || option.s) &&
+      (option.y || currYear) &&
+      !isHistory &&
+      plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === (option.p || option.s)),
     year: option.y || currYear,
   });
 }
