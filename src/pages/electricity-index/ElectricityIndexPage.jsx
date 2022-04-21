@@ -432,7 +432,7 @@ export default function ElectricityIndexPage({ className, year, plant }) {
             <div className="text-left text-xl font-medium">當月累積用電 : {format(new Date(), 'yyyy.MM')}</div>
             <div className="space-y-4">
               <div className="flex justify-end space-x-4">
-                <Legend dotClassName="bg-_blue" label="累積總用電" />
+                <Legend dotClassName="bg-primary-600" label="累積總用電" />
                 <Legend dotClassName="bg-primary-500" label="單日用電" />
                 <Legend dotClassName="bg-_yellow" label="今年度用電標準" />
               </div>
