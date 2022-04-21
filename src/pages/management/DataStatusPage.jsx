@@ -20,6 +20,7 @@ import { useGetDataStatusQuery, useUploadEnergyExcelMutation } from '../../servi
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
 export const STATUS_MAPPING = {
+  '-': 'bg-gray-50',
   0: 'bg-gray-50',
   1: 'bg-dangerous-700',
   2: 'bg-primary-500',
