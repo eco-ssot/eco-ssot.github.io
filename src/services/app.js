@@ -28,7 +28,7 @@ export const appApi = createApi({
       queryFn: (query) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
           return {
-            data: query.year && query.year < 2022 ? [] : res.data.missing,
+            data: query.year && query.year < 2022 ? [] : res.data?.missing || [],
           };
         });
       },
