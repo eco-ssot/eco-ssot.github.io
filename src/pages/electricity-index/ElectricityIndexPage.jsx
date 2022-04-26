@@ -303,7 +303,12 @@ const COLUMNS = [
     accessor: String(i + 1).padStart(2, 0),
     Cell: (cell) => (
       <div className="flex justify-center">
-        <div className={clsx('h-3 w-3 rounded-full', cell.value ? 'bg-primary-500' : 'bg-dangerous-700')}></div>
+        <div
+          className={clsx(
+            'h-3 w-3 rounded-full',
+            cell.value === true && 'bg-primary-500',
+            cell.value === false && 'bg-dangerous-700'
+          )}></div>
       </div>
     ),
   })),
@@ -417,11 +422,12 @@ export default function ElectricityIndexPage({ className, year, plant }) {
                   onChange={(e) => setSelectedYear(e.key)}
                 />
                 <div className="flex space-x-4">
+                  <Legend dotClassName="bg-gray-50" label="無資料" />
                   <Legend dotClassName="bg-primary-500" label="達標" />
                   <Legend dotClassName="bg-dangerous-700" label="未達標" />
                 </div>
               </div>
-              <div className="mb-1 flex flex-col overflow-auto rounded-t-lg shadow">
+              <div className="flex flex-col overflow-auto rounded-t-lg pb-1 shadow">
                 {dataStatus && <Table columns={columns} data={dataStatus.data} />}
               </div>
             </div>
@@ -429,17 +435,20 @@ export default function ElectricityIndexPage({ className, year, plant }) {
         </div>
         <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="text-left text-xl font-medium">當月累積用電 : {format(new Date(), 'yyyy.MM')}</div>
+            <div className="text-left text-xl font-medium">
+              當月累積用電 : {format(new Date(), `yyyy.MM.${data?.data?.current_month_accu?.[0]?.day || '01'}`)} -{' '}
+              {format(new Date(), `yyyy.MM.${data?.data?.current_month_accu?.slice(-1)?.[0]?.day || '01'}`)}
+            </div>
             <div className="space-y-4">
               <div className="flex justify-end space-x-4">
                 <Legend dotClassName="bg-primary-600" label="累積總用電" />
                 <Legend dotClassName="bg-primary-500" label="單日用電" />
                 <Legend dotClassName="bg-_yellow" label="今年度用電標準" />
               </div>
-              <div className="text-right">
-                * 當月累積用電示警：去年同期的單台用電 * 今年要改善的標準 * 當月累積到前一日的每日產量
-              </div>
             </div>
+          </div>
+          <div className="text-right">
+            * 當月累積用電示警：去年同期的單台用電 * 今年要改善的標準 * 當月累積到前一日的每日產量
           </div>
           <div className="flex flex-grow">{data && <Chart className="h-full w-full" option={accOption} />}</div>
         </div>
