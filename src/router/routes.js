@@ -163,7 +163,7 @@ export const privateRoutes = [
     element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
     skeleton: AirCompressorPageSkeleton,
     i18nKey: 'airCompressor',
-    hidden: true,
+    hidden: process.env.REACT_APP_STAGE === 'production',
   },
   {
     path: '/management',
