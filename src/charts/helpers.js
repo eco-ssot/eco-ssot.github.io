@@ -49,7 +49,7 @@ export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } =
           ...(markLine.data && {
             data: markLine.data.map((d) =>
               Array.isArray(d)
-                ? d.map(({ symbolSize, lineStyle, label, ...rest }) => ({
+                ? d.map(({ symbolSize, lineStyle, label, emphasis, ...rest }) => ({
                     ...rest,
                     ...(symbolSize && {
                       symbolSize: [].concat(symbolSize).map((value) => setFontSize(value, fontSizeRatio)),
@@ -59,18 +59,21 @@ export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } =
                         ...lineStyle,
                         ...(lineStyle.width && {
                           width: setFontSize(lineStyle.width, fontSizeRatio),
-                          ...(lineStyle.emphasis && {
-                            emphasis: {
-                              ...lineStyle.emphasis,
-                              ...(lineStyle.emphasis.width && {
-                                width: setFontSize(lineStyle.emphasis.width, fontSizeRatio),
-                              }),
-                            },
-                          }),
                         }),
                       },
                     }),
                     ...(label && { label: { ...label, ...labelFontSize } }),
+                    ...(emphasis && {
+                      emphasis: {
+                        ...emphasis,
+                        ...(emphasis.lineStyle && {
+                          ...emphasis.lineStyle,
+                          ...(emphasis.lineStyle.width && {
+                            width: setFontSize(emphasis.lineStyle.width, fontSizeRatio),
+                          }),
+                        }),
+                      },
+                    }),
                   }))
                 : d
             ),

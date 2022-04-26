@@ -39,13 +39,17 @@ export default function Chart({ className, option = {} }) {
   const dataset = (option.series || []).map(({ data }) => data);
   const prevWindowSize = usePreviousDistinct(windowSize);
   useDeepCompareEffect(() => {
-    let instance = {};
+    let instance = echarts.getInstanceByDom(chartRef.current);
     setTimeout(() => {
-      instance = echarts.init(chartRef.current, 'dark');
-      instance.setOption(updateChartFontSize(option), true);
+      if (!instance) {
+        instance = echarts.init(chartRef.current, 'dark');
+        instance.setOption(updateChartFontSize(option), true);
+      }
     });
 
-    return () => instance.dispose?.();
+    return () => {
+      instance && instance.dispose();
+    };
   }, [dataset]);
 
   useDebounce(

@@ -29,8 +29,8 @@ export function getMarkLineTrend(value, comparison, x) {
       color: isBetter ? colors.green['500'] : colors.dangerous['700'],
       type: 'solid',
       width: 4,
-      emphasis: { width: 4 },
     },
+    emphasis: { lineStyle: { width: 4 } },
     label: {
       show: true,
       position: 'middle',
