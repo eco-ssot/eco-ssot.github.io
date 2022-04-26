@@ -20,7 +20,7 @@ export default function Spinner() {
       leaveTo="opacity-0">
       <div
         aria-label="spinner"
-        className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 bg-opacity-50">
+        className="pointer-events-none fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 bg-opacity-50">
         <svg
           className="h-12 w-12 animate-spin text-primary-600"
           xmlns="http://www.w3.org/2000/svg"
