@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 
 import { Transition } from '@headlessui/react';
+import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
 import { selectIsLoading } from '../../renderless/loader/loaderSlice';
@@ -20,7 +21,10 @@ export default function Spinner() {
       leaveTo="opacity-0">
       <div
         aria-label="spinner"
-        className="pointer-events-none fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 bg-opacity-50">
+        className={clsx(
+          'fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 bg-opacity-50',
+          !isLoading && 'pointer-events-none'
+        )}>
         <svg
           className="h-12 w-12 animate-spin text-primary-600"
           xmlns="http://www.w3.org/2000/svg"
