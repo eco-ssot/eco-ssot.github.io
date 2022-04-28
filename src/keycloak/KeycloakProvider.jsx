@@ -1,7 +1,7 @@
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 
 import APP_CONSTANTS from '../app/appConstants';
-import Picture from '../components/picture/Picture';
+import SuspenseIcon from '../components/suspense/SuspenseIcon';
 
 import keycloak from './keycloak';
 
@@ -41,16 +41,7 @@ export default function KeycloakProvider({ children }) {
       authClient={keycloak}
       onEvent={onEvent}
       onTokens={onTokens(keycloak)}
-      LoadingComponent={
-        <div className="flex h-screen w-screen flex-col items-center justify-center space-y-2">
-          <Picture
-            className="h-32 w-32 animate-pulse"
-            src="/logo-128x128.webp"
-            fallback="/logo-128x128.png"
-            alt="logo"
-          />
-        </div>
-      }>
+      LoadingComponent={<SuspenseIcon />}>
       {children}
     </ReactKeycloakProvider>
   );

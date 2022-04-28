@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import SuspenseIcon from '../components/suspense/SuspenseIcon';
 import ErrorHandler from '../renderless/error-handler/ErrorHandler';
 import Language from '../renderless/language/Language';
 import Loader from '../renderless/loader/Loader';
@@ -9,7 +10,7 @@ import Router from '../router/Router';
 
 export default function App() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<SuspenseIcon />}>
       <Language />
       <ErrorHandler />
       <Loader />
