@@ -46,7 +46,7 @@ export default function Chart({ className, option = {} }) {
     };
 
     if (!instance) {
-      if (!chartRef.current.clientHeight && !chartRef.current.clientWidth) {
+      if (!chartRef.current?.clientHeight && !chartRef.current?.clientWidth) {
         setTimeout(() => initInstance());
       } else {
         initInstance();
