@@ -40,12 +40,10 @@ export default function Chart({ className, option = {} }) {
   const prevWindowSize = usePreviousDistinct(windowSize);
   useDeepCompareEffect(() => {
     let instance = echarts.getInstanceByDom(chartRef.current);
-    setTimeout(() => {
-      if (!instance) {
-        instance = echarts.init(chartRef.current, 'dark');
-        instance.setOption(updateChartFontSize(option), true);
-      }
-    });
+    if (!instance) {
+      instance = echarts.init(chartRef.current, 'dark');
+      instance.setOption(updateChartFontSize(option), true);
+    }
 
     return () => {
       instance && instance.dispose();
