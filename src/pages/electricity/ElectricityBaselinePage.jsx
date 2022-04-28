@@ -716,6 +716,7 @@ export function BaselinePanel({ year, plant, business }) {
         className="my-0 max-w-[calc(100vw-6rem)] bg-gray-900"
         open={open}
         setOpen={setOpen}
+        onClose={setOpen}
         title="用電指標資訊"
         defaultFooter={false}>
         <ElectricityIndexPage className="h-[calc(100vh-6rem)] w-[calc(100vw-6rem)]" year={year} plant={plant} />
