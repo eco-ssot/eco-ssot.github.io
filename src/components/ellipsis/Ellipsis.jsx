@@ -10,13 +10,18 @@ export default function Ellipsis({ label, className, placement = 'auto' }) {
   const { width } = useWindowSize();
   const [isTruncated, setIsTruncated] = useState(false);
   useEffect(() => {
-    setIsTruncated(ref.current?.offsetWidth < ref.current?.scrollWidth);
+    ref.current && setIsTruncated(ref.current.offsetWidth < ref.current.scrollWidth);
   }, [label, width]);
 
   return (
     <Tooltip label={label} placement={placement} show={isTruncated}>
       <span className="block truncate">
-        <span ref={ref} className={clsx('block truncate', className)}>
+        <span
+          ref={(node) => {
+            ref.current = node;
+            node && setIsTruncated(node.offsetWidth < node.scrollWidth);
+          }}
+          className={clsx('block truncate', className)}>
           {label}
         </span>
       </span>
