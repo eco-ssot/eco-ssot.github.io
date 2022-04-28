@@ -40,9 +40,17 @@ export default function Chart({ className, option = {} }) {
   const prevWindowSize = usePreviousDistinct(windowSize);
   useDeepCompareEffect(() => {
     let instance = echarts.getInstanceByDom(chartRef.current);
-    if (!instance) {
+    const initInstance = () => {
       instance = echarts.init(chartRef.current, 'dark');
       instance.setOption(updateChartFontSize(option), true);
+    };
+
+    if (!instance) {
+      if (!chartRef.current.clientHeight && !chartRef.current.clientWidth) {
+        setTimeout(() => initInstance());
+      } else {
+        initInstance();
+      }
     }
 
     return () => {
@@ -66,9 +74,5 @@ export default function Chart({ className, option = {} }) {
     [windowSize]
   );
 
-  return (
-    <div className={clsx('grid', className)}>
-      <div ref={chartRef} />
-    </div>
-  );
+  return <div className={clsx('grid', className)} ref={chartRef} />;
 }
