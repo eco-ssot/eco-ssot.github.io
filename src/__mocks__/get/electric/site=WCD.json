@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "latestDate": "2022-03-01",
+      "name": "WCD",
+      "electricCompareYear": 7384002.452380952,
+      "electricCurrentYear": 6649442.240000001,
+      "electricGradient": -0.09947995238599827,
+      "revenueCompareYear": 46.83698253864148,
+      "revenueCurrentYear": 60.7032917932487,
+      "revenueGradient": 0.29605470939907863,
+      "billiRevenueElectricCompareYear": 157653.2486115859,
+      "billiRevenueElectricCurrentYear": 109540.06024331515,
+      "billiRevenueElectricGradient": -0.30518361525685,
+      "ASPCompareYear": 15.17725187653798,
+      "ASPCurrentYear": 17.170322863076812,
+      "ASPGradientYear": 0.1313196224686668
+    }
+  ]
+}
