@@ -115,7 +115,7 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
           Cell: baseFormatter,
         },
         {
-          Header: '單台用電 (度)',
+          Header: '約當單台用電 (度)',
           accessor: 'electricity_target.unit',
           className: 'text-right',
           Cell: (cell) => baseFormatter(cell.value, { precision: 1 }),
