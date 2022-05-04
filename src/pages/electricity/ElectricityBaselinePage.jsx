@@ -177,6 +177,7 @@ export const POWER_SAVING_COLUMNS = ({
     editable: true,
     EditableComponent: ({ defaultValue, onBlur }) => (
       <Select
+        strategy="fixed"
         className="text-left"
         options={electricityOptions}
         selected={electricityOptions.find((option) => option.value === defaultValue)}

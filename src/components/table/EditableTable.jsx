@@ -117,6 +117,7 @@ export const AdSearchSelectCell = ({
   const ref = useRef(defaultValue);
   return (
     <AdSearchSelect
+      strategy="fixed"
       options={options}
       defaultValue={defaultValue}
       onChange={(e) => (ref.current = e)}

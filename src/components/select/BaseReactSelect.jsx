@@ -90,9 +90,10 @@ export function customTheme(theme) {
   };
 }
 
-export function BaseAsyncReactSelect(props) {
+export function BaseAsyncReactSelect({ className, strategy = 'absolute', ...props }) {
   return (
     <AsyncSelect
+      className={clsx('z-10', className)}
       theme={customTheme}
       styles={customStyles}
       components={{
@@ -101,14 +102,17 @@ export function BaseAsyncReactSelect(props) {
         Option: CustomOption,
       }}
       menuPlacement="auto"
+      menuPosition={strategy}
+      onMouseDown={(e) => console.log('mousedown')}
       {...props}
     />
   );
 }
 
-export default function BaseReactSelect(props) {
+export default function BaseReactSelect({ className, strategy = 'absolute', ...props }) {
   return (
     <Select
+      className={clsx('z-10', className)}
       theme={customTheme}
       styles={customStyles}
       components={{
@@ -117,6 +121,7 @@ export default function BaseReactSelect(props) {
         Option: CustomOption,
       }}
       menuPlacement="auto"
+      menuPosition={strategy}
       {...props}
     />
   );

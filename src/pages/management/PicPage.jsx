@@ -132,7 +132,7 @@ export default function PicPage() {
   const plantPermission = usePlantPermission();
   const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: plantPermission });
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
-  const [dataSource, setData] = useState(data);
+  const [_data, setData] = useState(data);
   const { data: users = [] } = useGetUsersQuery();
   const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
   const { canEdit } = useAdmin();
@@ -147,7 +147,7 @@ export default function PicPage() {
         <div className="text-xl font-medium">{t('managementPage:pic.title')}</div>
         {data && (
           <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
-            <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
+            <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
           </div>
         )}
       </div>

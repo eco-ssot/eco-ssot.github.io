@@ -156,6 +156,8 @@ export function AnalysisSubTable({
                         {hasCategory ? (
                           <div className="col-span-3 flex h-full space-x-2">
                             <Select
+                              strategy="fixed"
+                              placement="auto"
                               buttonClassName="w-32"
                               options={electricityOptions}
                               selected={electricityOptions.find((option) => option.key === category)}
