@@ -307,7 +307,8 @@ const COLUMNS = [
           className={clsx(
             'h-3 w-3 rounded-full',
             cell.value === true && 'bg-primary-500',
-            cell.value === false && 'bg-dangerous-700'
+            cell.value === false && 'bg-dangerous-700',
+            cell.value === 'No Data' && 'bg-gray-50'
           )}></div>
       </div>
     ),
