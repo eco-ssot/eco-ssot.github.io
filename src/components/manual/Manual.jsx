@@ -32,19 +32,19 @@ export default function Manual({ lng }) {
         <Popover.Panel className="absolute z-10 mt-2 flex flex-col space-y-2 rounded border border-divider bg-primary-900 p-2 shadow">
           <a
             target="_blank"
-            className="flex cursor-pointer items-center text-blue-400 underline visited:text-purple-400"
+            className="flex cursor-pointer text-blue-400 underline visited:text-purple-400"
             href={PATH.zh}
             rel="noreferrer">
-            <ExternalLinkIcon className="h-5 w-5" />
             <div className="whitespace-nowrap">中文</div>
+            <ExternalLinkIcon className="h-5 w-5 scale-90" />
           </a>
           <a
             target="_blank"
-            className="flex cursor-pointer items-center text-blue-400 underline visited:text-purple-400"
+            className="flex cursor-pointer text-blue-400 underline visited:text-purple-400"
             href={PATH.en}
             rel="noreferrer">
-            <ExternalLinkIcon className="h-5 w-5" />
             <div className="whitespace-nowrap">English</div>
+            <ExternalLinkIcon className="h-5 w-5 scale-90" />
           </a>
         </Popover.Panel>
       </Popover>

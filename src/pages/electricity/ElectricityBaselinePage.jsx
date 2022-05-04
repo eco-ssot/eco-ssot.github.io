@@ -282,7 +282,7 @@ export const POWER_SAVING_COLUMNS = ({
               ...rest,
             };
 
-            if (modified || id !== undefined) {
+            if (id !== undefined) {
               patchPowerSaving({ year, plant, data: payload });
               setData((prev) => prev.map((r, i) => (i === cell.row.index ? { ...r, editing: false } : r)));
             } else {
