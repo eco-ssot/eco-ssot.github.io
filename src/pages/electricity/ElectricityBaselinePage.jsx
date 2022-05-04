@@ -277,7 +277,7 @@ export const POWER_SAVING_COLUMNS = ({
                   ...prev,
                   [key]: trimNumber(value),
                 }),
-                {}
+                Array.from({ length: 12 }, (_, i) => i).reduce((_prev, _curr) => ({ ..._prev, [_curr + 1]: 0 }), {})
               ),
               ...rest,
             };
