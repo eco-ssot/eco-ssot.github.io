@@ -27,10 +27,11 @@ export const STATUS_MAPPING = {
   3: 'bg-yellow-500',
 };
 
-const statusRenderer = (cell) => {
+const statusRenderer = (label) => (cell) => {
   return (
-    <div className="flex justify-center">
-      <div className={clsx('h-3 w-3 rounded-full text-center', STATUS_MAPPING[cell.value])}></div>
+    <div className="mx-[25%] flex min-w-24 items-center  space-x-2 whitespace-nowrap">
+      <div className={clsx('h-3 w-3 min-w-3 rounded-full text-center', STATUS_MAPPING[cell.value])}></div>
+      <div>{cell.row.original[label]}</div>
     </div>
   );
 };
@@ -51,7 +52,14 @@ const COLUMNS = (t) =>
           <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
-      columns: [{ Header: t('dataStatus.table.DPMEquProduction'), accessor: 'DPMEquProduction', Cell: statusRenderer }],
+      columns: [
+        {
+          Header: t('dataStatus.table.DPMEquProduction'),
+          accessor: 'DPMEquProduction',
+          Cell: statusRenderer('DPMEquProduction_source'),
+          className: 'text-center',
+        },
+      ],
     },
     {
       id: 'opm',
@@ -62,9 +70,13 @@ const COLUMNS = (t) =>
         </div>
       ),
       columns: [
-        { Header: t('dataStatus.table.OPMRevenue'), accessor: 'OPMRevenue', Cell: statusRenderer },
-        { Header: t('dataStatus.table.OPMManual'), accessor: 'OPMManual', Cell: statusRenderer },
-        { Header: t('dataStatus.table.OPMShipment'), accessor: 'OPMShipment', Cell: statusRenderer },
+        { Header: t('dataStatus.table.OPMRevenue'), accessor: 'OPMRevenue', Cell: statusRenderer('OPMRevenue_source') },
+        { Header: t('dataStatus.table.OPMManual'), accessor: 'OPMManual', Cell: statusRenderer('OPMManual_source') },
+        {
+          Header: t('dataStatus.table.OPMShipment'),
+          accessor: 'OPMShipment',
+          Cell: statusRenderer('OPMShipment_source'),
+        },
       ],
     },
     {
@@ -79,10 +91,10 @@ const COLUMNS = (t) =>
         {
           Header: t('dataStatus.table.FEMElectric'),
           accessor: 'FEMElectric',
-          Cell: statusRenderer,
+          Cell: statusRenderer('FEMElectric_source'),
         },
-        { Header: t('dataStatus.table.FEMWater'), accessor: 'FEMWater', Cell: statusRenderer },
-        { Header: t('dataStatus.table.FEMSolar'), accessor: 'FEMSolar', Cell: statusRenderer },
+        { Header: t('dataStatus.table.FEMWater'), accessor: 'FEMWater', Cell: statusRenderer('FEMWater_source') },
+        { Header: t('dataStatus.table.FEMSolar'), accessor: 'FEMSolar', Cell: statusRenderer('FEMSolar_source') },
       ],
     },
     {
@@ -93,7 +105,7 @@ const COLUMNS = (t) =>
           <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
         </div>
       ),
-      columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer }],
+      columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer('benefit_source') }],
     },
     {
       id: 'waste',
@@ -103,7 +115,7 @@ const COLUMNS = (t) =>
           <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.manualSync')}</div>
         </div>
       ),
-      columns: [{ Header: t('dataStatus.table.wasteWeight'), accessor: 'waste', Cell: statusRenderer }],
+      columns: [{ Header: t('dataStatus.table.wasteWeight'), accessor: 'waste', Cell: statusRenderer('waste_source') }],
     },
   ]);
 
