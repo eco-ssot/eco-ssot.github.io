@@ -45,10 +45,10 @@ export default function Tooltip({ children, label, placement, className, strateg
     middleware: [
       offset(8),
       shift({ padding: 8 }),
-      autoPlacement(),
+      ...(placement === 'auto' ? [autoPlacement()] : []),
       ...(arrowRef.current ? [arrow({ element: arrowRef.current })] : []),
     ],
-    ...(placement && { placement }),
+    ...(placement !== 'auto' && { placement }),
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
