@@ -19,7 +19,7 @@ import { useGetLatestDateQuery } from '../../services/app';
 import { useGetDataStatusQuery, useUploadEnergyExcelMutation } from '../../services/management';
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
-export const STATUS_MAPPING = {
+const STATUS_MAPPING = {
   '-': 'bg-gray-50',
   0: 'bg-gray-50',
   1: 'bg-dangerous-700',

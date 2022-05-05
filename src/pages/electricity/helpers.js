@@ -2,6 +2,8 @@ import clsx from 'clsx';
 
 import { baseFormatter } from '../../utils/formatter';
 
+const HIDDEN_PLANTS = ['WCZ', 'WMX', 'WOK', 'WNH', 'WHC'];
+
 export function getYtmLabel(m, t) {
   if (m === 1) {
     return '-';
@@ -25,6 +27,7 @@ export function gapFormatter(cell) {
 
 export function getPlants({ data, s, p, plantPermission }) {
   const options = data
+    ?.filter(({ key }) => !HIDDEN_PLANTS.includes(key))
     ?.filter(({ key }) => plantPermission?.includes(key))
     ?.filter(({ key }) => {
       if (p) {

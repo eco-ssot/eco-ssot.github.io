@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 
+import { InformationCircleIcon } from '@heroicons/react/outline';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { get } from 'lodash';
@@ -13,6 +14,7 @@ import ButtonGroup from '../../components/button/ButtonGroup';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
+import Tooltip from '../../components/tooltip/Tooltip';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
@@ -26,12 +28,34 @@ const BUTTON_GROUP_OPTIONS = [
   { key: 'WATER', value: 'water' },
 ];
 
-export const STATUS_MAPPING = {
+const STATUS_MAPPING = {
   '-': 'bg-gray-50',
   0: 'bg-gray-50',
   1: 'bg-dangerous-700',
   2: 'bg-primary-500',
   3: 'bg-yellow-500',
+};
+
+const PERIOD = {
+  WOK: { electricity: '月初到月底', water: '月初到月底', waterHint: '過年例外' },
+  WTZ: { electricity: '月初到月底', water: '月初到月底', waterHint: '過年例外' },
+  WKS: { electricity: '月初到月底', electricityHint: '可能假日有影響', water: '月初到月底', waterHint: '過年例外' },
+  WZS: {
+    electricity: '月中至月中',
+    water: '25 - 24',
+  },
+  WCQ: {
+    electricity: '14 - 13',
+    electricityHint: '2月開始 : 改回月初到月底',
+    water: '6 - 5',
+    waterHint: '2月改成月初到月底',
+  },
+  WCD: {
+    electricity: '27 - 26',
+    water: '尚未確定',
+    waterHint: '23-28號之間(先取25號)',
+  },
+  WIH: { electricity: '月初到月底', water: '15-14', waterHint: '(大概,有可能~20)' },
 };
 
 const csrRenderer = (cell) => {
@@ -53,6 +77,27 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
     rowSpan: 0,
     className: 'text-center',
     Cell: plantRenderer,
+  },
+  {
+    Header: t(`managementPage:csr.table.period`),
+    rowSpan: 0,
+    className: 'text-center',
+    Cell: (cell) => {
+      const key = isWater ? 'water' : 'electricity';
+      const plant = String(cell.row.original.plant).split('-')[0].split('(')[0];
+      const period = PERIOD[plant]?.[key];
+      const hint = PERIOD[plant]?.[`${key}Hint`];
+      return (
+        <div className="flex items-center justify-center space-x-1">
+          <span>{period}</span>
+          {hint && (
+            <Tooltip label={hint} placement="right">
+              <InformationCircleIcon className="h-5 w-5" />
+            </Tooltip>
+          )}
+        </div>
+      );
+    },
   },
   {
     Header: t(`managementPage:csr.table.fem${isWater ? 'Water' : 'Electricity'}SmartMeter`),
@@ -137,6 +182,8 @@ export default function CsrPage() {
         t,
         isWater,
         setData,
+        year,
+        month,
         postCsrComment: (payload) => postCsrComment({ year: year || currYear, month: month || currMonth, ...payload }),
       }),
     [t, postCsrComment, setData, year, month, currYear, currMonth, isWater]

@@ -82,7 +82,8 @@
       "csrWaterBill": "CSR Water Bill",
       "gap": "Gap *",
       "description": "Description",
-      "edit": "Edit"
+      "edit": "Edit",
+      "period": "Period"
     }
   },
   "changelog": {

@@ -930,7 +930,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
         buttonClassName="w-36"
         label="Plant"
         placeholder="Select Plant"
-        options={plantOptions || APP_CONSTANTS.PLANT_OPTIONS}
+        options={plantOptions}
         selected={plantOptions?.find((option) => option.key === searchOption.plant)}
         onChange={(e) => setSearchOption((prev) => ({ ...prev, plant: e.key }))}
       />

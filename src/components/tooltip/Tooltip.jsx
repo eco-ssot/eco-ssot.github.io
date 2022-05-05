@@ -68,7 +68,7 @@ export default function Tooltip({ children, label, placement, className, strateg
     <>
       {isValidElement(children) && cloneElement(children, getReferenceProps({ ref: reference }))}
       <FloatingPortal>
-        <Transition appear show={show && open}>
+        <Transition appear show={show && open && !!label}>
           <div
             {...getFloatingProps({
               ref: floating,
