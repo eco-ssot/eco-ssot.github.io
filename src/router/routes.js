@@ -120,6 +120,7 @@ export const privateRoutes = [
     path: '/analysis/electricity',
     element: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
     i18nKey: 'electricityBaseline',
+    hidden: process.env.REACT_APP_STAGE === 'production',
   },
   {
     path: '/water',
