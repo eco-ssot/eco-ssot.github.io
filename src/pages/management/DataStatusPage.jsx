@@ -137,7 +137,7 @@ function getLabel(t) {
             },
           })}
         </div>
-        <div>({t('dataStatus.subTitle', { nextMonth })})</div>
+        <div>({t('dataStatus.subTitle', { nextMonth, nextDay: process.env.REACT_APP_DATA_UPDATE_DAY || 10 })})</div>
       </div>
     </>
   );
