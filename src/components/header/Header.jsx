@@ -1,10 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useWindowSize } from 'react-use';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import useSitePlantOptions from '../../hooks/useSitePlantOptions';
@@ -21,9 +18,6 @@ import GhostSelect from '../select/GhostSelect';
 import GroupSelect from '../select/GroupSelect';
 
 export default function Header({ className }) {
-  const ref = useRef();
-  const checkTruncatedRef = useRef(true);
-  const { width } = useWindowSize();
   const { t } = useTranslation(['common']);
   const { keycloak } = useKeycloak();
   const lng = useSelector(selectLanguage);
@@ -32,29 +26,9 @@ export default function Header({ className }) {
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
   const { data: version } = useGetVersionQuery();
-  const [isTruncated, setIsTruncated] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    ref.current && setIsTruncated(ref.current.offsetWidth < ref.current.scrollWidth);
-    checkTruncatedRef.current = true;
-  }, [width]);
-
   return (
-    <div
-      className={clsx('z-10 flex items-center bg-primary-800 px-4 shadow-lg', className)}
-      ref={(node) => {
-        ref.current = node;
-        if (node) {
-          const truncated = node.offsetWidth < node.scrollWidth;
-          if (checkTruncatedRef.current) {
-            setIsTruncated(truncated);
-          }
-
-          if (truncated) {
-            checkTruncatedRef.current = false;
-          }
-        }
-      }}>
+    <div className={clsx('z-10 flex items-center bg-primary-800 px-4 shadow-lg', className)}>
       <Link className="flex items-center space-x-4" to="/">
         <Picture className="h-10 w-10" src="/logo-64x64.webp" fallback="/logo-64x64.png" alt="logo" />
         <Ellipsis label={t('title')} className="text-xl font-medium" />
@@ -90,7 +64,7 @@ export default function Header({ className }) {
             ariaLabel="site-plant"
           />
           <Divider className="h-1/2" />
-          <NavBar isTruncated={isTruncated} />
+          <NavBar />
           <Divider className="h-1/2" />
           <Manual lng={lng} />
           <Divider className="h-1/2" />
