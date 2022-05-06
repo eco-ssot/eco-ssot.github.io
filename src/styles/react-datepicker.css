@@ -1,13 +1,13 @@
 .react-datepicker-wrapper {
-  @apply flex w-full h-full;
+  @apply flex h-full w-full;
 }
 
 .react-datepicker__input-container {
-  @apply flex w-full h-full;
+  @apply flex h-full w-full;
 }
 
 .react-datepicker__input-container input {
-  @apply block w-full h-full py-1 px-2 bg-transparent rounded border-gray-50 border-opacity-10 text-base hover:border-primary-600 focus:ring-primary-600 focus:border-primary-600;
+  @apply block h-full w-full rounded border-gray-50 border-opacity-10 bg-transparent py-1 px-2 text-base hover:border-primary-600 focus:border-primary-600 focus:ring-primary-600;
 }
 
 .react-datepicker__input-container input::placeholder {
@@ -15,11 +15,11 @@
 }
 
 .react-datepicker-popper {
-  @apply flex w-full z-10 min-w-[16rem] max-w-[16rem];
+  @apply z-10 flex w-full min-w-[16rem] max-w-[16rem];
 }
 
 .react-datepicker-popper > :first-child {
-  @apply flex w-full my-2 bg-primary-900 rounded-md shadow-lg border border-divider;
+  @apply my-2 flex w-full rounded-md border border-divider bg-primary-900 shadow-lg;
 }
 
 .react-datepicker {
@@ -27,11 +27,11 @@
 }
 
 .react-datepicker__month-container {
-  @apply flex flex-col w-full;
+  @apply flex w-full flex-col;
 }
 
 .react-datepicker__month.react-datepicker__monthPicker {
-  @apply flex flex-col w-full space-y-4 p-4;
+  @apply flex w-full flex-col space-y-4 p-4;
 }
 
 .react-datepicker__month-wrapper {
@@ -43,7 +43,7 @@
 }
 
 .react-datepicker__month-text {
-  @apply py-1 rounded hover:bg-primary-700;
+  @apply cursor-pointer rounded py-1 hover:bg-primary-700;
 }
 
 .react-datepicker__day-names {
@@ -51,7 +51,7 @@
 }
 
 .react-datepicker__month {
-  @apply py-1 pb-4 px-2 space-y-2;
+  @apply space-y-2 py-1 px-2 pb-4;
 }
 
 .react-datepicker__week {
@@ -59,7 +59,11 @@
 }
 
 .react-datepicker__day {
-  @apply py-0.5 px-1 rounded hover:bg-primary-700;
+  @apply cursor-pointer rounded py-0.5 px-1 hover:bg-primary-700;
+}
+
+.react-datepicker__day-text {
+  @apply cursor-pointer;
 }
 
 .react-datepicker__day--selected {
