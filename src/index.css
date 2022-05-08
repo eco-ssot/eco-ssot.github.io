@@ -25,27 +25,21 @@ html {
   @apply overflow-hidden bg-gray-900 text-gray-50;
 }
 
-@screen 4k {
+@screen sm {
   html {
-    font-size: 30px;
+    font-size: 10px;
   }
 }
 
-@screen 2k {
+@screen md {
   html {
-    font-size: 20px;
+    font-size: 10.5px;
   }
 }
 
-@screen 1k {
+@screen lg {
   html {
-    font-size: 15px;
-  }
-}
-
-@screen 2xl {
-  html {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -55,20 +49,38 @@ html {
   }
 }
 
-@screen lg {
+@screen 2xl {
   html {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
-@screen md {
+@screen 1k {
   html {
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 
-@screen sm {
+@screen 2k {
   html {
-    font-size: 12px;
+    font-size: 20px;
+  }
+}
+
+@screen 4k {
+  html {
+    font-size: 30px;
+  }
+}
+
+@screen 5k {
+  html {
+    font-size: 40px;
+  }
+}
+
+@screen 8k {
+  html {
+    font-size: 60px;
   }
 }

@@ -32,7 +32,7 @@ export default function NavBar({ className }) {
             isMatched(pathname)({ index, indexPath, path })
               ? 'border-primary-600 text-gray-50'
               : 'border-primary-800 text-gray-200 hover:text-gray-50',
-            i > 4 && '2xl:hidden'
+            i > 4 && 'hidden 1k:block'
           )}>
           <Link
             to={{
@@ -45,7 +45,7 @@ export default function NavBar({ className }) {
           </Link>
         </div>
       ))}
-      <div className="relative hidden 2xl:block">
+      <div className="relative block 1k:hidden">
         <Menu as="div" className="relative inline-block text-left">
           <Menu.Button className="inline-flex w-full items-center justify-center rounded-md py-2 px-3 text-lg font-medium text-gray-50 hover:bg-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             More

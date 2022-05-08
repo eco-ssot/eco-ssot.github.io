@@ -13,14 +13,16 @@ module.exports = {
     colors: { ...colors, transparent: 'transparent', current: 'currentColor' },
     screens: {
       ...defaultTheme.screens,
-      sm: { max: '767px' },
-      md: { max: '1023px' },
-      lg: { max: '1279px' },
-      xl: { max: '1535px' },
-      '2xl': { max: '1919px' },
-      '1k': { max: '2559px' },
-      '2k': { max: '3839px' },
+      sm: { min: '768px' },
+      md: { min: '1024px' },
+      lg: { min: '1280px' },
+      xl: { min: '1366px' },
+      '2xl': { min: '1536px' },
+      '1k': { min: '1920px' },
+      '2k': { min: '2560px' },
       '4k': { min: '3840px' },
+      '5k': { min: '5120px' },
+      '8k': { min: '7680px' },
     },
     extend: {
       colors: {
