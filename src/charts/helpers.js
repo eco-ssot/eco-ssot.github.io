@@ -22,6 +22,10 @@ export function getLabelFontSize() {
       return { fontSize: 18, lineHeight: 28 };
     case 15:
       return { fontSize: 14, lineHeight: 20 };
+    case 11:
+    case 10.5:
+    case 10:
+      return { fontSize: 10, lineHeight: 12 };
 
     default:
       return { fontSize: 12, lineHeight: 16 };

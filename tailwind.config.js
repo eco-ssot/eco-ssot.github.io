@@ -13,7 +13,7 @@ module.exports = {
     colors: { ...colors, transparent: 'transparent', current: 'currentColor' },
     screens: {
       ...defaultTheme.screens,
-      sm: { max: '768px' },
+      sm: { max: '1023px' },
       md: { min: '1024px' },
       lg: { min: '1280px' },
       xl: { min: '1366px' },
