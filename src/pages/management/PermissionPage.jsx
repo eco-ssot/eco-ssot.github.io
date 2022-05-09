@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import Table from '../../components/table/Table';
 import Toggle from '../../components/toggle/Toggle';
@@ -15,6 +15,7 @@ export default function PermissionPage() {
   const { data: devUsers = [] } = useGetUsersByRoleQuery({ roleName: 'DEV' });
   const { data: target_maintainer = [] } = useGetUsersByRoleQuery({ roleName: 'target_maintainer' });
   const { isFetching, data: users = [] } = useGetUsersQuery({ max });
+  const columns = useMemo(() => COLUMNS, []);
   return (
     <div className="col-span-7 row-span-2">
       <div className="flex h-full flex-col rounded bg-primary-900 p-4 shadow">
@@ -23,19 +24,19 @@ export default function PermissionPage() {
           <div className="flex flex-col space-y-2">
             <div className="text-xl font-medium">P8廠數據可查看權限名單</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
-              <Table columns={COLUMNS} data={wzs8Users} />
+              <Table columns={columns} data={wzs8Users} />
             </div>
           </div>
           <div className="flex flex-col space-y-2">
             <div className="text-xl font-medium">後台參數可設定權限名單</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
-              <Table columns={COLUMNS} data={target_maintainer} />
+              <Table columns={columns} data={target_maintainer} />
             </div>
           </div>
           <div className="flex flex-col space-y-2">
             <div className="text-xl font-medium">開發群組名單</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
-              <Table columns={COLUMNS} data={devUsers} />
+              <Table columns={columns} data={devUsers} />
             </div>
           </div>
           <div className="flex flex-col space-y-2">
@@ -47,7 +48,7 @@ export default function PermissionPage() {
               </div>
             </div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
-              <Table columns={COLUMNS} data={users} />
+              <Table columns={columns} data={users} />
             </div>
           </div>
         </div>

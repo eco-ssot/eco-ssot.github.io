@@ -283,6 +283,11 @@ export default function PredictionPanel({ categorized, year, month, plant, busin
   );
 
   const [selectedRow, setSelectedRow] = useState(-1);
+  const columns = useMemo(
+    () => (byMonth ? PREDICTION_COLUMNS_BY_MONTH(t) : PREDICTION_COLUMNS_BY_SITE({ t, year, month })),
+    [byMonth, year, month, t]
+  );
+
   if (isNil(data)) {
     return null;
   }
@@ -304,7 +309,7 @@ export default function PredictionPanel({ categorized, year, month, plant, busin
       <div className="grid h-full grid-cols-3 gap-4 overflow-hidden">
         <div className="col-span-2 flex w-full flex-col overflow-auto rounded-t-lg shadow">
           <Table
-            columns={byMonth ? PREDICTION_COLUMNS_BY_MONTH(t) : PREDICTION_COLUMNS_BY_SITE({ t, year, month })}
+            columns={columns}
             data={targetData}
             getRowProps={(row) => ({
               className: clsx('cursor-pointer', selectedRow === row.index && 'bg-primary-600 bg-opacity-20'),

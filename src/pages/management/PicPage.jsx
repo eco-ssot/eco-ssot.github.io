@@ -136,7 +136,11 @@ export default function PicPage() {
   const { data: users = [] } = useGetUsersQuery();
   const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
   const { canEdit } = useAdmin();
-  const columns = COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden);
+  const columns = useMemo(
+    () => COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden),
+    [t, patchDataStatusPic, canEdit, userOptions]
+  );
+
   useEffect(() => {
     data && setData(data);
   }, [data]);

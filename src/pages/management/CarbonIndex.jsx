@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
@@ -65,7 +65,11 @@ export default function CarbonIndex({ className, year, data, canEdit }) {
   const { t } = useTranslation(['managementPage', 'component']);
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);
-  const columns = COLUMNS({ t, setData, patchCarbonIndex, year, canEdit });
+  const columns = useMemo(
+    () => COLUMNS({ t, setData, patchCarbonIndex, year, canEdit }),
+    [t, patchCarbonIndex, year, canEdit]
+  );
+
   useEffect(() => {
     data && setData(data);
   }, [data]);

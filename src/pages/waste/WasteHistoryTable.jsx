@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -142,7 +144,11 @@ export default function WasteHistoryTable({
   p,
 }) {
   const { t } = useTranslation(['wastePage', 'common']);
-  const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
+  const option = useMemo(
+    () => ({ startYear, endYear, monthType, startMonth, endMonth, dimension }),
+    [startYear, endYear, monthType, startMonth, endMonth, dimension]
+  );
+
   const plantPermission = usePlantPermission();
   const { data } = useGetWasteHistoryQuery(
     { business, site: s, plant: p, permission: plantPermission, ...option },
@@ -150,6 +156,7 @@ export default function WasteHistoryTable({
   );
 
   const { label } = useGoal({ keyword: '廢棄物密度', isHistory: true });
+  const columns = useMemo(() => COLUMNS({ ...option, t }), [option, t]);
   return (
     <>
       <Tag className="absolute top-2 right-4">{label}</Tag>
@@ -157,7 +164,7 @@ export default function WasteHistoryTable({
         <>
           <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-            <Table columns={COLUMNS({ ...option, t })} data={(data?.data || []).map(toRow(option))} />
+            <Table columns={columns} data={(data?.data || []).map(toRow(option))} />
           </div>
         </>
       )}

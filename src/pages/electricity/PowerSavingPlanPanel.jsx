@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { isNil, groupBy } from 'lodash';
 
@@ -30,6 +30,7 @@ const POWER_SAVING_PLAN_COLUMNS = addPaddingColumns([
 export default function PowerSavingPlanPanel({ year, plant }) {
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
   const [_data, setData] = useState(data?.data);
+  const columns = useMemo(() => POWER_SAVING_PLAN_COLUMNS, []);
   useEffect(() => {
     if (data) {
       const groupByCategory = groupBy(data.data, ({ category }) => category);
@@ -64,7 +65,7 @@ export default function PowerSavingPlanPanel({ year, plant }) {
     <div className="row-span-2 flex h-full flex-col space-y-2 rounded bg-primary-900 p-4 shadow">
       <div className="text-lg font-medium">計畫節電總量 (度)</div>
       <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
-        <Table columns={POWER_SAVING_PLAN_COLUMNS} data={_data} />
+        <Table columns={columns} data={_data} />
       </div>
     </div>
   );

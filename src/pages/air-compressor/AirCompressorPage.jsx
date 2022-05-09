@@ -309,6 +309,9 @@ export default function AirCompressorPage() {
     [data?.recommand, machineIndex.old, machineIndex.new]
   );
 
+  const roiColumns = useMemo(() => ROI_COLUMNS, []);
+  const oldMachineColumns = useMemo(() => OLD_MACHINE_COLUMNS, []);
+  const newMachineColumns = useMemo(() => NEW_MACHINE_COLUMNS, []);
   useEffect(() => {
     data && setMachineIndex({ old: 0, new: 0 });
   }, [data]);
@@ -397,7 +400,7 @@ export default function AirCompressorPage() {
           <div className="flex w-[40%] flex-col space-y-4">
             <div className="text-xl font-medium">設備能效 / ROI資訊</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
-              <Table columns={ROI_COLUMNS} data={[].concat(data?.summary || DUMMY_ROI_DATA)} />
+              <Table columns={roiColumns} data={[].concat(data?.summary || DUMMY_ROI_DATA)} />
             </div>
           </div>
           <div className="flex w-[30%] flex-col">
@@ -421,7 +424,7 @@ export default function AirCompressorPage() {
             <div className="text-xl font-medium">既有備機設備推薦資訊</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
-                columns={OLD_MACHINE_COLUMNS}
+                columns={oldMachineColumns}
                 data={data?.recommand?.old || DUMMY_OLD_MACHINE_DATA}
                 getRowProps={(row) => ({
                   className: clsx('cursor-pointer', machineIndex.old === row.index && 'bg-_blue bg-opacity-20'),
@@ -437,7 +440,7 @@ export default function AirCompressorPage() {
             <div className="text-xl font-medium">新機設備推薦資訊</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
-                columns={NEW_MACHINE_COLUMNS}
+                columns={newMachineColumns}
                 data={data?.recommand?.new || DUMMY_NEW_MACHING_DATA}
                 getRowProps={(row) => ({
                   className: clsx('cursor-pointer', machineIndex.new === row.index && 'bg-_yellow bg-opacity-20'),

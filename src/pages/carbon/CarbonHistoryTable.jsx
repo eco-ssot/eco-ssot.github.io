@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -142,7 +144,11 @@ export default function CarbonHistoryTable({
   p,
 }) {
   const { t } = useTranslation(['carbonPage', 'common']);
-  const option = { startYear, endYear, monthType, startMonth, endMonth, dimension };
+  const option = useMemo(
+    () => ({ startYear, endYear, monthType, startMonth, endMonth, dimension }),
+    [startYear, endYear, monthType, startMonth, endMonth, dimension]
+  );
+
   const plantPermission = usePlantPermission();
   const { data } = useGetCarbonHistoryQuery(
     { business, site: s, plant: p, permission: plantPermission, ...option },
@@ -150,12 +156,13 @@ export default function CarbonHistoryTable({
   );
 
   const { label } = useGoal({ keyword: '碳排放量', isHistory: true });
+  const columns = useMemo(() => COLUMNS({ ...option, t }), [t, option]);
   return (
     <>
       <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
         <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-          <Table columns={COLUMNS({ ...option, t })} data={(data?.data || []).map(toRow(option))} />
+          <Table columns={columns} data={(data?.data || []).map(toRow(option))} />
         </div>
       )}
     </>

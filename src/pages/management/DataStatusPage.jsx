@@ -161,6 +161,7 @@ export default function DataStatusPage() {
     [yearOptions]
   );
 
+  const columns = useMemo(() => COLUMNS(t), [t]);
   const [uploadExcel, { isSuccess }] = useUploadEnergyExcelMutation();
   const navigate = useNavigate();
   useEffect(() => {
@@ -229,7 +230,7 @@ export default function DataStatusPage() {
           {data && (
             <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
-                columns={COLUMNS(t)}
+                columns={columns}
                 data={data?.data || []}
                 getHeaderProps={(header) => ({ className: '!py-1' })}
                 getCellProps={(cell) => ({ className: '!py-1' })}
