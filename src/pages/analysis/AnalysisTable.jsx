@@ -137,7 +137,11 @@ export function AnalysisSubTable({
               <div className="col-span-1 text-center">D.D</div>
               <div className="col-span-1 text-center">{t('analysisPage:table.finishDate')}</div>
               <div className="col-span-2 text-center">PIC</div>
-              <div className="col-span-1"></div>
+              <div className="col-span-1 flex items-center justify-end pr-6">
+                <div className="flex h-5 w-5 items-center justify-center rounded border border-current text-xs">
+                  {_data?.length || 0}
+                </div>
+              </div>
             </Disclosure.Button>
             <Disclosure.Panel static={canAddRow} className="w-full divide-y divide-primary-600 divide-opacity-50">
               {_data &&

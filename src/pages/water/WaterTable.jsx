@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -67,26 +66,14 @@ const HEADERS = ({
         name: t('common:gap'),
         renderer: (cell) => {
           if (cell.row.original.subRows.length > 0) {
-            const canExpand = cell.row.original.subRows.some((row) => {
-              const val = get(row, cell.column.id);
-              return isFinite(val) && val > -pct;
-            });
-
-            if (canExpand) {
-              return (
-                <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
-                  {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
-                </div>
-              );
-            }
+            return (
+              <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
+                {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
+              </div>
+            );
           }
 
-          if (
-            !cell.row.original.isFooter &&
-            cell.row.original.subRows.length === 0 &&
-            isFinite(cell.value) &&
-            cell.value > -pct
-          ) {
+          if (!cell.row.original.isFooter && cell.row.original.subRows.length === 0) {
             let query = {
               ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
               site: cell.row.original.site,
@@ -104,7 +91,7 @@ const HEADERS = ({
             const search = qs.stringify(query);
             return (
               <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
-                <Dot />
+                {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </Link>
             );

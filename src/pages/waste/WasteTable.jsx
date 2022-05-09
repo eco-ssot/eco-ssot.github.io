@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 
 import { UploadIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -78,26 +77,14 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
         name: t('wastePage:table.waste.delta', { baseYear, currYear }),
         renderer: (cell) => {
           if (cell.row.original.subRows.length > 0) {
-            const canExpand = cell.row.original.subRows.some((row) => {
-              const val = get(row, cell.column.id);
-              return isFinite(val) && val > -pct;
-            });
-
-            if (canExpand) {
-              return (
-                <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
-                  {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
-                </div>
-              );
-            }
+            return (
+              <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
+                {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
+              </div>
+            );
           }
 
-          if (
-            !cell.row.original.isFooter &&
-            cell.row.original.subRows.length === 0 &&
-            isFinite(cell.value) &&
-            cell.value > -pct
-          ) {
+          if (!cell.row.original.isFooter && cell.row.original.subRows.length === 0) {
             let query = {
               ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
               site: cell.row.original.site,
@@ -115,7 +102,7 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
             const search = qs.stringify(query);
             return (
               <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
-                <Dot />
+                {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
               </Link>
             );

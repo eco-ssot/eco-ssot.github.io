@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import clsx from 'clsx';
-import { get } from 'lodash';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -54,36 +53,23 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
         key: 'delta',
         name: t('electricityPage:table.revenueElectricity.delta'),
         renderer: (cell) => {
-          if (cell.row.original.subRows.length > 0) {
-            const canExpand = cell.row.original.subRows.some((row) => {
-              const val = get(row, cell.column.id);
-              return isFinite(val) && val > 0;
-            });
+          const baseClassName = isFinite(cell.value)
+            ? cell.value > 0
+              ? 'font-semibold text-dangerous-500'
+              : 'font-semibold text-green-500'
+            : '';
 
-            if (canExpand) {
-              return (
-                <div
-                  className={clsx(
-                    'cursor-pointer underline',
-                    isFinite(cell.value)
-                      ? cell.value > 0
-                        ? 'font-semibold text-dangerous-500'
-                        : 'font-semibold text-green-500'
-                      : ''
-                  )}
-                  onClick={() => cell.row.toggleRowExpanded()}>
-                  {ratioFormatter(cell.value)}
-                </div>
-              );
-            }
+          if (cell.row.original.subRows.length > 0) {
+            return (
+              <div
+                className={clsx('cursor-pointer underline', baseClassName)}
+                onClick={() => cell.row.toggleRowExpanded()}>
+                {ratioFormatter(cell.value)}
+              </div>
+            );
           }
 
-          if (
-            !cell.row.original.isFooter &&
-            cell.row.original.subRows.length === 0 &&
-            isFinite(cell.value) &&
-            cell.value > 0
-          ) {
+          if (!cell.row.original.isFooter && cell.row.original.subRows.length === 0) {
             let query = {
               ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
               site: cell.row.original.site,
@@ -101,24 +87,13 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
             const search = qs.stringify(query);
             return (
               <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
-                <Dot />
-                <div className="font-semibold text-dangerous-500 underline">{ratioFormatter(cell.value)}</div>
+                {isFinite(cell.value) && cell.value > 0 && <Dot />}
+                <div className={clsx('underline', baseClassName)}>{ratioFormatter(cell.value)}</div>
               </Link>
             );
           }
 
-          return (
-            <div
-              className={clsx(
-                isFinite(cell.value)
-                  ? cell.value > 0
-                    ? 'font-semibold text-dangerous-500'
-                    : 'font-semibold text-green-500'
-                  : ''
-              )}>
-              {ratioFormatter(cell.value)}
-            </div>
-          );
+          return <div className={baseClassName}>{ratioFormatter(cell.value)}</div>;
         },
       },
     ],
