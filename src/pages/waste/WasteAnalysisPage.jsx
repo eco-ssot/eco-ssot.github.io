@@ -233,6 +233,7 @@ export default function WasteAnalysisPage() {
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
+      type={t('analysisPage:waste.type')}
       title={`${t('analysisPage:waste.title')} ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle={t('analysisPage:waste.chartTitle')}
       tableTitle={t('analysisPage:waste.tableTitle')}

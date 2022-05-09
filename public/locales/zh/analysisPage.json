@@ -1,6 +1,6 @@
 {
   "backDesc": "返回上一頁",
-  "aspDesc": "* 還原ASP影響後用電 = 當年 YTM 實際用電 / (當年 YTM 出貨量 * 前一年 YTM ASP)",
+  "aspDesc": "* 還原ASP影響後{{type}} = 當年 YTM 實際{{type}} / (當年 YTM 出貨量 * 前一年 YTM ASP)",
   "aspReduction": "還原ASP影響 *",
   "missingTargetDesc": "未達標說明",
   "overdue": "已過期",
@@ -8,6 +8,7 @@
   "addDesc": "新增說明",
   "cancelAdd": "取消新增",
   "electricity": {
+    "type": "用電",
     "title": "十億營業額用電 : 用電強度分析",
     "chartTitle": "用電強度對比",
     "tableTitle": "影響用電",
@@ -32,6 +33,7 @@
     }
   },
   "waste": {
+    "type": "廢棄物",
     "title": "廢棄物產生密度 : 廢棄物密度分析",
     "chartTitle": "廢棄物密度對比",
     "tableTitle": "影響廢棄物密度",
@@ -56,6 +58,7 @@
     }
   },
   "water": {
+    "type": "用水",
     "title": "十億營業額用水 : 用水強度分析",
     "chartTitle": "用水強度對比",
     "tableTitle": "影響用水",

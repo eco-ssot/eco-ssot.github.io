@@ -222,6 +222,7 @@ export default function WaterAnalysisPage() {
   const option = OPTION(values, labels, target);
   return (
     <AnalysisPage
+      type={t('analysisPage:water.type')}
       title={`${t('analysisPage:water.title')} ${`(Plant: ${plant || site || '-'})`}`}
       chartTitle={t('analysisPage:water.chartTitle')}
       tableTitle={t('analysisPage:water.tableTitle')}

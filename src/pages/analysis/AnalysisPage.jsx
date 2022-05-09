@@ -18,6 +18,7 @@ export default function AnalysisPage({
   chartOption,
   tableData,
   target,
+  type,
   title = '',
   chartTitle = '',
   tableTitle = '',
@@ -42,7 +43,7 @@ export default function AnalysisPage({
           <div>{t('analysisPage:backDesc')}</div>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="text-gray-300">{t('analysisPage:aspDesc')}</div>
+          <div className="text-gray-300">{t('analysisPage:aspDesc', { type })}</div>
           <Tag>
             {t('common:accumulationRange')} : <span className="text-lg font-medium">{accumulationPeriod}</span>
           </Tag>

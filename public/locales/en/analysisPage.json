@@ -1,6 +1,6 @@
 {
   "backDesc": "Back",
-  "aspDesc": "* ASP Reduction = Current YTM Electricity Consumption / (Current YTM Shipment * Last year YTM ASP)",
+  "aspDesc": "* ASP Reduction = Current YTM {{type}} Consumption / (Current YTM Shipment * Last year YTM ASP)",
   "aspReduction": "ASP Reduction *",
   "missingTargetDesc": "Missing Target Data Analysis",
   "overdue": "Already passed D.D",
@@ -8,6 +8,7 @@
   "addDesc": "Add New",
   "cancelAdd": "Cancel",
   "electricity": {
+    "type": "electricity",
     "title": "Electricity Consumption per Billion NTD : Analysis",
     "chartTitle": "Electricity Consumption Intensity",
     "tableTitle": "Impact on Electricity",
@@ -32,6 +33,7 @@
     }
   },
   "waste": {
+    "type": "waste",
     "title": "Waste Generation Intensity : Analysis",
     "chartTitle": "Waste Generation Intensity",
     "tableTitle": "Impact on Waste",
@@ -56,6 +58,7 @@
     }
   },
   "water": {
+    "type": "water",
     "title": "Water Consumption Intensity : Analysis",
     "chartTitle": "Water Consumption Intensity",
     "tableTitle": "Impact on Water",
