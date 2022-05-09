@@ -83,6 +83,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
         Header: 'Site',
         accessor: 'site',
         rowSpan: 0,
+        className: 'whitespace-nowrap',
       },
     ].concat(columns)
   );

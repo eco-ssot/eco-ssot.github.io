@@ -115,6 +115,7 @@ const PREDICTION_COLUMNS_BY_SITE = ({ t, year, month } = {}) => {
       Header: 'Plant',
       accessor: 'plant',
       rowSpan: 0,
+      className: 'whitespace-nowrap',
     },
     ...(isHistory ? HISTORY_COLUMNS(t) : currColumns),
     {

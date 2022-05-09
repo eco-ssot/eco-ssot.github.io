@@ -40,6 +40,7 @@ export const COLUMNS = ({
       accessor: 'site',
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
+      className: 'whitespace-nowrap',
     },
     ...HEADERS.map(({ key, renderer = baseFormatter }) => ({
       id: key,

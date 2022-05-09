@@ -62,6 +62,7 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
       accessor: 'site',
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
+      className: 'whitespace-nowrap',
     },
     ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
       Header: name,

@@ -62,6 +62,7 @@ const COLUMNS = ({ t, pct, missing, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
       accessor: 'site',
       rowSpan: 0,
       Cell: noDataRenderer({ missing }),
+      className: 'whitespace-nowrap',
     },
     ...HEADERS({ t, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,

@@ -13,7 +13,7 @@ const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
   {
     Header: 'Site',
     accessor: 'site',
-    className: 'w-1/3 text-center py-3',
+    className: 'w-1/3 text-center py-3 whitespace-nowrap',
   },
   {
     Header: t('managementPage:carbonIndex.table.amount'),

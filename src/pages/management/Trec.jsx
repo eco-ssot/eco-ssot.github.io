@@ -167,7 +167,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
   {
     Header: 'Plant',
     accessor: 'plant',
-    className: 'text-center',
+    className: 'text-center whitespace-nowrap',
     editable: true,
     editableComponentProps: { className: 'text-center' },
   },

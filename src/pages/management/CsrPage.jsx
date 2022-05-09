@@ -75,7 +75,7 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
     Header: 'Plant',
     accessor: 'plant',
     rowSpan: 0,
-    className: 'text-center',
+    className: 'text-center whitespace-nowrap',
     Cell: plantRenderer,
   },
   {

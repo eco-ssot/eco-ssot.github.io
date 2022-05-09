@@ -15,7 +15,7 @@ import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../s
 import { updateMyData } from '../../utils/table';
 
 const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
-  { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3' },
+  { Header: 'Plant', accessor: 'plant', rowSpan: 0, className: 'w-[10%] text-center py-3 whitespace-nowrap' },
   {
     id: 'opm',
     Header: () => (

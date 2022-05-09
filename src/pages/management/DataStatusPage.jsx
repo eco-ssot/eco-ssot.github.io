@@ -43,6 +43,7 @@ const COLUMNS = (t) =>
       accessor: 'plant',
       rowSpan: 0,
       Cell: plantRenderer,
+      className: 'whitespace-nowrap',
     },
     {
       id: 'dpm',
