@@ -1,9 +1,11 @@
 import { Fragment, Suspense } from 'react';
 
+import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes, BrowserRouter, Outlet } from 'react-router-dom';
 
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
+import ErrorPage from '../pages/errors/ErrorPage';
 
 import RequireAuth from './RequireAuth';
 import { publicRoutes, privateRoutes } from './routes';
@@ -19,9 +21,11 @@ export function toRoute(
           index
           path={indexPath}
           element={
-            <Suspense fallback={<Skeleton />}>
-              <Element />
-            </Suspense>
+            <ErrorBoundary FallbackComponent={ErrorPage}>
+              <Suspense fallback={<Skeleton />}>
+                <Element />
+              </Suspense>
+            </ErrorBoundary>
           }
         />
       )}
@@ -29,9 +33,11 @@ export function toRoute(
         <Route
           path={path}
           element={
-            <Suspense fallback={<Skeleton />}>
-              <Element />
-            </Suspense>
+            <ErrorBoundary FallbackComponent={ErrorPage}>
+              <Suspense fallback={<Skeleton />}>
+                <Element />
+              </Suspense>
+            </ErrorBoundary>
           }>
           {routes && routes.map(toRoute)}
         </Route>
