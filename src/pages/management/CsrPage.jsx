@@ -20,7 +20,7 @@ import { selectMonth, selectYear } from '../../renderless/location/locationSlice
 import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
 import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
-import { baseFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter } from '../../utils/formatter';
 import { plantRenderer, updateMyData } from '../../utils/table';
 
 const BUTTON_GROUP_OPTIONS = [
@@ -63,12 +63,10 @@ const csrRenderer = (cell) => {
   return (
     <div className="flex items-center justify-between px-8">
       <div className={clsx('h-3 w-3 rounded-full text-center', STATUS_MAPPING[status])}></div>
-      <div>{baseFormatter(cell.value)}</div>
+      <div>{statisticsFormatter(cell.value)}</div>
     </div>
   );
 };
-
-const ratioRenderer = (cell) => baseFormatter(cell.value, { precision: 1, unit: 1e-2, suffix: '%' });
 
 const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
   {
@@ -109,11 +107,11 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
     accessor: 'csr_amount',
     Cell: csrRenderer,
   },
-  { Header: t('managementPage:csr.table.gap'), accessor: 'diff', Cell: ratioRenderer, className: 'text-right' },
+  { Header: t('managementPage:csr.table.gap'), accessor: 'diff', Cell: ratioFormatter, className: 'text-right' },
   {
     Header: t('managementPage:csr.table.description'),
     accessor: 'comment',
-    className: 'w-[50%] px-8 !text-left',
+    className: 'w-[45%] px-8 !text-left',
     editable: true,
     editableComponentProps: { className: 'text-left', wrapperClassName: 'w-full' },
   },
