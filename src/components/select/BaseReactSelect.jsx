@@ -103,7 +103,6 @@ export function BaseAsyncReactSelect({ className, strategy = 'absolute', ...prop
       }}
       menuPlacement="auto"
       menuPosition={strategy}
-      onMouseDown={(e) => console.log('mousedown')}
       {...props}
     />
   );

@@ -135,7 +135,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
 export default function BaselinePanel({ year, plant, business }) {
   const { t } = useTranslation(['baselinePage', 'common']);
   const option = { year, plant };
-  const skip = Object.values(option).some(isNil);
+  const skip = Object.values(option).every(isNil);
   const [selectedRow, setSelectedRow] = useState(-1);
   const { data } = useGetElectricityBaselineQuery({ ...option, bo: business }, { skip });
   const [open, setOpen] = useState(false);

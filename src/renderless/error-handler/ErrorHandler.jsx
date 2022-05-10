@@ -10,10 +10,8 @@ export default function ErrorHandler() {
         return response;
       },
       (error) => {
-        toast.error(error.response?.data?.message || error.message, {
-          id: error.response?.data?.message || error.message,
-        });
-
+        const msg = error.response?.data?.message || error.response?.data?.msg || error.message;
+        toast.error(msg, { id: msg });
         return Promise.reject(error);
       }
     );

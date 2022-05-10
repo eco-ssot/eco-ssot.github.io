@@ -99,7 +99,6 @@ export const electricityApi = appApi.injectEndpoints({
     getElectricityBaseline: builder.query({
       query: (query) => ({ query, url: 'electric/inference/baseline' }),
       transformResponse: (res) => {
-        console.log(res.data);
         return {
           ...res,
           data: res.data?.filter((r) => !isEmptyRow(r)),

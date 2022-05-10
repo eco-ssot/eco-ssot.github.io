@@ -7,7 +7,10 @@ export const publicApi = createApi({
     getVersion: builder.query({
       query: () => ({ url: '/version.json' }),
     }),
+    getPlantChangelog: builder.query({
+      query: () => ({ url: '/plant-changelog.json' }),
+    }),
   }),
 });
 
-export const { useGetVersionQuery } = publicApi;
+export const { useGetVersionQuery, useGetPlantChangelogQuery } = publicApi;
