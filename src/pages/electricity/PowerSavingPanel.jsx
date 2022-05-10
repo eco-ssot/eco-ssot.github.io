@@ -180,7 +180,7 @@ const POWER_SAVING_COLUMNS = ({
 
 export default function PowerSavingPanel({ year, plant }) {
   const { t } = useTranslation(['component']);
-  const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
+  const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year || !plant });
   const { data: users = [] } = useGetUsersQuery();
   const [_data, setData] = useState();
   const [open, setOpen] = useState(false);

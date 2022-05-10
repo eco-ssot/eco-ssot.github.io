@@ -28,7 +28,7 @@ const POWER_SAVING_PLAN_COLUMNS = addPaddingColumns([
 ]);
 
 export default function PowerSavingPlanPanel({ year, plant }) {
-  const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year && !plant });
+  const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year || !plant });
   const [_data, setData] = useState(data?.data);
   const columns = useMemo(() => POWER_SAVING_PLAN_COLUMNS, []);
   useEffect(() => {

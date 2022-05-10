@@ -268,7 +268,7 @@ export default function PredictionPanel({ categorized, year, month, plant, busin
   const { t } = useTranslation(['baselinePage', 'common']);
   const byMonth = categorized === 'month';
   const option = byMonth ? { categorized, year, plant } : { categorized, year, month };
-  const skip = Object.values(option).every(isNil);
+  const skip = Object.values(option).some(isNil);
   const plantPermission = usePlantPermission();
   const { data } = useGetElectricityPredictionQuery(
     { ...option, bo: business, ...(!byMonth && { site: s, plant: p }) },

@@ -49,6 +49,14 @@ export function toRow({ plants = [], ...data } = {}) {
   };
 }
 
+export function isEmptyRow({ month, electricity_target, saving_tech, ...row } = {}) {
+  return Object.values(row).every((val) =>
+    typeof val === 'object' && val !== null
+      ? isEmptyRow(val)
+      : val === 0 || val === '-' || val === '--' || isNaN(Number(val))
+  );
+}
+
 export const electricityApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getElectricity: builder.query({
@@ -90,6 +98,13 @@ export const electricityApi = appApi.injectEndpoints({
     }),
     getElectricityBaseline: builder.query({
       query: (query) => ({ query, url: 'electric/inference/baseline' }),
+      transformResponse: (res) => {
+        console.log(res.data);
+        return {
+          ...res,
+          data: res.data?.filter((r) => !isEmptyRow(r)),
+        };
+      },
     }),
     getElectricityBaselineInfo: builder.query({
       query: (query) => ({ query, url: 'electric/inference/baseline/info' }),

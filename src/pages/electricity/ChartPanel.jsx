@@ -59,7 +59,7 @@ export default function ChartPanel({ plant, year, business }) {
   const option = { year, plant };
   const { data } = useGetElectricityBaselineQuery(
     { ...option, bo: business },
-    { skip: Object.values(option).every(isNil) }
+    { skip: Object.values(option).some(isNil) }
   );
 
   return (

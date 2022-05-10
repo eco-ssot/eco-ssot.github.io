@@ -35,6 +35,7 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
       accessor: 'month',
       rowSpan: 0,
       Cell: (cell) => `${t(`common:month.${Number(cell.value)}`)}${t(`common:month.text`)}`,
+      className: 'whitespace-nowrap',
     },
     ...APP_CONSTANTS.ELECTRICITY_TYPES.map(({ key, value }) => ({
       id: key,
@@ -134,7 +135,7 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
 export default function BaselinePanel({ year, plant, business }) {
   const { t } = useTranslation(['baselinePage', 'common']);
   const option = { year, plant };
-  const skip = Object.values(option).every(isNil);
+  const skip = Object.values(option).some(isNil);
   const [selectedRow, setSelectedRow] = useState(-1);
   const { data } = useGetElectricityBaselineQuery({ ...option, bo: business }, { skip });
   const [open, setOpen] = useState(false);

@@ -3,8 +3,7 @@ import { renderToString } from 'react-dom/server';
 
 import { baseFormatter } from '../../utils/formatter';
 
-// const HIDDEN_PLANTS = ['WCZ', 'WMX', 'WOK', 'WNH', 'WHC'];
-const SHOW_PLANTS = ['WCQ', 'WIH'];
+const HIDDEN_PLANTS = ['WCZ', 'WMX', 'WOK', 'WNH', 'WHC'];
 
 export const BASE_LINE_DETAIL_ENTRIES = [
   { key: 'PCBAProduction', name: 'PCBA產量 (pcs)' },
@@ -39,7 +38,7 @@ export function gapFormatter(cell) {
 
 export function getPlants({ data, s, p, plantPermission }) {
   const options = data
-    ?.filter(({ key }) => SHOW_PLANTS.includes(key))
+    ?.filter(({ key }) => !HIDDEN_PLANTS.includes(key))
     ?.filter(({ key }) => plantPermission?.includes(key))
     ?.filter(({ key }) => {
       if (p) {
@@ -55,11 +54,11 @@ export function getPlants({ data, s, p, plantPermission }) {
 
   if (!options?.length) {
     if (p) {
-      return data?.filter(({ key }) => key === p);
+      return data?.filter(({ key }) => key === p && !HIDDEN_PLANTS.includes(key));
     }
 
     if (s) {
-      return data?.filter(({ key }) => key.startsWith(s));
+      return data?.filter(({ key }) => key.startsWith(s) && !HIDDEN_PLANTS.includes(key));
     }
   }
 
