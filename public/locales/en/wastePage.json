@@ -27,6 +27,9 @@
   },
   "history": {
     "waste": "Waste Generation Intensity (ton/billion NTD)",
-    "delta": "Gap *"
+    "delta": "Gap *",
+    "weight": "Weight",
+    "wasteAbbr": "Intensity",
+    "wasteDesc": "* Intensity : Waste Generation Intensity (ton/billion NTD); Weight : Waste Weight (ton)"
   }
 }

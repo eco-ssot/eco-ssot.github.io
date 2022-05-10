@@ -53,25 +53,34 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
   if (startYear === endYear) {
     columns = Array.from({ length: Number(endMonth) - Number(startMonth) + 1 }, (_, i) => {
       const key = Number(startMonth) + i;
+      const header = t('common:history.m', {
+        startYear: startYear,
+        endMonthNum: key,
+        endMonth: new Date().setMonth(Number(key) - 1),
+        formatParams: {
+          endMonth: { month: 'short' },
+        },
+      });
+
       return {
-        Header: () => (
-          <>
-            <div>
-              {t('common:history.m', {
-                startYear: startYear,
-                endMonthNum: key,
-                endMonth: new Date().setMonth(Number(key) - 1),
-                formatParams: {
-                  endMonth: { month: 'short' },
-                },
-              })}
-            </div>
-            <div>{t('wastePage:history.waste')}</div>
-          </>
-        ),
         accessor: String(key),
-        Cell: statisticsFormatter(3),
         className: 'text-right',
+        id: key,
+        Header: () => <div className="border-b border-divider py-3">{header}</div>,
+        columns: [
+          {
+            Header: t('wastePage:history.wasteAbbr'),
+            accessor: String(key),
+            className: 'text-right',
+            Cell: statisticsFormatter(3),
+          },
+          {
+            Header: t('wastePage:history.weight'),
+            accessor: [key, 'weight'].join('.'),
+            className: 'text-right',
+            Cell: statisticsFormatter(3),
+          },
+        ],
       };
     });
   }
@@ -163,7 +172,9 @@ export default function WasteHistoryTable({
       <Tag className="absolute top-2 right-4">{label}</Tag>
       {data && (
         <>
-          <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
+          <div className="h-6 w-full text-right">
+            {startYear === endYear ? t('wastePage:history.wasteDesc') : t('common:gapDesc')}
+          </div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
             <Table columns={columns} data={(data?.data || []).map(toRow(option))} />
           </div>
