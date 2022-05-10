@@ -170,7 +170,7 @@ const EditableCell = ({
           : '-'
         : id === 'target'
         ? formatTarget(initialValue, lng)
-        : formatter(initialValue, { precision, ...(category === '碳排放量' && { precision: 0 }) })}
+        : formatter(initialValue, { precision })}
     </>
   );
 };

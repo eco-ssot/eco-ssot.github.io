@@ -71,7 +71,7 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
       accessor: 'amount',
       className: 'w-[18%] text-center',
       formatter: baseFormatter,
-      precision: 1,
+      precision: 3,
     },
     {
       Header: t('managementPage:yearGoal.table.unit'),
