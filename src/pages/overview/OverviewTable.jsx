@@ -14,16 +14,16 @@ import Tag from '../../components/tag/Tag';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetOverviewQuery, useUploadShipmentExcelMutation } from '../../services/overview';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { baseFormatter, ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 export const MANUAL_UPLOAD_PLANTS = ['WIH', 'WZS-1'];
 
 export const HEADERS = [
-  { key: 'electricity' },
-  { key: 'water' },
-  { key: 'revenue', renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
-  { key: 'asp', renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
+  { key: 'electricity', renderer: statisticsFormatter },
+  { key: 'water', renderer: statisticsFormatter },
+  { key: 'revenue', renderer: statisticsFormatter },
+  { key: 'asp', renderer: statisticsFormatter },
 ];
 
 export const COLUMNS = ({

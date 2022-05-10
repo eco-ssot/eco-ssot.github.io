@@ -18,6 +18,8 @@ import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 
+const formatter = (cell) => baseFormatter(cell.value, { precision: 2 });
+
 const ROI_COLUMNS = addPaddingColumns([
   { Header: '廠區資訊', accessor: 'building' },
   { Header: '設備編號', accessor: 'machine_id' },
@@ -27,19 +29,19 @@ const ROI_COLUMNS = addPaddingColumns([
     Header: '額定能效',
     accessor: 'eer',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
   {
     Header: '評估能效',
     accessor: 'predict_eer',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
   {
     Header: '評估 ROI',
     accessor: 'predict_roi',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
 ]);
 
@@ -52,19 +54,19 @@ const OLD_MACHINE_COLUMNS = addPaddingColumns([
     Header: '額定排氣量',
     accessor: 'flow',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
   {
     Header: '評估能效',
     accessor: 'predict_eer',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
   {
     Header: '評估 ROI',
     accessor: 'predict_roi',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
 ]);
 
@@ -77,13 +79,13 @@ const NEW_MACHINE_COLUMNS = addPaddingColumns([
     Header: '額定排氣量',
     accessor: 'flow',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
   {
     Header: '評估能效',
     accessor: 'predict_eer',
     className: 'text-right',
-    Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+    Cell: formatter,
   },
   {
     Header: '設備價格',

@@ -12,7 +12,7 @@ import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetWaterQuery } from '../../services/water';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({
@@ -36,8 +36,8 @@ const HEADERS = ({
     key: 'revenue',
     name: t('waterPage:table.revenue'),
     subHeaders: [
-      { key: 'lastYear', name: lastYear, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
-      { key: 'currYear', name: currYear, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
+      { key: 'lastYear', name: lastYear, renderer: statisticsFormatter },
+      { key: 'currYear', name: currYear, renderer: statisticsFormatter },
       { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       { key: 'delta', name: t('common:gap'), renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
@@ -125,7 +125,7 @@ const COLUMNS = ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
           Cell: renderer,

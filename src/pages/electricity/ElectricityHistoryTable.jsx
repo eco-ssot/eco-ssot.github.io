@@ -9,7 +9,7 @@ import Tag from '../../components/tag/Tag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetElectricityHistoryQuery } from '../../services/electricity';
-import { baseFormatter, ratioFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN } from '../../utils/table';
 
 const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => {
@@ -37,7 +37,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
             Header: t('electricityPage:history.electricity'),
             accessor: [key, 'electricity'].join('.'),
             className: 'text-right',
-            Cell: baseFormatter,
+            Cell: statisticsFormatter,
           },
           {
             Header: t('electricityPage:history.delta'),
@@ -70,7 +70,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
           </>
         ),
         accessor: String(key),
-        Cell: baseFormatter,
+        Cell: statisticsFormatter,
         className: 'text-right',
       };
     });

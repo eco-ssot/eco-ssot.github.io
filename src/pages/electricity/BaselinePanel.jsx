@@ -16,7 +16,7 @@ import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
 import { useGetElectricityBaselineQuery } from '../../services/electricity';
 import { useGetPlantOptionsQuery } from '../../services/management';
-import { baseFormatter } from '../../utils/formatter';
+import { baseFormatter, statisticsFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 import ElectricityIndexPage from '../electricity-index/ElectricityIndexPage';
 
@@ -67,19 +67,19 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
           Header: '用電強度 (千度)',
           accessor: 'electricity_target.intensity',
           className: 'text-right',
-          Cell: baseFormatter,
+          Cell: statisticsFormatter,
         },
         {
           Header: '約當單台用電 (度)',
           accessor: 'electricity_target.unit',
           className: 'text-right',
-          Cell: (cell) => baseFormatter(cell.value, { precision: 1 }),
+          Cell: statisticsFormatter,
         },
         {
           Header: 'ASP (千台幣/台)',
           accessor: 'electricity_target.asp',
           className: 'text-right',
-          Cell: (cell) => baseFormatter(cell.value, { precision: 2 }),
+          Cell: statisticsFormatter,
         },
       ],
     },

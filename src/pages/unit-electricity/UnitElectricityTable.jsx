@@ -9,7 +9,7 @@ import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetUnitElectricityQuery } from '../../services/unitElectricity';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) => [
@@ -43,8 +43,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'unitElectricity',
     name: t('unitElectricityPage:table.unitElectricity.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (e=a/c)`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
-      { key: 'currYear', name: `${currYear} (f=b/d)`, renderer: (cell) => baseFormatter(cell, { precision: 1 }) },
+      { key: 'lastYear', name: `${lastYear} (e=a/c)`, renderer: statisticsFormatter },
+      { key: 'currYear', name: `${currYear} (f=b/d)`, renderer: statisticsFormatter },
       {
         key: 'delta',
         name: t('unitElectricityPage:table.unitElectricity.delta'),
@@ -68,7 +68,7 @@ const COLUMNS = ({ t, pct, missing, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
           Cell: renderer,

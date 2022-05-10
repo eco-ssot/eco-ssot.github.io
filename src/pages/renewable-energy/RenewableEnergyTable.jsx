@@ -8,7 +8,7 @@ import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetRenewableEnergyQuery } from '../../services/renewableEnergy';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct } = {}) => [
@@ -64,13 +64,13 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
       Cell: noDataRenderer({ missing }),
       className: 'whitespace-nowrap',
     },
-    ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = baseFormatter, ...rest }) => ({
+    ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = statisticsFormatter, ...rest }) => ({
       Header: name,
       Cell: renderer,
       ...(subHeaders && {
         id: name,
         Header: () => <div className="border-b border-divider py-3">{name}</div>,
-        columns: subHeaders.map(({ key: _key, name: _name, _renderer = baseFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, _renderer = statisticsFormatter }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
           Cell: _renderer,

@@ -17,7 +17,7 @@ import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetWasteQuery, useUploadWasteExcelMutation } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR_WASTE, setOpen = () => {} } = {}) => [
@@ -79,7 +79,7 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
           if (cell.row.original.subRows.length > 0) {
             return (
               <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
-                {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
+                {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </div>
             );
           }
@@ -103,12 +103,12 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
             return (
               <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
-                {targetFormatter(-pct, { formatter: ratioFormatter, precision: 2, className: 'underline' })(cell)}
+                {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </Link>
             );
           }
 
-          return targetFormatter(-pct, { formatter: ratioFormatter, precision: 2 })(cell);
+          return targetFormatter(-pct, { formatter: ratioFormatter })(cell);
         },
       },
     ],
@@ -117,10 +117,9 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
     key: 'recycleRate',
     name: <div className="text-center">{t('wastePage:table.recycleRate')}</div>,
     renderer: (cell) => {
-      const value = ratioFormatter(cell, { precision: 2 });
       return (
         <div className="flex items-center justify-end space-x-2">
-          <div>{value}</div>
+          <div>{ratioFormatter(cell)}</div>
           <IconButton
             className={clsx(
               'rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
@@ -156,20 +155,18 @@ const COLUMNS = ({
       className: 'whitespace-nowrap',
     },
     ...HEADERS({ t, pct, maxDate, currYear, baseYear, setOpen }).map(
-      ({ key, name, subHeaders, renderer = (cell) => baseFormatter(cell, { precision: 2 }), ...rest }) => ({
+      ({ key, name, subHeaders, renderer = statisticsFormatter, ...rest }) => ({
         Header: name,
         Cell: renderer,
         ...(subHeaders && {
           id: name,
           Header: () => <div className="border-b border-divider py-3">{name}</div>,
-          columns: subHeaders.map(
-            ({ key: _key, name: _name, renderer: _renderer = (cell) => baseFormatter(cell, { precision: 2 }) }) => ({
-              Header: _name,
-              accessor: [key, _key].join('.'),
-              Cell: _renderer,
-              className: 'text-right',
-            })
-          ),
+          columns: subHeaders.map(({ key: _key, name: _name, renderer: _renderer = statisticsFormatter }) => ({
+            Header: _name,
+            accessor: [key, _key].join('.'),
+            Cell: _renderer,
+            className: 'text-right',
+          })),
         }),
         ...(!subHeaders && { accessor: key, className: 'text-right' }),
         ...rest,

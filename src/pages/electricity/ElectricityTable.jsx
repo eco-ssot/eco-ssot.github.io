@@ -13,7 +13,7 @@ import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetElectricityQuery } from '../../services/electricity';
-import { baseFormatter, ratioFormatter, targetFormatter } from '../../utils/formatter';
+import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP_CONSTANTS.LAST_YEAR } = {}) => [
@@ -34,8 +34,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'revenue',
     name: t('electricityPage:table.revenue.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (c)`, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
-      { key: 'currYear', name: `${currYear} (d)`, renderer: (cell) => baseFormatter(cell, { precision: 2 }) },
+      { key: 'lastYear', name: `${lastYear} (c)`, renderer: statisticsFormatter },
+      { key: 'currYear', name: `${currYear} (d)`, renderer: statisticsFormatter },
       {
         key: 'delta',
         name: t('electricityPage:table.revenue.delta'),
@@ -102,8 +102,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'asp',
     name: t('electricityPage:table.asp.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (g)`, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-      { key: 'currYear', name: `${currYear} (h)`, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+      { key: 'lastYear', name: `${lastYear} (g)`, renderer: statisticsFormatter },
+      { key: 'currYear', name: `${currYear} (h)`, renderer: statisticsFormatter },
       {
         key: 'delta',
         name: t('electricityPage:table.asp.delta'),
@@ -126,7 +126,7 @@ const COLUMNS = ({ t, missing, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
     ...HEADERS({ t, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
-      columns: subHeaders.map(({ key: _key, name: _name, renderer = baseFormatter }) => ({
+      columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter }) => ({
         Header: _name,
         accessor: [key, _key].join('.'),
         Cell: renderer,

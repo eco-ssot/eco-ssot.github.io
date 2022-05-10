@@ -15,7 +15,7 @@ import {
   usePostWasteImprovementMutation,
 } from '../../services/waste';
 import { colors } from '../../styles';
-import { ratioFormatter, baseFormatter } from '../../utils/formatter';
+import { ratioFormatter, baseFormatter, statisticsFormatter } from '../../utils/formatter';
 import AnalysisPage from '../analysis/AnalysisPage';
 
 const COLORS = [colors._yellow, colors._blue, colors.primary['600'], colors.primary['500']];
@@ -40,7 +40,7 @@ export function getMarkLineTrend(value, comparison, x) {
 
   const ret = [
     { x, yAxis: value, ...style },
-    { x, yAxis: comparison, name: ratioFormatter(value / comparison - 1, { precision: 2 }) },
+    { x, yAxis: comparison, name: ratioFormatter(value / comparison - 1) },
   ];
 
   if (isBetter) {
@@ -152,8 +152,8 @@ export default function WasteAnalysisPage() {
       unit: t('analysisPage:waste.waste.unit'),
       value: waste?.gradient,
       subData: [
-        { key: lastYearKey, value: waste?.baseYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-        { key: currYearKey, value: waste?.currentYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+        { key: lastYearKey, value: waste?.baseYear, renderer: statisticsFormatter },
+        { key: currYearKey, value: waste?.currentYear, renderer: statisticsFormatter },
       ],
     },
     {
@@ -162,8 +162,8 @@ export default function WasteAnalysisPage() {
       unit: t('analysisPage:waste.revenue.unit'),
       value: revenue?.gradient,
       subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-        { key: currYearKey, value: revenue?.currentYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter },
+        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter },
       ],
     },
     {
@@ -175,15 +175,15 @@ export default function WasteAnalysisPage() {
         {
           key: lastYearKey,
           value: wasteIntensity?.compareYear,
-          renderer: (value) => baseFormatter(value, { precision: 2 }),
+          renderer: statisticsFormatter,
         },
         {
           key: currYearKey,
           value: wasteIntensity?.currentYear,
-          renderer: (value) => baseFormatter(value, { precision: 2 }),
+          renderer: statisticsFormatter,
         },
       ],
-      renderer: (value) => ratioFormatter(value, { precision: 2 }),
+      renderer: statisticsFormatter,
     },
     {
       name: '出貨量',
@@ -204,12 +204,12 @@ export default function WasteAnalysisPage() {
         {
           key: lastYearKey,
           value: ASP?.compareYear,
-          renderer: (value) => baseFormatter(value, { precision: 2 }),
+          renderer: statisticsFormatter,
         },
         {
           key: currYearKey,
           value: ASP?.currentYear,
-          renderer: (value) => baseFormatter(value, { precision: 2 }),
+          renderer: statisticsFormatter,
         },
       ],
     },

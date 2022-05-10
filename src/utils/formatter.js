@@ -1,10 +1,14 @@
 import clsx from 'clsx';
 import { get } from 'lodash';
 
+import APP_CONSTANTS from '../app/appConstants';
+
 import { toFormattedNumber } from './number';
 
 export const originalFormatter = (value) => get(value, 'value', value);
 export const baseFormatter = (value, option = {}) => toFormattedNumber(get(value, 'value', value), option);
+export const statisticsFormatter = (value, option = {}) =>
+  toFormattedNumber(get(value, 'value', value), { precision: APP_CONSTANTS.BASE_NUMBER_PRECISION, ...option });
 
 export const ratioFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { unit: 1e-2, suffix: '%', ...option });

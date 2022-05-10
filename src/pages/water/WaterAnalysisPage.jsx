@@ -15,7 +15,7 @@ import {
   usePostWaterImprovementMutation,
 } from '../../services/water';
 import { colors } from '../../styles';
-import { ratioFormatter, baseFormatter } from '../../utils/formatter';
+import { ratioFormatter, baseFormatter, statisticsFormatter } from '../../utils/formatter';
 import AnalysisPage from '../analysis/AnalysisPage';
 
 const COLORS = [colors._yellow, colors._blue, colors.primary['600'], colors.primary['500']];
@@ -160,8 +160,8 @@ export default function WaterAnalysisPage() {
       unit: t('analysisPage:water.revenue.unit'),
       value: revenue?.gradient,
       subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
-        { key: currYearKey, value: revenue?.currentYear, renderer: (value) => baseFormatter(value, { precision: 2 }) },
+        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter },
+        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter },
       ],
     },
     {
@@ -193,12 +193,12 @@ export default function WaterAnalysisPage() {
         {
           key: lastYearKey,
           value: ASP?.compareYear,
-          renderer: (value) => baseFormatter(value, { precision: 2 }),
+          renderer: statisticsFormatter,
         },
         {
           key: currYearKey,
           value: ASP?.currentYear,
-          renderer: (value) => baseFormatter(value, { precision: 2 }),
+          renderer: statisticsFormatter,
         },
       ],
     },
