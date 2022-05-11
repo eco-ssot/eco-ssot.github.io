@@ -89,7 +89,7 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
         <div className="flex items-center justify-center space-x-1">
           <span>{period}</span>
           {hint && (
-            <Tooltip label={hint} placement="right">
+            <Tooltip interactive label={hint} placement="right">
               <InformationCircleIcon className="h-5 w-5" />
             </Tooltip>
           )}
