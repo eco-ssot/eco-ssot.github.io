@@ -15,7 +15,7 @@ import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import useNavigate from '../../router/useNavigate';
-import { useGetLatestDateQuery } from '../../services/app';
+import { useGetLatestDateQuery, useGetPlantsQuery } from '../../services/app';
 import { useGetElectricityPredictionQuery } from '../../services/electricity';
 import { useGetPlantOptionsQuery } from '../../services/management';
 import { colors } from '../../styles';
@@ -195,8 +195,13 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const [searchOption, setSearchOption] = useState(option);
   const { data: { yearOptions } = {} } = useGetLatestDateQuery();
   const { data } = useGetPlantOptionsQuery({ bo: business });
+  const { data: otherPlants } = useGetPlantsQuery({ bo: APP_CONSTANTS.BUSINESS_MAPPING.Others });
   const plantPermission = usePlantPermission();
-  const plantOptions = useMemo(() => getPlants({ data, s, p, plantPermission }), [data, s, p, plantPermission]);
+  const plantOptions = useMemo(
+    () => getPlants({ data, otherPlants, s, p, plantPermission }),
+    [data, otherPlants, s, p, plantPermission]
+  );
+
   const nextYearOptions = useMemo(
     () => yearOptions?.filter((option) => option.key > 2020 && option.key),
     [yearOptions]
@@ -206,7 +211,7 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
   const byMonth = searchOption.categorized === 'month';
   const navigate = useNavigate();
   useDeepCompareEffect(() => {
-    if (option.plant && plantOptions && !plantOptions.find((opt) => opt.key === option.plant)) {
+    if (option.plant && plantOptions?.length > 0 && !plantOptions.find((opt) => opt.key === option.plant)) {
       navigate({ plant: plantOptions[0]?.key });
     }
   }, [plantOptions, option]);
