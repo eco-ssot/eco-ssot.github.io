@@ -34,8 +34,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'revenue',
     name: t('electricityPage:table.revenue.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (c)`, renderer: statisticsFormatter },
-      { key: 'currYear', name: `${currYear} (d)`, renderer: statisticsFormatter },
+      { key: 'lastYear', name: `${lastYear} (c)`, renderer: statisticsFormatter(3) },
+      { key: 'currYear', name: `${currYear} (d)`, renderer: statisticsFormatter(3) },
       {
         key: 'delta',
         name: t('electricityPage:table.revenue.delta'),
@@ -102,8 +102,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'asp',
     name: t('electricityPage:table.asp.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (g)`, renderer: statisticsFormatter },
-      { key: 'currYear', name: `${currYear} (h)`, renderer: statisticsFormatter },
+      { key: 'lastYear', name: `${lastYear} (g)`, renderer: statisticsFormatter(3) },
+      { key: 'currYear', name: `${currYear} (h)`, renderer: statisticsFormatter(3) },
       {
         key: 'delta',
         name: t('electricityPage:table.asp.delta'),
@@ -126,7 +126,7 @@ const COLUMNS = ({ t, missing, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
     ...HEADERS({ t, pct, currYear, lastYear }).map(({ key, name, subHeaders = [] }) => ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
-      columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter }) => ({
+      columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter(0) }) => ({
         Header: _name,
         accessor: [key, _key].join('.'),
         Cell: renderer,

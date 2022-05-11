@@ -43,8 +43,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
     key: 'unitElectricity',
     name: t('unitElectricityPage:table.unitElectricity.header'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear} (e=a/c)`, renderer: statisticsFormatter },
-      { key: 'currYear', name: `${currYear} (f=b/d)`, renderer: statisticsFormatter },
+      { key: 'lastYear', name: `${lastYear} (e=a/c)`, renderer: statisticsFormatter(3) },
+      { key: 'currYear', name: `${currYear} (f=b/d)`, renderer: statisticsFormatter(3) },
       {
         key: 'delta',
         name: t('unitElectricityPage:table.unitElectricity.delta'),
@@ -68,7 +68,7 @@ const COLUMNS = ({ t, pct, missing, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter(0) }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
           Cell: renderer,

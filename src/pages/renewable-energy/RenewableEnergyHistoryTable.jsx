@@ -37,7 +37,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
             Header: t('renewableEnergyPage:history.electricity'),
             accessor: [key, 'electricity'].join('.'),
             className: 'text-right',
-            Cell: statisticsFormatter,
+            Cell: statisticsFormatter(0),
           },
           {
             Header: t('renewableEnergyPage:history.ratio'),

@@ -64,13 +64,13 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
       Cell: noDataRenderer({ missing }),
       className: 'whitespace-nowrap',
     },
-    ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = statisticsFormatter, ...rest }) => ({
+    ...HEADERS({ t, pct }).map(({ key, name, subHeaders, renderer = statisticsFormatter(0), ...rest }) => ({
       Header: name,
       Cell: renderer,
       ...(subHeaders && {
         id: name,
         Header: () => <div className="border-b border-divider py-3">{name}</div>,
-        columns: subHeaders.map(({ key: _key, name: _name, _renderer = statisticsFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, _renderer = statisticsFormatter(0) }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
           Cell: _renderer,

@@ -20,10 +20,10 @@ import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer 
 export const MANUAL_UPLOAD_PLANTS = ['WIH', 'WZS-1'];
 
 export const HEADERS = [
-  { key: 'electricity', renderer: statisticsFormatter },
-  { key: 'water', renderer: statisticsFormatter },
-  { key: 'revenue', renderer: statisticsFormatter },
-  { key: 'asp', renderer: statisticsFormatter },
+  { key: 'electricity', renderer: statisticsFormatter(0) },
+  { key: 'water', renderer: statisticsFormatter(0) },
+  { key: 'revenue', renderer: statisticsFormatter(2) },
+  { key: 'asp', renderer: statisticsFormatter(2) },
 ];
 
 export const COLUMNS = ({

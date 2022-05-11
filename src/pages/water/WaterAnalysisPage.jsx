@@ -160,8 +160,8 @@ export default function WaterAnalysisPage() {
       unit: t('analysisPage:water.revenue.unit'),
       value: revenue?.gradient,
       subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter },
-        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter },
+        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter(3) },
+        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter(3) },
       ],
     },
     {
@@ -193,12 +193,12 @@ export default function WaterAnalysisPage() {
         {
           key: lastYearKey,
           value: ASP?.compareYear,
-          renderer: statisticsFormatter,
+          renderer: statisticsFormatter(3),
         },
         {
           key: currYearKey,
           value: ASP?.currentYear,
-          renderer: statisticsFormatter,
+          renderer: statisticsFormatter(3),
         },
       ],
     },

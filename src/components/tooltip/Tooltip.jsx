@@ -13,6 +13,7 @@ import {
   useRole,
   useDismiss,
   FloatingPortal,
+  safePolygon,
 } from '@floating-ui/react-dom-interactions';
 import { Transition } from '@headlessui/react';
 import clsx from 'clsx';
@@ -24,7 +25,15 @@ const FLIP_SIDES = {
   bottom: 'top',
 };
 
-export default function Tooltip({ children, label, placement, className, strategy = 'fixed', show = true }) {
+export default function Tooltip({
+  children,
+  label,
+  className,
+  strategy = 'fixed',
+  placement = 'auto',
+  show = true,
+  interactive = false,
+}) {
   const [open, setOpen] = useState(false);
   const arrowRef = useRef(null);
   const {
@@ -52,7 +61,7 @@ export default function Tooltip({ children, label, placement, className, strateg
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    useHover(context),
+    useHover(context, interactive ? { handleClose: safePolygon({ restMs: 25 }) } : undefined),
     useFocus(context),
     useRole(context, { role: 'tooltip' }),
     useDismiss(context),
@@ -87,7 +96,7 @@ export default function Tooltip({ children, label, placement, className, strateg
               leave="transition-opacity ease-in-out"
               leaveFrom="opacity-100"
               leaveTo="opacity-0">
-              <div className={clsx('whitespace-nowrap rounded bg-gray-800 py-1 px-2 text-base shadow', className)}>
+              <div className={clsx('whitespace-nowrap rounded bg-gray-800 py-1 px-2 shadow', className)}>
                 {label}
                 <div
                   className="absolute h-3 w-3 rotate-45 bg-gray-800"

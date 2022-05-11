@@ -152,8 +152,8 @@ export default function WasteAnalysisPage() {
       unit: t('analysisPage:waste.waste.unit'),
       value: waste?.gradient,
       subData: [
-        { key: lastYearKey, value: waste?.baseYear, renderer: statisticsFormatter },
-        { key: currYearKey, value: waste?.currentYear, renderer: statisticsFormatter },
+        { key: lastYearKey, value: waste?.baseYear, renderer: statisticsFormatter(3) },
+        { key: currYearKey, value: waste?.currentYear, renderer: statisticsFormatter(3) },
       ],
     },
     {
@@ -162,8 +162,8 @@ export default function WasteAnalysisPage() {
       unit: t('analysisPage:waste.revenue.unit'),
       value: revenue?.gradient,
       subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter },
-        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter },
+        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter(3) },
+        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter(3) },
       ],
     },
     {
@@ -175,15 +175,15 @@ export default function WasteAnalysisPage() {
         {
           key: lastYearKey,
           value: wasteIntensity?.compareYear,
-          renderer: statisticsFormatter,
+          renderer: statisticsFormatter(3),
         },
         {
           key: currYearKey,
           value: wasteIntensity?.currentYear,
-          renderer: statisticsFormatter,
+          renderer: statisticsFormatter(3),
         },
       ],
-      renderer: statisticsFormatter,
+      renderer: statisticsFormatter(3),
     },
     {
       name: '出貨量',
@@ -204,12 +204,12 @@ export default function WasteAnalysisPage() {
         {
           key: lastYearKey,
           value: ASP?.compareYear,
-          renderer: statisticsFormatter,
+          renderer: statisticsFormatter(3),
         },
         {
           key: currYearKey,
           value: ASP?.currentYear,
-          renderer: statisticsFormatter,
+          renderer: statisticsFormatter(3),
         },
       ],
     },

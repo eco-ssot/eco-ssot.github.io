@@ -63,7 +63,7 @@ const csrRenderer = (cell) => {
   return (
     <div className="flex items-center justify-between px-8">
       <div className={clsx('h-3 w-3 rounded-full text-center', STATUS_MAPPING[status])}></div>
-      <div>{statisticsFormatter(cell.value)}</div>
+      <div>{statisticsFormatter(0)(cell.value)}</div>
     </div>
   );
 };

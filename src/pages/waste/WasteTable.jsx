@@ -155,13 +155,13 @@ const COLUMNS = ({
       className: 'whitespace-nowrap',
     },
     ...HEADERS({ t, pct, maxDate, currYear, baseYear, setOpen }).map(
-      ({ key, name, subHeaders, renderer = statisticsFormatter, ...rest }) => ({
+      ({ key, name, subHeaders, renderer = statisticsFormatter(3), ...rest }) => ({
         Header: name,
         Cell: renderer,
         ...(subHeaders && {
           id: name,
           Header: () => <div className="border-b border-divider py-3">{name}</div>,
-          columns: subHeaders.map(({ key: _key, name: _name, renderer: _renderer = statisticsFormatter }) => ({
+          columns: subHeaders.map(({ key: _key, name: _name, renderer: _renderer = statisticsFormatter(3) }) => ({
             Header: _name,
             accessor: [key, _key].join('.'),
             Cell: _renderer,

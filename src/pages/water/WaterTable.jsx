@@ -36,8 +36,8 @@ const HEADERS = ({
     key: 'revenue',
     name: t('waterPage:table.revenue'),
     subHeaders: [
-      { key: 'lastYear', name: lastYear, renderer: statisticsFormatter },
-      { key: 'currYear', name: currYear, renderer: statisticsFormatter },
+      { key: 'lastYear', name: lastYear, renderer: statisticsFormatter(3) },
+      { key: 'currYear', name: currYear, renderer: statisticsFormatter(3) },
       { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       { key: 'delta', name: t('common:gap'), renderer: targetFormatter(0, { formatter: ratioFormatter }) },
     ],
@@ -125,7 +125,7 @@ const COLUMNS = ({
       id: name,
       Header: () => <div className="border-b border-divider py-3">{name}</div>,
       ...(subHeaders && {
-        columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter }) => ({
+        columns: subHeaders.map(({ key: _key, name: _name, renderer = statisticsFormatter(0) }) => ({
           Header: _name,
           accessor: [key, _key].join('.'),
           Cell: renderer,

@@ -37,7 +37,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
             Header: t('waterPage:history.water'),
             accessor: [key, 'water'].join('.'),
             className: 'text-right',
-            Cell: statisticsFormatter,
+            Cell: statisticsFormatter(0),
           },
           {
             Header: t('waterPage:history.delta'),
@@ -70,7 +70,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
           </>
         ),
         accessor: String(key),
-        Cell: statisticsFormatter,
+        Cell: statisticsFormatter(0),
         className: 'text-right',
       };
     });

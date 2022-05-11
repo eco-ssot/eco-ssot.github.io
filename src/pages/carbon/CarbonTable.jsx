@@ -17,10 +17,10 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, baseYear = APP
     key: 'electricity',
     name: t('carbonPage:table.electricity.header'),
     subHeaders: [
-      { key: 'total', name: t('carbonPage:table.electricity.total'), renderer: statisticsFormatter },
-      { key: 'sun', name: t('carbonPage:table.electricity.sun'), renderer: statisticsFormatter },
-      { key: 'tRec', name: t('carbonPage:table.electricity.tRec'), renderer: statisticsFormatter },
-      { key: 'carbon', name: t('carbonPage:table.electricity.carbon'), renderer: statisticsFormatter },
+      { key: 'total', name: t('carbonPage:table.electricity.total'), renderer: statisticsFormatter(0) },
+      { key: 'sun', name: t('carbonPage:table.electricity.sun'), renderer: statisticsFormatter(0) },
+      { key: 'tRec', name: t('carbonPage:table.electricity.tRec'), renderer: statisticsFormatter(0) },
+      { key: 'carbon', name: t('carbonPage:table.electricity.carbon'), renderer: statisticsFormatter(0) },
     ],
   },
   {
@@ -32,16 +32,16 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, baseYear = APP
       </>
     ),
     rowSpan: 0,
-    renderer: statisticsFormatter,
+    renderer: statisticsFormatter(4),
   },
   {
     key: 'carbon',
     name: t('carbonPage:table.carbon.header'),
     subHeaders: [
-      { key: 'scope1', name: t('carbonPage:table.carbon.scope1'), renderer: statisticsFormatter },
-      { key: 'scope2', name: t('carbonPage:table.carbon.scope2'), renderer: statisticsFormatter },
-      { key: 'currYear', name: t('carbonPage:table.carbon.currYear', { currYear }), renderer: statisticsFormatter },
-      { key: 'baseYear', name: t('carbonPage:table.carbon.baseYear', { baseYear }), renderer: statisticsFormatter },
+      { key: 'scope1', name: t('carbonPage:table.carbon.scope1'), renderer: statisticsFormatter(0) },
+      { key: 'scope2', name: t('carbonPage:table.carbon.scope2'), renderer: statisticsFormatter(0) },
+      { key: 'currYear', name: t('carbonPage:table.carbon.currYear', { currYear }), renderer: statisticsFormatter(0) },
+      { key: 'baseYear', name: t('carbonPage:table.carbon.baseYear', { baseYear }), renderer: statisticsFormatter(0) },
       {
         key: 'delta',
         name: t('carbonPage:table.carbon.delta'),
@@ -58,7 +58,7 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, baseYear = APP
       </>
     ),
     rowSpan: 0,
-    renderer: statisticsFormatter,
+    renderer: statisticsFormatter(0),
   },
 ];
 

@@ -37,7 +37,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
             Header: t('unitElectricityPage:history.unitElectricity'),
             accessor: [key, 'unitElectricity'].join('.'),
             className: 'text-right',
-            Cell: statisticsFormatter,
+            Cell: statisticsFormatter(3),
           },
           {
             Header: t('unitElectricityPage:history.delta'),
@@ -70,7 +70,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
           </>
         ),
         accessor: String(key),
-        Cell: statisticsFormatter,
+        Cell: statisticsFormatter(3),
         className: 'text-right',
       };
     });

@@ -21,7 +21,7 @@ const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
     editable: true,
     className: 'w-1/3 text-center',
     formatter: baseFormatter,
-    precision: 3,
+    precision: 4,
   },
   {
     Header: t('common:edit'),

@@ -2,13 +2,31 @@ import clsx from 'clsx';
 import { get } from 'lodash';
 
 import APP_CONSTANTS from '../app/appConstants';
+import Tooltip from '../components/tooltip/Tooltip';
 
 import { toFormattedNumber } from './number';
 
 export const originalFormatter = (value) => get(value, 'value', value);
 export const baseFormatter = (value, option = {}) => toFormattedNumber(get(value, 'value', value), option);
-export const statisticsFormatter = (value, option = {}) =>
-  toFormattedNumber(get(value, 'value', value), { precision: APP_CONSTANTS.BASE_NUMBER_PRECISION, ...option });
+export const statisticsFormatter =
+  (precision = 0) =>
+  (value, option = {}) => {
+    const hint = toFormattedNumber(get(value, 'value', value), {
+      ...option,
+      precision: Math.max(APP_CONSTANTS.BASE_NUMBER_PRECISION, precision),
+    });
+
+    const val = toFormattedNumber(get(value, 'value', value), { ...option, precision });
+    if (val === hint) {
+      return val;
+    }
+
+    return (
+      <Tooltip interactive className="text-lg font-medium" label={hint}>
+        <span>{val}</span>
+      </Tooltip>
+    );
+  };
 
 export const ratioFormatter = (value, option = {}) =>
   toFormattedNumber(get(value, 'value', value), { unit: 1e-2, suffix: '%', ...option });
