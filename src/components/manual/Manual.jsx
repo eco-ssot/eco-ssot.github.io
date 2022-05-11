@@ -6,7 +6,7 @@ import { ReactComponent as PdfIcon } from '../../icons/file-pdf-solid.svg';
 import Tooltip from '../tooltip/Tooltip';
 
 const PATH = {
-  zh: '/ESG績效管理平台使用手冊.pdf',
+  zh: '/環境保護績效平台使用手冊.pdf',
   en: '/ESG_USER_MANUAL.pdf',
 };
 

@@ -64,7 +64,7 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
       ),
       columns: [
         {
-          Header: '用電強度 (千度)',
+          Header: '用電密集度 (千度)',
           accessor: 'electricity_target.intensity',
           className: 'text-right',
           Cell: statisticsFormatter(3),

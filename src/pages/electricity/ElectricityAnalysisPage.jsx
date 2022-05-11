@@ -164,7 +164,7 @@ export default function ElectricityAnalysisPage() {
       ],
     },
     {
-      name: '用電強度',
+      name: '用電密集度',
       title: t('analysisPage:electricity.electricityIntensity.title'),
       unit: t('analysisPage:electricity.electricityIntensity.unit'),
       value: electrcityIntensity?.gradient,

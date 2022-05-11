@@ -22,9 +22,12 @@ export function getTrend(value, title) {
     }
 
     case '廢棄物產生密度':
+    case '廢棄物密集度':
     case '廢棄物總量':
     case '用水強度':
+    case '用水密集度':
     case '用電強度':
+    case '用電密集度':
     case '用電量':
     case '用水量':
     case '廢棄物':

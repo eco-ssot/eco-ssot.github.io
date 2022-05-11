@@ -9,8 +9,8 @@
   "cancelAdd": "取消新增",
   "electricity": {
     "type": "用電",
-    "title": "十億營業額用電 : 用電強度分析",
-    "chartTitle": "用電強度對比",
+    "title": "十億營業額用電 : 用電密集度分析",
+    "chartTitle": "用電密集度對比",
     "tableTitle": "影響用電",
     "electricity": {
       "title": "用電量",
@@ -21,7 +21,7 @@
       "unit": "(十億台幣)"
     },
     "electricityIntensity": {
-      "title": "用電強度",
+      "title": "用電密集度",
       "unit": "(度/十億台幣)"
     },
     "shipment": {
@@ -34,8 +34,8 @@
   },
   "waste": {
     "type": "廢棄物",
-    "title": "廢棄物產生密度 : 廢棄物密度分析",
-    "chartTitle": "廢棄物密度對比",
+    "title": "廢棄物密集度 : 廢棄物密集度分析",
+    "chartTitle": "廢棄物密集度對比",
     "tableTitle": "影響廢棄物密度",
     "waste": {
       "title": "廢棄物總量",
@@ -46,7 +46,7 @@
       "unit": "(十億台幣)"
     },
     "wasteDensity": {
-      "title": "廢棄物產生密度",
+      "title": "廢棄物密集度",
       "unit": "(公噸/十億台幣)"
     },
     "shipment": {
@@ -59,8 +59,8 @@
   },
   "water": {
     "type": "用水",
-    "title": "十億營業額用水 : 用水強度分析",
-    "chartTitle": "用水強度對比",
+    "title": "十億營業額用水 : 用水密集度分析",
+    "chartTitle": "用水密集度對比",
     "tableTitle": "影響用水",
     "water": {
       "title": "用水量",
@@ -71,7 +71,7 @@
       "unit": "(十億台幣)"
     },
     "waterIntensity": {
-      "title": "用水強度",
+      "title": "用水密集度",
       "unit": "(公噸/十億台幣)"
     },
     "shipment": {

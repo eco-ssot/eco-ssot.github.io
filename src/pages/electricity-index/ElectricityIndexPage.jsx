@@ -178,7 +178,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
         if (seriesType === 'scatter') {
           return `${marker} ${name}  <br> ASP : ${baseFormatter(value[0], {
             precision: 2,
-          })} <br> 單台用電 : ${baseFormatter(value[1], { precision: 2 })}`;
+          })} <br> 約當單台用電 : ${baseFormatter(value[1], { precision: 2 })}`;
         }
 
         return null;
@@ -196,7 +196,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
     },
     yAxis: {
       type: 'value',
-      name: '單台用電\n(度/台)',
+      name: '約當單台用電\n(度/台)',
       nameTextStyle: { color: colors.gray['50'] },
       splitLine: { show: false },
       axisTick: { show: false },
@@ -405,8 +405,8 @@ export default function ElectricityIndexPage({ className, year, plant }) {
               <Toggle enabled={showLastYear} onChange={setShowLastYear} />
             </div>
             <div className="flex items-center justify-end space-x-4">
-              <Legend dotClassName="bg-_orange" label="單台用電強度基準線" />
-              <Legend dotClassName="bg-dangerous-700" label="用電強度基準線 (百萬度/十億營業額)" />
+              <Legend dotClassName="bg-_orange" label="單台用電密集度基準線" />
+              <Legend dotClassName="bg-dangerous-700" label="用電密集度基準線 (百萬度/十億營業額)" />
             </div>
           </div>
           <div className="flex flex-grow flex-col overflow-hidden">

@@ -125,8 +125,8 @@ export const electricityApi = appApi.injectEndpoints({
 
         return {
           data: [
-            { key: 'unit_electricity', category: '單台用電', ...data?.unit_electricity },
-            { key: 'electricity', category: '用電強度', ...data?.electricity },
+            { key: 'unit_electricity', category: '約當單台用電', ...data?.unit_electricity },
+            { key: 'electricity', category: '用電密集度', ...data?.electricity },
             { key: 'total', category: '總用電', ...data?.total },
           ],
         };

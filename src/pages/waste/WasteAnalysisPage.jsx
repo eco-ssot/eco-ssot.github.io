@@ -167,7 +167,7 @@ export default function WasteAnalysisPage() {
       ],
     },
     {
-      name: '廢棄物產生密度',
+      name: '廢棄物密集度',
       title: t('analysisPage:waste.wasteDensity.title'),
       unit: t('analysisPage:waste.wasteDensity.unit'),
       value: wasteIntensity?.currentAndCompareGradient,

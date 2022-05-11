@@ -20,6 +20,9 @@ import ErrorModal from './ErrorModal';
 
 const ALIAS = {
   單台用電: '約當單台用電',
+  用電強度: '用電密集度',
+  用水強度: '用水密集度',
+  廢棄物密度: '廢棄物密集度',
 };
 
 const DICTIONARY = {
