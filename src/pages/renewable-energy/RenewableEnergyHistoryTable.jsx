@@ -22,7 +22,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
         {
           startYear: key,
           endMonthNum: endMonth,
-          endMonth: new Date().setMonth(Number(endMonth) - 1),
+          endMonth: new Date(0, Number(endMonth) - 1, 1),
           formatParams: {
             endMonth: { month: 'short' },
           },
@@ -60,7 +60,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
               {t('common:history.m', {
                 startYear: startYear,
                 endMonthNum: key,
-                endMonth: new Date().setMonth(Number(key) - 1),
+                endMonth: new Date(0, Number(key) - 1, 1),
                 formatParams: {
                   endMonth: { month: 'short' },
                 },

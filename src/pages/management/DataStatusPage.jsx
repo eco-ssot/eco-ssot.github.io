@@ -132,7 +132,7 @@ function getLabel(t) {
         <div>
           {t('dataStatus.title', {
             currMonthNum: currMonth,
-            currMonth: now.setMonth(currMonth - 1),
+            currMonth: new Date(0, currMonth - 1, 1),
             formatParams: {
               currMonth: { month: 'short' },
             },

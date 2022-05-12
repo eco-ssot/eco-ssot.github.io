@@ -22,7 +22,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
         {
           startYear: key,
           endMonthNum: endMonth,
-          endMonth: new Date().setMonth(Number(endMonth) - 1),
+          endMonth: new Date(0, Number(endMonth) - 1, 1),
           formatParams: {
             endMonth: { month: 'short' },
           },
@@ -56,7 +56,7 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
       const header = t('common:history.m', {
         startYear: startYear,
         endMonthNum: key,
-        endMonth: new Date().setMonth(Number(key) - 1),
+        endMonth: new Date(0, Number(key) - 1, 1),
         formatParams: {
           endMonth: { month: 'short' },
         },
@@ -70,13 +70,13 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
         columns: [
           {
             Header: t('wastePage:history.wasteAbbr'),
-            accessor: String(key),
+            accessor: [key, 'intensity'].join('.'),
             className: 'text-right',
             Cell: statisticsFormatter(3),
           },
           {
             Header: t('wastePage:history.weight'),
-            accessor: [key, 'weight'].join('.'),
+            accessor: [key, 'total'].join('.'),
             className: 'text-right',
             Cell: statisticsFormatter(3),
           },
@@ -131,9 +131,9 @@ export function toSameYearRow({ name, metaData = [], plants = [] }) {
   return {
     site: name,
     ...metaData.reduce(
-      (prev, { month, intensity }) => ({
+      (prev, { month, intensity, total }) => ({
         ...prev,
-        [month]: intensity,
+        [month]: { intensity, total },
       }),
       {}
     ),
@@ -167,6 +167,7 @@ export default function WasteHistoryTable({
 
   const { label } = useGoal({ keyword: '廢棄物密度', isHistory: true });
   const columns = useMemo(() => COLUMNS({ ...option, t }), [option, t]);
+
   return (
     <>
       <Tag className="absolute top-2 right-4">{label}</Tag>
