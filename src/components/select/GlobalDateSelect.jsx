@@ -3,7 +3,6 @@ import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { selectCurrMonth, selectYoptions } from '../../app/appSlice';
 import { selectM, selectY } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
@@ -13,10 +12,8 @@ import TagSelect from './TagSelect';
 export default function GlobalDateSelect() {
   const y = useSelector(selectY);
   const m = useSelector(selectM);
-  const currMonth = useSelector(selectCurrMonth);
-  const yearOptions = useSelector(selectYoptions);
-  const { data: { latestDate } = {} } = useGetLatestDateQuery();
-  const yOptions = useMemo(() => yearOptions.filter((option) => Number(option.key) > 2020), [yearOptions]);
+  const { data: { latestDate, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
+  const yOptions = useMemo(() => yearOptions?.filter((option) => Number(option.key) > 2020), [yearOptions]);
   const mOptions = useMemo(
     () =>
       (latestDate
