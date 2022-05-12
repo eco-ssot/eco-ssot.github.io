@@ -123,7 +123,7 @@ const COLUMNS = (t) =>
 function getLabel(t) {
   const now = new Date();
   const date = now.getDate();
-  const month = (date < process.env.REACT_APP_DATA_UPDATE_DAY || 10 ? subMonths(now, 1) : now).getMonth() + 1;
+  const month = (date < (process.env.REACT_APP_DATA_UPDATE_DAY || 10) ? subMonths(now, 1) : now).getMonth() + 1;
   const currMonth = month - 1 === 0 ? 12 : month - 1;
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
   return (
