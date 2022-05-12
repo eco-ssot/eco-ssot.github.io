@@ -63,10 +63,9 @@ const COLUMNS = ({ t, startYear, endYear, startMonth, endMonth, monthType }) => 
       });
 
       return {
-        accessor: String(key),
-        className: 'text-right',
         id: key,
         Header: () => <div className="border-b border-divider py-3">{header}</div>,
+        className: 'text-center',
         columns: [
           {
             Header: t('wastePage:history.wasteAbbr'),
