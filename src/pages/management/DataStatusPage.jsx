@@ -30,7 +30,11 @@ const STATUS_MAPPING = {
 const statusRenderer = (label) => (cell) => {
   return (
     <div className="mx-[25%] flex min-w-24 items-center  space-x-2 whitespace-nowrap">
-      <div className={clsx('h-3 w-3 min-w-3 rounded-full text-center', STATUS_MAPPING[cell.value])}></div>
+      <div
+        className={clsx(
+          'h-3 w-3 min-w-3 rounded-full text-center',
+          ['CSR', '月報表'].includes(cell.row.original[label]) ? 'bg-primary-500' : STATUS_MAPPING[cell.value]
+        )}></div>
       <div>{cell.row.original[label]}</div>
     </div>
   );

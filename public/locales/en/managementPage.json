@@ -44,7 +44,7 @@
     "noData": "No Data",
     "updated": "Updated",
     "notUpdated": "Not-Updated",
-    "incorrectData": "Incorrect Data",
+    "incorrectData": "Missing Data",
     "importMonthlyReport": "Import Monthly Report",
     "table": {
       "autoSync": "Auto",

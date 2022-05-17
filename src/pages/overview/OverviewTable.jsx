@@ -58,12 +58,16 @@ export const COLUMNS = ({
           Cell: renderer,
           className: 'text-right',
         },
-        {
-          Header: t('common:weight'),
-          accessor: [key, 'weight'].join('.'),
-          Cell: ratioFormatter,
-          className: 'text-right',
-        },
+        ...(key === 'asp'
+          ? []
+          : [
+              {
+                Header: t('common:weight'),
+                accessor: [key, 'weight'].join('.'),
+                Cell: ratioFormatter,
+                className: 'text-right',
+              },
+            ]),
         {
           Header: t('common:gap'),
           accessor: [key, 'delta'].join('.'),

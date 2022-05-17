@@ -48,7 +48,7 @@ const HEADERS = ({
     subHeaders: [
       { key: 'lastYear', name: `${lastYear}年` },
       { key: 'currYear', name: `${currYear}年` },
-      { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
+      // { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       {
         key: 'delta',
         name: t('common:gap'),
