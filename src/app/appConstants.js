@@ -114,7 +114,7 @@ const PERIOD_TYPES = {
 };
 
 const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
-const HIDE_PLANTS = ['WMX', 'WCZ'];
+const HIDE_PLANTS = [];
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
