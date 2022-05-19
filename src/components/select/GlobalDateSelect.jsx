@@ -45,14 +45,19 @@ export default function GlobalDateSelect() {
       navigate({ m: mOptions.slice(-1)?.[0]?.key });
     }
   }, [y, m, mOptions, navigate]);
+
   return (
     <div className="flex items-center">
-      <TagSelect
-        options={ptOptions}
-        selected={ptOptions?.find((option) => option.key === pt)}
-        onChange={navigate}
-        queryKey="pt"
-      />
+      {process.env.REACT_APP_ENABLE_MONTH_SWITCH === '1' ? (
+        <TagSelect
+          options={ptOptions}
+          selected={ptOptions?.find((option) => option.key === pt)}
+          onChange={navigate}
+          queryKey="pt"
+        />
+      ) : (
+        <div className="pr-1 pl-2">{t('common:accumulationRange')}</div>
+      )}
       :
       <TagSelect
         options={yOptions}
