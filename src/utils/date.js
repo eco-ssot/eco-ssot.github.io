@@ -1,8 +1,12 @@
 import { max, isValid } from 'date-fns';
 
-export function formatMonthRange(date) {
+import APP_CONSTANTS from '../app/appConstants';
+
+export function formatMonthRange(date, periodType = APP_CONSTANTS.PERIOD_TYPES.YTM) {
   return date && isValid(new Date(date))
-    ? `${new Date(date).getFullYear()}.01 - ${String(new Date(date).getMonth() + 1).padStart(2, 0)}`
+    ? `${new Date(date).getFullYear()}.${periodType === APP_CONSTANTS.PERIOD_TYPES.YTM ? '01 - ' : ''}${String(
+        new Date(date).getMonth() + 1
+      ).padStart(2, 0)}`
     : '-';
 }
 

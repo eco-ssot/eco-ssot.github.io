@@ -135,7 +135,7 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function WaterTable({ business, y, m, s, p, missingPlants }) {
+export default function WaterTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['waterPage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetWaterQuery({
@@ -145,6 +145,9 @@ export default function WaterTable({ business, y, m, s, p, missingPlants }) {
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '用水強度' });

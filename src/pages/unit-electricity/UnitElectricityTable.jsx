@@ -78,7 +78,7 @@ const COLUMNS = ({ t, pct, missing, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
     })),
   ]);
 
-export default function UnitElectricityTable({ business, y, m, s, p, missingPlants }) {
+export default function UnitElectricityTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['unitElectricityPage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetUnitElectricityQuery({
@@ -88,6 +88,9 @@ export default function UnitElectricityTable({ business, y, m, s, p, missingPlan
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '單台用電' });

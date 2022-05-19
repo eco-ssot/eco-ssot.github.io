@@ -11,12 +11,14 @@ import { getTrend } from '../../utils/trend';
 export default function Overview({ className, compareYear, currentYear, currMonth, periodType, data = {} }) {
   const { t } = useTranslation(['homePage', 'common']);
   const compareKey = useMemo(
-    () => (periodType === APP_CONSTANTS.PERIOD_TYPES.MONTH ? [compareYear, currMonth].join('.') : compareYear),
+    () =>
+      periodType === APP_CONSTANTS.PERIOD_TYPES.MONTH ? [compareYear, currMonth.padStart(2, 0)].join('.') : compareYear,
     [compareYear, currMonth, periodType]
   );
 
   const currentKey = useMemo(
-    () => (periodType === APP_CONSTANTS.PERIOD_TYPES.MONTH ? [currentYear, currMonth].join('.') : currentYear),
+    () =>
+      periodType === APP_CONSTANTS.PERIOD_TYPES.MONTH ? [currentYear, currMonth.padStart(2, 0)].join('.') : currentYear,
     [currentYear, currMonth, periodType]
   );
 

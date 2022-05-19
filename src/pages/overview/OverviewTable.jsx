@@ -96,7 +96,7 @@ export const COLUMNS = ({
     })),
   ]);
 
-export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
+export default function OverviewTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['overviewPage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetOverviewQuery({
@@ -106,6 +106,9 @@ export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const currYear = useSelector(selectCurrY);

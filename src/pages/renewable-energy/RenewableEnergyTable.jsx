@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
@@ -82,7 +83,7 @@ const COLUMNS = ({ t, pct, missing } = {}) =>
     })),
   ]);
 
-export default function RenewableEnergyTable({ business, y, m, s, p, missingPlants }) {
+export default function RenewableEnergyTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['renewableEnergyPage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetRenewableEnergyQuery({
@@ -92,6 +93,9 @@ export default function RenewableEnergyTable({ business, y, m, s, p, missingPlan
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const { label, pct } = useGoal({ keyword: '可再生能源' });

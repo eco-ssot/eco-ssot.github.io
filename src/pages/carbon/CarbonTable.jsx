@@ -96,7 +96,7 @@ const COLUMNS = ({
     })),
   ]);
 
-export default function CarbonTable({ business, y, m, s, p, missingPlants }) {
+export default function CarbonTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['carbonPage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetCarbonQuery({
@@ -106,6 +106,9 @@ export default function CarbonTable({ business, y, m, s, p, missingPlants }) {
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const { label, pct, currYear, baseYear } = useGoal({ keyword: '碳排放量' });

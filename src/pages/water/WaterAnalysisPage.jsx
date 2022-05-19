@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -140,86 +142,99 @@ export default function WaterAnalysisPage() {
   const [patchImprovement] = usePatchWaterImprovementMutation();
   const [deleteExplanation] = useDeleteWaterExplanationMutation();
   const [deleteImprovement] = useDeleteWaterImprovementMutation();
-  const { ASP, water, waterIntensity, revenue, shipment } = data || {};
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${currYear - 1} YTM`;
-  const overview = [
-    {
-      name: '用水量',
-      title: t('analysisPage:water.water.title'),
-      unit: t('analysisPage:water.water.unit'),
-      value: water?.gradient,
-      subData: [
-        { key: lastYearKey, value: water?.compareYear },
-        { key: currYearKey, value: water?.currentYear },
-      ],
-    },
-    {
-      name: '營業額',
-      title: t('analysisPage:water.revenue.title'),
-      unit: t('analysisPage:water.revenue.unit'),
-      value: revenue?.gradient,
-      subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter(3) },
-        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter(3) },
-      ],
-    },
-    {
-      name: '用水強度',
-      title: t('analysisPage:water.waterIntensity.title'),
-      unit: t('analysisPage:water.waterIntensity.unit'),
-      value: waterIntensity?.currentAndCompareGradient,
-      subData: [
-        { key: lastYearKey, value: waterIntensity?.compareYear },
-        { key: currYearKey, value: waterIntensity?.currentYear },
-      ],
-    },
-    {
-      name: '出貨量',
-      title: t('analysisPage:water.shipment.title'),
-      unit: t('analysisPage:water.shipment.unit'),
-      value: shipment?.gradient,
-      subData: [
-        { key: lastYearKey, value: shipment?.compareYear },
-        { key: currYearKey, value: shipment?.currentYear },
-      ],
-    },
-    {
-      name: 'ASP',
-      title: 'ASP',
-      unit: t('analysisPage:water.asp.unit'),
-      value: ASP?.gradient,
-      subData: [
-        {
-          key: lastYearKey,
-          value: ASP?.compareYear,
-          renderer: statisticsFormatter(3),
-        },
-        {
-          key: currYearKey,
-          value: ASP?.currentYear,
-          renderer: statisticsFormatter(3),
-        },
-      ],
-    },
-  ];
+  const overview = useMemo(
+    () => [
+      {
+        name: '用水量',
+        title: t('analysisPage:water.water.title'),
+        unit: t('analysisPage:water.water.unit'),
+        value: data?.water?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.water?.compareYear },
+          { key: currYearKey, value: data?.water?.currentYear },
+        ],
+      },
+      {
+        name: '營業額',
+        title: t('analysisPage:water.revenue.title'),
+        unit: t('analysisPage:water.revenue.unit'),
+        value: data?.revenue?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.revenue?.compareYear, renderer: statisticsFormatter(3) },
+          { key: currYearKey, value: data?.revenue?.currentYear, renderer: statisticsFormatter(3) },
+        ],
+      },
+      {
+        name: '用水強度',
+        title: t('analysisPage:water.waterIntensity.title'),
+        unit: t('analysisPage:water.waterIntensity.unit'),
+        value: data?.waterIntensity?.currentAndCompareGradient,
+        subData: [
+          { key: lastYearKey, value: data?.waterIntensity?.compareYear },
+          { key: currYearKey, value: data?.waterIntensity?.currentYear },
+        ],
+      },
+      {
+        name: '出貨量',
+        title: t('analysisPage:water.shipment.title'),
+        unit: t('analysisPage:water.shipment.unit'),
+        value: data?.shipment?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.shipment?.compareYear },
+          { key: currYearKey, value: data?.shipment?.currentYear },
+        ],
+      },
+      {
+        name: 'ASP',
+        title: 'ASP',
+        unit: t('analysisPage:water.asp.unit'),
+        value: data?.ASP?.gradient,
+        subData: [
+          {
+            key: lastYearKey,
+            value: data?.ASP?.compareYear,
+            renderer: statisticsFormatter(3),
+          },
+          {
+            key: currYearKey,
+            value: data?.ASP?.currentYear,
+            renderer: statisticsFormatter(3),
+          },
+        ],
+      },
+    ],
+    [data, lastYearKey, currYearKey, t]
+  );
 
-  const values = [
-    waterIntensity?.baseYear,
-    waterIntensity?.compareYear,
-    waterIntensity?.currentYear,
-    waterIntensity?.ASP,
-  ];
+  const values = useMemo(
+    () => [
+      data?.waterIntensity?.baseYear,
+      data?.waterIntensity?.compareYear,
+      data?.waterIntensity?.currentYear,
+      data?.waterIntensity?.ASP,
+    ],
+    [
+      data?.waterIntensity?.baseYear,
+      data?.waterIntensity?.compareYear,
+      data?.waterIntensity?.currentYear,
+      data?.waterIntensity?.ASP,
+    ]
+  );
 
-  const labels = [
-    `${baseYear} Actual`,
-    `${currYear - 1} Actual`,
-    `${currYear} Actual`,
-    `${currYear}  ${t('analysisPage:aspReduction')}`,
-  ];
+  const labels = useMemo(
+    () => [
+      `${baseYear} Actual`,
+      `${currYear - 1} Actual`,
+      `${currYear} Actual`,
+      `${currYear}  ${t('analysisPage:aspReduction')}`,
+    ],
+    [baseYear, currYear, t]
+  );
 
-  const target = waterIntensity?.baseYear * (1 - pct);
-  const option = OPTION(values, labels, target);
+  const target = useMemo(() => data?.waterIntensity?.baseYear * (1 - pct), [data?.waterIntensity?.baseYear, pct]);
+  const option = useMemo(() => OPTION(values, labels, target), [values, labels, target]);
   return (
     <AnalysisPage
       type={t('analysisPage:water.type')}

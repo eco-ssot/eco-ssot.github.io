@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -139,74 +141,92 @@ export default function ElectricityAnalysisPage() {
   const [patchImprovement] = usePatchElectricityImprovementMutation();
   const [deleteExplanation] = useDeleteElectricityExplanationMutation();
   const [deleteImprovement] = useDeleteElectricityImprovementMutation();
-  const { ASP, electrcity, electrcityIntensity, revenue, shipment } = data || {};
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${baseYear} YTM`;
-  const overview = [
-    {
-      name: '用電量',
-      title: t('analysisPage:electricity.electricity.title'),
-      unit: t('analysisPage:electricity.electricity.unit'),
-      value: electrcity?.gradient,
-      subData: [
-        { key: lastYearKey, value: electrcity?.compareYear },
-        { key: currYearKey, value: electrcity?.currentYear },
-      ],
-    },
-    {
-      name: '營業額',
-      title: t('analysisPage:electricity.revenue.title'),
-      unit: t('analysisPage:electricity.revenue.unit'),
-      value: revenue?.gradient,
-      subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter(3) },
-        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter(3) },
-      ],
-    },
-    {
-      name: '用電密集度',
-      title: t('analysisPage:electricity.electricityIntensity.title'),
-      unit: t('analysisPage:electricity.electricityIntensity.unit'),
-      value: electrcityIntensity?.gradient,
-      subData: [
-        { key: lastYearKey, value: electrcityIntensity?.compareYear },
-        { key: currYearKey, value: electrcityIntensity?.currentYear },
-      ],
-    },
-    {
-      name: '出貨量',
-      title: t('analysisPage:electricity.shipment.title'),
-      unit: t('analysisPage:electricity.shipment.unit'),
-      value: shipment?.gradient,
-      subData: [
-        { key: lastYearKey, value: shipment?.compareYear },
-        { key: currYearKey, value: shipment?.currentYear },
-      ],
-    },
-    {
-      name: 'ASP',
-      title: 'ASP',
-      unit: t('analysisPage:electricity.asp.unit'),
-      value: ASP?.gradient,
-      subData: [
-        {
-          key: lastYearKey,
-          value: ASP?.compareYear,
-          renderer: statisticsFormatter(3),
-        },
-        {
-          key: currYearKey,
-          value: ASP?.currentYear,
-          renderer: statisticsFormatter(3),
-        },
-      ],
-    },
-  ];
+  const overview = useMemo(
+    () => [
+      {
+        name: '用電量',
+        title: t('analysisPage:electricity.electricity.title'),
+        unit: t('analysisPage:electricity.electricity.unit'),
+        value: data?.electrcity?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.electrcity?.compareYear },
+          { key: currYearKey, value: data?.electrcity?.currentYear },
+        ],
+      },
+      {
+        name: '營業額',
+        title: t('analysisPage:electricity.revenue.title'),
+        unit: t('analysisPage:electricity.revenue.unit'),
+        value: data?.revenue?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.revenue?.compareYear, renderer: statisticsFormatter(3) },
+          { key: currYearKey, value: data?.revenue?.currentYear, renderer: statisticsFormatter(3) },
+        ],
+      },
+      {
+        name: '用電密集度',
+        title: t('analysisPage:electricity.electricityIntensity.title'),
+        unit: t('analysisPage:electricity.electricityIntensity.unit'),
+        value: data?.electrcityIntensity?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.electrcityIntensity?.compareYear },
+          { key: currYearKey, value: data?.electrcityIntensity?.currentYear },
+        ],
+      },
+      {
+        name: '出貨量',
+        title: t('analysisPage:electricity.shipment.title'),
+        unit: t('analysisPage:electricity.shipment.unit'),
+        value: data?.shipment?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.shipment?.compareYear },
+          { key: currYearKey, value: data?.shipment?.currentYear },
+        ],
+      },
+      {
+        name: 'ASP',
+        title: 'ASP',
+        unit: t('analysisPage:electricity.asp.unit'),
+        value: data?.ASP?.gradient,
+        subData: [
+          {
+            key: lastYearKey,
+            value: data?.ASP?.compareYear,
+            renderer: statisticsFormatter(3),
+          },
+          {
+            key: currYearKey,
+            value: data?.ASP?.currentYear,
+            renderer: statisticsFormatter(3),
+          },
+        ],
+      },
+    ],
+    [data, lastYearKey, currYearKey, t]
+  );
 
-  const values = [electrcityIntensity?.compareYear, electrcityIntensity?.currentYear, electrcityIntensity?.ASP];
-  const labels = [`${baseYear} Actual`, `${currYear} Actual`, `${currYear} ${t('analysisPage:aspReduction')}`];
-  const target = electrcityIntensity?.compareYear * (1 - pct);
-  const option = OPTION(values, labels, target);
+  const values = useMemo(
+    () => [
+      data?.electrcityIntensity?.compareYear,
+      data?.electrcityIntensity?.currentYear,
+      data?.electrcityIntensity?.ASP,
+    ],
+    [data?.electrcityIntensity?.compareYear, data?.electrcityIntensity?.currentYear, data?.electrcityIntensity?.ASP]
+  );
+
+  const labels = useMemo(
+    () => [`${baseYear} Actual`, `${currYear} Actual`, `${currYear} ${t('analysisPage:aspReduction')}`],
+    [baseYear, currYear, t]
+  );
+
+  const target = useMemo(
+    () => data?.electrcityIntensity?.compareYear * (1 - pct),
+    [data?.electrcityIntensity?.compareYear, pct]
+  );
+
+  const option = useMemo(() => OPTION(values, labels, target), [values, labels, target]);
   return (
     <AnalysisPage
       hasCategory

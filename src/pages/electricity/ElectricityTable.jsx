@@ -135,7 +135,7 @@ const COLUMNS = ({ t, missing, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastY
     })),
   ]);
 
-export default function ElectricityTable({ business, y, m, s, p, missingPlants }) {
+export default function ElectricityTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['electricityPage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetElectricityQuery({
@@ -145,12 +145,15 @@ export default function ElectricityTable({ business, y, m, s, p, missingPlants }
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const { label, currYear, baseYear, pct } = useGoal({ keyword: '用電強度' });
   const columns = useMemo(
-    () => COLUMNS({ t, pct, currYear, lastYear: baseYear, missing: missingPlants }),
-    [currYear, baseYear, t, missingPlants, pct]
+    () => COLUMNS({ t, pct, currYear, lastYear: baseYear, missing: missingPlants, periodType: pt }),
+    [currYear, baseYear, t, missingPlants, pct, pt]
   );
 
   return (

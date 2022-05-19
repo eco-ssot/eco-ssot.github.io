@@ -20,7 +20,15 @@ import { formatMonthRange } from '../../utils/date';
 import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
-const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR_WASTE, setOpen = () => {} } = {}) => [
+const HEADERS = ({
+  t,
+  pct,
+  maxDate,
+  currYear,
+  periodType,
+  baseYear = APP_CONSTANTS.BASE_YEAR_WASTE,
+  setOpen = () => {},
+} = {}) => [
   {
     key: 'nonRecyclable',
     name: t('wastePage:table.nonRecyclable.header'),
@@ -60,7 +68,9 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
     key: 'revenue',
     name: (
       <>
-        <div className="text-right">{t('wastePage:table.revenue.header', { ytm: formatMonthRange(maxDate) })}</div>
+        <div className="text-right">
+          {t('wastePage:table.revenue.header', { ytm: formatMonthRange(maxDate, periodType) })}
+        </div>
         <div className="text-right">({t('common:billionNtd')})</div>
       </>
     ),
@@ -70,7 +80,7 @@ const HEADERS = ({ t, pct, maxDate, currYear, baseYear = APP_CONSTANTS.BASE_YEAR
     key: 'waste',
     name: t('wastePage:table.waste.header'),
     subHeaders: [
-      { key: 'currYear', name: formatMonthRange(maxDate) },
+      { key: 'currYear', name: formatMonthRange(maxDate, periodType) },
       { key: 'baseYear', name: baseYear },
       {
         key: 'delta',
@@ -142,6 +152,7 @@ const COLUMNS = ({
   maxDate,
   currYear,
   missing,
+  periodType,
   baseYear = APP_CONSTANTS.BASE_YEAR_WASTE,
   setOpen = () => {},
 } = {}) =>
@@ -154,7 +165,7 @@ const COLUMNS = ({
       Cell: noDataRenderer({ missing }),
       className: 'whitespace-nowrap',
     },
-    ...HEADERS({ t, pct, maxDate, currYear, baseYear, setOpen }).map(
+    ...HEADERS({ t, pct, maxDate, currYear, baseYear, periodType, setOpen }).map(
       ({ key, name, subHeaders, renderer = statisticsFormatter(3), ...rest }) => ({
         Header: name,
         Cell: renderer,
@@ -174,7 +185,7 @@ const COLUMNS = ({
     ),
   ]);
 
-export default function WasteTable({ business, y, m, s, p, missingPlants }) {
+export default function WasteTable({ business, y, m, s, p, pt, missingPlants }) {
   const { t } = useTranslation(['wastePage', 'common']);
   const plantPermission = usePlantPermission();
   const { data } = useGetWasteQuery({
@@ -184,6 +195,9 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
     site: s,
     plant: p,
     permission: plantPermission,
+    ...(pt && {
+      is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+    }),
   });
 
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度' });
@@ -199,8 +213,9 @@ export default function WasteTable({ business, y, m, s, p, missingPlants }) {
         lastYear: baseYear,
         maxDate: data?.maxDate,
         missing: missingPlants,
+        periodType: pt,
       }),
-    [t, pct, currYear, baseYear, data?.maxDate, missingPlants]
+    [t, pct, currYear, baseYear, data?.maxDate, missingPlants, pt]
   );
 
   return (

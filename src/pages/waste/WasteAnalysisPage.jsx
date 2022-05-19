@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -141,96 +143,109 @@ export default function WasteAnalysisPage() {
   const [patchImprovement] = usePatchWasteImprovementMutation();
   const [deleteExplanation] = useDeleteWasteExplanationMutation();
   const [deleteImprovement] = useDeleteWasteImprovementMutation();
-  const { ASP, waste, wasteIntensity, revenue, shipment } = data || {};
   const lastYear = currYear - 1;
   const currYearKey = `${currYear} YTM`;
   const lastYearKey = `${lastYear} YTM`;
-  const overview = [
-    {
-      name: '廢棄物總量',
-      title: t('analysisPage:waste.waste.title'),
-      unit: t('analysisPage:waste.waste.unit'),
-      value: waste?.gradient,
-      subData: [
-        { key: lastYearKey, value: waste?.baseYear, renderer: statisticsFormatter(3) },
-        { key: currYearKey, value: waste?.currentYear, renderer: statisticsFormatter(3) },
-      ],
-    },
-    {
-      name: '營業額',
-      title: t('analysisPage:waste.revenue.title'),
-      unit: t('analysisPage:waste.revenue.unit'),
-      value: revenue?.gradient,
-      subData: [
-        { key: lastYearKey, value: revenue?.compareYear, renderer: statisticsFormatter(3) },
-        { key: currYearKey, value: revenue?.currentYear, renderer: statisticsFormatter(3) },
-      ],
-    },
-    {
-      name: '廢棄物密集度',
-      title: t('analysisPage:waste.wasteDensity.title'),
-      unit: t('analysisPage:waste.wasteDensity.unit'),
-      value: wasteIntensity?.currentAndCompareGradient,
-      subData: [
-        {
-          key: lastYearKey,
-          value: wasteIntensity?.compareYear,
-          renderer: statisticsFormatter(3),
-        },
-        {
-          key: currYearKey,
-          value: wasteIntensity?.currentYear,
-          renderer: statisticsFormatter(3),
-        },
-      ],
-      renderer: statisticsFormatter(3),
-    },
-    {
-      name: '出貨量',
-      title: t('analysisPage:waste.shipment.title'),
-      unit: t('analysisPage:waste.shipment.unit'),
-      value: shipment?.gradient,
-      subData: [
-        { key: lastYearKey, value: shipment?.compareYear },
-        { key: currYearKey, value: shipment?.currentYear },
-      ],
-    },
-    {
-      name: 'ASP',
-      title: 'ASP',
-      unit: t('analysisPage:waste.asp.unit'),
-      value: ASP?.gradient,
-      subData: [
-        {
-          key: lastYearKey,
-          value: ASP?.compareYear,
-          renderer: statisticsFormatter(3),
-        },
-        {
-          key: currYearKey,
-          value: ASP?.currentYear,
-          renderer: statisticsFormatter(3),
-        },
-      ],
-    },
-  ];
+  const overview = useMemo(
+    () => [
+      {
+        name: '廢棄物總量',
+        title: t('analysisPage:waste.waste.title'),
+        unit: t('analysisPage:waste.waste.unit'),
+        value: data?.waste?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.waste?.baseYear, renderer: statisticsFormatter(3) },
+          { key: currYearKey, value: data?.waste?.currentYear, renderer: statisticsFormatter(3) },
+        ],
+      },
+      {
+        name: '營業額',
+        title: t('analysisPage:waste.revenue.title'),
+        unit: t('analysisPage:waste.revenue.unit'),
+        value: data?.revenue?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.revenue?.compareYear, renderer: statisticsFormatter(3) },
+          { key: currYearKey, value: data?.revenue?.currentYear, renderer: statisticsFormatter(3) },
+        ],
+      },
+      {
+        name: '廢棄物密集度',
+        title: t('analysisPage:waste.wasteDensity.title'),
+        unit: t('analysisPage:waste.wasteDensity.unit'),
+        value: data?.wasteIntensity?.currentAndCompareGradient,
+        subData: [
+          {
+            key: lastYearKey,
+            value: data?.wasteIntensity?.compareYear,
+            renderer: statisticsFormatter(3),
+          },
+          {
+            key: currYearKey,
+            value: data?.wasteIntensity?.currentYear,
+            renderer: statisticsFormatter(3),
+          },
+        ],
+        renderer: statisticsFormatter(3),
+      },
+      {
+        name: '出貨量',
+        title: t('analysisPage:waste.shipment.title'),
+        unit: t('analysisPage:waste.shipment.unit'),
+        value: data?.shipment?.gradient,
+        subData: [
+          { key: lastYearKey, value: data?.shipment?.compareYear },
+          { key: currYearKey, value: data?.shipment?.currentYear },
+        ],
+      },
+      {
+        name: 'ASP',
+        title: 'ASP',
+        unit: t('analysisPage:waste.asp.unit'),
+        value: data?.ASP?.gradient,
+        subData: [
+          {
+            key: lastYearKey,
+            value: data?.ASP?.compareYear,
+            renderer: statisticsFormatter(3),
+          },
+          {
+            key: currYearKey,
+            value: data?.ASP?.currentYear,
+            renderer: statisticsFormatter(3),
+          },
+        ],
+      },
+    ],
+    [data, lastYearKey, currYearKey, t]
+  );
 
-  const values = [
-    wasteIntensity?.baseYear,
-    wasteIntensity?.compareYear,
-    wasteIntensity?.currentYear,
-    wasteIntensity?.ASP,
-  ];
+  const values = useMemo(
+    () => [
+      data?.wasteIntensity?.baseYear,
+      data?.wasteIntensity?.compareYear,
+      data?.wasteIntensity?.currentYear,
+      data?.wasteIntensity?.ASP,
+    ],
+    [
+      data?.wasteIntensity?.baseYear,
+      data?.wasteIntensity?.compareYear,
+      data?.wasteIntensity?.currentYear,
+      data?.wasteIntensity?.ASP,
+    ]
+  );
 
-  const labels = [
-    `${baseYear} Actual`,
-    `${lastYear} Actual`,
-    `${currYear} Actual`,
-    `${currYear} ${t('analysisPage:aspReduction')}`,
-  ];
+  const labels = useMemo(
+    () => [
+      `${baseYear} Actual`,
+      `${lastYear} Actual`,
+      `${currYear} Actual`,
+      `${currYear} ${t('analysisPage:aspReduction')}`,
+    ],
+    [baseYear, lastYear, currYear, t]
+  );
 
-  const target = wasteIntensity?.baseYear * (1 - pct);
-  const option = OPTION(values, labels, target);
+  const target = useMemo(() => data?.wasteIntensity?.baseYear * (1 - pct), [data?.wasteIntensity?.baseYear, pct]);
+  const option = useMemo(() => OPTION(values, labels, target), [values, labels, target]);
   return (
     <AnalysisPage
       type={t('analysisPage:waste.type')}
