@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import useSitePlantOptions from '../../hooks/useSitePlantOptions';
@@ -17,8 +17,11 @@ import Picture from '../picture/Picture';
 import GhostSelect from '../select/GhostSelect';
 import GroupSelect from '../select/GroupSelect';
 
+const GLOBAL_SELECT_DISABLED_PATH_NAMES = ['/electricity/analysis', '/water/analysis', '/waste/analysis'];
+
 export default function Header({ className }) {
   const { t } = useTranslation(['common']);
+  const { pathname } = useLocation();
   const { keycloak } = useKeycloak();
   const lng = useSelector(selectLanguage);
   const business = useSelector(selectBusiness);
@@ -43,6 +46,7 @@ export default function Header({ className }) {
       {keycloak?.authenticated ? (
         <>
           <GhostSelect
+            disabled={GLOBAL_SELECT_DISABLED_PATH_NAMES.includes(pathname)}
             className="w-28"
             options={APP_CONSTANTS.BUSINESS_OPTIONS}
             onChange={(e) => navigate({ ...e, s: null, p: null })}
@@ -52,6 +56,7 @@ export default function Header({ className }) {
           />
           <Divider className="h-1/2" />
           <GroupSelect
+            disabled={GLOBAL_SELECT_DISABLED_PATH_NAMES.includes(pathname)}
             buttonClassName="w-42"
             options={sitePlantOptions}
             onChange={navigate}

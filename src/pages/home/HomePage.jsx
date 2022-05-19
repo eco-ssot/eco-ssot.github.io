@@ -21,6 +21,7 @@ import {
   selectPt,
 } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
+import { useGetMissingPlantsQuery } from '../../services/app';
 import { useGetSummaryQuery } from '../../services/summary';
 
 import Carbon from './Carbon';
@@ -54,6 +55,15 @@ export default function HomePage() {
     ...(pt && {
       is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
     }),
+  });
+
+  const { data: missing } = useGetMissingPlantsQuery({
+    business,
+    year: y,
+    month: m,
+    compare_year: cy,
+    site: s,
+    plant: p,
   });
 
   const cyOptions = useMemo(
@@ -108,7 +118,7 @@ export default function HomePage() {
       <div className="col-span-1 row-span-1 flex h-full flex-col justify-between rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium text-gray-100">{t('dataMissing')}</div>
         <div className="grid max-h-[60%] grid-cols-2 overflow-y-auto ">
-          {(y && y < 2022 ? [] : data?.missing)?.map((val, i) => (
+          {missing?.map((val, i) => (
             <div key={i} className="text-center">
               {val}
             </div>

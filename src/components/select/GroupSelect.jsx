@@ -14,6 +14,7 @@ export default function GroupSelect({
   options = [],
   selected = options[0] || {},
   ariaLabel = '',
+  disabled = false,
   onChange = () => {},
 }) {
   return (
@@ -32,12 +33,13 @@ export default function GroupSelect({
       }}>
       {({ open }) => (
         <>
-          <div className={clsx('relative mt-1 min-w-36', className)}>
+          <div className={clsx('relative mt-1 min-w-36', disabled && 'cursor-not-allowed', className)}>
             <Listbox.Button
               {...(ariaLabel && { 'aria-label': `select-${ariaLabel}` })}
               className={clsx(
                 'relative w-full cursor-pointer rounded-md border bg-transparent py-2 pl-3 pr-10 text-left shadow-sm hover:border-primary-600 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600',
                 open ? 'border-primary-600' : 'border-primary-800',
+                disabled && 'pointer-events-none bg-primary-900 opacity-50',
                 buttonClassName
               )}>
               <Ellipsis className="text-lg" label={selected.alias || selected.value} />

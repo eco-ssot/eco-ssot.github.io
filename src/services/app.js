@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { format } from 'date-fns';
 
 import APP_CONSTANTS from '../app/appConstants';
 import { getMaxDate } from '../utils/date';
@@ -27,6 +28,21 @@ export const appApi = createApi({
       providesTags: ['SHIPMENT_UPLOAD', 'WASTE_UPLOAD'],
       queryFn: (query) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
+          if (process.env.REACT_APP_NO_MISSING_PLANTS) {
+            const latestDate = getMaxDate(
+              res?.data?.revenue?.latestDate,
+              res?.data?.electricPowerUtilization?.latestDate,
+              res?.data?.CO2Emission?.latestDate,
+              res?.data?.waterUse?.latestDate,
+              res?.data?.waste?.latestDate
+            );
+
+            const ld = format(new Date(latestDate), 'yyyy-MM-01');
+            if (process.env.REACT_APP_NO_MISSING_PLANTS.split(',').includes(ld)) {
+              return { data: [] };
+            }
+          }
+
           return {
             data: query.year && query.year < 2022 ? [] : res.data?.missing || [],
           };
