@@ -12,6 +12,7 @@
   "kwh": "度",
   "dai": "台",
   "accumulationRange": "累計區間",
+  "singleMonth": "單一月份",
   "gapDesc": "* 增減率 = (當年度 − 上年度) / 上年度",
   "weight": "權重",
   "gap": "增減率 *",

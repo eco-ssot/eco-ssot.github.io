@@ -12,6 +12,7 @@
   "kwh": "kWh",
   "dai": "Product",
   "accumulationRange": "YTM Duration",
+  "singleMonth": "Month",
   "gapDesc": "* Gap = (Current year − Last year) / Last year",
   "weight": "Percentage",
   "gap": "Gap *",

@@ -108,13 +108,18 @@ const ELECTRICITY_OPTIONS = [
   { key: 'air_production', value: 'air_production' },
 ];
 
+const PERIOD_TYPES = {
+  YTM: 'ytm',
+  MONTH: 'month',
+};
+
 const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
 const HIDE_PLANTS = ['WMX', 'WCZ'];
 const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
 const NO_DATA = 'No Data';
-const GLOBAL_QUERY_KEYS = ['business', 'y', 'm', 'cy', 's', 'p'];
+const GLOBAL_QUERY_KEYS = ['business', 'y', 'm', 'cy', 's', 'p', 'pt'];
 
 const APP_CONSTANTS = {
   NO_DATA,
@@ -137,6 +142,7 @@ const APP_CONSTANTS = {
   ELECTRICITY_TYPES,
   ELECTRICITY_TYPE_MAPPING,
   ELECTRICITY_OPTIONS,
+  PERIOD_TYPES,
   DEPRECIATED_PLANTS,
   HIDE_PLANTS,
   GLOBAL_QUERY_KEYS,

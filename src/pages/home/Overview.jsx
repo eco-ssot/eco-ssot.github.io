@@ -1,76 +1,80 @@
+import { useMemo } from 'react';
+
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import Arrow from '../../components/arrow/Arrow';
 import { baseFormatter, ratioFormatter } from '../../utils/formatter';
 import { getTrend } from '../../utils/trend';
 
-export default function Overview({ className, compareYear, currentYear, data = {} }) {
+export default function Overview({ className, compareYear, currentYear, currMonth, periodType, data = {} }) {
   const { t } = useTranslation(['homePage', 'common']);
-  const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste } = data;
-  const nextData = [
-    {
-      name: '營業額',
-      title: t('revenue'),
-      unit: `(${t('common:billionNtd')})`,
-      value: revenue?.gradient,
-      subData: [
-        { key: compareYear, value: revenue?.compareYear },
-        { key: currentYear, value: revenue?.currentYear },
-      ],
-    },
-    {
-      name: '用電量',
-      title: t('electricityUsed'),
-      unit: `(${t('common:mwh')})`,
-      value: electricPowerUtilization?.gradient,
-      subData: [
-        { key: compareYear, value: electricPowerUtilization?.compareYear },
-        { key: currentYear, value: electricPowerUtilization?.currentYear },
-      ],
-    },
-    {
-      name: '碳排量',
-      title: t('carbonEmission'),
-      unit: `(${t('common:metricTon')})`,
-      value: CO2Emission?.gradient,
-      subData: [
-        { key: compareYear, value: CO2Emission?.compareYear },
-        { key: currentYear, value: CO2Emission?.currentYear },
-      ],
-    },
-    {
-      name: '用水量',
-      title: t('waterUsed'),
-      unit: `(${t('common:thousandTon')})`,
-      value: waterUse?.gradient,
-      subData: [
-        { key: compareYear, value: waterUse?.compareYear },
-        { key: currentYear, value: waterUse?.currentYear },
-      ],
-    },
-    {
-      name: '廢棄物',
-      title: t('wasteEmission'),
-      unit: `(${t('common:metricTon')})`,
-      value: waste?.gradient,
-      subData: [
-        { key: compareYear, value: waste?.compareYear },
-        { key: currentYear, value: waste?.currentYear },
-      ],
-    },
-    // {
-    //   name: '總節電量',
-    //   title: t('electricitySaving'),
-    //   unit: `(${t('common:mwh')})`,
-    //   value: totalPowerSaving?.amount,
-    //   subData: [
-    //     { key: t('digitization'), value: totalPowerSaving?.digital },
-    //     { key: t('technologyImprovementAndManagement'), value: totalPowerSaving?.manage },
-    //   ],
-    //   renderer: baseFormatter,
-    // },
-  ];
+  const compareKey = useMemo(
+    () => (periodType === APP_CONSTANTS.PERIOD_TYPES.MONTH ? [compareYear, currMonth].join('.') : compareYear),
+    [compareYear, currMonth, periodType]
+  );
+
+  const currentKey = useMemo(
+    () => (periodType === APP_CONSTANTS.PERIOD_TYPES.MONTH ? [currentYear, currMonth].join('.') : currentYear),
+    [currentYear, currMonth, periodType]
+  );
+
+  const nextData = useMemo(
+    () => [
+      {
+        name: '營業額',
+        title: t('revenue'),
+        unit: `(${t('common:billionNtd')})`,
+        value: data?.revenue?.gradient,
+        subData: [
+          { key: compareKey, value: data?.revenue?.compareYear },
+          { key: currentKey, value: data?.revenue?.currentYear },
+        ],
+      },
+      {
+        name: '用電量',
+        title: t('electricityUsed'),
+        unit: `(${t('common:mwh')})`,
+        value: data?.electricPowerUtilization?.gradient,
+        subData: [
+          { key: compareKey, value: data?.electricPowerUtilization?.compareYear },
+          { key: currentKey, value: data?.electricPowerUtilization?.currentYear },
+        ],
+      },
+      {
+        name: '碳排量',
+        title: t('carbonEmission'),
+        unit: `(${t('common:metricTon')})`,
+        value: data?.CO2Emission?.gradient,
+        subData: [
+          { key: compareKey, value: data?.CO2Emission?.compareYear },
+          { key: currentKey, value: data?.CO2Emission?.currentYear },
+        ],
+      },
+      {
+        name: '用水量',
+        title: t('waterUsed'),
+        unit: `(${t('common:thousandTon')})`,
+        value: data?.waterUse?.gradient,
+        subData: [
+          { key: compareKey, value: data?.waterUse?.compareYear },
+          { key: currentKey, value: data?.waterUse?.currentYear },
+        ],
+      },
+      {
+        name: '廢棄物',
+        title: t('wasteEmission'),
+        unit: `(${t('common:metricTon')})`,
+        value: data?.waste?.gradient,
+        subData: [
+          { key: compareKey, value: data?.waste?.compareYear },
+          { key: currentKey, value: data?.waste?.currentYear },
+        ],
+      },
+    ],
+    [data, compareKey, currentKey, t]
+  );
 
   return (
     <div className={clsx('grid h-full w-full grid-cols-5 divide-x divide-divider', className)}>

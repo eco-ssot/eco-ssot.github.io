@@ -121,7 +121,7 @@ export default function OverviewTable({ business, y, m, s, p, missingPlants }) {
     <>
       <UploadModal title="匯入營收資料" open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
       <Tag className="absolute top-2 right-4 pr-0">
-        {t('common:accumulationRange')} : <GlobalDateSelect />
+        <GlobalDateSelect />
       </Tag>
       {data && (
         <>

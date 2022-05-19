@@ -31,7 +31,7 @@ export const selectHash = createSelector(selectReducer, (state) => state.hash);
 export const selectBusiness = createSelector(selectQuery, (state) => state.business);
 export const selectLanguage = createSelector(selectQuery, (state) => state.lng || localStorage.getItem('i18nextLng'));
 export const selectYear = createSelector(selectQuery, (state) => state.year);
-export const selectCompareYear = createSelector(selectQuery, (state) => state.cy);
+export const selectCy = createSelector(selectQuery, (state) => state.cy);
 export const selectDimension = createSelector(selectQuery, (state) => state.dimension);
 export const selectSite = createSelector(selectQuery, (state) => state.site);
 export const selectPlant = createSelector(selectQuery, (state) => state.plant);
@@ -46,5 +46,6 @@ export const selectY = createSelector(selectQuery, (state) => state.y);
 export const selectM = createSelector(selectQuery, (state) => state.m);
 export const selectS = createSelector(selectQuery, (state) => state.s);
 export const selectP = createSelector(selectQuery, (state) => state.p);
+export const selectPt = createSelector(selectQuery, (state) => state.pt);
 
 export default locationSlice.reducer;

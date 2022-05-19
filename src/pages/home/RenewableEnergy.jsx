@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import Chart from '../../charts/Chart';
@@ -8,18 +10,18 @@ import { getDecimalNumber } from '../../utils/number';
 
 const DATA = {
   nonRenewableEnergy: { value: null, color: colors._blue, dotClassName: 'bg-_blue' },
+  tRec: { value: null, color: colors.gray['100'], dotClassName: 'bg-unit' },
   selfConstructedSolarEnergy: {
     value: null,
     color: colors.primary['500'],
     dotClassName: 'bg-primary-500',
   },
-  tRec: { value: null, color: colors.gray['100'], dotClassName: 'bg-unit' },
 };
 
 const NAME_MAPPING = {
   nonRenewableEnergy: 'nonRenewableEnergy',
-  selfConstructedSolarEnergy: 'solarPower',
   tRec: 'tRec',
+  selfConstructedSolarEnergy: 'solarPower',
 };
 
 const OPTION = (data = []) => ({
@@ -48,24 +50,26 @@ const OPTION = (data = []) => ({
 
 export default function RenewableEnergy({ data = {} }) {
   const { t } = useTranslation(['homePage', 'common']);
-  const { nonRenewableEnergy, selfConstructedSolarEnergy, tRec, target = '' } = data;
-  const nextData = {
-    ...DATA,
-    nonRenewableEnergy: { ...DATA.nonRenewableEnergy, value: nonRenewableEnergy },
-    selfConstructedSolarEnergy: {
-      ...DATA.selfConstructedSolarEnergy,
-      value: selfConstructedSolarEnergy,
-    },
-    tRec: { ...DATA.tRec, value: tRec },
-  };
+  const nextData = useMemo(
+    () => ({
+      ...DATA,
+      nonRenewableEnergy: { ...DATA.nonRenewableEnergy, value: data?.nonRenewableEnergy },
+      selfConstructedSolarEnergy: {
+        ...DATA.selfConstructedSolarEnergy,
+        value: data?.selfConstructedSolarEnergy,
+      },
+      tRec: { ...DATA.tRec, value: data?.tRec },
+    }),
+    [data]
+  );
 
-  const option = OPTION(nextData);
+  const option = useMemo(() => OPTION(nextData), [nextData]);
   return (
     <div className="flex h-full w-full items-center justify-between">
       <div className="flex h-full w-1/2 items-center justify-center">
         <Chart className="h-full w-full" option={option} />
         <div className="absolute text-center text-lg font-medium">
-          <div className="text-_orange">{`Target : > ${getDecimalNumber(target) || '-'}%`}</div>
+          <div className="text-_orange">{`Target : > ${getDecimalNumber(data?.target) || '-'}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
       </div>
@@ -77,12 +81,21 @@ export default function RenewableEnergy({ data = {} }) {
             labelClassName="flex w-4/5 justify-between text-lg"
             label={
               <>
-                <div>{t(`homePage:${NAME_MAPPING[name]}`) || ''}</div>
+                <div>{t(`homePage:${NAME_MAPPING[name]}`)}</div>
                 <div>{ratioFormatter(value, { precision: 1 })}</div>
               </>
             }
           />
         ))}
+        <Legend
+          labelClassName="flex w-4/5 justify-between text-lg"
+          label={
+            <>
+              <div className="-translate-x-5">{t(`homePage:solarPowerTarget`)}</div>
+              <div className="text-_orange">2%</div>
+            </>
+          }
+        />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { selectLanguage } from '../../renderless/location/locationSlice';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 
-import { formatTarget, formatYtm } from './helpers';
+import { formatTarget, getChartLabel } from './helpers';
 
 const OPTION = (values, labels, target, barColors) => ({
   xAxis: {
@@ -60,15 +60,21 @@ const OPTION = (values, labels, target, barColors) => ({
   grid: { top: 24, bottom: 48, left: 16, right: 60, containerLabel: true },
 });
 
-export default function Waste({ baseYear, compareYear, currentYear, latestDate, isNewMargin, data = {} }) {
+export default function Waste({
+  baseYear,
+  compareYear,
+  currentYear,
+  latestDate,
+  isNewMargin,
+  currMonth,
+  periodType,
+  data = {},
+}) {
   const { t } = useTranslation(['common']);
   const lng = useSelector(selectLanguage);
   const labels = useMemo(
-    () => [
-      ...(isNewMargin ? [] : [`${baseYear} Total`, `${compareYear} ${formatYtm(latestDate)}`]),
-      `${currentYear} ${formatYtm(latestDate)}`,
-    ],
-    [isNewMargin, baseYear, compareYear, currentYear, latestDate]
+    () => getChartLabel({ isNewMargin, baseYear, compareYear, currentYear, latestDate, currMonth, periodType }),
+    [isNewMargin, baseYear, compareYear, currentYear, latestDate, currMonth, periodType]
   );
 
   const values = useMemo(

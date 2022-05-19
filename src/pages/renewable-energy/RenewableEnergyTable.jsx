@@ -102,7 +102,7 @@ export default function RenewableEnergyTable({ business, y, m, s, p, missingPlan
         className="absolute top-2 right-4"
         labels={[
           <div className="flex items-center">
-            {t('common:accumulationRange')} : <GlobalDateSelect />
+            <GlobalDateSelect />
           </div>,
           label,
         ]}

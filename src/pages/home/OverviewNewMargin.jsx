@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -5,39 +7,41 @@ import { baseFormatter } from '../../utils/formatter';
 
 export default function OverviewNewMargin({ className, data = {} }) {
   const { t } = useTranslation(['homePage', 'common']);
-  const { revenue, electricPowerUtilization, CO2Emission, waterUse, waste } = data;
-  const nextData = [
-    {
-      name: '營業額',
-      title: t('revenue'),
-      unit: `(${t('common:billionNtd')})`,
-      value: revenue?.currentYear,
-    },
-    {
-      name: '用電量',
-      title: t('electricityUsed'),
-      unit: `(${t('common:mwh')})`,
-      value: electricPowerUtilization?.currentYear,
-    },
-    {
-      name: '碳排量',
-      title: t('carbonEmission'),
-      unit: `(${t('common:metricTon')})`,
-      value: CO2Emission?.currentYear,
-    },
-    {
-      name: '用水量',
-      title: t('waterUsed'),
-      unit: `(${t('common:thousandTon')})`,
-      value: waterUse?.currentYear,
-    },
-    {
-      name: '廢棄物',
-      title: t('wasteEmission'),
-      unit: `(${t('common:metricTon')})`,
-      value: waste?.currentYear,
-    },
-  ];
+  const nextData = useMemo(
+    () => [
+      {
+        name: '營業額',
+        title: t('revenue'),
+        unit: `(${t('common:billionNtd')})`,
+        value: data?.revenue?.currentYear,
+      },
+      {
+        name: '用電量',
+        title: t('electricityUsed'),
+        unit: `(${t('common:mwh')})`,
+        value: data?.electricPowerUtilization?.currentYear,
+      },
+      {
+        name: '碳排量',
+        title: t('carbonEmission'),
+        unit: `(${t('common:metricTon')})`,
+        value: data?.CO2Emission?.currentYear,
+      },
+      {
+        name: '用水量',
+        title: t('waterUsed'),
+        unit: `(${t('common:thousandTon')})`,
+        value: data?.waterUse?.currentYear,
+      },
+      {
+        name: '廢棄物',
+        title: t('wasteEmission'),
+        unit: `(${t('common:metricTon')})`,
+        value: data?.waste?.currentYear,
+      },
+    ],
+    [data, t]
+  );
 
   return (
     <div className={clsx('grid h-full w-full grid-cols-5 divide-x divide-divider', className)}>
@@ -49,7 +53,7 @@ export default function OverviewNewMargin({ className, data = {} }) {
               <div className="text-unit">{unit}</div>
             </div>
             <div className="flex flex-grow items-center justify-center space-x-2">
-              <div className={`text-5xl font-bold `}>{renderer(value)}</div>
+              <div className="text-5xl font-bold">{renderer(value)}</div>
             </div>
           </div>
         );

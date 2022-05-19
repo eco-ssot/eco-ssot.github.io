@@ -34,7 +34,7 @@ i18n
           ? [
               {
                 expirationTime: 7 * 24 * 60 * 60 * 1000, // 7 days
-                defaultVersion: '1.1.2',
+                defaultVersion: '1.1.3',
               },
             ]
           : []),
