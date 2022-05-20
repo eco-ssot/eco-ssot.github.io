@@ -185,7 +185,7 @@ export default function WasteAnalysisPage() {
             renderer: statisticsFormatter(3),
           },
         ],
-        renderer: statisticsFormatter(3),
+        renderer: ratioFormatter,
       },
       {
         name: '出貨量',
