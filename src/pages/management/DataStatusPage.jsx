@@ -102,16 +102,16 @@ const COLUMNS = (t) =>
         { Header: t('dataStatus.table.FEMSolar'), accessor: 'FEMSolar', Cell: statusRenderer('FEMSolar_source') },
       ],
     },
-    {
-      id: 'benefit',
-      Header: () => (
-        <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
-          <div className="px-2">Benefit</div>
-          <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
-        </div>
-      ),
-      columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer('benefit_source') }],
-    },
+    // {
+    //   id: 'benefit',
+    //   Header: () => (
+    //     <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-1">
+    //       <div className="px-2">Benefit</div>
+    //       <div className="px-2 text-sm text-gray-400">{t('dataStatus.table.autoSync')}</div>
+    //     </div>
+    //   ),
+    //   columns: [{ Header: t('dataStatus.table.benefit'), accessor: 'benefit', Cell: statusRenderer('benefit_source') }],
+    // },
     {
       id: 'waste',
       Header: () => (
