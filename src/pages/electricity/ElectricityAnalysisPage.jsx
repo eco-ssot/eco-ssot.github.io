@@ -231,7 +231,7 @@ export default function ElectricityAnalysisPage() {
     <AnalysisPage
       hasCategory
       type={t('analysisPage:electricity.type')}
-      title={`${t('analysisPage:electricity.title')} ${`(Plant: ${plant || site || '-'})`}`}
+      title={`${t('analysisPage:electricity.title')} ${`(Site/Plant: ${site}${plant ? `/${plant}` : ''})`}`}
       chartTitle={t('analysisPage:electricity.chartTitle')}
       tableTitle={t('analysisPage:electricity.tableTitle')}
       target={label}

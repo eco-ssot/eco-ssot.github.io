@@ -59,17 +59,7 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
               : 'font-semibold text-green-500'
             : '';
 
-          if (cell.row.original.subRows.length > 0) {
-            return (
-              <div
-                className={clsx('cursor-pointer underline', baseClassName)}
-                onClick={() => cell.row.toggleRowExpanded()}>
-                {ratioFormatter(cell.value)}
-              </div>
-            );
-          }
-
-          if (!cell.row.original.isFooter && cell.row.original.subRows.length === 0) {
+          if (!cell.row.original.isFooter) {
             let query = {
               ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
               site: cell.row.original.site,

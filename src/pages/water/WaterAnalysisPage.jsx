@@ -238,7 +238,7 @@ export default function WaterAnalysisPage() {
   return (
     <AnalysisPage
       type={t('analysisPage:water.type')}
-      title={`${t('analysisPage:water.title')} ${`(Plant: ${plant || site || '-'})`}`}
+      title={`${t('analysisPage:water.title')} ${`(Site/Plant: ${site}${plant ? `/${plant}` : ''})`}`}
       chartTitle={t('analysisPage:water.chartTitle')}
       tableTitle={t('analysisPage:water.tableTitle')}
       overview={overview}

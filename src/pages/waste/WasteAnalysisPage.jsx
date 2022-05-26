@@ -249,7 +249,7 @@ export default function WasteAnalysisPage() {
   return (
     <AnalysisPage
       type={t('analysisPage:waste.type')}
-      title={`${t('analysisPage:waste.title')} ${`(Plant: ${plant || site || '-'})`}`}
+      title={`${t('analysisPage:waste.title')} ${`(Site/Plant: ${site}${plant ? `/${plant}` : ''})`}`}
       chartTitle={t('analysisPage:waste.chartTitle')}
       tableTitle={t('analysisPage:waste.tableTitle')}
       overview={overview}

@@ -86,15 +86,7 @@ const HEADERS = ({
         key: 'delta',
         name: t('wastePage:table.waste.delta', { baseYear, currYear }),
         renderer: (cell) => {
-          if (cell.row.original.subRows.length > 0) {
-            return (
-              <div className="cursor-pointer" onClick={() => cell.row.toggleRowExpanded()}>
-                {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
-              </div>
-            );
-          }
-
-          if (!cell.row.original.isFooter && cell.row.original.subRows.length === 0) {
+          if (!cell.row.original.isFooter) {
             let query = {
               ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
               site: cell.row.original.site,
