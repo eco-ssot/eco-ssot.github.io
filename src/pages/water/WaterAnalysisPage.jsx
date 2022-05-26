@@ -88,6 +88,7 @@ const OPTION = (values, labels, target) => {
       axisLine: { show: false },
       axisLabel: { show: false },
       axisTick: { show: false },
+      scale: true,
     },
     series: [
       {
