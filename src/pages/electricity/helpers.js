@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server';
 
 import { baseFormatter } from '../../utils/formatter';
 
-const HIDDEN_PLANTS = ['WCZ', 'WMX', 'WNH', 'WHC'];
+const HIDDEN_PLANTS = ['WCZ', 'WMX', 'WNH', 'WHC', 'WKS-1'];
 
 export const BASE_LINE_DETAIL_ENTRIES = [
   { key: 'PCBAProduction', name: 'PCBA產量 (pcs)' },
