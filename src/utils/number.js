@@ -7,10 +7,10 @@ export function toFormattedNumber(
     nextPrecision = Math.min((String(value).split('.')[1] || '').length, maxPrecision);
   }
 
-  const formattedValue = new Intl.NumberFormat('en-US', {
+  const formattedValue = (trimNumber(value) / unit).toLocaleString('en-US', {
     minimumFractionDigits: nextPrecision,
     maximumFractionDigits: nextPrecision,
-  }).format(trimNumber(value) / unit);
+  });
 
   if (/NaN|∞|Infinity/gi.test(String(formattedValue))) {
     return defaultValue;
