@@ -437,7 +437,7 @@ export default function AnalysisTable({
                   </>
                 ) : (
                   <>
-                    <div className="col-span-5 whitespace-pre px-4 py-3">{description}</div>
+                    <div className="col-span-5 px-4 py-3">{description}</div>
                     <div className="col-span-5 px-4">{effect && `${effect} %`}</div>
                     <div className="col-span-1 space-x-2 pr-3 text-center">
                       <EditableIconButton
