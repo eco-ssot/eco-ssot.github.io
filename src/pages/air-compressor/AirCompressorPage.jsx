@@ -150,7 +150,13 @@ const OPTION = ({ data, name, targets, targetColors }) => {
               ...prev,
               data: prev.data.concat({ yAxis: curr, lineStyle: { color: targetColors[i] } }),
             }),
-            { symbol: 'none', label: { show: true }, data: [] }
+            {
+              symbol: 'none',
+              label: { show: true },
+              data: [],
+              lineStyle: { width: 2 },
+              emphasis: { lineStyle: { width: 4 } },
+            }
           ),
         }),
       },
@@ -232,8 +238,9 @@ const COST_OPTION = ({ oldCost, newCost }) => {
           markLine: {
             data: [{ xAxis: target }],
             symbol: 'none',
-            lineStyle: { color: colors._orange },
+            lineStyle: { color: colors._orange, width: 2 },
             label: { show: false },
+            emphasis: { lineStyle: { width: 4 } },
           },
         }),
       },

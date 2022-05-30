@@ -13,9 +13,9 @@ export function getLabelFontSize() {
   const fontSize = getFontSize();
   switch (fontSize) {
     case 60:
-      return { fontSize: 36, lineHeight: 40 };
+      return { fontSize: 48, lineHeight: 56 };
     case 40:
-      return { fontSize: 30, lineHeight: 36 };
+      return { fontSize: 40, lineHeight: 48 };
     case 30:
       return { fontSize: 24, lineHeight: 32 };
     case 20:
@@ -54,6 +54,27 @@ export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } =
         markLine: {
           ...markLine,
           label: { ...markLine.label, ...labelFontSize },
+          ...(markLine.lineStyle && {
+            lineStyle: {
+              ...markLine.lineStyle,
+              ...(markLine.lineStyle.width && {
+                width: setFontSize(markLine.lineStyle.width, fontSizeRatio),
+              }),
+            },
+          }),
+          ...(markLine.emphasis && {
+            emphasis: {
+              ...markLine.emphasis,
+              ...(markLine.emphasis.lineStyle && {
+                lineStyle: {
+                  ...markLine.emphasis.lineStyle,
+                  ...(markLine.emphasis.lineStyle.width && {
+                    width: setFontSize(markLine.emphasis.lineStyle.width, fontSizeRatio),
+                  }),
+                },
+              }),
+            },
+          }),
           ...(markLine.data && {
             data: markLine.data.map((d) =>
               Array.isArray(d)

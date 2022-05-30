@@ -119,6 +119,8 @@ const OPTION = (values, labels, target) => {
                 ]
               : []
           ),
+          lineStyle: { width: 2 },
+          emphasis: { lineStyle: { width: 4 } },
         },
       },
     ],

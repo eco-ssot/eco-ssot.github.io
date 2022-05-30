@@ -46,8 +46,9 @@ const OPTION = (values, labels, target, barColors) => ({
         markLine: {
           data: [{ yAxis: target }],
           symbol: 'none',
-          lineStyle: { color: colors._orange },
+          lineStyle: { color: colors._orange, width: 2 },
           label: { formatter: baseFormatter },
+          emphasis: { lineStyle: { width: 4 } },
         },
       }),
     },

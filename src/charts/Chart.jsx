@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
 import clsx from 'clsx';
 import { LineChart, BarChart, PieChart, ScatterChart } from 'echarts/charts';
@@ -35,9 +35,9 @@ echarts.registerTheme('dark', darkTheme);
 
 export default function Chart({ className, option = {} }) {
   const windowSize = useWindowSize();
-  const chartRef = useRef();
-  const dataset = (option.series || []).map(({ data }) => data);
   const prevWindowSize = usePreviousDistinct(windowSize);
+  const chartRef = useRef();
+  const dataset = useMemo(() => (option.series || []).map(({ data }) => data), [option.series]);
   useDeepCompareEffect(() => {
     let instance = echarts.getInstanceByDom(chartRef.current);
     const initInstance = () => {

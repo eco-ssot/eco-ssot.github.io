@@ -282,6 +282,8 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
               { coord: [maxX, maxX * slope] },
             ],
           ],
+          lineStyle: { width: 2 },
+          emphasis: { lineStyle: { width: 4 } },
         },
       },
       {
