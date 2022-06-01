@@ -33,8 +33,9 @@ const statusRenderer = (label) => (cell) => {
       <div
         className={clsx(
           'h-3 w-3 min-w-3 rounded-full text-center',
-          STATUS_MAPPING[cell.value]
-          // ['CSR', '月報表'].includes(cell.row.original[label]) ? 'bg-primary-500' : STATUS_MAPPING[cell.value]
+          process.env.REACT_APP_MANUAL_DATA_STATUS === '1' && ['CSR', '月報表'].includes(cell.row.original[label])
+            ? 'bg-primary-500'
+            : STATUS_MAPPING[cell.value]
         )}></div>
       <div>{cell.row.original[label]}</div>
     </div>
