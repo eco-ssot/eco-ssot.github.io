@@ -69,6 +69,7 @@ export default function RenewableEnergy({ data = {} }) {
       <div className="flex h-full w-1/2 items-center justify-center">
         <Chart className="h-full w-full" option={option} />
         <div className="absolute text-center text-lg font-medium">
+          <div className="font-medium">Total</div>
           <div className="text-_orange">{`Target : > ${getDecimalNumber(data?.target) || '-'}%`}</div>
           <div>{`Actual : ${ratioFormatter(1 - data.nonRenewableEnergy, { precision: 1 })}`}</div>
         </div>
