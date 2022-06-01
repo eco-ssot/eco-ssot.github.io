@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 
 import { Disclosure } from '@headlessui/react';
 import { PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
-import { PencilIcon, ChevronUpIcon, CheckIcon } from '@heroicons/react/solid';
+import { PencilIcon, ChevronDownIcon, CheckIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast, format } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
@@ -124,14 +124,14 @@ export function AnalysisSubTable({
     <>
       <DeleteModal open={!isBoolean(deleteId)} setOpen={setDeleteId} onConfirm={() => onDeleteRow(deleteId)} />
       <ErrorModal open={open} setOpen={setOpen} />
-      <Disclosure>
+      <Disclosure defaultOpen>
         {({ open }) => (
           <>
             <Disclosure.Button
               as="div"
               className="grid w-full cursor-pointer grid-cols-11 items-center gap-2 border-t border-b border-primary-600 bg-primary-600 bg-opacity-10 py-2 px-2 text-left font-medium tracking-wider text-primary-600">
               <div className={clsx('flex items-center space-x-2', hasCategory ? 'col-span-2' : 'col-span-3')}>
-                <ChevronUpIcon
+                <ChevronDownIcon
                   className={clsx('h-5 w-5 text-primary-600 transition-transform', open && 'rotate-180')}
                 />
                 <div className="font-medium">{t('analysisPage:table.strategy')}</div>
@@ -156,7 +156,10 @@ export function AnalysisSubTable({
             </Disclosure.Button>
             <Disclosure.Panel
               static={canAddRow}
-              className="w-full divide-y divide-primary-600 divide-opacity-50 border-b border-divider">
+              className={clsx(
+                'w-full divide-y divide-primary-600 divide-opacity-50',
+                (_data?.length || canAddRow) && 'border-b border-divider'
+              )}>
               {_data &&
                 _data.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
                   <div key={i} className="grid grid-cols-11 items-center gap-2 px-2 py-2">
