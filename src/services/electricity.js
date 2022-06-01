@@ -148,7 +148,7 @@ export const electricityApi = appApi.injectEndpoints({
     }),
     postElectricityExplanation: builder.mutation({
       query: ({ data }) => ({ data, url: 'electric/anaysis/explanation', method: 'POST' }),
-      invalidatesTags: ['ELECTRICITY_EXPLANATION'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     postElectricityImprovement: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}/improvements`, method: 'POST' }),
@@ -156,6 +156,7 @@ export const electricityApi = appApi.injectEndpoints({
     }),
     patchElectricityExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `electric/anaysis/explanation/${id}`, method: 'PATCH' }),
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     patchElectricityImprovement: builder.mutation({
       query: ({ id, subId, data }) => ({
@@ -163,7 +164,7 @@ export const electricityApi = appApi.injectEndpoints({
         url: `electric/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'PATCH',
       }),
-      invalidatesTags: ['POWER_SAVING'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     deleteElectricityExplanation: builder.mutation({
       query: ({ id }) => ({ url: `electric/anaysis/explanation/${id}`, method: 'DELETE' }),
@@ -182,7 +183,7 @@ export const electricityApi = appApi.injectEndpoints({
         url: `electric/inference/saving-tech/${year}/${plant}`,
         method: 'POST',
       }),
-      invalidatesTags: ['POWER_SAVING'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
     patchElectricityPowerSavingMutation: builder.mutation({
       query: ({ year, plant, data } = {}) => ({
@@ -190,7 +191,7 @@ export const electricityApi = appApi.injectEndpoints({
         url: `electric/inference/saving-tech/${year}/${plant}`,
         method: 'PATCH',
       }),
-      invalidatesTags: ['POWER_SAVING'],
+      invalidatesTags: ['ELECTRICITY_EXPLANATION', 'POWER_SAVING'],
     }),
   }),
   overrideExisting: false,

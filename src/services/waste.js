@@ -89,6 +89,7 @@ export const wasteApi = appApi.injectEndpoints({
     }),
     patchWasteExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `waste/anaysis/explanation/${id}`, method: 'PATCH' }),
+      invalidatesTags: ['WASTE_EXPLANATION'],
     }),
     patchWasteImprovement: builder.mutation({
       query: ({ id, subId, data }) => ({
@@ -96,6 +97,7 @@ export const wasteApi = appApi.injectEndpoints({
         url: `waste/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'PATCH',
       }),
+      invalidatesTags: ['WASTE_EXPLANATION'],
     }),
     deleteWasteExplanation: builder.mutation({
       query: ({ id }) => ({ url: `waste/anaysis/explanation/${id}`, method: 'DELETE' }),

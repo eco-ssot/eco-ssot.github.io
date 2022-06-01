@@ -98,6 +98,7 @@ export const waterApi = appApi.injectEndpoints({
     }),
     patchWaterExplanation: builder.mutation({
       query: ({ id, data }) => ({ data, url: `water/anaysis/explanation/${id}`, method: 'PATCH' }),
+      invalidatesTags: ['WATER_EXPLANATION'],
     }),
     patchWaterImprovement: builder.mutation({
       query: ({ id, subId, data }) => ({
@@ -105,6 +106,7 @@ export const waterApi = appApi.injectEndpoints({
         url: `water/anaysis/explanation/${id}/improvements/${subId}`,
         method: 'PATCH',
       }),
+      invalidatesTags: ['WATER_EXPLANATION'],
     }),
     deleteWaterExplanation: builder.mutation({
       query: ({ id }) => ({ url: `water/anaysis/explanation/${id}`, method: 'DELETE' }),
