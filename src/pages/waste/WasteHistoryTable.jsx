@@ -173,7 +173,7 @@ export default function WasteHistoryTable({
       {data && (
         <>
           <div className="h-6 w-full text-right">
-            {startYear === endYear ? t('wastePage:history.wasteDesc') : t('common:gapDesc')}
+            {startYear === endYear ? t('wastePage:history.wasteDesc') : t('wastePage:history.gapDesc')}
           </div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
             <Table columns={columns} data={(data?.data || []).map(toRow(option))} />

@@ -30,6 +30,7 @@
     "delta": "Gap *",
     "weight": "Weight",
     "wasteAbbr": "Intensity",
-    "wasteDesc": "* Intensity : Waste Generation Intensity (ton/billion NTD); Weight : Waste Weight (ton)"
+    "wasteDesc": "* Intensity : Waste Generation Intensity (ton/billion NTD); Weight : Waste Weight (ton)",
+    "gapDesc": "* Gap = (Current year − Base year) / Base year"
   }
 }
