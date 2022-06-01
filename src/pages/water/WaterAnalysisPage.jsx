@@ -248,9 +248,17 @@ export default function WaterAnalysisPage() {
       tableData={tableData?.data}
       target={label}
       chartOption={option}
-      onRowChange={({ id, data }) =>
-        isNil(id) ? postExplanation({ data: { ...data, site, plant, bo: business } }) : patchExplanation({ id, data })
-      }
+      onRowChange={({ id, data, subData }) => {
+        if (isNil(id)) {
+          postExplanation({ data: { ...data, site, plant, bo: business } }).then((res) => {
+            if (res.data?.id && subData) {
+              subData?.map((d) => postImprovement({ id: res.data.id, data: d }));
+            }
+          });
+        } else {
+          patchExplanation({ id, data });
+        }
+      }}
       onSubRowChange={({ id, subId, data }) =>
         isNil(subId) ? postImprovement({ id, data }) : patchImprovement({ id, subId, data })
       }

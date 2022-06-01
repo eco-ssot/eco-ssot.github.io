@@ -93,7 +93,7 @@ export function customTheme(theme) {
 export function BaseAsyncReactSelect({ className, strategy = 'absolute', ...props }) {
   return (
     <AsyncSelect
-      className={clsx('z-10', className)}
+      className={clsx(className)}
       theme={customTheme}
       styles={customStyles}
       components={{
@@ -111,7 +111,7 @@ export function BaseAsyncReactSelect({ className, strategy = 'absolute', ...prop
 export default function BaseReactSelect({ className, strategy = 'absolute', ...props }) {
   return (
     <Select
-      className={clsx('z-10', className)}
+      className={clsx(className)}
       theme={customTheme}
       styles={customStyles}
       components={{

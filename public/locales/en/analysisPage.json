@@ -7,6 +7,7 @@
   "aboutToOverdue": "Less than a week from D.D",
   "addDesc": "Add New",
   "cancelAdd": "Cancel",
+  "addImprovement": "Click to add improvement",
   "electricity": {
     "type": "electricity",
     "title": "Electricity Consumption per Billion NTD : Analysis",
