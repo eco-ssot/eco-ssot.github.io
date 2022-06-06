@@ -113,7 +113,7 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
     accessor: 'comment',
     className: 'w-[45%] px-8 !text-left',
     editable: true,
-    editableComponentProps: { className: 'text-left', wrapperClassName: 'w-full' },
+    editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
   },
   {
     id: 'action',

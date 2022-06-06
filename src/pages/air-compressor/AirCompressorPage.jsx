@@ -9,6 +9,8 @@ import { useSearchParams } from 'react-router-dom';
 import Chart from '../../charts/Chart';
 import { tooltip } from '../../charts/tooltip';
 import Button from '../../components/button/Button';
+import Dialog from '../../components/dialog/Dialog';
+import Input from '../../components/input/Input';
 import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
@@ -17,6 +19,8 @@ import { useGetRoiQuery, useGetAirCompressListQuery } from '../../services/airCo
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
+
+import SpecTable from './SpecTable';
 
 const formatter = (cell) => baseFormatter(cell.value, { precision: 2 });
 
@@ -329,13 +333,15 @@ export default function AirCompressorPage() {
   return (
     <div className="-mt-16 flex h-screen w-screen flex-col space-y-4 overflow-hidden p-4 pt-20">
       <div className={clsx('rounded bg-primary-900 p-4 shadow')}>
-        <div className="text-xl font-medium">空壓設備智能推薦</div>
+        <div className="mb-4 text-xl font-medium">空壓設備智能推薦</div>
         <div className="flex flex-grow justify-center space-x-8">
-          <div className="space-y-4 border-r-2 border-divider pr-8">
-            <div>欲評估設備</div>
-            <div className="flex space-x-4">
+          <div className="space-y-2 border-r-2 border-divider pr-8">
+            <div className="font-medium">欲評估設備</div>
+            <div className="flex space-x-2">
               <Select
-                buttonClassName="min-w-32"
+                className="flex-col !items-start"
+                splitter={null}
+                buttonClassName="w-32"
                 label="廠區資訊"
                 options={buildingOptions}
                 selected={buildingOptions?.find((opt) => opt.key === searchOption.building)}
@@ -351,42 +357,95 @@ export default function AirCompressorPage() {
                 }
               />
               <Select
-                buttonClassName="min-w-32"
+                className="flex-col !items-start"
+                splitter={null}
+                buttonClassName="w-32"
                 label="設備編號"
                 options={machineOptions}
                 selected={machineOptions?.find((opt) => opt.key === searchOption.machine)}
                 onChange={(e) => setSearchOption((prev) => ({ ...prev, machine: e.key }))}
               />
+              <div className="flex items-end space-x-1">
+                <Input
+                  className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
+                  label="保養成本"
+                  placeholder="非必填"
+                />
+                <div className="-translate-y-1 text-gray-300">萬元</div>
+              </div>
             </div>
           </div>
-          <div className="space-y-4 border-r-2 border-divider pr-8">
-            <div>新機台規格</div>
-            <div className="flex space-x-4">
+          <div className="space-y-2 border-r-2 border-divider pr-8">
+            <div className="flex justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="font-medium">新機台規格</div>
+                <Dialog
+                  open={true}
+                  render={({ close }) => <SpecTable close={close} />}
+                  title="常用新機台規格"
+                  titleClassName="bg-primary-800 rounded-t py-2 px-4"
+                  className="max-w-6xl">
+                  <div className="cursor-pointer font-medium text-primary-600 underline">常用規格</div>
+                </Dialog>
+              </div>
+            </div>
+            <div className="flex space-x-2">
               <Select
-                buttonClassName="min-w-32"
+                className="flex-col !items-start"
+                splitter={null}
+                buttonClassName="w-32"
                 label="潤滑類型"
                 options={oilOptions}
                 selected={oilOptions?.find((opt) => opt.key === searchOption.oil_type)}
                 onChange={(e) => setSearchOption((prev) => ({ ...prev, oil_type: e.key }))}
               />
               <Select
-                buttonClassName="min-w-32"
+                className="flex-col !items-start"
+                splitter={null}
+                buttonClassName="w-32"
                 label="壓縮類型"
                 options={compressOptions}
                 selected={compressOptions?.find((opt) => opt.key === searchOption.compress_type)}
                 onChange={(e) => setSearchOption((prev) => ({ ...prev, compress_type: e.key }))}
               />
               <Select
-                buttonClassName="min-w-32"
+                className="flex-col !items-start"
+                splitter={null}
+                buttonClassName="w-32"
                 label="運轉類型"
                 options={runOptions}
                 selected={runOptions?.find((opt) => opt.key === searchOption.run_type)}
                 onChange={(e) => setSearchOption((prev) => ({ ...prev, run_type: e.key }))}
               />
+              <Input
+                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
+                label="額定功率"
+                placeholder="Type here"
+              />
+              <Input
+                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
+                label="額定排氣量"
+                placeholder="Type here"
+              />
+              <Input
+                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
+                label="額定能效"
+                placeholder="Type here"
+              />
+              <Input
+                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
+                label="購置新機費用"
+                placeholder="Type here"
+              />
+              <Input
+                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
+                label="品牌 / 型號"
+                placeholder="非必填"
+              />
             </div>
           </div>
           <Button
-            className="self-end"
+            className="self-center"
             onClick={() =>
               navigate(
                 {

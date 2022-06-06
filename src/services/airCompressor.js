@@ -8,8 +8,11 @@ export const airCompressorApi = appApi.injectEndpoints({
     getRoi: builder.query({
       query: (query) => ({ query, url: 'air-compress/rec' }),
     }),
+    getSpec: builder.query({
+      query: (query) => ({ query, url: 'air-compress/specs' }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetAirCompressListQuery, useGetRoiQuery } = airCompressorApi;
+export const { useGetAirCompressListQuery, useGetRoiQuery, useGetSpecQuery } = airCompressorApi;

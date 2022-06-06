@@ -6,7 +6,7 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { useMeasure } from 'react-use';
 
-import Ellipse from '../ellipsis/Ellipsis';
+import Ellipsis from '../ellipsis/Ellipsis';
 
 export default function Select({
   className,
@@ -58,7 +58,7 @@ export default function Select({
               )}
               {...(ariaLabel && { 'aria-label': ariaLabel })}>
               <span className={clsx('block truncate', options.length === 0 && 'opacity-50')}>
-                {options.length === 0 ? placeholder : selected.value}
+                <Ellipsis label={options.length === 0 ? placeholder : selected.value} />
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -98,7 +98,7 @@ export default function Select({
                       value={option}>
                       {({ selected, active, disabled }) => (
                         <>
-                          <Ellipse
+                          <Ellipsis
                             label={option.value}
                             className={clsx(selected ? 'font-semibold' : 'font-normal', disabled && 'opacity-50')}
                           />
@@ -119,7 +119,7 @@ export default function Select({
                     <Listbox.Option
                       disabled
                       className="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-50">
-                      <Ellipse label="No Options" className="opacity-50"></Ellipse>
+                      <Ellipsis label="No Options" className="opacity-50"></Ellipsis>
                     </Listbox.Option>
                   )}
                 </Listbox.Options>

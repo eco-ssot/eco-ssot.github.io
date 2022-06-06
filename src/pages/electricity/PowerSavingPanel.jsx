@@ -58,7 +58,7 @@ const POWER_SAVING_COLUMNS = ({
     className: 'w-[8%] text-center',
     rowSpan: 0,
     editable: true,
-    editableComponentProps: { className: 'text-left' },
+    editableComponentProps: { className: 'text-left h-10' },
   },
   {
     id: 'expect',
@@ -69,7 +69,7 @@ const POWER_SAVING_COLUMNS = ({
       editable: true,
       className: '!px-1 w-[4%] text-right',
       formatter: baseFormatter,
-      editableComponentProps: { className: 'text-left' },
+      editableComponentProps: { className: 'text-right h-10' },
     })).concat({
       id: 'total',
       Header: '總計',

@@ -25,7 +25,7 @@ const customStyles = {
   }),
   control: (provided, state) => ({
     ...provided,
-    ...tw`bg-transparent border border-divider bg-gray-50 bg-opacity-10 border-opacity-50 cursor-text min-h-0 hover:border-primary-600`,
+    ...tw`bg-transparent border border-divider bg-gray-50 bg-opacity-10 border-opacity-50 cursor-text min-h-10 hover:border-primary-600`,
     ...(state.isFocused && {
       ...tw`border-primary-600`,
     }),
@@ -40,6 +40,10 @@ const customStyles = {
   menuList: (provided, state) => ({
     ...provided,
     ...tw`bg-primary-900 border border-divider rounded-md max-h-60 shadow-lg`,
+  }),
+  menuPortal: (provided, state) => ({
+    ...provided,
+    ...tw`z-50`,
   }),
   input: (provided, state) => ({
     ...provided,

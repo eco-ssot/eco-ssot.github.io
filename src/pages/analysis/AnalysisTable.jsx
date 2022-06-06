@@ -167,7 +167,7 @@ export function AnalysisSubTable({
                       <>
                         <div className={clsx('h-full', hasCategory ? 'col-span-2' : 'col-span-3')}>
                           <InputCell
-                            className="h-full"
+                            className="h-10"
                             wrapperClassName="w-full"
                             defaultValue={name}
                             onBlur={updateRow('name', i)}
@@ -185,7 +185,7 @@ export function AnalysisSubTable({
                             />
                             <div className="w-full">
                               <InputCell
-                                className="h-full"
+                                className="h-10"
                                 wrapperClassName="w-full"
                                 defaultValue={expect}
                                 onBlur={updateRow('expect', i)}
@@ -195,7 +195,7 @@ export function AnalysisSubTable({
                         ) : (
                           <div className="col-span-2 h-full">
                             <InputCell
-                              className="h-full"
+                              className="h-10"
                               wrapperClassName="w-full"
                               defaultValue={expect}
                               onBlur={updateRow('expect', i)}
@@ -204,7 +204,7 @@ export function AnalysisSubTable({
                         )}
                         <div className="col-span-1 h-full">
                           <InputCell
-                            className="h-full"
+                            className="h-10"
                             suffix="%"
                             defaultValue={contribution}
                             onBlur={updateRow('contribution', i)}
