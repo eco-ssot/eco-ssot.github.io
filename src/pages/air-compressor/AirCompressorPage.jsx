@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import { format, subDays } from 'date-fns';
 import { isEmpty, pick } from 'lodash';
 import { renderToString } from 'react-dom/server';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
 import { tooltip } from '../../charts/tooltip';
@@ -18,6 +18,7 @@ import useNavigate from '../../router/useNavigate';
 import { useGetRoiQuery, useGetAirCompressListQuery } from '../../services/airCompressor';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
+import { trimNumber } from '../../utils/number';
 import { addPaddingColumns } from '../../utils/table';
 
 import SpecTable from './SpecTable';
@@ -261,6 +262,12 @@ export default function AirCompressorPage() {
     'oil_type',
     'compress_type',
     'run_type',
+    'maintenance',
+    'power',
+    'engine_depcmemt',
+    'eer_r',
+    'cost',
+    'model_number',
   ]);
 
   const [searchOption, setSearchOption] = useState(query);
@@ -325,8 +332,13 @@ export default function AirCompressorPage() {
   const roiColumns = useMemo(() => ROI_COLUMNS, []);
   const oldMachineColumns = useMemo(() => OLD_MACHINE_COLUMNS, []);
   const newMachineColumns = useMemo(() => NEW_MACHINE_COLUMNS, []);
+  const inputsRef = useRef({ nodes: {} });
   useEffect(() => {
-    data && setMachineIndex({ old: 0, new: 0 });
+    if (data) {
+      setMachineIndex({ old: 0, new: 0 });
+      const { nodes } = inputsRef.current;
+      inputsRef.current = { nodes };
+    }
   }, [data]);
 
   const navigate = useNavigate();
@@ -367,9 +379,16 @@ export default function AirCompressorPage() {
               />
               <div className="flex items-end space-x-1">
                 <Input
+                  ref={(node) => {
+                    inputsRef.current['nodes'][node?.id] = node;
+                  }}
                   className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                   label="保養成本"
                   placeholder="非必填"
+                  onChange={(e) => {
+                    inputsRef.current['maintenance'] = trimNumber(e.target.value);
+                  }}
+                  defaultValue={searchOption.maintenance}
                 />
                 <div className="-translate-y-1 text-gray-300">萬元</div>
               </div>
@@ -380,13 +399,24 @@ export default function AirCompressorPage() {
               <div className="flex items-center space-x-4">
                 <div className="font-medium">新機台規格</div>
                 <Dialog
-                  open={true}
-                  render={({ close }) => <SpecTable close={close} />}
+                  render={({ close }) => <SpecTable close={close} setSearchOption={setSearchOption} />}
                   title="常用新機台規格"
                   titleClassName="bg-primary-800 rounded-t py-2 px-4"
-                  className="max-w-6xl">
+                  className="max-w-7xl">
                   <div className="cursor-pointer font-medium text-primary-600 underline">常用規格</div>
                 </Dialog>
+              </div>
+              <div className="flex space-x-2">
+                <div className="cursor-pointer font-medium text-primary-600 underline">加入常用規格</div>
+                <Link
+                  to={{ pathname: '/air-compressor', search: '' }}
+                  className="text-gray-300 underline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Object.values(inputsRef.current.nodes).forEach((node) => (node.value = ''));
+                  }}>
+                  清除
+                </Link>
               </div>
             </div>
             <div className="flex space-x-2">
@@ -418,47 +448,86 @@ export default function AirCompressorPage() {
                 onChange={(e) => setSearchOption((prev) => ({ ...prev, run_type: e.key }))}
               />
               <Input
+                required
+                ref={(node) => {
+                  inputsRef.current['nodes'][node?.id] = node;
+                }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="額定功率"
                 placeholder="Type here"
+                onChange={(e) => {
+                  inputsRef.current['power'] = trimNumber(e.target.value);
+                }}
+                defaultValue={searchOption.power}
               />
               <Input
+                required
+                ref={(node) => {
+                  inputsRef.current['nodes'][node?.id] = node;
+                }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="額定排氣量"
                 placeholder="Type here"
+                onChange={(e) => {
+                  inputsRef.current['engine_depcmemt'] = trimNumber(e.target.value);
+                }}
+                defaultValue={searchOption.engine_depcmemt}
               />
               <Input
+                required
+                ref={(node) => {
+                  inputsRef.current['nodes'][node?.id] = node;
+                }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="額定能效"
                 placeholder="Type here"
+                onChange={(e) => {
+                  inputsRef.current['eer_r'] = trimNumber(e.target.value);
+                }}
+                defaultValue={searchOption.eer_r}
               />
               <Input
+                required
+                ref={(node) => {
+                  inputsRef.current['nodes'][node?.id] = node;
+                }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="購置新機費用"
                 placeholder="Type here"
+                onChange={(e) => {
+                  inputsRef.current['cost'] = trimNumber(e.target.value);
+                }}
+                defaultValue={searchOption.cost}
               />
               <Input
+                ref={(node) => {
+                  inputsRef.current['nodes'][node?.id] = node;
+                }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="品牌 / 型號"
                 placeholder="非必填"
+                onChange={(e) => {
+                  inputsRef.current['model_number'] = e.target.value;
+                }}
+                defaultValue={searchOption.model_number}
               />
             </div>
           </div>
           <Button
             className="self-center"
-            onClick={() =>
-              navigate(
-                {
-                  ...searchOption,
-                  ...(!searchOption.building && { building: buildingOptions?.[0]?.key || null }),
-                  ...(!searchOption.machine && { machine: machineOptions?.[0]?.key || null }),
-                  ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
-                  ...(!searchOption.compress_type && { compress_type: compressOptions?.[0]?.key || null }),
-                  ...(!searchOption.run_type && { run_type: runOptions?.[0]?.key || null }),
-                },
-                { skipNull: false }
-              )
-            }>
+            onClick={() => {
+              const query = {
+                ...searchOption,
+                ...(!searchOption.building && { building: buildingOptions?.[0]?.key || null }),
+                ...(!searchOption.machine && { machine: machineOptions?.[0]?.key || null }),
+                ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
+                ...(!searchOption.compress_type && { compress_type: compressOptions?.[0]?.key || null }),
+                ...(!searchOption.run_type && { run_type: runOptions?.[0]?.key || null }),
+                ...inputsRef.current,
+              };
+
+              navigate(query, { skipNull: false });
+            }}>
             計算能效
           </Button>
         </div>

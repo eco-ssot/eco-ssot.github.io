@@ -36,7 +36,7 @@ echarts.registerTheme('dark', darkTheme);
 export default function Chart({ className, option = {} }) {
   const windowSize = useWindowSize();
   const prevWindowSize = usePreviousDistinct(windowSize);
-  const chartRef = useRef();
+  const chartRef = useRef(null);
   const dataset = useMemo(() => (option.series || []).map(({ data }) => data), [option.series]);
   useDeepCompareEffect(() => {
     let instance = echarts.getInstanceByDom(chartRef.current);
