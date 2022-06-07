@@ -283,7 +283,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
   },
 ];
 
-export default function SpecTable({ close, setSearchOption }) {
+export default function SpecTable({ close, onApply }) {
   const { data } = useGetSpecQuery();
   const { data: list } = useGetAirCompressListQuery();
   const [_data, setData] = useState();
@@ -348,7 +348,8 @@ export default function SpecTable({ close, setSearchOption }) {
       <Button
         className={clsx(selectedRowIndex < 0 && 'pointer-events-none opacity-50')}
         onClick={() => {
-          setSearchOption(_data?.[selectedRowIndex]);
+          const { id, order, ...rest } = _data?.[selectedRowIndex] || {};
+          onApply(rest);
           close();
         }}>
         匯入

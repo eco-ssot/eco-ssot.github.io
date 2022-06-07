@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import { format, subDays } from 'date-fns';
 import { isEmpty, pick } from 'lodash';
 import { renderToString } from 'react-dom/server';
-import { Link, useSearchParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useSearchParams } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
 import { tooltip } from '../../charts/tooltip';
@@ -15,7 +16,7 @@ import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import useNavigate from '../../router/useNavigate';
-import { useGetRoiQuery, useGetAirCompressListQuery } from '../../services/airCompressor';
+import { useGetRoiQuery, useGetAirCompressListQuery, usePostSpecMutation } from '../../services/airCompressor';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
@@ -279,6 +280,7 @@ export default function AirCompressorPage() {
   );
 
   const { data } = useGetRoiQuery(query, { skip: isEmpty(query) });
+  const [_data, setData] = useState();
   const buildingOptions = useMemo(
     () => list?.building?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
     [list?.building]
@@ -307,37 +309,39 @@ export default function AirCompressorPage() {
   const eerOption = useMemo(
     () =>
       OPTION({
-        data: data?.weekly?.eer,
+        data: _data?.weekly?.eer,
         name: 'EER',
         targets: [7.8, 8.7, 9.5],
         targetColors: [colors._yellow, colors._orange, colors._blue],
       }),
-    [data?.weekly?.eer]
+    [_data?.weekly?.eer]
   );
 
   const roiOption = useMemo(
-    () => OPTION({ data: data?.weekly?.roi, name: 'ROI', targets: [3], targetColors: [colors._orange] }),
-    [data?.weekly?.roi]
+    () => OPTION({ data: _data?.weekly?.roi, name: 'ROI', targets: [3], targetColors: [colors._orange] }),
+    [_data?.weekly?.roi]
   );
 
   const costOption = useMemo(
     () =>
       COST_OPTION({
-        oldCost: { data: data?.recommand?.old?.[machineIndex.old]?.predict_cost, name: '備機設備' },
-        newCost: { data: data?.recommand?.new?.[machineIndex.new]?.predict_cost, name: '新設備' },
+        oldCost: { data: _data?.recommand?.old?.[machineIndex.old]?.predict_cost, name: '備機設備' },
+        newCost: { data: _data?.recommand?.new?.[machineIndex.new]?.predict_cost, name: '新設備' },
       }),
-    [data?.recommand, machineIndex.old, machineIndex.new]
+    [_data?.recommand, machineIndex.old, machineIndex.new]
   );
 
   const roiColumns = useMemo(() => ROI_COLUMNS, []);
   const oldMachineColumns = useMemo(() => OLD_MACHINE_COLUMNS, []);
   const newMachineColumns = useMemo(() => NEW_MACHINE_COLUMNS, []);
-  const inputsRef = useRef({ nodes: {} });
+  const inputsRef = useRef({});
+  const inputNodesRef = useRef({});
+  const [postSpec] = usePostSpecMutation();
   useEffect(() => {
     if (data) {
+      setData(data);
       setMachineIndex({ old: 0, new: 0 });
-      const { nodes } = inputsRef.current;
-      inputsRef.current = { nodes };
+      inputsRef.current = {};
     }
   }, [data]);
 
@@ -379,8 +383,9 @@ export default function AirCompressorPage() {
               />
               <div className="flex items-end space-x-1">
                 <Input
+                  name="maintenance"
                   ref={(node) => {
-                    inputsRef.current['nodes'][node?.id] = node;
+                    inputNodesRef.current[node?.name] = node;
                   }}
                   className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                   label="保養成本"
@@ -399,7 +404,19 @@ export default function AirCompressorPage() {
               <div className="flex items-center space-x-4">
                 <div className="font-medium">新機台規格</div>
                 <Dialog
-                  render={({ close }) => <SpecTable close={close} setSearchOption={setSearchOption} />}
+                  render={({ close }) => (
+                    <SpecTable
+                      close={close}
+                      onApply={(e) => {
+                        setSearchOption(e);
+                        Object.entries(e).forEach(([key, value]) => {
+                          if (inputNodesRef.current[key]) {
+                            inputNodesRef.current[key].value = value;
+                          }
+                        });
+                      }}
+                    />
+                  )}
                   title="常用新機台規格"
                   titleClassName="bg-primary-800 rounded-t py-2 px-4"
                   className="max-w-7xl">
@@ -407,16 +424,42 @@ export default function AirCompressorPage() {
                 </Dialog>
               </div>
               <div className="flex space-x-2">
-                <div className="cursor-pointer font-medium text-primary-600 underline">加入常用規格</div>
-                <Link
-                  to={{ pathname: '/air-compressor', search: '' }}
-                  className="text-gray-300 underline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    Object.values(inputsRef.current.nodes).forEach((node) => (node.value = ''));
+                <div
+                  className="cursor-pointer font-medium text-primary-600 underline"
+                  onClick={() => {
+                    const payload = {
+                      ...searchOption,
+                      ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
+                      ...(!searchOption.compress_type && { compress_type: compressOptions?.[0]?.key || null }),
+                      ...(!searchOption.run_type && { run_type: runOptions?.[0]?.key || null }),
+                      ...inputsRef.current,
+                    };
+
+                    postSpec(payload).then((res) => {
+                      if (res.data?.msg === 'success') {
+                        toast.success('Success');
+                      }
+                    });
+                  }}>
+                  加入常用規格
+                </div>
+                <div
+                  className="cursor-pointer text-gray-300 underline"
+                  onClick={() => {
+                    navigate({}, { merge: false });
+                    setMachineIndex({ old: -1, new: -1 });
+                    setSearchOption({});
+                    setData();
+                    Object.values(inputNodesRef.current).forEach((node) => {
+                      if (node) {
+                        node.value = '';
+                      }
+                    });
+
+                    inputsRef.current = {};
                   }}>
                   清除
-                </Link>
+                </div>
               </div>
             </div>
             <div className="flex space-x-2">
@@ -449,8 +492,9 @@ export default function AirCompressorPage() {
               />
               <Input
                 required
+                name="power"
                 ref={(node) => {
-                  inputsRef.current['nodes'][node?.id] = node;
+                  inputNodesRef.current[node?.name] = node;
                 }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="額定功率"
@@ -462,8 +506,9 @@ export default function AirCompressorPage() {
               />
               <Input
                 required
+                name="engine_depcmemt"
                 ref={(node) => {
-                  inputsRef.current['nodes'][node?.id] = node;
+                  inputNodesRef.current[node?.name] = node;
                 }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="額定排氣量"
@@ -475,8 +520,9 @@ export default function AirCompressorPage() {
               />
               <Input
                 required
+                name="eer_r"
                 ref={(node) => {
-                  inputsRef.current['nodes'][node?.id] = node;
+                  inputNodesRef.current[node?.name] = node;
                 }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="額定能效"
@@ -488,8 +534,9 @@ export default function AirCompressorPage() {
               />
               <Input
                 required
+                name="cost"
                 ref={(node) => {
-                  inputsRef.current['nodes'][node?.id] = node;
+                  inputNodesRef.current[node?.name] = node;
                 }}
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="購置新機費用"
@@ -501,8 +548,9 @@ export default function AirCompressorPage() {
               />
               <Input
                 ref={(node) => {
-                  inputsRef.current['nodes'][node?.id] = node;
+                  inputNodesRef.current[node?.name] = node;
                 }}
+                name="model_number"
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
                 label="品牌 / 型號"
                 placeholder="非必填"
@@ -526,7 +574,7 @@ export default function AirCompressorPage() {
                 ...inputsRef.current,
               };
 
-              navigate(query, { skipNull: false });
+              navigate(query);
             }}>
             計算能效
           </Button>
@@ -537,7 +585,7 @@ export default function AirCompressorPage() {
           <div className="flex w-[40%] flex-col space-y-4">
             <div className="text-xl font-medium">設備能效 / ROI資訊</div>
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
-              <Table columns={roiColumns} data={[].concat(data?.summary || DUMMY_ROI_DATA)} />
+              <Table columns={roiColumns} data={[].concat(_data?.summary || DUMMY_ROI_DATA)} />
             </div>
           </div>
           <div className="flex w-[30%] flex-col">
@@ -562,7 +610,7 @@ export default function AirCompressorPage() {
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
                 columns={oldMachineColumns}
-                data={data?.recommand?.old || DUMMY_OLD_MACHINE_DATA}
+                data={_data?.recommand?.old || DUMMY_OLD_MACHINE_DATA}
                 getRowProps={(row) => ({
                   className: clsx('cursor-pointer', machineIndex.old === row.index && 'bg-_blue bg-opacity-20'),
                   onClick: () =>
@@ -578,7 +626,7 @@ export default function AirCompressorPage() {
             <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
               <Table
                 columns={newMachineColumns}
-                data={data?.recommand?.new || DUMMY_NEW_MACHING_DATA}
+                data={_data?.recommand?.new || DUMMY_NEW_MACHING_DATA}
                 getRowProps={(row) => ({
                   className: clsx('cursor-pointer', machineIndex.new === row.index && 'bg-_yellow bg-opacity-20'),
                   onClick: () =>

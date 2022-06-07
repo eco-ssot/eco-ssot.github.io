@@ -14,6 +14,7 @@ const Input = forwardRef(
       type = 'text',
       label = '',
       required = false,
+      name = '',
       ...props
     },
     ref
@@ -29,6 +30,7 @@ const Input = forwardRef(
         <input
           ref={ref}
           id={id}
+          name={name || id}
           defaultValue={isNil(value) ? '' : value}
           type={type}
           className={clsx(
