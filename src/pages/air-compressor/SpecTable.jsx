@@ -472,7 +472,7 @@ function Table({
     });
   };
 
-  const onDrop = () => {
+  const onDrop = (...args) => {
     updateOrder(records);
   };
 

@@ -24,6 +24,7 @@ const Input = forwardRef(
       <div className="relative">
         {label && (
           <label htmlFor={id} className="whitespace-nowrap">
+            {required && <span className="text-red-500"> * </span>}
             {label}
           </label>
         )}

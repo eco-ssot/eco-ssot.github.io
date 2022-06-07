@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import { format, subDays } from 'date-fns';
@@ -337,6 +337,16 @@ export default function AirCompressorPage() {
   const inputsRef = useRef({});
   const inputNodesRef = useRef({});
   const [postSpec] = usePostSpecMutation();
+  const checkIsValid = useCallback(() => {
+    const required = Object.values(inputNodesRef.current).filter((node) => node?.required);
+    const invalid = required.filter((node) => node.value.trim() === '');
+    if (invalid.length > 0) {
+      toast.error('Please fill required fields.');
+    }
+
+    return !invalid.length;
+  }, []);
+
   useEffect(() => {
     if (data) {
       setData(data);
@@ -427,6 +437,11 @@ export default function AirCompressorPage() {
                 <div
                   className="cursor-pointer font-medium text-primary-600 underline"
                   onClick={() => {
+                    const isValid = checkIsValid();
+                    if (!isValid) {
+                      return;
+                    }
+
                     const payload = {
                       ...searchOption,
                       ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
@@ -564,6 +579,11 @@ export default function AirCompressorPage() {
           <Button
             className="self-center"
             onClick={() => {
+              const isValid = checkIsValid();
+              if (!isValid) {
+                return;
+              }
+
               const query = {
                 ...searchOption,
                 ...(!searchOption.building && { building: buildingOptions?.[0]?.key || null }),
