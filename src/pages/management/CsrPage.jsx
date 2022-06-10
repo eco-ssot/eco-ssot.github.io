@@ -211,7 +211,7 @@ export default function CsrPage() {
           onChange={(e) => navigate({ hash: e.key })}
         />
         <div className="relative flex">
-          {roles?.includes('developer') && (
+          {roles?.includes('DEV') && (
             <Button className="absolute left-0" variant="danger">
               手動更新
             </Button>

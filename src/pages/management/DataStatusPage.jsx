@@ -12,6 +12,7 @@ import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
 import UploadModal from '../../components/upload-modal/UploadModal';
+import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
@@ -170,6 +171,7 @@ export default function DataStatusPage() {
 
   const columns = useMemo(() => COLUMNS(t), [t]);
   const [uploadExcel, { isSuccess }] = useUploadEnergyExcelMutation();
+  const { roles } = useAdmin();
   const navigate = useNavigate();
   useEffect(() => {
     setSearchOption({ year: year || currYear, month: month || currMonth });
@@ -194,6 +196,11 @@ export default function DataStatusPage() {
               <UploadIcon className="h-5 w-5" />
               <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
             </Button>
+            {roles?.includes('DEV') && (
+              <Button className="absolute left-36 mx-2" variant="danger">
+                手動更新
+              </Button>
+            )}
             <div className="flex space-x-8">
               <Select
                 label={t('component:selectLabel.searchYear')}
