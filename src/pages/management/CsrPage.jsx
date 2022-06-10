@@ -15,6 +15,7 @@ import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import Tooltip from '../../components/tooltip/Tooltip';
+import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
@@ -187,6 +188,7 @@ export default function CsrPage() {
     [t, postCsrComment, setData, year, month, currYear, currMonth, isWater]
   );
 
+  const { roles } = useAdmin();
   const navigate = useNavigate();
   useEffect(() => {
     if (data) {
@@ -208,33 +210,40 @@ export default function CsrPage() {
           selected={isWater ? BUTTON_GROUP_OPTIONS[1] : BUTTON_GROUP_OPTIONS[0]}
           onChange={(e) => navigate({ hash: e.key })}
         />
-        <div className="flex justify-center space-x-8">
-          <Select
-            label={t('component:selectLabel.searchYear')}
-            options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
-            selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
-            onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
-            buttonClassName="min-w-28"
-          />
-          <Select
-            label={t('component:selectLabel.searchMonth')}
-            buttonClassName="w-24"
-            options={APP_CONSTANTS.MONTH_OPTIONS}
-            selected={
-              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
-              APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
-            }
-            onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
-          />
-          <Button
-            onClick={() =>
-              navigate({
-                year: searchOption.year || currYear,
-                month: searchOption.month || currMonth,
-              })
-            }>
-            {t('component:button.search')}
-          </Button>
+        <div className="relative flex">
+          {roles?.includes('developer') && (
+            <Button className="absolute left-0" variant="danger">
+              手動更新
+            </Button>
+          )}
+          <div className="flex w-full justify-center space-x-8">
+            <Select
+              label={t('component:selectLabel.searchYear')}
+              options={yearOptions || APP_CONSTANTS.YEAR_OPTIONS}
+              selected={(yearOptions || APP_CONSTANTS.YEAR_OPTIONS).find((option) => option.key === searchOption.year)}
+              onChange={(e) => setSearchOption((prev) => ({ ...prev, year: e.key }))}
+              buttonClassName="min-w-28"
+            />
+            <Select
+              label={t('component:selectLabel.searchMonth')}
+              buttonClassName="w-24"
+              options={APP_CONSTANTS.MONTH_OPTIONS}
+              selected={
+                APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === searchOption.month) ||
+                APP_CONSTANTS.MONTH_OPTIONS.find((option) => option.key === currMonth)
+              }
+              onChange={(e) => setSearchOption((prev) => ({ ...prev, month: e.key }))}
+            />
+            <Button
+              onClick={() =>
+                navigate({
+                  year: searchOption.year || currYear,
+                  month: searchOption.month || currMonth,
+                })
+              }>
+              {t('component:button.search')}
+            </Button>
+          </div>
         </div>
         <div className="absolute right-10">
           <div className="flex justify-end space-x-4">
