@@ -1,9 +1,11 @@
-import { forwardRef, useCallback, useTransition } from 'react';
+import { forwardRef, useCallback, useEffect, useTransition } from 'react';
 
 import qs from 'query-string';
+import { useDispatch } from 'react-redux';
 import { NavLink, useLinkClickHandler } from 'react-router-dom';
 
 import APP_CONSTANTS from '../app/appConstants';
+import { setLoadingPage } from '../app/appSlice';
 import usePlantPermission from '../hooks/usePlantPermission';
 
 const MyNavLink = forwardRef(
@@ -56,7 +58,7 @@ const MyNavLink = forwardRef(
       []
     );
 
-    const [, startTransition] = useTransition();
+    const [pending, startTransition] = useTransition();
     const navigate = useCallback(
       (e) => {
         startTransition(() => {
@@ -68,6 +70,11 @@ const MyNavLink = forwardRef(
       },
       [onClick, handleClick]
     );
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setLoadingPage({ [to?.pathname || to]: pending }));
+    }, [to, pending, dispatch]);
 
     return (
       <>

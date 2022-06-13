@@ -15,6 +15,7 @@ const initialState = {
     currMonth: String(subMonths(new Date(), 1).getMonth() + 1),
     yOptions: APP_CONSTANTS.YEAR_OPTIONS,
   },
+  loadingPage: {},
 };
 
 export const appSlice = createSlice({
@@ -27,10 +28,16 @@ export const appSlice = createSlice({
     setMissingPlants: (state, action) => {
       state.missingPlants = action.payload;
     },
+    setLoadingPage: (state, action) => {
+      state.loadingPage = {
+        ...state.loadingPage,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { setDateInfo, setMissingPlants } = appSlice.actions;
+export const { setDateInfo, setMissingPlants, setLoadingPage } = appSlice.actions;
 export const selectReducer = (state) => state.app;
 export const selectYearOptions = createSelector(selectReducer, (state) => state.dateInfo.yearOptions);
 export const selectCurrYear = createSelector(selectReducer, (state) => state.dateInfo.currYear);
@@ -61,5 +68,9 @@ export const selectIsLoading = (state) => {
     .filter((api) => !api.endpointName.endsWith('Async') && !api.originalArgs?.hasOwnProperty('PREFETCH'))
     .some((api) => api.status === 'pending');
 };
+
+export const selectIsLoadingPage = createSelector(selectReducer, (state) =>
+  Object.values(state.loadingPage).some((val) => val === true)
+);
 
 export default appSlice.reducer;
