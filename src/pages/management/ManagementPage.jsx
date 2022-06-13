@@ -21,8 +21,14 @@ export default function ManagementPage() {
     keycloak?.logout();
   }, [keycloak]);
 
+  const isIndexPage = useMemo(() => pathname === '/management', [pathname]);
   const tabs = useMemo(() => managementRoutes.filter((route) => !route.hidden), []);
-  const isMatched = useCallback(({ isActive, index }) => isActive || (index && pathname === '/management'), [pathname]);
+  const isMatched = useCallback(({ isActive, index }) => isActive || (index && isIndexPage), [isIndexPage]);
+  const renderOutlet = useCallback(() => {
+    const IndexPage = tabs[0].element;
+    return isIndexPage ? <IndexPage /> : <Outlet />;
+  }, [isIndexPage, tabs]);
+
   const { given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
   return (
     <div className="grid h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full grid-cols-8 grid-rows-2 gap-4 overflow-hidden p-4">
@@ -77,7 +83,7 @@ export default function ManagementPage() {
           </div>
         </div>
       </div>
-      <Outlet />
+      {renderOutlet()}
     </div>
   );
 }

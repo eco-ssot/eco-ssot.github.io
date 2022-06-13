@@ -8,6 +8,7 @@ import ManagementSkeleton from '../pages/management/ManagementSkeleton';
 import { appApi } from '../services/app';
 import { carbonApi } from '../services/carbon';
 import { electricityApi } from '../services/electricity';
+import { keycloakAdminApi } from '../services/keycloakAdmin';
 import { managementApi } from '../services/management';
 import { overviewApi } from '../services/overview';
 import { publicApi } from '../services/public';
@@ -94,6 +95,14 @@ export const managementRoutes = [
           {
             name: 'getDataStatusPic',
             queryKeys: ['permission'],
+          },
+        ],
+      },
+      {
+        api: keycloakAdminApi,
+        endpoints: [
+          {
+            name: 'getUsers',
           },
         ],
       },

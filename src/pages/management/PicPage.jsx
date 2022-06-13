@@ -149,7 +149,7 @@ export default function PicPage() {
     <div className="col-span-7 row-span-2">
       <div className="flex h-full flex-col space-y-6 rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium">{t('managementPage:pic.title')}</div>
-        {data && (
+        {_data && (
           <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
             <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
           </div>
