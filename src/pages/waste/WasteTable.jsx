@@ -4,6 +4,7 @@ import { UploadIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import IconButton from '../../components/button/IconButton';
@@ -14,7 +15,7 @@ import DualTag from '../../components/tag/DualTag';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import MyNavLink from '../../router/MyNavLink';
+import { wasteAnalysisRoute } from '../../router/routes';
 import { useGetWasteQuery, useUploadWasteExcelMutation, wasteApi } from '../../services/waste';
 import { formatMonthRange } from '../../utils/date';
 import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
@@ -105,16 +106,17 @@ const HEADERS = ({
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <MyNavLink
+              <Link
                 className="flex items-center justify-end space-x-2"
                 to={{ search, pathname: './analysis' }}
                 onMouseEnter={() => {
+                  wasteAnalysisRoute.element.preload();
                   prefetchAnalysis({ ...query, PREFETCH: undefined });
                   prefetchExplanation({ ...query, PREFETCH: undefined });
                 }}>
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
-              </MyNavLink>
+              </Link>
             );
           }
 

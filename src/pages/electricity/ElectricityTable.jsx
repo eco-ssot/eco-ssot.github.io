@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Dot from '../../components/dot/Dot';
@@ -11,7 +12,7 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import MyNavLink from '../../router/MyNavLink';
+import { electricityAnalysisRoute } from '../../router/routes';
 import { electricityApi, useGetElectricityQuery } from '../../services/electricity';
 import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
@@ -78,16 +79,17 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <MyNavLink
+              <Link
                 className="flex items-center justify-end space-x-2"
                 to={{ search, pathname: './analysis' }}
                 onMouseEnter={() => {
+                  electricityAnalysisRoute.element.preload();
                   prefetchAnalysis({ ...query, PREFETCH: undefined });
                   prefetchExplanation({ ...query, PREFETCH: undefined });
                 }}>
                 {isFinite(cell.value) && cell.value > 0 && <Dot />}
                 <div className={clsx('underline', baseClassName)}>{ratioFormatter(cell.value)}</div>
-              </MyNavLink>
+              </Link>
             );
           }
 

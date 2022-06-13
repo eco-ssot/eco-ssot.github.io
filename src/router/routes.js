@@ -84,6 +84,30 @@ export const managementRoutes = [
   },
 ];
 
+export const electricityAnalysisRoute = {
+  path: '/electricity/analysis',
+  i18nKey: 'electricity',
+  element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
+  skeleton: AnalysisPageSkeleton,
+  hidden: true,
+};
+
+export const waterAnalysisRoute = {
+  path: '/water/analysis',
+  i18nKey: 'water',
+  element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
+  skeleton: AnalysisPageSkeleton,
+  hidden: true,
+};
+
+export const wasteAnalysisRoute = {
+  path: '/waste/analysis',
+  i18nKey: 'waste',
+  element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
+  skeleton: AnalysisPageSkeleton,
+  hidden: true,
+};
+
 export const privateRoutes = [
   {
     index: true,
@@ -176,13 +200,7 @@ export const privateRoutes = [
       },
     ],
   },
-  {
-    path: '/electricity/analysis',
-    i18nKey: 'electricity',
-    element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
-    skeleton: AnalysisPageSkeleton,
-    hidden: true,
-  },
+
   {
     path: '/analysis/electricity',
     element: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
@@ -205,13 +223,7 @@ export const privateRoutes = [
       },
     ],
   },
-  {
-    path: '/water/analysis',
-    i18nKey: 'water',
-    element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
-    skeleton: AnalysisPageSkeleton,
-    hidden: true,
-  },
+
   {
     path: '/unit-electricity',
     title: '約當單台用電',
@@ -245,13 +257,7 @@ export const privateRoutes = [
       },
     ],
   },
-  {
-    path: '/waste/analysis',
-    i18nKey: 'waste',
-    element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
-    skeleton: AnalysisPageSkeleton,
-    hidden: true,
-  },
+
   {
     path: '/air-compressor',
     title: '空壓設備',
@@ -290,6 +296,9 @@ export const privateRoutes = [
       },
     ],
   },
+  electricityAnalysisRoute,
+  waterAnalysisRoute,
+  wasteAnalysisRoute,
 ];
 
 const routes = [...publicRoutes, ...privateRoutes];
