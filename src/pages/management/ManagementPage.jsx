@@ -3,11 +3,12 @@ import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { useLocation, Outlet, NavLink } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Button from '../../components/button/Button';
 import useAdmin from '../../hooks/useAdmin';
+import MyNavLink from '../../router/MyNavLink';
 import { managementRoutes } from '../../router/routes';
 
 export default function ManagementPage() {
@@ -43,9 +44,9 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col space-y-2 py-4">
-              {tabs.map(({ path, i18nKey, index }, i) => {
+              {tabs.map(({ path, i18nKey, index, element, prefetchApis }, i) => {
                 return (
-                  <NavLink
+                  <MyNavLink
                     key={i}
                     to={{ pathname: path, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
                     className={({ isActive }) =>
@@ -53,7 +54,9 @@ export default function ManagementPage() {
                         'relative flex h-10 items-center',
                         isMatched({ isActive, index }) && 'bg-gray-50 bg-opacity-10'
                       )
-                    }>
+                    }
+                    onMouseEnter={() => element?.preload()}
+                    prefetchApis={prefetchApis}>
                     {({ isActive }) => (
                       <>
                         {isMatched({ isActive, index }) && <div className="absolute h-full w-1 bg-primary-600"></div>}
@@ -62,7 +65,7 @@ export default function ManagementPage() {
                         </div>
                       </>
                     )}
-                  </NavLink>
+                  </MyNavLink>
                 );
               })}
             </div>

@@ -70,7 +70,7 @@ export const selectIsLoading = (state) => {
 };
 
 export const selectIsLoadingPage = createSelector(selectReducer, (state) =>
-  Object.values(state.loadingPage).some((val) => val === true)
+  Object.entries(state.loadingPage).some(([key, value]) => value === true && !key.startsWith('.'))
 );
 
 export default appSlice.reducer;

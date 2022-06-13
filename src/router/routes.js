@@ -10,6 +10,7 @@ import { carbonApi } from '../services/carbon';
 import { electricityApi } from '../services/electricity';
 import { managementApi } from '../services/management';
 import { overviewApi } from '../services/overview';
+import { publicApi } from '../services/public';
 import { renewableEnergyApi } from '../services/renewableEnergy';
 import { summaryApi } from '../services/summary';
 import { unitElectricityApi } from '../services/unitElectricity';
@@ -45,6 +46,29 @@ export const managementRoutes = [
     element: lazyPreload(() => import('../pages/management/GoalPage')),
     i18nKey: 'goal',
     skeleton: GoalSkeleton,
+    prefetchApis: [
+      {
+        api: managementApi,
+        endpoints: [
+          {
+            name: 'getGoal',
+            queryKeys: ['business', 'year', 's', 'p'],
+          },
+          {
+            name: 'getCarbonIndex',
+            queryKeys: ['year'],
+          },
+          {
+            name: 'getTrec',
+            queryKeys: ['year'],
+          },
+          {
+            name: 'getTrecBySite',
+            queryKeys: ['year', 'permission'],
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'data-status',
@@ -63,12 +87,33 @@ export const managementRoutes = [
     element: lazyPreload(() => import('../pages/management/PicPage')),
     i18nKey: 'pic',
     skeleton: ManagementSkeleton,
+    prefetchApis: [
+      {
+        api: managementApi,
+        endpoints: [
+          {
+            name: 'getDataStatusPic',
+            queryKeys: ['permission'],
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'plant-changelog',
     element: lazyPreload(() => import('../pages/management/PlantChangelogPage')),
     i18nKey: 'plantChangelog',
     skeleton: ManagementSkeleton,
+    prefetchApis: [
+      {
+        api: publicApi,
+        endpoints: [
+          {
+            name: 'getPlantChangelog',
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'permission',
@@ -81,6 +126,16 @@ export const managementRoutes = [
     element: lazyPreload(() => import('../pages/management/VersionPage')),
     i18nKey: 'changelog',
     skeleton: ManagementSkeleton,
+    prefetchApis: [
+      {
+        api: publicApi,
+        endpoints: [
+          {
+            name: 'getVersion',
+          },
+        ],
+      },
+    ],
   },
 ];
 
