@@ -55,4 +55,11 @@ export const selectLatestMonth = createSelector(
   (state) => state.dateInfo.latestMonth || state.dateInfo.currMonth
 );
 
+export const selectIsLoading = (state) => {
+  const { queries, mutations } = state.appApi;
+  return Object.values({ ...queries, ...mutations })
+    .filter((api) => !api.endpointName.endsWith('Async') && !api.originalArgs?.hasOwnProperty('PREFETCH'))
+    .some((api) => api.status === 'pending');
+};
+
 export default appSlice.reducer;

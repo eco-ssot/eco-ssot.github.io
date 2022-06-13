@@ -5,10 +5,10 @@ import { ChevronDownIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import { isMatched } from '../../router/helpers';
+import MyNavLink from '../../router/MyNavLink';
 import { privateRoutes } from '../../router/routes';
 
 export function preloadElements({ element, routes }) {
@@ -22,28 +22,28 @@ export default function NavBar({ className }) {
   const tabs = useMemo(() => privateRoutes.filter((route) => !route.hidden), []);
   return (
     <div className={clsx('flex flex-grow space-x-4', className)}>
-      {tabs.map(({ index, indexPath, path, i18nKey, element, routes }, i) => (
-        <div
+      {tabs.map(({ path, i18nKey, element, routes, prefetchApis, index }, i) => (
+        <MyNavLink
           onMouseEnter={() => preloadElements({ element, routes })}
           aria-label={`nav-${i18nKey}`}
-          key={i18nKey}
-          className={clsx(
-            'inline-flex items-center border-b-2 px-1 pt-1',
-            isMatched(pathname)({ index, indexPath, path })
-              ? 'border-primary-600 text-gray-50'
-              : 'border-primary-800 text-gray-200 hover:text-gray-50',
-            i > 4 && 'hidden 1k:block'
-          )}>
-          <Link
-            to={{
-              pathname: path,
-              state: { from: pathname },
-              search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
-            }}
-            className="text-lg font-medium text-current">
-            <span className="block truncate">{t(i18nKey)}</span>
-          </Link>
-        </div>
+          key={i}
+          to={{
+            pathname: path,
+            state: { from: pathname },
+            search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
+          }}
+          className={({ isActive }) =>
+            clsx(
+              'inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium text-current',
+              isActive || (index && pathname === '/')
+                ? 'border-primary-600 text-gray-50'
+                : 'border-primary-800 text-gray-200 hover:text-gray-50',
+              i > 4 && 'hidden 1k:block'
+            )
+          }
+          prefetchApis={prefetchApis}>
+          <span className="block truncate">{t(i18nKey)}</span>
+        </MyNavLink>
       ))}
       <div className="relative block 1k:hidden">
         <Menu as="div" className="relative inline-block text-left">
@@ -59,12 +59,13 @@ export default function NavBar({ className }) {
             leave="transition ease-in duration-75"
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95">
-            <Menu.Items className="absolute right-0 mt-1 w-48 origin-top-right rounded-md border border-divider bg-primary-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {tabs.slice(5).map(({ path, i18nKey }) => (
-                <div className="px-1 py-1" key={i18nKey}>
+            <Menu.Items className="absolute right-0 z-50 mt-1 w-48 origin-top-right rounded-md border border-divider bg-primary-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              {tabs.slice(5).map(({ path, i18nKey, element, routes, prefetchApis }, i) => (
+                <div className="px-1 py-1" key={i}>
                   <Menu.Item>
                     {({ active }) => (
-                      <Link
+                      <MyNavLink
+                        onMouseEnter={() => preloadElements({ element, routes })}
                         to={{
                           pathname: path,
                           state: { from: pathname },
@@ -73,9 +74,10 @@ export default function NavBar({ className }) {
                         className={clsx(
                           'group flex w-full items-center rounded-md px-2 py-2 text-lg font-medium text-current',
                           active ? 'bg-primary-600 text-gray-50' : 'text-gray-200 hover:text-gray-50'
-                        )}>
+                        )}
+                        prefetchApis={prefetchApis}>
                         <span className="block truncate">{t(i18nKey)}</span>
-                      </Link>
+                      </MyNavLink>
                     )}
                   </Menu.Item>
                 </div>

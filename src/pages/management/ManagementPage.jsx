@@ -1,27 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { useLocation, Link, Outlet } from 'react-router-dom';
+import { useLocation, Outlet, NavLink } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Button from '../../components/button/Button';
 import useAdmin from '../../hooks/useAdmin';
 import { managementRoutes } from '../../router/routes';
-
-export function Nav({ hidden, children, to, search, onMouseEnter = () => {} }) {
-  const match = false;
-  return (
-    <Link
-      onMouseEnter={onMouseEnter}
-      to={{ pathname: to, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
-      className={clsx('relative flex h-10 items-center', match && 'bg-gray-50 bg-opacity-10', hidden && 'hidden')}>
-      {match && <div className="absolute h-full w-1 bg-primary-600"></div>}
-      <div className={clsx('ml-4', match && 'font-medium')}>{children}</div>
-    </Link>
-  );
-}
 
 export default function ManagementPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
@@ -33,6 +20,8 @@ export default function ManagementPage() {
     keycloak?.logout();
   }, [keycloak]);
 
+  const tabs = useMemo(() => managementRoutes.filter((route) => !route.hidden), []);
+  const isMatched = useCallback(({ isActive, index }) => isActive || (index && pathname === '/management'), [pathname]);
   const { given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
   return (
     <div className="grid h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full grid-cols-8 grid-rows-2 gap-4 overflow-hidden p-4">
@@ -54,16 +43,26 @@ export default function ManagementPage() {
               </div>
             </div>
             <div className="flex flex-col space-y-2 py-4">
-              {managementRoutes.map(({ index, indexPath, path, i18nKey }, i) => {
-                const match = pathname.endsWith(path) || (index && pathname === indexPath);
+              {tabs.map(({ path, i18nKey, index }, i) => {
                 return (
-                  <Link
+                  <NavLink
                     key={i}
                     to={{ pathname: path, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
-                    className={clsx('relative flex h-10 items-center', match && 'bg-gray-50 bg-opacity-10')}>
-                    {match && <div className="absolute h-full w-1 bg-primary-600"></div>}
-                    <div className={clsx('ml-4', match && 'font-medium')}>{t(`managementPage:nav.${i18nKey}`)}</div>
-                  </Link>
+                    className={({ isActive }) =>
+                      clsx(
+                        'relative flex h-10 items-center',
+                        isMatched({ isActive, index }) && 'bg-gray-50 bg-opacity-10'
+                      )
+                    }>
+                    {({ isActive }) => (
+                      <>
+                        {isMatched({ isActive, index }) && <div className="absolute h-full w-1 bg-primary-600"></div>}
+                        <div className={clsx('ml-4', isMatched({ isActive, index }) && 'font-medium')}>
+                          {t(`managementPage:nav.${i18nKey}`)}
+                        </div>
+                      </>
+                    )}
+                  </NavLink>
                 );
               })}
             </div>

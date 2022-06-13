@@ -120,6 +120,15 @@ const MAINTAINER_ROLE = 'target_maintainer';
 const DEVELOPER_ROLE = 'developer';
 const NO_DATA = 'No Data';
 const GLOBAL_QUERY_KEYS = ['business', 'y', 'm', 'cy', 's', 'p', 'pt'];
+const GLOBAL_QUERY_KEY_ALIAS = {
+  business: 'business',
+  y: 'year',
+  m: 'month',
+  cy: 'compare_year',
+  s: 'site',
+  p: 'plant',
+  pt: 'is_ytm',
+};
 
 const APP_CONSTANTS = {
   NO_DATA,
@@ -146,6 +155,7 @@ const APP_CONSTANTS = {
   DEPRECIATED_PLANTS,
   HIDE_PLANTS,
   GLOBAL_QUERY_KEYS,
+  GLOBAL_QUERY_KEY_ALIAS,
   BASE_NUMBER_PRECISION,
   CURRENT_YEAR: String(CURRENT_YEAR),
   LAST_YEAR: String(LAST_YEAR),

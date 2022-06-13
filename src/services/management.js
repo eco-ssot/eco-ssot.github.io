@@ -142,7 +142,7 @@ export const managementApi = appApi.injectEndpoints({
       }),
     }),
     getGoal: builder.query({
-      query: ({ year, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL, ...query }) => ({
+      query: ({ year = APP_CONSTANTS.CURRENT_YEAR, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL, ...query }) => ({
         query,
         url: `settings/${year}/${business}/objective`,
       }),
@@ -158,7 +158,7 @@ export const managementApi = appApi.injectEndpoints({
       query: ({ category, year } = {}) => ({ query: { category, year }, url: 'pure/summary' }),
     }),
     getCarbonIndex: builder.query({
-      query: ({ year }) => ({ url: `settings/${year}/carbonCoef` }),
+      query: ({ year = APP_CONSTANTS.CURRENT_YEAR }) => ({ url: `settings/${year}/carbonCoef` }),
       transformResponse: (res) => {
         return {
           ...res,
@@ -168,11 +168,14 @@ export const managementApi = appApi.injectEndpoints({
       providesTags: ['CARBON_INDEX'],
     }),
     getTrec: builder.query({
-      query: ({ year }) => ({ url: `settings/${year}/rec` }),
+      query: ({ year = APP_CONSTANTS.CURRENT_YEAR }) => ({ url: `settings/${year}/rec` }),
       providesTags: ['TREC'],
     }),
     getTrecBySite: builder.query({
-      query: ({ year, permission }) => ({ query: { permission }, url: `settings/${year}/rec/sites` }),
+      query: ({ permission, year = APP_CONSTANTS.CURRENT_YEAR }) => ({
+        query: { permission },
+        url: `settings/${year}/rec/sites`,
+      }),
       transformResponse: (res, { permission }) => {
         return {
           ...res,

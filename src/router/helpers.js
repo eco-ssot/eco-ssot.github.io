@@ -5,9 +5,3 @@ export const lazyPreload = (factory) => {
   component.preload = factory;
   return component;
 };
-
-export const isMatched =
-  (pathname) =>
-  ({ path, index, indexPath } = {}) => {
-    return pathname === path || (index && pathname === indexPath) || pathname.startsWith(path);
-  };

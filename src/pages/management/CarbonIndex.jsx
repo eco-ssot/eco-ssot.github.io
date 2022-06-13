@@ -4,6 +4,7 @@ import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import { usePatchCarbonIndexMutation } from '../../services/management';
 import { baseFormatter } from '../../utils/formatter';
@@ -61,7 +62,7 @@ const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
   },
 ];
 
-export default function CarbonIndex({ className, year, data, canEdit }) {
+export default function CarbonIndex({ className, data, canEdit, year = APP_CONSTANTS.CURRENT_YEAR }) {
   const { t } = useTranslation(['managementPage', 'component']);
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);

@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Dot from '../../components/dot/Dot';
@@ -12,7 +11,8 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import { useGetElectricityQuery } from '../../services/electricity';
+import MyNavLink from '../../router/MyNavLink';
+import { electricityApi, useGetElectricityQuery } from '../../services/electricity';
 import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
@@ -53,6 +53,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
         key: 'delta',
         name: t('electricityPage:table.revenueElectricity.delta'),
         renderer: (cell) => {
+          const prefetchAnalysis = electricityApi.usePrefetch('getElectricityAnalysis');
+          const prefetchExplanation = electricityApi.usePrefetch('getElectricityExplanation');
           const baseClassName = isFinite(cell.value)
             ? cell.value > 0
               ? 'font-semibold text-dangerous-500'
@@ -76,10 +78,16 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
+              <MyNavLink
+                className="flex items-center justify-end space-x-2"
+                to={{ search, pathname: './analysis' }}
+                onMouseEnter={() => {
+                  prefetchAnalysis({ ...query, PREFETCH: undefined });
+                  prefetchExplanation({ ...query, PREFETCH: undefined });
+                }}>
                 {isFinite(cell.value) && cell.value > 0 && <Dot />}
                 <div className={clsx('underline', baseClassName)}>{ratioFormatter(cell.value)}</div>
-              </Link>
+              </MyNavLink>
             );
           }
 

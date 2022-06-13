@@ -22,9 +22,9 @@ import YearGoal from './YearGoal';
 
 export default function GoalPage() {
   const { t } = useTranslation(['managementPage', 'component']);
-  const [goalYear, setGoalYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
-  const [carbonIndexYear, setCarbonIndexYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
-  const [tRecYear, setTrecYear] = useState(APP_CONSTANTS.CURRENT_YEAR);
+  const [goalYear, setGoalYear] = useState();
+  const [carbonIndexYear, setCarbonIndexYear] = useState();
+  const [tRecYear, setTrecYear] = useState();
   const plantPermission = usePlantPermission();
   const business = useSelector(selectBusiness);
   const s = useSelector(selectS);

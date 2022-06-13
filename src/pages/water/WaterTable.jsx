@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Dot from '../../components/dot/Dot';
@@ -11,7 +10,8 @@ import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import { useGetWaterQuery } from '../../services/water';
+import MyNavLink from '../../router/MyNavLink';
+import { useGetWaterQuery, waterApi } from '../../services/water';
 import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
@@ -65,6 +65,8 @@ const HEADERS = ({
         key: 'delta',
         name: t('common:gap'),
         renderer: (cell) => {
+          const prefetchAnalysis = waterApi.usePrefetch('getWaterAnalysis');
+          const prefetchExplanation = waterApi.usePrefetch('getWaterExplanation');
           if (!cell.row.original.isFooter) {
             let query = {
               ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
@@ -82,10 +84,16 @@ const HEADERS = ({
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
             return (
-              <Link className="flex items-center justify-end space-x-2" to={`analysis?${search}`}>
+              <MyNavLink
+                className="flex items-center justify-end space-x-2"
+                to={{ search, pathname: './analysis' }}
+                onMouseEnter={() => {
+                  prefetchAnalysis({ ...query, PREFETCH: undefined });
+                  prefetchExplanation({ ...query, PREFETCH: undefined });
+                }}>
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
-              </Link>
+              </MyNavLink>
             );
           }
 

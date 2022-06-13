@@ -10,16 +10,12 @@ import ErrorPage from '../pages/errors/ErrorPage';
 import RequireAuth from './RequireAuth';
 import { publicRoutes, privateRoutes } from './routes';
 
-export function toRoute(
-  { index, indexPath, path, routes, element: Element = Outlet, skeleton: Skeleton = PageContainer },
-  i
-) {
+export function toRoute({ index, path, routes, element: Element = Outlet, skeleton: Skeleton = PageContainer }, i) {
   return (
     <Fragment key={i}>
       {index && (
         <Route
           index
-          path={indexPath}
           element={
             <ErrorBoundary FallbackComponent={ErrorPage}>
               <Suspense fallback={<Skeleton />}>

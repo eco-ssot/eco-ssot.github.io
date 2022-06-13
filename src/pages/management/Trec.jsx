@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { partition } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import EditableTable, { EditableIconButton } from '../../components/table/EditableTable';
 import {
   useDeleteTrecBySiteMutation,
@@ -236,7 +237,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
   },
 ];
 
-export default function Trec({ className, canEdit, data, dataBySite, year }) {
+export default function Trec({ className, canEdit, data, dataBySite, year = APP_CONSTANTS.CURRENT_YEAR }) {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
   const [_data, setData] = useState(data);
   const [_dataBySite, setDataBySite] = useState(dataBySite);

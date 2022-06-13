@@ -1,11 +1,24 @@
+import APP_CONSTANTS from '../app/appConstants';
 import AirCompressorPageSkeleton from '../pages/air-compressor/AirCompressorPageSkeleton';
 import AnalysisPageSkeleton from '../pages/analysis/AnalysisPageSkeleton';
 import HomePageSkeleton from '../pages/home/HomePageSkeleton';
 import GoalSkeleton from '../pages/management/GoalSkeleton';
 import ManagementPageSkeleton from '../pages/management/ManagementPageSkeleton';
 import ManagementSkeleton from '../pages/management/ManagementSkeleton';
+import { appApi } from '../services/app';
+import { carbonApi } from '../services/carbon';
+import { electricityApi } from '../services/electricity';
+import { managementApi } from '../services/management';
+import { overviewApi } from '../services/overview';
+import { renewableEnergyApi } from '../services/renewableEnergy';
+import { summaryApi } from '../services/summary';
+import { unitElectricityApi } from '../services/unitElectricity';
+import { wasteApi } from '../services/waste';
+import { waterApi } from '../services/water';
 
 import { lazyPreload } from './helpers';
+
+const TABLE_PAGE_QUERY_KEYS = [...APP_CONSTANTS.GLOBAL_QUERY_KEYS.filter((key) => key !== 'cy'), 'permission'];
 
 export const publicRoutes = [
   {
@@ -19,11 +32,6 @@ export const publicRoutes = [
     i18nKey: 'unauthorized',
   },
   {
-    path: '/electricity-index',
-    element: lazyPreload(() => import('../pages/electricity-index/ElectricityIndexPage')),
-    i18nKey: '',
-  },
-  {
     path: '*',
     element: lazyPreload(() => import('../pages/not-found/NotFoundPage')),
     i18nKey: 'notFound',
@@ -33,7 +41,6 @@ export const publicRoutes = [
 export const managementRoutes = [
   {
     index: true,
-    indexPath: '/management',
     path: 'goal',
     element: lazyPreload(() => import('../pages/management/GoalPage')),
     i18nKey: 'goal',
@@ -80,41 +87,101 @@ export const managementRoutes = [
 export const privateRoutes = [
   {
     index: true,
-    indexPath: '/',
     path: '/home',
     element: lazyPreload(() => import('../pages/home/HomePage')),
     skeleton: HomePageSkeleton,
     i18nKey: 'home',
+    prefetchApis: [
+      {
+        api: summaryApi,
+        endpoints: [
+          {
+            name: 'getSummary',
+            queryKeys: APP_CONSTANTS.GLOBAL_QUERY_KEYS,
+          },
+        ],
+      },
+      {
+        api: appApi,
+        endpoints: [
+          {
+            name: 'getMissingPlants',
+            queryKeys: APP_CONSTANTS.GLOBAL_QUERY_KEYS,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/overview',
     element: lazyPreload(() => import('../pages/overview/OverviewPage')),
     i18nKey: 'overview',
+    prefetchApis: [
+      {
+        api: overviewApi,
+        endpoints: [
+          {
+            name: 'getOverview',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/carbon',
     element: lazyPreload(() => import('../pages/carbon/CarbonPage')),
     i18nKey: 'carbon',
+    prefetchApis: [
+      {
+        api: carbonApi,
+        endpoints: [
+          {
+            name: 'getCarbon',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/renewable-energy',
     element: lazyPreload(() => import('../pages/renewable-energy/RenewableEnergyPage')),
     i18nKey: 'renewableEnergy',
+    prefetchApis: [
+      {
+        api: renewableEnergyApi,
+        endpoints: [
+          {
+            name: 'getRenewableEnergy',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/electricity',
     i18nKey: 'electricity',
-    routes: [
+    element: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
+    prefetchApis: [
       {
-        index: true,
-        element: lazyPreload(() => import('../pages/electricity/ElectricityPage')),
-      },
-      {
-        path: 'analysis',
-        element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
-        skeleton: AnalysisPageSkeleton,
+        api: electricityApi,
+        endpoints: [
+          {
+            name: 'getElectricity',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
       },
     ],
+  },
+  {
+    path: '/electricity/analysis',
+    i18nKey: 'electricity',
+    element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage')),
+    skeleton: AnalysisPageSkeleton,
+    hidden: true,
   },
   {
     path: '/analysis/electricity',
@@ -125,38 +192,65 @@ export const privateRoutes = [
   {
     path: '/water',
     i18nKey: 'water',
-    routes: [
+    element: lazyPreload(() => import('../pages/water/WaterPage')),
+    prefetchApis: [
       {
-        index: true,
-        element: lazyPreload(() => import('../pages/water/WaterPage')),
-      },
-      {
-        path: 'analysis',
-        element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
-        skeleton: AnalysisPageSkeleton,
+        api: waterApi,
+        endpoints: [
+          {
+            name: 'getWater',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
       },
     ],
+  },
+  {
+    path: '/water/analysis',
+    i18nKey: 'water',
+    element: lazyPreload(() => import('../pages/water/WaterAnalysisPage')),
+    skeleton: AnalysisPageSkeleton,
+    hidden: true,
   },
   {
     path: '/unit-electricity',
     title: '約當單台用電',
     element: lazyPreload(() => import('../pages/unit-electricity/UnitElectricityPage')),
     i18nKey: 'unitElectricity',
+    prefetchApis: [
+      {
+        api: unitElectricityApi,
+        endpoints: [
+          {
+            name: 'getUnitElectricity',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/waste',
     i18nKey: 'waste',
-    routes: [
+    element: lazyPreload(() => import('../pages/waste/WastePage')),
+    prefetchApis: [
       {
-        index: true,
-        element: lazyPreload(() => import('../pages/waste/WastePage')),
-      },
-      {
-        path: 'analysis',
-        element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
-        skeleton: AnalysisPageSkeleton,
+        api: wasteApi,
+        endpoints: [
+          {
+            name: 'getWaste',
+            queryKeys: TABLE_PAGE_QUERY_KEYS,
+          },
+        ],
       },
     ],
+  },
+  {
+    path: '/waste/analysis',
+    i18nKey: 'waste',
+    element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage')),
+    skeleton: AnalysisPageSkeleton,
+    hidden: true,
   },
   {
     path: '/air-compressor',
@@ -172,6 +266,29 @@ export const privateRoutes = [
     skeleton: ManagementPageSkeleton,
     i18nKey: 'management',
     routes: managementRoutes,
+    prefetchApis: [
+      {
+        api: managementApi,
+        endpoints: [
+          {
+            name: 'getGoal',
+            queryKeys: ['business', 'year', 's', 'p'],
+          },
+          {
+            name: 'getCarbonIndex',
+            queryKeys: ['year'],
+          },
+          {
+            name: 'getTrec',
+            queryKeys: ['year'],
+          },
+          {
+            name: 'getTrecBySite',
+            queryKeys: ['year', 'permission'],
+          },
+        ],
+      },
+    ],
   },
 ];
 

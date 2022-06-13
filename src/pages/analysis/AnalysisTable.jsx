@@ -362,7 +362,7 @@ export default function AnalysisTable({
 }) {
   const { t } = useTranslation(['analysisPage', 'common', 'component']);
   const { data: users } = useGetUsersQuery();
-  const [_data, setData] = useState(data);
+  const [_data, setData] = useState();
   const [isAddingRow, setIsAddingRow] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
   const [open, setOpen] = useState(false);
@@ -373,7 +373,7 @@ export default function AnalysisTable({
   const draftRef = useRef([]);
   useEffect(() => {
     if (isAddingRow) {
-      setData((prev) => [...prev, { editing: true, isNewRow: true }]);
+      setData((prev) => prev?.concat([{ editing: true, isNewRow: true }]));
     } else {
       setData((prev) => prev?.filter((d) => !d.isNewRow));
     }
@@ -381,7 +381,7 @@ export default function AnalysisTable({
 
   useEffect(() => {
     if (data) {
-      setData((prev) => data.map((d, i) => (prev[i]?.id === d.id ? { ...prev[i], ...d } : d)));
+      setData((prev) => data.map((d, i) => (prev?.[i]?.id === d.id ? { ...prev?.[i], ...d } : d)));
       dataRef.current = data;
       draftRef.current = [];
     }
@@ -396,7 +396,9 @@ export default function AnalysisTable({
         <div className="flex items-center space-x-4">
           <Legend dotClassName="bg-_yellow" label={t('analysisPage:aboutToOverdue')} />
           <Legend dotClassName="bg-dangerous-700" label={t('analysisPage:overdue')} />
-          <EditableButton className="flex items-center space-x-1" onClick={() => setIsAddingRow((prev) => !prev)}>
+          <EditableButton
+            className={clsx('flex items-center space-x-1', !_data && 'pointer-events-none opacity-50')}
+            onClick={() => setIsAddingRow((prev) => !prev)}>
             {isAddingRow ? (
               <>
                 <XIcon className="h-4 w-4" />

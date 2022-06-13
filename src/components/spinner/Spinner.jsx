@@ -4,7 +4,7 @@ import { Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
-import { selectIsLoading } from '../../renderless/loader/loaderSlice';
+import { selectIsLoading } from '../../app/appSlice';
 
 export default function Spinner() {
   const isLoading = useSelector(selectIsLoading);

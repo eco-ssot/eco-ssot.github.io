@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import EditableTable, {
   CustomInputCell,
   EditableButton,
@@ -132,11 +133,11 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
   ];
 };
 
-export default function YearGoal({ className, year, data, canEdit }) {
+export default function YearGoal({ className, data, canEdit, year = APP_CONSTANTS.CURRENT_YEAR }) {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
   const lng = useSelector(selectLanguage);
   const [patchGoal] = usePatchGoalMutation();
-  const [dataSource, setData] = useState(data);
+  const [_data, setData] = useState(data);
   const [open, setOpen] = useState(false);
   const columns = useMemo(
     () => COLUMNS({ t, lng, setData, patchGoal, setOpen, year, canEdit }),
@@ -151,7 +152,7 @@ export default function YearGoal({ className, year, data, canEdit }) {
     <>
       <ErrorModal open={open} setOpen={setOpen} />
       <div className={clsx('w-full space-y-2 overflow-auto rounded-t-lg shadow', className)}>
-        <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
+        <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
       </div>
     </>
   );
