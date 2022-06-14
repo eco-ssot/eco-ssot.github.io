@@ -84,7 +84,9 @@ export const appApi = createApi({
     const cacheKey = JSON.stringify(
       queryArgs,
       typeof queryArgs === 'object' && queryArgs !== null
-        ? Object.keys(queryArgs).filter((key) => !EXCLUDED_CACHE_KEYS.includes(key))
+        ? Object.keys(queryArgs)
+            .filter((key) => !EXCLUDED_CACHE_KEYS.includes(key))
+            .sort()
         : null
     );
 
