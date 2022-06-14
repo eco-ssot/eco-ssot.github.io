@@ -29,9 +29,9 @@ export default function NavBar({ className }) {
           key={i}
           to={{
             pathname: path,
-            state: { from: pathname },
             search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
           }}
+          state={{ from: pathname }}
           className={({ isActive }) =>
             clsx(
               'inline-flex items-center border-b-2 px-1 pt-1 text-lg font-medium text-current',
@@ -68,9 +68,9 @@ export default function NavBar({ className }) {
                         onMouseEnter={() => preloadElements({ element, routes })}
                         to={{
                           pathname: path,
-                          state: { from: pathname },
                           search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
                         }}
+                        state={{ from: pathname }}
                         className={clsx(
                           'group flex w-full items-center rounded-md px-2 py-2 text-lg font-medium text-current',
                           active ? 'bg-primary-600 text-gray-50' : 'text-gray-200 hover:text-gray-50'

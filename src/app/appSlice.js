@@ -65,7 +65,14 @@ export const selectLatestMonth = createSelector(
 export const selectIsLoading = (state) => {
   const { queries, mutations } = state.appApi;
   return Object.values({ ...queries, ...mutations })
-    .filter((api) => !api.endpointName.endsWith('Async') && !api.originalArgs?.hasOwnProperty('PREFETCH'))
+    .filter(
+      (api) =>
+        !api.endpointName.endsWith('Async') &&
+        !(
+          api.originalArgs?.PREFETCH === true ||
+          (api.originalArgs?.PREFETCH !== undefined && api.originalArgs.PREFETCH === window.location.pathname)
+        )
+    )
     .some((api) => api.status === 'pending');
 };
 

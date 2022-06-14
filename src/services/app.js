@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import APP_CONSTANTS from '../app/appConstants';
 import { getMaxDate } from '../utils/date';
 
-import { axiosBaseQuery } from './helpers';
+import { axiosBaseQuery, EXCLUDED_CACHE_KEYS } from './helpers';
 
 export const appApi = createApi({
   reducerPath: 'appApi',
@@ -80,6 +80,16 @@ export const appApi = createApi({
       },
     }),
   }),
+  serializeQueryArgs: ({ queryArgs, endpointName }) => {
+    const cacheKey = JSON.stringify(
+      queryArgs,
+      typeof queryArgs === 'object' && queryArgs !== null
+        ? Object.keys(queryArgs).filter((key) => !EXCLUDED_CACHE_KEYS.includes(key))
+        : null
+    );
+
+    return `${endpointName}(${cacheKey})`;
+  },
 });
 
 export const { useGetMissingPlantsQuery, useGetLatestDateQuery, useGetPlantsQuery } = appApi;

@@ -55,6 +55,7 @@ export default function ManagementPage() {
                   <MyNavLink
                     key={i}
                     to={{ pathname: path, search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
+                    state={{ from: pathname }}
                     className={({ isActive }) =>
                       clsx(
                         'relative flex h-10 items-center',

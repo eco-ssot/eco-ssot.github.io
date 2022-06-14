@@ -90,8 +90,8 @@ const HEADERS = ({
                 to={{ search, pathname: './analysis' }}
                 onMouseEnter={() => {
                   waterAnalysisRoute.element.preload();
-                  prefetchAnalysis({ ...query, PREFETCH: undefined });
-                  prefetchExplanation({ ...query, PREFETCH: undefined });
+                  prefetchAnalysis({ ...query, PREFETCH: '/water' });
+                  prefetchExplanation({ ...query, PREFETCH: '/water' });
                 }}>
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}

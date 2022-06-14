@@ -84,8 +84,8 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
                 to={{ search, pathname: './analysis' }}
                 onMouseEnter={() => {
                   electricityAnalysisRoute.element.preload();
-                  prefetchAnalysis({ ...query, PREFETCH: undefined });
-                  prefetchExplanation({ ...query, PREFETCH: undefined });
+                  prefetchAnalysis({ ...query, PREFETCH: '/electricity' });
+                  prefetchExplanation({ ...query, PREFETCH: '/electricity' });
                 }}>
                 {isFinite(cell.value) && cell.value > 0 && <Dot />}
                 <div className={clsx('underline', baseClassName)}>{ratioFormatter(cell.value)}</div>

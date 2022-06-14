@@ -3,6 +3,8 @@ import qs from 'query-string';
 
 import axios from '../axios';
 
+export const EXCLUDED_CACHE_KEYS = ['PREFETCH'];
+
 export const axiosBaseQuery =
   ({ baseUrl = '/' } = {}) =>
   async ({ headers, url = '', method = 'GET', data = {}, query = {} } = {}) => {
@@ -12,7 +14,7 @@ export const axiosBaseQuery =
       const result = await axios({
         method,
         data,
-        url: `${baseUrl}${url}${search ? `?${search}` : ''}`,
+        url: qs.exclude(`${baseUrl}${url}${search ? `?${search}` : ''}`, EXCLUDED_CACHE_KEYS),
         ...(headers && { headers }),
       });
 

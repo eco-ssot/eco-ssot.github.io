@@ -39,12 +39,12 @@ const MyNavLink = forwardRef(
               }),
             };
           },
-          { PREFETCH: undefined }
+          { PREFETCH: state?.from }
         );
 
         return nextQuery;
       },
-      [plantPermission, to?.search]
+      [plantPermission, to?.search, state?.from]
     );
 
     const prefetchTriggers = prefetchApis?.reduce(
@@ -80,6 +80,7 @@ const MyNavLink = forwardRef(
       <>
         <NavLink
           {...rest}
+          state={state}
           to={to}
           onClick={navigate}
           ref={ref}

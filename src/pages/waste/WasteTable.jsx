@@ -111,8 +111,8 @@ const HEADERS = ({
                 to={{ search, pathname: './analysis' }}
                 onMouseEnter={() => {
                   wasteAnalysisRoute.element.preload();
-                  prefetchAnalysis({ ...query, PREFETCH: undefined });
-                  prefetchExplanation({ ...query, PREFETCH: undefined });
+                  prefetchAnalysis({ ...query, PREFETCH: '/waste' });
+                  prefetchExplanation({ ...query, PREFETCH: '/waste' });
                 }}>
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
