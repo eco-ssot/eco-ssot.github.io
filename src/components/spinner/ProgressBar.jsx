@@ -1,25 +1,38 @@
-import { Fragment } from 'react';
+import { useEffect } from 'react';
 
-import { Transition } from '@headlessui/react';
+import nprogress from 'nprogress';
 import { useSelector } from 'react-redux';
 
 import { selectIsLoadingPage } from '../../app/appSlice';
 
+import 'nprogress/nprogress.css';
+
+nprogress.configure({
+  showSpinner: false,
+});
+
 export default function ProgressBar() {
   const isLoadingPage = useSelector(selectIsLoadingPage);
-  return (
-    <Transition
-      appear
-      as={Fragment}
-      show={isLoadingPage}
-      enter="transition-[width] duration-200 ease-in-out delay-100"
-      enterFrom="w-0"
-      enterTo="w-[95vw]"
-      // leave="transition-[width] duration-75 ease-in-out delay-100"
-      // leaveFrom="w-[95vw]"
-      // leaveTo="w-[100vw]"
-    >
-      <div className="absolute left-0 top-0 z-100 h-1 w-0 bg-primary-600"></div>
-    </Transition>
-  );
+  useEffect(() => {
+    let progressBarTimeout = null;
+    const startProgressBar = () => {
+      clearTimeout(progressBarTimeout);
+      progressBarTimeout = setTimeout(nprogress.start, 200);
+    };
+
+    const stopProgressBar = () => {
+      clearTimeout(progressBarTimeout);
+      nprogress.done();
+    };
+
+    if (isLoadingPage) {
+      startProgressBar();
+    }
+
+    return () => {
+      stopProgressBar();
+    };
+  }, [isLoadingPage]);
+
+  return null;
 }
