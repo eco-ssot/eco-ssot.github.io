@@ -1,6 +1,6 @@
 {
   "name": "eco-ssot-frontend",
-  "version": "3.4.34",
+  "version": "3.4.35",
   "private": true,
   "dependencies": {
     "@floating-ui/react-dom": "^0.7.0",
