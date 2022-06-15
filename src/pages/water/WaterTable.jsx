@@ -64,8 +64,8 @@ const HEADERS = ({
     key: 'revenueWater',
     name: t('waterPage:table.revenueWater'),
     subHeaders: [
-      { key: 'lastYear', name: `${lastYear}年` },
-      { key: 'currYear', name: `${currYear}年` },
+      { key: 'lastYear', name: lastYear },
+      { key: 'currYear', name: currYear },
       // { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       {
         key: 'delta',
