@@ -74,7 +74,7 @@ function Announce() {
           ))}
         </div>
         <XIcon
-          className="hover:text-gray50 h-5 w-5 cursor-pointer text-gray-300"
+          className="h-5 w-5 cursor-pointer text-gray-300 hover:text-gray-50"
           onClick={() => dispatch(setShowAnnounce(false))}
         />
       </div>
