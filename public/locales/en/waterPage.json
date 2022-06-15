@@ -2,6 +2,8 @@
   "title": "Water Consumption per Billion NTD",
   "table": {
     "water": "Water Consumption (Ton)",
+    "manpower": "Manpower (person)",
+    "waterAvg": "Water Consumption per person (Ton)",
     "revenue": "Revenue (billion NTD)",
     "revenueWater": "Water Consumption per Billion NTD",
     "comparison": "Compared to Baseline Year"

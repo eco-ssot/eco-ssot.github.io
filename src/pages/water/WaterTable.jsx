@@ -34,6 +34,23 @@ const HEADERS = ({
     ],
   },
   {
+    key: 'manpower',
+    name: t('waterPage:table.manpower'),
+    subHeaders: [
+      { key: 'lastYear', name: lastYear, renderer: statisticsFormatter(3) },
+      { key: 'currYear', name: currYear, renderer: statisticsFormatter(3) },
+    ],
+  },
+  {
+    key: 'waterAvg',
+    name: t('waterPage:table.waterAvg'),
+    subHeaders: [
+      { key: 'lastYear', name: lastYear, renderer: statisticsFormatter(3) },
+      { key: 'currYear', name: currYear, renderer: statisticsFormatter(3) },
+      { key: 'delta', name: t('common:gap'), renderer: ratioFormatter },
+    ],
+  },
+  {
     key: 'revenue',
     name: t('waterPage:table.revenue'),
     subHeaders: [

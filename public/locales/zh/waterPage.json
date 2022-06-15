@@ -2,6 +2,8 @@
   "title": "十億營業額用水",
   "table": {
     "water": "用水量 (公噸)",
+    "manpower": "計薪人力 (人)",
+    "waterAvg": "人均用水量 (公噸)",
     "revenue": "營業額 (十億台幣)",
     "revenueWater": "十億營業額用水 (公噸)",
     "comparison": "對比基準年"
