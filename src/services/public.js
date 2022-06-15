@@ -13,7 +13,10 @@ export const publicApi = createApi({
     getEnv: builder.query({
       query: () => ({ url: '/env.json' }),
     }),
+    getAnnounces: builder.query({
+      query: () => ({ url: '/announces.json' }),
+    }),
   }),
 });
 
-export const { useGetVersionQuery, useGetPlantChangelogQuery, useGetEnvQuery } = publicApi;
+export const { useGetVersionQuery, useGetPlantChangelogQuery, useGetEnvQuery, useGetAnnouncesQuery } = publicApi;

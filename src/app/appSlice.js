@@ -16,6 +16,7 @@ const initialState = {
     yOptions: APP_CONSTANTS.YEAR_OPTIONS,
   },
   loadingPage: {},
+  showAnnounce: true,
 };
 
 export const appSlice = createSlice({
@@ -34,10 +35,13 @@ export const appSlice = createSlice({
         ...action.payload,
       };
     },
+    setShowAnnounce: (state, action) => {
+      state.showAnnounce = action.payload;
+    },
   },
 });
 
-export const { setDateInfo, setMissingPlants, setLoadingPage } = appSlice.actions;
+export const { setDateInfo, setMissingPlants, setLoadingPage, setShowAnnounce } = appSlice.actions;
 export const selectReducer = (state) => state.app;
 export const selectYearOptions = createSelector(selectReducer, (state) => state.dateInfo.yearOptions);
 export const selectCurrYear = createSelector(selectReducer, (state) => state.dateInfo.currYear);
@@ -61,6 +65,8 @@ export const selectLatestMonth = createSelector(
   selectReducer,
   (state) => state.dateInfo.latestMonth || state.dateInfo.currMonth
 );
+
+export const selectShowAnnounce = createSelector(selectReducer, (state) => state.showAnnounce);
 
 export const selectIsLoading = (state) => {
   const { queries, mutations } = state.appApi;
