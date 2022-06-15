@@ -73,7 +73,10 @@ function Announce() {
             </Transition>
           ))}
         </div>
-        <XIcon className="h-5 w-5 cursor-pointer" onClick={() => dispatch(setShowAnnounce(false))} />
+        <XIcon
+          className="hover:text-gray50 h-5 w-5 cursor-pointer text-gray-300"
+          onClick={() => dispatch(setShowAnnounce(false))}
+        />
       </div>
     </>
   );
@@ -247,7 +250,7 @@ export default function HomePage() {
             periodType={pt}
           />
         </Panel>
-        {showAnnounce && <div className="col-span-9 h-6 flex-shrink-0 rounded"></div>}
+        {showAnnounce && <div className="col-span-9 h-6 flex-shrink-0"></div>}
       </div>
       {showAnnounce && <Announce />}
     </>
