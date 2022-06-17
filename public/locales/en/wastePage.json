@@ -10,7 +10,7 @@
     "recyclable": {
       "header": "Recyclable Waste Weight (Ton)",
       "normal": "General *²",
-      "waste": "Recyclable(Compost & Recycling)"
+      "waste": "Recyclable(Compost & Recycling & Reused)"
     },
     "revenue": {
       "header": "{{ytm}} Revenue"
