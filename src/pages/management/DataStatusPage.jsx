@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { UploadIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { subMonths } from 'date-fns';
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -17,7 +18,11 @@ import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
-import { useGetDataStatusQuery, useUploadEnergyExcelMutation } from '../../services/management';
+import {
+  useGetDataStatusQuery,
+  usePostManualCsrMutation,
+  useUploadEnergyExcelMutation,
+} from '../../services/management';
 import { addPaddingColumns, plantRenderer } from '../../utils/table';
 
 const STATUS_MAPPING = {
@@ -171,6 +176,7 @@ export default function DataStatusPage() {
 
   const columns = useMemo(() => COLUMNS(t), [t]);
   const [uploadExcel, { isSuccess }] = useUploadEnergyExcelMutation();
+  const [manualUpdateCsr] = usePostManualCsrMutation();
   const { roles } = useAdmin();
   const navigate = useNavigate();
   useEffect(() => {
@@ -197,7 +203,10 @@ export default function DataStatusPage() {
               <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
             </Button>
             {roles?.includes('DEV') && (
-              <Button className="absolute left-36 mx-2" variant="danger">
+              <Button
+                className="absolute left-36 mx-2"
+                variant="danger"
+                onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast(res?.data?.msg))}>
                 手動更新
               </Button>
             )}

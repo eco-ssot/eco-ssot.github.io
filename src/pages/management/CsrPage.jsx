@@ -4,6 +4,7 @@ import { InformationCircleIcon } from '@heroicons/react/outline';
 import { PencilIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { get } from 'lodash';
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -20,7 +21,7 @@ import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
-import { useGetCsrStatusQuery, usePostCsrCommentMutation } from '../../services/management';
+import { useGetCsrStatusQuery, usePostCsrCommentMutation, usePostManualCsrMutation } from '../../services/management';
 import { ratioFormatter, statisticsFormatter } from '../../utils/formatter';
 import { plantRenderer, updateMyData } from '../../utils/table';
 
@@ -188,6 +189,7 @@ export default function CsrPage() {
     [t, postCsrComment, setData, year, month, currYear, currMonth, isWater]
   );
 
+  const [manualUpdateCsr] = usePostManualCsrMutation();
   const { roles } = useAdmin();
   const navigate = useNavigate();
   useEffect(() => {
@@ -212,7 +214,10 @@ export default function CsrPage() {
         />
         <div className="relative flex">
           {roles?.includes('DEV') && (
-            <Button className="absolute left-0" variant="danger">
+            <Button
+              className="absolute left-0"
+              variant="danger"
+              onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast(res?.data?.msg))}>
               手動更新
             </Button>
           )}

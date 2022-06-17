@@ -254,6 +254,12 @@ export const managementApi = appApi.injectEndpoints({
       }),
       invalidatesTags: ['ENERGY_UPLOAD'],
     }),
+    postManualCsr: builder.mutation({
+      query: () => ({
+        url: 'data-status/upload',
+        method: 'POST',
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -279,4 +285,5 @@ export const {
   useDeleteTrecMutation,
   useDeleteTrecBySiteMutation,
   useUploadEnergyExcelMutation,
+  usePostManualCsrMutation,
 } = managementApi;
