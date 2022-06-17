@@ -37,8 +37,8 @@ const HEADERS = ({
     key: 'manpower',
     name: t('waterPage:table.manpower'),
     subHeaders: [
-      { key: 'lastYear', name: lastYear, renderer: statisticsFormatter(3) },
-      { key: 'currYear', name: currYear, renderer: statisticsFormatter(3) },
+      { key: 'lastYear', name: lastYear },
+      { key: 'currYear', name: currYear },
     ],
   },
   {
@@ -47,7 +47,15 @@ const HEADERS = ({
     subHeaders: [
       { key: 'lastYear', name: lastYear, renderer: statisticsFormatter(3) },
       { key: 'currYear', name: currYear, renderer: statisticsFormatter(3) },
-      { key: 'delta', name: t('common:gap'), renderer: ratioFormatter },
+      {
+        key: 'delta',
+        name: t('common:gap'),
+        renderer: (cell) =>
+          ratioFormatter(
+            (cell.row.original.waterAvg?.currYear - cell.row.original.waterAvg?.lastYear) /
+              cell.row.original.waterAvg?.lastYear
+          ),
+      },
     ],
   },
   {

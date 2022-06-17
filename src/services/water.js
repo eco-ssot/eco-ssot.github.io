@@ -12,6 +12,11 @@ export function toRow({ plants = [], ...data } = {}) {
     waterCurrentYear,
     waterWeight,
     waterGradient,
+    manpowerCompareYear,
+    manpowerCurrentYear,
+    water_manpowerCompareYear,
+    water_manpowerCurrentYear,
+    water_manpowerWeight,
     revenueCompareYear,
     revenueCurrentYear,
     revenueWeight,
@@ -30,6 +35,15 @@ export function toRow({ plants = [], ...data } = {}) {
       lastYear: waterCompareYear,
       weight: waterWeight,
       delta: waterGradient,
+    },
+    manpower: {
+      currYear: manpowerCurrentYear,
+      lastYear: manpowerCompareYear,
+    },
+    waterAvg: {
+      currYear: water_manpowerCurrentYear,
+      lastYear: water_manpowerCompareYear,
+      delta: water_manpowerWeight,
     },
     revenue: {
       currYear: revenueCurrentYear,
