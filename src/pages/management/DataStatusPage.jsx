@@ -206,7 +206,7 @@ export default function DataStatusPage() {
               <Button
                 className="absolute left-36 mx-2"
                 variant="danger"
-                onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast(res?.data?.msg))}>
+                onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
                 手動更新
               </Button>
             )}

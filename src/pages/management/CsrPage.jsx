@@ -217,7 +217,7 @@ export default function CsrPage() {
             <Button
               className="absolute left-0"
               variant="danger"
-              onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast(res?.data?.msg))}>
+              onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
               手動更新
             </Button>
           )}
