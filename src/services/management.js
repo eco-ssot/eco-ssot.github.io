@@ -247,10 +247,10 @@ export const managementApi = appApi.injectEndpoints({
       invalidatesTags: ['TREC_BY_SITE'],
     }),
     uploadEnergyExcel: builder.mutation({
-      query: (formData) => ({
-        url: 'energy/upload',
+      query: ({ data, business }) => ({
+        data,
+        url: /other/i.test(business) ? 'others/upload' : 'energy/upload',
         method: 'POST',
-        data: formData,
       }),
       invalidatesTags: ['ENERGY_UPLOAD'],
     }),

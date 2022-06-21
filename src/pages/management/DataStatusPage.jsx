@@ -15,7 +15,7 @@ import Table from '../../components/table/Table';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
+import { selectBusiness, selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
 import { useGetLatestDateQuery } from '../../services/app';
 import {
@@ -160,6 +160,7 @@ export default function DataStatusPage() {
   const { t } = useTranslation(['managementPage', 'component']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
+  const business = useSelector(selectBusiness);
   const { data: { currYear, currMonth, yearOptions } = {} } = useGetLatestDateQuery();
   const [searchOption, setSearchOption] = useState({ year: year || currYear, month: month || currMonth });
   const [open, setOpen] = useState(false);
@@ -189,7 +190,7 @@ export default function DataStatusPage() {
         title={t('managementPage:dataStatus.importMonthlyReport')}
         open={open}
         setOpen={setOpen}
-        uploadExcel={uploadExcel}
+        uploadExcel={(formData) => uploadExcel({ business, data: formData })}
         isSuccess={isSuccess}
       />
       <div className="col-span-7 row-span-2">
