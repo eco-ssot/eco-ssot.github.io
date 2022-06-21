@@ -1,28 +1,21 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 import { format, subDays } from 'date-fns';
 import { isEmpty, pick } from 'lodash';
 import { renderToString } from 'react-dom/server';
-import toast from 'react-hot-toast';
 import { useSearchParams } from 'react-router-dom';
 
 import Chart from '../../charts/Chart';
 import { tooltip } from '../../charts/tooltip';
-import Button from '../../components/button/Button';
-import Dialog from '../../components/dialog/Dialog';
-import Input from '../../components/input/Input';
 import Legend from '../../components/legend/Legend';
-import Select from '../../components/select/Select';
 import Table from '../../components/table/Table';
-import useNavigate from '../../router/useNavigate';
-import { useGetRoiQuery, useGetAirCompressListQuery, usePostSpecMutation } from '../../services/airCompressor';
+import { useGetRoiQuery } from '../../services/airCompressor';
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
-import { trimNumber } from '../../utils/number';
 import { addPaddingColumns } from '../../utils/table';
 
-import SpecTable from './SpecTable';
+import AirCompressorForm from './AirCompressorForm';
 
 const formatter = (cell) => baseFormatter(cell.value, { precision: 2 });
 
@@ -257,55 +250,27 @@ const COST_OPTION = ({ oldCost, newCost }) => {
 
 export default function AirCompressorPage() {
   const [searchParams] = useSearchParams();
-  const query = pick(Object.fromEntries(searchParams), [
-    'building',
-    'machine',
-    'oil_type',
-    'compress_type',
-    'run_type',
-    'maintenance',
-    'power',
-    'engine_depcmemt',
-    'eer_r',
-    'cost',
-    'model_number',
-  ]);
-
-  const [searchOption, setSearchOption] = useState(query);
-  const [machineIndex, setMachineIndex] = useState({ old: -1, new: -1 });
-  const { data: list } = useGetAirCompressListQuery();
-  const { data: listByBuilding } = useGetAirCompressListQuery(
-    { building: searchOption.building || list?.building?.[0] },
-    { skip: !list?.building }
+  const query = useMemo(
+    () =>
+      pick(Object.fromEntries(searchParams), [
+        'building',
+        'machine',
+        'oil_type',
+        'compress_type',
+        'run_type',
+        'maintenance',
+        'power',
+        'engine_depcmemt',
+        'eer_r',
+        'cost',
+        'model_number',
+      ]),
+    [searchParams]
   );
 
+  const [machineIndex, setMachineIndex] = useState({ old: -1, new: -1 });
   const { data } = useGetRoiQuery(query, { skip: isEmpty(query) });
   const [_data, setData] = useState();
-  const buildingOptions = useMemo(
-    () => list?.building?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [list?.building]
-  );
-
-  const machineOptions = useMemo(
-    () => listByBuilding?.machines?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.machines]
-  );
-
-  const oilOptions = useMemo(
-    () => listByBuilding?.oil_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.oil_type]
-  );
-
-  const compressOptions = useMemo(
-    () => listByBuilding?.compress_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.compress_type]
-  );
-
-  const runOptions = useMemo(
-    () => listByBuilding?.run_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.run_type]
-  );
-
   const eerOption = useMemo(
     () =>
       OPTION({
@@ -334,272 +299,24 @@ export default function AirCompressorPage() {
   const roiColumns = useMemo(() => ROI_COLUMNS, []);
   const oldMachineColumns = useMemo(() => OLD_MACHINE_COLUMNS, []);
   const newMachineColumns = useMemo(() => NEW_MACHINE_COLUMNS, []);
-  const inputsRef = useRef({});
-  const inputNodesRef = useRef({});
-  const [postSpec] = usePostSpecMutation();
-  const checkIsValid = useCallback(() => {
-    const required = Object.values(inputNodesRef.current).filter((node) => node?.required);
-    const invalid = required.filter((node) => node.value.trim() === '');
-    if (invalid.length > 0) {
-      toast.error('Please fill required fields.');
-    }
-
-    return !invalid.length;
-  }, []);
 
   useEffect(() => {
     if (data) {
       setData(data);
       setMachineIndex({ old: 0, new: 0 });
-      inputsRef.current = {};
     }
   }, [data]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (isEmpty(query)) {
+      setData();
+      setMachineIndex({ old: -1, new: -1 });
+    }
+  }, [query]);
+
   return (
     <div className="-mt-16 flex h-screen w-screen flex-col space-y-4 overflow-hidden p-4 pt-20">
-      <div className={clsx('rounded bg-primary-900 p-4 shadow')}>
-        <div className="mb-4 text-xl font-medium">空壓設備智能推薦</div>
-        <div className="flex flex-grow justify-center space-x-8">
-          <div className="space-y-2 border-r-2 border-divider pr-8">
-            <div className="font-medium">欲評估設備</div>
-            <div className="flex space-x-2">
-              <Select
-                className="flex-col !items-start"
-                splitter={null}
-                buttonClassName="w-32"
-                label="廠區資訊"
-                options={buildingOptions}
-                selected={buildingOptions?.find((opt) => opt.key === searchOption.building)}
-                onChange={(e) =>
-                  setSearchOption((prev) => ({
-                    ...prev,
-                    building: e.key,
-                    machine: null,
-                    oil_type: null,
-                    compress_type: null,
-                    run_type: null,
-                  }))
-                }
-              />
-              <Select
-                className="flex-col !items-start"
-                splitter={null}
-                buttonClassName="w-32"
-                label="設備編號"
-                options={machineOptions}
-                selected={machineOptions?.find((opt) => opt.key === searchOption.machine)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, machine: e.key }))}
-              />
-              <div className="flex items-end space-x-1">
-                <Input
-                  name="maintenance"
-                  ref={(node) => {
-                    inputNodesRef.current[node?.name] = node;
-                  }}
-                  className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
-                  label="保養成本"
-                  placeholder="非必填"
-                  onChange={(e) => {
-                    inputsRef.current['maintenance'] = trimNumber(e.target.value);
-                  }}
-                  defaultValue={searchOption.maintenance}
-                />
-                <div className="-translate-y-1 text-gray-300">萬元</div>
-              </div>
-            </div>
-          </div>
-          <div className="space-y-2 border-r-2 border-divider pr-8">
-            <div className="flex justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="font-medium">新機台規格</div>
-                <Dialog
-                  render={({ close }) => (
-                    <SpecTable
-                      close={close}
-                      onApply={(e) => {
-                        setSearchOption(e);
-                        Object.entries(e).forEach(([key, value]) => {
-                          if (inputNodesRef.current[key]) {
-                            inputNodesRef.current[key].value = value;
-                          }
-                        });
-                      }}
-                    />
-                  )}
-                  title="常用新機台規格"
-                  titleClassName="bg-primary-800 rounded-t py-2 px-4"
-                  className="max-w-7xl">
-                  <div className="cursor-pointer font-medium text-primary-600 underline">常用規格</div>
-                </Dialog>
-              </div>
-              <div className="flex space-x-2">
-                <div
-                  className="cursor-pointer font-medium text-primary-600 underline"
-                  onClick={() => {
-                    const isValid = checkIsValid();
-                    if (!isValid) {
-                      return;
-                    }
-
-                    const payload = {
-                      ...searchOption,
-                      ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
-                      ...(!searchOption.compress_type && { compress_type: compressOptions?.[0]?.key || null }),
-                      ...(!searchOption.run_type && { run_type: runOptions?.[0]?.key || null }),
-                      ...inputsRef.current,
-                    };
-
-                    postSpec(payload).then((res) => {
-                      if (res.data?.msg === 'success') {
-                        toast.success('Success');
-                      }
-                    });
-                  }}>
-                  加入常用規格
-                </div>
-                <div
-                  className="cursor-pointer text-gray-300 underline"
-                  onClick={() => {
-                    navigate({}, { merge: false });
-                    setMachineIndex({ old: -1, new: -1 });
-                    setSearchOption({});
-                    setData();
-                    Object.values(inputNodesRef.current).forEach((node) => {
-                      if (node) {
-                        node.value = '';
-                      }
-                    });
-
-                    inputsRef.current = {};
-                  }}>
-                  清除
-                </div>
-              </div>
-            </div>
-            <div className="flex space-x-2">
-              <Select
-                className="flex-col !items-start"
-                splitter={null}
-                buttonClassName="w-32"
-                label="潤滑類型"
-                options={oilOptions}
-                selected={oilOptions?.find((opt) => opt.key === searchOption.oil_type)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, oil_type: e.key }))}
-              />
-              <Select
-                className="flex-col !items-start"
-                splitter={null}
-                buttonClassName="w-32"
-                label="壓縮類型"
-                options={compressOptions}
-                selected={compressOptions?.find((opt) => opt.key === searchOption.compress_type)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, compress_type: e.key }))}
-              />
-              <Select
-                className="flex-col !items-start"
-                splitter={null}
-                buttonClassName="w-32"
-                label="運轉類型"
-                options={runOptions}
-                selected={runOptions?.find((opt) => opt.key === searchOption.run_type)}
-                onChange={(e) => setSearchOption((prev) => ({ ...prev, run_type: e.key }))}
-              />
-              <Input
-                required
-                name="power"
-                ref={(node) => {
-                  inputNodesRef.current[node?.name] = node;
-                }}
-                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
-                label="額定功率"
-                placeholder="Type here"
-                onChange={(e) => {
-                  inputsRef.current['power'] = trimNumber(e.target.value);
-                }}
-                defaultValue={searchOption.power}
-              />
-              <Input
-                required
-                name="engine_depcmemt"
-                ref={(node) => {
-                  inputNodesRef.current[node?.name] = node;
-                }}
-                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
-                label="額定排氣量"
-                placeholder="Type here"
-                onChange={(e) => {
-                  inputsRef.current['engine_depcmemt'] = trimNumber(e.target.value);
-                }}
-                defaultValue={searchOption.engine_depcmemt}
-              />
-              <Input
-                required
-                name="eer_r"
-                ref={(node) => {
-                  inputNodesRef.current[node?.name] = node;
-                }}
-                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
-                label="額定能效"
-                placeholder="Type here"
-                onChange={(e) => {
-                  inputsRef.current['eer_r'] = trimNumber(e.target.value);
-                }}
-                defaultValue={searchOption.eer_r}
-              />
-              <Input
-                required
-                name="cost"
-                ref={(node) => {
-                  inputNodesRef.current[node?.name] = node;
-                }}
-                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
-                label="購置新機費用"
-                placeholder="Type here"
-                onChange={(e) => {
-                  inputsRef.current['cost'] = trimNumber(e.target.value);
-                }}
-                defaultValue={searchOption.cost}
-              />
-              <Input
-                ref={(node) => {
-                  inputNodesRef.current[node?.name] = node;
-                }}
-                name="model_number"
-                className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
-                label="品牌 / 型號"
-                placeholder="非必填"
-                onChange={(e) => {
-                  inputsRef.current['model_number'] = e.target.value;
-                }}
-                defaultValue={searchOption.model_number}
-              />
-            </div>
-          </div>
-          <Button
-            className="self-center"
-            onClick={() => {
-              const isValid = checkIsValid();
-              if (!isValid) {
-                return;
-              }
-
-              const query = {
-                ...searchOption,
-                ...(!searchOption.building && { building: buildingOptions?.[0]?.key || null }),
-                ...(!searchOption.machine && { machine: machineOptions?.[0]?.key || null }),
-                ...(!searchOption.oil_type && { oil_type: oilOptions?.[0]?.key || null }),
-                ...(!searchOption.compress_type && { compress_type: compressOptions?.[0]?.key || null }),
-                ...(!searchOption.run_type && { run_type: runOptions?.[0]?.key || null }),
-                ...inputsRef.current,
-              };
-
-              navigate(query);
-            }}>
-            計算能效
-          </Button>
-        </div>
-      </div>
+      <AirCompressorForm query={query} />
       <div className="grid flex-grow grid-rows-2 gap-4 overflow-auto">
         <div className="row-span-1 flex space-x-8 overflow-auto rounded bg-primary-900 p-4 shadow">
           <div className="flex w-[40%] flex-col space-y-4">
