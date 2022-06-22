@@ -168,7 +168,7 @@ const COST_OPTION = ({ oldCost, newCost }) => {
   const labels = oldCost?.data?.slice(0, 6)?.map(({ year }) => year) || Array.from({ length: 6 }, (_, i) => i + 1);
   const oldValues = oldCost?.data?.slice(0, 6)?.map(({ cost }) => ({ value: cost }));
   const newValues = newCost?.data?.slice(0, 6)?.map(({ cost }) => ({ value: cost }));
-  const target = newCost?.data?.slice(-1)?.[0].year;
+  const target = newCost?.data?.slice(-1)?.[0]?.year;
   return {
     tooltip: {
       ...tooltip({
