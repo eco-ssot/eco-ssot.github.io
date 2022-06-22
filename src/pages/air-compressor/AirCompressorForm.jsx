@@ -77,9 +77,9 @@ export default function AirCompressorForm({ query }) {
       ...data,
       ...(data.maintenance && { maintenance: trimNumber(data.maintenance) }),
       ...(data.power && { power: trimNumber(data.power) }),
-      ...(data.engine_depcmemt && { maintenance: trimNumber(data.engine_depcmemt) }),
-      ...(data.eer_r && { maintenance: trimNumber(data.eer_r) }),
-      ...(data.cost && { maintenance: trimNumber(data.cost) }),
+      ...(data.engine_depcmemt && { engine_depcmemt: trimNumber(data.engine_depcmemt) }),
+      ...(data.eer_r && { eer_r: trimNumber(data.eer_r) }),
+      ...(data.cost && { cost: trimNumber(data.cost) }),
     }),
     [getSelectOption]
   );
@@ -91,7 +91,7 @@ export default function AirCompressorForm({ query }) {
     setValue('engine_depcmemt', listByBuilding?.engine_depcmemt || '');
     setValue('eer_r', listByBuilding?.eer_r || '');
     setValue('cost', listByBuilding?.cost || '');
-    setValue('model_number', listByBuilding?.maintenance || '');
+    setValue('model_number', listByBuilding?.model_number || '');
     setSearchOption((prev) => ({
       ...prev,
       building: listByBuilding?.building?.[0],
@@ -155,7 +155,7 @@ export default function AirCompressorForm({ query }) {
                       setValue('engine_depcmemt', e?.engine_depcmemt || '');
                       setValue('eer_r', e?.eer_r || '');
                       setValue('cost', e?.cost || '');
-                      setValue('model_number', e?.maintenance || '');
+                      setValue('model_number', e?.model_number || '');
                       setSearchOption((prev) => ({
                         ...prev,
                         ...(compressOptions?.find((option) => option.key === e?.compress_type) && {
