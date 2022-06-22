@@ -3,6 +3,8 @@ import qs from 'query-string';
 
 import { keycloakInstance } from '../axios';
 
+import { EXCLUDED_CACHE_KEYS } from './helpers';
+
 export const keycloakBaseQuery =
   ({ baseUrl = '/' } = {}) =>
   async ({ url = '', method = 'GET', data = {}, query = {} } = {}) => {
@@ -11,7 +13,7 @@ export const keycloakBaseQuery =
       const result = await keycloakInstance({
         method,
         data,
-        url: `${baseUrl}${url}${search ? `?${search}` : ''}`,
+        url: qs.exclude(`${baseUrl}${url}${search ? `?${search}` : ''}`, EXCLUDED_CACHE_KEYS),
       });
 
       return { data: result.data };

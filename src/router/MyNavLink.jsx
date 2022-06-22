@@ -6,10 +6,14 @@ import { NavLink, useLinkClickHandler } from 'react-router-dom';
 
 import APP_CONSTANTS from '../app/appConstants';
 import { setLoadingPage } from '../app/appSlice';
+import { store } from '../app/store';
 import usePlantPermission from '../hooks/usePlantPermission';
 
 const MyNavLink = forwardRef(
-  ({ onClick, state, target, to, api, prefetchEndpoints, prefetchApis, replace = false, ...rest }, ref) => {
+  (
+    { onClick, state, target, to, api, prefetchEndpoints, prefetchApis, onMouseEnter, replace = false, ...rest },
+    ref
+  ) => {
     const handleClick = useLinkClickHandler(to, {
       replace,
       state,
@@ -20,7 +24,7 @@ const MyNavLink = forwardRef(
     const getQuery = useCallback(
       (queryKeys) => {
         if (!queryKeys?.length) {
-          return undefined;
+          return { PREFETCH: state?.from };
         }
 
         const query = qs.parse(to?.search);
@@ -47,17 +51,6 @@ const MyNavLink = forwardRef(
       [plantPermission, to?.search, state?.from]
     );
 
-    const prefetchTriggers = prefetchApis?.reduce(
-      (prev, curr) =>
-        prev.concat(
-          curr?.endpoints?.map((endpoint) => ({
-            trigger: curr?.api?.usePrefetch(endpoint?.name),
-            query: getQuery(endpoint?.queryKeys),
-          }))
-        ),
-      []
-    );
-
     const [pending, startTransition] = useTransition();
     const navigate = useCallback(
       (e) => {
@@ -69,6 +62,23 @@ const MyNavLink = forwardRef(
         });
       },
       [onClick, handleClick]
+    );
+
+    const onPrefetch = useCallback(
+      (e) => {
+        onMouseEnter?.(e);
+        prefetchApis?.forEach(({ api, endpoints }) =>
+          endpoints.forEach((endpoint) => {
+            store.dispatch(
+              api.util?.prefetch(endpoint.name, getQuery(endpoint.queryKeys), {
+                force: false,
+                ifOlderThan: false,
+              })
+            );
+          })
+        );
+      },
+      [onMouseEnter, prefetchApis, getQuery]
     );
 
     const dispatch = useDispatch();
@@ -85,12 +95,7 @@ const MyNavLink = forwardRef(
           onClick={navigate}
           ref={ref}
           target={target}
-          onMouseEnter={(e) => {
-            rest.onMouseEnter?.(e);
-            prefetchTriggers?.forEach(({ trigger, query }) => {
-              trigger?.(query);
-            });
-          }}
+          onMouseEnter={onPrefetch}
         />
       </>
     );
