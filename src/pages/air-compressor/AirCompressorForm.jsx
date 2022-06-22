@@ -25,10 +25,9 @@ export default function AirCompressorForm({ query, draftRef }) {
   const { data: listByBuildingMachine } = useGetAirCompressListQuery(
     {
       building: searchOption.building || listByBuilding?.building?.[0],
-      machine:
-        searchOption.machine && listByBuilding?.machines.includes(searchOption.machine)
-          ? searchOption.machine
-          : listByBuilding?.machines?.[0],
+      machine: listByBuilding?.machines.includes(searchOption.machine)
+        ? searchOption.machine
+        : listByBuilding?.machines?.[0],
     },
     { skip: !listByBuilding?.building || !listByBuilding?.machines }
   );
