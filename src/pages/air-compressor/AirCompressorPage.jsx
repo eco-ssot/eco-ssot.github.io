@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import { format, subDays } from 'date-fns';
@@ -299,7 +299,7 @@ export default function AirCompressorPage() {
   const roiColumns = useMemo(() => ROI_COLUMNS, []);
   const oldMachineColumns = useMemo(() => OLD_MACHINE_COLUMNS, []);
   const newMachineColumns = useMemo(() => NEW_MACHINE_COLUMNS, []);
-
+  const draftRef = useRef();
   useEffect(() => {
     if (data) {
       setData(data);
@@ -312,11 +312,13 @@ export default function AirCompressorPage() {
       setData();
       setMachineIndex({ old: -1, new: -1 });
     }
+
+    draftRef.current = query;
   }, [query]);
 
   return (
     <div className="-mt-16 flex h-screen w-screen flex-col space-y-4 overflow-hidden p-4 pt-20">
-      <AirCompressorForm query={query} />
+      <AirCompressorForm query={query} draftRef={draftRef} />
       <div className="grid flex-grow grid-rows-2 gap-4 overflow-auto">
         <div className="row-span-1 flex space-x-8 overflow-auto rounded bg-primary-900 p-4 shadow">
           <div className="flex w-[40%] flex-col space-y-4">

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { startTransition, useCallback, useEffect, useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
@@ -14,12 +14,23 @@ import { trimNumber } from '../../utils/number';
 
 import SpecTable from './SpecTable';
 
-export default function AirCompressorForm({ query }) {
+export default function AirCompressorForm({ query, draftRef }) {
   const [searchOption, setSearchOption] = useState(query);
   const { data: list } = useGetAirCompressListQuery();
   const { data: listByBuilding } = useGetAirCompressListQuery(
     { building: searchOption.building || list?.building?.[0] },
     { skip: !list?.building }
+  );
+
+  const { data: listByBuildingMachine } = useGetAirCompressListQuery(
+    {
+      building: searchOption.building || listByBuilding?.building?.[0],
+      machine:
+        searchOption.machine && listByBuilding?.machines.includes(searchOption.machine)
+          ? searchOption.machine
+          : listByBuilding?.machines?.[0],
+    },
+    { skip: !listByBuilding?.building || !listByBuilding?.machines }
   );
 
   const buildingOptions = useMemo(
@@ -33,28 +44,28 @@ export default function AirCompressorForm({ query }) {
   );
 
   const oilOptions = useMemo(
-    () => listByBuilding?.oil_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.oil_type]
+    () => listByBuildingMachine?.oil_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
+    [listByBuildingMachine?.oil_type]
   );
 
   const compressOptions = useMemo(
-    () => listByBuilding?.compress_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.compress_type]
+    () => listByBuildingMachine?.compress_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
+    [listByBuildingMachine?.compress_type]
   );
 
   const runOptions = useMemo(
-    () => listByBuilding?.run_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuilding?.run_type]
+    () => listByBuildingMachine?.run_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
+    [listByBuildingMachine?.run_type]
   );
 
   const { register, handleSubmit, setValue, reset, getValues } = useForm({
     defaultValues: {
-      maintenance: listByBuilding?.maintenance,
-      power: listByBuilding?.power,
-      engine_depcmemt: listByBuilding?.engine_depcmemt,
-      eer_r: listByBuilding?.eer_r,
-      cost: listByBuilding?.cost,
-      model_number: listByBuilding?.model_number,
+      maintenance: listByBuildingMachine?.maintenance,
+      power: listByBuildingMachine?.power,
+      engine_depcmemt: listByBuildingMachine?.engine_depcmemt,
+      eer_r: listByBuildingMachine?.eer_r,
+      cost: listByBuildingMachine?.cost,
+      model_number: listByBuildingMachine?.model_number,
     },
   });
 
@@ -85,22 +96,35 @@ export default function AirCompressorForm({ query }) {
   );
 
   const [postSpec] = usePostSpecMutation();
+
   useEffect(() => {
-    setValue('maintenance', listByBuilding?.maintenance || '');
-    setValue('power', listByBuilding?.power || '');
-    setValue('engine_depcmemt', listByBuilding?.engine_depcmemt || '');
-    setValue('eer_r', listByBuilding?.eer_r || '');
-    setValue('cost', listByBuilding?.cost || '');
-    setValue('model_number', listByBuilding?.model_number || '');
-    setSearchOption((prev) => ({
-      ...prev,
-      building: listByBuilding?.building?.[0],
-      machine: listByBuilding?.machines?.[0],
-      compress_type: listByBuilding?.compress_type?.[0],
-      oil_type: listByBuilding?.oil_type?.[0],
-      run_type: listByBuilding?.run_type?.[0],
-    }));
-  }, [listByBuilding, setValue]);
+    if (listByBuildingMachine) {
+      startTransition(() => {
+        setValue('maintenance', draftRef.current?.maintenance || listByBuildingMachine?.maintenance || '');
+        setValue('power', draftRef.current?.power || listByBuildingMachine?.power || '');
+        setValue('engine_depcmemt', draftRef.current?.engine_depcmemt || listByBuildingMachine?.engine_depcmemt || '');
+        setValue('eer_r', draftRef.current?.eer_r || listByBuildingMachine?.eer_r || '');
+        setValue('cost', draftRef.current?.cost || listByBuildingMachine?.cost || '');
+        setValue('model_number', draftRef.current?.model_number || listByBuildingMachine?.model_number || '');
+      });
+
+      setSearchOption((prev) => ({
+        ...prev,
+        ...(!listByBuildingMachine?.machines?.includes(prev.machine) && {
+          machine: listByBuildingMachine?.machines?.[0],
+        }),
+        ...(!listByBuildingMachine?.compress_type?.includes(prev.compress_type) && {
+          compress_type: listByBuildingMachine?.compress_type?.[0],
+        }),
+        ...(!listByBuildingMachine?.oil_type?.includes(prev.oil_type) && {
+          oil_type: listByBuildingMachine?.oil_type?.[0],
+        }),
+        ...(!listByBuildingMachine?.run_type?.includes(prev.run_type) && {
+          run_type: listByBuildingMachine?.run_type?.[0],
+        }),
+      }));
+    }
+  }, [listByBuildingMachine, draftRef, setValue]);
 
   return (
     <form
@@ -118,7 +142,10 @@ export default function AirCompressorForm({ query }) {
               label="廠區資訊"
               options={buildingOptions}
               selected={buildingOptions?.find((option) => option.key === searchOption.building)}
-              onChange={(e) => setSearchOption((prev) => ({ ...prev, building: e.key }))}
+              onChange={(e) => {
+                draftRef.current = {};
+                setSearchOption((prev) => ({ ...prev, building: e.key }));
+              }}
             />
             <Select
               className="flex-col !items-start"
@@ -127,14 +154,16 @@ export default function AirCompressorForm({ query }) {
               label="設備編號"
               options={machineOptions}
               selected={machineOptions?.find((option) => option.key === searchOption.machine)}
-              onChange={(e) => setSearchOption((prev) => ({ ...prev, machine: e.key }))}
+              onChange={(e) => {
+                draftRef.current = {};
+                setSearchOption((prev) => ({ ...prev, machine: e.key }));
+              }}
             />
             <div className="flex items-end space-x-1">
               <Input
                 className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent text-right"
                 label="保養成本"
                 placeholder="非必填"
-                defaultValue={listByBuilding?.maintenance}
                 {...register('maintenance')}
               />
               <div className="-translate-y-1 text-gray-300">萬元</div>
@@ -208,7 +237,9 @@ export default function AirCompressorForm({ query }) {
               label="潤滑類型"
               options={oilOptions}
               selected={oilOptions?.find((option) => option.key === searchOption.oil_type)}
-              onChange={(e) => setSearchOption((prev) => ({ ...prev, oil_type: e.key }))}
+              onChange={(e) => {
+                setSearchOption((prev) => ({ ...prev, oil_type: e.key }));
+              }}
             />
             <Select
               className="flex-col !items-start"
@@ -217,7 +248,9 @@ export default function AirCompressorForm({ query }) {
               label="壓縮類型"
               options={compressOptions}
               selected={compressOptions?.find((option) => option.key === searchOption.compress_type)}
-              onChange={(e) => setSearchOption((prev) => ({ ...prev, compress_type: e.key }))}
+              onChange={(e) => {
+                setSearchOption((prev) => ({ ...prev, compress_type: e.key }));
+              }}
             />
             <Select
               className="flex-col !items-start"
@@ -226,14 +259,15 @@ export default function AirCompressorForm({ query }) {
               label="運轉類型"
               options={runOptions}
               selected={runOptions?.find((option) => option.key === searchOption.run_type)}
-              onChange={(e) => setSearchOption((prev) => ({ ...prev, run_type: e.key }))}
+              onChange={(e) => {
+                setSearchOption((prev) => ({ ...prev, run_type: e.key }));
+              }}
             />
             <Input
               required
               className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent text-right"
               label="額定功率"
               placeholder="Type here"
-              defaultValue={listByBuilding?.power}
               {...register('power', { required: true })}
             />
             <Input
@@ -241,7 +275,6 @@ export default function AirCompressorForm({ query }) {
               className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent text-right"
               label="額定排氣量"
               placeholder="Type here"
-              defaultValue={listByBuilding?.engine_depcmemt}
               {...register('engine_depcmemt', { required: true })}
             />
             <Input
@@ -249,7 +282,6 @@ export default function AirCompressorForm({ query }) {
               className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent text-right"
               label="額定能效"
               placeholder="Type here"
-              defaultValue={listByBuilding?.eer_r}
               {...register('eer_r', { required: true })}
             />
             <Input
@@ -257,19 +289,17 @@ export default function AirCompressorForm({ query }) {
               className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent text-right"
               label="購置新機費用"
               placeholder="Type here"
-              defaultValue={listByBuilding?.cost}
               {...register('cost', { required: true })}
             />
             <Input
               className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
               label="品牌 / 型號"
               placeholder="非必填"
-              defaultValue={listByBuilding?.model_number}
               {...register('model_number')}
             />
           </div>
         </div>
-        <Button type="submit" className="self-center" onClick={() => {}}>
+        <Button type="submit" className="self-center">
           計算能效
         </Button>
       </div>
