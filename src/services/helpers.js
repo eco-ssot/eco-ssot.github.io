@@ -48,3 +48,16 @@ export function getPlantData(data, plantPermission, key = 'site') {
     ?.filter((d) => [...plantPermission, 'Total'].find((plant) => plant.startsWith(String(d[key]))))
     ?.map((_d) => ({ ..._d, plants: _d.plants?.filter((r) => plantPermission.includes(r[key])) }));
 }
+
+export function getCacheKey({ queryArgs, endpointName }) {
+  const cacheKey = JSON.stringify(
+    queryArgs,
+    typeof queryArgs === 'object' && queryArgs !== null
+      ? Object.keys(queryArgs)
+          .filter((key) => !EXCLUDED_CACHE_KEYS.includes(key))
+          .sort()
+      : null
+  );
+
+  return `${endpointName}(${cacheKey})`;
+}

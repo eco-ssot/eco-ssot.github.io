@@ -3,7 +3,7 @@ import qs from 'query-string';
 
 import { keycloakInstance } from '../axios';
 
-import { EXCLUDED_CACHE_KEYS } from './helpers';
+import { EXCLUDED_CACHE_KEYS, getCacheKey } from './helpers';
 
 export const keycloakBaseQuery =
   ({ baseUrl = '/' } = {}) =>
@@ -36,6 +36,7 @@ export const keycloakAdminApi = createApi({
       query: ({ roleName } = {}) => ({ url: `roles/${roleName}/users` }),
     }),
   }),
+  serializeQueryArgs: getCacheKey,
 });
 
 export const { useGetUsersQuery, useGetUsersByRoleQuery } = keycloakAdminApi;
