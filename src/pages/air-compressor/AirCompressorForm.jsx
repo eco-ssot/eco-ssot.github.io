@@ -261,7 +261,7 @@ export default function AirCompressorForm({ query }) {
               {...register('cost', { required: true })}
             />
             <Input
-              className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent text-right"
+              className="h-9 w-32 border-gray-500 border-opacity-100 bg-transparent"
               label="品牌 / 型號"
               placeholder="非必填"
               defaultValue={listByBuilding?.model_number}
