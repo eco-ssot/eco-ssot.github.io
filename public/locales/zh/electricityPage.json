@@ -21,5 +21,29 @@
   "history": {
     "electricity": "十億營業額用電 (度)",
     "delta": "增減率 *"
+  },
+  "index": {
+    "totalElectricityConsumption": "總用電比較",
+    "monthlyBaseline": "各月基線數值",
+    "monthlyBaselineDesc": "* 總用電比較示警：各月之用電基準線",
+    "monthlyAcc": "當月累積用電",
+    "monthlyAccDesc": "* 當月累積用電示警：去年同期的單台用電 * 今年要改善的標準 * 當月累積到前一日的每日產量",
+    "cumulativeTotal": "累積總用電",
+    "singleDay": "單日用電",
+    "target": "今年度用電標準",
+    "electricityConsumptionTargetChart": "用電指標關係圖",
+    "showLastYear": "顯示去年資訊",
+    "currentMonth": "當前月份",
+    "electricityConsumptionIntensityBaseline": "用電密集度基準線 (百萬度/十億營業額)",
+    "electricityConsumptionPerProductBaseline": "單台用電密集度基準線",
+    "electricityConsumptionPerProduct": "約當單台用電",
+    "electricityConsumptionPerProductLabel": "約當單台用電\n(度/台)",
+    "complianceStatusOfEachMonth": "各月份達標情況",
+    "yearLabel": "年度",
+    "thousandNtd": "千元",
+    "category": "用電類型",
+    "unitElectricity": "約當單台用電",
+    "electricity": "用電密集度",
+    "total": " 總用電"
   }
 }

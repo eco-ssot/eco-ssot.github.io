@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
@@ -15,14 +16,14 @@ import {
 import { colors } from '../../styles';
 import { baseFormatter } from '../../utils/formatter';
 
-const OVERVIEW_OPTION = (data) => {
+const OVERVIEW_OPTION = ({ t, data }) => {
   const labels = data?.map((d) => d.month);
   const prev = data?.map((d) => ({ value: d.last_year_value }));
   const curr = data?.map((d) => ({ value: d.current_year_value }));
   const target = data?.map((d) => ({ value: d.baseline }));
   return {
     xAxis: {
-      name: '(月份)',
+      name: `(${t('common:monthText')})`,
       nameTextStyle: { color: colors.gray['50'] },
       type: 'category',
       data: labels,
@@ -30,7 +31,7 @@ const OVERVIEW_OPTION = (data) => {
       axisLine: { lineStyle: { color: colors.gray['500'], lineHeight: 16 } },
     },
     yAxis: {
-      name: '(千度)',
+      name: `(${t('common:mwh')})`,
       nameTextStyle: { color: colors.gray['50'] },
       type: 'value',
       axisLine: { show: true, lineStyle: { color: colors.gray['500'] } },
@@ -57,7 +58,7 @@ const OVERVIEW_OPTION = (data) => {
         color: colors.primary['500'],
       },
       {
-        name: '各月基線數值',
+        name: 'baseline',
         type: 'line',
         data: target,
         symbol: 'circle',
@@ -72,14 +73,14 @@ const OVERVIEW_OPTION = (data) => {
   };
 };
 
-const ACC_OPTION = (data) => {
+const ACC_OPTION = ({ t, data }) => {
   const labels = data?.map((d) => d.day);
   const day = data?.map((d) => ({ value: d.value }));
   const dayAcc = data?.map((d) => ({ value: d.accu_value }));
   const target = data?.map((d) => ({ value: d.alert_value }));
   return {
     xAxis: {
-      name: '(日)',
+      name: `(${t('common:dayText')})`,
       nameTextStyle: { color: colors.gray['50'] },
       type: 'category',
       data: labels,
@@ -87,7 +88,7 @@ const ACC_OPTION = (data) => {
       axisLine: { lineStyle: { color: colors.gray['500'], lineHeight: 16 } },
     },
     yAxis: {
-      name: '(千度)',
+      name: `(${t('common:mwh')})`,
       nameTextStyle: { color: colors.gray['50'] },
       type: 'value',
       axisLine: { show: true, lineStyle: { color: colors.gray['500'] } },
@@ -113,7 +114,7 @@ const ACC_OPTION = (data) => {
         z: 1,
       },
       {
-        name: '各月基線數值',
+        name: 'baseline',
         type: 'line',
         data: target,
         symbol: 'circle',
@@ -128,7 +129,7 @@ const ACC_OPTION = (data) => {
   };
 };
 
-const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => {
+const SCATTER_OPTION = ({ t, currYear, target = 1, slope = 1, data = [] } = {}) => {
   const values = data?.map((d) => {
     const date = new Date(d.date);
     const year = date.getFullYear();
@@ -178,7 +179,9 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
         if (seriesType === 'scatter') {
           return `${marker} ${name}  <br> ASP : ${baseFormatter(value[0], {
             precision: 2,
-          })} <br> 約當單台用電 : ${baseFormatter(value[1], { precision: 2 })}`;
+          })} <br> ${t('electricityPage:index.electricityConsumptionPerProduct')} : ${baseFormatter(value[1], {
+            precision: 2,
+          })}`;
         }
 
         return null;
@@ -187,7 +190,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
     },
     xAxis: {
       type: 'value',
-      name: 'ASP\n(千元)',
+      name: `ASP\n(${t('electricityPage:index.thousandNtd')})`,
       nameTextStyle: { color: colors.gray['50'] },
       splitLine: { show: false },
       axisTick: { show: false },
@@ -196,7 +199,7 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
     },
     yAxis: {
       type: 'value',
-      name: '約當單台用電\n(度/台)',
+      name: `${t('electricityPage:index.electricityConsumptionPerProductLabel')}`,
       nameTextStyle: { color: colors.gray['50'] },
       splitLine: { show: false },
       axisTick: { show: false },
@@ -298,10 +301,15 @@ const SCATTER_OPTION = ({ currYear, target = 1, slope = 1, data = [] } = {}) => 
   };
 };
 
-const COLUMNS = [
-  { Header: '', accessor: 'category' },
+const COLUMNS = ({ t }) => [
+  {
+    Header: t('electricityPage:index.category'),
+    id: 'category',
+    className: '!text-left !px-4',
+    Cell: (cell) => t(`electricityPage:index.${cell.row.original.key}`),
+  },
   ...Array.from({ length: 12 }, (_, i) => ({
-    Header: `${i + 1}月`,
+    Header: `${t(`common:month.${i + 1}`)}${t('common:month.text')}`,
     accessor: String(i + 1).padStart(2, 0),
     Cell: (cell) => (
       <div className="flex justify-center">
@@ -329,7 +337,7 @@ export function Toggle({ enabled = true, onChange = () => {} }) {
         aria-hidden="true"
         className={clsx(
           enabled ? 'translate-x-11' : 'translate-x-0',
-          'pointer-events-none z-10 inline-block h-6 w-12 transform rounded-full bg-primary-600 text-center text-gray-50 shadow ring-0 transition duration-200 ease-in-out'
+          'pointer-events-none z-1 inline-block h-6 w-12 transform rounded-full bg-primary-600 text-center text-gray-50 shadow ring-0 transition duration-200 ease-in-out'
         )}>
         {enabled ? 'On' : 'Off'}
       </span>
@@ -340,6 +348,7 @@ export function Toggle({ enabled = true, onChange = () => {} }) {
 }
 
 export default function ElectricityIndexPage({ className, year, plant }) {
+  const { t } = useTranslation(['common', 'component', 'electricityPage']);
   const { data } = useGetElectricityBaselineInfoQuery({ year, plant }, { skip: !year || !plant });
   const [selectedYear, setSelectedYear] = useState(year);
   const { data: dataStatus } = useGetElectricityBaselineInfoStatusQuery(
@@ -353,11 +362,20 @@ export default function ElectricityIndexPage({ className, year, plant }) {
     [year]
   );
 
-  const overviewOption = useMemo(() => OVERVIEW_OPTION(data?.data?.total_compare), [data?.data?.total_compare]);
-  const accOption = useMemo(() => ACC_OPTION(data?.data?.current_month_accu), [data?.data?.current_month_accu]);
+  const overviewOption = useMemo(
+    () => OVERVIEW_OPTION({ t, data: data?.data?.total_compare }),
+    [t, data?.data?.total_compare]
+  );
+
+  const accOption = useMemo(
+    () => ACC_OPTION({ t, data: data?.data?.current_month_accu }),
+    [t, data?.data?.current_month_accu]
+  );
+
   const scatterOption = useMemo(
     () =>
       SCATTER_OPTION({
+        t,
         currYear: Number(year),
         lastYear: Number(year) - 1,
         data: showLastYear
@@ -366,10 +384,10 @@ export default function ElectricityIndexPage({ className, year, plant }) {
         target: data?.data?.indicators?.unit_electricity_target,
         slope: data?.data?.indicators?.electricity_target,
       }),
-    [data?.data?.indicators, year, showLastYear]
+    [t, data?.data?.indicators, year, showLastYear]
   );
 
-  const columns = useMemo(() => COLUMNS, []);
+  const columns = useMemo(() => COLUMNS({ t }), [t]);
   const _yearOptions = useMemo(
     () => yearOptions.filter((option) => Number(option.key) <= Number(year)),
     [year, yearOptions]
@@ -380,35 +398,41 @@ export default function ElectricityIndexPage({ className, year, plant }) {
       <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-4 p-4">
         <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="text-xl font-medium">總用電比較</div>
+            <div className="text-xl font-medium">{t('electricityPage:index.totalElectricityConsumption')}</div>
             <div className="space-y-4">
               <div className="flex justify-end  space-x-4">
-                <Legend dotClassName="bg-_blue" label={`${year - 1}年`} />
-                <Legend dotClassName="bg-primary-500" label={`${year}年`} />
-                <Legend dotClassName="bg-_yellow" label="各月基線數值" />
+                <Legend dotClassName="bg-_blue" label={`${year - 1}${t('common:year.text')}`} />
+                <Legend dotClassName="bg-primary-500" label={`${year}${t('common:year.text')}`} />
+                <Legend dotClassName="bg-_yellow" label={t('electricityPage:index.monthlyBaseline')} />
               </div>
-              <div className="text-right">* 總用電比較示警：各月之用電基準線</div>
+              <div className="text-right">{t('electricityPage:index.monthlyBaselineDesc')}</div>
             </div>
           </div>
           <div className="flex flex-grow">{data && <Chart className="h-full w-full" option={overviewOption} />}</div>
         </div>
         <div className="col-span-1 col-start-2 row-span-2 flex flex-col space-y-2 rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="text-xl font-medium">用電指標關係圖</div>
+            <div className="text-xl font-medium">{t('electricityPage:index.electricityConsumptionTargetChart')}</div>
             <div className="flex justify-end space-x-4">
-              <Legend dotClassName="bg-_blue" label={`${year - 1}年`} />
-              <Legend dotClassName="bg-primary-500" label={`${year}年`} />
-              <Legend dotClassName="bg-_yellow" label="當前月份" />
+              <Legend dotClassName="bg-_blue" label={`${year - 1}`} />
+              <Legend dotClassName="bg-primary-500" label={`${year}`} />
+              <Legend dotClassName="bg-_yellow" label={t('electricityPage:index.currentMonth')} />
             </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="text-gray-200">顯示去年資訊</div>
+              <div className="flex-shrink-0 text-gray-200">{t('electricityPage:index.showLastYear')}</div>
               <Toggle enabled={showLastYear} onChange={setShowLastYear} />
             </div>
-            <div className="flex items-center justify-end space-x-4">
-              <Legend dotClassName="bg-_orange" label="單台用電密集度基準線" />
-              <Legend dotClassName="bg-dangerous-700" label="用電密集度基準線 (百萬度/十億營業額)" />
+            <div className="flex flex-wrap items-center justify-end space-x-4">
+              <Legend
+                dotClassName="bg-_orange"
+                label={t('electricityPage:index.electricityConsumptionPerProductBaseline')}
+              />
+              <Legend
+                dotClassName="bg-dangerous-700"
+                label={t('electricityPage:index.electricityConsumptionIntensityBaseline')}
+              />
             </div>
           </div>
           <div className="flex flex-grow flex-col overflow-hidden">
@@ -416,18 +440,20 @@ export default function ElectricityIndexPage({ className, year, plant }) {
               {data && dataStatus && <Chart className="h-full w-full" option={scatterOption} />}
             </div>
             <div className="flex flex-col space-y-2">
-              <div className="text-left text-xl font-medium">各月份達標情況</div>
+              <div className="text-left text-xl font-medium">
+                {t('electricityPage:index.complianceStatusOfEachMonth')}
+              </div>
               <div className="flex justify-between">
                 <Select
-                  label="年度"
+                  label={t('electricityPage:index.yearLabel')}
                   options={_yearOptions}
                   selected={_yearOptions.find((option) => option.key === selectedYear)}
                   onChange={(e) => setSelectedYear(e.key)}
                 />
                 <div className="flex space-x-4">
-                  <Legend dotClassName="bg-gray-50" label="無資料" />
-                  <Legend dotClassName="bg-primary-500" label="達標" />
-                  <Legend dotClassName="bg-dangerous-700" label="未達標" />
+                  <Legend dotClassName="bg-gray-50" label={t('component:legend.noData')} />
+                  <Legend dotClassName="bg-primary-500" label={t('component:legend.meetTarget')} />
+                  <Legend dotClassName="bg-dangerous-700" label={t('component:legend.missTarget')} />
                 </div>
               </div>
               <div className="flex flex-col overflow-auto rounded-t-lg pb-1 shadow">
@@ -439,20 +465,19 @@ export default function ElectricityIndexPage({ className, year, plant }) {
         <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
             <div className="text-left text-xl font-medium">
-              當月累積用電 : {format(new Date(), `yyyy.MM.${data?.data?.current_month_accu?.[0]?.day || '01'}`)} -{' '}
+              {t('electricityPage:index.monthlyAcc')} :{' '}
+              {format(new Date(), `yyyy.MM.${data?.data?.current_month_accu?.[0]?.day || '01'}`)} -{' '}
               {format(new Date(), `yyyy.MM.${data?.data?.current_month_accu?.slice(-1)?.[0]?.day || '01'}`)}
             </div>
-            <div className="space-y-4">
+            <div className="flex-shrink-0 space-y-4">
               <div className="flex justify-end space-x-4">
-                <Legend dotClassName="bg-primary-600" label="累積總用電" />
-                <Legend dotClassName="bg-primary-500" label="單日用電" />
-                <Legend dotClassName="bg-_yellow" label="今年度用電標準" />
+                <Legend dotClassName="bg-primary-600" label={t('electricityPage:index.cumulativeTotal')} />
+                <Legend dotClassName="bg-primary-500" label={t('electricityPage:index.singleDay')} />
+                <Legend dotClassName="bg-_yellow" label={t('electricityPage:index.target')} />
               </div>
             </div>
           </div>
-          <div className="text-right">
-            * 當月累積用電示警：去年同期的單台用電 * 今年要改善的標準 * 當月累積到前一日的每日產量
-          </div>
+          <div className="text-right">{t('electricityPage:index.monthlyAccDesc')}</div>
           <div className="flex flex-grow">{data && <Chart className="h-full w-full" option={accOption} />}</div>
         </div>
       </div>

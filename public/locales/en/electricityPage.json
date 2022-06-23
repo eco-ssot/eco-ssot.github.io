@@ -21,5 +21,29 @@
   "history": {
     "electricity": "Electricity Consumption/Billion NTD (kWh)",
     "delta": "Gap *"
+  },
+  "index": {
+    "totalElectricityConsumption": "Total Electricity Consumption",
+    "monthlyBaseline": "Monthly Baseline",
+    "monthlyBaselineDesc": "＊Warning for Total Electricity Consumption：Monthly Electricity Baseline",
+    "monthlyAcc": "Monthly cumulative electricity consumption",
+    "monthlyAccDesc": "",
+    "cumulativeTotal": "Cumulative Total",
+    "singleDay": "Single Day",
+    "target": "Target",
+    "electricityConsumptionTargetChart": "Electricity Consumption Target Chart",
+    "showLastYear": "Show last year",
+    "currentMonth": "Current month",
+    "electricityConsumptionIntensityBaseline": "Electricity Consumption Intensity Baseline",
+    "electricityConsumptionPerProductBaseline": "Electricity Consumption per Product Baseline",
+    "electricityConsumptionPerProduct": "Electricity Consumption per Product",
+    "electricityConsumptionPerProductLabel": "Electricity Consumption\nper Product (kWh/unit)",
+    "complianceStatusOfEachMonth": "Compliance status of each month",
+    "yearLabel": "Year",
+    "thousandNtd": "K",
+    "category": "Electricity Consumption",
+    "unitElectricity": "Per Product",
+    "electricity": "Intensity",
+    "total": " Total"
   }
 }

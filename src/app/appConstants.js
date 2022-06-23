@@ -12,7 +12,7 @@ const BUSINESS_OPTIONS = [
   { key: 'ALL', value: 'ALL', alias: 'ALL' },
   { key: 'WT', value: 'WT', alias: 'WT' },
   { key: 'WSD', value: 'WSD', alias: 'WSD' },
-  { key: 'Others', value: '新邊界', alias: '新邊界' },
+  { key: 'Others', value: '新邊界', alias: '新邊界', i18nKey: 'newBorder' },
 ];
 
 const BUSINESS_MAPPING = {

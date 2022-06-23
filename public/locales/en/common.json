@@ -1,5 +1,5 @@
 {
-  "title": "ESG Dashboard",
+  "title": "Environment Dashboard",
   "humidity": "Humidity",
   "temperature": "Temperature",
   "billionNtd": "Billion NTD",
@@ -17,11 +17,17 @@
   "weight": "Percentage",
   "gap": "Gap *",
   "edit": "Edit",
+  "newBorder": "New Border",
   "history": {
     "ytm": "Jan - {{endMonth, datetime}}, {{startYear}}",
     "m": "{{endMonth, datetime}}, {{startYear}}"
   },
   "monthText": "M",
+  "yearText": "Y",
+  "dayText": "D",
+  "year": {
+    "text": ""
+  },
   "month": {
     "text": "",
     "01": "Jan",

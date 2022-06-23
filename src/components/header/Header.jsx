@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -29,6 +31,15 @@ export default function Header({ className }) {
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
   const { data: version } = useGetVersionQuery();
+  const businessOptions = useMemo(
+    () =>
+      APP_CONSTANTS.BUSINESS_OPTIONS.map((option) => ({
+        ...option,
+        ...(option.i18nKey && { value: t(option.i18nKey) }),
+      })),
+    [t]
+  );
+
   const navigate = useNavigate();
   return (
     <div className={clsx('z-10 flex items-center bg-primary-800 px-4 shadow-lg', className)}>
@@ -48,9 +59,9 @@ export default function Header({ className }) {
           <GhostSelect
             disabled={GLOBAL_SELECT_DISABLED_PATH_NAMES.includes(pathname)}
             className="w-28"
-            options={APP_CONSTANTS.BUSINESS_OPTIONS}
+            options={businessOptions}
             onChange={(e) => navigate({ ...e, s: null, p: null })}
-            selected={APP_CONSTANTS.BUSINESS_OPTIONS.find((option) => option.key === business)}
+            selected={businessOptions.find((option) => option.key === business)}
             queryKey="business"
             ariaLabel="business"
           />

@@ -36,7 +36,8 @@
   "legend": {
     "meetTarget": "Meet Target",
     "missTarget": "Miss Target",
-    "missingData": "Missing Data"
+    "missingData": "Missing Data",
+    "noData": "No Data"
   },
   "electricityOptions": {
     "null": "",

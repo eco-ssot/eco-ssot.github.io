@@ -17,11 +17,17 @@
   "weight": "權重",
   "gap": "增減率 *",
   "edit": "編輯",
+  "newBorder": "新邊界",
   "history": {
     "ytm": "{{startYear}} 年 1 - {{endMonthNum}} 月",
     "m": "{{startYear}} 年 {{endMonthNum}} 月"
   },
   "monthText": "月",
+  "yearText": "年",
+  "dayText": "日",
+  "year": {
+    "text": "年"
+  },
   "month": {
     "text": "月",
     "01": "01",
