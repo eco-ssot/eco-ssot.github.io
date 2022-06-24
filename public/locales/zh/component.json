@@ -19,7 +19,8 @@
     "logout": "登出",
     "save": "儲存",
     "delete": "刪除",
-    "cancel": "取消"
+    "cancel": "取消",
+    "add": "新增"
   },
   "toast": {
     "uploadSuccess": "上傳成功"

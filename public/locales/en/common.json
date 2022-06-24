@@ -21,6 +21,8 @@
   "k/unit": "K/unit",
   "10k": "10K",
   "import": "Import",
+  "manualUpdate": "Manual Update",
+  "showAll": "Show All",
   "history": {
     "ytm": "Jan - {{endMonth, datetime}}, {{startYear}}",
     "m": "{{endMonth, datetime}}, {{startYear}}"

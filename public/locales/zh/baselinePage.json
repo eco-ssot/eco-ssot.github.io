@@ -22,6 +22,7 @@
   "gap": "差異",
   "actual": "實際",
   "electricityConsumptionTarget": "用電指標資訊",
+  "addWarning": "項目新增後即不可再編輯，您確定要新增嗎？",
   "baselinePanel": {
     "table": {
       "month": "月份",

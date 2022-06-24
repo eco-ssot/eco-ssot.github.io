@@ -1,9 +1,11 @@
 import { InformationCircleIcon } from '@heroicons/react/solid';
+import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/button/Button';
 import Modal from '../../components/modal/Modal';
 
 export default function ConfirmModal({ open = false, setOpen = () => {}, onConfirm = () => {}, onCancel = () => {} }) {
+  const { t } = useTranslation(['component', 'baselinePage']);
   return (
     <Modal
       open={open}
@@ -17,20 +19,20 @@ export default function ConfirmModal({ open = false, setOpen = () => {}, onConfi
               setOpen(false);
               onCancel();
             }}>
-            取消
+            {t('component:button.cancel')}
           </Button>
           <Button
             onClick={() => {
               setOpen(false);
               onConfirm();
             }}>
-            新增
+            {t('component:button.add')}
           </Button>
         </div>
       }>
       <div className="flex items-center justify-center space-x-2 pt-8">
         <InformationCircleIcon className="h-5 w-5 text-_yellow" />
-        <div>項目新增後即不可再編輯，您確定要新增嗎？</div>
+        <div>{t('baselinePage:addWarning')}</div>
       </div>
     </Modal>
   );

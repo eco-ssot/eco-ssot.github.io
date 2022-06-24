@@ -95,5 +95,12 @@
     "3.0.4": "Add user list",
     "3.0.5": "Add air compressor calculator",
     "3.0.6": "Add electricity index"
+  },
+  "permission": {
+    "permissionList": "Permission List",
+    "checkingPermissionListOfSiteP8Data": "Checking Permission List of Site P8 Data",
+    "editingPermissionListOfSettings": "Editing Permission List of Settings",
+    "listOfDevelopmentTeam": "List of Development Team",
+    "userList": "User List"
   }
 }

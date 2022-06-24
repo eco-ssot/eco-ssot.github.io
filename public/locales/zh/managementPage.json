@@ -95,5 +95,12 @@
     "3.0.4": "新增使用者名單",
     "3.0.5": "新增空壓設備計算機",
     "3.0.6": "新增用電指標"
+  },
+  "permission": {
+    "permissionList": "權限名單",
+    "checkingPermissionListOfSiteP8Data": "P8廠數據可查看權限名單",
+    "editingPermissionListOfSettings": "後台參數可設定權限名單",
+    "listOfDevelopmentTeam": "開發群組名單",
+    "userList": "一般使用者名單"
   }
 }

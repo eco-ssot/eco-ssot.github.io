@@ -22,6 +22,7 @@
   "gap": "Gap",
   "actual": "Actual",
   "electricityConsumptionTarget": "Electricity Consumption Target",
+  "addWarning": "Added actions cannot be edited. Are you sure to continue adding?",
   "baselinePanel": {
     "table": {
       "month": "Month",

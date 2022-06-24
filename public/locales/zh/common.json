@@ -21,6 +21,8 @@
   "k/unit": "千台幣/台",
   "10k": "萬元",
   "import": "匯入",
+  "manualUpdate": "手動更新",
+  "showAll": "顯示全部",
   "history": {
     "ytm": "{{startYear}} 年 1 - {{endMonthNum}} 月",
     "m": "{{startYear}} 年 {{endMonthNum}} 月"

@@ -218,7 +218,7 @@ export default function CsrPage() {
               className="absolute left-0"
               variant="danger"
               onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
-              手動更新
+              {t('common:manualUpdate')}
             </Button>
           )}
           <div className="flex w-full justify-center space-x-8">

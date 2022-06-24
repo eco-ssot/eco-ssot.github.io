@@ -122,7 +122,13 @@ export default function OverviewTable({ business, y, m, s, p, pt, missingPlants 
 
   return (
     <>
-      <UploadModal title="匯入營收資料" open={open} setOpen={setOpen} uploadExcel={uploadExcel} isSuccess={isSuccess} />
+      <UploadModal
+        title={t('overviewPage:importRevenueData')}
+        open={open}
+        setOpen={setOpen}
+        uploadExcel={uploadExcel}
+        isSuccess={isSuccess}
+      />
       <Tag className="absolute top-2 right-4 pr-0">
         <GlobalDateSelect />
       </Tag>

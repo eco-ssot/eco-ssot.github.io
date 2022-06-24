@@ -19,7 +19,8 @@
     "logout": "Logout",
     "save": "Save",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "add": "Add"
   },
   "toast": {
     "uploadSuccess": "Upload success"

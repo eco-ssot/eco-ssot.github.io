@@ -157,7 +157,7 @@ function getLabel(t) {
 }
 
 export default function DataStatusPage() {
-  const { t } = useTranslation(['managementPage', 'component']);
+  const { t } = useTranslation(['managementPage', 'component', 'common']);
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
   const business = useSelector(selectBusiness);
@@ -199,18 +199,20 @@ export default function DataStatusPage() {
             {((!year && !month) || (year === currYear && month === currMonth)) && getLabel(t)}
           </div>
           <div className="relative flex items-center justify-center">
-            <Button className="absolute left-0 space-x-1" onClick={() => setOpen(true)}>
-              <UploadIcon className="h-5 w-5" />
-              <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
-            </Button>
-            {roles?.includes('DEV') && (
-              <Button
-                className="absolute left-36 mx-2"
-                variant="danger"
-                onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
-                手動更新
+            <div className="absolute left-0 flex">
+              <Button className="left-0 space-x-1" onClick={() => setOpen(true)}>
+                <UploadIcon className="h-5 w-5" />
+                <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
               </Button>
-            )}
+              {roles?.includes('DEV') && (
+                <Button
+                  className="mx-2"
+                  variant="danger"
+                  onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
+                  {t('common:manualUpdate')}
+                </Button>
+              )}
+            </div>
             <div className="flex space-x-8">
               <Select
                 label={t('component:selectLabel.searchYear')}
