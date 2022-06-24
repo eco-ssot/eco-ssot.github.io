@@ -61,11 +61,11 @@
       "remark": "備註",
       "edit": "編輯",
       "expectedValue": "預計效益 (度)",
-      "total": "總計"
-    },
-    "basicElectricity": "基礎用電",
-    "airConditioning": "空調用電",
-    "airCompressor": "空壓用電",
-    "productionElectricity": "生產用電"
+      "total": "總計",
+      "basicElectricity": "基礎用電",
+      "airConditioning": "空調用電",
+      "airCompressor": "空壓用電",
+      "productionElectricity": "生產用電"
+    }
   }
 }

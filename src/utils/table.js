@@ -4,9 +4,9 @@ import APP_CONSTANTS from '../app/appConstants';
 
 export function addPaddingColumns(columns = []) {
   return [
-    { id: 'paddingLeft', rowSpan: 0, Header: '', className: 'w-1' },
+    { id: 'paddingLeft', rowSpan: 0, Header: '', className: 'w-1', Cell: () => <></> },
     ...columns,
-    { id: 'paddingRight', rowSpan: 0, Header: '', className: 'w-1' },
+    { id: 'paddingRight', rowSpan: 0, Header: '', className: 'w-1', Cell: () => <></> },
   ];
 }
 
