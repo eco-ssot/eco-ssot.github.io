@@ -15,6 +15,7 @@ import { useGetAirCompressListQuery, usePostSpecMutation } from '../../services/
 import { trimNumber } from '../../utils/number';
 
 import SpecTable from './SpecTable';
+import { COMPRESS_DICTIONARY, OIL_DICTIONARY, OPERATION_DICTIONARY } from './dictionary';
 
 export default function AirCompressorForm({ className, query, draftRef }) {
   const { t } = useTranslation(['airCompressorPage']);
@@ -46,18 +47,30 @@ export default function AirCompressorForm({ className, query, draftRef }) {
   );
 
   const oilOptions = useMemo(
-    () => listByBuildingMachine?.oil_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuildingMachine?.oil_type]
+    () =>
+      listByBuildingMachine?.oil_type?.filter(Boolean)?.map((val) => ({
+        key: val,
+        value: OIL_DICTIONARY[val] ? t(`airCompressorPage:${OIL_DICTIONARY[val]}`) : val,
+      })),
+    [t, listByBuildingMachine?.oil_type]
   );
 
   const compressOptions = useMemo(
-    () => listByBuildingMachine?.compress_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuildingMachine?.compress_type]
+    () =>
+      listByBuildingMachine?.compress_type?.filter(Boolean)?.map((val) => ({
+        key: val,
+        value: COMPRESS_DICTIONARY[val] ? t(`airCompressorPage:${COMPRESS_DICTIONARY[val]}`) : val,
+      })),
+    [t, listByBuildingMachine?.compress_type]
   );
 
   const runOptions = useMemo(
-    () => listByBuildingMachine?.run_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [listByBuildingMachine?.run_type]
+    () =>
+      listByBuildingMachine?.run_type?.filter(Boolean)?.map((val) => ({
+        key: val,
+        value: OPERATION_DICTIONARY[val] ? t(`airCompressorPage:${OPERATION_DICTIONARY[val]}`) : val,
+      })),
+    [t, listByBuildingMachine?.run_type]
   );
 
   const { register, handleSubmit, setValue, reset, getValues } = useForm({

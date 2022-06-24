@@ -33,5 +33,11 @@
   "estimatedCostReduction": "汰換後累積減少成本預估",
   "newDevice": "新設備",
   "backup": "備機設備",
-  "addNewDevice": "新增常用新機台規格"
+  "addNewDevice": "新增常用新機台規格",
+  "permanentMagnetTwoStageCompression": "永磁雙級壓縮",
+  "screw": "螺杆",
+  "slightlyOily": "微油",
+  "noFuel": "無油",
+  "frequencyConversion": "變頻",
+  "centrifugal": "離心"
 }

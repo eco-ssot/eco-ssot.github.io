@@ -33,5 +33,11 @@
   "estimatedCostReduction": "Estimated Cost Reduction",
   "newDevice": "New Device",
   "backup": "Backup",
-  "addNewDevice": "Add New Device"
+  "addNewDevice": "Add New Device",
+  "permanentMagnetTwoStageCompression": "Permanent magnet two-stage compression",
+  "screw": "Screw",
+  "slightlyOily": "Slightly oily",
+  "noFuel": "No fuel",
+  "frequencyConversion": "Frequency conversion",
+  "centrifugal": "Centrifugal"
 }

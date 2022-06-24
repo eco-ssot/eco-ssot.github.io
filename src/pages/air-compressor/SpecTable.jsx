@@ -22,6 +22,8 @@ import {
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
 
+import { COMPRESS_DICTIONARY, OIL_DICTIONARY, OPERATION_DICTIONARY } from './dictionary';
+
 const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOptions }) => [
   {
     Header: 'No.',
@@ -40,7 +42,7 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
           <Select
             strategy="fixed"
             options={oilOptions}
-            selected={oilOptions.find((option) => option.key === cell.row.original.oil_type)}
+            selected={oilOptions.find((option) => option.key === cell.value)}
             onChange={(e) =>
               setData((prev) => prev.map((d) => (d.id === cell.row.original.id ? { ...d, oil_type: e.key } : d)))
             }
@@ -48,7 +50,7 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
         );
       }
 
-      return cell.value;
+      return OIL_DICTIONARY[cell.value] ? t(`airCompressorPage:${OIL_DICTIONARY[cell.value]}`) : cell.value;
     },
   },
   {
@@ -61,15 +63,15 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
           <Select
             strategy="fixed"
             options={compressOptions}
-            selected={oilOptions.find((option) => option.key === cell.row.original.press_type)}
+            selected={compressOptions.find((option) => option.key === cell.value)}
             onChange={(e) =>
-              setData((prev) => prev.map((d) => (d.id === cell.row.original.id ? { ...d, press_type: e.key } : d)))
+              setData((prev) => prev.map((d) => (d.id === cell.row.original.id ? { ...d, compress_type: e.key } : d)))
             }
           />
         );
       }
 
-      return cell.value;
+      return COMPRESS_DICTIONARY[cell.value] ? t(`airCompressorPage:${COMPRESS_DICTIONARY[cell.value]}`) : cell.value;
     },
   },
   {
@@ -82,7 +84,7 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
           <Select
             strategy="fixed"
             options={runOptions}
-            selected={oilOptions.find((option) => option.key === cell.row.original.run_type)}
+            selected={runOptions.find((option) => option.key === cell.value)}
             onChange={(e) =>
               setData((prev) => prev.map((d) => (d.id === cell.row.original.id ? { ...d, run_type: e.key } : d)))
             }
@@ -90,7 +92,7 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
         );
       }
 
-      return cell.value;
+      return OPERATION_DICTIONARY[cell.value] ? t(`airCompressorPage:${OPERATION_DICTIONARY[cell.value]}`) : cell.value;
     },
   },
   {
@@ -285,24 +287,36 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
 ];
 
 export default function SpecTable({ close, onApply }) {
-  const { t } = useTranslation(['airCompressor', 'common']);
+  const { t } = useTranslation(['airCompressorPage', 'common']);
   const { data } = useGetSpecQuery();
   const { data: list } = useGetAirCompressListQuery();
   const [_data, setData] = useState();
   const snapshotRef = useRef();
   const oilOptions = useMemo(
-    () => list?.oil_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [list?.oil_type]
+    () =>
+      list?.oil_type?.filter(Boolean)?.map((val) => ({
+        key: val,
+        value: OIL_DICTIONARY[val] ? t(`airCompressorPage:${OIL_DICTIONARY[val]}`) : val,
+      })),
+    [t, list?.oil_type]
   );
 
   const compressOptions = useMemo(
-    () => list?.compress_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [list?.compress_type]
+    () =>
+      list?.compress_type?.filter(Boolean)?.map((val) => ({
+        key: val,
+        value: COMPRESS_DICTIONARY[val] ? t(`airCompressorPage:${COMPRESS_DICTIONARY[val]}`) : val,
+      })),
+    [t, list?.compress_type]
   );
 
   const runOptions = useMemo(
-    () => list?.run_type?.filter(Boolean)?.map((val) => ({ key: val, value: val })),
-    [list?.run_type]
+    () =>
+      list?.run_type?.filter(Boolean)?.map((val) => ({
+        key: val,
+        value: OPERATION_DICTIONARY[val] ? t(`airCompressorPage:${OPERATION_DICTIONARY[val]}`) : val,
+      })),
+    [t, list?.run_type]
   );
 
   const columns = useMemo(

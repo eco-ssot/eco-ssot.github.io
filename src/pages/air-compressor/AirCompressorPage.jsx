@@ -17,6 +17,7 @@ import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 
 import AirCompressorForm from './AirCompressorForm';
+import { COMPRESS_DICTIONARY, OIL_DICTIONARY } from './dictionary';
 
 const formatter = (cell) => baseFormatter(cell.value, { precision: 2 });
 
@@ -96,8 +97,17 @@ const OLD_MACHINE_COLUMNS = (t) =>
 const NEW_MACHINE_COLUMNS = (t) =>
   addPaddingColumns([
     { Header: 'No.', accessor: 'reank' },
-    { Header: baseHeaderRenderer(t('airCompressorPage:lubrication')), accessor: 'oil_type' },
-    { Header: baseHeaderRenderer(t('airCompressorPage:compression')), accessor: 'compress_type' },
+    {
+      Header: baseHeaderRenderer(t('airCompressorPage:lubrication')),
+      accessor: 'oil_type',
+      Cell: (cell) => (OIL_DICTIONARY[cell.value] ? t(`airCompressorPage:${OIL_DICTIONARY[cell.value]}`) : cell.value),
+    },
+    {
+      Header: baseHeaderRenderer(t('airCompressorPage:compression')),
+      accessor: 'compress_type',
+      Cell: (cell) =>
+        COMPRESS_DICTIONARY[cell.value] ? t(`airCompressorPage:${COMPRESS_DICTIONARY[cell.value]}`) : cell.value,
+    },
     {
       Header: baseHeaderRenderer(t('airCompressorPage:ratedPower')),
       accessor: 'power',
