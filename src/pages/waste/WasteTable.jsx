@@ -135,7 +135,7 @@ const HEADERS = ({
           <IconButton
             className={clsx(
               'rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
-              (!cell.row.canExpand || /wks|wzs/i.test(cell.row.original.site)) && 'invisible'
+              (!cell.row.canExpand || /wzs|wcq/i.test(cell.row.original.site)) && 'invisible'
             )}
             onClick={() => setOpen(true)}>
             <UploadIcon className="h-5 w-5" />
