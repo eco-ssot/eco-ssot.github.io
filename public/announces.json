@@ -1,4 +1,11 @@
-[
-  "水 / 電 / 廢棄物等數據最終會依據CSR system資料更新平台結果。",
-  "過程因需要呈現數據但因單據在CSR系統尚未被簽核完成，則會以智慧電表/智慧水表暫時填入。最終仍以CSR數據為準則。"
-]
+{
+  "zh": [
+    "水 / 電 / 廢棄物等數據最終會依據CSR system資料更新平台結果。",
+    "過程因需要呈現數據但因單據在CSR系統尚未被簽核完成，則會以智慧電表/智慧水表暫時填入。最終仍以CSR數據為準則。"
+  ],
+  "en": [
+    "Data such as water / electricity / waste will eventually update the platform results based on the CSR system data.",
+    "During the process, because the data needs to be presented but the documents have not been signed off in the CSR system, they will be temporarily filled in with the smart electricity meter/smart water meter.",
+    "In the end, the CSR data is still the guideline."
+  ]
+}

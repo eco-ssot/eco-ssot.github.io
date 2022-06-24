@@ -30,6 +30,7 @@ import {
   selectP,
   selectS,
   selectPt,
+  selectLanguage,
 } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
 import { useGetMissingPlantsQuery } from '../../services/app';
@@ -46,7 +47,11 @@ import Waste from './Waste';
 import Water from './Water';
 
 function Announce() {
-  const { data } = useGetAnnouncesQuery();
+  const lng = useSelector(selectLanguage);
+  const { data } = useGetAnnouncesQuery(undefined, {
+    selectFromResult: ({ data }) => ({ data: data?.[String(lng).split('-')[0]] }),
+  });
+
   const [announceIndex, setAnnounceIndex] = useState(0);
   useInterval(() => {
     setAnnounceIndex((prev) => (prev + 1) % data?.length);
