@@ -5,7 +5,8 @@
   ],
   "en": [
     "Data such as water / electricity / waste will eventually update the platform results based on the CSR system data.",
-    "During the process, because the data needs to be presented but the documents have not been signed off in the CSR system, they will be temporarily filled in with the smart electricity meter/smart water meter.",
+    "During the process, because the data needs to be presented but the documents have not been signed off in the CSR system,",
+    "they will be temporarily filled in with the smart electricity meter/smart water meter.",
     "In the end, the CSR data is still the guideline."
   ]
 }
