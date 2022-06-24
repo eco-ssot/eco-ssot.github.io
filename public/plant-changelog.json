@@ -1,23 +1,48 @@
-[
-  {
-    "type": "消滅",
-    "plant": "WKS-6A",
-    "after": "-",
-    "desc": "廠區消滅",
-    "date": "2022-03-01"
-  },
-  {
-    "type": "更名",
-    "plant": "WKS-6B",
-    "after": "WKS",
-    "desc": "名稱調整",
-    "date": "2022-04-11"
-  },
-  {
-    "type": "遷廠",
-    "plant": "WKS-1",
-    "after": "WCQ-2",
-    "desc": "WKS-1搬遷到重慶",
-    "date": "2022-05-01"
-  }
-]
+{
+  "zh": [
+    {
+      "type": "消滅",
+      "plant": "WKS-6A",
+      "after": "-",
+      "desc": "廠區消滅",
+      "date": "2022-03-01"
+    },
+    {
+      "type": "更名",
+      "plant": "WKS-6B",
+      "after": "WKS",
+      "desc": "名稱調整",
+      "date": "2022-04-11"
+    },
+    {
+      "type": "遷廠",
+      "plant": "WKS-1",
+      "after": "WCQ-2",
+      "desc": "WKS-1搬遷到重慶",
+      "date": "2022-05-01"
+    }
+  ],
+  "en": [
+    {
+      "type": "Shut Down",
+      "plant": "WKS-6A",
+      "after": "-",
+      "desc": "Shut Down",
+      "date": "2022-03-01"
+    },
+    {
+      "type": "Change of name",
+      "plant": "WKS-6B",
+      "after": "WKS",
+      "desc": "Name adjustment",
+      "date": "2022-04-11"
+    },
+    {
+      "type": "Moving",
+      "plant": "WKS-1",
+      "after": "WCQ-2",
+      "desc": "WKS-1 -> Chongqing",
+      "date": "2022-05-01"
+    }
+  ]
+}

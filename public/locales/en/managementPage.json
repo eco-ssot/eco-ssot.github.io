@@ -102,5 +102,12 @@
     "editingPermissionListOfSettings": "Editing Permission List of Settings",
     "listOfDevelopmentTeam": "List of Development Team",
     "userList": "User List"
+  },
+  "plantChangelog": {
+    "title": "Plant Changelog",
+    "changeType": "Change Type",
+    "after": "After",
+    "description": "Description",
+    "changeDate": "Change Date"
   }
 }

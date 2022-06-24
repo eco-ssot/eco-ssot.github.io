@@ -102,5 +102,12 @@
     "editingPermissionListOfSettings": "後台參數可設定權限名單",
     "listOfDevelopmentTeam": "開發群組名單",
     "userList": "一般使用者名單"
+  },
+  "plantChangelog": {
+    "title": "廠區異動",
+    "changeType": "異動類型",
+    "after": "異動後",
+    "description": "說明",
+    "changeDate": "異動日期"
   }
 }
