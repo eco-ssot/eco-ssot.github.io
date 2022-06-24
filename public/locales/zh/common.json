@@ -18,6 +18,7 @@
   "gap": "增減率 *",
   "edit": "編輯",
   "newBorder": "新邊界",
+  "k/unit": "千台幣/台",
   "history": {
     "ytm": "{{startYear}} 年 1 - {{endMonthNum}} 月",
     "m": "{{startYear}} 年 {{endMonthNum}} 月"

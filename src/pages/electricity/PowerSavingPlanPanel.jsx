@@ -1,36 +1,40 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { isNil, groupBy } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import Table from '../../components/table/Table';
 import { useGetElectricityPowerSavingQuery } from '../../services/electricity';
 import { baseFormatter } from '../../utils/formatter';
 import { addPaddingColumns } from '../../utils/table';
 
-const POWER_SAVING_PLAN_COLUMNS = addPaddingColumns([
-  {
-    Header: '用電類型',
-    accessor: 'category',
-    className: 'text-center w-24',
-  },
-  ...Array.from({ length: 12 }, (_, i) => ({
-    Header: `${i + 1}月`,
-    accessor: String(i + 1),
-    className: 'text-right',
-    Cell: baseFormatter,
-  })),
-  {
-    Header: '總計',
-    accessor: 'ttl',
-    className: 'text-right',
-    Cell: baseFormatter,
-  },
-]);
+const POWER_SAVING_PLAN_COLUMNS = (t) =>
+  addPaddingColumns([
+    {
+      Header: t('baselinePage:powerSaving.table.electricityType'),
+      accessor: 'category',
+      className: 'text-center w-24',
+      Cell: (cell) => t(`baselinePage:powerSaving.table.${cell.value}`),
+    },
+    ...Array.from({ length: 12 }, (_, i) => ({
+      Header: t(`common:month.${i + 1}月`),
+      accessor: String(i + 1),
+      className: 'text-right',
+      Cell: baseFormatter,
+    })),
+    {
+      Header: t('baselinePage:powerSaving.table.total'),
+      accessor: 'ttl',
+      className: 'text-right',
+      Cell: baseFormatter,
+    },
+  ]);
 
 export default function PowerSavingPlanPanel({ year, plant }) {
+  const { t } = useTranslation(['baselinePage', 'common']);
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year || !plant });
   const [_data, setData] = useState(data?.data);
-  const columns = useMemo(() => POWER_SAVING_PLAN_COLUMNS, []);
+  const columns = useMemo(() => POWER_SAVING_PLAN_COLUMNS(t), [t]);
   useEffect(() => {
     if (data) {
       const groupByCategory = groupBy(data.data, ({ category }) => category);
@@ -63,7 +67,7 @@ export default function PowerSavingPlanPanel({ year, plant }) {
 
   return (
     <div className="row-span-2 flex h-full flex-col space-y-2 rounded bg-primary-900 p-4 shadow">
-      <div className="text-lg font-medium">計畫節電總量 (度)</div>
+      <div className="text-lg font-medium">{t('baselinePage:powerSaving.subTitle')}</div>
       <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">
         <Table columns={columns} data={_data} />
       </div>

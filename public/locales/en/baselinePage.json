@@ -21,6 +21,7 @@
   "baseline": "Baseline",
   "gap": "Gap",
   "actual": "Actual",
+  "electricityConsumptionTarget": "Electricity Consumption Target",
   "baselinePanel": {
     "table": {
       "month": "Month",
@@ -30,7 +31,10 @@
       "production": "Production Electricity (kWh)",
       "actualElectricity": "Actual",
       "baseline": "Baseline",
-      "gap": "Gap"
+      "gap": "Gap",
+      "electricityConsumptionTarget": "Electricity Consumption Target",
+      "intensity": "Intensity",
+      "perProduct": "Per Product"
     }
   },
   "predictionPanel": {
@@ -44,6 +48,24 @@
       "tRecTarget": "Annual REC Target (Nov)",
       "actualElectricity": "Actual (kWh)",
       "predictionElectricity": "Predicted (kWh)"
+    }
+  },
+  "powerSaving": {
+    "title": "Power Saving Actions & Expected Values",
+    "subTitle": "Expected Power Saving Total (kWh)",
+    "addNewAction": "Add new action",
+    "table": {
+      "electricityType": "Electricity Type",
+      "action": "Action",
+      "calculation": "Calculation",
+      "remark": "Remark",
+      "edit": "Edit",
+      "expectedValue": "Expected Value (kWh)",
+      "total": "Total",
+      "basicElectricity": "Basic Electricity",
+      "airConditioning": "Air Conditioning",
+      "airCompressor": "Air Compressor",
+      "productionElectricity": "Production Electricity"
     }
   }
 }

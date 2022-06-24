@@ -95,10 +95,10 @@ const ELECTRICITY_TYPES = [
 ];
 
 const ELECTRICITY_TYPE_MAPPING = {
-  basic: '基礎用電',
-  air_condition: '空調用電',
-  air_compressor: '空壓用電',
-  air_production: '生產用電',
+  basic: 'basicElectricity',
+  air_condition: 'airConditioning',
+  air_compressor: 'airCompressor',
+  air_production: 'productionElectricity',
 };
 
 const ELECTRICITY_OPTIONS = [

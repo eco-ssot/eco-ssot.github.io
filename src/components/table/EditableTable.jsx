@@ -142,6 +142,7 @@ const EditableCell = ({
     editable,
     placeholder,
     precision = 0,
+    defaultRenderer,
     formatter = (val) => val,
     EditableComponent = InputCell,
     editableComponentProps = {},
@@ -162,7 +163,9 @@ const EditableCell = ({
     />
   ) : (
     <>
-      {isNil(initialValue) || initialValue === ''
+      {defaultRenderer
+        ? defaultRenderer(initialValue)
+        : isNil(initialValue) || initialValue === ''
         ? id === 'baseYear'
           ? category === '可再生能源'
             ? year || APP_CONSTANTS.BASE_YEAR

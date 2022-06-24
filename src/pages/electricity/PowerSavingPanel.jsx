@@ -27,6 +27,7 @@ import { updateMyData } from '../../utils/table';
 import ConfirmModal from './ConfirmModal';
 
 const POWER_SAVING_COLUMNS = ({
+  t,
   year,
   plant,
   electricityOptions,
@@ -37,7 +38,7 @@ const POWER_SAVING_COLUMNS = ({
   canEdit,
 }) => [
   {
-    Header: '用電類型',
+    Header: t('baselinePage:powerSaving.table.electricityType'),
     accessor: 'category',
     rowSpan: 0,
     className: 'w-[6%] text-center',
@@ -51,9 +52,10 @@ const POWER_SAVING_COLUMNS = ({
         onChange={(e) => onBlur(e.value)}
       />
     ),
+    defaultRenderer: (value) => t(`baselinePage:powerSaving.table.${value}`),
   },
   {
-    Header: '改善措施',
+    Header: t('baselinePage:powerSaving.table.action'),
     accessor: 'modified_method',
     className: 'w-[8%] text-center',
     rowSpan: 0,
@@ -62,9 +64,9 @@ const POWER_SAVING_COLUMNS = ({
   },
   {
     id: 'expect',
-    Header: <div className="border-b border-divider py-3">預計效益 (度)</div>,
+    Header: <div className="border-b border-divider py-3">{t('baselinePage:powerSaving.table.expectedValue')}</div>,
     columns: Array.from({ length: 12 }, (_, i) => ({
-      Header: `${i + 1}月`,
+      Header: `${t(`common:month.${i + 1}月`)}`,
       accessor: `expected_benefits.${i + 1}`,
       editable: true,
       className: '!px-1 w-[4%] text-right',
@@ -72,7 +74,7 @@ const POWER_SAVING_COLUMNS = ({
       editableComponentProps: { className: 'text-right h-10' },
     })).concat({
       id: 'total',
-      Header: '總計',
+      Header: t('baselinePage:powerSaving.table.total'),
       className: '!px-1 w-[4%] text-right',
       Cell: (cell) => {
         const ttl = Object.entries(cell.row.original.expected_benefits || {}).reduce(
@@ -103,7 +105,7 @@ const POWER_SAVING_COLUMNS = ({
       ),
   },
   {
-    Header: '計算邏輯',
+    Header: t('baselinePage:powerSaving.table.calculation'),
     accessor: 'computational_logic',
     rowSpan: 0,
     editable: true,
@@ -111,7 +113,7 @@ const POWER_SAVING_COLUMNS = ({
     className: 'w-[10%] py-2',
   },
   {
-    Header: '備註',
+    Header: t('baselinePage:powerSaving.table.remark'),
     accessor: 'remark',
     rowSpan: 0,
     editable: true,
@@ -120,7 +122,7 @@ const POWER_SAVING_COLUMNS = ({
   },
   {
     id: 'action',
-    Header: '編輯',
+    Header: t('baselinePage:powerSaving.table.edit'),
     className: 'w-[5%] text-center',
     rowSpan: 0,
     Cell: (cell) => {
@@ -158,7 +160,7 @@ const POWER_SAVING_COLUMNS = ({
               setOpen(true);
             }
           }}>
-          儲存
+          {t('component:button.save')}
         </EditableButton>
       ) : (
         <EditableIconButton
@@ -179,7 +181,7 @@ const POWER_SAVING_COLUMNS = ({
 ];
 
 export default function PowerSavingPanel({ year, plant }) {
-  const { t } = useTranslation(['component']);
+  const { t } = useTranslation(['component', 'baselinePage', 'common']);
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year || !plant });
   const { data: users = [] } = useGetUsersQuery();
   const [_data, setData] = useState();
@@ -199,6 +201,7 @@ export default function PowerSavingPanel({ year, plant }) {
   const columns = useMemo(
     () =>
       POWER_SAVING_COLUMNS({
+        t,
         year,
         plant,
         electricityOptions,
@@ -208,7 +211,7 @@ export default function PowerSavingPanel({ year, plant }) {
         userOptions: users.map(({ id, email }) => ({ value: id, label: email })),
         postPowerSaving: (payload) => (confirmRef.current = { year, plant, data: payload }),
       }),
-    [electricityOptions, year, plant, users, canEdit]
+    [t, electricityOptions, year, plant, users, canEdit]
   );
 
   useEffect(() => {
@@ -228,11 +231,11 @@ export default function PowerSavingPanel({ year, plant }) {
         }>
         {_data?.slice(-1)?.[0]?.isNew ? (
           <>
-            <XIcon className="h-5 w-5" /> 取消新增
+            <XIcon className="h-5 w-5" /> {t('component:button.cancel')}
           </>
         ) : (
           <>
-            <PlusIcon className="h-5 w-5" /> 新增技改項目
+            <PlusIcon className="h-5 w-5" /> {t('baselinePage:powerSaving.addNewAction')}
           </>
         )}
       </Button>

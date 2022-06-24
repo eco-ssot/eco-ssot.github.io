@@ -398,7 +398,9 @@ export default function ElectricityIndexPage({ className, year, plant }) {
       <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-4 p-4">
         <div className="col-span-1 flex flex-col rounded bg-primary-900 p-4 shadow">
           <div className="flex justify-between">
-            <div className="text-xl font-medium">{t('electricityPage:index.totalElectricityConsumption')}</div>
+            <div className="whitespace-nowrap text-xl font-medium">
+              {t('electricityPage:index.totalElectricityConsumption')}
+            </div>
             <div className="space-y-4">
               <div className="flex justify-end  space-x-4">
                 <Legend dotClassName="bg-_blue" label={`${year - 1}${t('common:year.text')}`} />

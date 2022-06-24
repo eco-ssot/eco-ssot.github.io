@@ -60,7 +60,7 @@ export default function ElectricityBaselinePage() {
                   isPrediction || isEmpty(option) ? 'row-span-5' : 'row-span-3'
                 )}>
                 <div className="text-xl font-medium">
-                  {isPowerSaving ? '節能技改項目 & 預期節電效益規劃表' : t('baselinePage:title')}
+                  {isPowerSaving ? t('baselinePage:powerSaving.title') : t('baselinePage:title')}
                 </div>
                 <ButtonGroup
                   className="self-center"

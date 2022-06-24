@@ -18,6 +18,7 @@
   "gap": "Gap *",
   "edit": "Edit",
   "newBorder": "New Border",
+  "k/unit": "K/unit",
   "history": {
     "ytm": "Jan - {{endMonth, datetime}}, {{startYear}}",
     "m": "{{endMonth, datetime}}, {{startYear}}"

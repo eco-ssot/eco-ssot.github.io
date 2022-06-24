@@ -141,6 +141,18 @@ export const electricityApi = appApi.injectEndpoints({
             ...d,
             id: i,
             category: APP_CONSTANTS.ELECTRICITY_TYPE_MAPPING[d.category] || d.category,
+            ...(d.category === '基礎用電' && {
+              category: 'basicElectricity',
+            }),
+            ...(d.category === '空調用電' && {
+              category: 'airConditioning',
+            }),
+            ...(d.category === '空壓用電' && {
+              category: 'airCompressor',
+            }),
+            ...(d.category === '生產用電' && {
+              category: 'productionElectricity',
+            }),
           })),
         };
       },

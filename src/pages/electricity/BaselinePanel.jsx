@@ -54,7 +54,7 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
       id: 'electricity_target',
       Header: (
         <div className="flex items-center justify-center space-x-2 border-b border-divider py-3">
-          <div>用電指標</div>
+          <div>{t('baselinePage:baselinePanel.table.electricityConsumptionTarget')}</div>
           <div
             className="group cursor-pointer rounded border border-gray-200 hover:border-gray-50"
             onClick={() => setOpen((prev) => !prev)}>
@@ -64,19 +64,19 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
       ),
       columns: [
         {
-          Header: '用電密集度 (千度)',
+          Header: `${t('baselinePage:baselinePanel.table.intensity')} (${t('common:mwh')})`,
           accessor: 'electricity_target.intensity',
           className: 'text-right',
           Cell: statisticsFormatter(3),
         },
         {
-          Header: '約當單台用電 (度)',
+          Header: `${t('baselinePage:baselinePanel.table.perProduct')} (${t('common:kwh')})`,
           accessor: 'electricity_target.unit',
           className: 'text-right',
           Cell: statisticsFormatter(3),
         },
         {
-          Header: 'ASP (千台幣/台)',
+          Header: `ASP (${t('common:k/unit')})`,
           accessor: 'electricity_target.asp',
           className: 'text-right',
           Cell: statisticsFormatter(3),
@@ -157,7 +157,7 @@ export default function BaselinePanel({ year, plant, business }) {
         open={open}
         setOpen={setOpen}
         onClose={setOpen}
-        title="用電指標資訊"
+        title={t('baselinePage:electricityConsumptionTarget')}
         defaultFooter={false}>
         <ElectricityIndexPage
           className="h-[calc(100vh-6rem)] w-[calc(100vw-6rem)] bg-gray-900"
