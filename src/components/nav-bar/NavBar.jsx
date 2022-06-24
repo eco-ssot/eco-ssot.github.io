@@ -1,25 +1,28 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import { selectLanguage } from '../../renderless/location/locationSlice';
 import MyNavLink from '../../router/MyNavLink';
 import { privateRoutes } from '../../router/routes';
 
-export function preloadElements({ element, routes }) {
-  element?.preload?.();
-  routes?.forEach(preloadElements);
-}
-
 export default function NavBar({ className }) {
   const { t } = useTranslation(['location']);
+  const lng = useSelector(selectLanguage);
   const { pathname, search } = useLocation();
   const tabs = useMemo(() => privateRoutes.filter((route) => !route.hidden), []);
+  const preloadElements = useCallback((route) => {
+    route.element?.preload?.();
+    route.routes?.forEach(preloadElements);
+  }, []);
+
   return (
     <div className={clsx('flex flex-grow space-x-4', className)}>
       {tabs.map(({ path, i18nKey, element, routes, prefetchApis, index }, i) => (
@@ -38,14 +41,14 @@ export default function NavBar({ className }) {
               isActive || (index && pathname === '/')
                 ? 'border-primary-600 text-gray-50'
                 : 'border-primary-800 text-gray-200 hover:text-gray-50',
-              i > 4 && 'hidden 1k:block'
+              i > 4 && clsx(/en/i.test(lng) ? 'hidden' : 'hidden 1k:block')
             )
           }
           prefetchApis={prefetchApis}>
           <span className="block truncate">{t(i18nKey)}</span>
         </MyNavLink>
       ))}
-      <div className="relative block 1k:hidden">
+      <div className={clsx('relative block', !/en/i.test(lng) && '1k:hidden')}>
         <Menu as="div" className="relative inline-block text-left">
           <Menu.Button className="inline-flex w-full items-center justify-center rounded-md py-2 px-3 text-lg font-medium text-gray-50 hover:bg-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             More
