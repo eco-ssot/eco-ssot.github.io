@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useTranslation } from 'react-i18next';
 import { useTable } from 'react-table';
 
 import Button from '../../components/button/Button';
@@ -21,7 +22,7 @@ import {
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
 
-const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions }) => [
+const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOptions }) => [
   {
     Header: 'No.',
     accessor: 'order',
@@ -30,7 +31,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     Cell: (cell) => cell.row.index + 1,
   },
   {
-    Header: '潤滑類型',
+    Header: t('airCompressorPage:lubrication'),
     accessor: 'oil_type',
     className: 'px-2 text-center',
     Cell: (cell) => {
@@ -51,7 +52,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '壓縮類型',
+    Header: t('airCompressorPage:compression'),
     accessor: 'compress_type',
     className: 'px-2 text-center',
     Cell: (cell) => {
@@ -72,7 +73,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '運轉類型',
+    Header: t('airCompressorPage:operation'),
     accessor: 'run_type',
     className: 'px-2 text-center',
     Cell: (cell) => {
@@ -93,7 +94,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '額定功率',
+    Header: t('airCompressorPage:ratedPower'),
     accessor: 'power',
     className: 'text-right px-2',
     Cell: (cell) => {
@@ -117,7 +118,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '額定排氣量',
+    Header: t('airCompressorPage:ratedDisplacement'),
     accessor: 'engine_depcmemt',
     className: 'text-right px-2',
     Cell: (cell) => {
@@ -141,7 +142,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '額定能效',
+    Header: t('airCompressorPage:ratedEfficiency'),
     accessor: 'eer_r',
     className: 'text-right px-2',
     Cell: (cell) => {
@@ -165,7 +166,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '購置新機費用',
+    Header: t('airCompressorPage:price'),
     accessor: 'cost',
     className: 'text-right px-2',
     Cell: (cell) => {
@@ -189,7 +190,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '品牌 / 型號',
+    Header: t('airCompressorPage:brand/model'),
     accessor: 'model_number',
     className: 'text-left px-2 max-w-48 truncate',
     Cell: (cell) => {
@@ -210,7 +211,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
     },
   },
   {
-    Header: '編輯',
+    Header: t('common:edit'),
     id: 'action',
     className: 'text-center px-4',
     Cell: (cell) => {
@@ -284,6 +285,7 @@ const COLUMNS = ({ setData, snapshotRef, oilOptions, compressOptions, runOptions
 ];
 
 export default function SpecTable({ close, onApply }) {
+  const { t } = useTranslation(['airCompressor', 'common']);
   const { data } = useGetSpecQuery();
   const { data: list } = useGetAirCompressListQuery();
   const [_data, setData] = useState();
@@ -304,8 +306,8 @@ export default function SpecTable({ close, onApply }) {
   );
 
   const columns = useMemo(
-    () => COLUMNS({ setData, snapshotRef, oilOptions, compressOptions, runOptions }),
-    [oilOptions, compressOptions, runOptions]
+    () => COLUMNS({ t, setData, snapshotRef, oilOptions, compressOptions, runOptions }),
+    [t, oilOptions, compressOptions, runOptions]
   );
 
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
@@ -352,7 +354,7 @@ export default function SpecTable({ close, onApply }) {
           onApply(rest);
           close();
         }}>
-        匯入
+        {t('common:import')}
       </Button>
     </div>
   );
@@ -450,6 +452,7 @@ function Table({
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
 }) {
+  const { t } = useTranslation(['airCompressorPage']);
   const [records, setRecords] = useState(data);
   const getRowId = useCallback((row) => {
     return row.id;
@@ -536,7 +539,7 @@ function Table({
                       )
                     }>
                     <PlusIcon className="h-5 w-5 text-gray-300 group-hover:text-gray-50" />
-                    <div className="text-gray-300 group-hover:text-gray-50">新增常用新機台規格</div>
+                    <div className="text-gray-300 group-hover:text-gray-50">{t('airCompressorPage:addNewDevice')}</div>
                   </div>
                 </div>
               </td>

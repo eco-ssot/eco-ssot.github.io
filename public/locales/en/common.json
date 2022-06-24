@@ -19,6 +19,8 @@
   "edit": "Edit",
   "newBorder": "New Border",
   "k/unit": "K/unit",
+  "10k": "10K",
+  "import": "Import",
   "history": {
     "ytm": "Jan - {{endMonth, datetime}}, {{startYear}}",
     "m": "{{endMonth, datetime}}, {{startYear}}"
