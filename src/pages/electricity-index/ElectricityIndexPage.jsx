@@ -403,8 +403,8 @@ export default function ElectricityIndexPage({ className, year, plant }) {
             </div>
             <div className="space-y-4">
               <div className="flex justify-end  space-x-4">
-                <Legend dotClassName="bg-_blue" label={`${year - 1}${t('common:year.text')}`} />
-                <Legend dotClassName="bg-primary-500" label={`${year}${t('common:year.text')}`} />
+                <Legend dotClassName="bg-_blue" label={`${year - 1}`} />
+                <Legend dotClassName="bg-primary-500" label={`${year}`} />
                 <Legend dotClassName="bg-_yellow" label={t('electricityPage:index.monthlyBaseline')} />
               </div>
               <div className="text-right">{t('electricityPage:index.monthlyBaselineDesc')}</div>
