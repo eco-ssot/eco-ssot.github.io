@@ -457,7 +457,14 @@ export default function AnalysisTable({
                           onRowChange({
                             id,
                             data: trimRow({ description, effect }),
-                            ...(draftRef.current.length > 0 && { subData: draftRef.current }),
+                            ...(draftRef.current?.length > 0 && {
+                              subData: draftRef.current.map((d) => ({
+                                ...d,
+                                ...(hasCategory && {
+                                  category: d.category || APP_CONSTANTS.ELECTRICITY_OPTIONS[0].value,
+                                }),
+                              })),
+                            }),
                           });
 
                           setData((prev) =>
