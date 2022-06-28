@@ -31,12 +31,7 @@ export default function TablePanel({ children }) {
   });
 
   const plantOptions = useSitePlantOptions(undefined, {
-    skip:
-      process.env.REACT_APP_STAGE === 'production' ||
-      !isElectricity ||
-      (!option.p && !option.s) ||
-      option.y ||
-      isHistory,
+    skip: !isElectricity || (!option.p && !option.s) || option.y || isHistory,
   });
 
   return children({
@@ -47,7 +42,6 @@ export default function TablePanel({ children }) {
     prevOption,
     missingPlants,
     showElectricityIndex:
-      process.env.REACT_APP_STAGE !== 'production' &&
       isElectricity &&
       (option.p || option.s) &&
       (option.y || currYear) &&

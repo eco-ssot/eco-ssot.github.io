@@ -94,7 +94,8 @@
     "3.0.3": "View & Target by plant",
     "3.0.4": "Add user list",
     "3.0.5": "Add air compressor calculator",
-    "3.0.6": "Add electricity index"
+    "3.0.6": "Add electricity index",
+    "4.0.0": "V4.0.0 released"
   },
   "permission": {
     "permissionList": "Permission List",

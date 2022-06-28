@@ -269,7 +269,6 @@ export const privateRoutes = [
     path: '/analysis/electricity',
     element: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
     i18nKey: 'electricityBaseline',
-    hidden: process.env.REACT_APP_STAGE === 'production',
   },
   {
     path: '/water',
@@ -328,7 +327,6 @@ export const privateRoutes = [
     element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage')),
     skeleton: AirCompressorPageSkeleton,
     i18nKey: 'airCompressor',
-    hidden: process.env.REACT_APP_STAGE === 'production',
   },
   {
     path: '/management',
