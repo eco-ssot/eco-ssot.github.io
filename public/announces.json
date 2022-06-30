@@ -1,9 +1,12 @@
 {
   "zh": [
+    "環境保護管理平台4.0於 2022.06.30上線: 詳細更新內容請參考系統右上方操作手冊",
     "水 / 電 / 廢棄物等數據最終會依據CSR system資料更新平台結果。",
     "過程因需要呈現數據但因單據在CSR系統尚未被簽核完成，則會以智慧電表/智慧水表暫時填入。最終仍以CSR數據為準則。"
   ],
   "en": [
+    "The environmental protection management platform 4.0 will be launched on 2022.06.30",
+    "Please refer to the operation manual at the upper right of the system for the detailed update content",
     "Data such as water / electricity / waste will eventually update the platform results based on the CSR system data.",
     "During the process, because the data needs to be presented but the documents have not been signed off in the CSR system,",
     "they will be temporarily filled in with the smart electricity meter/smart water meter.",
