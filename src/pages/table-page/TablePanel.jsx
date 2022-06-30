@@ -42,6 +42,7 @@ export default function TablePanel({ children }) {
     prevOption,
     missingPlants,
     showElectricityIndex:
+      !new RegExp(option.p, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
       isElectricity &&
       (option.p || option.s) &&
       (option.y || currYear) &&

@@ -3,8 +3,6 @@ import { renderToString } from 'react-dom/server';
 
 import { baseFormatter } from '../../utils/formatter';
 
-const HIDDEN_PLANTS = ['WCZ', 'WMX', 'WNH', 'WHC', 'WKS-1'];
-
 export const BASE_LINE_DETAIL_ENTRIES = [
   { key: 'PCBAProduction', name: 'PCBA產量 (pcs)' },
   { key: 'FAProduction', name: 'FA產量 (pcs)' },
@@ -39,7 +37,7 @@ export function gapFormatter(cell) {
 export function getPlants({ data, otherPlants, s, p, plantPermission }) {
   const options = data
     ?.filter(({ key }) => !otherPlants?.includes(key))
-    ?.filter(({ key }) => !HIDDEN_PLANTS.includes(key))
+    ?.filter(({ key }) => !new RegExp(key, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS))
     ?.filter(({ key }) => plantPermission?.includes(key))
     ?.filter(({ key }) => {
       if (p) {
@@ -55,12 +53,20 @@ export function getPlants({ data, otherPlants, s, p, plantPermission }) {
 
   if (!options?.length) {
     if (p) {
-      return data?.filter(({ key }) => key === p && !HIDDEN_PLANTS.includes(key) && !otherPlants?.includes(key));
+      return data?.filter(
+        ({ key }) =>
+          key === p &&
+          !new RegExp(key, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
+          !otherPlants?.includes(key)
+      );
     }
 
     if (s) {
       return data?.filter(
-        ({ key }) => key.startsWith(s) && !HIDDEN_PLANTS.includes(key) && !otherPlants?.includes(key)
+        ({ key }) =>
+          key.startsWith(s) &&
+          !new RegExp(key, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
+          !otherPlants?.includes(key)
       );
     }
   }
