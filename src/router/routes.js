@@ -337,6 +337,7 @@ export const privateRoutes = [
       },
     ],
   },
+  wasteRoute,
   {
     path: '/air-compressor',
     title: '空壓設備',
@@ -374,7 +375,6 @@ export const privateRoutes = [
       },
     ],
   },
-  wasteRoute,
   wasteDetailRoute,
   electricityAnalysisRoute,
   waterAnalysisRoute,
