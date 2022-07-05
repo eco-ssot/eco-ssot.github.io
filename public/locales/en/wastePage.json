@@ -1,5 +1,6 @@
 {
   "title": "Waste Generation Intensity",
+  "subtitle": "Waste Generation Intensity Detail",
   "desc": "* General*¹ = Incineration & Landfill, General*¹ = Others & Food Waste",
   "table": {
     "nonRecyclable": {

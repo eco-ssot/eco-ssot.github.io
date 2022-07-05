@@ -108,12 +108,13 @@ const HEADERS = ({
             return (
               <MyNavLink
                 className="flex items-center justify-end space-x-2"
-                to={{ search, pathname: './analysis' }}
+                to={{ search, pathname: '/waste/analysis' }}
                 onMouseEnter={() => {
                   wasteAnalysisRoute.element.preload();
                   prefetchAnalysis({ ...query, PREFETCH: '/waste' });
                   prefetchExplanation({ ...query, PREFETCH: '/waste' });
-                }}>
+                }}
+                state={{ from: '/waste', skipLoadingPage: true }}>
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </MyNavLink>

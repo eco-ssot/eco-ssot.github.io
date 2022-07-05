@@ -81,12 +81,13 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
             return (
               <MyNavLink
                 className="flex items-center justify-end space-x-2"
-                to={{ search, pathname: './analysis' }}
+                to={{ search, pathname: '/electricity/analysis' }}
                 onMouseEnter={() => {
                   electricityAnalysisRoute.element.preload();
                   prefetchAnalysis({ ...query, PREFETCH: '/electricity' });
                   prefetchExplanation({ ...query, PREFETCH: '/electricity' });
-                }}>
+                }}
+                state={{ from: '/electricity', skipLoadingPage: true }}>
                 {isFinite(cell.value) && cell.value > 0 && <Dot />}
                 <div className={clsx('underline', baseClassName)}>{ratioFormatter(cell.value)}</div>
               </MyNavLink>

@@ -10,10 +10,7 @@ import { store } from '../app/store';
 import usePlantPermission from '../hooks/usePlantPermission';
 
 const MyNavLink = forwardRef(
-  (
-    { onClick, state, target, to, api, prefetchEndpoints, prefetchApis, onMouseEnter, replace = false, ...rest },
-    ref
-  ) => {
+  ({ onClick, state, target, to, api, prefetchApis, onMouseEnter, replace = false, ...rest }, ref) => {
     const handleClick = useLinkClickHandler(to, {
       replace,
       state,
@@ -83,8 +80,10 @@ const MyNavLink = forwardRef(
 
     const dispatch = useDispatch();
     useEffect(() => {
-      dispatch(setLoadingPage({ [to?.pathname || to]: pending }));
-    }, [to, pending, dispatch]);
+      if (!state?.skipLoadingPage) {
+        dispatch(setLoadingPage({ [to?.pathname || to]: pending }));
+      }
+    }, [to, pending, state?.skipLoadingPage, dispatch]);
 
     return (
       <>

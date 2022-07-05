@@ -172,6 +172,41 @@ export const wasteAnalysisRoute = {
   hidden: true,
 };
 
+export const wasteRoute = {
+  path: '/waste',
+  i18nKey: 'waste',
+  element: lazyPreload(() => import('../pages/waste/WastePage')),
+  prefetchApis: [
+    {
+      api: wasteApi,
+      endpoints: [
+        {
+          name: 'getWaste',
+          queryKeys: TABLE_PAGE_QUERY_KEYS,
+        },
+      ],
+    },
+  ],
+};
+
+export const wasteDetailRoute = {
+  path: '/waste/detail',
+  i18nKey: 'waste',
+  element: lazyPreload(() => import('../pages/waste/WastePage')),
+  hidden: true,
+  prefetchApis: [
+    {
+      api: wasteApi,
+      endpoints: [
+        {
+          name: 'getWasteDetail',
+          queryKeys: TABLE_PAGE_QUERY_KEYS,
+        },
+      ],
+    },
+  ],
+};
+
 export const privateRoutes = [
   {
     index: true,
@@ -264,7 +299,6 @@ export const privateRoutes = [
       },
     ],
   },
-
   {
     path: '/analysis/electricity',
     element: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage')),
@@ -286,7 +320,6 @@ export const privateRoutes = [
       },
     ],
   },
-
   {
     path: '/unit-electricity',
     title: '約當單台用電',
@@ -304,23 +337,6 @@ export const privateRoutes = [
       },
     ],
   },
-  {
-    path: '/waste',
-    i18nKey: 'waste',
-    element: lazyPreload(() => import('../pages/waste/WastePage')),
-    prefetchApis: [
-      {
-        api: wasteApi,
-        endpoints: [
-          {
-            name: 'getWaste',
-            queryKeys: TABLE_PAGE_QUERY_KEYS,
-          },
-        ],
-      },
-    ],
-  },
-
   {
     path: '/air-compressor',
     title: '空壓設備',
@@ -358,6 +374,8 @@ export const privateRoutes = [
       },
     ],
   },
+  wasteRoute,
+  wasteDetailRoute,
   electricityAnalysisRoute,
   waterAnalysisRoute,
   wasteAnalysisRoute,
