@@ -57,7 +57,7 @@ deploy:dev:
   variables:
     STAGE: dev
     TAG: $CI_COMMIT_BRANCH
-    RANCHER_TOKEN: RANCHER_TOKEN_DEV
+    RANCHER_TOKEN: $RANCHER_TOKEN_DEV
   script:
     - export VERSION=$CI_COMMIT_SHA
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
@@ -79,7 +79,7 @@ deploy:qas:
   variables:
     STAGE: qas
     TAG: $CI_COMMIT_BRANCH
-    RANCHER_TOKEN: RANCHER_TOKEN_QAS
+    RANCHER_TOKEN: $RANCHER_TOKEN_QAS
   script:
     - export VERSION=$CI_COMMIT_SHA
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
