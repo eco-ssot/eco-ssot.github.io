@@ -76,11 +76,11 @@ export const COLUMNS = ({
           ...(key === 'revenue' && {
             Cell: (cell) => {
               return (
-                <div className="flex items-center justify-end space-x-2">
+                <div className="relative flex items-center justify-end pr-9">
                   <div>{targetFormatter(0, { formatter: ratioFormatter })(cell)}</div>
                   <IconButton
                     className={clsx(
-                      'rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
+                      'absolute right-0 rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
                       (!MANUAL_UPLOAD_PLANTS.includes(cell.row.original.site) || window.location.hash === '#HISTORY') &&
                         'invisible'
                     )}

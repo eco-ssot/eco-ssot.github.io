@@ -199,7 +199,7 @@ export default function DataStatusPage() {
             {((!year && !month) || (year === currYear && month === currMonth)) && getLabel(t)}
           </div>
           <div className="relative flex items-center justify-center">
-            <div className="absolute left-0 flex">
+            <div className="absolute left-0 flex space-x-2">
               <Button className="left-0 space-x-1" onClick={() => setOpen(true)}>
                 <UploadIcon className="h-5 w-5" />
                 <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>

@@ -131,11 +131,11 @@ const HEADERS = ({
     name: <div className="text-center">{t('wastePage:table.recycleRate')}</div>,
     renderer: (cell) => {
       return (
-        <div className="flex items-center justify-end space-x-2">
+        <div className="relative flex items-center justify-end pr-9">
           <div>{ratioFormatter(cell)}</div>
           <IconButton
             className={clsx(
-              'rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
+              'absolute right-0 rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
               (!cell.row.canExpand || /wzs|wcq/i.test(cell.row.original.site)) && 'invisible'
             )}
             onClick={() => setOpen(true)}>
