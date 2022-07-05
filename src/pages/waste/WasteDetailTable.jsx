@@ -86,7 +86,7 @@ const HEADERS = ({ t, pct, currYear } = {}) => [
       {
         key: 'ratio',
         name: t('增減率 *'),
-        renderer: AnalysisLink(pct),
+        renderer: ratioFormatter,
       },
     ],
   },
@@ -99,7 +99,7 @@ const HEADERS = ({ t, pct, currYear } = {}) => [
         name: t(`${currYear - 1} (e=a/c)`),
       },
       { key: 'currYear', name: t(`${currYear} (f=b/d)`) },
-      { key: 'ratio', name: t('增減率 *'), renderer: ratioFormatter },
+      { key: 'ratio', name: t('增減率 *'), renderer: AnalysisLink(pct) },
     ],
   },
   {
