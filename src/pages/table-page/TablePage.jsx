@@ -16,7 +16,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
   const navigate = useNavigate();
   return (
     <TablePanel>
-      {({ isHistory, isOverview, option, prevOption, missingPlants, year, showElectricityIndex }) => (
+      {({ isHistory, isOverview, option, prevOption, missingPlants, year, showElectricityIndex, showHistoryTab }) => (
         <>
           <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full flex-col overflow-auto">
             <div
@@ -27,6 +27,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
               <div className="text-xl font-medium">{title}</div>
               <div className="flex items-end justify-center">
                 <ButtonGroup
+                  className={clsx(!showHistoryTab && 'invisible')}
                   options={APP_CONSTANTS.HISTORY_OPTIONS}
                   selected={isHistory ? APP_CONSTANTS.HISTORY_OPTIONS[1] : APP_CONSTANTS.HISTORY_OPTIONS[0]}
                   onChange={(e) =>

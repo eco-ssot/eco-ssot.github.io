@@ -127,7 +127,11 @@ export const wasteApi = appApi.injectEndpoints({
     getWasteDetail: builder.query({
       query: (query) => ({ query, url: 'waste-others' }),
       transformResponse: (res, { permission }) => {
-        const data = getPlantData(res.data, permission);
+        const data = getPlantData(
+          res.data?.map((d) => (d.plants ? { ...d, plants: d.plants.map((_d) => ({ ..._d, site: _d.plant })) } : d)),
+          permission
+        );
+
         const [total, records] = partition(data, ({ site }) => site === 'Total');
         const maxDate = getMaxDate(
           ...data.reduce(

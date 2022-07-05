@@ -57,7 +57,13 @@ const AnalysisLink = (pct) => (cell) => {
 const HEADERS = ({ t, pct, currYear } = {}) => [
   {
     key: 'normal',
-    name: t('一般廢棄物 (其他/廚餘) (公噸)'),
+    name: (
+      <div className="flex items-baseline space-x-1">
+        <div>{t('一般廢棄物')}</div>
+        <div className="text-sm">{t('(其他/廚餘)')}</div>
+        <div>{t('(公噸)')}</div>
+      </div>
+    ),
     subHeaders: [
       {
         key: 'lastYear',
@@ -98,7 +104,13 @@ const HEADERS = ({ t, pct, currYear } = {}) => [
   },
   {
     key: 'recycle',
-    name: t('資源廢棄物 (堆肥 & 資源回收) (公噸)'),
+    name: (
+      <div className="flex items-baseline space-x-1">
+        <div>{t('資源廢棄物')}</div>
+        <div className="text-sm">{t('(堆肥 & 資源回收)')}</div>
+        <div>{t('(公噸)')}</div>
+      </div>
+    ),
     subHeaders: [
       {
         key: 'lastYear',

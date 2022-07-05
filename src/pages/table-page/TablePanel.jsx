@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import qs from 'query-string';
 import { useLocation } from 'react-router-dom';
 import { usePrevious } from 'react-use';
@@ -9,11 +11,12 @@ import { useGetLatestDateQuery, useGetMissingPlantsQuery } from '../../services/
 export default function TablePanel({ children }) {
   const { hash, pathname, search } = useLocation();
   const prevSearch = usePrevious(search);
-  const option = qs.parse(search);
-  const prevOption = qs.parse(prevSearch);
-  const isHistory = hash.slice(1) === APP_CONSTANTS.HISTORY_OPTIONS[1].key;
-  const isOverview = pathname.startsWith('/overview');
-  const isElectricity = pathname.startsWith('/electricity');
+  const option = useMemo(() => qs.parse(search), [search]);
+  const prevOption = useMemo(() => qs.parse(prevSearch), [prevSearch]);
+  const isHistory = useMemo(() => hash.slice(1) === APP_CONSTANTS.HISTORY_OPTIONS[1].key, [hash]);
+  const isOverview = useMemo(() => pathname.startsWith('/overview'), [pathname]);
+  const isElectricity = useMemo(() => pathname.startsWith('/electricity'), [pathname]);
+  const showHistoryTab = useMemo(() => pathname !== '/waste/detail', [pathname]);
   const { data: missingPlants = [] } = useGetMissingPlantsQuery(
     {
       business: option.business,
@@ -34,6 +37,17 @@ export default function TablePanel({ children }) {
     skip: !isElectricity || (!option.p && !option.s) || option.y || isHistory,
   });
 
+  const showElectricityIndex = useMemo(
+    () =>
+      !new RegExp(option.p || option.s, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
+      isElectricity &&
+      (option.p || option.s) &&
+      (option.y || currYear) &&
+      !isHistory &&
+      plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === option.p || key === option.s),
+    [option.p, option.s, isElectricity, option.y, currYear, isHistory, plantOptions]
+  );
+
   return children({
     isHistory,
     isOverview,
@@ -41,13 +55,8 @@ export default function TablePanel({ children }) {
     option,
     prevOption,
     missingPlants,
-    showElectricityIndex:
-      !new RegExp(option.p || option.s, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
-      isElectricity &&
-      (option.p || option.s) &&
-      (option.y || currYear) &&
-      !isHistory &&
-      plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === option.p || key === option.s),
+    showElectricityIndex,
+    showHistoryTab,
     year: option.y || currYear,
   });
 }
