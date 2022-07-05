@@ -57,6 +57,7 @@ deploy:dev:
   variables:
     STAGE: dev
     TAG: $CI_COMMIT_BRANCH
+    RANCHER_TOKEN: RANCHER_TOKEN_DEV
   script:
     - export VERSION=$CI_COMMIT_SHA
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
@@ -68,7 +69,29 @@ deploy:dev:
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $RANCHER_TOKEN" \
       -d "{\"containers\":[{\"initContainer\":false,\"restartCount\":0,\"stdin\":true,\"stdinOnce\":false,\"tty\":true,\"allowPrivilegeEscalation\":false,\"image\":\"$IMAGE\",\"imagePullPolicy\":\"Always\",\"name\":\"eco-ssot-2021-frontend\",\"privileged\":false,\"readOnly\":false,\"resources\":{\"type\":\"/v3/project/schemas/resourceRequirements\",\"requests\":{},\"limits\":{}},\"runAsNonRoot\":false,\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"type\":\"container\",\"environmentFrom\":[],\"capAdd\":[],\"capDrop\":[],\"livenessProbe\":null,\"volumeMounts\":[]}]}" \
-      "https://k8sprd-whq.wistron.com/v3/project/local:p-w666x/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend"
+      "https://k8sportal.wistron.com/v3/project/local:p-hn246/workloads/deployment:eco-ssot-2021-dev:eco-ssot-2021-frontend"
+  extends: .deploy
+
+deploy:qas:
+  only:
+    refs:
+      - qas
+  variables:
+    STAGE: qas
+    TAG: $CI_COMMIT_BRANCH
+    RANCHER_TOKEN: RANCHER_TOKEN_QAS
+  script:
+    - export VERSION=$CI_COMMIT_SHA
+    - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
+    - docker build --build-arg STAGE=$STAGE -t $IMAGE .
+    - docker push $IMAGE
+    - |
+      curl -k \
+      -X PUT \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $RANCHER_TOKEN" \
+      -d "{\"containers\":[{\"initContainer\":false,\"restartCount\":0,\"stdin\":true,\"stdinOnce\":false,\"tty\":true,\"allowPrivilegeEscalation\":false,\"image\":\"$IMAGE\",\"imagePullPolicy\":\"Always\",\"name\":\"eco-ssot-2021-frontend\",\"privileged\":false,\"readOnly\":false,\"resources\":{\"type\":\"/v3/project/schemas/resourceRequirements\",\"requests\":{},\"limits\":{}},\"runAsNonRoot\":false,\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"type\":\"container\",\"environmentFrom\":[],\"capAdd\":[],\"capDrop\":[],\"livenessProbe\":null,\"volumeMounts\":[]}]}" \
+      "https://k8sqas-whq.wistron.com/v3/project/local:p-q65m7/workloads/deployment:eco-ssot-2021-qas:eco-ssot-2021-frontend"
   extends: .deploy
 
 deploy:prod:
