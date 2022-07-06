@@ -92,7 +92,7 @@ const HEADERS = ({ t, pct, currYear } = {}) => [
   },
   {
     key: 'wastePerPerson',
-    name: t('人均廚餘 (公噸)'),
+    name: t('人均廚餘 (公斤)'),
     subHeaders: [
       {
         key: 'lastYear',

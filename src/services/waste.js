@@ -79,8 +79,8 @@ export function toDetailRow({ plants = [], ...data } = {}) {
       ratio: gradientManpower,
     },
     wastePerPerson: {
-      lastYear: lasttKitchenWaste,
-      currYear: currentKitchenWaste,
+      lastYear: lasttKitchenWaste * 1e3,
+      currYear: currentKitchenWaste * 1e3,
       ratio: gradientKitchenWaste,
     },
     recycle: {
