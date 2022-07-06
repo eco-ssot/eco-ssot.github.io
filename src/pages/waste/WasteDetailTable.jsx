@@ -215,7 +215,7 @@ export default function WasteDetailTable({ business, y, m, s, p, pt, missingPlan
       />
       {data && (
         <>
-          <div className="h-6 w-full text-right">{t('wastePage:desc')}</div>
+          <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
             <Table
               columns={columns}
