@@ -1,7 +1,7 @@
 import { Fragment, Suspense } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
-import { Route, Routes, BrowserRouter, Outlet, Navigate } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Outlet } from 'react-router-dom';
 
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
