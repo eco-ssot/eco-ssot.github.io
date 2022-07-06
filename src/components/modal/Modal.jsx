@@ -28,7 +28,8 @@ export default function Modal({
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0">
+            leaveTo="opacity-0"
+          >
             <Dialog.Overlay className="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity" />
           </Transition.Child>
           <span className="inline-block h-screen align-middle" aria-hidden="true">
@@ -41,12 +42,14 @@ export default function Modal({
             enterTo="opacity-100 scale-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95">
+            leaveTo="opacity-0 scale-95"
+          >
             <div
               className={clsx(
                 'my-8 inline-block w-full max-w-md transform overflow-hidden bg-primary-900 text-center align-middle shadow-xl transition-all',
                 className
-              )}>
+              )}
+            >
               <Dialog.Title as="div" className="flex items-center justify-center space-x-2 bg-primary-800 py-2">
                 <div className="text-xl font-medium text-gray-50">{title}</div>
                 <IconButton className="absolute right-2" onClick={() => setOpen(false)}>

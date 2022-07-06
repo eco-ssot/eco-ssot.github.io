@@ -56,7 +56,8 @@ export default function Select({
                 open ? 'border-primary-600' : 'border-primary-800',
                 buttonClassName
               )}
-              {...(ariaLabel && { 'aria-label': ariaLabel })}>
+              {...(ariaLabel && { 'aria-label': ariaLabel })}
+            >
               <span className={clsx('block truncate', options.length === 0 && 'opacity-50')}>
                 <Ellipsis label={options.length === 0 ? placeholder : selected.value} />
               </span>
@@ -72,18 +73,21 @@ export default function Select({
                 position: strategy,
                 top: y ?? '',
                 left: x ?? '',
-              }}>
+              }}
+            >
               <Transition
                 show={open}
                 as={Fragment}
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
-                leaveTo="opacity-0">
+                leaveTo="opacity-0"
+              >
                 <Listbox.Options
                   className={clsx(
                     'z-10 my-1 max-h-60 w-full overflow-auto rounded-md border border-divider bg-primary-900 py-1 text-sm shadow-lg focus:outline-none',
                     optionClassName
-                  )}>
+                  )}
+                >
                   {options.map((option) => (
                     <Listbox.Option
                       aria-label={`option-${option.key}`}
@@ -95,7 +99,8 @@ export default function Select({
                           'relative cursor-default select-none py-2 pl-3 pr-9'
                         )
                       }
-                      value={option}>
+                      value={option}
+                    >
                       {({ selected, active, disabled }) => (
                         <>
                           <Ellipsis
@@ -107,7 +112,8 @@ export default function Select({
                               className={clsx(
                                 active ? 'text-gray-50' : 'text-primary-600',
                                 'absolute inset-y-0 right-0 flex items-center pr-2'
-                              )}>
+                              )}
+                            >
                               <CheckIcon className="h-5 w-5" aria-hidden="true" />
                             </span>
                           ) : null}
@@ -118,7 +124,8 @@ export default function Select({
                   {options.length === 0 && (
                     <Listbox.Option
                       disabled
-                      className="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-50">
+                      className="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-50"
+                    >
                       <Ellipsis label="No Options" className="opacity-50"></Ellipsis>
                     </Listbox.Option>
                   )}

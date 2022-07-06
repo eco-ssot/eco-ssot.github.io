@@ -87,7 +87,8 @@ export default function Tooltip({
                 top: y ?? '',
                 left: x ?? '',
               },
-            })}>
+            })}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-in-out"
@@ -95,7 +96,8 @@ export default function Tooltip({
               enterTo="opacity-100"
               leave="transition-opacity ease-in-out"
               leaveFrom="opacity-100"
-              leaveTo="opacity-0">
+              leaveTo="opacity-0"
+            >
               <div className={clsx('whitespace-nowrap rounded bg-gray-800 py-1 px-2 shadow', className)}>
                 {label}
                 <div

@@ -38,7 +38,8 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
               year: searchOption.year || yearOptions[0].key,
               dimension: searchOption.dimension || APP_CONSTANTS.DIMENSION_OPTIONS[0].key,
             })
-          }>
+          }
+        >
           {t('button.search')}
         </Button>
       </div>
@@ -52,7 +53,8 @@ export default function OverviewSearch({ downloadResource, option = {}, onSearch
             ...searchOption,
             year: searchOption.year || yearOptions[0].key,
             dimension: searchOption.dimension || APP_CONSTANTS.DIMENSION_OPTIONS[0].key,
-          })}`}>
+          })}`}
+        >
           Excel
         </a>
       </div>

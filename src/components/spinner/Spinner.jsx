@@ -18,18 +18,21 @@ export default function Spinner() {
       enterTo="opacity-100"
       leave="transition-opacity duration-1000 ease-in-out"
       leaveFrom="opacity-100"
-      leaveTo="opacity-0">
+      leaveTo="opacity-0"
+    >
       <div
         aria-label="spinner"
         className={clsx(
           'fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 bg-opacity-50',
           !isLoading && 'pointer-events-none'
-        )}>
+        )}
+      >
         <svg
           className="h-12 w-12 animate-spin text-primary-600"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          viewBox="0 0 24 24">
+          viewBox="0 0 24 24"
+        >
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path
             className="opacity-75"

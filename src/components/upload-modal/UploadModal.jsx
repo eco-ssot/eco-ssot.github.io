@@ -41,11 +41,13 @@ export default function UploadModal({ title, open, setOpen, uploadExcel, isSucce
             const formData = new FormData();
             formData.append('file', fileRef.current);
             uploadExcel(formData);
-          }}>
+          }}
+        >
           <UploadIcon className="mr-2 h-5 w-5" />
           Import
         </Button>
-      }>
+      }
+    >
       <form className="flex flex-col items-start space-y-4 p-8">
         <div>{t('component:upload.selectExcel')}</div>
         <div className="flex w-full items-center space-x-4">

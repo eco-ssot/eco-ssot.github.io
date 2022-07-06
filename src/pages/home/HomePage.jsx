@@ -73,7 +73,8 @@ function Announce() {
               enterTo="opacity-100"
               leave="transition-opacity duration-1000"
               leaveFrom="opacity-100"
-              leaveTo="opacity-0">
+              leaveTo="opacity-0"
+            >
               <div className={clsx('absolute left-0 flex h-full items-center font-medium')}>{announce}</div>
             </Transition>
           ))}
@@ -158,7 +159,8 @@ export default function HomePage() {
                 )}
               </div>
             </>
-          }>
+          }
+        >
           {isNewMargin ? (
             <OverviewNewMargin data={data} currMonth={m || currMonth} periodType={pt} />
           ) : (
@@ -186,7 +188,8 @@ export default function HomePage() {
                 pathname: '/management/data-status',
                 search: qs.stringify({ business, y, m, s, p, pt, cy: cy }),
               }}
-              className="flex w-full flex-col items-center underline">
+              className="flex w-full flex-col items-center underline"
+            >
               <div>{t('seeDetail')}</div>
               <div>{t('onSettingsPage')}</div>
             </Link>

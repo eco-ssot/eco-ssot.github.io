@@ -44,7 +44,8 @@ const AnalysisLink = (pct) => (cell) => {
           prefetchAnalysis({ ...query, PREFETCH: '/waste/detail' });
           prefetchExplanation({ ...query, PREFETCH: '/waste/detail' });
         }}
-        state={{ from: '/waste/detail', skipLoadingPage: true }}>
+        state={{ from: '/waste/detail', skipLoadingPage: true }}
+      >
         {isFinite(cell.value) && cell.value > -pct && <Dot />}
         {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
       </MyNavLink>

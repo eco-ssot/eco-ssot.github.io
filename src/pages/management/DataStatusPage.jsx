@@ -42,7 +42,8 @@ const statusRenderer = (label) => (cell) => {
           process.env.REACT_APP_MANUAL_DATA_STATUS === '1' && ['CSR', '月報表'].includes(cell.row.original[label])
             ? 'bg-primary-500'
             : STATUS_MAPPING[cell.value]
-        )}></div>
+        )}
+      ></div>
       <div>{cell.row.original[label]}</div>
     </div>
   );
@@ -208,7 +209,8 @@ export default function DataStatusPage() {
                 <Button
                   className="mx-4"
                   variant="danger"
-                  onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
+                  onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}
+                >
                   {t('common:manualUpdate')}
                 </Button>
               )}
@@ -239,7 +241,8 @@ export default function DataStatusPage() {
                     year: searchOption.year || currYear,
                     month: searchOption.month || currMonth,
                   })
-                }>
+                }
+              >
                 {t('component:button.search')}
               </Button>
             </div>

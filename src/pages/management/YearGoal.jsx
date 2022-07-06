@@ -113,7 +113,8 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
                   ...(i === cell.row.index && { editing: false }),
                 }))
               );
-            }}>
+            }}
+          >
             {t('component:button.save')}
           </EditableButton>
         ) : (
@@ -127,7 +128,8 @@ const COLUMNS = ({ t, lng, setData, year, patchGoal, canEdit, setOpen }) => {
                   ...(i !== cell.row.index && { editing: r.editing || false }),
                 }))
               )
-            }>
+            }
+          >
             <PencilIcon className="h-5 w-5" />
           </EditableIconButton>
         );

@@ -57,7 +57,8 @@ const BASE_LINE_COLUMNS = (t, setOpen) =>
           <div>{t('baselinePage:baselinePanel.table.electricityConsumptionTarget')}</div>
           <div
             className="group cursor-pointer rounded border border-gray-200 hover:border-gray-50"
-            onClick={() => setOpen((prev) => !prev)}>
+            onClick={() => setOpen((prev) => !prev)}
+          >
             <ArrowUpIcon className="h-5 w-5 rotate-45 text-gray-200 group-hover:text-gray-50" />
           </div>
         </div>
@@ -130,7 +131,8 @@ export function BaselineSearch({ business, y, m, cy, s, p, ...option }) {
             ...(!searchOption.year && { year: nextYearOptions[0]?.key }),
             ...(!searchOption.plant && { plant: plantOptions[0]?.key }),
           })
-        }>
+        }
+      >
         {t('component:button.search')}
       </Button>
     </div>
@@ -158,7 +160,8 @@ export default function BaselinePanel({ year, plant, business }) {
         setOpen={setOpen}
         onClose={setOpen}
         title={t('baselinePage:electricityConsumptionTarget')}
-        defaultFooter={false}>
+        defaultFooter={false}
+      >
         <ElectricityIndexPage
           className="h-[calc(100vh-6rem)] w-[calc(100vw-6rem)] bg-gray-900"
           year={year}

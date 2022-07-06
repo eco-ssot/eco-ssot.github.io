@@ -367,7 +367,8 @@ export default function SpecTable({ close, onApply }) {
           const { id, order, ...rest } = _data?.[selectedRowIndex] || {};
           onApply(rest);
           close();
-        }}>
+        }}
+      >
         {t('common:import')}
       </Button>
     </div>
@@ -438,7 +439,8 @@ const Row = ({ row, index, moveRow, getColumnProps, getCellProps, getRowProps, o
               getColumnProps(cell.column),
               getCellProps(cell),
             ])}
-            {...(cell.column.isDndColumn && { ref: dragRef })}>
+            {...(cell.column.isDndColumn && { ref: dragRef })}
+          >
             {cell.column.isDndColumn ? (
               <div className={clsx('flex items-center justify-center')}>
                 <MenuAlt4Icon className="hidden h-5 w-5 group-hover:block" />
@@ -518,7 +520,8 @@ function Table({
                         },
                         getColumnProps(column),
                         getHeaderProps(column),
-                      ])}>
+                      ])}
+                    >
                       {column.render('Header')}
                     </th>
                   );
@@ -551,7 +554,8 @@ function Table({
                       updateMyData((prev) =>
                         prev.concat({ id: nanoid(), order: rows.length, isNew: true, editing: true })
                       )
-                    }>
+                    }
+                  >
                     <PlusIcon className="h-5 w-5 text-gray-300 group-hover:text-gray-50" />
                     <div className="text-gray-300 group-hover:text-gray-50">{t('airCompressorPage:addNewDevice')}</div>
                   </div>

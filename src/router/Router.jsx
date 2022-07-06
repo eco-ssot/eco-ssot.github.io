@@ -34,7 +34,8 @@ export function toRoute({ index, path, routes, element: Element = Outlet, skelet
                 <Element />
               </Suspense>
             </ErrorBoundary>
-          }>
+          }
+        >
           {routes && routes.map(toRoute)}
         </Route>
       )}
@@ -67,7 +68,8 @@ export default function Router({ children }) {
             <RequireAuth>
               <Layout />
             </RequireAuth>
-          }>
+          }
+        >
           {privateRoutes.map(toRoute)}
         </Route>
       </Routes>

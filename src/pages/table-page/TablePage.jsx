@@ -23,7 +23,8 @@ export default function TablePage({ title, downloadResource, table: Table, histo
               className={clsx(
                 'relative m-4 mb-0 flex flex-col space-y-2 rounded bg-primary-900 p-4',
                 showElectricityIndex ? 'h-auto' : 'h-[calc(100vh-6rem)]'
-              )}>
+              )}
+            >
               <div className="text-xl font-medium">{title}</div>
               <div className="flex items-end justify-center">
                 <ButtonGroup

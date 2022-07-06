@@ -63,7 +63,8 @@ export default function ManagementPage() {
                       )
                     }
                     onMouseEnter={() => element?.preload()}
-                    prefetchApis={prefetchApis}>
+                    prefetchApis={prefetchApis}
+                  >
                     {({ isActive }) => (
                       <>
                         {isMatched({ isActive, index }) && <div className="absolute h-full w-1 bg-primary-600"></div>}

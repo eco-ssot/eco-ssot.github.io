@@ -16,7 +16,8 @@ export default function ButtonGroup({ className, options = [], selected = option
             i > 0 && '-ml-px',
             selected.value === value && 'bg-primary-800'
           )}
-          onClick={() => onChange({ key, value })}>
+          onClick={() => onChange({ key, value })}
+        >
           {t(`buttonGroup.${value}`)}
         </button>
       ))}

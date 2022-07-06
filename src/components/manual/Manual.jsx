@@ -34,7 +34,8 @@ export default function Manual({ lng }) {
             target="_blank"
             className="flex cursor-pointer text-blue-400 underline visited:text-purple-400"
             href={PATH.zh}
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             <div className="whitespace-nowrap">中文</div>
             <ExternalLinkIcon className="h-5 w-5 scale-90" />
           </a>
@@ -42,7 +43,8 @@ export default function Manual({ lng }) {
             target="_blank"
             className="flex cursor-pointer text-blue-400 underline visited:text-purple-400"
             href={PATH.en}
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             <div className="whitespace-nowrap">English</div>
             <ExternalLinkIcon className="h-5 w-5 scale-90" />
           </a>

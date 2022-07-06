@@ -140,7 +140,8 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
                 ...(i === cell.row.index && { editing: false }),
               }))
             );
-          }}>
+          }}
+        >
           {t('component:button.save')}
         </EditableButton>
       ) : (
@@ -152,7 +153,8 @@ const COLUMNS = ({ t, setData, postCsrComment, isWater }) => [
                 ...(i === cell.row.index && { editing: true }),
               }))
             );
-          }}>
+          }}
+        >
           <PencilIcon className="h-5 w-5" />
         </EditableIconButton>
       );
@@ -217,7 +219,8 @@ export default function CsrPage() {
             <Button
               className="absolute left-0"
               variant="danger"
-              onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}>
+              onClick={() => manualUpdateCsr().then((res) => res?.data?.msg && toast.success(res?.data?.msg))}
+            >
               {t('common:manualUpdate')}
             </Button>
           )}
@@ -245,7 +248,8 @@ export default function CsrPage() {
                   year: searchOption.year || currYear,
                   month: searchOption.month || currMonth,
                 })
-              }>
+              }
+            >
               {t('component:button.search')}
             </Button>
           </div>

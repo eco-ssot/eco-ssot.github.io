@@ -27,26 +27,30 @@ export default function WastePage() {
             className={clsx('relative hover:text-gray-50', !isWasteDetail ? 'text-gray-50' : 'text-gray-400')}
             onMouseEnter={() => wasteRoute.element.preload()}
             prefetchApis={wasteRoute.prefetchApis}
-            state={{ from: pathname }}>
+            state={{ from: pathname }}
+          >
             <div>{t('title')}</div>
             <div
               className={clsx(
                 'absolute w-full border-b-2',
                 !isWasteDetail ? 'border-primary-600' : 'border-transparent'
-              )}></div>
+              )}
+            ></div>
           </MyNavLink>
           <MyNavLink
             to={{ pathname: '/waste/detail', search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS) }}
             className={clsx('relative hover:text-gray-50', isWasteDetail ? 'text-gray-50' : 'text-gray-400')}
             onMouseEnter={() => wasteDetailRoute.element.preload()}
             prefetchApis={wasteDetailRoute.prefetchApis}
-            state={{ from: pathname }}>
+            state={{ from: pathname }}
+          >
             <div>{t('subtitle')}</div>
             <div
               className={clsx(
                 'absolute w-full border-b-2',
                 isWasteDetail ? 'border-primary-600' : 'border-transparent'
-              )}></div>
+              )}
+            ></div>
           </MyNavLink>
         </div>
       }

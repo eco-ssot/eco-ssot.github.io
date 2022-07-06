@@ -37,10 +37,12 @@ export default function TagSelect({
               as={Fragment}
               leave="transition ease-in duration-100"
               leaveFrom="opacity-100"
-              leaveTo="opacity-0">
+              leaveTo="opacity-0"
+            >
               <Listbox.Options
                 static
-                className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded border border-divider bg-primary-900 py-1 text-sm shadow-lg">
+                className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded border border-divider bg-primary-900 py-1 text-sm shadow-lg"
+              >
                 {options.map((option) => (
                   <Listbox.Option
                     key={option.key}
@@ -50,7 +52,8 @@ export default function TagSelect({
                         'relative flex cursor-default select-none py-1 pl-2'
                       )
                     }
-                    value={option}>
+                    value={option}
+                  >
                     {({ selected, active }) => (
                       <>
                         <Ellipsis label={option.value} className={clsx(selected ? 'font-semibold' : 'font-normal')} />
@@ -59,7 +62,8 @@ export default function TagSelect({
                             className={clsx(
                               active ? 'text-gray-50' : 'text-primary-600',
                               'absolute inset-y-0 right-0 flex items-center pr-2'
-                            )}>
+                            )}
+                          >
                             <CheckIcon className="h-4 w-4" aria-hidden="true" />
                           </span>
                         ) : null}

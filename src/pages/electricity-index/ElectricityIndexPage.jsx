@@ -319,7 +319,8 @@ const COLUMNS = ({ t }) => [
             cell.value === true && 'bg-primary-500',
             cell.value === false && 'bg-dangerous-700',
             cell.value === 'No Data' && 'bg-gray-50'
-          )}></div>
+          )}
+        ></div>
       </div>
     ),
   })),
@@ -332,13 +333,15 @@ export function Toggle({ enabled = true, onChange = () => {} }) {
       onChange={onChange}
       className={clsx(
         'relative inline-flex h-7 w-24 flex-shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-primary-600 bg-opacity-20 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900'
-      )}>
+      )}
+    >
       <span
         aria-hidden="true"
         className={clsx(
           enabled ? 'translate-x-11' : 'translate-x-0',
           'pointer-events-none z-1 inline-block h-6 w-12 transform rounded-full bg-primary-600 text-center text-gray-50 shadow ring-0 transition duration-200 ease-in-out'
-        )}>
+        )}
+      >
         {enabled ? 'On' : 'Off'}
       </span>
       <span className="absolute left-2 text-primary-600">Off</span>

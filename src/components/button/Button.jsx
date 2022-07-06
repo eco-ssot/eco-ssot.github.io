@@ -15,7 +15,8 @@ export default function Button({ className, children, variant = 'primary', onCli
       type="button"
       className={clsx(variants[variant] || variants.primary, className)}
       onClick={onClick}
-      {...props}>
+      {...props}
+    >
       {children}
     </button>
   );

@@ -21,7 +21,8 @@ export default function Ellipsis({ label, className, placement = 'auto' }) {
             ref.current = node;
             node && setIsTruncated(node.offsetWidth < node.scrollWidth);
           }}
-          className={clsx('block truncate', className)}>
+          className={clsx('block truncate', className)}
+        >
           {label}
         </span>
       </span>

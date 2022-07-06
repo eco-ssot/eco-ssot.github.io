@@ -51,7 +51,8 @@ export default function Table({
                     getColumnProps(column),
                     getHeaderProps(column),
                   ])}
-                  {...(column.placeholderOf && { rowSpan: 2 })}>
+                  {...(column.placeholderOf && { rowSpan: 2 })}
+                >
                   {column.placeholderOf ? column.placeholderOf.Header : column.render('Header')}
                 </th>
               );
@@ -70,7 +71,8 @@ export default function Table({
                   row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
                   getRowProps(row).className
                 ),
-              })}>
+              })}
+            >
               {row.cells.map((cell) => {
                 return (
                   <td
@@ -91,7 +93,8 @@ export default function Table({
                       },
                       getColumnProps(cell.column),
                       getCellProps(cell),
-                    ])}>
+                    ])}
+                  >
                     {cell.column.id.startsWith('expander') && row.id.includes('.') && (
                       <div className="flex justify-center">
                         <Triangle />

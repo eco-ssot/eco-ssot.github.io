@@ -11,7 +11,8 @@ export default function IconButton({ className, children, disabled, onClick = ()
       )}
       onClick={onClick}
       disabled={disabled}
-      {...props}>
+      {...props}
+    >
       <div {...(disabled && { className: 'opacity-50' })}>{children}</div>
     </button>
   );

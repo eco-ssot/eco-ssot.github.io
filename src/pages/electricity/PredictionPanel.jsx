@@ -262,7 +262,8 @@ export function PredictionSearch({ business, y, m, cy, s, p, ...option }) {
             ...(!byMonth && !searchOption.month && { month: monthOptions[0]?.key }),
             ...(byMonth && !searchOption.plant && { plant: plantOptions[0]?.key }),
           })
-        }>
+        }
+      >
         {t('component:button.search')}
       </Button>
     </div>

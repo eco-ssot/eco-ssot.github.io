@@ -38,7 +38,8 @@ export default function AnalysisPage({
       <div className="flex items-end justify-between">
         <div
           className="flex cursor-pointer items-center space-x-2 text-gray-300 hover:text-green-50"
-          onClick={() => navigate(-1)}>
+          onClick={() => navigate(-1)}
+        >
           <ChevronLeftIcon className="h-5 w-5" />
           <div>{t('analysisPage:backDesc')}</div>
         </div>

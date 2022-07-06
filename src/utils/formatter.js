@@ -49,7 +49,8 @@ export const targetFormatter =
             ? 'font-semibold text-dangerous-500'
             : val < target && 'font-semibold text-green-500',
           className
-        )}>
+        )}
+      >
         {formatter(value, option)}
       </div>
     );

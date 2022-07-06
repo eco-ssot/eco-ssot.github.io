@@ -20,7 +20,8 @@ export default function Dialog({ children, className, title, titleClassName, ope
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0">
+            leaveTo="opacity-0"
+          >
             <div className="fixed inset-0 bg-gray-900 bg-opacity-50" aria-hidden="true" />
           </Transition.Child>
 
@@ -31,7 +32,8 @@ export default function Dialog({ children, className, title, titleClassName, ope
             enterTo="opacity-100 scale-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95">
+            leaveTo="opacity-0 scale-95"
+          >
             <div className="fixed inset-0 flex items-center justify-center p-4">
               <div className="flex min-h-full items-center justify-center">
                 <HeadlessDialog.Panel className={clsx('w-screen max-w-7xl rounded shadow', className)}>

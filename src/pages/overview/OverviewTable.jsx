@@ -84,7 +84,8 @@ export const COLUMNS = ({
                       (!MANUAL_UPLOAD_PLANTS.includes(cell.row.original.site) || window.location.hash === '#HISTORY') &&
                         'invisible'
                     )}
-                    onClick={() => setOpen(true)}>
+                    onClick={() => setOpen(true)}
+                  >
                     <UploadIcon className="h-5 w-5" />
                   </IconButton>
                 </div>

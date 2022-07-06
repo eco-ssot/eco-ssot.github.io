@@ -104,14 +104,16 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
                   );
 
                   setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'));
-                }}>
+                }}
+              >
                 <CheckIcon className="h-5 w-5" />
               </EditableIconButton>
               <EditableIconButton
                 onClick={() => {
                   deleteRef.current = [];
                   setData(dataRef.current);
-                }}>
+                }}
+              >
                 <XIcon className="h-5 w-5" />
               </EditableIconButton>
             </div>
@@ -125,7 +127,8 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
                     .concat({ id: 'addRow', colSpan: 5, startIndex: 2 })
                 )
               }
-              disabled={!canEdit}>
+              disabled={!canEdit}
+            >
               <PencilIcon className="h-5 w-5" />
             </EditableIconButton>
           )}
@@ -140,7 +143,8 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
           onClick={() => {
             deleteRef.current = [...deleteRef.current, cell.row.original.id];
             setData((prev) => prev.filter((d, i) => i !== cell.row.index));
-          }}>
+          }}
+        >
           <TrashIcon className="h-5 w-5" />
         </EditableIconButton>
       ) : null;
@@ -201,14 +205,16 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
                   );
 
                   setData((prev) => prev.map((r) => ({ ...r, editing: false })).filter(({ id }) => id !== 'addRow'));
-                }}>
+                }}
+              >
                 <CheckIcon className="h-5 w-5" />
               </EditableIconButton>
               <EditableIconButton
                 onClick={() => {
                   deleteRef.current = [];
                   setData(dataRef.current);
-                }}>
+                }}
+              >
                 <XIcon className="h-5 w-5" />
               </EditableIconButton>
             </div>
@@ -222,7 +228,8 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
                     .concat({ id: 'addRow', colSpan: 3, startIndex: 0 })
                 )
               }
-              disabled={!canEdit}>
+              disabled={!canEdit}
+            >
               <PencilIcon className="h-5 w-5" />
             </EditableIconButton>
           )}

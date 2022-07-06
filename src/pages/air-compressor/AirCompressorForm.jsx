@@ -144,7 +144,8 @@ export default function AirCompressorForm({ className, query, draftRef }) {
   return (
     <form
       className={clsx('rounded bg-primary-900 p-4 shadow', className)}
-      onSubmit={handleSubmit((data) => navigate(getOptions(data)))}>
+      onSubmit={handleSubmit((data) => navigate(getOptions(data)))}
+    >
       <div className="mb-4 text-xl font-medium">{t('airCompressorPage:airCompressorDeviceAiRecommendation')}</div>
       <div className="flex flex-grow justify-center space-x-8">
         <div className="space-y-2 border-r-2 border-divider pr-8">
@@ -225,7 +226,8 @@ export default function AirCompressorForm({ className, query, draftRef }) {
                 )}
                 title={t('airCompressorPage:savedSpec')}
                 titleClassName="bg-primary-800 rounded-t py-2 px-4"
-                className="max-w-7xl">
+                className="max-w-7xl"
+              >
                 <div className="cursor-pointer font-medium text-primary-600 underline">
                   {t('airCompressorPage:savedSpec')}
                 </div>
@@ -241,7 +243,8 @@ export default function AirCompressorForm({ className, query, draftRef }) {
                       toast.success('Success');
                     }
                   });
-                }}>
+                }}
+              >
                 {t('airCompressorPage:saveThisSpec')}
               </div>
               <div
@@ -249,7 +252,8 @@ export default function AirCompressorForm({ className, query, draftRef }) {
                 onClick={() => {
                   navigate({}, { merge: false });
                   reset({ cost: '', eer_r: '', engine_depcmemt: '', maintenance: '', model_number: '', power: '' });
-                }}>
+                }}
+              >
                 {t('airCompressorPage:clear')}
               </div>
             </div>

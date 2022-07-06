@@ -44,7 +44,8 @@ export default function NavBar({ className }) {
               i > 4 && clsx(/en/i.test(lng) ? 'hidden' : 'hidden 1k:block')
             )
           }
-          prefetchApis={prefetchApis}>
+          prefetchApis={prefetchApis}
+        >
           <span className="block truncate">{t(i18nKey)}</span>
         </MyNavLink>
       ))}
@@ -61,7 +62,8 @@ export default function NavBar({ className }) {
             enterTo="transform opacity-100 scale-100"
             leave="transition ease-in duration-75"
             leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95">
+            leaveTo="transform opacity-0 scale-95"
+          >
             <Menu.Items className="absolute right-0 z-50 mt-1 w-48 origin-top-right rounded-md border border-divider bg-primary-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               {tabs.slice(5).map(({ path, i18nKey, element, routes, prefetchApis }, i) => (
                 <div className="px-1 py-1" key={i}>
@@ -78,7 +80,8 @@ export default function NavBar({ className }) {
                           'group flex w-full items-center rounded-md px-2 py-2 text-lg font-medium text-current',
                           active ? 'bg-primary-600 text-gray-50' : 'text-gray-200 hover:text-gray-50'
                         )}
-                        prefetchApis={prefetchApis}>
+                        prefetchApis={prefetchApis}
+                      >
                         <span className="block truncate">{t(i18nKey)}</span>
                       </MyNavLink>
                     )}

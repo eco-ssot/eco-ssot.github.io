@@ -114,7 +114,8 @@ const HEADERS = ({
                   prefetchAnalysis({ ...query, PREFETCH: '/waste' });
                   prefetchExplanation({ ...query, PREFETCH: '/waste' });
                 }}
-                state={{ from: '/waste', skipLoadingPage: true }}>
+                state={{ from: '/waste', skipLoadingPage: true }}
+              >
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </MyNavLink>
@@ -138,7 +139,8 @@ const HEADERS = ({
               'absolute right-0 rounded-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900',
               (!cell.row.canExpand || /wzs|wcq/i.test(cell.row.original.site)) && 'invisible'
             )}
-            onClick={() => setOpen(true)}>
+            onClick={() => setOpen(true)}
+          >
             <UploadIcon className="h-5 w-5" />
           </IconButton>
         </div>

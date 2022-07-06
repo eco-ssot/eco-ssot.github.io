@@ -118,7 +118,8 @@ const HEADERS = ({
                   prefetchAnalysis({ ...query, PREFETCH: '/water' });
                   prefetchExplanation({ ...query, PREFETCH: '/water' });
                 }}
-                state={{ from: '/water', skipLoadingPage: true }}>
+                state={{ from: '/water', skipLoadingPage: true }}
+              >
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}
               </MyNavLink>

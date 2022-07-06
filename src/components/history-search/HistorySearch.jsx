@@ -152,7 +152,8 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
             onSearch(
               getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions })
             )
-          }>
+          }
+        >
           {t('button.search')}
         </Button>
       </div>
@@ -165,7 +166,8 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify(
             getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions }),
             { skipNull: true }
-          )}`}>
+          )}`}
+        >
           Excel
         </a>
       </div>

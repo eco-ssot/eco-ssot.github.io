@@ -56,12 +56,14 @@ export function Complete({ editing, label, completedDate, onChange }) {
         onClick={() => {
           onChange(done ? null : format(new Date(), 'yyyy-MM-dd'));
           setDone((prev) => !prev);
-        }}>
+        }}
+      >
         <div
           className={clsx(
             'rounded-full border p-0.5',
             done ? 'border-transparent bg-primary-600' : 'border-gray-500 group-hover:border-primary-600'
-          )}>
+          )}
+        >
           <CheckIcon
             className={clsx('h-4 w-4', done ? 'text-gray-50' : 'text-gray-500 group-hover:text-primary-600')}
           />
@@ -70,7 +72,8 @@ export function Complete({ editing, label, completedDate, onChange }) {
           className={clsx(
             'font-medium',
             done ? 'text-gray-50' : 'text-gray-400 underline group-hover:text-primary-600'
-          )}>
+          )}
+        >
           {label}
         </div>
       </div>
@@ -129,7 +132,8 @@ export function AnalysisSubTable({
           <>
             <Disclosure.Button
               as="div"
-              className="grid w-full cursor-pointer grid-cols-11 items-center gap-2 border-t border-b border-primary-600 bg-primary-600 bg-opacity-10 py-2 px-2 text-left font-medium tracking-wider text-primary-600">
+              className="grid w-full cursor-pointer grid-cols-11 items-center gap-2 border-t border-b border-primary-600 bg-primary-600 bg-opacity-10 py-2 px-2 text-left font-medium tracking-wider text-primary-600"
+            >
               <div className={clsx('flex items-center space-x-2', hasCategory ? 'col-span-2' : 'col-span-3')}>
                 <ChevronDownIcon
                   className={clsx('h-5 w-5 text-primary-600 transition-transform', open && 'rotate-180')}
@@ -159,7 +163,8 @@ export function AnalysisSubTable({
               className={clsx(
                 'w-full divide-y divide-primary-600 divide-opacity-50',
                 (_data?.length || canAddRow) && 'border-b border-divider'
-              )}>
+              )}
+            >
               {_data &&
                 _data.map(({ id, name, expect, category, contribution, dd, completedDate, PIC, editing }, i) => (
                   <div key={i} className="grid grid-cols-11 items-center gap-2 px-2 py-2">
@@ -251,7 +256,8 @@ export function AnalysisSubTable({
                               });
 
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: false } : d)));
-                            }}>
+                            }}
+                          >
                             <CheckIcon className="h-5 w-5" />
                           </EditableIconButton>
                           <EditableIconButton
@@ -260,7 +266,8 @@ export function AnalysisSubTable({
                               setData((prev) =>
                                 prev.map((d, j) => (i === j ? dataRef.current?.[j] : d)).filter(Boolean)
                               )
-                            }>
+                            }
+                          >
                             <XIcon className="h-5 w-5" />
                           </EditableIconButton>
                         </div>
@@ -271,7 +278,8 @@ export function AnalysisSubTable({
                           className={clsx(
                             'flex items-center space-x-2 pl-2',
                             hasCategory ? 'col-span-2' : 'col-span-3'
-                          )}>
+                          )}
+                        >
                           <Dot
                             color={
                               isValid(new Date(dd))
@@ -308,13 +316,15 @@ export function AnalysisSubTable({
                             aria-label="icon-button-pencil"
                             onClick={() =>
                               setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))
-                            }>
+                            }
+                          >
                             <PencilIcon className="h-5 w-5" />
                           </EditableIconButton>
                           <EditableIconButton
                             aria-label="icon-button-trash"
                             disabled={!canEdit}
-                            onClick={() => setDeleteId(id)}>
+                            onClick={() => setDeleteId(id)}
+                          >
                             <TrashIcon className="h-5 w-5" />
                           </EditableIconButton>
                         </div>
@@ -333,7 +343,8 @@ export function AnalysisSubTable({
                           .concat([{ editing: true, isNewRow: true }])
                           .filter(Boolean)
                       )
-                    }>
+                    }
+                  >
                     <div className="group flex items-center space-x-1">
                       <PlusIcon className="h-5 w-5 text-gray-300 group-hover:text-gray-50" />
                       <div className="text-gray-300 group-hover:text-gray-50">{t('analysisPage:addImprovement')}</div>
@@ -398,7 +409,8 @@ export default function AnalysisTable({
           <Legend dotClassName="bg-dangerous-700" label={t('analysisPage:overdue')} />
           <EditableButton
             className={clsx('flex items-center space-x-1', !_data && 'pointer-events-none opacity-50')}
-            onClick={() => setIsAddingRow((prev) => !prev)}>
+            onClick={() => setIsAddingRow((prev) => !prev)}
+          >
             {isAddingRow ? (
               <>
                 <XIcon className="h-4 w-4" />
@@ -472,7 +484,8 @@ export default function AnalysisTable({
                           );
 
                           setIsAddingRow(false);
-                        }}>
+                        }}
+                      >
                         <CheckIcon className="h-5 w-5" />
                       </EditableIconButton>
                       <EditableIconButton
@@ -486,7 +499,8 @@ export default function AnalysisTable({
 
                             return nextData;
                           })
-                        }>
+                        }
+                      >
                         <XIcon className="h-5 w-5" />
                       </EditableIconButton>
                     </div>
@@ -498,7 +512,8 @@ export default function AnalysisTable({
                     <div className="col-span-1 space-x-2 pr-3 text-center">
                       <EditableIconButton
                         aria-label="icon-button-pencil"
-                        onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}>
+                        onClick={() => setData((prev) => prev.map((d, j) => (i === j ? { ...d, editing: true } : d)))}
+                      >
                         <PencilIcon className="h-5 w-5" />
                       </EditableIconButton>
                       <EditableIconButton
@@ -507,7 +522,8 @@ export default function AnalysisTable({
                         onClick={() => {
                           setDeleteId(id);
                           setIsAddingRow(false);
-                        }}>
+                        }}
+                      >
                         <TrashIcon className="h-5 w-5" />
                       </EditableIconButton>
                     </div>

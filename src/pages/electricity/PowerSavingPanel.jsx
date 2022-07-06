@@ -160,7 +160,8 @@ const POWER_SAVING_COLUMNS = ({
                 postPowerSaving(payload);
                 setOpen(true);
               }
-            }}>
+            }}
+          >
             {t('component:button.save')}
           </EditableButton>
         ) : (
@@ -173,7 +174,8 @@ const POWER_SAVING_COLUMNS = ({
                   ...(i === cell.row.index && { editing: true }),
                 }))
               )
-            }>
+            }
+          >
             <PencilIcon className="h-5 w-5" />
           </EditableIconButton>
         );
@@ -229,7 +231,8 @@ export default function PowerSavingPanel({ year, plant }) {
         className="absolute right-8 top-44 translate-y-1"
         onClick={() =>
           setData((prev) => (prev.slice(-1)[0]?.isNew ? prev.slice(0, -1) : [...prev, { isNew: true, editing: true }]))
-        }>
+        }
+      >
         {_data?.slice(-1)?.[0]?.isNew ? (
           <>
             <XIcon className="h-5 w-5" /> {t('component:button.cancel')}

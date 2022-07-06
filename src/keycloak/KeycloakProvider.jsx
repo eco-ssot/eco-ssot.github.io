@@ -41,7 +41,8 @@ export default function KeycloakProvider({ children }) {
       authClient={keycloak}
       onEvent={onEvent}
       onTokens={onTokens(keycloak)}
-      LoadingComponent={<SuspenseIcon />}>
+      LoadingComponent={<SuspenseIcon />}
+    >
       {children}
     </ReactKeycloakProvider>
   );

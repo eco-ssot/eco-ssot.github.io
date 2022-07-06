@@ -58,7 +58,8 @@ export default function ElectricityBaselinePage() {
                 className={clsx(
                   'flex flex-col space-y-4 overflow-auto rounded bg-primary-900 p-4 shadow',
                   isPrediction || isEmpty(option) ? 'row-span-5' : 'row-span-3'
-                )}>
+                )}
+              >
                 <div className="text-xl font-medium">
                   {isPowerSaving ? t('baselinePage:powerSaving.title') : t('baselinePage:title')}
                 </div>

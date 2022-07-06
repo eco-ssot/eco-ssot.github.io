@@ -229,7 +229,8 @@ export default function EditableTable({
                     getColumnProps(column),
                     getHeaderProps(column),
                   ])}
-                  {...(column.placeholderOf && { rowSpan: 2 })}>
+                  {...(column.placeholderOf && { rowSpan: 2 })}
+                >
                   {column.placeholderOf ? column.placeholderOf.Header : column.render('Header')}
                 </th>
               );
@@ -248,7 +249,8 @@ export default function EditableTable({
                   row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
                   getRowProps(row).className
                 ),
-              })}>
+              })}
+            >
               {row.cells.map((cell, i) => {
                 if (
                   (cell.column.rowSpan && cell.row.index > 0) ||
@@ -271,7 +273,8 @@ export default function EditableTable({
                     {...(cell.row.original.id === 'addRow' &&
                       i === cell.row.original.startIndex && {
                         colSpan: cell.row.original.colSpan,
-                      })}>
+                      })}
+                  >
                     {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
                       <IconButton
                         onClick={() =>
@@ -279,7 +282,8 @@ export default function EditableTable({
                             const action = prev.slice(-1);
                             return [...prev.slice(0, -1), { editing: true }, ...action];
                           })
-                        }>
+                        }
+                      >
                         <PlusIcon className="h-5 w-5" />
                       </IconButton>
                     ) : (

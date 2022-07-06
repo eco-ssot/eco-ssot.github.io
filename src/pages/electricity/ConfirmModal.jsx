@@ -18,18 +18,21 @@ export default function ConfirmModal({ open = false, setOpen = () => {}, onConfi
             onClick={() => {
               setOpen(false);
               onCancel();
-            }}>
+            }}
+          >
             {t('component:button.cancel')}
           </Button>
           <Button
             onClick={() => {
               setOpen(false);
               onConfirm();
-            }}>
+            }}
+          >
             {t('component:button.add')}
           </Button>
         </div>
-      }>
+      }
+    >
       <div className="flex items-center justify-center space-x-2 pt-8">
         <InformationCircleIcon className="h-5 w-5 text-_yellow" />
         <div>{t('baselinePage:addWarning')}</div>
