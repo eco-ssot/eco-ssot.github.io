@@ -76,10 +76,10 @@ deploy:qas:
     refs:
       - qas
   variables:
-    STAGE: qas
-    TAG: $CI_COMMIT_BRANCH
+    STAGE: prod
+    TAG: prd
   script:
-    - export VERSION=${CI_COMMIT_SHA:0:8}
+    - export VERSION=$(jq -r .version package.json)
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
     - docker build --build-arg STAGE=$STAGE -t $IMAGE .
     - docker push $IMAGE
@@ -100,7 +100,7 @@ deploy:prod:
     STAGE: prod
     TAG: prd
   script:
-    - export VERSION=${CI_COMMIT_SHA:0:8}
+    - export VERSION=$(jq -r .version package.json)
     - export IMAGE=harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$VERSION-$TAG
     - docker build --build-arg STAGE=$STAGE -t $IMAGE .
     - docker push $IMAGE

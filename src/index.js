@@ -16,7 +16,11 @@ if (process.env.REACT_APP_MOCK_API === '1') {
   worker.start({ onUnhandledRequest: 'bypass' });
 }
 
-if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_STAGE === 'production') {
+if (
+  process.env.NODE_ENV === 'production' &&
+  process.env.REACT_APP_STAGE === 'production' &&
+  !/qas/.test(window.location.pathname)
+) {
   ReactGA.initialize(process.env.REACT_APP_GA_ID, { debug: false, gaOptions: { cookieDomain: 'auto' } });
   console.log = () => {};
 }

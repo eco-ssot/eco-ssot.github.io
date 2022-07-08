@@ -21,7 +21,7 @@ export default function Location() {
   }, [hash, dispatch]);
 
   useEffect(() => {
-    if (process.env.REACT_APP_STAGE === 'production') {
+    if (process.env.REACT_APP_STAGE === 'production' && !/qas/.test(window.location.pathname)) {
       const { given_name = '', preferred_username = '', email = '' } = keycloak?.idTokenParsed || {};
       if (given_name && preferred_username) {
         ReactGA.set({ userId: `${preferred_username}-${given_name}-${email}` });
