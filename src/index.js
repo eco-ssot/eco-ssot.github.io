@@ -19,7 +19,7 @@ if (process.env.REACT_APP_MOCK_API === '1') {
 if (
   process.env.NODE_ENV === 'production' &&
   process.env.REACT_APP_STAGE === 'production' &&
-  !/qas/.test(window.location.pathname)
+  !/qas/.test(window.location.hostname)
 ) {
   ReactGA.initialize(process.env.REACT_APP_GA_ID, { debug: false, gaOptions: { cookieDomain: 'auto' } });
   console.log = () => {};
