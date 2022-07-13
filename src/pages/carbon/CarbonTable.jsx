@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
-import Table from '../../components/table/Table';
+import FixedTable from '../../components/table/FixedTable';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
@@ -131,7 +131,7 @@ export default function CarbonTable({ business, y, m, s, p, pt, missingPlants })
       <div className="h-6"></div>
       {data && (
         <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-          <Table
+          <FixedTable
             columns={columns}
             data={data?.data || []}
             getRowProps={getHidePlantRowProps}

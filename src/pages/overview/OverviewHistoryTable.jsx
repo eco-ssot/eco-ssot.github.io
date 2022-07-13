@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import Table from '../../components/table/Table';
+import FixedTable from '../../components/table/FixedTable';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { useGetOverviewHistoryQuery } from '../../services/overview';
 
@@ -25,7 +25,7 @@ export default function OverviewHistoryTable({ business, year, dimension, s, p }
         <>
           <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-            <Table columns={columns} data={data?.data || []} />
+            <FixedTable columns={columns} data={data?.data || []} />
           </div>
         </>
       )}

@@ -9,7 +9,7 @@ import APP_CONSTANTS from '../../app/appConstants';
 import { selectCurrY, selectLastY } from '../../app/appSlice';
 import IconButton from '../../components/button/IconButton';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
-import Table from '../../components/table/Table';
+import FixedTable from '../../components/table/FixedTable';
 import Tag from '../../components/tag/Tag';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import usePlantPermission from '../../hooks/usePlantPermission';
@@ -137,7 +137,7 @@ export default function OverviewTable({ business, y, m, s, p, pt, missingPlants 
         <>
           <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-            <Table
+            <FixedTable
               columns={columns}
               data={data?.data || []}
               getRowProps={getHidePlantRowProps}

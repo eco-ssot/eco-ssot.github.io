@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import APP_CONSTANTS from '../../app/appConstants';
 import Dot from '../../components/dot/Dot';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
-import Table from '../../components/table/Table';
+import FixedTable from '../../components/table/FixedTable';
 import DualTag from '../../components/tag/DualTag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
@@ -200,7 +200,7 @@ export default function WaterTable({ business, y, m, s, p, pt, missingPlants }) 
         <>
           <div className="h-6 w-full text-right">{t('common:gapDesc')}</div>
           <div className="flex w-full flex-col space-y-2 overflow-auto rounded-t-lg shadow">
-            <Table
+            <FixedTable
               columns={columns}
               data={data?.data || []}
               getRowProps={getHidePlantRowProps}

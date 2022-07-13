@@ -4,7 +4,7 @@ import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import APP_CONSTANTS from '../../app/appConstants';
-import Table from '../../components/table/Table';
+import FixedTable from '../../components/table/FixedTable';
 import Tag from '../../components/tag/Tag';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
@@ -176,7 +176,7 @@ export default function WasteHistoryTable({
             {startYear === endYear ? t('wastePage:history.wasteDesc') : t('wastePage:history.gapDesc')}
           </div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-            <Table columns={columns} data={(data?.data || []).map(toRow(option))} />
+            <FixedTable columns={columns} data={(data?.data || []).map(toRow(option))} />
           </div>
         </>
       )}

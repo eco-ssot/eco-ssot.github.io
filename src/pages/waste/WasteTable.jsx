@@ -9,7 +9,7 @@ import APP_CONSTANTS from '../../app/appConstants';
 import IconButton from '../../components/button/IconButton';
 import Dot from '../../components/dot/Dot';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
-import Table from '../../components/table/Table';
+import FixedTable from '../../components/table/FixedTable';
 import DualTag from '../../components/tag/DualTag';
 import UploadModal from '../../components/upload-modal/UploadModal';
 import useGoal from '../../hooks/useGoal';
@@ -245,7 +245,7 @@ export default function WasteTable({ business, y, m, s, p, pt, missingPlants }) 
         <>
           <div className="h-6 w-full text-right">{t('wastePage:desc')}</div>
           <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
-            <Table
+            <FixedTable
               columns={columns}
               data={data?.data || []}
               getRowProps={getHidePlantRowProps}
