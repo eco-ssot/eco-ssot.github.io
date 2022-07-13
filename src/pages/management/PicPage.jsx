@@ -44,7 +44,7 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
       },
       {
         Header: t('managementPage:pic.table.remark'),
-        accessor: 'letNote',
+        accessor: 'leftNote',
         className: 'w-1/5 text-center',
         editable: true,
         editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
