@@ -146,10 +146,22 @@ export default function FixedTable({
                                 row.id.includes('.') &&
                                 !(row[row.index + 1] || { id: '' }).id.includes('.') &&
                                 'border-b border-primary-600',
-                              /paddingLeft/.test(cell.column.id) && clsx('sticky left-0 bg-primary-900 w-4 z-1'),
-                              /expander/.test(cell.column.id) && clsx('sticky left-4 bg-primary-900 w-6 z-1'),
+                              /paddingLeft/.test(cell.column.id) &&
+                                clsx(
+                                  'sticky left-0 w-4 z-1',
+                                  row.depth > 0 ? 'bg-primary-600 bg-opacity-20' : 'bg-primary-900'
+                                ),
+                              /expander/.test(cell.column.id) &&
+                                clsx(
+                                  'sticky left-4 w-6 z-1',
+                                  row.depth > 0 ? 'bg-primary-600 bg-opacity-20' : 'bg-primary-900'
+                                ),
                               /site|plant/i.test(cell.column.id) &&
-                                clsx('sticky left-[2.4rem] bg-primary-900 z-1', scrollingX && AFTER.LEFT),
+                                clsx(
+                                  'sticky left-[2.4rem] z-1',
+                                  row.depth > 0 ? 'bg-primary-600 bg-opacity-20' : 'bg-primary-900',
+                                  scrollingX && AFTER.LEFT
+                                ),
                               cell.column.className
                             ),
                             style: cell.column.style,
