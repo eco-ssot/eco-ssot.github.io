@@ -1,25 +1,18 @@
 {
   "data": [
-    { "plant": "WCD", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WCQ", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WCZ", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WIH", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WKS-1", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WKS-5", "OPMPIC": "Barry Cao 曹俊傑", "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WKS-6A", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WKS-6B", "OPMPIC": "Fly Zhang 張翔", "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WMX", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WOK", "OPMPIC": "Lijie Liu 劉利杰", "OPMNote": null, "wastePIC": null, "wasteNote": null },
     {
-      "plant": "WTZ",
-      "OPMPIC": "Jiuling Ai 艾九靈",
-      "OPMNote": "請假中，代理人Wen Zhu",
-      "wastePIC": null,
-      "wasteNote": null
+      "plant": "WKS-6",
+      "leftPIC": null,
+      "leftNote": null,
+      "rightPIC": null,
+      "rightNote": null
     },
-    { "plant": "WZS-1", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WZS-3", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WZS-6", "OPMPIC": null, "OPMNote": null, "wastePIC": null, "wasteNote": null },
-    { "plant": "WZS-8", "OPMPIC": "Joann zhang 張小梅", "OPMNote": null, "wastePIC": null, "wasteNote": null }
+    {
+      "plant": "WZS-1",
+      "leftPIC": "leo_zy_lin@wistron.com",
+      "leftNote": null,
+      "rightPIC": "leo_zy_lin@wistron.com",
+      "rightNote": null
+    }
   ]
 }

@@ -19,33 +19,32 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   {
     id: 'opm',
     Header: () => (
-      <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-3">
+      <div className="flex items-center justify-center border-b border-divider py-3">
         <div className="px-2">{t('managementPage:pic.table.revenueAndShipment')}</div>
-        <div className="px-2 text-sm text-gray-400">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
     columns: [
       {
         Header: 'PIC',
-        accessor: 'OPMPIC',
+        accessor: 'leftPIC',
         className: 'w-1/5 text-center',
         Cell: (cell) =>
           cell.row.original.editing ? (
             <AdSearchSelectCell
               isClearable={true}
               options={userOptions}
-              defaultValue={{ value: cell.row.original.OPMPIC, label: cell.row.original.OPMPIC }}
+              defaultValue={{ value: cell.row.original.leftPIC, label: cell.row.original.leftPIC }}
               onBlur={(e) =>
-                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, OPMPIC: e?.label || null } : d)))
+                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, leftPIC: e?.label || null } : d)))
               }
             />
           ) : (
-            cell.row.original.OPMPIC
+            cell.row.original.leftPIC
           ),
       },
       {
         Header: t('managementPage:pic.table.remark'),
-        accessor: 'OPMNote',
+        accessor: 'letNote',
         className: 'w-1/5 text-center',
         editable: true,
         editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
@@ -55,33 +54,32 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
   {
     id: 'waste',
     Header: () => (
-      <div className="flex items-center justify-center divide-x divide-divider border-b border-divider py-3">
+      <div className="flex items-center justify-center border-b border-divider py-3">
         <div className="px-2">{t('managementPage:pic.table.waste')}</div>
-        <div className="px-2 text-sm text-gray-400">{t('managementPage:pic.table.manualSync')}</div>
       </div>
     ),
     columns: [
       {
         Header: 'PIC',
-        accessor: 'wastePIC',
+        accessor: 'rightPIC',
         className: 'w-1/5 text-center',
         Cell: (cell) =>
           cell.row.original.editing ? (
             <AdSearchSelectCell
               isClearable={true}
               options={userOptions}
-              defaultValue={{ value: cell.row.original.wastePIC, label: cell.row.original.wastePIC }}
+              defaultValue={{ value: cell.row.original.rightPIC, label: cell.row.original.rightPIC }}
               onBlur={(e) =>
-                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, wastePIC: e?.label || null } : d)))
+                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, rightPIC: e?.label || null } : d)))
               }
             />
           ) : (
-            cell.row.original.wastePIC
+            cell.row.original.rightPIC
           ),
       },
       {
         Header: t('managementPage:pic.table.remark'),
-        accessor: 'wasteNote',
+        accessor: 'rightNote',
         className: 'w-1/5 text-center',
         editable: true,
         editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
@@ -147,6 +145,7 @@ export default function PicPage() {
     data && setData(data);
   }, [data]);
 
+  console.log({ data });
   return (
     <div className="col-span-7 row-span-2">
       <div className="flex h-full flex-col space-y-6 rounded bg-primary-900 p-4 shadow">
