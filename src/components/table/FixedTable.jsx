@@ -128,6 +128,8 @@ export default function FixedTable({
                     ...getRowProps(row),
                     className: clsx(
                       row.original.isFooter ? 'border-b-2 border-t-2 border-primary-600' : 'border-b border-divider',
+                      row.depth > 0 && 'border-b-primary-600',
+                      row.isExpanded && 'border-b-primary-600',
                       getRowProps(row).className
                     ),
                   })}
@@ -141,11 +143,6 @@ export default function FixedTable({
                               'py-3 text-gray-50 text-center text-lg relative',
                               !cell.column.id.startsWith('expander') && 'px-2',
                               row.depth > 0 && 'bg-primary-600 bg-opacity-20',
-                              row.depth > 0 && row.index === 0 && 'border-t border-primary-600',
-                              row.depth > 0 &&
-                                row.id.includes('.') &&
-                                !(row[row.index + 1] || { id: '' }).id.includes('.') &&
-                                'border-b border-primary-600',
                               /paddingLeft/.test(cell.column.id) &&
                                 clsx(
                                   'sticky left-0 w-4 z-1',
