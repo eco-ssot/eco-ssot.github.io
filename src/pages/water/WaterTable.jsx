@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
+import { ArrowUpIcon } from '@heroicons/react/solid';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +8,9 @@ import APP_CONSTANTS from '../../app/appConstants';
 import Dot from '../../components/dot/Dot';
 import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import FixedTable from '../../components/table/FixedTable';
+import Table from '../../components/table/Table';
 import DualTag from '../../components/tag/DualTag';
+import CustomTooltip from '../../components/tooltip/CustomTooltip';
 import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import MyNavLink from '../../router/MyNavLink';
@@ -133,6 +136,68 @@ const HEADERS = ({
   },
 ];
 
+const SUB_COLUMNS = ({ t, lastYear, currYear }) => [
+  {
+    Header: 'Site',
+    accessor: 'site',
+    rowSpan: 0,
+  },
+  {
+    id: 'water',
+    Header: () => <div className="border-b border-divider py-3">用水量 (公噸)</div>,
+    columns: [
+      {
+        Header: lastYear,
+        accessor: `water.${lastYear}`,
+      },
+      {
+        Header: currYear,
+        accessor: `water.${currYear}`,
+      },
+      {
+        Header: t('common:gap'),
+        accessor: 'water.delta',
+      },
+    ],
+  },
+  {
+    id: 'manpower',
+    Header: () => <div className="border-b border-divider py-3">人力 (人)</div>,
+    columns: [
+      {
+        Header: lastYear,
+        accessor: `manpower.${lastYear}`,
+      },
+      {
+        Header: currYear,
+        accessor: `manpower.${currYear}`,
+      },
+      {
+        Header: t('common:gap'),
+        accessor: 'manpower.delta',
+      },
+    ],
+  },
+  {
+    id: 'waterAvg',
+    Header: () => <div className="border-b border-divider py-3">人均用水量 (公斤)</div>,
+    columns: [
+      {
+        Header: lastYear,
+        accessor: `waterAvg.${lastYear}`,
+      },
+      {
+        Header: currYear,
+        accessor: `waterAvg.${currYear}`,
+      },
+      {
+        Header: t('common:gap'),
+        accessor: 'waterAvg.delta',
+      },
+    ],
+  },
+];
+
 const COLUMNS = ({
   t,
   pct,
@@ -147,7 +212,29 @@ const COLUMNS = ({
       Header: 'Site',
       accessor: 'site',
       rowSpan: 0,
-      Cell: noDataRenderer({ missing }),
+      Cell: (cell) => {
+        const columns = useMemo(() => SUB_COLUMNS({ t, lastYear, currYear }), []);
+        const renderTable = useCallback(() => <Table columns={columns} data={[]} />, [columns]);
+        return (
+          <div className="flex items-center justify-between">
+            <div>{noDataRenderer({ missing })(cell)}</div>
+            <CustomTooltip
+              arrowClassName="!bg-gray-900"
+              render={({ close }) => (
+                <div className="relative rounded bg-gray-900 p-4 shadow-lg">
+                  <div className="mb-4 flex flex-col overflow-auto rounded-t-lg shadow">{renderTable()}</div>
+                  <div>＊廠區人力為計薪人力</div>
+                  <div>＊宿舍人力為宿舍計算的人數，包含在計薪人力內</div>
+                </div>
+              )}
+            >
+              <div className="cursor-pointer rounded border border-gray-300 text-gray-300 hover:border-gray-50  hover:text-gray-50">
+                <ArrowUpIcon className="h-5 w-5 flex-shrink-0 rotate-45" />
+              </div>
+            </CustomTooltip>
+          </div>
+        );
+      },
       className: 'whitespace-nowrap',
     },
     ...HEADERS({ t, pct, currYear, lastYear, baseYear }).map(({ key, name, subHeaders = [] }) => ({
