@@ -140,7 +140,7 @@ export default function FixedTable({
                         {...cell.getCellProps([
                           {
                             className: clsx(
-                              'py-3 text-gray-50 text-center text-lg relative',
+                              'text-gray-50 text-center text-lg relative h-12',
                               !cell.column.id.startsWith('expander') && 'px-2',
                               row.depth > 0 && 'bg-primary-600 bg-opacity-20',
                               /paddingLeft/.test(cell.column.id) &&
