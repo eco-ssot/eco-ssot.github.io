@@ -88,8 +88,8 @@ export const waterApi = appApi.injectEndpoints({
     }),
     getWaterManpowerAsync: builder.query({
       query: (query) => ({ query, url: 'manpower-water' }),
-      transformResponse: (res) => {
-        const data = res.data?.[0];
+      transformResponse: (res, { query }) => {
+        const data = query.plant ? res.data?.[0]?.plants?.find((d) => d.plant === query.plant) : res.data?.[0];
         const nextData = [
           {
             site: '廠區',
@@ -128,7 +128,7 @@ export const waterApi = appApi.injectEndpoints({
           },
         ];
 
-        return { ...res, data: nextData, site: data?.site };
+        return { ...res, data: nextData, site: data?.site || data?.plant };
       },
     }),
     getWaterHistory: builder.query({

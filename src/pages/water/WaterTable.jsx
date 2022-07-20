@@ -311,32 +311,33 @@ const COLUMNS = ({
         return (
           <div className="flex items-center justify-between">
             <div>{noDataRenderer({ missing })(cell)}</div>
-            {!/total/i.test(cell.value) && process.env.REACT_APP_WATER_DETAIL_SITE?.split(',')?.includes(cell.value) && (
-              <CustomTooltip
-                arrowClassName="!bg-gray-900"
-                render={({ close }) => (
-                  <div className="relative rounded bg-gray-900 p-4 shadow-lg">
-                    <div className="mb-4 flex flex-col overflow-auto rounded-lg border border-divider shadow">
-                      {renderTable()}
+            {!/total/i.test(cell.value) &&
+              new RegExp(process.env.REACT_APP_WATER_DETAIL_SITE?.split(',').join('|'), 'i').test(cell.value) && (
+                <CustomTooltip
+                  arrowClassName="!bg-gray-900"
+                  render={({ close }) => (
+                    <div className="relative rounded bg-gray-900 p-4 shadow-lg">
+                      <div className="mb-4 flex flex-col overflow-auto rounded-lg border border-divider shadow">
+                        {renderTable()}
+                      </div>
+                      <div>＊廠區人力為計薪人力</div>
+                      <div>＊宿舍人力為宿舍計算的人數，包含在計薪人力內</div>
                     </div>
-                    <div>＊廠區人力為計薪人力</div>
-                    <div>＊宿舍人力為宿舍計算的人數，包含在計薪人力內</div>
-                  </div>
-                )}
-              >
-                {({ open }) => (
-                  <div
-                    className={clsx(
-                      'rounded border hover:border-gray-50 hover:text-gray-50',
-                      open ? 'border-gray-50 text-gray-50' : 'border-gray-400 text-gray-400'
-                    )}
-                    onMouseEnter={() => trigger(query, true)}
-                  >
-                    <ArrowUpIcon className="h-5 w-5 flex-shrink-0 rotate-45" />
-                  </div>
-                )}
-              </CustomTooltip>
-            )}
+                  )}
+                >
+                  {({ open }) => (
+                    <div
+                      className={clsx(
+                        'rounded border hover:border-gray-50 hover:text-gray-50',
+                        open ? 'border-gray-50 text-gray-50' : 'border-gray-400 text-gray-400'
+                      )}
+                      onMouseEnter={() => trigger(query, true)}
+                    >
+                      <ArrowUpIcon className="h-5 w-5 flex-shrink-0 rotate-45" />
+                    </div>
+                  )}
+                </CustomTooltip>
+              )}
           </div>
         );
       },
