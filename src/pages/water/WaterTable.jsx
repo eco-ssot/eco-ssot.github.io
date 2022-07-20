@@ -273,6 +273,18 @@ const COLUMNS = ({
               ? [
                   {
                     ...cell.row.original,
+                    water: {
+                      currYear: data?.data?.[0]?.water?.currYear + data?.data?.[1]?.water?.currYear,
+                      lastYear: data?.data?.[0]?.water?.lastYear + data?.data?.[1]?.water?.lastYear,
+                    },
+                    waterAvg: {
+                      currYear:
+                        (data?.data?.[0]?.water?.currYear + data?.data?.[1]?.water?.currYear) /
+                        cell.row.original?.manpower?.currYear,
+                      lastYear:
+                        (data?.data?.[0]?.water?.lastYear + data?.data?.[1]?.water?.lastYear) /
+                        cell.row.original?.manpower?.lastYear,
+                    },
                     rowSpan: {
                       'manpower.currYear': 2,
                       'manpower.lastYear': 2,
