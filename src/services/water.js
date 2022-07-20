@@ -98,12 +98,12 @@ export const waterApi = appApi.injectEndpoints({
               lastYear: data?.plant_region?.lastWater,
             },
             manpower: {
-              currYear: data?.plant_region?.currentWater_manpower,
-              lastYear: data?.plant_region?.lastWater_manpower,
+              currYear: data?.plant_region?.currentManpower,
+              lastYear: data?.plant_region?.lastManpower,
             },
             waterAvg: {
-              currYear: data?.plant_region?.currentWater / data?.plant_region?.currentWater_manpower,
-              lastYear: data?.plant_region?.lastWater / data?.plant_region?.lastWater_manpower,
+              currYear: data?.plant_region?.currentWater / data?.plant_region?.currentManpower,
+              lastYear: data?.plant_region?.lastWater / data?.plant_region?.lastManpower,
             },
           },
           {
@@ -113,12 +113,12 @@ export const waterApi = appApi.injectEndpoints({
               lastYear: data?.dormitory?.lastWater,
             },
             manpower: {
-              currYear: data?.dormitory?.currentWater_manpower,
-              lastYear: data?.dormitory?.lastWater_manpower,
+              currYear: data?.dormitory?.currentManpower,
+              lastYear: data?.dormitory?.lastManpower,
             },
             waterAvg: {
-              currYear: data?.dormitory?.currentWater / data?.dormitory?.currentWater_manpower,
-              lastYear: data?.dormitory?.lastWater / data?.dormitory?.lastWater_manpower,
+              currYear: data?.dormitory?.currentWater / data?.dormitory?.currentManpower,
+              lastYear: data?.dormitory?.lastWater / data?.dormitory?.lastManpower,
             },
           },
         ];
