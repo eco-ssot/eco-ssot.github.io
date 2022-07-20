@@ -1,6 +1,7 @@
 import { useMemo, useCallback } from 'react';
 
 import { ArrowUpIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 
@@ -15,8 +16,8 @@ import useGoal from '../../hooks/useGoal';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import MyNavLink from '../../router/MyNavLink';
 import { waterAnalysisRoute } from '../../router/routes';
-import { useGetWaterQuery, waterApi } from '../../services/water';
-import { ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
+import { useGetWaterQuery, useLazyGetWaterManpowerAsyncQuery, waterApi } from '../../services/water';
+import { baseFormatter, ratioFormatter, statisticsFormatter, targetFormatter } from '../../utils/formatter';
 import { addPaddingColumns, EXPAND_COLUMN, getHidePlantRowProps, noDataRenderer } from '../../utils/table';
 
 const HEADERS = ({
@@ -77,7 +78,6 @@ const HEADERS = ({
     subHeaders: [
       { key: 'lastYear', name: lastYear },
       { key: 'currYear', name: currYear },
-      // { key: 'weight', name: t('common:weight'), renderer: ratioFormatter },
       {
         key: 'delta',
         name: t('common:gap'),
@@ -144,55 +144,99 @@ const SUB_COLUMNS = ({ t, lastYear, currYear }) => [
   },
   {
     id: 'water',
-    Header: () => <div className="border-b border-divider py-3">用水量 (公噸)</div>,
+    Header: () => <div className="border-b border-divider py-3">{t('waterPage:table.water')}</div>,
     columns: [
       {
         Header: lastYear,
-        accessor: `water.${lastYear}`,
+        accessor: 'water.lastYear',
+        className: 'text-right',
+        Cell: baseFormatter,
       },
       {
         Header: currYear,
-        accessor: `water.${currYear}`,
+        accessor: 'water.currYear',
+        className: 'text-right',
+        Cell: baseFormatter,
       },
       {
         Header: t('common:gap'),
         accessor: 'water.delta',
+        className: 'text-right',
+        Cell: (cell) => {
+          const value = useMemo(
+            () =>
+              (cell.row.original.water.currYear - cell.row.original.water.lastYear) / cell.row.original.water.lastYear,
+            [cell.row.original.water.currYear, cell.row.original.water.lastYear]
+          );
+
+          return ratioFormatter(value);
+        },
       },
     ],
   },
   {
     id: 'manpower',
-    Header: () => <div className="border-b border-divider py-3">人力 (人)</div>,
+    Header: () => <div className="border-b border-divider py-3">{t('waterPage:table.manpower')}</div>,
     columns: [
       {
         Header: lastYear,
-        accessor: `manpower.${lastYear}`,
+        accessor: 'manpower.lastYear',
+        className: 'text-right',
+        Cell: baseFormatter,
       },
       {
         Header: currYear,
-        accessor: `manpower.${currYear}`,
+        accessor: 'manpower.currYear',
+        className: 'text-right',
+        Cell: baseFormatter,
       },
       {
         Header: t('common:gap'),
         accessor: 'manpower.delta',
+        className: 'text-right',
+        Cell: (cell) => {
+          const value = useMemo(
+            () =>
+              (cell.row.original.manpower.currYear - cell.row.original.manpower.lastYear) /
+              cell.row.original.manpower.lastYear,
+            [cell.row.original.manpower.currYear, cell.row.original.manpower.lastYear]
+          );
+
+          return ratioFormatter(value);
+        },
       },
     ],
   },
   {
     id: 'waterAvg',
-    Header: () => <div className="border-b border-divider py-3">人均用水量 (公斤)</div>,
+    Header: () => <div className="border-b border-divider py-3">{t('waterPage:table.waterAvg')}</div>,
     columns: [
       {
         Header: lastYear,
-        accessor: `waterAvg.${lastYear}`,
+        accessor: 'waterAvg.lastYear',
+        className: 'text-right',
+        Cell: statisticsFormatter(3),
       },
       {
         Header: currYear,
-        accessor: `waterAvg.${currYear}`,
+        accessor: 'waterAvg.currYear',
+        className: 'text-right',
+        Cell: statisticsFormatter(3),
       },
       {
         Header: t('common:gap'),
         accessor: 'waterAvg.delta',
+        className: 'text-right',
+        Cell: (cell) => {
+          const value = useMemo(
+            () =>
+              (cell.row.original.waterAvg.currYear - cell.row.original.waterAvg.lastYear) /
+              cell.row.original.waterAvg.lastYear,
+            [cell.row.original.waterAvg.currYear, cell.row.original.waterAvg.lastYear]
+          );
+
+          return ratioFormatter(value);
+        },
       },
     ],
   },
@@ -213,25 +257,62 @@ const COLUMNS = ({
       accessor: 'site',
       rowSpan: 0,
       Cell: (cell) => {
-        const columns = useMemo(() => SUB_COLUMNS({ t, lastYear, currYear }), []);
-        const renderTable = useCallback(() => <Table columns={columns} data={[]} />, [columns]);
+        const [trigger, { data }] = useLazyGetWaterManpowerAsyncQuery();
+        const query = useMemo(
+          () => ({
+            site: cell.value,
+            ...(cell.row.original.parentSite && { site: cell.row.original.parentSite, plant: cell.value }),
+          }),
+          [cell.row.original.parentSite, cell.value]
+        );
+
+        const columns = useMemo(() => addPaddingColumns(SUB_COLUMNS({ t, lastYear, currYear })), []);
+        const _data = useMemo(
+          () => [cell.row.original].concat(data?.data).filter(Boolean),
+          [cell.row.original, data?.data]
+        );
+
+        const renderTable = useCallback(
+          () =>
+            _data && (
+              <Table
+                columns={columns}
+                data={_data}
+                getRowProps={(row) => ({ className: clsx(row.index === _data?.length - 1 && 'border-b-0') })}
+              />
+            ),
+          [columns, _data]
+        );
+
         return (
           <div className="flex items-center justify-between">
             <div>{noDataRenderer({ missing })(cell)}</div>
-            <CustomTooltip
-              arrowClassName="!bg-gray-900"
-              render={({ close }) => (
-                <div className="relative rounded bg-gray-900 p-4 shadow-lg">
-                  <div className="mb-4 flex flex-col overflow-auto rounded-t-lg shadow">{renderTable()}</div>
-                  <div>＊廠區人力為計薪人力</div>
-                  <div>＊宿舍人力為宿舍計算的人數，包含在計薪人力內</div>
-                </div>
-              )}
-            >
-              <div className="cursor-pointer rounded border border-gray-300 text-gray-300 hover:border-gray-50  hover:text-gray-50">
-                <ArrowUpIcon className="h-5 w-5 flex-shrink-0 rotate-45" />
-              </div>
-            </CustomTooltip>
+            {!/total/i.test(cell.value) && (
+              <CustomTooltip
+                arrowClassName="!bg-gray-900"
+                render={({ close }) => (
+                  <div className="relative rounded bg-gray-900 p-4 shadow-lg">
+                    <div className="mb-4 flex flex-col overflow-auto rounded-lg border border-divider shadow">
+                      {renderTable()}
+                    </div>
+                    <div>＊廠區人力為計薪人力</div>
+                    <div>＊宿舍人力為宿舍計算的人數，包含在計薪人力內</div>
+                  </div>
+                )}
+              >
+                {({ open }) => (
+                  <div
+                    className={clsx(
+                      'rounded border hover:border-gray-50 hover:text-gray-50',
+                      open ? 'border-gray-50 text-gray-50' : 'border-gray-400 text-gray-400'
+                    )}
+                    onMouseEnter={() => trigger(query, true)}
+                  >
+                    <ArrowUpIcon className="h-5 w-5 flex-shrink-0 rotate-45" />
+                  </div>
+                )}
+              </CustomTooltip>
+            )}
           </div>
         );
       },

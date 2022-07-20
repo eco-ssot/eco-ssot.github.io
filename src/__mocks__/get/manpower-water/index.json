@@ -1,0 +1,166 @@
+{
+  "data": [
+    {
+      "site": "WKS",
+      "latestDate": "2022-06-01",
+      "currentWater": 141413.68570101925,
+      "lastWater": 216930.52933753942,
+      "gradientWater": -0.34811533382199755,
+      "currentWater_manpower": 8.601319344347301,
+      "lastWater_manpower": 6.171372171331673,
+      "gradientWater_manpower": 0.39374503847031606,
+      "plant_region": {
+        "currentWater": "No Data",
+        "lastWater": "No Data",
+        "gradientWater": "Infinity",
+        "currentManpower": "No Data",
+        "lastManpower": "No Data",
+        "gradientManpower": "Infinity",
+        "currentWater_manpower": "No Data",
+        "lastWater_manpower": "No Data",
+        "gradientWater_manpower": "Infinity"
+      },
+      "dormitory": {
+        "currentWater": "No Data",
+        "lastWater": "No Data",
+        "gradientWater": "Infinity",
+        "currentManpower": "No Data",
+        "lastManpower": "No Data",
+        "gradientManpower": "Infinity",
+        "currentWater_manpower": "No Data",
+        "lastWater_manpower": "No Data",
+        "gradientWater_manpower": "Infinity"
+      },
+      "plants": [
+        {
+          "plant": "WKS-1",
+          "latestDate": "2022-06-01",
+          "currentWater": "No Data",
+          "lastWater": "No Data",
+          "gradientWater": "Infinity",
+          "currentWater_manpower": "No Data",
+          "lastWater_manpower": "No Data",
+          "gradientWater_manpower": "Infinity",
+          "plant_region": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          },
+          "dormitory": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          }
+        },
+        {
+          "plant": "WKS-5",
+          "latestDate": "2022-06-01",
+          "currentWater": "No Data",
+          "lastWater": "No Data",
+          "gradientWater": "Infinity",
+          "currentWater_manpower": "No Data",
+          "lastWater_manpower": "No Data",
+          "gradientWater_manpower": "Infinity",
+          "plant_region": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          },
+          "dormitory": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          }
+        },
+        {
+          "plant": "WKS-6",
+          "latestDate": "2022-06-01",
+          "currentWater": "No Data",
+          "lastWater": "No Data",
+          "gradientWater": "Infinity",
+          "currentWater_manpower": "No Data",
+          "lastWater_manpower": "No Data",
+          "gradientWater_manpower": "Infinity",
+          "plant_region": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          },
+          "dormitory": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          }
+        },
+        {
+          "plant": "WKS-6A",
+          "latestDate": "No Data",
+          "currentWater": "No Data",
+          "lastWater": "No Data",
+          "gradientWater": "Infinity",
+          "currentWater_manpower": "No Data",
+          "lastWater_manpower": "No Data",
+          "gradientWater_manpower": "Infinity",
+          "plant_region": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          },
+          "dormitory": {
+            "currentWater": "No Data",
+            "lastWater": "No Data",
+            "gradientWater": "Infinity",
+            "currentManpower": "No Data",
+            "lastManpower": "No Data",
+            "gradientManpower": "Infinity",
+            "currentWater_manpower": "No Data",
+            "lastWater_manpower": "No Data",
+            "gradientWater_manpower": "Infinity"
+          }
+        }
+      ]
+    }
+  ]
+}

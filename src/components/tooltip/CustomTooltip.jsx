@@ -1,4 +1,4 @@
-import { cloneElement, Fragment, isValidElement, useEffect, useRef, useState } from 'react';
+import { cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
 
 import {
   offset,
@@ -77,7 +77,7 @@ export default function CustomTooltip({
 
   return (
     <>
-      {isValidElement(children) && cloneElement(children, getReferenceProps({ ref: reference }))}
+      {isValidElement(children({ open })) && cloneElement(children({ open }), getReferenceProps({ ref: reference }))}
       <FloatingPortal>
         <Transition appear show={show && open}>
           <div

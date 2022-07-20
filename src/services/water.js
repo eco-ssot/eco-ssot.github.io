@@ -61,7 +61,7 @@ export function toRow({ plants = [], ...data } = {}) {
       baseYear: compareBaseYear,
       delta: compareBaseGradient,
     },
-    subRows: plants.map(toRow),
+    subRows: plants.map((plant) => ({ ...toRow(plant), parentSite: name })),
     ...(name === 'Total' && { isFooter: true }),
   };
 }
@@ -84,6 +84,46 @@ export const waterApi = appApi.injectEndpoints({
           maxDate,
           data: [...records, ...total].map(toRow),
         };
+      },
+    }),
+    getWaterManpowerAsync: builder.query({
+      query: (query) => ({ query, url: 'manpower-water' }),
+      transformResponse: (res) => {
+        const data = res.data?.[0];
+        const nextData = [
+          {
+            site: '廠區',
+            water: {
+              currYear: data?.plant_region?.currentWater,
+              lastYear: data?.plant_region?.lastWater,
+            },
+            manpower: {
+              currYear: data?.plant_region?.currentWater_manpower,
+              lastYear: data?.plant_region?.lastWater_manpower,
+            },
+            waterAvg: {
+              currYear: data?.plant_region?.currentWater / data?.plant_region?.currentWater_manpower,
+              lastYear: data?.plant_region?.lastWater / data?.plant_region?.lastWater_manpower,
+            },
+          },
+          {
+            site: '宿舍',
+            water: {
+              currYear: data?.dormitory?.currentWater,
+              lastYear: data?.dormitory?.lastWater,
+            },
+            manpower: {
+              currYear: data?.dormitory?.currentWater_manpower,
+              lastYear: data?.dormitory?.lastWater_manpower,
+            },
+            waterAvg: {
+              currYear: data?.dormitory?.currentWater / data?.dormitory?.currentWater_manpower,
+              lastYear: data?.dormitory?.lastWater / data?.dormitory?.lastWater_manpower,
+            },
+          },
+        ];
+
+        return { ...res, data: nextData, site: data?.site };
       },
     }),
     getWaterHistory: builder.query({
@@ -142,6 +182,7 @@ export const {
   useGetWaterHistoryQuery,
   useGetWaterAnalysisQuery,
   useGetWaterExplanationQuery,
+  useLazyGetWaterManpowerAsyncQuery,
   usePatchWaterExplanationMutation,
   usePatchWaterImprovementMutation,
   usePostWaterExplanationMutation,
