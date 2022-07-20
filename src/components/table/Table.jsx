@@ -74,6 +74,10 @@ export default function Table({
               })}
             >
               {row.cells.map((cell) => {
+                if (cell.row.original.rowSpan?.[cell.column.id] === 0) {
+                  return null;
+                }
+
                 return (
                   <td
                     {...cell.getCellProps([
@@ -94,6 +98,9 @@ export default function Table({
                       getColumnProps(cell.column),
                       getCellProps(cell),
                     ])}
+                    {...(cell.row.original.rowSpan?.[cell.column.id] && {
+                      rowSpan: cell.row.original.rowSpan?.[cell.column.id],
+                    })}
                   >
                     {cell.column.id.startsWith('expander') && row.id.includes('.') && (
                       <div className="flex justify-center">

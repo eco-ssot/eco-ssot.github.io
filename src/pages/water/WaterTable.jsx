@@ -268,26 +268,38 @@ const COLUMNS = ({
 
         const columns = useMemo(() => addPaddingColumns(SUB_COLUMNS({ t, lastYear, currYear })), []);
         const _data = useMemo(
-          () => [cell.row.original].concat(data?.data).filter(Boolean),
+          () =>
+            data?.data
+              ? [
+                  {
+                    ...cell.row.original,
+                    rowSpan: {
+                      'manpower.currYear': 2,
+                      'manpower.lastYear': 2,
+                      'manpower.delta': 2,
+                    },
+                  },
+                  {
+                    ...data?.data?.[0],
+                    waterAvg: {
+                      currYear: data?.data?.[0]?.water?.currYear / cell.row.original?.manpower?.currYear,
+                      lastYear: data?.data?.[0]?.water?.lastYear / cell.row.original?.manpower?.lastYear,
+                    },
+                  },
+                ].concat(data?.data?.slice(1))
+              : data?.data,
           [cell.row.original, data?.data]
         );
 
         const renderTable = useCallback(
-          () =>
-            _data && (
-              <Table
-                columns={columns}
-                data={_data}
-                getRowProps={(row) => ({ className: clsx(row.index === _data?.length - 1 && 'border-b-0') })}
-              />
-            ),
+          () => _data && <Table columns={columns} data={_data} getRowProps={(row) => ({ className: 'border-b-0' })} />,
           [columns, _data]
         );
 
         return (
           <div className="flex items-center justify-between">
             <div>{noDataRenderer({ missing })(cell)}</div>
-            {!/total/i.test(cell.value) && (
+            {!/total/i.test(cell.value) && process.env.REACT_APP_WATER_DETAIL_SITE?.split(',')?.includes(cell.value) && (
               <CustomTooltip
                 arrowClassName="!bg-gray-900"
                 render={({ close }) => (
