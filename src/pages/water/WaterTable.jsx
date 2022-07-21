@@ -258,13 +258,16 @@ const COLUMNS = ({
       rowSpan: 0,
       Cell: (cell) => {
         const [trigger, { data }] = useLazyGetWaterManpowerAsyncQuery();
+        const { pt } = qs.parse(qs.pick(window.location.search, ['pt']));
         const query = useMemo(
           () => ({
-            ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
             site: cell.value,
             ...(cell.row.original.parentSite && { site: cell.row.original.parentSite, plant: cell.value }),
+            ...(pt && {
+              is_ytm: pt === APP_CONSTANTS.PERIOD_TYPES.YTM,
+            }),
           }),
-          [cell.row.original.parentSite, cell.value]
+          [cell.row.original.parentSite, cell.value, pt]
         );
 
         const columns = useMemo(() => addPaddingColumns(SUB_COLUMNS({ t, lastYear, currYear })), []);
