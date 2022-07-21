@@ -105,11 +105,6 @@ export const waterApi = appApi.injectEndpoints({
               currYear: data?.plant_region?.currentWater / data?.plant_region?.currentManpower,
               lastYear: data?.plant_region?.lastWater / data?.plant_region?.lastManpower,
             },
-            rowSpan: {
-              'manpower.currYear': 0,
-              'manpower.lastYear': 0,
-              'manpower.delta': 0,
-            },
           },
           {
             site: '宿舍',

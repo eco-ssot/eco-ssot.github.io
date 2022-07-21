@@ -260,6 +260,7 @@ const COLUMNS = ({
         const [trigger, { data }] = useLazyGetWaterManpowerAsyncQuery();
         const query = useMemo(
           () => ({
+            ...qs.parse(qs.pick(window.location.search, APP_CONSTANTS.GLOBAL_QUERY_KEYS)),
             site: cell.value,
             ...(cell.row.original.parentSite && { site: cell.row.original.parentSite, plant: cell.value }),
           }),
@@ -271,16 +272,10 @@ const COLUMNS = ({
           () =>
             data?.data
               ? [
-                  {
-                    ...cell.row.original,
-                    rowSpan: {
-                      'manpower.currYear': 2,
-                      'manpower.lastYear': 2,
-                      'manpower.delta': 2,
-                    },
-                  },
+                  { ...cell.row.original },
                   {
                     ...data?.data?.[0],
+                    manpower: cell.row.original?.manpower,
                     waterAvg: {
                       currYear: data?.data?.[0]?.water?.currYear / cell.row.original?.manpower?.currYear,
                       lastYear: data?.data?.[0]?.water?.lastYear / cell.row.original?.manpower?.lastYear,
@@ -292,7 +287,14 @@ const COLUMNS = ({
         );
 
         const renderTable = useCallback(
-          () => _data && <Table columns={columns} data={_data} getRowProps={(row) => ({ className: 'border-b-0' })} />,
+          () =>
+            _data && (
+              <Table
+                columns={columns}
+                data={_data}
+                getRowProps={(row) => ({ className: clsx(row.index === _data?.length - 1 && 'border-b-0') })}
+              />
+            ),
           [columns, _data]
         );
 
