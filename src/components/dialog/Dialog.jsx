@@ -12,7 +12,10 @@ export default function Dialog({ children, className, title, titleClassName, ope
         {children}
       </div>
       <Transition appear show={_open} as={Fragment}>
-        <HeadlessDialog onClose={() => setOpen(false)} className="relative z-50">
+        <HeadlessDialog
+          onClose={() => setOpen(false)}
+          className={clsx('relative z-50', !_open && 'pointer-events-none')}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
