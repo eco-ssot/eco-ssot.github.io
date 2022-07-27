@@ -97,6 +97,13 @@ export default function MaintenanceForm({ query, draftRef }) {
 
         setValue('run_rate', draftRef.current?.run_rate || listByBuildingMachine?.data?.run_rate?.[0] || '');
       });
+
+      setSearchOption((prev) => ({
+        ...prev,
+        ...(!listByBuildingMachine?.data?.machine_id?.includes(prev.machine_id) && {
+          machine_id: listByBuildingMachine?.data?.machine_id?.[0],
+        }),
+      }));
     }
   }, [listByBuildingMachine, draftRef, setValue]);
 
@@ -163,7 +170,7 @@ export default function MaintenanceForm({ query, draftRef }) {
                 className="cursor-pointer text-gray-300 underline"
                 onClick={() => {
                   navigate({}, { merge: false });
-                  reset({ cost: '', eer_r: '', engine_depcmemt: '', maintenance: '', model_number: '', power: '' });
+                  reset({ hours: '', maintain_cost: '', maintain_hour: '', run_rate: '' });
                 }}
               >
                 {t('airCompressorPage:clear')}
