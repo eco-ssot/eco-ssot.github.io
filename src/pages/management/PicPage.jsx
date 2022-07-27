@@ -31,13 +31,31 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
         Cell: (cell) =>
           cell.row.original.editing ? (
             <AdSearchSelectCell
+              isMulti
               isClearable={true}
               options={userOptions}
-              defaultValue={{ value: cell.row.original.leftPIC, label: cell.row.original.leftPIC }}
+              closeMenuOnSelect={false}
+              onSelectResetsInput={false}
+              defaultValue={
+                cell.row.original.leftPIC
+                  ? cell.row.original.leftPIC.split(',').map((val) => ({ value: val, label: val }))
+                  : []
+              }
               onBlur={(e) =>
-                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, leftPIC: e?.label || null } : d)))
+                setData((prev) =>
+                  prev.map((d, i) =>
+                    cell.row.index === i
+                      ? { ...d, leftPIC: e?.length ? e?.map((option) => option.label).join(',') : null }
+                      : d
+                  )
+                )
               }
             />
+          ) : cell.row.original.leftPIC ? (
+            cell.row.original.leftPIC
+              .split(',')
+              .map((val) => val.split('@')[0])
+              .join(', ')
           ) : (
             cell.row.original.leftPIC
           ),
@@ -66,13 +84,31 @@ const COLUMNS = ({ t, canEdit, userOptions, setData, patchDataStatusPic }) => [
         Cell: (cell) =>
           cell.row.original.editing ? (
             <AdSearchSelectCell
+              isMulti
               isClearable={true}
               options={userOptions}
-              defaultValue={{ value: cell.row.original.rightPIC, label: cell.row.original.rightPIC }}
+              closeMenuOnSelect={false}
+              onSelectResetsInput={false}
+              defaultValue={
+                cell.row.original.rightPIC
+                  ? cell.row.original.rightPIC.split(',').map((val) => ({ value: val, label: val }))
+                  : []
+              }
               onBlur={(e) =>
-                setData((prev) => prev.map((d, i) => (cell.row.index === i ? { ...d, rightPIC: e?.label || null } : d)))
+                setData((prev) =>
+                  prev.map((d, i) =>
+                    cell.row.index === i
+                      ? { ...d, rightPIC: e?.length ? e?.map((option) => option.label).join(',') : null }
+                      : d
+                  )
+                )
               }
             />
+          ) : cell.row.original.rightPIC ? (
+            cell.row.original.rightPIC
+              .split(',')
+              .map((val) => val.split('@')[0])
+              .join(', ')
           ) : (
             cell.row.original.rightPIC
           ),

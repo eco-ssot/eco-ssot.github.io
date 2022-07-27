@@ -57,6 +57,17 @@ const customStyles = {
     ...provided,
     ...tw`text-gray-300 hover:text-gray-50 cursor-pointer`,
   }),
+  multiValue: (styles, props) => ({
+    ...styles,
+    ...tw`bg-primary-700 rounded`,
+  }),
+  multiValueLabel: (styles, props) => ({
+    ...styles,
+  }),
+  multiValueRemove: (styles, props) => ({
+    ...styles,
+    ...tw`rounded-r`,
+  }),
 };
 
 export function CustomOption(props) {
