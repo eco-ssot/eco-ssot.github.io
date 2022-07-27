@@ -4,11 +4,19 @@ import { Transition, Dialog as HeadlessDialog } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 
-export default function Dialog({ children, className, title, titleClassName, open = false, render = () => <></> }) {
+export default function Dialog({
+  children,
+  className,
+  title,
+  titleClassName,
+  disabled = false,
+  open = false,
+  render = () => <></>,
+}) {
   const [_open, setOpen] = useState(open);
   return (
     <>
-      <div className="relative" onClick={() => setOpen(true)}>
+      <div className={clsx('relative', disabled && 'pointer-events-none')} onClick={() => setOpen(true)}>
         {children}
       </div>
       <Transition appear show={_open} as={Fragment}>

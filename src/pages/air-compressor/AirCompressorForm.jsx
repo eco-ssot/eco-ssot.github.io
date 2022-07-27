@@ -1,6 +1,5 @@
 import { startTransition, useCallback, useEffect, useMemo, useState } from 'react';
 
-import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +16,7 @@ import { trimNumber } from '../../utils/number';
 import SpecTable from './SpecTable';
 import { COMPRESS_DICTIONARY, OIL_DICTIONARY, OPERATION_DICTIONARY } from './dictionary';
 
-export default function AirCompressorForm({ className, query, draftRef }) {
+export default function AirCompressorForm({ query, draftRef }) {
   const { t } = useTranslation(['airCompressorPage']);
   const [searchOption, setSearchOption] = useState(query);
   const { data: list } = useGetAirCompressListQuery();
@@ -29,7 +28,7 @@ export default function AirCompressorForm({ className, query, draftRef }) {
   const { data: listByBuildingMachine } = useGetAirCompressListQuery(
     {
       building: searchOption.building || listByBuilding?.building?.[0],
-      machine: listByBuilding?.machines.includes(searchOption.machine)
+      machine: listByBuilding?.machines?.includes(searchOption.machine)
         ? searchOption.machine
         : listByBuilding?.machines?.[0],
     },
@@ -142,11 +141,7 @@ export default function AirCompressorForm({ className, query, draftRef }) {
   }, [listByBuildingMachine, draftRef, setValue]);
 
   return (
-    <form
-      className={clsx('rounded bg-primary-900 p-4 shadow', className)}
-      onSubmit={handleSubmit((data) => navigate(getOptions(data)))}
-    >
-      <div className="mb-4 text-xl font-medium">{t('airCompressorPage:airCompressorDeviceAiRecommendation')}</div>
+    <form onSubmit={handleSubmit((data) => navigate(getOptions(data)))}>
       <div className="flex flex-grow justify-center space-x-8">
         <div className="space-y-2 border-r-2 border-divider pr-8">
           <div className="font-medium">{t('airCompressorPage:estimatedDevice')}</div>

@@ -6,7 +6,9 @@
     "prediction": "用電預測",
     "powerSaving": "節能技改",
     "water": "用水",
-    "electricity": "用電"
+    "electricity": "用電",
+    "recommendation": "能效計算與推薦",
+    "maintenance": "設備提前保養規劃"
   },
   "selectLabel": {
     "searchYear": "查詢年度",

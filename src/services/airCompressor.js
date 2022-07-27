@@ -18,6 +18,12 @@ export const airCompressorApi = appApi.injectEndpoints({
         };
       },
     }),
+    getMaintenanceList: builder.query({
+      query: (query) => ({ query, url: 'air-compress/maintain/list' }),
+    }),
+    getMaintenance: builder.query({
+      query: (query) => ({ query, url: 'air-compress/maintain/rec' }),
+    }),
     postSpec: builder.mutation({
       invalidatesTags: ['AIR_COMPRESSOR_SPEC'],
       query: (data) => ({
@@ -42,6 +48,8 @@ export const {
   useGetAirCompressListQuery,
   useGetRoiQuery,
   useGetSpecQuery,
+  useGetMaintenanceListQuery,
+  useGetMaintenanceQuery,
   usePostSpecMutation,
   usePatchSpecMutation,
 } = airCompressorApi;

@@ -145,7 +145,6 @@ export default function PicPage() {
     data && setData(data);
   }, [data]);
 
-  console.log({ data });
   return (
     <div className="col-span-7 row-span-2">
       <div className="flex h-full flex-col space-y-6 rounded bg-primary-900 p-4 shadow">

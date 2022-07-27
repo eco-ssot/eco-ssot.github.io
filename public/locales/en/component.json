@@ -6,7 +6,9 @@
     "prediction": "Prediction",
     "powerSaving": "Power Saving",
     "water": "Water",
-    "electricity": "Electricity"
+    "electricity": "Electricity",
+    "recommendation": "Recommendation",
+    "maintenance": "Maintenance"
   },
   "selectLabel": {
     "searchYear": "Year",

@@ -216,7 +216,7 @@ export function AnalysisSubTable({
                           />
                         </div>
                         <div className="col-span-1 h-full text-center">
-                          <DatePicker value={dd} onChange={updateRow('dd', i)} />
+                          <DatePicker className="!h-10 w-full rounded" value={dd} onChange={updateRow('dd', i)} />
                         </div>
                         <div className="col-span-1 h-full text-center">
                           <Complete
