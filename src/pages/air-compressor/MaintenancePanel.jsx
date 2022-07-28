@@ -79,7 +79,7 @@ const COST_OPTION = ({ data, rowIndex }) => {
       axisLine: { lineStyle: { color: colors.gray['500'], lineHeight: 16 } },
       splitLine: { show: false },
       min: Math.min(0, minX),
-      ...(!data && { min: 0, max: 2500 }),
+      ...((!data || rowIndex === -1) && { min: 0, max: 2500 }),
     },
     yAxis: {
       name: 'ROI (H)',
@@ -90,10 +90,10 @@ const COST_OPTION = ({ data, rowIndex }) => {
       axisTick: { show: false },
       data: y,
       max: maxY,
-      ...(!data && { min: 0, max: 2500 }),
+      ...((!data || rowIndex === -1) && { min: 0, max: 2500 }),
     },
     series: [
-      ...(data
+      ...(data && rowIndex > -1
         ? [
             {
               data: line1,
