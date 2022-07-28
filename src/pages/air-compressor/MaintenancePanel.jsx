@@ -175,6 +175,7 @@ const COST_OPTION = ({ data, rowIndex = 0 }) => {
               markLine: {
                 symbol: 'none',
                 animation: false,
+                silent: true,
                 data: [
                   [
                     {
