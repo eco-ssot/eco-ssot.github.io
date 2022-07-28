@@ -1,7 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 
 import clsx from 'clsx';
-import { isNil } from 'lodash';
 
 import Chart from '../../charts/Chart';
 import Legend from '../../components/legend/Legend';
@@ -69,6 +68,7 @@ const COST_OPTION = ({ data, rowIndex }) => {
   const line2 = data?.map((d) => ({ value: [d.previous_hour, d.previous_hour] }));
   const minX = Math.floor(Math.min(...[].concat(x, target1, target2).filter(Boolean)));
   const maxY = Math.ceil(Math.max(...[].concat(x, y, target1, target2).filter(Boolean)));
+  const segments = [target1].concat(x?.filter((d) => d > target1 && d < target2)?.filter(Boolean)).concat(target2);
   return {
     xAxis: {
       name: '提前保養\n時數 (H)',
@@ -78,7 +78,7 @@ const COST_OPTION = ({ data, rowIndex }) => {
       axisTick: { show: false },
       axisLine: { lineStyle: { color: colors.gray['500'], lineHeight: 16 } },
       splitLine: { show: false },
-      min: minX,
+      min: Math.min(0, minX),
       ...(!data && { min: 0, max: 2500 }),
     },
     yAxis: {
@@ -99,34 +99,95 @@ const COST_OPTION = ({ data, rowIndex }) => {
         color: colors._blue,
         symbol: 'none',
       },
-      {
-        data: line2,
-        type: 'line',
-        color: colors._yellow,
-        symbol: 'none',
-      },
-      {
-        type: 'line',
-        markLine: {
-          symbol: 'none',
-          data: [
-            !isNil(target1) && {
-              xAxis: target1,
-              lineStyle: { color: colors._orange },
-              label: { show: false },
+      ...(data
+        ? [
+            {
+              data: [{ value: [target1, target1] }, { value: [target2, target2] }],
+              type: 'line',
+              areaStyle: {
+                color: colors.primary['500'],
+                opacity: 0.2,
+                origin: target1,
+              },
+              lineStyle: {
+                color: 'transparent',
+              },
+              symbol: 'none',
+              silent: true,
             },
-            !isNil(target2) && {
-              xAxis: target2,
-              lineStyle: { color: colors.gray['50'] },
-              label: { show: false },
+            ...segments?.slice(0, -1)?.map((d, i) => ({
+              data: [
+                { value: [d, data?.find((_d) => d === _d.previous_hour)?.repaired_roi || target1] },
+                {
+                  value: [
+                    segments[i + 1],
+                    data?.find((_d) => segments[i + 1] === _d.previous_hour)?.repaired_roi || target1,
+                  ],
+                },
+              ],
+              type: 'line',
+              areaStyle: {
+                color: colors.primary['500'],
+                opacity: 0.2,
+                origin: target1,
+              },
+              lineStyle: {
+                color: 'transparent',
+              },
+              symbol: 'none',
+              silent: true,
+            })),
+            {
+              type: 'line',
+              markLine: {
+                symbol: 'none',
+                data: [
+                  {
+                    xAxis: target1,
+                    lineStyle: { color: colors._orange },
+                    label: {
+                      show: true,
+                      formatter: () => 'ROI >\n提前月數',
+                      color: colors.gray['300'],
+                      fontSize: 12,
+                      lineHeight: 14,
+                    },
+                  },
+                  {
+                    xAxis: target2,
+                    lineStyle: { color: colors.gray['50'] },
+                    label: {
+                      show: true,
+                      formatter: () => 'ROI <\n提前月數',
+                      color: colors.gray['300'],
+                      fontSize: 12,
+                      lineHeight: 14,
+                    },
+                  },
+                  [
+                    {
+                      coord: line2?.[0]?.value,
+                      lineStyle: {
+                        type: 'solid',
+                        color: colors._yellow,
+                        width: 2,
+                      },
+                      label: {
+                        color: colors.gray['300'],
+                        // formatter: () => '與前次保養太近\n耗材尚為全新',
+                      },
+                    },
+                    { coord: line2?.slice(-1)?.[0]?.value },
+                  ],
+                ],
+                lineStyle: { width: 2 },
+                emphasis: { lineStyle: { width: 4 } },
+              },
             },
-          ].filter(Boolean),
-          lineStyle: { width: 2 },
-          emphasis: { lineStyle: { width: 4 } },
-        },
-      },
+          ]
+        : []),
     ],
-    grid: { bottom: 0, top: 56, left: 12, right: 96, containLabel: true },
+    grid: { bottom: 0, top: 48, left: 12, right: 96, containLabel: true },
   };
 };
 
@@ -145,6 +206,7 @@ export default function MaintenancePanel({ className, data, machineId }) {
     }
   }, [data]);
 
+  console.log({ _data });
   return (
     <div
       className={clsx('grid grid-cols-4 grid-rows-1 gap-4 overflow-auto rounded bg-primary-900 p-4 shadow', className)}
