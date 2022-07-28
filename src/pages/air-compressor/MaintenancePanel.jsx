@@ -250,7 +250,7 @@ export default function MaintenancePanel({ className, data, machineId }) {
 
   useLayoutEffect(() => {
     if (rowIndex > -1) {
-      if (rowIndex === 0) {
+      if (rowIndex < 2) {
         document.getElementById(id)?.scrollTo({ top: 0 });
       } else {
         document.getElementById(data?.info?.[rowIndex]?.id)?.scrollIntoView(true);
