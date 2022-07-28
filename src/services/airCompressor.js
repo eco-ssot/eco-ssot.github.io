@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 import { appApi } from './app';
 
 export const airCompressorApi = appApi.injectEndpoints({
@@ -23,6 +25,15 @@ export const airCompressorApi = appApi.injectEndpoints({
     }),
     getMaintenance: builder.query({
       query: (query) => ({ query, url: 'air-compress/maintain/rec' }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: {
+            ...res.data,
+            info: res.data?.info?.map((d) => ({ ...d, id: nanoid() })),
+          },
+        };
+      },
     }),
     postSpec: builder.mutation({
       invalidatesTags: ['AIR_COMPRESSOR_SPEC'],

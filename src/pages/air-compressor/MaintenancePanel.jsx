@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useLayoutEffect, useId } from 'react';
 
 import clsx from 'clsx';
 
@@ -59,7 +59,7 @@ const SIMULATION_OPTION = ({ data }) => {
   };
 };
 
-const COST_OPTION = ({ data, rowIndex }) => {
+const COST_OPTION = ({ data, rowIndex = 0 }) => {
   const y = data?.map((d) => d.repaired_roi);
   const x = data?.map((d) => d.previous_hour);
   const target1 = data?.[rowIndex]?.match_roi;
@@ -79,6 +79,8 @@ const COST_OPTION = ({ data, rowIndex }) => {
       axisLine: { lineStyle: { color: colors.gray['500'], lineHeight: 16 } },
       splitLine: { show: false },
       min: Math.min(0, minX),
+      maxInterval: 500,
+      minInterval: 500,
       ...((!data || rowIndex === -1) && { min: 0, max: 2500 }),
     },
     yAxis: {
@@ -145,24 +147,12 @@ const COST_OPTION = ({ data, rowIndex }) => {
                   {
                     xAxis: target1,
                     lineStyle: { color: colors._orange },
-                    label: {
-                      show: true,
-                      formatter: () => 'ROI >\n提前月數',
-                      color: colors.gray['300'],
-                      fontSize: 12,
-                      lineHeight: 14,
-                    },
+                    label: { show: false },
                   },
                   {
                     xAxis: target2,
                     lineStyle: { color: colors.gray['50'] },
-                    label: {
-                      show: true,
-                      formatter: () => 'ROI <\n提前月數',
-                      color: colors.gray['300'],
-                      fontSize: 12,
-                      lineHeight: 14,
-                    },
+                    label: { show: false },
                   },
                   [
                     {
@@ -171,16 +161,66 @@ const COST_OPTION = ({ data, rowIndex }) => {
                         type: 'solid',
                         color: colors._yellow,
                         width: 2,
-                      },
-                      label: {
-                        color: colors.gray['300'],
-                        // formatter: () => '與前次保養太近\n耗材尚為全新',
+                        emphasis: { width: 2 },
                       },
                     },
                     { coord: line2?.slice(-1)?.[0]?.value },
                   ],
                 ],
                 lineStyle: { width: 2 },
+              },
+            },
+            {
+              type: 'line',
+              markLine: {
+                symbol: 'none',
+                animation: false,
+                data: [
+                  [
+                    {
+                      name: 'ROI >\n提前月數',
+                      coord: [0, maxY],
+                      lineStyle: {
+                        color: 'transparent',
+                      },
+                      label: {
+                        position: 'insideEndBottom',
+                        color: colors.gray['300'],
+                      },
+                    },
+                    { coord: [target1, maxY] },
+                  ],
+                  [
+                    {
+                      name: 'ROI <\n提前月數',
+                      coord: [target1, maxY],
+                      lineStyle: {
+                        color: 'transparent',
+                      },
+                      label: {
+                        position: 'insideMiddleBottom',
+                        color: colors.gray['300'],
+                      },
+                    },
+                    { coord: [target2, maxY] },
+                  ],
+                  [
+                    {
+                      name: '與前次保養太近\n耗材尚為全新',
+                      coord: [target2, maxY],
+                      lineStyle: {
+                        color: 'transparent',
+                      },
+                      label: {
+                        position: 'insideStartBottom',
+                        color: colors.gray['300'],
+                      },
+                    },
+                    {
+                      coord: [line2?.slice(-1)?.[0]?.value?.[0], maxY],
+                    },
+                  ],
+                ],
               },
             },
           ]
@@ -195,17 +235,28 @@ export default function MaintenancePanel({ className, data, machineId }) {
   const evaluationColumns = useMemo(() => EVALUATION_COLUMNS, []);
   const simulationOption = useMemo(() => SIMULATION_OPTION({ data: _data?.simulating }), [_data?.simulating]);
   const [rowIndex, setRowIndex] = useState(-1);
-  const costOption = useMemo(() => COST_OPTION({ rowIndex, data: _data?.info }), [rowIndex, _data?.info]);
+  const costOption = useMemo(() => COST_OPTION({ data: _data?.info }), [_data?.info]);
+  const id = useId();
   useEffect(() => {
     setData(data);
     if (data) {
-      setRowIndex(0);
+      const targetIndex = data?.info?.findIndex((d) => d.previous_hour === data?.recommand?.best_previous_hour);
+      setRowIndex(targetIndex);
     } else {
       setRowIndex(-1);
     }
   }, [data]);
 
-  console.log({ _data });
+  useLayoutEffect(() => {
+    if (rowIndex > -1) {
+      if (rowIndex === 0) {
+        document.getElementById(id)?.scrollTo({ top: 0 });
+      } else {
+        document.getElementById(data?.info?.[rowIndex]?.id)?.scrollIntoView(true);
+      }
+    }
+  }, [data?.info, id, rowIndex]);
+
   return (
     <div
       className={clsx('grid grid-cols-4 grid-rows-1 gap-4 overflow-auto rounded bg-primary-900 p-4 shadow', className)}
@@ -222,13 +273,13 @@ export default function MaintenancePanel({ className, data, machineId }) {
       </div>
       <div className="flex grid-cols-1 flex-col space-y-4 overflow-auto">
         <div className="text-xl font-medium">設備提前保養效益評估資訊 {machineId && `(設備編號：${machineId})`}</div>
-        <div className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
+        <div id={id} className="mb-1 flex flex-grow flex-col overflow-auto rounded-t-lg shadow">
           <Table
             columns={evaluationColumns}
             data={_data ? _data?.info : DUMMY_EVALUATION_DATA}
             getRowProps={(row) => ({
-              className: clsx('cursor-pointer', rowIndex === row.index && 'bg-primary-600 bg-opacity-50'),
-              onClick: () => (rowIndex === row.index ? setRowIndex(-1) : setRowIndex(row.index)),
+              className: clsx(rowIndex === row.index && 'bg-primary-600 bg-opacity-50'),
+              id: row.original.id,
             })}
           />
         </div>
