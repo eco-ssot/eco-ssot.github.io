@@ -93,14 +93,14 @@ const COST_OPTION = ({ data, rowIndex }) => {
       ...(!data && { min: 0, max: 2500 }),
     },
     series: [
-      {
-        data: line1,
-        type: 'line',
-        color: colors._blue,
-        symbol: 'none',
-      },
       ...(data
         ? [
+            {
+              data: line1,
+              type: 'line',
+              color: colors._blue,
+              symbol: 'none',
+            },
             {
               data: [{ value: [target1, target1] }, { value: [target2, target2] }],
               type: 'line',
@@ -181,7 +181,6 @@ const COST_OPTION = ({ data, rowIndex }) => {
                   ],
                 ],
                 lineStyle: { width: 2 },
-                emphasis: { lineStyle: { width: 4 } },
               },
             },
           ]
