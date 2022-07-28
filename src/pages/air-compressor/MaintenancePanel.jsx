@@ -299,11 +299,11 @@ export default function MaintenancePanel({ className, data, machineId }) {
             </div>
             <div className="flex justify-between">
               <div>提前效益 / 保養成本</div>
-              <div>{baseFormatter(_data?.recommand?.revenue_rate)}</div>
+              <div>{baseFormatter(_data?.recommand?.revenue_rate, { unit: 1e-2, suffix: '%' })}</div>
             </div>
             <div className="flex justify-between">
               <div>距最佳保養時間</div>
-              <div>{baseFormatter(_data?.recommand?.now_pass_hour)}</div>
+              <div>{baseFormatter(_data?.recommand?.now_pass_hour, { suffix: ' H' })}</div>
             </div>
             <div className="flex justify-between">
               <div>預期保養日期</div>
