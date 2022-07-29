@@ -26,7 +26,8 @@ stages:
 
 default:
   tags:
-    - DESKTOP-5CP7UMU
+    - devpack
+    - xlarge
 
 .deploy:
   stage: deploy
