@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 
 import { Disclosure } from '@headlessui/react';
-import { PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
+import { EyeIcon, EyeOffIcon, PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
 import { PencilIcon, ChevronDownIcon, CheckIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast, format } from 'date-fns';
@@ -373,10 +373,11 @@ export default function AnalysisTable({
 }) {
   const { t } = useTranslation(['analysisPage', 'common', 'component']);
   const { data: users } = useGetUsersQuery();
-  const [_data, setData] = useState();
+  const [_data, setData] = useState(data);
   const [isAddingRow, setIsAddingRow] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
   const [open, setOpen] = useState(false);
+  const [hide, setHide] = useState(true);
   const updateRow = (key, idx) => (value) =>
     setData((prev) => prev.map((d, i) => (i === idx ? { ...d, [key]: value } : d)));
 
@@ -398,6 +399,10 @@ export default function AnalysisTable({
     }
   }, [data]);
 
+  useLayoutEffect(() => {
+    setData((prev) => prev?.slice(0)?.sort((a, b) => b.visible - a.visible));
+  }, [hide]);
+
   return (
     <>
       <DeleteModal open={!isBoolean(deleteId)} setOpen={setDeleteId} onConfirm={() => onDeleteRow({ id: deleteId })} />
@@ -407,19 +412,37 @@ export default function AnalysisTable({
         <div className="flex items-center space-x-4">
           <Legend dotClassName="bg-_yellow" label={t('analysisPage:aboutToOverdue')} />
           <Legend dotClassName="bg-dangerous-700" label={t('analysisPage:overdue')} />
+          <EditableButton className="flex items-center space-x-1" onClick={() => setHide((prev) => !prev)}>
+            {hide ? (
+              <>
+                <EyeIcon className="h-5 w-5" />
+                <div>{t('analysisPage:showItems')}</div>
+              </>
+            ) : (
+              <>
+                <EyeOffIcon className="h-5 w-5" />
+                <div>{t('analysisPage:hideItems')}</div>
+              </>
+            )}
+            {_data && (
+              <div className="flex h-5 w-5 flex-shrink-0 items-start justify-center rounded border text-xs">
+                {_data?.filter((d) => !d.visible)?.length}
+              </div>
+            )}
+          </EditableButton>
           <EditableButton
             className={clsx('flex items-center space-x-1', !_data && 'pointer-events-none opacity-50')}
             onClick={() => setIsAddingRow((prev) => !prev)}
           >
             {isAddingRow ? (
               <>
-                <XIcon className="h-4 w-4" />
-                {t('analysisPage:cancelAdd')}
+                <XIcon className="h-5 w-5" />
+                <div>{t('analysisPage:cancelAdd')}</div>
               </>
             ) : (
               <>
-                <PlusIcon className="h-4 w-4" />
-                {t('analysisPage:addDesc')}
+                <PlusIcon className="h-5 w-5" />
+                <div>{t('analysisPage:addDesc')}</div>
               </>
             )}
           </EditableButton>
@@ -433,8 +456,15 @@ export default function AnalysisTable({
           <div className="col-span-1 text-center">{t('common:edit')}</div>
         </div>
         {_data &&
-          _data.map(({ id, description, effect, editing, imrprovements, isNewRow }, i) => (
-            <div key={i} className="grid grid-cols-12 items-center  text-lg">
+          _data.map(({ id, description, effect, editing, imrprovements, isNewRow, visible = true }, i) => (
+            <div
+              key={i}
+              className={clsx(
+                'grid grid-cols-12 items-center text-lg transition-colors duration-150',
+                !visible && hide ? 'hidden' : 'bg-gray-300/20',
+                visible && 'bg-primary-900/100'
+              )}
+            >
               <div className="col-span-1 flex h-full flex-col justify-center border-b border-divider text-center">
                 {i + 1}
               </div>
@@ -520,11 +550,13 @@ export default function AnalysisTable({
                         aria-label="icon-button-trash"
                         disabled={!canEdit}
                         onClick={() => {
-                          setDeleteId(id);
-                          setIsAddingRow(false);
+                          onRowChange({
+                            id,
+                            data: { visible: Number(!visible) },
+                          });
                         }}
                       >
-                        <TrashIcon className="h-5 w-5" />
+                        {visible ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                       </EditableIconButton>
                     </div>
                   </>

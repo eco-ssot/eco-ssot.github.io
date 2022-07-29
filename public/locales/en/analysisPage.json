@@ -8,6 +8,8 @@
   "addDesc": "Add New",
   "cancelAdd": "Cancel",
   "addImprovement": "Click to add improvement",
+  "hideItems": "Hide Items",
+  "showItems": "Show Items",
   "electricity": {
     "type": "electricity",
     "title": "Electricity Consumption per Billion NTD : Analysis",
