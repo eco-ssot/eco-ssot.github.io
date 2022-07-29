@@ -49,6 +49,7 @@ default:
     - docker push harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:$TAG
   cache: {}
   dependencies: []
+  retry: 1
 
 deploy:dev:
   only:
