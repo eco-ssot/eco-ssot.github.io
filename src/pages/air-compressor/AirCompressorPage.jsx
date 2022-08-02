@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import ButtonGroup from '../../components/button/ButtonGroup';
@@ -33,7 +34,10 @@ export default function AirCompressorPage() {
                   {t('airCompressorPage:airCompressorDeviceAiRecommendation')}
                 </div>
                 <ButtonGroup
-                  className="absolute"
+                  className={clsx(
+                    'absolute',
+                    process.env.REACT_APP_HIDE_AIR_COMPRESSOR_MAINTENANCE === '1' && 'invisible'
+                  )}
                   options={tabOptions}
                   selected={isMaintenance ? tabOptions[1] : tabOptions[0]}
                   onChange={(e) => navigate({ hash: e.key }, { merge: false })}
