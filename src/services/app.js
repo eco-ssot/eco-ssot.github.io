@@ -23,6 +23,7 @@ export const appApi = createApi({
     'SHIPMENT_UPLOAD',
     'ENERGY_UPLOAD',
     'AIR_COMPRESSOR_SPEC',
+    'DATA_STATUS_PIC',
   ],
   endpoints: (builder) => ({
     getMissingPlants: builder.query({

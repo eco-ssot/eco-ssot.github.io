@@ -86,6 +86,7 @@ export const managementApi = appApi.injectEndpoints({
       },
     }),
     getDataStatusPic: builder.query({
+      providesTags: ['DATA_STATUS_PIC'],
       query: (query) => ({ query, url: 'data-status/pic' }),
       transformResponse: (res, { permission }) => {
         return {
@@ -95,6 +96,7 @@ export const managementApi = appApi.injectEndpoints({
       },
     }),
     patchDataStatusPic: builder.mutation({
+      invalidatesTags: ['DATA_STATUS_PIC'],
       query: ({ plant, ...data }) => ({
         data,
         url: `data-status/pic/${plant}`,
