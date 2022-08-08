@@ -6,8 +6,8 @@ import { ReactComponent as PdfIcon } from '../../icons/file-pdf-solid.svg';
 import Tooltip from '../tooltip/Tooltip';
 
 const PATH = {
-  zh: '/ECO SSOT 系統說明手冊_v1.15.pdf',
-  en: '/ECO SSOT Instruction_v1.15.pdf',
+  zh: '/ECO SSOT 系統說明手冊_v3.0.0.pdf',
+  en: '/ECO SSOT Instruction_v3.0.0.pdf',
 };
 
 const TITLE = {
