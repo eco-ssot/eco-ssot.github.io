@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import useAuth from '../../hooks/useAuth';
 import useSitePlantOptions from '../../hooks/useSitePlantOptions';
-import { useKeycloak } from '../../keycloak';
 import { selectBusiness, selectLanguage, selectP, selectS } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
 import { useGetVersionQuery } from '../../services/public';
@@ -24,7 +24,7 @@ const GLOBAL_SELECT_DISABLED_PATH_NAMES = ['/electricity/analysis', '/water/anal
 export default function Header({ className }) {
   const { t } = useTranslation(['common']);
   const { pathname } = useLocation();
-  const { keycloak } = useKeycloak();
+  const { authenticated, accounts } = useAuth();
   const lng = useSelector(selectLanguage);
   const business = useSelector(selectBusiness);
   const site = useSelector(selectS);
@@ -54,7 +54,7 @@ export default function Header({ className }) {
         )}
       </Link>
       <Divider className="h-1/2" />
-      {keycloak?.authenticated ? (
+      {authenticated ? (
         <>
           <GhostSelect
             disabled={GLOBAL_SELECT_DISABLED_PATH_NAMES.includes(pathname)}
@@ -99,8 +99,8 @@ export default function Header({ className }) {
         queryKey="lng"
       />
       <Divider className="h-1/2" />
-      {keycloak?.authenticated ? (
-        <Ellipsis label={keycloak?.idTokenParsed?.given_name} placement="left" />
+      {authenticated ? (
+        <Ellipsis label={accounts[0]?.name?.split('/')?.[0]} placement="left" />
       ) : (
         <Link to="/login">Login</Link>
       )}

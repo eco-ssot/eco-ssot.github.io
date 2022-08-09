@@ -4,9 +4,9 @@ import { createRoot } from 'react-dom/client';
 import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 
+import { msalInstance, MsalProvider } from './ad';
 import App from './app/App';
 import { store } from './app/store';
-import { KeycloakProvider } from './keycloak';
 
 import './i18n';
 import './index.css';
@@ -28,11 +28,11 @@ if (
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
-  <KeycloakProvider>
-    <React.StrictMode>
-      <Provider store={store}>
+  <React.StrictMode>
+    <Provider store={store}>
+      <MsalProvider instance={msalInstance}>
         <App />
-      </Provider>
-    </React.StrictMode>
-  </KeycloakProvider>
+      </MsalProvider>
+    </Provider>
+  </React.StrictMode>
 );

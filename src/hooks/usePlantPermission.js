@@ -2,21 +2,22 @@ import { useMemo } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { useKeycloak } from '../keycloak';
 import { selectBusiness } from '../renderless/location/locationSlice';
 import { useGetPlantsQuery } from '../services/app';
 
+import useAuth from './useAuth';
+
 export default function usePlantPermission() {
-  const { keycloak } = useKeycloak();
+  const { authenticated, user } = useAuth();
   const bo = useSelector(selectBusiness);
-  const { data } = useGetPlantsQuery({ bo }, { skip: !keycloak?.authenticated });
+  const { data } = useGetPlantsQuery({ bo }, { skip: !authenticated });
   const plantPermission = useMemo(() => {
-    if (keycloak?.realmAccess?.roles?.includes('DEV') || keycloak?.realmAccess?.roles?.includes('WZS-8')) {
+    if (user?.roles?.includes('dev') || user?.roles?.includes('p8')) {
       return data;
     }
 
     return data?.filter((d) => d !== 'WZS-8');
-  }, [data, keycloak?.realmAccess?.roles]);
+  }, [data, user?.roles]);
 
   return plantPermission;
 }

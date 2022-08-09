@@ -1,23 +1,18 @@
-import { useCallback } from 'react';
-
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
 
+import { loginRequest } from '../../ad/authConfig';
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
 import Picture from '../../components/picture/Picture';
-import { useKeycloak } from '../../keycloak';
+import useAuth from '../../hooks/useAuth';
 
 export default function LoginPage() {
   const { t } = useTranslation(['loginPage']);
-  const { keycloak } = useKeycloak();
-  const login = useCallback(() => {
-    keycloak?.login();
-  }, [keycloak]);
-
-  if (keycloak?.authenticated) {
+  const { authenticated, instance } = useAuth();
+  if (authenticated) {
     const from = JSON.parse(sessionStorage.getItem('location-from'));
-    return <Navigate to={from || '/'} />;
+    return <Navigate replace to={from || '/'} />;
   }
 
   return (
@@ -26,8 +21,8 @@ export default function LoginPage() {
       <Picture className="fixed -z-1 h-full w-full" src="/login.webp" fallback="/login.png" alt="login" />
       <div className="flex flex-col items-center space-y-4">
         <div className="text-lg font-medium">{t('loginDescription')}</div>
-        <Button className="text-lg" onClick={() => login()}>
-          Login with keycloak
+        <Button className="text-lg" onClick={() => instance.loginRedirect(loginRequest)}>
+          Login with azure
         </Button>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { Route, Routes, BrowserRouter, Outlet } from 'react-router-dom';
 
 import Layout from '../components/layout/Layout';
 import PageContainer from '../components/page-container/PageContainer';
+import AuthPage from '../pages/auth/AuthPage';
 import ErrorPage from '../pages/errors/ErrorPage';
 
 import RequireAuth from './RequireAuth';
@@ -72,6 +73,7 @@ export default function Router({ children }) {
         >
           {privateRoutes.map(toRoute)}
         </Route>
+        <Route path="/auth" element={<AuthPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

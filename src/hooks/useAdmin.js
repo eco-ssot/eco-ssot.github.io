@@ -1,15 +1,11 @@
 import { useMemo } from 'react';
 
 import APP_CONSTANTS from '../app/appConstants';
-import { useKeycloak } from '../keycloak';
+
+import useAuth from './useAuth';
 
 export default function useAdmin() {
-  const { keycloak } = useKeycloak();
-  const roles = useMemo(
-    () => (keycloak?.realmAccess?.roles || []).filter((r) => !APP_CONSTANTS.KEYCLOAK_DEFAULT_ROLES.includes(r)),
-    [keycloak?.realmAccess?.roles]
-  );
-
-  const canEdit = useMemo(() => roles.includes(APP_CONSTANTS.MAINTAINER_ROLE), [roles]);
-  return { keycloak, roles, canEdit };
+  const { user } = useAuth();
+  const canEdit = useMemo(() => user?.roles?.includes(APP_CONSTANTS.MAINTAINER_ROLE), [user?.roles]);
+  return { canEdit };
 }

@@ -16,7 +16,7 @@ import Legend from '../../components/legend/Legend';
 import Select from '../../components/select/Select';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import Tooltip from '../../components/tooltip/Tooltip';
-import useAdmin from '../../hooks/useAdmin';
+import useAuth from '../../hooks/useAuth';
 import usePlantPermission from '../../hooks/usePlantPermission';
 import { selectMonth, selectYear } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
@@ -192,7 +192,7 @@ export default function CsrPage() {
   );
 
   const [manualUpdateCsr] = usePostManualCsrMutation();
-  const { roles } = useAdmin();
+  const { user } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
     if (data) {
@@ -215,7 +215,7 @@ export default function CsrPage() {
           onChange={(e) => navigate({ hash: e.key })}
         />
         <div className="relative flex">
-          {roles?.includes('DEV') && (
+          {user?.roles?.includes('dev') && (
             <Button
               className="absolute left-0"
               variant="danger"

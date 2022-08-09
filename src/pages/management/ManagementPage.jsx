@@ -7,19 +7,19 @@ import { useLocation, Outlet } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
 import Button from '../../components/button/Button';
-import useAdmin from '../../hooks/useAdmin';
+import useAuth from '../../hooks/useAuth';
 import MyNavLink from '../../router/MyNavLink';
 import { managementRoutes } from '../../router/routes';
 
 export default function ManagementPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
-  const { keycloak, roles } = useAdmin();
+  const { user, instance } = useAuth();
   const { pathname, search } = useLocation();
   const logout = useCallback(() => {
     const from = JSON.parse(sessionStorage.getItem('location-from'));
     sessionStorage.setItem('location-from', JSON.stringify({ ...from, logout: true }));
-    keycloak?.logout();
-  }, [keycloak]);
+    instance.logoutRedirect();
+  }, [instance]);
 
   const isIndexPage = useMemo(() => pathname === '/management', [pathname]);
   const tabs = useMemo(() => managementRoutes.filter((route) => !route.hidden), []);
@@ -29,7 +29,6 @@ export default function ManagementPage() {
     return isIndexPage ? <IndexPage /> : <Outlet />;
   }, [isIndexPage, tabs]);
 
-  const { given_name = '-', preferred_username = '-' } = keycloak?.idTokenParsed || {};
   return (
     <div className="grid h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full grid-cols-8 grid-rows-2 gap-4 overflow-hidden p-4">
       <div className="col-span-1 row-span-2">
@@ -37,16 +36,16 @@ export default function ManagementPage() {
           <div className="flex flex-grow flex-col space-y-4 ">
             <div className="mx-4 space-y-2 border-b border-divider pb-4">
               <div className="text-primary-600">User Name</div>
-              <div>{given_name}</div>
+              <div>{user?.first_name}</div>
             </div>
             <div className="mx-4 space-y-4 border-b border-divider pb-4">
               <div className="space-y-2">
                 <div className="text-primary-600">Dept / ID</div>
-                <div>{`- / ${preferred_username}`}</div>
+                <div>{`- / ${user?.username}`}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-primary-600">Level</div>
-                <div>{roles.filter((role) => role !== APP_CONSTANTS.DEVELOPER_ROLE).join(' / ')}</div>
+                <div>{user?.roles?.filter((role) => role !== APP_CONSTANTS.DEVELOPER_ROLE).join(' / ')}</div>
               </div>
             </div>
             <div className="flex flex-col space-y-2 py-4">

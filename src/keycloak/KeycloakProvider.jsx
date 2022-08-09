@@ -8,7 +8,7 @@ import keycloak from './keycloak';
 const onEvent = (event, error) => {
   console.log('onKeycloakEvent', { event, error });
   const from = JSON.parse(sessionStorage.getItem('location-from'));
-  if (window.location.pathname !== '/login') {
+  if (!['/login', '/auth'].includes(window.location.pathname)) {
     sessionStorage.setItem(
       'location-from',
       JSON.stringify(

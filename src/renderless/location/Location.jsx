@@ -4,13 +4,13 @@ import ReactGA from 'react-ga';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { useKeycloak } from '../../keycloak';
+import useAuth from '../../hooks/useAuth';
 
 import { setQueryParams, setHash } from './locationSlice';
 
 export default function Location() {
   const { pathname, search, hash } = useLocation();
-  const { keycloak } = useKeycloak();
+  const { user } = useAuth();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setQueryParams(search));
@@ -22,13 +22,12 @@ export default function Location() {
 
   useEffect(() => {
     if (process.env.REACT_APP_STAGE === 'production' && !/qas/.test(window.location.hostname)) {
-      const { given_name = '', preferred_username = '', email = '' } = keycloak?.idTokenParsed || {};
-      if (given_name && preferred_username) {
-        ReactGA.set({ userId: `${preferred_username}-${given_name}-${email}` });
+      if (user) {
+        ReactGA.set({ userId: `${user.username}-${user.first_name}-${user.email}` });
         ReactGA.pageview(`${pathname}${search}${hash}`);
       }
     }
-  }, [pathname, search, hash, keycloak?.idTokenParsed]);
+  }, [pathname, search, hash, user]);
 
   return null;
 }
