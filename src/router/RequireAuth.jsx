@@ -4,9 +4,9 @@ import SuspenseIcon from '../components/suspense/SuspenseIcon';
 import useAuth from '../hooks/useAuth';
 
 export default function RequireAuth({ children }) {
-  const { authenticated, authenticating, isFetching, user } = useAuth();
+  const { authenticated, authenticating, isLoading, user } = useAuth();
   const { pathname } = useLocation();
-  if (authenticating || isFetching) {
+  if (authenticating || isLoading) {
     return <SuspenseIcon />;
   }
 

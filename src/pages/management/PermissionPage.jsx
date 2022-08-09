@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 
 import { UserAddIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/button/Button';
@@ -9,7 +11,8 @@ import AdSearchSelect from '../../components/select/AdSearchSelect';
 import BaseReactSelect from '../../components/select/BaseReactSelect';
 import Table from '../../components/table/Table';
 import Toggle from '../../components/toggle/Toggle';
-import { useGetUserListQuery } from '../../services/auth';
+import useAdmin from '../../hooks/useAdmin';
+import { useDeleteUserMutation, useGetUserListQuery, usePostUserMutation } from '../../services/auth';
 
 const COLUMNS = [
   { Header: 'Name', accessor: 'first_name' },
@@ -17,21 +20,55 @@ const COLUMNS = [
 ];
 
 const ROLES = [
-  { label: 'p8', value: 'p8', alias: 'WZS-8' },
-  { label: 'management', value: 'management', alias: 'target_maintainer' },
-  { label: 'dev', value: 'dev', alias: 'DEV' },
-  { label: 'normal', value: 'normal', alias: 'developer' },
+  { label: 'normal', value: 'normal', isFixed: true },
+  { label: 'p8', value: 'p8' },
+  { label: 'management', value: 'management' },
+  { label: 'dev', value: 'dev' },
 ];
 
-function UserForm() {
+function UserForm({ users }) {
+  const { canEdit } = useAdmin();
+  const [user, setUser] = useState(null);
+  const getUser = useCallback((email) => users?.find((d) => d.email === email), [users]);
+  const userOptions = useMemo(() => users?.slice(0, 10)?.map((d) => ({ value: d.id, label: d.email })), [users]);
+  const [selectedRoles, setSelectedRoes] = useState(ROLES.slice(0, 1));
+  const [postUser] = usePostUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
+  const afterClose = useCallback(() => {
+    setUser(null);
+    setSelectedRoes(ROLES.slice(0, 1));
+  }, []);
+
+  useEffect(() => {
+    const targetUser = getUser(user?.label);
+    const roles = targetUser ? ROLES.filter((role) => targetUser.roles.includes(role.label)) : ROLES.slice(0, 1);
+    setSelectedRoes(roles);
+  }, [user?.label, getUser]);
+
   return (
     <Dialog
+      disabled={!canEdit}
+      afterClose={afterClose}
       render={({ close }) => (
         <>
           <div className="flex h-full flex-col space-y-4 rounded-b bg-primary-900 p-8 shadow">
             <div className="flex items-center">
-              <div className="min-w-32">Email : </div>
-              <AdSearchSelect className="w-full" placeholder="Type to search" />
+              <div className="min-w-32">
+                Email :{' '}
+                {user && !getUser(user?.label) && (
+                  <span className="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-sm font-medium text-yellow-800">
+                    New
+                  </span>
+                )}
+              </div>
+              <AdSearchSelect
+                isClearable
+                className="w-full"
+                placeholder="Type to search"
+                onChange={setUser}
+                defaultOptions={userOptions}
+                value={user}
+              />
             </div>
             <div className="flex items-center">
               <div className="min-w-32">Roles : </div>
@@ -42,27 +79,72 @@ function UserForm() {
                 options={ROLES}
                 closeMenuOnSelect={false}
                 onSelectResetsInput={false}
-                onChange={(e) => console.log({ e })}
+                onChange={setSelectedRoes}
+                isClearable={false}
+                value={selectedRoles}
               />
             </div>
             <div className="flex flex-grow flex-col justify-end">
               <div className="flex justify-end space-x-4">
-                <Button variant="plain" onClick={close}>
-                  Cancel
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    const userId = getUser(user?.label)?.id;
+                    if (userId) {
+                      deleteUser(userId).then((res) => {
+                        if (!res.error) {
+                          toast.success('Success');
+                          afterClose();
+                        }
+                      });
+                    }
+                  }}
+                  className={!getUser(user?.label) && 'pointer-events-none opacity-50'}
+                >
+                  Delete
                 </Button>
-                <Button>OK</Button>
+                <Button
+                  onClick={() => {
+                    if (getUser(user?.label)) {
+                    } else {
+                      postUser({
+                        username: '',
+                        first_name: user?.alias,
+                        last_name: user?.surname,
+                        email: user?.label,
+                        permission_type: 'normal',
+                      }).then((res) => {
+                        if (!res.error) {
+                          toast.success('Success');
+                          afterClose();
+                        }
+                      });
+                    }
+                  }}
+                  className={
+                    (!user ||
+                      getUser(user?.label)?.roles?.slice()?.sort()?.join() ===
+                        selectedRoles
+                          .map((role) => role.label)
+                          .sort()
+                          .join()) &&
+                    'pointer-events-none opacity-50'
+                  }
+                >
+                  OK
+                </Button>
               </div>
             </div>
           </div>
         </>
       )}
-      title="Add User"
+      title="Add/Edit User"
       className="h-64 max-w-2xl"
       titleClassName="bg-primary-800 px-4 py-2 rounded-t"
     >
-      <Button className="space-x-1">
+      <Button className={clsx('space-x-1', !canEdit && 'pointer-events-none opacity-50')}>
         <UserAddIcon className="h-5 w-5" />
-        <div>Add User</div>
+        <div>Add/Edit User</div>
       </Button>
     </Dialog>
   );
@@ -78,7 +160,7 @@ export default function PermissionPage() {
       <div className="flex h-full flex-col rounded bg-primary-900 p-4 shadow">
         <div className="flex items-center justify-between">
           <div className="mb-6 text-xl font-medium">{t('managementPage:permission.permissionList')}</div>
-          <UserForm />
+          <UserForm users={data?.data} />
         </div>
         <div className="grid flex-grow grid-cols-2 grid-rows-2 gap-8 overflow-auto">
           <div className="flex flex-col space-y-2">

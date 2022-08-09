@@ -6,9 +6,9 @@ import GoalSkeleton from '../pages/management/GoalSkeleton';
 import ManagementPageSkeleton from '../pages/management/ManagementPageSkeleton';
 import ManagementSkeleton from '../pages/management/ManagementSkeleton';
 import { appApi } from '../services/app';
+import { authApi } from '../services/auth';
 import { carbonApi } from '../services/carbon';
 import { electricityApi } from '../services/electricity';
-import { keycloakAdminApi } from '../services/keycloakAdmin';
 import { managementApi } from '../services/management';
 import { overviewApi } from '../services/overview';
 import { publicApi } from '../services/public';
@@ -116,10 +116,10 @@ export const managementRoutes = [
         ],
       },
       {
-        api: keycloakAdminApi,
+        api: authApi,
         endpoints: [
           {
-            name: 'getUsers',
+            name: 'getUserList',
           },
         ],
       },

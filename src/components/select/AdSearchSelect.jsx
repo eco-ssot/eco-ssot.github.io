@@ -6,10 +6,11 @@ const loadOptions = (q, callback) => {
   return axios
     .get(`${process.env.REACT_APP_API_BASE_URL}/graph${q ? `?q=${q}` : ''}`)
     .then((res) => {
-      const options = res.data.map(({ id, mail, displayName }) => ({
-        value: id,
-        label: (mail || '').toLowerCase(),
-        alias: String(displayName).split('/')[0],
+      const options = res.data.map((d) => ({
+        ...d,
+        value: d.id,
+        label: (d.mail || '').toLowerCase(),
+        alias: String(d.displayName).split('/')[0],
       }));
 
       callback(options);

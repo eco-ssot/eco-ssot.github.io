@@ -60,6 +60,7 @@ const customStyles = {
   multiValue: (styles, props) => ({
     ...styles,
     ...tw`bg-primary-700 rounded`,
+    ...(props.data.isFixed && { ...tw`bg-primary-900 pr-1` }),
   }),
   multiValueLabel: (styles, props) => ({
     ...styles,
@@ -67,6 +68,7 @@ const customStyles = {
   multiValueRemove: (styles, props) => ({
     ...styles,
     ...tw`rounded-r`,
+    ...(props.data.isFixed && { ...tw`hidden` }),
   }),
 };
 

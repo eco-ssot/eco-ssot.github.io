@@ -8,7 +8,7 @@ const USER_LIST = localStorage.getItem('user-list');
 export default function useAuth() {
   const { accounts, inProgress, instance } = useMsal();
   const authenticated = useMemo(() => inProgress === 'none' && !!accounts[0], [inProgress, accounts]);
-  const { isFetching, data = { data: USER_LIST ? JSON.parse(USER_LIST) : [] } } = useGetUserListQuery(undefined, {
+  const { isLoading, data = { data: USER_LIST ? JSON.parse(USER_LIST) : [] } } = useGetUserListQuery(undefined, {
     skip: !authenticated,
   });
 
@@ -18,5 +18,5 @@ export default function useAuth() {
     [data?.data, accounts]
   );
 
-  return { user, accounts, inProgress, instance, isFetching, authenticated, authenticating };
+  return { user, accounts, inProgress, instance, isLoading, authenticated, authenticating };
 }

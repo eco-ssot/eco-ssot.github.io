@@ -10,7 +10,7 @@ import EditableTable, {
 } from '../../components/table/EditableTable';
 import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
-import { useGetUsersQuery } from '../../services/keycloakAdmin';
+import { useGetUserListQuery } from '../../services/auth';
 import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
@@ -169,8 +169,12 @@ export default function PicPage() {
   const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: plantPermission });
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [_data, setData] = useState(data);
-  const { data: users = [] } = useGetUsersQuery();
-  const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
+  const { data: users = [] } = useGetUserListQuery();
+  const userOptions = useMemo(
+    () => users?.data?.slice(0, 10)?.map((d) => ({ value: d.id, label: d.email })),
+    [users?.data]
+  );
+
   const { canEdit } = useAdmin();
   const columns = useMemo(
     () => COLUMNS({ t, canEdit, userOptions, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden),

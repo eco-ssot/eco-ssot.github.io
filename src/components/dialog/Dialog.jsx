@@ -12,6 +12,7 @@ export default function Dialog({
   disabled = false,
   open = false,
   render = () => <></>,
+  afterClose = () => {},
 }) {
   const [_open, setOpen] = useState(open);
   return (
@@ -21,7 +22,10 @@ export default function Dialog({
       </div>
       <Transition appear show={_open} as={Fragment}>
         <HeadlessDialog
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false);
+            afterClose();
+          }}
           className={clsx('relative z-50', !_open && 'pointer-events-none')}
         >
           <Transition.Child
@@ -51,14 +55,23 @@ export default function Dialog({
                   {title && (
                     <div className={clsx('relative flex items-center justify-center', titleClassName)}>
                       <div className="text-lg font-medium">{title}</div>
-                      <button className="absolute right-4 focus:outline-none" onClick={() => setOpen(false)}>
+                      <button
+                        className="absolute right-4 focus:outline-none"
+                        onClick={() => {
+                          setOpen(false);
+                          afterClose();
+                        }}
+                      >
                         <XIcon className="h-5 w-5" />
                       </button>
                     </div>
                   )}
                   {render({
                     open: _open,
-                    close: () => setOpen(false),
+                    close: () => {
+                      setOpen(false);
+                      afterClose();
+                    },
                   })}
                 </HeadlessDialog.Panel>
               </div>

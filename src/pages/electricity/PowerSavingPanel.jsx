@@ -14,12 +14,12 @@ import EditableTable, {
   TextareaCell,
 } from '../../components/table/EditableTable';
 import useAdmin from '../../hooks/useAdmin';
+import { useGetUserListQuery } from '../../services/auth';
 import {
   useGetElectricityPowerSavingQuery,
   usePatchElectricityPowerSavingMutationMutation,
   usePostElectricityPowerSavingMutationMutation,
 } from '../../services/electricity';
-import { useGetUsersQuery } from '../../services/keycloakAdmin';
 import { baseFormatter } from '../../utils/formatter';
 import { trimNumber } from '../../utils/number';
 import { addPaddingColumns, updateMyData } from '../../utils/table';
@@ -186,7 +186,7 @@ const POWER_SAVING_COLUMNS = ({
 export default function PowerSavingPanel({ year, plant }) {
   const { t } = useTranslation(['component', 'baselinePage', 'common']);
   const { data } = useGetElectricityPowerSavingQuery({ year, plant }, { skip: !year || !plant });
-  const { data: users = [] } = useGetUsersQuery();
+  const { data: users = [] } = useGetUserListQuery();
   const [_data, setData] = useState();
   const [open, setOpen] = useState(false);
   const [postPowerSaving] = usePostElectricityPowerSavingMutationMutation();
@@ -201,6 +201,11 @@ export default function PowerSavingPanel({ year, plant }) {
     [t]
   );
 
+  const userOptions = useMemo(
+    () => users?.data?.slice(0, 10)?.map((d) => ({ value: d.id, label: d.email })),
+    [users?.data]
+  );
+
   const columns = useMemo(
     () =>
       POWER_SAVING_COLUMNS({
@@ -211,10 +216,10 @@ export default function PowerSavingPanel({ year, plant }) {
         setOpen,
         setData,
         canEdit,
-        userOptions: users.map(({ id, email }) => ({ value: id, label: email })),
+        userOptions,
         postPowerSaving: (payload) => (confirmRef.current = { year, plant, data: payload }),
       }),
-    [t, electricityOptions, year, plant, users, canEdit]
+    [t, electricityOptions, year, plant, userOptions, canEdit]
   );
 
   useEffect(() => {

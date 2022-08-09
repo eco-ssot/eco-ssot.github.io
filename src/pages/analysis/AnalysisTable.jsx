@@ -21,7 +21,7 @@ import {
   EditableIconButton,
   AdSearchSelectCell,
 } from '../../components/table/EditableTable';
-import { useGetUsersQuery } from '../../services/keycloakAdmin';
+import { useGetUserListQuery } from '../../services/auth';
 
 import DeleteModal from './DeleteModal';
 import ErrorModal from './ErrorModal';
@@ -85,7 +85,7 @@ export function AnalysisSubTable({
   data,
   canEdit,
   draftRef,
-  users = [],
+  userOptions = [],
   isNewRow = false,
   canAddRow = false,
   hasCategory = false,
@@ -93,7 +93,6 @@ export function AnalysisSubTable({
   onDeleteRow = () => {},
 }) {
   const { t } = useTranslation(['analysisPage', 'component']);
-  const userOptions = useMemo(() => users.map(({ id, email }) => ({ value: id, label: email })), [users]);
   const electricityOptions = useMemo(
     () =>
       APP_CONSTANTS.ELECTRICITY_OPTIONS.map((option) => ({
@@ -372,7 +371,7 @@ export default function AnalysisTable({
   onDeleteSubRow,
 }) {
   const { t } = useTranslation(['analysisPage', 'common', 'component']);
-  const { data: users } = useGetUsersQuery();
+  const { data: users } = useGetUserListQuery();
   const [_data, setData] = useState(data);
   const [isAddingRow, setIsAddingRow] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
@@ -383,6 +382,11 @@ export default function AnalysisTable({
 
   const dataRef = useRef(data);
   const draftRef = useRef([]);
+  const userOptions = useMemo(
+    () => users?.data?.slice(0, 10)?.map((d) => ({ value: d.id, label: d.email })),
+    [users?.data]
+  );
+
   useEffect(() => {
     if (isAddingRow) {
       setData((prev) => prev?.concat([{ editing: true, isNewRow: true }]));
@@ -564,7 +568,7 @@ export default function AnalysisTable({
                 <div className="col-span-11">
                   <AnalysisSubTable
                     data={imrprovements}
-                    users={users}
+                    userOptions={userOptions}
                     canEdit={canEdit}
                     canAddRow={(!isNil(id) && (editing || (isAddingRow && i === _data.length - 1))) || isNewRow}
                     hasCategory={hasCategory}
