@@ -1,3 +1,5 @@
+import { msalInstance } from '../ad';
+
 import { appApi } from './app';
 
 export const authApi = appApi.injectEndpoints({
@@ -24,7 +26,14 @@ export const authApi = appApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           // `onSuccess` side-effect
-          localStorage.setItem('user-list', JSON.stringify(data.data || []));
+          localStorage.setItem('user-list', JSON.stringify(data?.data || []));
+          const user = data?.data?.find(
+            (d) => msalInstance?.getActiveAccount()?.username?.toLowerCase() === d.email?.toLowerCase()
+          );
+
+          if (user) {
+            localStorage.setItem('roles', JSON.stringify(user.roles));
+          }
         } catch (err) {
           // `onError` side-effect
         }

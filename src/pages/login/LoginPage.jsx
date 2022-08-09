@@ -21,8 +21,8 @@ export default function LoginPage() {
       <Picture className="fixed -z-1 h-full w-full" src="/login.webp" fallback="/login.png" alt="login" />
       <div className="flex flex-col items-center space-y-4">
         <div className="text-lg font-medium">{t('loginDescription')}</div>
-        <Button className="text-lg" onClick={() => instance.loginRedirect(loginRequest)}>
-          Login with azure
+        <Button onClick={() => instance.loginRedirect(loginRequest)}>
+          <div>Login with azure</div>
         </Button>
       </div>
     </div>
