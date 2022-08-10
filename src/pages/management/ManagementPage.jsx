@@ -13,14 +13,8 @@ import { managementRoutes } from '../../router/routes';
 
 export default function ManagementPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
-  const { user, instance } = useAuth();
+  const { user, logout } = useAuth();
   const { pathname, search } = useLocation();
-  const logout = useCallback(() => {
-    const from = JSON.parse(sessionStorage.getItem('location-from'));
-    sessionStorage.setItem('location-from', JSON.stringify({ ...from, logout: true }));
-    instance.logoutRedirect();
-  }, [instance]);
-
   const isIndexPage = useMemo(() => pathname === '/management', [pathname]);
   const tabs = useMemo(() => managementRoutes.filter((route) => !route.hidden), []);
   const isMatched = useCallback(({ isActive, index }) => isActive || (index && isIndexPage), [isIndexPage]);
@@ -78,7 +72,14 @@ export default function ManagementPage() {
             </div>
           </div>
           <div className="mx-4 border-t border-divider text-center">
-            <Button className="mt-4" onClick={() => logout()}>
+            <Button
+              className="mt-4"
+              onClick={() => {
+                const from = JSON.parse(sessionStorage.getItem('location-from'));
+                sessionStorage.setItem('location-from', JSON.stringify({ ...from, logout: true }));
+                logout();
+              }}
+            >
               {t('component:button.logout')}
             </Button>
           </div>

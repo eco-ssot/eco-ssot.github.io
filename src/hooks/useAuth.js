@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useMsal } from '../ad';
+import { loginRequest } from '../ad/authConfig';
 import { useGetUserListQuery } from '../services/auth';
 
 const USER_LIST = localStorage.getItem('user-list');
@@ -18,5 +19,7 @@ export default function useAuth() {
     [data?.data, accounts]
   );
 
-  return { user, accounts, inProgress, instance, isLoading, authenticated, authenticating };
+  const login = useCallback(() => instance.loginRedirect(loginRequest), [instance]);
+  const logout = useCallback(() => instance.logoutRedirect(), [instance]);
+  return { user, accounts, isLoading, authenticated, authenticating, login, logout };
 }

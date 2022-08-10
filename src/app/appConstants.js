@@ -115,7 +115,6 @@ const PERIOD_TYPES = {
 
 const DEPRECIATED_PLANTS = ['WKS-6A', 'WKS-1'];
 const HIDE_PLANTS = [];
-const KEYCLOAK_DEFAULT_ROLES = ['offline_access', 'uma_authorization'];
 const MAINTAINER_ROLE = 'management';
 const DEVELOPER_ROLE = 'developer';
 const NO_DATA = 'No Data';
@@ -144,7 +143,6 @@ const APP_CONSTANTS = {
   HISTORY_MAPPING,
   DIMENSION_MAPPING,
   MONTH_RANGE_MAPPING,
-  KEYCLOAK_DEFAULT_ROLES,
   MAINTAINER_ROLE,
   DEVELOPER_ROLE,
   LANGUAGE_OPTIONS,

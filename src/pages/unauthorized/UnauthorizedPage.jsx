@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 export default function UnauthorizedPage({ error, resetErrorBoundary }) {
-  const { instance, user } = useAuth();
+  const { logout, user } = useAuth();
   if (!!user) {
     return <Navigate replace to="/" />;
   }
@@ -16,7 +16,7 @@ export default function UnauthorizedPage({ error, resetErrorBoundary }) {
         <p className="mb-4 text-lg font-light text-gray-400">Sorry, You do not have permission to view this page.</p>
         <button
           className="my-4 inline-flex rounded bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-gray-50 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-900"
-          onClick={() => instance.logoutRedirect()}
+          onClick={logout}
         >
           Logout
         </button>

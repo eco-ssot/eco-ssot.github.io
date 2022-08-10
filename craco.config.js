@@ -28,10 +28,6 @@ module.exports = {
           /src[\\/]axios[\\/]index.js/,
           path.resolve(__dirname, 'src/axios/index.prod.js')
         ),
-        new NormalModuleReplacementPlugin(
-          /src[\\/]keycloak[\\/]index.js/,
-          path.resolve(__dirname, 'src/keycloak/index.prod.js')
-        ),
       ],
     }),
   },
