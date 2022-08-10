@@ -47,6 +47,7 @@ function UserForm({ users }) {
 
   return (
     <Dialog
+      disableClose
       disabled={!canEdit}
       afterClose={afterClose}
       render={({ close }) => (
@@ -105,15 +106,28 @@ function UserForm({ users }) {
                 </Button>
                 <Button
                   onClick={() => {
-                    if (getUser(user?.label)) {
+                    const target = getUser(user?.label);
+                    const payload = {
+                      username: target?.username || '',
+                      first_name: user?.alias,
+                      last_name: user?.surname,
+                      email: user?.label,
+                      permission_types: selectedRoles.map((d) => d.label),
+                    };
+
+                    if (target) {
+                      deleteUser(target.id).then((res) => {
+                        if (!res.error) {
+                          postUser(payload).then((_res) => {
+                            if (!_res.error) {
+                              toast.success('Success');
+                              afterClose();
+                            }
+                          });
+                        }
+                      });
                     } else {
-                      postUser({
-                        username: '',
-                        first_name: user?.alias,
-                        last_name: user?.surname,
-                        email: user?.label,
-                        permission_type: 'normal',
-                      }).then((res) => {
+                      postUser(payload).then((res) => {
                         if (!res.error) {
                           toast.success('Success');
                           afterClose();

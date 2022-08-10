@@ -11,6 +11,7 @@ export default function Dialog({
   titleClassName,
   disabled = false,
   open = false,
+  disableClose = false,
   render = () => <></>,
   afterClose = () => {},
 }) {
@@ -23,8 +24,10 @@ export default function Dialog({
       <Transition appear show={_open} as={Fragment}>
         <HeadlessDialog
           onClose={() => {
-            setOpen(false);
-            afterClose();
+            if (!disableClose) {
+              setOpen(false);
+              afterClose();
+            }
           }}
           className={clsx('relative z-50', !_open && 'pointer-events-none')}
         >
