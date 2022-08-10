@@ -9,7 +9,11 @@ const USER_LIST = localStorage.getItem('user-list');
 export default function useAuth() {
   const { accounts, inProgress, instance } = useMsal();
   const authenticated = useMemo(() => inProgress === 'none' && !!accounts[0], [inProgress, accounts]);
-  const { isLoading, data = { data: USER_LIST ? JSON.parse(USER_LIST) : [] } } = useGetUserListQuery(undefined, {
+  const {
+    isLoading,
+    isError,
+    data = { data: USER_LIST ? JSON.parse(USER_LIST) : [] },
+  } = useGetUserListQuery(undefined, {
     skip: !authenticated,
   });
 
@@ -21,5 +25,5 @@ export default function useAuth() {
 
   const login = useCallback(() => instance.loginRedirect(loginRequest), [instance]);
   const logout = useCallback(() => instance.logoutRedirect(), [instance]);
-  return { user, accounts, isLoading, authenticated, authenticating, login, logout };
+  return { user, accounts, isLoading, isError, authenticated, authenticating, login, logout };
 }

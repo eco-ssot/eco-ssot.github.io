@@ -49,6 +49,7 @@ export default function Router({ children }) {
     <BrowserRouter>
       {children}
       <Routes>
+        <Route path="/login" element={<AuthPage />}></Route>
         <Route path="/" element={<Layout />}>
           {publicRoutes.map(({ path, element: Element }, i) => (
             <Route
@@ -73,7 +74,6 @@ export default function Router({ children }) {
         >
           {privateRoutes.map(toRoute)}
         </Route>
-        <Route path="/auth" element={<AuthPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

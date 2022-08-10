@@ -4,7 +4,7 @@ export const msalConfig = {
   auth: {
     clientId: REACT_APP_CLIENT_ID,
     authority: `${REACT_APP_AUTHORITY_HOST_URI}/${REACT_APP_TENANT_ID}`,
-    redirectUri: `${window.location.origin}/auth`,
+    redirectUri: `${window.location.origin}/login`,
     navigateToLoginRequestUrl: false,
     postLogoutRedirectUri: null,
   },
@@ -16,5 +16,5 @@ export const msalConfig = {
 
 export const loginRequest = {
   scopes: ['User.Read'],
-  prompt: 'select_account',
+  // prompt: 'select_account',
 };

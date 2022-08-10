@@ -23,13 +23,13 @@ import { lazyPreload } from './helpers';
 const TABLE_PAGE_QUERY_KEYS = [...APP_CONSTANTS.GLOBAL_QUERY_KEYS.filter((key) => key !== 'cy'), 'permission'];
 
 export const publicRoutes = [
-  {
-    path: '/login',
-    element: lazyPreload(() => import(/* webpackChunkName: "login_LoginPage" */ '../pages/login/LoginPage'), {
-      name: '/login/LoginPage',
-    }),
-    i18nKey: 'login',
-  },
+  // {
+  //   path: '/login',
+  //   element: lazyPreload(() => import(/* webpackChunkName: "login_LoginPage" */ '../pages/login/LoginPage'), {
+  //     name: '/login/LoginPage',
+  //   }),
+  //   i18nKey: 'login',
+  // },
   {
     path: '/unauthorized',
     element: lazyPreload(
