@@ -1,6 +1,13 @@
 {
   "p8": [
     {
+      "id": -1,
+      "username": "dummy",
+      "first_name": "dummy",
+      "last_name": "dummy",
+      "email": "dummy"
+    },
+    {
       "id": 60,
       "username": "11008306",
       "first_name": "Dex Lu",
@@ -220,6 +227,13 @@
   ],
   "management": [
     {
+      "id": -1,
+      "username": "dummy",
+      "first_name": "dummy",
+      "last_name": "dummy",
+      "email": "dummy"
+    },
+    {
       "id": 60,
       "username": "11008306",
       "first_name": "Dex Lu",
@@ -327,6 +341,13 @@
   ],
   "dev": [
     {
+      "id": -1,
+      "username": "dummy",
+      "first_name": "dummy",
+      "last_name": "dummy",
+      "email": "dummy"
+    },
+    {
       "id": 32,
       "username": "10808305",
       "first_name": "Sark Liu",
@@ -433,6 +454,13 @@
     }
   ],
   "normal": [
+    {
+      "id": -1,
+      "username": "dummy",
+      "first_name": "dummy",
+      "last_name": "dummy",
+      "email": "dummy"
+    },
     {
       "id": 1,
       "username": "10003211",

@@ -26,13 +26,13 @@ export default function ManagementPage() {
   return (
     <div className="grid h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full grid-cols-8 grid-rows-2 gap-4 overflow-hidden p-4">
       <div className="col-span-1 row-span-2">
-        <div className="flex h-full flex-col rounded bg-primary-900 py-4 shadow">
-          <div className="flex flex-grow flex-col space-y-4 ">
-            <div className="mx-4 space-y-2 border-b border-divider pb-4">
+        <div className="flex h-full flex-col overflow-auto rounded bg-primary-900 py-4 shadow">
+          <div className="flex flex-grow flex-col space-y-4 overflow-auto">
+            <div className="mx-4 flex-shrink-0 space-y-2 border-b border-divider pb-4">
               <div className="text-primary-600">User Name</div>
               <div>{user?.first_name}</div>
             </div>
-            <div className="mx-4 space-y-4 border-b border-divider pb-4">
+            <div className="mx-4 flex-shrink-0 space-y-4 border-b border-divider pb-4">
               <div className="space-y-2">
                 <div className="text-primary-600">Dept / ID</div>
                 <div>{`- / ${user?.username}`}</div>
@@ -42,7 +42,7 @@ export default function ManagementPage() {
                 <div>{user?.roles?.filter((role) => role !== APP_CONSTANTS.DEVELOPER_ROLE).join(' / ')}</div>
               </div>
             </div>
-            <div className="flex flex-col space-y-2 py-4">
+            <div className="flex flex-grow flex-col space-y-2 overflow-auto py-4">
               {tabs.map(({ path, i18nKey, index, element, prefetchApis }, i) => {
                 return (
                   <MyNavLink
@@ -71,7 +71,7 @@ export default function ManagementPage() {
               })}
             </div>
           </div>
-          <div className="mx-4 border-t border-divider text-center">
+          <div className="mx-4 flex-shrink-0 border-t border-divider text-center">
             <Button
               className="mt-4"
               onClick={() => {

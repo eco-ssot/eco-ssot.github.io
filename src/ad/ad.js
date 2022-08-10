@@ -6,8 +6,10 @@ const msalInstance = new PublicClientApplication(msalConfig);
 const accounts = msalInstance.getAllAccounts();
 if (accounts.length > 0) {
   msalInstance.setActiveAccount(accounts[0]);
-  msalInstance.acquireTokenSilent({ scopes: ['https://graph.microsoft.com/.default'] }).then((res) => {
-    localStorage.setItem('graph-access-token', res.accessToken);
+  msalInstance.acquireTokenSilent({ scopes: ['https://graph.microsoft.com/.default'] }).then(({ accessToken }) => {
+    if (accessToken) {
+      localStorage.setItem('graph-access-token', accessToken);
+    }
   });
 }
 

@@ -17,6 +17,7 @@ const instance = {
   getAllAccounts: () => accounts,
   setActiveAccount: () => {},
   getActiveAccount: () => accounts[0],
+  acquireTokenSilent: () => {},
 };
 
 export const msalInstance = Number(process.env.REACT_APP_MOCK_AD) ? instance : _msalInstance;
