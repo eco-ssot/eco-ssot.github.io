@@ -389,7 +389,7 @@ export default function AnalysisTable({
 
   useEffect(() => {
     if (isAddingRow) {
-      setData((prev) => prev?.concat([{ editing: true, isNewRow: true }]));
+      setData((prev) => prev?.concat([{ editing: true, isNewRow: true, visible: true }]));
     } else {
       setData((prev) => prev?.filter((d) => !d.isNewRow));
     }
