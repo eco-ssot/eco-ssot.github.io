@@ -17,6 +17,7 @@ const initialState = {
   },
   loadingPage: {},
   showAnnounce: true,
+  userProfile: null,
 };
 
 export const appSlice = createSlice({
@@ -38,10 +39,13 @@ export const appSlice = createSlice({
     setShowAnnounce: (state, action) => {
       state.showAnnounce = action.payload;
     },
+    setUserProfile: (state, action) => {
+      state.userProfile = action.payload;
+    },
   },
 });
 
-export const { setDateInfo, setMissingPlants, setLoadingPage, setShowAnnounce } = appSlice.actions;
+export const { setDateInfo, setMissingPlants, setLoadingPage, setShowAnnounce, setUserProfile } = appSlice.actions;
 export const selectReducer = (state) => state.app;
 export const selectYearOptions = createSelector(selectReducer, (state) => state.dateInfo.yearOptions);
 export const selectCurrYear = createSelector(selectReducer, (state) => state.dateInfo.currYear);
@@ -67,6 +71,7 @@ export const selectLatestMonth = createSelector(
 );
 
 export const selectShowAnnounce = createSelector(selectReducer, (state) => state.showAnnounce);
+export const selectUserProfile = createSelector(selectReducer, (state) => state.userProfile);
 
 export const selectIsLoading = (state) => {
   const { queries, mutations } = state.appApi;

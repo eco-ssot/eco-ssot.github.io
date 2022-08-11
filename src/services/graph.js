@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { msalInstance } from '../ad';
+import { setUserProfile } from '../app/appSlice';
+
+const SELECT_ENTITIES = `$select=businessPhones,department,displayName,mail,givenName,surname,mailNickname,id,officeLocation,userPrincipalName`;
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_GRAPH_API_URL,
@@ -32,9 +35,26 @@ export const graphApi = createApi({
   baseQuery: baseQueryWithReAuth,
   endpoints: (builder) => ({
     getUser: builder.query({
-      query: (q) => ({ url: `/users?$filter=startswith(mail, '${q}') or startswith(displayName, '${q}')` }),
+      query: (q) => ({
+        url: `/users?$filter=startswith(mail, '${q}') or startswith(displayName, '${q}')&${SELECT_ENTITIES}`,
+      }),
+    }),
+    getProfile: builder.query({
+      query: () => ({
+        url: `/me?${SELECT_ENTITIES}`,
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        // `onStart` side-effect
+        try {
+          const { data } = await queryFulfilled;
+          // `onSuccess` side-effect
+          dispatch(setUserProfile(data));
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
   }),
 });
 
-export const { useGetUserQuery, useLazyGetUserQuery } = graphApi;
+export const { useGetUserQuery, useLazyGetUserQuery, useGetProfileQuery } = graphApi;

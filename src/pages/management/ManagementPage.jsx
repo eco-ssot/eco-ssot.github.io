@@ -3,9 +3,11 @@ import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useLocation, Outlet } from 'react-router-dom';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import { selectUserProfile } from '../../app/appSlice';
 import Button from '../../components/button/Button';
 import useAuth from '../../hooks/useAuth';
 import MyNavLink from '../../router/MyNavLink';
@@ -15,6 +17,7 @@ export default function ManagementPage() {
   const { t } = useTranslation(['managementPage', 'common', 'component']);
   const { user, logout } = useAuth();
   const { pathname, search } = useLocation();
+  const userProfile = useSelector(selectUserProfile);
   const isIndexPage = useMemo(() => pathname === '/management', [pathname]);
   const tabs = useMemo(() => managementRoutes.filter((route) => !route.hidden), []);
   const isMatched = useCallback(({ isActive, index }) => isActive || (index && isIndexPage), [isIndexPage]);
@@ -35,7 +38,7 @@ export default function ManagementPage() {
             <div className="mx-4 flex-shrink-0 space-y-4 border-b border-divider pb-4">
               <div className="space-y-2">
                 <div className="text-primary-600">Dept / ID</div>
-                <div>{`- / ${user?.username}`}</div>
+                <div>{`- / ${user?.username || userProfile?.mailNickname || '-'}`}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-primary-600">Level</div>
