@@ -45,8 +45,10 @@ export default function Chart({ className, dispose = true, option = {} }) {
       instance.setOption(updateChartFontSize(option), true);
     };
 
-    if (instance && !dispose) {
-      instance.setOption(updateChartFontSize(option), true);
+    if (instance) {
+      if (!dispose) {
+        instance.setOption(updateChartFontSize(option), true);
+      }
     } else {
       if (!chartRef.current?.clientHeight && !chartRef.current?.clientWidth) {
         setTimeout(() => initInstance());
