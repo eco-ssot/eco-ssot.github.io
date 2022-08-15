@@ -33,7 +33,7 @@ echarts.use([
 
 echarts.registerTheme('dark', darkTheme);
 
-export default function Chart({ className, option = {} }) {
+export default function Chart({ className, dispose = true, option = {} }) {
   const windowSize = useWindowSize();
   const prevWindowSize = usePreviousDistinct(windowSize);
   const chartRef = useRef(null);
@@ -45,7 +45,9 @@ export default function Chart({ className, option = {} }) {
       instance.setOption(updateChartFontSize(option), true);
     };
 
-    if (!instance) {
+    if (instance && !dispose) {
+      instance.setOption(updateChartFontSize(option), true);
+    } else {
       if (!chartRef.current?.clientHeight && !chartRef.current?.clientWidth) {
         setTimeout(() => initInstance());
       } else {
@@ -54,9 +56,9 @@ export default function Chart({ className, option = {} }) {
     }
 
     return () => {
-      instance && instance.dispose();
+      instance && dispose && instance.dispose();
     };
-  }, [dataset]);
+  }, [process.env.NODE_ENV === 'development' ? option : dataset]);
 
   useDebounce(
     () => {
