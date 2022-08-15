@@ -156,7 +156,7 @@ const SCATTER_OPTION = ({ t, currYear, target = 1, slope = 1, data = [] } = {}) 
           color: colors._blue,
         }),
         ...(year === currYear && {
-          color: colors.primary['500'],
+          color: colors.violet['400'],
         }),
         ...(highlight && {
           color: colors._yellow,
@@ -420,7 +420,7 @@ export default function ElectricityIndexPage({ className, year, plant }) {
             <div className="text-xl font-medium">{t('electricityPage:index.electricityConsumptionTargetChart')}</div>
             <div className="flex justify-end space-x-4">
               <Legend dotClassName="bg-_blue" label={`${year - 1}`} />
-              <Legend dotClassName="bg-primary-500" label={`${year}`} />
+              <Legend dotClassName="bg-violet-400" label={`${year}`} />
               <Legend dotClassName="bg-_yellow" label={t('electricityPage:index.currentMonth')} />
             </div>
           </div>
