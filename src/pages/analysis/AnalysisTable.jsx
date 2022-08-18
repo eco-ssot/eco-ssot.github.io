@@ -551,8 +551,6 @@ export default function AnalysisTable({
                         <PencilIcon className="h-5 w-5" />
                       </EditableIconButton>
                       <EditableIconButton
-                        aria-label="icon-button-trash"
-                        disabled={!canEdit}
                         onClick={() => {
                           onRowChange({
                             id,
