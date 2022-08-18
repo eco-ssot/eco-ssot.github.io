@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -37,6 +38,17 @@ export default function GoalPage() {
   const tRecRes = useGetTrecQuery({ year: tRecYear });
   const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: plantPermission });
   const [postCopy] = usePostCopyMutation();
+  const goalYearOptions = useMemo(
+    () =>
+      [
+        {
+          key: String(Number(APP_CONSTANTS.YEAR_OPTIONS[0].key) + 1),
+          value: String(Number(APP_CONSTANTS.YEAR_OPTIONS[0].value) + 1),
+        },
+      ].concat(APP_CONSTANTS.YEAR_OPTIONS),
+    []
+  );
+
   return (
     <>
       <div className="col-span-7 row-span-1">
@@ -46,17 +58,23 @@ export default function GoalPage() {
             <div className="flex items-center">
               <Select
                 label={t('component:selectLabel.searchYear')}
-                options={APP_CONSTANTS.YEAR_OPTIONS}
-                selected={APP_CONSTANTS.YEAR_OPTIONS.find((option) => option.key === goalYear)}
+                options={goalYearOptions}
+                selected={goalYearOptions.find((option) => option.key === goalYear) || goalYearOptions[1]}
                 onChange={(e) => setGoalYear(e.key)}
                 buttonClassName="min-w-28"
               />
               <Button
-              className={"m-4"}
-              onClick={() => {
-                postCopy()
-              }}
-              >複製到新年度</Button>
+                className="ml-4"
+                onClick={() => {
+                  postCopy().then((res) => {
+                    if (!res.error) {
+                      toast.success('Success');
+                    }
+                  });
+                }}
+              >
+                複製到新年度
+              </Button>
             </div>
           </div>
           <YearGoal
