@@ -10,7 +10,7 @@ import {
   LegendComponent,
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
+import { CanvasRenderer, SVGRenderer } from 'echarts/renderers';
 import { useDeepCompareEffect, useDebounce, useWindowSize, usePreviousDistinct } from 'react-use';
 
 import { darkTheme } from './config';
@@ -18,6 +18,7 @@ import { updateChartFontSize } from './helpers';
 
 echarts.use([
   CanvasRenderer,
+  SVGRenderer,
 
   LineChart,
   BarChart,
@@ -33,7 +34,7 @@ echarts.use([
 
 echarts.registerTheme('dark', darkTheme);
 
-export default function Chart({ className, dispose = true, option = {} }) {
+export default function Chart({ className, dispose = true, renderer = 'svg', option = {} }) {
   const windowSize = useWindowSize();
   const prevWindowSize = usePreviousDistinct(windowSize);
   const chartRef = useRef(null);
@@ -41,7 +42,7 @@ export default function Chart({ className, dispose = true, option = {} }) {
   useDeepCompareEffect(() => {
     let instance = echarts.getInstanceByDom(chartRef.current);
     const initInstance = () => {
-      instance = echarts.init(chartRef.current, 'dark');
+      instance = echarts.init(chartRef.current, 'dark', { renderer });
       instance.setOption(updateChartFontSize(option), true);
     };
 
