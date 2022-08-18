@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import Button from '../../components/button/Button';
 import Ellipsis from '../../components/ellipsis/Ellipsis';
 import Select from '../../components/select/Select';
 import useAdmin from '../../hooks/useAdmin';
@@ -14,6 +15,7 @@ import {
   useGetCarbonIndexQuery,
   useGetTrecQuery,
   useGetTrecBySiteQuery,
+  usePostCopyMutation,
 } from '../../services/management';
 
 import CarbonIndex from './CarbonIndex';
@@ -34,6 +36,7 @@ export default function GoalPage() {
   const carbonIndexRes = useGetCarbonIndexQuery({ year: carbonIndexYear });
   const tRecRes = useGetTrecQuery({ year: tRecYear });
   const tRecBySiteRes = useGetTrecBySiteQuery({ year: tRecYear, permission: plantPermission });
+  const [postCopy] = usePostCopyMutation();
   return (
     <>
       <div className="col-span-7 row-span-1">
@@ -48,6 +51,12 @@ export default function GoalPage() {
                 onChange={(e) => setGoalYear(e.key)}
                 buttonClassName="min-w-28"
               />
+              <Button
+              className={"m-4"}
+              onClick={() => {
+                postCopy()
+              }}
+              >複製到新年度</Button>
             </div>
           </div>
           <YearGoal

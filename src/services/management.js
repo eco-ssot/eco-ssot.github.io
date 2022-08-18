@@ -261,6 +261,12 @@ export const managementApi = appApi.injectEndpoints({
         url: 'data-status/upload',
         method: 'POST',
       }),
+    }), postCopy: builder.mutation({
+      query: () => ({
+        url: `settings/objective/copy`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['COPY'],
     }),
   }),
   overrideExisting: false,
@@ -288,4 +294,5 @@ export const {
   useDeleteTrecBySiteMutation,
   useUploadEnergyExcelMutation,
   usePostManualCsrMutation,
+  usePostCopyMutation,
 } = managementApi;
