@@ -78,14 +78,15 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
 
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
+            const { business, ...nextQuery } = query;
             return (
               <MyNavLink
                 className="flex items-center justify-end space-x-2"
                 to={{ search, pathname: '/electricity/analysis' }}
                 onMouseEnter={() => {
                   electricityAnalysisRoute.element.preload();
-                  prefetchAnalysis({ ...query, PREFETCH: '/electricity' });
-                  prefetchExplanation({ ...query, PREFETCH: '/electricity' });
+                  prefetchAnalysis({ ...nextQuery, PREFETCH: '/electricity' });
+                  prefetchExplanation({ ...nextQuery, PREFETCH: '/electricity' });
                 }}
                 state={{ from: '/electricity', skipLoadingPage: true }}
               >

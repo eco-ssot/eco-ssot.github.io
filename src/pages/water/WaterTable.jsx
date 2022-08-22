@@ -112,14 +112,15 @@ const HEADERS = ({
 
             query = { ...query, ...(query.s && { site: query.s }), ...(query.p && { plant: query.p }) };
             const search = qs.stringify(query);
+            const { business, ...nextQuery } = query;
             return (
               <MyNavLink
                 className="flex items-center justify-end space-x-2"
                 to={{ search, pathname: '/water/analysis' }}
                 onMouseEnter={() => {
                   waterAnalysisRoute.element.preload();
-                  prefetchAnalysis({ ...query, PREFETCH: '/water' });
-                  prefetchExplanation({ ...query, PREFETCH: '/water' });
+                  prefetchAnalysis({ ...nextQuery, PREFETCH: '/water' });
+                  prefetchExplanation({ ...nextQuery, PREFETCH: '/water' });
                 }}
                 state={{ from: '/water', skipLoadingPage: true }}
               >
