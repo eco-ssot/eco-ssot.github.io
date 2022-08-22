@@ -21,7 +21,8 @@
     "title": "碳排放係數",
     "unit": "(公噸CO₂e/千度)",
     "table": {
-      "amount": "碳排放係數"
+      "amount": "碳排放係數",
+      "lastUpdateTime": "更新時間"
     }
   },
   "tRec": {

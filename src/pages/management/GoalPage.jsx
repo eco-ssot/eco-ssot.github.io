@@ -96,8 +96,8 @@ export default function GoalPage() {
             <div className="flex items-center">
               <Select
                 label={t('component:selectLabel.searchYear')}
-                options={APP_CONSTANTS.YEAR_OPTIONS}
-                selected={APP_CONSTANTS.YEAR_OPTIONS.find((option) => option.key === carbonIndexYear)}
+                options={goalYearOptions}
+                selected={goalYearOptions.find((option) => option.key === carbonIndexYear)|| goalYearOptions[1]}
                 onChange={(e) => setCarbonIndexYear(e.key)}
                 buttonClassName="min-w-28"
               />
