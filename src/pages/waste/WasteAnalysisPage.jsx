@@ -138,8 +138,8 @@ export default function WasteAnalysisPage() {
   const y = useSelector(selectY);
   const m = useSelector(selectM);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '廢棄物密度', labelType: 'analysis' });
-  const { data } = useGetWasteAnalysisQuery({ business, site, plant, year: y, month: m }, { skip: !site });
-  const { data: tableData } = useGetWasteExplanationQuery({ business, site, plant, year: y }, { skip: !site });
+  const { data } = useGetWasteAnalysisQuery({ site, plant, year: y, month: m }, { skip: !site });
+  const { data: tableData } = useGetWasteExplanationQuery({ site, plant, year: y }, { skip: !site });
   const [postExplanation] = usePostWasteExplanationMutation();
   const [postImprovement] = usePostWasteImprovementMutation();
   const [patchExplanation] = usePatchWasteExplanationMutation();

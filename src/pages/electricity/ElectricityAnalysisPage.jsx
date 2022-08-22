@@ -136,8 +136,8 @@ export default function ElectricityAnalysisPage() {
   const y = useSelector(selectY);
   const m = useSelector(selectM);
   const { label, pct, baseYear, currYear } = useGoal({ keyword: '用電強度', labelType: 'analysis' });
-  const { data } = useGetElectricityAnalysisQuery({ business, site, plant, year: y, month: m }, { skip: !site });
-  const { data: tableData } = useGetElectricityExplanationQuery({ business, site, plant, year: y }, { skip: !site });
+  const { data } = useGetElectricityAnalysisQuery({ site, plant, year: y, month: m }, { skip: !site });
+  const { data: tableData } = useGetElectricityExplanationQuery({ site, plant, year: y }, { skip: !site });
   const [postExplanation] = usePostElectricityExplanationMutation();
   const [postImprovement] = usePostElectricityImprovementMutation();
   const [patchExplanation] = usePatchElectricityExplanationMutation();
