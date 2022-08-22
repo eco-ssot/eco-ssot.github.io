@@ -11,7 +11,7 @@ import { baseFormatter } from '../../utils/formatter';
 import { updateMyData } from '../../utils/table';
 
 
-const COLUMNS = ({ t, setData, patchCarbonIndex, year, canEdit }) => [
+const COLUMNS = ({ t }) => [
   {
     Header: 'Site',
     accessor: 'site',
@@ -41,9 +41,10 @@ export default function CarbonIndex({ className, data, canEdit, year = APP_CONST
   const [patchCarbonIndex] = usePatchCarbonIndexMutation();
   const [dataSource, setData] = useState(data);
   const columns = useMemo(
-    () => COLUMNS({ t, setData, patchCarbonIndex, year, canEdit ,}),
+    () => COLUMNS({ t, setData, patchCarbonIndex, year, canEdit}),
     [t, patchCarbonIndex, year, canEdit]
   );
+
   useEffect(() => {
     data && setData(data);
   }, [data]);
