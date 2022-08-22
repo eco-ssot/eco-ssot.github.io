@@ -97,8 +97,8 @@ export default function GoalPage() {
               <Select
                 label={t('component:selectLabel.searchYear')}
                 options={goalYearOptions}
-                selected={goalYearOptions.find((option) => option.key === goalYear) || goalYearOptions[1]}
-                onChange={(e) => setGoalYear(e.key)}
+                selected={goalYearOptions.find((option) => option.key === carbonIndexYear)|| goalYearOptions[1]}
+                onChange={(e) => setCarbonIndexYear(e.key)}
                 buttonClassName="min-w-28"
               />
             </div>
