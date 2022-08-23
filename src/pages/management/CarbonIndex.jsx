@@ -51,7 +51,7 @@ export default function CarbonIndex({ className, data, canEdit, year = APP_CONST
 
   return (
     <div className={clsx('w-full space-y-2 overflow-auto rounded-t-lg shadow', className)}>
-      <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData) } />
+      <EditableTable columns={columns} data={dataSource} updateMyData={updateMyData(setData)} />
     </div>
   );
 }

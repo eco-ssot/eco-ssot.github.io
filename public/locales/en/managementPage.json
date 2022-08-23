@@ -21,7 +21,8 @@
     "title": "Carbon Emission Factor",
     "unit": "(Ton CO₂e/MWh)",
     "table": {
-      "amount": "Carbon Emission Factor"
+      "amount": "Carbon Emission Factor",
+      "lastUpdateTime": "LastUpdateTime"
     }
   },
   "tRec": {
