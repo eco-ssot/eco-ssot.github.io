@@ -89,6 +89,12 @@
   },
   "changelog": {
     "title": "Changelog",
+    "date":"Date",
+    "version":"Version",
+    "updateContent":"Update Content",
+    "item":"Item",
+    "introduce":"Introduce",
+    "pages":"Manual pages",
     "2.0.0": "v2.0.0 released",
     "2.0.1": "Integrate Google Analytics",
     "2.0.2": "Add English manual",

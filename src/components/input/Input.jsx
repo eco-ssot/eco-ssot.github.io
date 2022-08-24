@@ -15,13 +15,15 @@ const Input = forwardRef(
       label = '',
       required = false,
       name = '',
+      wfull,
       ...props
     },
     ref
   ) => {
     const id = useId();
     return (
-      <div className="relative">
+      <div className={clsx(
+        'relative',wfull)}>
         {label && (
           <label htmlFor={id} className="whitespace-nowrap">
             {required && <span className="text-red-500"> * </span>}

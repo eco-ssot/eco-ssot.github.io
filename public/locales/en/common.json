@@ -17,6 +17,7 @@
   "weight": "Percentage",
   "gap": "Gap *",
   "edit": "Edit",
+  "delete":"delete",
   "hide": "Hide",
   "newBorder": "New Border",
   "k/unit": "K/unit",
