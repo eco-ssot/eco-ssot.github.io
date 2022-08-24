@@ -111,8 +111,8 @@ const HEADERS = ({
                 className="flex items-center justify-end space-x-2"
                 to={{ search, pathname: '/waste/analysis' }}
                 onMouseEnter={() => {
-                  wasteAnalysisRoute.nextQuery.preload();
-                  prefetchAnalysis({ ...query, PREFETCH: '/waste' });
+                  wasteAnalysisRoute.element.preload();
+                  prefetchAnalysis({ ...nextQuery, PREFETCH: '/waste' });
                   prefetchExplanation({ ...nextQuery, PREFETCH: '/waste' });
                 }}
                 state={{ from: '/waste', skipLoadingPage: true }}
