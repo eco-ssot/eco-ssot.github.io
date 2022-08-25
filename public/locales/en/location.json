@@ -12,5 +12,6 @@
   "login": "Login",
   "unauthorized": "401 Unauthorized",
   "notFound": "404 Page Not Found",
-  "airCompressor": "Air Compressor"
+  "airCompressor": "Air Compressor",
+  "decarbonization": "Decarbonization"
 }

@@ -422,6 +422,18 @@ export const privateRoutes = [
     i18nKey: 'airCompressor',
   },
   {
+    path: '/decarbonization',
+    title: '脫碳目標',
+    element: lazyPreload(
+      () =>
+        import(
+          /* webpackChunkName: "decarbonization_DecarbonizationPage" */ '../pages/decarbonization/DecarbonizationPage'
+        ),
+      { name: '/decarbonization/DecarbonizationPage' }
+    ),
+    i18nKey: 'decarbonization',
+  },
+  {
     path: '/management',
     element: lazyPreload(
       () => import(/* webpackChunkName: "management_ManagementPage" */ '../pages/management/ManagementPage'),
