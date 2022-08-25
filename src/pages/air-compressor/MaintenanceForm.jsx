@@ -240,7 +240,17 @@ export default function MaintenanceForm({ query, draftRef }) {
         <Button type="submit" className="self-center">
           {t('airCompressorPage:calculate')}
         </Button>
-        <Button className="self-center">Excel</Button>
+        <a
+          download
+          className="self-center"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`${process.env.REACT_APP_API_BASE_URL}/air-compress/maintain/download?building=${
+            searchOption.building || list?.data?.building?.[0]?.value
+          }`}
+        >
+          <Button>Excel</Button>
+        </a>
       </div>
     </form>
   );
