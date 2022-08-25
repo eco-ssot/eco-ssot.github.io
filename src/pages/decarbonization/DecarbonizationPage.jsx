@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import Legend from '../../components/legend/Legend';
@@ -13,8 +14,13 @@ import DecarbonizationTable, { COLUMNS } from './DecarbonizationTable';
 export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
   const { accumulationPeriod } = useAccumulationPeriod();
-  const { data } = useGetDecarbonizationQuery();
-  const columns = useMemo(() => COLUMNS(), []);
+  const {data} = useGetDecarbonizationQuery();
+  const [_data, setData] = useState();
+  const columns = useMemo(() => COLUMNS({t}), [t]);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
+  useEffect(() => {
+    setSelectedRowIndex(-1);
+  }, [_data]);
   return (
     <PageContainer>
       <div className="flex items-center justify-between">
@@ -32,15 +38,23 @@ export default function DecarbonizationPage() {
         {data?.data && (
           <DecarbonizationTable
             columns={columns}
-            data={data}
+            data={data.data}
             getHeaderProps={(header) => {
-              return { className: '' };
+              return { className: 'bg-primary-800 py-2' };
             }}
-            getRowProps={(row) => {
-              return { className: '' };
-            }}
+            getRowProps={(row) => ({
+              className: clsx(
+                'border-b border-divider',
+                selectedRowIndex === row.index && 'bg-primary-800/80',
+                row.original.editing || row.original.isNew ? 'cursor-default' : 'cursor-pointer'
+              ),
+              onClick: () =>
+              !row.original.editing &&
+              !row.original.isNew &&
+              setSelectedRowIndex((prev) => (prev === row.index ? -1 : row.index)),
+            })}
             getCellProps={(cell) => {
-              return { className: '' };
+              return { className: 'py-2' };
             }}
           />
         )}
