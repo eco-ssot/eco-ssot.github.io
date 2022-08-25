@@ -5,9 +5,10 @@ import { isBoolean } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/button/Button';
-import Dialog from '../../components/dialog/Dialog';
+import DatePicker from '../../components/input/DatePicker';
 import Input from '../../components/input/Input';
-import DeleteVeronModal from '../../components/modal/DeleteVerionModal';
+import DeleteVersionModal from '../../components/modal/DeleteVersionModal';
+import Modal from '../../components/modal/Modal';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import useAdmin from '../../hooks/useAdmin';
 import usePlantPermission from '../../hooks/usePlantPermission';
@@ -19,10 +20,11 @@ const COLUMNS = ({ t, canEdit, setData, patchDataStatusPic }) => [
   {
     Header: t('managementPage:changelog.date'),
     accessor: 'plant',
-    rowSpan: 0,
     className: 'w-1/5 text-center',
     editable: true,
-    editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
+    Cell: (cell) => {
+      return cell.row.original.editing ? <DatePicker className="h-11 rounded text-left" /> : cell.value;
+    },
   },
   {
     Header: t('managementPage:changelog.version'),
@@ -62,7 +64,7 @@ const COLUMNS = ({ t, canEdit, setData, patchDataStatusPic }) => [
   {
     Header: t('common:edit'),
     id: 'action',
-    className: 'w-[10%] text-center',
+    className: 'w-[10%] text-center whitespace-nowrap',
     rowSpan: 0,
     Cell: (cell) => {
       return cell.row.original.editing ? (
@@ -115,75 +117,65 @@ function VersionDelete() {
       <EditableIconButton aria-label="icon-button-trash" disabled={!canEdit} onClick={() => setDeleteId()}>
         <TrashIcon className="h-5 w-5" />
       </EditableIconButton>
-      <DeleteVeronModal
+      <DeleteVersionModal
         open={!isBoolean(deleteId)}
         setOpen={setDeleteId}
         // onConfirm={() => onDeleteRow(deleteId)
         // }
-      ></DeleteVeronModal>
+      ></DeleteVersionModal>
     </>
   );
 }
-function AddVersion() {
-  const { canEdit } = useAdmin();
+function AddVersion({ open = false, setOpen = () => {}, onConfirm = () => {} }) {
+  const { t } = useTranslation(['component']);
   return (
-    <Dialog
-      disableClose
-      disabled={!canEdit}
-      // afterClose={afterClose}
-      render={() => (
-        <>
-          <div className="flex h-full flex-col space-y-4 rounded-b bg-primary-900 p-8 shadow">
-            <div className="flex items-center">
-              <div className="min-w-32">日期:</div>
-              <Input className="text-right" wfull="w-full" />
-            </div>
-            <div className="flex items-center">
-              <div className="min-w-32">版號:</div>
-              <Input className="text-right" wfull="w-full" />
-            </div>
-            <div className="flex items-center">
-              <div className="min-w-32">更新內容:</div>
-              <Input className="text-right" wfull="w-full" />
-            </div>
-            <div className="flex items-center">
-              <div className="min-w-32">項目:</div>
-              <Input className="text-right" wfull="w-full" />
-            </div>
-            <div className="flex items-center">
-              <div className="min-w-32">新功能介紹:</div>
-              <Input className="text-right" wfull="w-full" />
-            </div>
-            <div className="flex flex-grow flex-col justify-end">
-              <div className="flex justify-end space-x-4">
-                <Button
-                  variant="danger"
-                  // className={'pointer-events-none opacity-50'}
-                  onClick={() => {
-                    alert('Cancel');
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  // className={'pointer-events-none opacity-50'}
-                  onClick={() => {
-                    alert('OK');
-                  }}
-                >
-                  OK
-                </Button>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+    <Modal
+      open={!!open}
+      setOpen={setOpen}
       title="Add/Edit Version"
-      className="h-96 max-w-2xl"
-      titleClassName="bg-primary-800 px-4 py-2 rounded-t"
+      footer={
+        <div className="my-4 flex justify-center space-x-8">
+          <Button variant="plain" onClick={() => setOpen(false)}>
+            {t('component:button.cancel')}
+          </Button>
+          <Button
+            onClick={() => {
+              onConfirm(open);
+              setOpen(false);
+            }}
+          >
+            {t('component:button.add')}
+          </Button>
+        </div>
+      }
     >
-      <Button className="m-2 flex justify-center space-x-1 ">Add/Edit Version</Button>
-    </Dialog>
+      <div className="flex h-full flex-col space-y-4 rounded-b bg-primary-900 p-8 shadow">
+        <div className="flex items-center">
+          <div className="min-w-32 text-left">日期:</div>
+          <DatePicker className="rounded text-left" containerClassName="w-full" />
+        </div>
+        <div className="flex items-center">
+          <div className="min-w-32 text-left">版號:</div>
+          <Input className="text-left" containerClassName="w-full" />
+        </div>
+        <div className="flex items-center">
+          <div className="min-w-32 text-left">更新內容:</div>
+          <Input className="text-left" containerClassName="w-full" />
+        </div>
+        <div className="flex items-center">
+          <div className="min-w-32 text-left">項目:</div>
+          <Input className="text-left" containerClassName="w-full" />
+        </div>
+        <div className="flex items-center">
+          <div className="min-w-32 text-left">新功能介紹:</div>
+          <Input className="text-left" containerClassName="w-full" />
+        </div>
+        <div className="flex items-center">
+          <div className="min-w-32 text-left">說明書頁數:</div>
+          <Input className="text-left" containerClassName="w-full" />
+        </div>
+      </div>
+    </Modal>
   );
 }
 
@@ -197,6 +189,7 @@ export default function VersionPage() {
   const [patchDataStatusPic] = usePatchDataStatusPicMutation();
   const [_data, setData] = useState(data);
   const { canEdit } = useAdmin();
+  const [add, setAdd] = useState(false);
   const columns = useMemo(
     () => COLUMNS({ t, canEdit, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden),
     [t, patchDataStatusPic, canEdit]
@@ -204,13 +197,20 @@ export default function VersionPage() {
   useEffect(() => {
     data && setData(data);
   }, [data]);
-
   return (
     <div className="col-span-7 row-span-2">
       <div className="flex h-full flex-col space-y-2 rounded bg-primary-900 p-4 shadow">
         <div className="flex justify-between space-y-2 text-xl font-medium">
           {t('managementPage:changelog.title')}
-          <AddVersion />
+          <Button className="m-2 flex justify-center space-x-1 " disabled={!canEdit} onClick={() => setAdd()}>
+            Add Version
+          </Button>
+          <AddVersion
+            open={!isBoolean(add)}
+            setOpen={setAdd}
+            // onConfirm={() => onDeleteRow(deleteId)
+            // }
+          />
         </div>
         {_data && (
           <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">

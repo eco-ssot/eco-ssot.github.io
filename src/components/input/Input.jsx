@@ -7,6 +7,7 @@ const Input = forwardRef(
   (
     {
       className,
+      containerClassName,
       onChange = () => {},
       onBlur = () => {},
       value = '',
@@ -15,7 +16,6 @@ const Input = forwardRef(
       label = '',
       required = false,
       name = '',
-      wfull,
       ...props
     },
     ref
@@ -23,7 +23,7 @@ const Input = forwardRef(
     const id = useId();
     return (
       <div className={clsx(
-        'relative',wfull)}>
+        'relative',containerClassName)}>
         {label && (
           <label htmlFor={id} className="whitespace-nowrap">
             {required && <span className="text-red-500"> * </span>}

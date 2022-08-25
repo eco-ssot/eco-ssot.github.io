@@ -5,7 +5,7 @@ import Button from '../button/Button';
 
 import Modal from './Modal';
 
-export default function DeleteVerionModal({ open = false, setOpen = () => {}, onConfirm = () => {} }) {
+export default function DeleteVersionModal({ open = false, setOpen = () => {}, onConfirm = () => {} }) {
   const { t } = useTranslation(['component']);
   return (
     <Modal
