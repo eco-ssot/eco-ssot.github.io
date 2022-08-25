@@ -38,6 +38,7 @@
   },
   "legend": {
     "meetTarget": "Meet Target",
+    "meetTargetYet": "Meet Target Yet",
     "missTarget": "Miss Target",
     "missingData": "Missing Data",
     "noData": "No Data"

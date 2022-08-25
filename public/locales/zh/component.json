@@ -38,6 +38,7 @@
   },
   "legend": {
     "meetTarget": "達標",
+    "meetTargetYet": "尚未達標",
     "missTarget": "未達標",
     "missingData": "資料缺漏",
     "noData": "無資料"
