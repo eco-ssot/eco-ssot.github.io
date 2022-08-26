@@ -5655,13 +5655,6 @@ vite-plugin-babel-macros@1.0.5:
     babel-plugin-macros "^3.0.1"
     tslib "^2.1.0"
 
-vite-plugin-dynamic-import@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-dynamic-import/-/vite-plugin-dynamic-import-1.1.1.tgz#601136ab8c5c20c4e97711f3e7692bd656d9f8eb"
-  integrity sha512-ZAt0ppn9LI3jsa4m4I8H25DKHQb/rqD9MQFrnxyY1j4maUb4FmczVPzlP2khk2i7ns2/fPdfHurAMUEWBBXHpg==
-  dependencies:
-    fast-glob "^3.2.11"
-
 vite-plugin-eslint@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/vite-plugin-eslint/-/vite-plugin-eslint-1.8.1.tgz#0381b8272e7f0fd8b663311b64f7608d55d8b04c"

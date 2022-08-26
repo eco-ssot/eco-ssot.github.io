@@ -2,12 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgrPlugin from 'vite-plugin-svgr';
 import macrosPlugin from 'vite-plugin-babel-macros';
-import dynamicImport from 'vite-plugin-dynamic-import';
 import eslint from 'vite-plugin-eslint';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
-  plugins: [react(), svgrPlugin(), macrosPlugin(), dynamicImport(), eslint()],
+  plugins: [react(), svgrPlugin(), macrosPlugin(), eslint()],
   define: {
     'process.env': process.env,
   },
