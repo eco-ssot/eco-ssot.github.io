@@ -11,52 +11,56 @@ import DeleteVersionModal from '../../components/modal/DeleteVersionModal';
 import Modal from '../../components/modal/Modal';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
 import useAdmin from '../../hooks/useAdmin';
-import usePlantPermission from '../../hooks/usePlantPermission';
-import { useGetDataStatusPicQuery, usePatchDataStatusPicMutation } from '../../services/management';
-// import { useGetVersionQuery } from '../../services/public';
+import { useGetVersionQuery, usePostVersionMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
-const COLUMNS = ({ t, canEdit, setData, patchDataStatusPic }) => [
+const COLUMNS = ({ t, canEdit, setData, postVersion, updateRow }) => [
   {
     Header: t('managementPage:changelog.date'),
-    accessor: 'plant',
+    accessor: 'datetime',
     className: 'w-1/5 text-center',
     editable: true,
     Cell: (cell) => {
-      return cell.row.original.editing ? <DatePicker className="h-11 rounded text-left" /> : cell.value;
+      return cell.row.original.editing ? (
+        <div className="col-span-1 h-full text-center">
+          <DatePicker className="!h-10 w-full rounded" value={cell.value} />
+        </div>
+      ) : (
+        cell.value
+      );
     },
   },
   {
     Header: t('managementPage:changelog.version'),
-    accessor: 'leftPIC',
+    accessor: 'version',
     className: 'w-1/5 text-center',
     editable: true,
     editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
   },
   {
     Header: t('managementPage:changelog.updateContent'),
-    accessor: 'rightNote',
+    accessor: 'description',
     className: 'w-1/5 text-center',
     editable: true,
     editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
   },
   {
     Header: t('managementPage:changelog.item'),
-    accessor: 'leftNote',
+    accessor: 'item',
     className: 'w-1/5 text-center',
     editable: true,
     editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
   },
   {
     Header: t('managementPage:changelog.introduce'),
-    accessor: 'rightPIC',
+    accessor: 'detail',
     className: 'w-1/5 text-center',
     editable: true,
     editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
   },
   {
     Header: t('managementPage:changelog.pages'),
-    accessor: 'rightPIC1',
+    accessor: 'playbook_page',
     className: 'w-1/5 text-center',
     editable: true,
     editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
@@ -71,7 +75,7 @@ const COLUMNS = ({ t, canEdit, setData, patchDataStatusPic }) => [
         <EditableButton
           onClick={() => {
             const { editing, ...rest } = cell.row.original;
-            patchDataStatusPic(rest);
+            postVersion(rest);
             return setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
@@ -102,26 +106,29 @@ const COLUMNS = ({ t, canEdit, setData, patchDataStatusPic }) => [
   },
   {
     Header: t('common:delete'),
-    id: 'delete',
+    accessor: 'id',
     className: 'text-center py-2',
-    Cell: () => {
-      return <VersionDelete />;
+    Cell: (cell) => {
+      return(
+        <VersionDelete id={cell.value} />
+      )
+
     },
   },
 ];
-function VersionDelete() {
+function VersionDelete(id ,onDeleteRow = () => {}) {
   const { canEdit } = useAdmin();
   const [deleteId, setDeleteId] = useState(false);
+  console.log(id.id)
   return (
     <>
-      <EditableIconButton aria-label="icon-button-trash" disabled={!canEdit} onClick={() => setDeleteId()}>
+      <EditableIconButton aria-label="icon-button-trash" disabled={!canEdit} onClick={() => setDeleteId(id)}>
         <TrashIcon className="h-5 w-5" />
       </EditableIconButton>
       <DeleteVersionModal
         open={!isBoolean(deleteId)}
         setOpen={setDeleteId}
-        // onConfirm={() => onDeleteRow(deleteId)
-        // }
+        onConfirm={() => onDeleteRow(deleteId)}
       ></DeleteVersionModal>
     </>
   );
@@ -180,19 +187,15 @@ function AddVersion({ open = false, setOpen = () => {}, onConfirm = () => {} }) 
 }
 
 export default function VersionPage() {
-  // const { t } = useTranslation(['managementPage']);
-  // const { data: version } = useGetVersionQuery();
-
   const { t } = useTranslation(['managementPage', 'common', 'component']);
-  const plantPermission = usePlantPermission();
-  const { data: { data } = {} } = useGetDataStatusPicQuery({ permission: plantPermission });
-  const [patchDataStatusPic] = usePatchDataStatusPicMutation();
+  const { data: { data } = {} } = useGetVersionQuery();
+  const [postVersion] = usePostVersionMutation();
   const [_data, setData] = useState(data);
   const { canEdit } = useAdmin();
   const [add, setAdd] = useState(false);
   const columns = useMemo(
-    () => COLUMNS({ t, canEdit, setData, patchDataStatusPic }).filter(({ hidden }) => !hidden),
-    [t, patchDataStatusPic, canEdit]
+    () => COLUMNS({ t, canEdit, setData, postVersion }).filter(({ hidden }) => !hidden),
+    [t, postVersion, canEdit]
   );
   useEffect(() => {
     data && setData(data);
@@ -217,19 +220,6 @@ export default function VersionPage() {
             <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
           </div>
         )}
-
-        {/* {version &&
-          Object.entries(version)
-            .sort((a, b) => b[0].localeCompare(a[0]))
-            .map(([key]) => (
-              <div key={key}>
-                {key} : {t(`managementPage:changelog.${key}`)}
-                <EditableIconButton>
-                  <PencilIcon className="h-5 w-5" />
-                </EditableIconButton>
-              </div>
-            ))
-            } */}
       </div>
     </div>
   );
