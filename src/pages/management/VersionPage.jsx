@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { isBoolean } from 'lodash';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/button/Button';
@@ -14,16 +15,17 @@ import useAdmin from '../../hooks/useAdmin';
 import { useGetVersionQuery, usePostVersionMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
-const COLUMNS = ({ t, canEdit, setData, postVersion, updateRow }) => [
+const COLUMNS = ({ t, canEdit, setData, postVersion }) => [
   {
     Header: t('managementPage:changelog.date'),
     accessor: 'datetime',
     className: 'w-1/5 text-center',
     editable: true,
     Cell: (cell) => {
+      const [editDateOption, setEditDateOption] = useState(cell.value);
       return cell.row.original.editing ? (
         <div className="col-span-1 h-full text-center">
-          <DatePicker className="!h-10 w-full rounded" value={cell.value} />
+          <DatePicker className="!h-10 w-full rounded" value={editDateOption} onChange={(e) => setEditDateOption(e)} />
         </div>
       ) : (
         cell.value
@@ -75,7 +77,8 @@ const COLUMNS = ({ t, canEdit, setData, postVersion, updateRow }) => [
         <EditableButton
           onClick={() => {
             const { editing, ...rest } = cell.row.original;
-            postVersion(rest);
+            console.log(rest)
+            // postVersion(rest);
             return setData((prev) =>
               prev.map((r, i) => ({
                 ...r,
@@ -109,32 +112,32 @@ const COLUMNS = ({ t, canEdit, setData, postVersion, updateRow }) => [
     accessor: 'id',
     className: 'text-center py-2',
     Cell: (cell) => {
-      return(
-        <VersionDelete id={cell.value} />
-      )
-
+      return <VersionDelete id={cell.value} />;
     },
   },
 ];
-function VersionDelete(id ,onDeleteRow = () => {}) {
+function VersionDelete(id) {
   const { canEdit } = useAdmin();
   const [deleteId, setDeleteId] = useState(false);
-  console.log(id.id)
   return (
     <>
       <EditableIconButton aria-label="icon-button-trash" disabled={!canEdit} onClick={() => setDeleteId(id)}>
         <TrashIcon className="h-5 w-5" />
       </EditableIconButton>
-      <DeleteVersionModal
-        open={!isBoolean(deleteId)}
-        setOpen={setDeleteId}
-        onConfirm={() => onDeleteRow(deleteId)}
-      ></DeleteVersionModal>
+      <DeleteVersionModal open={!isBoolean(deleteId)} setOpen={setDeleteId} id={id.id}></DeleteVersionModal>
     </>
   );
 }
-function AddVersion({ open = false, setOpen = () => {}, onConfirm = () => {} }) {
+function AddVersion({ open = false, setOpen = () => {}}) {
   const { t } = useTranslation(['component']);
+  const [dateOption, setDateOption] = useState(new Date());
+  const [versionNo, setVersionNo] = useState();
+  const [description, setDescription] = useState();
+  const [ item, setItem] = useState();
+  const [ detail, setDetail] = useState();
+  const [ page, setPage] = useState();
+  const [postVersion] = usePostVersionMutation();
+
   return (
     <Modal
       open={!!open}
@@ -147,9 +150,26 @@ function AddVersion({ open = false, setOpen = () => {}, onConfirm = () => {} }) 
           </Button>
           <Button
             onClick={() => {
-              onConfirm(open);
-              setOpen(false);
+              const payload = {
+                version: versionNo,
+                description: description,
+                item: item,
+                detail: detail,
+                playbook_page: page,
+              };
+              console.log(payload);
+              postVersion({
+                data: payload,
+              }).then((res) => {
+                if (!res.error) {
+                  toast.success('Success');
+                  setOpen(false)
+                }
+              });
             }}
+            // className={
+            //   'pointer-events-none opacity-50'
+            // }
           >
             {t('component:button.add')}
           </Button>
@@ -159,27 +179,45 @@ function AddVersion({ open = false, setOpen = () => {}, onConfirm = () => {} }) 
       <div className="flex h-full flex-col space-y-4 rounded-b bg-primary-900 p-8 shadow">
         <div className="flex items-center">
           <div className="min-w-32 text-left">日期:</div>
-          <DatePicker className="rounded text-left" containerClassName="w-full" />
+          <DatePicker
+            className="rounded text-left"
+            containerClassName="w-full"
+            value={dateOption}
+            onChange={(e) => setDateOption(e)}
+          />
         </div>
         <div className="flex items-center">
           <div className="min-w-32 text-left">版號:</div>
-          <Input className="text-left" containerClassName="w-full" />
+          <Input
+            className="text-left"
+            containerClassName="w-full"
+            onChange={(e) => setVersionNo(e.target.value)}
+            value={versionNo}
+          />
         </div>
         <div className="flex items-center">
           <div className="min-w-32 text-left">更新內容:</div>
-          <Input className="text-left" containerClassName="w-full" />
+          <Input className="text-left" containerClassName="w-full" 
+                    onChange={(e) => setDescription(e.target.value)}
+                    value={description}/>
         </div>
         <div className="flex items-center">
           <div className="min-w-32 text-left">項目:</div>
-          <Input className="text-left" containerClassName="w-full" />
+          <Input className="text-left" containerClassName="w-full" 
+           onChange={(e) => setItem(e.target.value)}
+           value={item}/>
         </div>
         <div className="flex items-center">
           <div className="min-w-32 text-left">新功能介紹:</div>
-          <Input className="text-left" containerClassName="w-full" />
+          <Input className="text-left" containerClassName="w-full" 
+           onChange={(e) => setDetail(e.target.value)}
+           value={detail}/>
         </div>
         <div className="flex items-center">
           <div className="min-w-32 text-left">說明書頁數:</div>
-          <Input className="text-left" containerClassName="w-full" />
+          <Input className="text-left" containerClassName="w-full" 
+           onChange={(e) => setPage(e.target.value)}
+           value={page}/>
         </div>
       </div>
     </Modal>
@@ -208,12 +246,7 @@ export default function VersionPage() {
           <Button className="m-2 flex justify-center space-x-1 " disabled={!canEdit} onClick={() => setAdd()}>
             Add Version
           </Button>
-          <AddVersion
-            open={!isBoolean(add)}
-            setOpen={setAdd}
-            // onConfirm={() => onDeleteRow(deleteId)
-            // }
-          />
+          <AddVersion open={!isBoolean(add)} setOpen={setAdd} />
         </div>
         {_data && (
           <div className="flex w-full flex-grow flex-col overflow-auto rounded-t-lg shadow">

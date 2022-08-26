@@ -25,6 +25,8 @@ export const appApi = createApi({
     'AIR_COMPRESSOR_SPEC',
     'DATA_STATUS_PIC',
     'USERS',
+    'COPY',
+    'VERSIONS'
   ],
   endpoints: (builder) => ({
     getMissingPlants: builder.query({

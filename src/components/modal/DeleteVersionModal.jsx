@@ -1,12 +1,15 @@
 import { InformationCircleIcon } from '@heroicons/react/solid';
 import { useTranslation } from 'react-i18next';
 
+import { useDeleteVersionMutation } from '../../services/management';
 import Button from '../button/Button';
 
 import Modal from './Modal';
 
-export default function DeleteVersionModal({ open = false, setOpen = () => {}, onConfirm = () => {} }) {
+export default function DeleteVersionModal({ open = false, setOpen = () => {}, onConfirm = () => {}, id }) {
   const { t } = useTranslation(['component']);
+  const [deleteVersion] = useDeleteVersionMutation();
+
   return (
     <Modal
       open={!!open}
@@ -21,6 +24,7 @@ export default function DeleteVersionModal({ open = false, setOpen = () => {}, o
             onClick={() => {
               onConfirm(open);
               setOpen(false);
+              deleteVersion({ id });
             }}
           >
             {t('component:button.delete')}

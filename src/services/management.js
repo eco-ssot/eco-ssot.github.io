@@ -271,16 +271,34 @@ export const managementApi = appApi.injectEndpoints({
     }),
     getVersion: builder.query({
       query: () => ({ url: `settings/versions` }),
-      providesTags: ['VERSION'],
+      providesTags: ['VERSIONS'],
     }),
     postVersion: builder.mutation({
-      query: ({ data }) => ({
-        data,
-        url: `settings/versions`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['VERSION'],
+      query: ({ data }) => (
+        console.log(data),
+        {
+          data,
+          url: `settings/versions`,
+          method: 'POST',
+        }
+      ),
+      invalidatesTags: ['VERSIONS'],
     }),
+    deleteVersion: builder.mutation({
+      query: ({ id }) => ({
+        url: `settings/versions/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['VERSIONS'],
+    }),
+    patchVersion: builder.mutation({
+      query: ({data,id}) => ({
+        data,
+        url: `/settings/versions/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['VERSIONS'],
+    })
   }),
   overrideExisting: false,
 });
@@ -309,5 +327,7 @@ export const {
   usePostManualCsrMutation,
   usePostCopyMutation,
   useGetVersionQuery,
-  usePostVersionMutation
+  usePostVersionMutation,
+  useDeleteVersionMutation,
+  usePatchVersionMutation
 } = managementApi;
