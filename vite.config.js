@@ -4,6 +4,7 @@ import svgrPlugin from 'vite-plugin-svgr';
 import macrosPlugin from 'vite-plugin-babel-macros';
 import dynamicImport from 'vite-plugin-dynamic-import';
 import eslint from 'vite-plugin-eslint';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [react(), svgrPlugin(), macrosPlugin(), dynamicImport(), eslint()],
@@ -18,5 +19,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
+    rollupOptions: {
+      plugins: [visualizer()],
+      output: {
+        manualChunks: {
+          reactVendor: ['react', 'react-dom', 'react-router-dom'],
+          zrenderVendor: ['zrender'],
+          echartsVendor: ['echarts'],
+          lodashVendor: ['lodash'],
+          azureVendor: ['@azure/msal-browser', '@azure/msal-react'],
+        },
+      },
+    },
   },
 });
