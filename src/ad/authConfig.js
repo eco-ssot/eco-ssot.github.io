@@ -1,9 +1,7 @@
-const { REACT_APP_CLIENT_ID, REACT_APP_AUTHORITY_HOST_URI, REACT_APP_TENANT_ID } = process.env;
-
 export const msalConfig = {
   auth: {
-    clientId: REACT_APP_CLIENT_ID,
-    authority: `${REACT_APP_AUTHORITY_HOST_URI}/${REACT_APP_TENANT_ID}`,
+    clientId: import.meta.env.VITE_CLIENT_ID,
+    authority: `${import.meta.env.VITE_AUTHORITY_HOST_URI}/${import.meta.env.VITE_TENANT_ID}`,
     redirectUri: `${window.location.origin}/login`,
     navigateToLoginRequestUrl: false,
     postLogoutRedirectUri: null,

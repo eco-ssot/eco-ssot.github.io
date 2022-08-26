@@ -245,7 +245,7 @@ export default function MaintenanceForm({ query, draftRef }) {
           className="self-center"
           target="_blank"
           rel="noopener noreferrer"
-          href={`${process.env.REACT_APP_API_BASE_URL}/air-compress/maintain/download?building=${
+          href={`${import.meta.env.VITE_API_BASE_URL}/air-compress/maintain/download?building=${
             searchOption.building || list?.data?.building?.[0]?.value
           }`}
         >

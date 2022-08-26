@@ -36,7 +36,7 @@ export default function AirCompressorPage() {
                 <ButtonGroup
                   className={clsx(
                     'absolute',
-                    process.env.REACT_APP_HIDE_AIR_COMPRESSOR_MAINTENANCE === '1' && 'invisible'
+                    import.meta.env.VITE_HIDE_AIR_COMPRESSOR_MAINTENANCE === '1' && 'invisible'
                   )}
                   options={tabOptions}
                   selected={isMaintenance ? tabOptions[1] : tabOptions[0]}

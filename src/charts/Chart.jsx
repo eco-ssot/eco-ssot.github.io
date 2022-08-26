@@ -61,7 +61,7 @@ export default function Chart({ className, dispose = true, renderer = 'svg', opt
     return () => {
       instance && dispose && instance.dispose();
     };
-  }, [process.env.NODE_ENV === 'development' ? option : dataset]);
+  }, [import.meta.env.NODE_ENV === 'development' ? option : dataset]);
 
   useDebounce(
     () => {

@@ -39,7 +39,7 @@ const statusRenderer = (label) => (cell) => {
       <div
         className={clsx(
           'h-3 w-3 min-w-3 rounded-full text-center',
-          process.env.REACT_APP_MANUAL_DATA_STATUS === '1' && ['CSR', '月報表'].includes(cell.row.original[label])
+          import.meta.env.VITE_MANUAL_DATA_STATUS === '1' && ['CSR', '月報表'].includes(cell.row.original[label])
             ? 'bg-primary-500'
             : STATUS_MAPPING[cell.value]
         )}
@@ -136,7 +136,7 @@ const COLUMNS = (t) =>
 function getLabel(t) {
   const now = new Date();
   const date = now.getDate();
-  const month = (date < (process.env.REACT_APP_DATA_UPDATE_DAY || 10) ? subMonths(now, 1) : now).getMonth() + 1;
+  const month = (date < (import.meta.env.VITE_DATA_UPDATE_DAY || 10) ? subMonths(now, 1) : now).getMonth() + 1;
   const currMonth = month - 1 === 0 ? 12 : month - 1;
   const nextMonth = month + 1 === 13 ? 1 : month + 1;
   return (
@@ -151,7 +151,7 @@ function getLabel(t) {
             },
           })}
         </div>
-        <div>({t('dataStatus.subTitle', { nextMonth, nextDay: process.env.REACT_APP_DATA_UPDATE_DAY || 10 })})</div>
+        <div>({t('dataStatus.subTitle', { nextMonth, nextDay: import.meta.env.VITE_DATA_UPDATE_DAY || 10 })})</div>
       </div>
     </>
   );

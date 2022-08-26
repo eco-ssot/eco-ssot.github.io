@@ -308,7 +308,7 @@ const COLUMNS = ({
           <div className="flex items-center justify-between">
             <div>{noDataRenderer({ missing })(cell)}</div>
             {!/total/i.test(cell.value) &&
-              new RegExp(process.env.REACT_APP_WATER_DETAIL_SITE?.split(',').join('|'), 'i').test(cell.value) && (
+              new RegExp(import.meta.env.VITE_WATER_DETAIL_SITE?.split(',').join('|'), 'i').test(cell.value) && (
                 <CustomTooltip
                   arrowClassName="!bg-gray-900"
                   render={({ close }) => (

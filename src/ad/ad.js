@@ -14,7 +14,9 @@ function initialAccount(account) {
     if (accessToken) {
       localStorage.setItem('graph-access-token', accessToken);
       fetch(
-        `${process.env.REACT_APP_GRAPH_API_URL}/me?$select=businessPhones,department,displayName,mail,givenName,surname,mailNickname,id,officeLocation,userPrincipalName`,
+        `${
+          import.meta.env.VITE_GRAPH_API_URL
+        }/me?$select=businessPhones,department,displayName,mail,givenName,surname,mailNickname,id,officeLocation,userPrincipalName`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       ).then((res) => res.json().then((data) => store.dispatch(setUserProfile(data))));
     }

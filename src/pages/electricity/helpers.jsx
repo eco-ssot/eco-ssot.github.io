@@ -37,7 +37,7 @@ export function gapFormatter(cell) {
 export function getPlants({ data, otherPlants, s, p, plantPermission }) {
   const options = data
     ?.filter(({ key }) => !otherPlants?.includes(key))
-    ?.filter(({ key }) => !new RegExp(key, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS))
+    ?.filter(({ key }) => !new RegExp(key, 'i').test(import.meta.env.VITE_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS))
     ?.filter(({ key }) => plantPermission?.includes(key))
     ?.filter(({ key }) => {
       if (p) {
@@ -56,7 +56,7 @@ export function getPlants({ data, otherPlants, s, p, plantPermission }) {
       return data?.filter(
         ({ key }) =>
           key === p &&
-          !new RegExp(key, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
+          !new RegExp(key, 'i').test(import.meta.env.VITE_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
           !otherPlants?.includes(key)
       );
     }
@@ -65,7 +65,7 @@ export function getPlants({ data, otherPlants, s, p, plantPermission }) {
       return data?.filter(
         ({ key }) =>
           key.startsWith(s) &&
-          !new RegExp(key, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
+          !new RegExp(key, 'i').test(import.meta.env.VITE_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
           !otherPlants?.includes(key)
       );
     }

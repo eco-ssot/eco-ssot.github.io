@@ -23,7 +23,7 @@ export default function Location() {
   }, [hash, dispatch]);
 
   useEffect(() => {
-    if (process.env.REACT_APP_STAGE === 'production' && !/qas/.test(window.location.hostname)) {
+    if (import.meta.env.VITE_STAGE === 'production' && !/qas/.test(window.location.hostname)) {
       if (user && userProfile) {
         ReactGA.set({ userId: `${user.username || userProfile.mailNickname}-${user.first_name}-${user.email}` });
         ReactGA.pageview(`${pathname}${search}${hash}`);
