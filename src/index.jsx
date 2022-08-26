@@ -25,11 +25,7 @@ function initApp() {
   );
 }
 
-if (
-  import.meta.env.NODE_ENV === 'production' &&
-  import.meta.env.VITE_STAGE === 'production' &&
-  !/qas/.test(window.location.hostname)
-) {
+if (import.meta.env.PROD && import.meta.env.VITE_STAGE === 'production' && !/qas/.test(window.location.hostname)) {
   ReactGA.initialize(import.meta.env.VITE_GA_ID, { debug: false, gaOptions: { cookieDomain: 'auto' } });
   console.log = () => {};
 }

@@ -23,14 +23,14 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: ['en', 'zh'],
-    debug: import.meta.env.NODE_ENV !== 'production',
+    debug: import.meta.env.DEV,
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
     backend: {
-      backends: [...(import.meta.env.NODE_ENV === 'production' ? [LocalStorageBackend] : []), HttpBackend],
+      backends: [...(import.meta.env.PROD ? [LocalStorageBackend] : []), HttpBackend],
       backendOptions: [
-        ...(import.meta.env.NODE_ENV === 'production'
+        ...(import.meta.env.PROD
           ? [
               {
                 expirationTime: 14 * 24 * 60 * 60 * 1000, // 14 days
