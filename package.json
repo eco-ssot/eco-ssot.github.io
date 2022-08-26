@@ -1,6 +1,6 @@
 {
   "name": "eco-ssot-frontend",
-  "version": "3.0.8",
+  "version": "3.0.10",
   "private": true,
   "dependencies": {
     "@azure/msal-browser": "^2.28.1",
@@ -35,26 +35,25 @@
     "react-i18next": "^11.16.7",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
     "react-select": "^5.3.0",
     "react-table": "^7.7.0",
     "react-use": "^17.3.2"
   },
   "scripts": {
-    "start": "dotenv -e .env craco start",
-    "build": "craco build",
+    "start": "dotenv -e .env vite",
+    "build": "vite build",
     "eject": "react-scripts eject",
-    "start:dev": "dotenv -e .env.development craco start",
-    "start:prod": "dotenv -e .env.production craco start",
-    "build:dev": "dotenv -e .env.development craco build",
-    "build:prod": "dotenv -e .env.production craco build",
+    "start:dev": "dotenv -e .env.development vite",
+    "start:prod": "dotenv -e .env.production vite",
+    "build:dev": "dotenv -e .env.development vite build",
+    "build:prod": "dotenv -e .env.production vite build",
     "prettier": "prettier --config ./.prettierrc.json --write \"./src/**/*.+(js|jsx)\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js,.jsx src",
-    "test": "craco test",
-    "test:ci": "craco test --coverage --watchAll=false",
-    "test:coverage": "craco test --coverage --watchAll=false",
-    "test:update-snapshot": "craco test --updateSnapshot"
+    "test": "vite test",
+    "test:ci": "vite test --coverage --watchAll=false",
+    "test:coverage": "vite test --coverage --watchAll=false",
+    "test:update-snapshot": "vite test --updateSnapshot"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,25 +71,32 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^6.4.3",
     "@tailwindcss/forms": "^0.5.0",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^14.1.1",
+    "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.4",
     "cross-env": "^7.0.3",
     "dotenv-cli": "^5.1.0",
-    "eslint": "^8.13.0",
+    "eslint": "^8.22.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.26.0",
     "msw": "^0.39.2",
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
     "prettier-plugin-tailwindcss": "^0.1.10",
     "preval.macro": "^5.0.0",
+    "rollup-plugin-visualizer": "^5.8.0",
     "tailwindcss": "^3.0.24",
     "twin.macro": "^2.8.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vite": "^3.0.9",
+    "vite-plugin-babel-macros": "1.0.5",
+    "vite-plugin-dynamic-import": "^1.1.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-svgr": "^2.2.1"
   },
   "jest": {
     "collectCoverageFrom": [
