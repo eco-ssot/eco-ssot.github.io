@@ -12,7 +12,6 @@ WORKDIR /app
 COPY . .
 
 # Remove mock files
-RUN rm -rf /app/src/__mocks__
 RUN rm -rf /app/src/__tests__
 RUN rm /app/src/setupTests.js
 
