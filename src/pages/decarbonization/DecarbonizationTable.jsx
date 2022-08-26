@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useTable } from 'react-table';
 
 import Legend from '../../components/legend/Legend';
@@ -48,7 +49,7 @@ export default function DecarbonizationTable({
     columns,
     data,
   });
-
+  const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
   return (
     <table {...getTableProps()}>
       <thead>
