@@ -25,25 +25,21 @@ const TABLE_PAGE_QUERY_KEYS = [...APP_CONSTANTS.GLOBAL_QUERY_KEYS.filter((key) =
 export const publicRoutes = [
   // {
   //   path: '/login',
-  //   element: lazyPreload(() => import(/* webpackChunkName: "login_LoginPage" */ '../pages/login/LoginPage'), {
+  //   element: lazyPreload(() => import('../pages/login/LoginPage'), {
   //     name: '/login/LoginPage',
   //   }),
   //   i18nKey: 'login',
   // },
   {
     path: '/unauthorized',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "unauthorized_UnauthorizedPage" */ '../pages/unauthorized/UnauthorizedPage'),
-      { name: '/unauthorized/UnauthorizedPage' }
-    ),
+    element: lazyPreload(() => import('../pages/unauthorized/UnauthorizedPage'), {
+      name: '/unauthorized/UnauthorizedPage',
+    }),
     i18nKey: 'unauthorized',
   },
   {
     path: '*',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "not-found_NotFoundPage" */ '../pages/not-found/NotFoundPage'),
-      { name: '/not-found/NotFoundPage' }
-    ),
+    element: lazyPreload(() => import('../pages/not-found/NotFoundPage'), { name: '/not-found/NotFoundPage' }),
     i18nKey: 'notFound',
   },
 ];
@@ -52,7 +48,7 @@ export const managementRoutes = [
   {
     index: true,
     path: 'goal',
-    element: lazyPreload(() => import(/* webpackChunkName: "management_GoalPage" */ '../pages/management/GoalPage'), {
+    element: lazyPreload(() => import('../pages/management/GoalPage'), {
       name: '/management/GoalPage',
     }),
     i18nKey: 'goal',
@@ -83,16 +79,13 @@ export const managementRoutes = [
   },
   {
     path: 'data-status',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "management_DataStatusPage" */ '../pages/management/DataStatusPage'),
-      { name: '/management/DataStatusPage' }
-    ),
+    element: lazyPreload(() => import('../pages/management/DataStatusPage'), { name: '/management/DataStatusPage' }),
     i18nKey: 'dataStatus',
     skeleton: ManagementSkeleton,
   },
   {
     path: 'csr',
-    element: lazyPreload(() => import(/* webpackChunkName: "management_CsrPage" */ '../pages/management/CsrPage'), {
+    element: lazyPreload(() => import('../pages/management/CsrPage'), {
       name: '/management/CsrPage',
     }),
     i18nKey: 'csrAndFemStatus',
@@ -100,7 +93,7 @@ export const managementRoutes = [
   },
   {
     path: 'pic',
-    element: lazyPreload(() => import(/* webpackChunkName: "management_PicPage" */ '../pages/management/PicPage'), {
+    element: lazyPreload(() => import('../pages/management/PicPage'), {
       name: '/management/PicPage',
     }),
     i18nKey: 'pic',
@@ -127,10 +120,9 @@ export const managementRoutes = [
   },
   {
     path: 'plant-changelog',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "management_PlantChangelogPage" */ '../pages/management/PlantChangelogPage'),
-      { name: '/management/PlantChangelogPage' }
-    ),
+    element: lazyPreload(() => import('../pages/management/PlantChangelogPage'), {
+      name: '/management/PlantChangelogPage',
+    }),
     i18nKey: 'plantChangelog',
     skeleton: ManagementSkeleton,
     prefetchApis: [
@@ -146,19 +138,13 @@ export const managementRoutes = [
   },
   {
     path: 'permission',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "management_PermissionPage" */ '../pages/management/PermissionPage'),
-      { name: '/management/PermissionPage' }
-    ),
+    element: lazyPreload(() => import('../pages/management/PermissionPage'), { name: '/management/PermissionPage' }),
     i18nKey: 'permission',
     skeleton: ManagementSkeleton,
   },
   {
     path: 'version',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "management_VersionPage" */ '../pages/management/VersionPage'),
-      { name: '/management/VersionPage' }
-    ),
+    element: lazyPreload(() => import('../pages/management/VersionPage'), { name: '/management/VersionPage' }),
     i18nKey: 'changelog',
     skeleton: ManagementSkeleton,
     prefetchApis: [
@@ -177,13 +163,9 @@ export const managementRoutes = [
 export const electricityAnalysisRoute = {
   path: '/electricity/analysis',
   i18nKey: 'electricity',
-  element: lazyPreload(
-    () =>
-      import(
-        /* webpackChunkName: "electricity_ElectricityAnalysisPage" */ '../pages/electricity/ElectricityAnalysisPage'
-      ),
-    { name: '/electricity/ElectricityAnalysisPage' }
-  ),
+  element: lazyPreload(() => import('../pages/electricity/ElectricityAnalysisPage'), {
+    name: '/electricity/ElectricityAnalysisPage',
+  }),
   skeleton: AnalysisPageSkeleton,
   hidden: true,
 };
@@ -191,10 +173,7 @@ export const electricityAnalysisRoute = {
 export const waterAnalysisRoute = {
   path: '/water/analysis',
   i18nKey: 'water',
-  element: lazyPreload(
-    () => import(/* webpackChunkName: "water_WaterAnalysisPage" */ '../pages/water/WaterAnalysisPage'),
-    { name: '/water/WaterAnalysisPage' }
-  ),
+  element: lazyPreload(() => import('../pages/water/WaterAnalysisPage'), { name: '/water/WaterAnalysisPage' }),
   skeleton: AnalysisPageSkeleton,
   hidden: true,
 };
@@ -202,10 +181,7 @@ export const waterAnalysisRoute = {
 export const wasteAnalysisRoute = {
   path: '/waste/analysis',
   i18nKey: 'waste',
-  element: lazyPreload(
-    () => import(/* webpackChunkName: "waste_WasteAnalysisPage" */ '../pages/waste/WasteAnalysisPage'),
-    { name: '/waste/WasteAnalysisPage' }
-  ),
+  element: lazyPreload(() => import('../pages/waste/WasteAnalysisPage'), { name: '/waste/WasteAnalysisPage' }),
   skeleton: AnalysisPageSkeleton,
   hidden: true,
 };
@@ -213,7 +189,7 @@ export const wasteAnalysisRoute = {
 export const wasteRoute = {
   path: '/waste',
   i18nKey: 'waste',
-  element: lazyPreload(() => import(/* webpackChunkName: "waste_WastePage" */ '../pages/waste/WastePage'), {
+  element: lazyPreload(() => import('../pages/waste/WastePage'), {
     name: '/waste/WastePage',
   }),
   prefetchApis: [
@@ -232,7 +208,7 @@ export const wasteRoute = {
 export const wasteDetailRoute = {
   path: '/waste/detail',
   i18nKey: 'waste',
-  element: lazyPreload(() => import(/* webpackChunkName: "waste_WastePage" */ '../pages/waste/WastePage'), {
+  element: lazyPreload(() => import('../pages/waste/WastePage'), {
     name: '/waste/WastePage',
   }),
   hidden: true,
@@ -253,7 +229,7 @@ export const privateRoutes = [
   {
     index: true,
     path: '/home',
-    element: lazyPreload(() => import(/* webpackChunkName: "home_HomePage" */ '../pages/home/HomePage'), {
+    element: lazyPreload(() => import('../pages/home/HomePage'), {
       name: '/home/HomePage',
     }),
     skeleton: HomePageSkeleton,
@@ -281,10 +257,7 @@ export const privateRoutes = [
   },
   {
     path: '/overview',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "overview_OverviewPage" */ '../pages/overview/OverviewPage'),
-      { name: '/overview/OverviewPage' }
-    ),
+    element: lazyPreload(() => import('../pages/overview/OverviewPage'), { name: '/overview/OverviewPage' }),
     i18nKey: 'overview',
     prefetchApis: [
       {
@@ -300,7 +273,7 @@ export const privateRoutes = [
   },
   {
     path: '/carbon',
-    element: lazyPreload(() => import(/* webpackChunkName: "carbon_CarbonPage" */ '../pages/carbon/CarbonPage'), {
+    element: lazyPreload(() => import('../pages/carbon/CarbonPage'), {
       name: '/carbon/CarbonPage',
     }),
     i18nKey: 'carbon',
@@ -318,13 +291,9 @@ export const privateRoutes = [
   },
   {
     path: '/renewable-energy',
-    element: lazyPreload(
-      () =>
-        import(
-          /* webpackChunkName: "renewable-energy_RenewableEnergyPage" */ '../pages/renewable-energy/RenewableEnergyPage'
-        ),
-      { name: '/renewable-energy/RenewableEnergyPage' }
-    ),
+    element: lazyPreload(() => import('../pages/renewable-energy/RenewableEnergyPage'), {
+      name: '/renewable-energy/RenewableEnergyPage',
+    }),
     i18nKey: 'renewableEnergy',
     prefetchApis: [
       {
@@ -341,10 +310,9 @@ export const privateRoutes = [
   {
     path: '/electricity',
     i18nKey: 'electricity',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "electricity_ElectricityPage" */ '../pages/electricity/ElectricityPage'),
-      { name: '/electricity/ElectricityPage' }
-    ),
+    element: lazyPreload(() => import('../pages/electricity/ElectricityPage'), {
+      name: '/electricity/ElectricityPage',
+    }),
     prefetchApis: [
       {
         api: electricityApi,
@@ -359,19 +327,15 @@ export const privateRoutes = [
   },
   {
     path: '/analysis/electricity',
-    element: lazyPreload(
-      () =>
-        import(
-          /* webpackChunkName: "electricity_ElectricityBaselinePage" */ '../pages/electricity/ElectricityBaselinePage'
-        ),
-      { name: '/electricity/ElectricityBaselinePage' }
-    ),
+    element: lazyPreload(() => import('../pages/electricity/ElectricityBaselinePage'), {
+      name: '/electricity/ElectricityBaselinePage',
+    }),
     i18nKey: 'electricityBaseline',
   },
   {
     path: '/water',
     i18nKey: 'water',
-    element: lazyPreload(() => import(/* webpackChunkName: "water_WaterPage" */ '../pages/water/WaterPage'), {
+    element: lazyPreload(() => import('../pages/water/WaterPage'), {
       name: '/water/WaterPage',
     }),
     prefetchApis: [
@@ -389,13 +353,9 @@ export const privateRoutes = [
   {
     path: '/unit-electricity',
     title: '約當單台用電',
-    element: lazyPreload(
-      () =>
-        import(
-          /* webpackChunkName: "unit-electricity_UnitElectricityPage" */ '../pages/unit-electricity/UnitElectricityPage'
-        ),
-      { name: '/unit-electricity/UnitElectricityPage' }
-    ),
+    element: lazyPreload(() => import('../pages/unit-electricity/UnitElectricityPage'), {
+      name: '/unit-electricity/UnitElectricityPage',
+    }),
     i18nKey: 'unitElectricity',
     prefetchApis: [
       {
@@ -413,34 +373,25 @@ export const privateRoutes = [
   {
     path: '/air-compressor',
     title: '空壓設備',
-    element: lazyPreload(
-      () =>
-        import(/* webpackChunkName: "air-compressor_AirCompressorPage" */ '../pages/air-compressor/AirCompressorPage'),
-      { name: '/air-compressor/AirCompressorPage' }
-    ),
+    element: lazyPreload(() => import('../pages/air-compressor/AirCompressorPage'), {
+      name: '/air-compressor/AirCompressorPage',
+    }),
     skeleton: AirCompressorPageSkeleton,
     i18nKey: 'airCompressor',
   },
   {
     path: '/decarbonization',
     title: '脫碳目標',
-    element: lazyPreload(
-      () =>
-        import(
-          /* webpackChunkName: "decarbonization_DecarbonizationPage" */ '../pages/decarbonization/DecarbonizationPage'
-        ),
-      { name: '/decarbonization/DecarbonizationPage' }
-    ),
+    element: lazyPreload(() => import('../pages/decarbonization/DecarbonizationPage'), {
+      name: '/decarbonization/DecarbonizationPage',
+    }),
     i18nKey: 'decarbonization',
   },
   {
     path: '/management',
-    element: lazyPreload(
-      () => import(/* webpackChunkName: "management_ManagementPage" */ '../pages/management/ManagementPage'),
-      {
-        name: '/management/ManagementPage',
-      }
-    ),
+    element: lazyPreload(() => import('../pages/management/ManagementPage'), {
+      name: '/management/ManagementPage',
+    }),
     skeleton: ManagementPageSkeleton,
     i18nKey: 'management',
     routes: managementRoutes,

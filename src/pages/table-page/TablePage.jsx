@@ -13,12 +13,9 @@ import useNavigate from '../../router/useNavigate';
 
 import TablePanel from './TablePanel';
 
-const ElectricityIndexPage = lazyPreload(
-  () => import(/* webpackChunkName: "electricity-ElectricityIndexPage" */ '../electricity-index/ElectricityIndexPage'),
-  {
-    name: '/electricity-index/ElectricityIndexPage',
-  }
-);
+const ElectricityIndexPage = lazyPreload(() => import('../electricity-index/ElectricityIndexPage'), {
+  name: '/electricity-index/ElectricityIndexPage',
+});
 
 export default function TablePage({ title, downloadResource, table: Table, historyTable: HistoryTable }) {
   const { t } = useTranslation(['component']);
