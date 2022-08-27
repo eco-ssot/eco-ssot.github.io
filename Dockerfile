@@ -19,15 +19,16 @@ RUN rm /app/src/setupTests.js
 RUN yarn install --network-timeout 1000000 && yarn build:${STAGE} && yarn cache clean
 
 # nginx state for serving content
-FROM nginx:alpine
+# FROM nginx:alpine
+FROM fholzer/nginx-brotli
 
-RUN apk update && apk add bash jq
+# RUN apk update && apk add bash jq
 
-# replace config env
-ENV CONFIG_FILE=/usr/share/nginx/html/env.json
-ENV TEMP_CONFIG_FILE=/usr/share/nginx/html/env.tmp.json
-COPY ./start-nginx.sh /usr/bin/start-nginx.sh
-RUN chmod +x /usr/bin/start-nginx.sh
+# # replace config env
+# ENV CONFIG_FILE=/usr/share/nginx/html/env.json
+# ENV TEMP_CONFIG_FILE=/usr/share/nginx/html/env.tmp.json
+# COPY ./start-nginx.sh /usr/bin/start-nginx.sh
+# RUN chmod +x /usr/bin/start-nginx.sh
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
@@ -38,8 +39,8 @@ COPY --from=builder /app/build .
 COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
 
-ENTRYPOINT [ "start-nginx.sh" ]
-# ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# ENTRYPOINT [ "start-nginx.sh" ]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 # build & run service
 # docker build --build-arg STAGE=stage -t harbor.wistron.com/k8sprdwhqecossot2021/eco-ssot-frontend:0.0.0-stage .
