@@ -270,24 +270,21 @@ export const managementApi = appApi.injectEndpoints({
       invalidatesTags: ['COPY'],
     }),
     getVersion: builder.query({
-      query: () => ({ url: `settings/versions` }
-      ),
+      query: () => ({ url: `settings/versions` }),
       transformResponse: (res) => {
         return {
           ...res,
-          data: res.data.sort((a, b) => a.version - b.version),
+          data: res.data.sort((a, b) => b.version - a.version),
         };
       },
       providesTags: ['VERSIONS'],
     }),
     postVersion: builder.mutation({
-      query: ({ data }) => (
-        {
-          data,
-          url: `settings/versions`,
-          method: 'POST',
-        }
-      ),
+      query: ({ data }) => ({
+        data,
+        url: `settings/versions`,
+        method: 'POST',
+      }),
       invalidatesTags: ['VERSIONS'],
     }),
     deleteVersion: builder.mutation({
@@ -304,7 +301,7 @@ export const managementApi = appApi.injectEndpoints({
         method: 'PATCH',
       }),
       invalidatesTags: ['VERSIONS'],
-    })
+    }),
   }),
   overrideExisting: false,
 });
@@ -335,5 +332,5 @@ export const {
   useGetVersionQuery,
   usePostVersionMutation,
   useDeleteVersionMutation,
-  usePatchVersionMutation
+  usePatchVersionMutation,
 } = managementApi;
