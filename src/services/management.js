@@ -270,7 +270,14 @@ export const managementApi = appApi.injectEndpoints({
       invalidatesTags: ['COPY'],
     }),
     getVersion: builder.query({
-      query: () => ({ url: `settings/versions` }),
+      query: () => ({ url: `settings/versions` }
+      ),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: res.data.sort((a, b) => a.version - b.version),
+        };
+      },
       providesTags: ['VERSIONS'],
     }),
     postVersion: builder.mutation({

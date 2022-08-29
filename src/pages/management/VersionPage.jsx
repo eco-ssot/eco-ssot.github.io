@@ -15,7 +15,7 @@ import useAdmin from '../../hooks/useAdmin';
 import { useGetVersionQuery, usePostVersionMutation, usePatchVersionMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
-const COLUMNS = ({ t, canEdit, setData }) => [
+const COLUMNS = ({ t, canEdit, setData, patchVersion }) => [
   {
     Header: t('managementPage:changelog.date'),
     accessor: 'datetime',
@@ -149,16 +149,14 @@ function AddVersion({
     <Modal
       open={!!open}
       setOpen={setOpen}
-      onClose={setOpen}
-      title="Add Version"
-      versionClose={() => {
+      onClose = {() => {
         setOpen(false);
         setVersionNo(defaultValue);
         setDescription(defaultValue);
         setItem(defaultValue);
         setDetail(defaultValue);
-        setPage(defaultValue);
-      }}
+        setPage(defaultValue);}}
+      title="Add Version"
       footer={
         <div className="my-4 flex justify-center space-x-8">
           <Button

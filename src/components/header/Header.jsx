@@ -10,7 +10,7 @@ import useAuth from '../../hooks/useAuth';
 import useSitePlantOptions from '../../hooks/useSitePlantOptions';
 import { selectBusiness, selectLanguage, selectP, selectS } from '../../renderless/location/locationSlice';
 import useNavigate from '../../router/useNavigate';
-import { useGetVersionItemQuery } from '../../services/public';
+import { useGetVersionQuery } from '../../services/management';
 import Divider from '../divider/Divider';
 import Ellipsis from '../ellipsis/Ellipsis';
 import Manual from '../manual/Manual';
@@ -30,7 +30,7 @@ export default function Header({ className }) {
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
-  const { data: version } = useGetVersionItemQuery();
+  const { data: version } = useGetVersionQuery();
   const businessOptions = useMemo(
     () =>
       APP_CONSTANTS.BUSINESS_OPTIONS.map((option) => ({

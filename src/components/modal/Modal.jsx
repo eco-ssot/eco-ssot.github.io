@@ -16,7 +16,6 @@ export default function Modal({
   title = '',
   setOpen = () => {},
   onClose = () => {},
-  versionClose
 }) {
   return (
     <Transition appear show={open} as={Fragment}>
@@ -53,7 +52,13 @@ export default function Modal({
             >
               <Dialog.Title as="div" className="flex items-center justify-center space-x-2 bg-primary-800 py-2">
                 <div className="text-xl font-medium text-gray-50">{title}</div>
-                <IconButton className="absolute right-2" onClick={!!versionClose?versionClose:() => setOpen(false) } >
+                <IconButton
+                  className="absolute right-2"
+                  onClick={() => {
+                    setOpen(false);
+                    onClose();
+                  }}
+                >
                   <XIcon className="h-5 w-5 " />
                 </IconButton>
               </Dialog.Title>
