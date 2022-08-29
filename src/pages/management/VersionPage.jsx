@@ -15,7 +15,7 @@ import useAdmin from '../../hooks/useAdmin';
 import { useGetVersionQuery, usePostVersionMutation, usePatchVersionMutation } from '../../services/management';
 import { updateMyData } from '../../utils/table';
 
-const COLUMNS = ({ t, canEdit, setData, patchVersion }) => [
+const COLUMNS = ({ t, canEdit, setData }) => [
   {
     Header: t('managementPage:changelog.date'),
     accessor: 'datetime',
