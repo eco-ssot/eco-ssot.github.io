@@ -78,7 +78,6 @@ const COLUMNS = ({ t, canEdit, setData, patchVersion }) => [
         <EditableButton
           onClick={() => {
             const { editing, ...rest } = cell.row.original;
-            console.log(rest);
             patchVersion(rest);
             return setData((prev) =>
               prev.map((r, i) => ({
@@ -146,13 +145,6 @@ function AddVersion({
   const [page, setPage] = useState(defaultValue);
   const [postVersion] = usePostVersionMutation();
 
-  useEffect(() => {
-    setVersionNo(defaultValue);
-    setDescription(defaultValue);
-    setItem(defaultValue);
-    setDetail(defaultValue);
-    setPage(defaultValue);
-  }, [defaultValue]);
   return (
     <Modal
       open={!!open}
