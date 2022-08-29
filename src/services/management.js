@@ -275,7 +275,6 @@ export const managementApi = appApi.injectEndpoints({
     }),
     postVersion: builder.mutation({
       query: ({ data }) => (
-        console.log(data),
         {
           data,
           url: `settings/versions`,
@@ -292,9 +291,9 @@ export const managementApi = appApi.injectEndpoints({
       invalidatesTags: ['VERSIONS'],
     }),
     patchVersion: builder.mutation({
-      query: ({data,id}) => ({
+      query: (data) => ({
         data,
-        url: `/settings/versions/${id}`,
+        url: `settings/versions/${data.id}`,
         method: 'PATCH',
       }),
       invalidatesTags: ['VERSIONS'],
