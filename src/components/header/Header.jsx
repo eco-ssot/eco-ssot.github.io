@@ -30,7 +30,7 @@ export default function Header({ className }) {
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
-  const { data: version } = useGetVersionQuery();
+  const  {data: { data:version } = {}} = useGetVersionQuery();
   const businessOptions = useMemo(
     () =>
       APP_CONSTANTS.BUSINESS_OPTIONS.map((option) => ({
@@ -39,8 +39,8 @@ export default function Header({ className }) {
       })),
     [t]
   );
-
   const navigate = useNavigate();
+
   return (
     <div className={clsx('z-10 flex items-center bg-primary-800 px-4 shadow-lg', className)}>
       <Link className="flex items-center space-x-4" to="/">
@@ -48,7 +48,7 @@ export default function Header({ className }) {
         <Ellipsis label={t('title')} className="text-xl font-medium" />
         {version && (
           <Ellipsis
-            label={`Ver ${Object.keys(version).sort((a, b) => b.localeCompare(a))[0]}`}
+            label={`Ver ${Object.values(version)[0].version}`}
             className="text-sm text-unit"
           />
         )}
