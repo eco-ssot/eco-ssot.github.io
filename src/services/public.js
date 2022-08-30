@@ -4,7 +4,7 @@ export const publicApi = createApi({
   reducerPath: 'publicApi',
   baseQuery: fetchBaseQuery(),
   endpoints: (builder) => ({
-    getVersion: builder.query({
+    getVersionItem: builder.query({
       query: () => ({ url: '/version.json' }),
     }),
     getPlantChangelog: builder.query({
@@ -19,4 +19,5 @@ export const publicApi = createApi({
   }),
 });
 
-export const { useGetVersionQuery, useGetPlantChangelogQuery, useGetEnvQuery, useGetAnnouncesQuery } = publicApi;
+// 
+export const { useGetVersionItemQuery, useGetPlantChangelogQuery, useGetEnvQuery, useGetAnnouncesQuery } = publicApi;

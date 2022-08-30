@@ -261,12 +261,46 @@ export const managementApi = appApi.injectEndpoints({
         url: 'data-status/upload',
         method: 'POST',
       }),
-    }), postCopy: builder.mutation({
+    }),
+    postCopy: builder.mutation({
       query: () => ({
         url: `settings/objective/copy`,
         method: 'POST',
       }),
       invalidatesTags: ['COPY'],
+    }),
+    getVersion: builder.query({
+      query: () => ({ url: `settings/versions` }),
+      transformResponse: (res) => {
+        return {
+          ...res,
+          data: res.data.sort((a, b) => b.version - a.version),
+        };
+      },
+      providesTags: ['VERSIONS'],
+    }),
+    postVersion: builder.mutation({
+      query: ({ data }) => ({
+        data,
+        url: `settings/versions`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['VERSIONS'],
+    }),
+    deleteVersion: builder.mutation({
+      query: ({ id }) => ({
+        url: `settings/versions/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['VERSIONS'],
+    }),
+    patchVersion: builder.mutation({
+      query: (data) => ({
+        data,
+        url: `settings/versions/${data.id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['VERSIONS'],
     }),
   }),
   overrideExisting: false,
@@ -295,4 +329,8 @@ export const {
   useUploadEnergyExcelMutation,
   usePostManualCsrMutation,
   usePostCopyMutation,
+  useGetVersionQuery,
+  usePostVersionMutation,
+  useDeleteVersionMutation,
+  usePatchVersionMutation,
 } = managementApi;

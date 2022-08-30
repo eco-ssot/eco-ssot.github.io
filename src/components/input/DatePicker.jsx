@@ -7,11 +7,18 @@ import { format } from 'date-fns';
 import { isNil } from 'lodash';
 import ReactDatePicker from 'react-datepicker';
 
-export default function DatePicker({ className, value, label = '', onChange = () => {}, showIcon = false }) {
+export default function DatePicker({
+  className,
+  containerClassName,
+  value,
+  label = '',
+  onChange = () => {},
+  showIcon = false,
+}) {
   const id = useId();
   const [focused, setFocused] = useState(false);
   return (
-    <div className="relative">
+    <div className={clsx('relative', containerClassName)}>
       {label && <label htmlFor={id}>{label}</label>}
       <div
         className={clsx(
