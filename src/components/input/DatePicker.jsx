@@ -14,6 +14,7 @@ export default function DatePicker({
   label = '',
   onChange = () => {},
   showIcon = false,
+  portalId = 'root-portal',
 }) {
   const id = useId();
   const [focused, setFocused] = useState(false);
@@ -32,7 +33,6 @@ export default function DatePicker({
           onClickOutside={(e) => setFocused(false)}
           onCalendarClose={(e) => setFocused(false)}
           id={id}
-          portalId="root-portal"
           dateFormat="yyyy-MM-dd"
           placeholderText="yyyy-mm-dd"
           onChange={(date) => onChange(isNil(date) ? null : format(date, 'yyyy-MM-dd'))}
@@ -50,6 +50,7 @@ export default function DatePicker({
             </div>
           )}
           {...(value && { selected: new Date(value) })}
+          {...(portalId && { portalId })}
         />
         {showIcon && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">

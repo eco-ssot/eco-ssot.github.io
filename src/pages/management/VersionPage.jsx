@@ -149,13 +149,14 @@ function AddVersion({
     <Modal
       open={!!open}
       setOpen={setOpen}
-      onClose = {() => {
+      onClose={() => {
         setOpen(false);
         setVersionNo(defaultValue);
         setDescription(defaultValue);
         setItem(defaultValue);
         setDetail(defaultValue);
-        setPage(defaultValue);}}
+        setPage(defaultValue);
+      }}
       title="Add Version"
       footer={
         <div className="my-4 flex justify-center space-x-8">
@@ -215,6 +216,7 @@ function AddVersion({
             value={dateOption}
             onChange={(e) => setDateOption(e)}
             placeholder={placeholder}
+            portalId={null}
           />
         </div>
         <div className="flex items-center">

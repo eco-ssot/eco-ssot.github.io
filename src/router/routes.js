@@ -149,7 +149,7 @@ export const managementRoutes = [
     skeleton: ManagementSkeleton,
     prefetchApis: [
       {
-        api: publicApi,
+        api: managementApi,
         endpoints: [
           {
             name: 'getVersion',
