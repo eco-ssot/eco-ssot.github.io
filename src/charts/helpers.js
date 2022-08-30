@@ -1,3 +1,5 @@
+import { isObject } from 'lodash';
+
 const BASE_FONT_SIZE = 15;
 
 export function getFontSize() {
@@ -109,19 +111,21 @@ export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } =
           }),
         },
       }),
-      ...(data && {
-        data: data.map(({ itemStyle, ...rest }) => ({
-          ...rest,
-          ...(itemStyle && {
-            itemStyle: {
-              ...itemStyle,
-              ...(itemStyle.borderRadius && {
-                borderRadius: itemStyle.borderRadius.map((value) => setFontSize(value, fontSizeRatio)),
+      data: data?.map((d) =>
+        isObject(d)
+          ? {
+              ...d,
+              ...(d.itemStyle && {
+                itemStyle: {
+                  ...d.itemStyle,
+                  ...(d.itemStyle.borderRadius && {
+                    borderRadius: d.itemStyle.borderRadius.map((value) => setFontSize(value, fontSizeRatio)),
+                  }),
+                },
               }),
-            },
-          }),
-        })),
-      }),
+            }
+          : d
+      ),
     })),
     ...(xAxis && {
       xAxis: {
