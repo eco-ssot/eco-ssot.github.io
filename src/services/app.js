@@ -25,13 +25,15 @@ export const appApi = createApi({
     'AIR_COMPRESSOR_SPEC',
     'DATA_STATUS_PIC',
     'USERS',
+    'COPY',
+    'VERSIONS'
   ],
   endpoints: (builder) => ({
     getMissingPlants: builder.query({
       providesTags: ['SHIPMENT_UPLOAD', 'WASTE_UPLOAD'],
       queryFn: (query) => {
         return axiosBaseQuery()({ query, url: 'summary' }).then((res) => {
-          if (process.env.REACT_APP_NO_MISSING_PLANTS) {
+          if (import.meta.env.VITE_NO_MISSING_PLANTS) {
             const latestDate = getMaxDate(
               res?.data?.revenue?.latestDate,
               res?.data?.electricPowerUtilization?.latestDate,
@@ -41,7 +43,7 @@ export const appApi = createApi({
             );
 
             const ld = format(new Date(latestDate), 'yyyy-MM-01');
-            if (process.env.REACT_APP_NO_MISSING_PLANTS.split(',').includes(ld)) {
+            if (import.meta.env.VITE_NO_MISSING_PLANTS.split(',').includes(ld)) {
               return { data: [] };
             }
           }

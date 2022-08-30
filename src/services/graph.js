@@ -6,7 +6,7 @@ import { setUserProfile } from '../app/appSlice';
 const SELECT_ENTITIES = `$select=businessPhones,department,displayName,mail,givenName,surname,mailNickname,id,officeLocation,userPrincipalName`;
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_GRAPH_API_URL,
+  baseUrl: import.meta.env.VITE_GRAPH_API_URL,
   prepareHeaders: (headers, api) => {
     const token = localStorage.getItem('graph-access-token');
     if (token) {

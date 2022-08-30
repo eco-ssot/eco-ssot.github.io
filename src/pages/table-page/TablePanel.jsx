@@ -39,7 +39,7 @@ export default function TablePanel({ children }) {
 
   const showElectricityIndex = useMemo(
     () =>
-      !new RegExp(option.p || option.s, 'i').test(process.env.REACT_APP_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
+      !new RegExp(option.p || option.s, 'i').test(import.meta.env.VITE_ELECTRICITY_ANALYSIS_HIDDEN_PLANTS) &&
       isElectricity &&
       (option.p || option.s) &&
       (option.y || currYear) &&

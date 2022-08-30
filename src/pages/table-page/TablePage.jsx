@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -6,10 +8,14 @@ import ButtonGroup from '../../components/button/ButtonGroup';
 import HistorySearch from '../../components/history-search/HistorySearch';
 import Legend from '../../components/legend/Legend';
 import OverviewSearch from '../../components/overview-search/OverviewSearch';
+import { lazyPreload } from '../../router/helpers';
 import useNavigate from '../../router/useNavigate';
-import ElectricityIndexPage from '../electricity-index/ElectricityIndexPage';
 
 import TablePanel from './TablePanel';
+
+const ElectricityIndexPage = lazyPreload(() => import('../electricity-index/ElectricityIndexPage'), {
+  name: '/electricity-index/ElectricityIndexPage',
+});
 
 export default function TablePage({ title, downloadResource, table: Table, historyTable: HistoryTable }) {
   const { t } = useTranslation(['component']);
@@ -66,11 +72,13 @@ export default function TablePage({ title, downloadResource, table: Table, histo
             </div>
             <div>
               {showElectricityIndex && (
-                <ElectricityIndexPage
-                  className="-mt-16 mr-2 h-screen w-full overflow-hidden pt-16"
-                  year={year}
-                  plant={option.p || option.s}
-                />
+                <Suspense fallback={<></>}>
+                  <ElectricityIndexPage
+                    className="-mt-16 mr-2 h-screen w-full overflow-hidden pt-16"
+                    year={year}
+                    plant={option.p || option.s}
+                  />
+                </Suspense>
               )}
             </div>
           </div>

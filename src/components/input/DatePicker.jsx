@@ -7,11 +7,19 @@ import { format } from 'date-fns';
 import { isNil } from 'lodash';
 import ReactDatePicker from 'react-datepicker';
 
-export default function DatePicker({ className, value, label = '', onChange = () => {}, showIcon = false }) {
+export default function DatePicker({
+  className,
+  containerClassName,
+  value,
+  label = '',
+  onChange = () => {},
+  showIcon = false,
+  portalId = 'root-portal',
+}) {
   const id = useId();
   const [focused, setFocused] = useState(false);
   return (
-    <div className="relative">
+    <div className={clsx('relative', containerClassName)}>
       {label && <label htmlFor={id}>{label}</label>}
       <div
         className={clsx(
@@ -25,7 +33,6 @@ export default function DatePicker({ className, value, label = '', onChange = ()
           onClickOutside={(e) => setFocused(false)}
           onCalendarClose={(e) => setFocused(false)}
           id={id}
-          portalId="root-portal"
           dateFormat="yyyy-MM-dd"
           placeholderText="yyyy-mm-dd"
           onChange={(date) => onChange(isNil(date) ? null : format(date, 'yyyy-MM-dd'))}
@@ -43,6 +50,7 @@ export default function DatePicker({ className, value, label = '', onChange = ()
             </div>
           )}
           {...(value && { selected: new Date(value) })}
+          {...(portalId && { portalId })}
         />
         {showIcon && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">

@@ -163,7 +163,7 @@ export default function HistorySearch({ downloadResource, option = {}, onSearch 
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center rounded border border-transparent bg-primary-600 px-4 py-1 text-base font-medium text-gray-50 shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-primary-900"
-          href={`${process.env.REACT_APP_API_BASE_URL}/${downloadResource}/download?${qs.stringify(
+          href={`${import.meta.env.VITE_API_BASE_URL}/${downloadResource}/download?${qs.stringify(
             getQuery({ searchOption, sameYear, startYearOptions, endYearOptions, startMonthOptions, endMonthOptions }),
             { skipNull: true }
           )}`}

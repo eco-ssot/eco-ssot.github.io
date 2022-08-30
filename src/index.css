@@ -1,9 +1,9 @@
+@import './styles/react-datepicker.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
-
-@import './styles/react-datepicker.css';
 
 ::-webkit-scrollbar {
   @apply h-2 w-2;
