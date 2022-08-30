@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useTable } from 'react-table';
 
 import Legend from '../../components/legend/Legend';
@@ -76,17 +77,23 @@ export default function DecarbonizationTable({
           prepareRow(row);
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
-              {row.cells.map((cell, j) => {
+              {row.cells.map((cell) => {
+                const rowSpan = cell.row.original.rowSpan?.[cell.column.id];
+                if (rowSpan === 0) {
+                  return null;
+                }
+
                 return (
                   <td
                     {...cell.getCellProps([
                       {
-                        className: cell.column.className,
+                        className: clsx(cell.column.className, 'align-top'),
                         style: cell.column.style,
                       },
                       getColumnProps(cell.column),
                       getCellProps(cell),
                     ])}
+                    {...(rowSpan && { rowSpan })}
                   >
                     {cell.render('Cell')}
                   </td>

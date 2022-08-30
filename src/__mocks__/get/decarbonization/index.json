@@ -30,7 +30,11 @@
       "2029": 16800,
       "2030": 18240,
       "ytm": 6300,
-      "status": 1
+      "status": 1,
+      "rowSpan": {
+        "category": 2,
+        "base": 2
+      }
     },
     {
       "category": "節能降耗",
@@ -46,7 +50,11 @@
       "2029": 0.038,
       "2030": 0.04,
       "ytm": 0.022,
-      "status": 2
+      "status": 2,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "可再生能源佔比",
@@ -62,7 +70,11 @@
       "2029": 0.045,
       "2030": 0.04,
       "ytm": 0.021,
-      "status": 0
+      "status": 0,
+      "rowSpan": {
+        "category": 5,
+        "base": 5
+      }
     },
     {
       "category": "可再生能源佔比",
@@ -78,7 +90,11 @@
       "2029": 0.045,
       "2030": 0.04,
       "ytm": 0.021,
-      "status": 1
+      "status": 1,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "可再生能源佔比",
@@ -94,7 +110,11 @@
       "2029": 0.045,
       "2030": 0.04,
       "ytm": 0.021,
-      "status": 0
+      "status": 0,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "可再生能源佔比",
@@ -110,7 +130,11 @@
       "2029": 0.045,
       "2030": 0.04,
       "ytm": 0.021,
-      "status": 2
+      "status": 2,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "可再生能源佔比",
@@ -126,7 +150,11 @@
       "2029": 0.045,
       "2030": 0.04,
       "ytm": 0.021,
-      "status": 1
+      "status": 1,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "碳排放",
@@ -142,7 +170,11 @@
       "2029": 35256,
       "2030": 37019,
       "ytm": 9658,
-      "status": 2
+      "status": 2,
+      "rowSpan": {
+        "category": 5,
+        "base": 3
+      }
     },
     {
       "category": "碳排放",
@@ -158,7 +190,11 @@
       "2029": 35256,
       "2030": 37019,
       "ytm": 9658,
-      "status": 1
+      "status": 1,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "碳排放",
@@ -174,7 +210,11 @@
       "2029": 35256,
       "2030": 37019,
       "ytm": 9658,
-      "status": 0
+      "status": 0,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     },
     {
       "category": "碳排放",
@@ -190,7 +230,11 @@
       "2029": -0.923,
       "2030": -1,
       "ytm": -0.22,
-      "status": 0
+      "status": 0,
+      "rowSpan": {
+        "category": 0,
+        "base": 2
+      }
     },
     {
       "category": "碳排放",
@@ -206,7 +250,11 @@
       "2029": -0.923,
       "2030": -1,
       "ytm": -0.22,
-      "status": 2
+      "status": 2,
+      "rowSpan": {
+        "category": 0,
+        "base": 0
+      }
     }
   ]
 }
