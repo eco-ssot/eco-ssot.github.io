@@ -1,9 +1,8 @@
-import { useTranslation } from 'react-i18next';
 import { useTable } from 'react-table';
 
 import Legend from '../../components/legend/Legend';
 
-export const COLUMNS = ({t}) => {
+export const COLUMNS = ({ t }) => {
   return [
     { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left' },
     { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left' },
@@ -49,14 +48,14 @@ export default function DecarbonizationTable({
     columns,
     data,
   });
-  const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
+
   return (
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr  {...headerGroup.getHeaderGroupProps()}>
+          <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th 
+              <th
                 {...column.getHeaderProps([
                   {
                     className: column.className,
@@ -75,12 +74,11 @@ export default function DecarbonizationTable({
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row);
-          console.log(row.cells[0].value)
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
-              {row.cells.map((cell) => {
-                return (           
-                  <td 
+              {row.cells.map((cell, j) => {
+                return (
+                  <td
                     {...cell.getCellProps([
                       {
                         className: cell.column.className,

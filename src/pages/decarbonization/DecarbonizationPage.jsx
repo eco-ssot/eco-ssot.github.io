@@ -24,7 +24,7 @@ export default function DecarbonizationPage() {
   return (
     <PageContainer>
       <div className="flex items-center justify-between">
-        <div className="text-xl font-medium">脫碳目標</div>
+        <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
           {t('common:accumulationRange')} : <span className="ml-1 text-lg font-medium">{accumulationPeriod}</span>
         </Tag>
