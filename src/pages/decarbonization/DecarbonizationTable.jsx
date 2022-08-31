@@ -2,20 +2,22 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useTable } from 'react-table';
 
-import APP_CONSTANTS from '../../app/appConstants';
 import Legend from '../../components/legend/Legend';
 import { toFormattedNumber } from '../../utils/number';
-export const COLUMNS = ({ t ,currYear = APP_CONSTANTS.CURRENT_YEAR}) => {
+
+export const COLUMNS = ({ t ,y}) => {
+
+
   return [
     { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left' },
     { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left' },
     { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left ' },
     {
-      Header: `${currYear}` + t('decarbonizationPage:ytm'),
-      accessor: 'ytm'+`${currYear}`,
+      Header: `${y}` + t('decarbonizationPage:ytm'),
+      accessor: 'ytm'+`${y}`,
       className: 'text-left w-32',
       Cell: (cell) => {
-        console.log(`${currYear}`)
+
         if (cell.row.original.status === 0) {
           return (
             <div className="flex justify-end">
