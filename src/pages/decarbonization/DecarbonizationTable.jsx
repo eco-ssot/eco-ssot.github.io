@@ -13,14 +13,28 @@ export const COLUMNS = ({ t }) => {
       accessor: 'ytm',
       className: 'text-left',
       Cell: (cell) => {
-        return (
-          <div className="flex justify-start">
-            <Legend dotClassName="bg-dangerous-500" />
-            {/* <Legend dotClassName="bg-yellow-500" />
-            <Legend dotClassName="bg-green-500"  /> */}
-            <div>{cell.value}</div>
-          </div>
-        );
+        if (cell.row.original.status === 0) {
+          return (
+            <div className="flex justify-start">
+              <Legend dotClassName="bg-dangerous-500" />
+              <div>{cell.value}</div>
+            </div>
+          );
+        } else if (cell.row.original.status === 1) {
+          return (
+            <div className="flex justify-start">
+              <Legend dotClassName="bg-yellow-500" />
+              <div>{cell.value}</div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="flex justify-start">
+              <Legend dotClassName="bg-green-500" />
+              <div>{cell.value}</div>
+            </div>
+          );
+        }
       },
     },
     { Header: t('decarbonizationPage:2022'), accessor: '2022', className: 'text-left' },
@@ -73,7 +87,7 @@ export default function DecarbonizationTable({
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
+        {rows.map((row) => {
           prepareRow(row);
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
@@ -87,7 +101,17 @@ export default function DecarbonizationTable({
                   <td
                     {...cell.getCellProps([
                       {
-                        className: clsx(cell.column.className, 'align-top'),
+                        className: clsx(
+                          cell.column.className,
+                          rowSpan === 5 ||
+                            rowSpan === 2 ||
+                            cell.row.id === '0' ||
+                            cell.row.id === '2' ||
+                            cell.row.id === '7' ||
+                            cell.row.id === '12'
+                            ? 'align-top border-b-2  border-primary-600'
+                            : ''
+                        ),
                         style: cell.column.style,
                       },
                       getColumnProps(cell.column),
