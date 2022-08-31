@@ -21,7 +21,8 @@ export default function DecarbonizationPage() {
       <div className="flex items-center justify-between">
         <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
-          <GlobalDateSelect />
+          {t('common:accumulationRange')}
+          <GlobalDateSelect ptSelect={'hidden'} />
         </Tag>
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">
@@ -37,12 +38,13 @@ export default function DecarbonizationPage() {
             getHeaderProps={(header) => {
               return { className: 'bg-primary-800 py-2' };
             }}
-            getRowProps={(row) => ({
-              className: clsx(
-                'border-b border-divider',
-                row.original.editing || row.original.isNew ? 'cursor-default' : 'cursor-pointer'
-              ),
-            })}
+            getRowProps={(row) => (
+              {
+                className: clsx(
+                  'border-b border-divider',
+                ),
+              }
+            )}
             getCellProps={(cell) => {
               return { className: 'py-2' };
             }}

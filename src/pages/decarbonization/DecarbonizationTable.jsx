@@ -1,51 +1,123 @@
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 import { useTable } from 'react-table';
 
+import APP_CONSTANTS from '../../app/appConstants';
 import Legend from '../../components/legend/Legend';
-
-export const COLUMNS = ({ t }) => {
+import { toFormattedNumber } from '../../utils/number';
+export const COLUMNS = ({ t ,currYear = APP_CONSTANTS.CURRENT_YEAR}) => {
   return [
     { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left' },
     { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left' },
-    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left' },
+    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left ' },
     {
-      Header: t('decarbonizationPage:ytm'),
-      accessor: 'ytm',
-      className: 'text-left',
+      Header: `${currYear}` + t('decarbonizationPage:ytm'),
+      accessor: 'ytm'+`${currYear}`,
+      className: 'text-left w-32',
       Cell: (cell) => {
+        console.log(`${currYear}`)
         if (cell.row.original.status === 0) {
           return (
-            <div className="flex justify-start">
+            <div className="flex justify-end">
               <Legend dotClassName="bg-dangerous-500" />
-              <div>{cell.value}</div>
+              <div className="text-right">
+                {cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}
+              </div>
             </div>
           );
         } else if (cell.row.original.status === 1) {
           return (
-            <div className="flex justify-start">
+            <div className="flex justify-end">
               <Legend dotClassName="bg-yellow-500" />
-              <div>{cell.value}</div>
+              <div className="text-right">
+                {cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}
+              </div>
             </div>
           );
         } else {
           return (
-            <div className="flex justify-start">
+            <div className="flex justify-end">
               <Legend dotClassName="bg-green-500" />
-              <div>{cell.value}</div>
+              <div className="text-right">
+                {cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}
+              </div>
             </div>
           );
         }
       },
     },
-    { Header: t('decarbonizationPage:2022'), accessor: '2022', className: 'text-left' },
-    { Header: t('decarbonizationPage:2023'), accessor: '2023', className: 'text-left' },
-    { Header: t('decarbonizationPage:2024'), accessor: '2024', className: 'text-left' },
-    { Header: t('decarbonizationPage:2025'), accessor: '2025', className: 'text-left' },
-    { Header: t('decarbonizationPage:2026'), accessor: '2026', className: 'text-left' },
-    { Header: t('decarbonizationPage:2027'), accessor: '2027', className: 'text-left' },
-    { Header: t('decarbonizationPage:2028'), accessor: '2028', className: 'text-left' },
-    { Header: t('decarbonizationPage:2029'), accessor: '2029', className: 'text-left' },
-    { Header: t('decarbonizationPage:2030'), accessor: '2030', className: 'text-left' },
+    {
+      Header: t('decarbonizationPage:2022'),
+      accessor: '2022',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2023'),
+      accessor: '2023',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2024'),
+      accessor: '2024',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2025'),
+      accessor: '2025',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2026'),
+      accessor: '2026',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2027'),
+      accessor: '2027',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2028'),
+      accessor: '2028',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2029'),
+      accessor: '2029',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
+    {
+      Header: t('decarbonizationPage:2030'),
+      accessor: '2030',
+      className: 'text-right w-32',
+      Cell: (cell) => {
+        return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
+      },
+    },
   ];
 };
 
@@ -87,11 +159,11 @@ export default function DecarbonizationTable({
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
+        {rows.map((row, i) => {
           prepareRow(row);
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
-              {row.cells.map((cell) => {
+              {row.cells.map((cell, j) => {
                 const rowSpan = cell.row.original.rowSpan?.[cell.column.id];
                 if (rowSpan === 0) {
                   return null;
@@ -110,7 +182,7 @@ export default function DecarbonizationTable({
                             cell.row.id === '7' ||
                             cell.row.id === '12'
                             ? 'align-top border-b-2  border-primary-600'
-                            : ''
+                            : 'align-top'
                         ),
                         style: cell.column.style,
                       },
@@ -119,7 +191,15 @@ export default function DecarbonizationTable({
                     ])}
                     {...(rowSpan && { rowSpan })}
                   >
-                    {cell.render('Cell')}
+                    <div
+                      className={
+                        j === 0
+                          ? ' cursor-pointer underline decoration-primary-600 underline-offset-4'
+                          : 'cursor-default'
+                      }
+                    >
+                      { j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')}
+                    </div>
                   </td>
                 );
               })}

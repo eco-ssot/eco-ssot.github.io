@@ -10,7 +10,7 @@ import { useGetLatestDateQuery } from '../../services/app';
 
 import TagSelect from './TagSelect';
 
-export default function GlobalDateSelect() {
+export default function GlobalDateSelect(select) {
   const { t } = useTranslation(['common']);
   const y = useSelector(selectY);
   const m = useSelector(selectM);
@@ -38,14 +38,12 @@ export default function GlobalDateSelect() {
     ],
     [t]
   );
-
   const navigate = useNavigate();
   useEffect(() => {
     if (m && !mOptions.find((option) => Number(option.key) === Number(m))) {
       navigate({ m: mOptions.slice(-1)?.[0]?.key });
     }
   }, [y, m, mOptions, navigate]);
-
   return (
     <div className="flex items-center">
       <TagSelect
@@ -53,6 +51,7 @@ export default function GlobalDateSelect() {
         selected={ptOptions?.find((option) => option.key === pt)}
         onChange={navigate}
         queryKey="pt"
+        className={select.ptSelect ? select.ptSelect : ''}
       />
       :
       <TagSelect
