@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
 
 import Legend from '../../components/legend/Legend';
 import PageContainer from '../../components/page-container/PageContainer';
@@ -12,16 +14,17 @@ import DecarbonizationTable, { COLUMNS } from './DecarbonizationTable';
 
 export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
-  const { accumulationPeriod } = useAccumulationPeriod();
   const { data } = useGetDecarbonizationQuery();
-  const columns = useMemo(() => COLUMNS(), []);
+  const { latestDate,accumulationPeriod} = useAccumulationPeriod();
+  const columns = useMemo(() => COLUMNS({t,latestDate}), [t,latestDate]);
+ 
   return (
     <PageContainer>
       <div className="flex items-center justify-between">
-        <div className="text-xl font-medium">脫碳目標</div>
+        <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
-          {t('common:accumulationRange')} : <span className="ml-1 text-lg font-medium">{accumulationPeriod}</span>
-        </Tag>
+            {t('common:accumulationRange')} : <span className="ml-1 text-lg font-medium">{accumulationPeriod}</span>
+          </Tag>
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">
         <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
@@ -32,15 +35,20 @@ export default function DecarbonizationPage() {
         {data?.data && (
           <DecarbonizationTable
             columns={columns}
-            data={data}
+            data={data.data}
+            latestDate={latestDate}
             getHeaderProps={(header) => {
-              return { className: '' };
+              return { className: 'bg-primary-800 py-2' };
             }}
-            getRowProps={(row) => {
-              return { className: '' };
-            }}
+            getRowProps={(row) => (
+              {
+                className: clsx(
+                  'border-b border-divider',
+                ),
+              }
+            )}
             getCellProps={(cell) => {
-              return { className: '' };
+              return { className: 'py-2' };
             }}
           />
         )}

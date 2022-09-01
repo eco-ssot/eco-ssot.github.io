@@ -201,7 +201,6 @@ export default function EditableTable({
     defaultColumn,
     updateMyData,
   });
-
   return (
     <table {...getTableProps()}>
       <thead className={clsx('bg-primary-800 ', stickyHeader && 'sticky top-0 z-1')}>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -10,7 +11,7 @@ import { useGetLatestDateQuery } from '../../services/app';
 
 import TagSelect from './TagSelect';
 
-export default function GlobalDateSelect() {
+export default function GlobalDateSelect(select) {
   const { t } = useTranslation(['common']);
   const y = useSelector(selectY);
   const m = useSelector(selectM);
@@ -38,14 +39,12 @@ export default function GlobalDateSelect() {
     ],
     [t]
   );
-
   const navigate = useNavigate();
   useEffect(() => {
     if (m && !mOptions.find((option) => Number(option.key) === Number(m))) {
       navigate({ m: mOptions.slice(-1)?.[0]?.key });
     }
   }, [y, m, mOptions, navigate]);
-
   return (
     <div className="flex items-center">
       <TagSelect
@@ -53,6 +52,7 @@ export default function GlobalDateSelect() {
         selected={ptOptions?.find((option) => option.key === pt)}
         onChange={navigate}
         queryKey="pt"
+        className={select.Select ? select.Select : ''}
       />
       :
       <TagSelect
@@ -63,7 +63,7 @@ export default function GlobalDateSelect() {
       />
       {(!pt || pt === APP_CONSTANTS.PERIOD_TYPES.YTM) && '01 - '}
       <TagSelect
-        className="w-16"
+        className={clsx('w-16', select.Select ? select.Select : '')}
         options={mOptions}
         selected={mOptions.find((option) => option.key === m) || mOptions.find((option) => option.key === currMonth)}
         onChange={navigate}
