@@ -29,7 +29,7 @@ export const COLUMNS = ({ t, latestDate }) => {
     {
       Header: year + t('decarbonizationPage:ytm'),
       accessor: 'ytm' + year,
-      className: 'text-left w-40 p-3',
+      className: 'text-right w-40 p-3',
       Cell: (cell) => {
         if (cell.row.original.status === 0) {
           return (
