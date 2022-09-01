@@ -28,7 +28,7 @@ export const useIsAuthenticated = Number(import.meta.env.VITE_MOCK_AD)
 
 export const useMsal = Number(import.meta.env.VITE_MOCK_AD)
   ? () => {
-      const [authenticated, setAuthenticated] = useState();
+      const [authenticated, setAuthenticated] = useState(instance.authenticated);
       const [msalInstance, setMsalInstance] = useState({
         ...instance,
         loginRedirect: () => setAuthenticated(true),
