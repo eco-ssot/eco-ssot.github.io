@@ -20,7 +20,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -40,7 +40,7 @@ export const COLUMNS = ({ t, latestDate }) => {
                   cell.value,
                   cell.value > 100000
                     ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : ('' && cell.value === 0) || cell.value > 1
+                    : {} && (cell.value === 0 || cell.value > 1)
                     ? ''
                     : { unit: 1e-2, suffix: '%', precision: 2 }
                 )}
@@ -56,7 +56,7 @@ export const COLUMNS = ({ t, latestDate }) => {
                   cell.value,
                   cell.value > 100000
                     ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : ('' && cell.value === 0) || cell.value > 1
+                    : ('' && '' && cell.value === 0) || cell.value > 1
                     ? ''
                     : { unit: 1e-2, suffix: '%', precision: 2 }
                 )}
@@ -72,7 +72,7 @@ export const COLUMNS = ({ t, latestDate }) => {
                   cell.value,
                   cell.value > 100000
                     ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : ('' && cell.value === 0) || cell.value > 1
+                    : {} && (cell.value === 0 || cell.value > 1)
                     ? ''
                     : { unit: 1e-2, suffix: '%', precision: 2 }
                 )}
@@ -91,7 +91,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -106,7 +106,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -121,7 +121,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -136,7 +136,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -151,7 +151,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -166,7 +166,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -181,7 +181,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -196,7 +196,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
@@ -211,7 +211,7 @@ export const COLUMNS = ({ t, latestDate }) => {
           cell.value,
           cell.value > 100000
             ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : ('' && cell.value === 0) || cell.value > 1
+            : {} && (cell.value === 0 || cell.value > 1)
             ? ''
             : { unit: 1e-2, suffix: '%', precision: 2 }
         );
