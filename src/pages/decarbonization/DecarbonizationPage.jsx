@@ -1,16 +1,13 @@
 import { useMemo } from 'react';
 
 import clsx from 'clsx';
-import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 
 import Legend from '../../components/legend/Legend';
 import PageContainer from '../../components/page-container/PageContainer';
-import GlobalDateSelect from '../../components/select/GlobalDateSelect';
 import Tag from '../../components/tag/Tag';
-import {  selectY } from '../../renderless/location/locationSlice';
+import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 import { useGetDecarbonizationQuery } from '../../services/decarbonization';
 
 import DecarbonizationTable, { COLUMNS } from './DecarbonizationTable';
@@ -18,18 +15,16 @@ import DecarbonizationTable, { COLUMNS } from './DecarbonizationTable';
 export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
   const { data } = useGetDecarbonizationQuery();
-  const y = useSelector(selectY);
-  const columns = useMemo(() => COLUMNS({ t,y }), [t,y]);
-
+  const { latestDate,accumulationPeriod} = useAccumulationPeriod();
+  const columns = useMemo(() => COLUMNS({t,latestDate}), [t,latestDate]);
+ 
   return (
     <PageContainer>
       <div className="flex items-center justify-between">
         <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
-          {t('common:accumulationRange')}
-          <GlobalDateSelect Select={'hidden'} />
-          &nbsp; {y=== format(new Date(), 'yyyy')? format(new Date(), 'MM'):" 12"}
-        </Tag>
+            {t('common:accumulationRange')} : <span className="ml-1 text-lg font-medium">{accumulationPeriod}</span>
+          </Tag>
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">
         <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
@@ -41,6 +36,7 @@ export default function DecarbonizationPage() {
           <DecarbonizationTable
             columns={columns}
             data={data.data}
+            latestDate={latestDate}
             getHeaderProps={(header) => {
               return { className: 'bg-primary-800 py-2' };
             }}
