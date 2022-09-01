@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 
 import clsx from 'clsx';
+import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+
 
 import Legend from '../../components/legend/Legend';
 import PageContainer from '../../components/page-container/PageContainer';
@@ -19,14 +21,14 @@ export default function DecarbonizationPage() {
   const y = useSelector(selectY);
   const columns = useMemo(() => COLUMNS({ t,y }), [t,y]);
 
-  console.log(y)
   return (
     <PageContainer>
       <div className="flex items-center justify-between">
         <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
           {t('common:accumulationRange')}
-          <GlobalDateSelect ptSelect={'hidden'} />
+          <GlobalDateSelect Select={'hidden'} />
+          &nbsp; {y=== format(new Date(), 'yyyy')? format(new Date(), 'MM'):" 12"}
         </Tag>
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">

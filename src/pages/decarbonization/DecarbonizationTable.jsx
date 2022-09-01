@@ -2,47 +2,38 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useTable } from 'react-table';
 
-import Legend from '../../components/legend/Legend';
+import Dot from '../../components/dot/Dot';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t ,y}) => {
-
-
+export const COLUMNS = ({ t, y }) => {
   return [
-    { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left' },
-    { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left' },
-    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left ' },
+    { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left p-3' },
+    { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left p-3' },
+    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
     {
-      Header: `${y}` + t('decarbonizationPage:ytm'),
-      accessor: 'ytm'+`${y}`,
-      className: 'text-left w-32',
+      Header: `${y}` + ' ' + t('decarbonizationPage:ytm'),
+      accessor: 'ytm' + `${y}`,
+      className: 'text-left w-40 p-3',
       Cell: (cell) => {
-
         if (cell.row.original.status === 0) {
           return (
-            <div className="flex justify-end">
-              <Legend dotClassName="bg-dangerous-500" />
-              <div className="text-right">
-                {cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}
-              </div>
+            <div className="flex items-center justify-end space-x-2">
+              <Dot color="bg-dangerous-500" />
+              <div className="text-right">{cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}</div>
             </div>
           );
         } else if (cell.row.original.status === 1) {
           return (
-            <div className="flex justify-end">
-              <Legend dotClassName="bg-yellow-500" />
-              <div className="text-right">
-                {cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}
-              </div>
+            <div className="flex items-center justify-end space-x-2">
+              <Dot color="bg-yellow-500" />
+              <div className="text-right">{cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}</div>
             </div>
           );
         } else {
           return (
-            <div className="flex justify-end">
-              <Legend dotClassName="bg-green-500" />
-              <div className="text-right">
-                {cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}
-              </div>
+            <div className="flex items-center justify-end space-x-2">
+              <Dot color="bg-green-500" />
+              <div className="text-right">{cell.value > 999 ? toFormattedNumber(cell.value) : cell.value}</div>
             </div>
           );
         }
@@ -51,7 +42,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2022'),
       accessor: '2022',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -59,7 +50,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2023'),
       accessor: '2023',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -67,7 +58,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2024'),
       accessor: '2024',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -75,7 +66,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2025'),
       accessor: '2025',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -83,7 +74,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2026'),
       accessor: '2026',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -91,7 +82,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2027'),
       accessor: '2027',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -99,7 +90,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2028'),
       accessor: '2028',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -107,7 +98,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2029'),
       accessor: '2029',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -115,7 +106,7 @@ export const COLUMNS = ({ t ,y}) => {
     {
       Header: t('decarbonizationPage:2030'),
       accessor: '2030',
-      className: 'text-right w-32',
+      className: 'text-right w-32 p-3',
       Cell: (cell) => {
         return cell.value > 999 ? toFormattedNumber(cell.value) : cell.value;
       },
@@ -200,7 +191,7 @@ export default function DecarbonizationTable({
                           : 'cursor-default'
                       }
                     >
-                      { j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')}
+                      {j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')}
                     </div>
                   </td>
                 );

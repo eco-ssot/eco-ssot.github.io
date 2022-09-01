@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -51,7 +52,7 @@ export default function GlobalDateSelect(select) {
         selected={ptOptions?.find((option) => option.key === pt)}
         onChange={navigate}
         queryKey="pt"
-        className={select.ptSelect ? select.ptSelect : ''}
+        className={select.Select ? select.Select : ''}
       />
       :
       <TagSelect
@@ -62,7 +63,7 @@ export default function GlobalDateSelect(select) {
       />
       {(!pt || pt === APP_CONSTANTS.PERIOD_TYPES.YTM) && '01 - '}
       <TagSelect
-        className="w-16"
+        className={clsx('w-16', select.Select ? select.Select : '')}
         options={mOptions}
         selected={mOptions.find((option) => option.key === m) || mOptions.find((option) => option.key === currMonth)}
         onChange={navigate}
