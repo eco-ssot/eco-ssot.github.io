@@ -386,6 +386,7 @@ export const privateRoutes = [
       name: '/decarbonization/DecarbonizationPage',
     }),
     i18nKey: 'decarbonization',
+    hidden: import.meta.env.VITE_HIDE_DECARBONIZATION === '1',
   },
   {
     path: '/management',
