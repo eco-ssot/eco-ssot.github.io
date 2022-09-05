@@ -30,7 +30,7 @@ export default function Header({ className }) {
   const site = useSelector(selectS);
   const plant = useSelector(selectP);
   const sitePlantOptions = useSitePlantOptions();
-  const  {data: { data:version } = {}} = useGetVersionQuery();
+  const { data: { data: version } = {} } = useGetVersionQuery();
   const businessOptions = useMemo(
     () =>
       APP_CONSTANTS.BUSINESS_OPTIONS.map((option) => ({
@@ -48,7 +48,9 @@ export default function Header({ className }) {
         <Ellipsis label={t('title')} className="text-xl font-medium" />
         {version && (
           <Ellipsis
-            label={`Ver ${Object.values(version)[0].version}`}
+            label={`Ver ${
+              version.length === undefined || version.length === 0 ? 'version' : Object.values(version)[0].version
+            }`}
             className="text-sm text-unit"
           />
         )}
