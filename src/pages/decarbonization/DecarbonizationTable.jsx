@@ -8,24 +8,31 @@ import { toFormattedNumber } from '../../utils/number';
 export const COLUMNS = ({ t, latestDate }) => {
   const year = new Date(latestDate).getFullYear();
   return [
-    { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left p-3' },
-    { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left p-3' },
-    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
     {
-      Header: t('decarbonizationPage:2021'),
-      accessor: '2021',
-      className: 'text-right w-32 p-3',
+      Header: t('decarbonizationPage:category'),
+      accessor: 'item',
+      className: 'text-left p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        if (cell.value === '總電量') {
+          const titleUrl = '/electricity';
+          return <Link to={titleUrl}>{cell.value}</Link>;
+        } else if (cell.value === '碳排放') {
+          const titleUrl = '/carbon';
+          return <Link to={titleUrl}>{cell.value}</Link>;
+        } else if (cell.value === '節能耗電') {
+          const titleUrl = '/analysis/electricity#POWER_SAVING';
+          return <Link to={titleUrl}>{cell.value}</Link>;
+        } else if (cell.value === '可再生能源') {
+          const titleUrl = '/renewable-energy';
+          return <Link to={titleUrl}>{cell.value}</Link>;
+        } else {
+          const titleUrl = '';
+          return <Link to={titleUrl}>{cell.value}</Link>;
+        }
       },
     },
+    { Header: t('decarbonizationPage:base'), accessor: 'main', className: 'text-left p-3' },
+    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
     {
       Header: year + t('decarbonizationPage:ytm'),
       accessor: 'ytm' + year,
@@ -84,137 +91,75 @@ export const COLUMNS = ({ t, latestDate }) => {
     },
     {
       Header: t('decarbonizationPage:2022'),
-      accessor: '2022',
+      accessor: 'targets[0]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        // console.log(cell)
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2023'),
-      accessor: '2023',
+      accessor: 'targets[1]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2024'),
-      accessor: '2024',
+      accessor: 'targets[2]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2025'),
-      accessor: '2025',
+      accessor: 'targets[3]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2026'),
-      accessor: '2026',
+      accessor: 'targets[4]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2027'),
-      accessor: '2027',
+      accessor: 'targets[5]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2028'),
-      accessor: '2028',
+      accessor: 'targets[6]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2029'),
-      accessor: '2029',
+      accessor: 'targets[7]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
     {
       Header: t('decarbonizationPage:2030'),
-      accessor: '2030',
+      accessor: 'targets[8]',
       className: 'text-right w-32 p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
     },
   ];
@@ -277,7 +222,7 @@ export default function DecarbonizationTable({
                           rowSpan === 5 ||
                             rowSpan === 2 ||
                             cell.row.id === '0' ||
-                            cell.row.id === '2' ||
+                            cell.row.id === '5' ||
                             cell.row.id === '7' ||
                             cell.row.id === '12'
                             ? 'align-top border-b-2  border-primary-600'
@@ -299,7 +244,8 @@ export default function DecarbonizationTable({
                           : ''
                       }
                     >
-                      {j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')}
+                      {cell.render('Cell')}
+                      {/* {j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')} */}
                     </div>
                   </td>
                 );
