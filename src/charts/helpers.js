@@ -1,4 +1,6 @@
-import { isObject } from 'lodash';
+import { isObject, isPlainObject } from 'lodash';
+
+import { mapObject } from '../utils/object';
 
 const BASE_FONT_SIZE = 15;
 
@@ -7,12 +9,11 @@ export function getFontSize() {
   return Number(fontSize.slice(0, -2));
 }
 
-export function getFontSizeRatio() {
-  return getFontSize() / BASE_FONT_SIZE;
+export function getFontSizeRatio(fontSize = getFontSize()) {
+  return fontSize / BASE_FONT_SIZE;
 }
 
-export function getLabelFontSize() {
-  const fontSize = getFontSize();
+export function getLabelFontSize(fontSize = getFontSize()) {
   switch (fontSize) {
     case 60:
       return { fontSize: 48, lineHeight: 56 };
@@ -30,7 +31,7 @@ export function getLabelFontSize() {
       return { fontSize: 10, lineHeight: 12 };
 
     default:
-      return { fontSize: 12, lineHeight: 16 };
+      return { fontSize, lineHeight: 16 };
   }
 }
 
@@ -38,9 +39,32 @@ export function setFontSize(value, fontSizeRatio = 1) {
   return typeof value === 'string' ? value : value * fontSizeRatio;
 }
 
+export function toResponsiveOption(option) {
+  const minFontsize = 12;
+  const fontSize = getFontSize();
+  const fontSizeRatio = getFontSizeRatio(fontSize);
+  const mapper = (key, value) => {
+    if (isPlainObject(value) && /label/i.test(key)) {
+      const { lineHeight, fontSize: _fontSize } = getLabelFontSize(fontSize);
+      return [key, value.fontSize ? value : { ...value, lineHeight, fontSize: Math.max(_fontSize, minFontsize) }];
+    }
+
+    if (typeof value === 'number' && /top|bottom|left|right|size|width|fontsize|radius/i.test(key)) {
+      const nextValue = setFontSize(value, fontSizeRatio);
+      return [key, key === 'fontSize' ? Math.max(nextValue, minFontsize) : nextValue];
+    }
+
+    return [key, value];
+  };
+
+  const nextOption = mapObject(option, mapper);
+  return nextOption;
+}
+
 export function updateChartFontSize({ xAxis, grid = {}, series = [], ...rest } = {}) {
-  const fontSizeRatio = getFontSizeRatio();
-  const labelFontSize = getLabelFontSize();
+  const fontSize = getFontSize();
+  const fontSizeRatio = getFontSizeRatio(fontSize);
+  const labelFontSize = getLabelFontSize(fontSize);
   const { containLabel, ...restGrid } = grid;
   return {
     ...rest,

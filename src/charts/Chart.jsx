@@ -14,7 +14,7 @@ import { CanvasRenderer, SVGRenderer } from 'echarts/renderers';
 import { useDeepCompareEffect, useDebounce, useWindowSize, usePreviousDistinct } from 'react-use';
 
 import { darkTheme } from './config';
-import { updateChartFontSize } from './helpers';
+import { toResponsiveOption } from './helpers';
 
 echarts.use([
   CanvasRenderer,
@@ -43,12 +43,12 @@ export default function Chart({ className, dispose = true, renderer = 'svg', opt
     let instance = echarts.getInstanceByDom(chartRef.current);
     const initInstance = () => {
       instance = echarts.init(chartRef.current, 'dark', { renderer });
-      instance.setOption(updateChartFontSize(option), true);
+      instance.setOption(toResponsiveOption(option), true);
     };
 
     if (instance) {
       if (!dispose) {
-        instance.setOption(updateChartFontSize(option), true);
+        instance.setOption(toResponsiveOption(option), true);
       }
     } else {
       if (!chartRef.current?.clientHeight && !chartRef.current?.clientWidth) {
@@ -71,7 +71,7 @@ export default function Chart({ className, dispose = true, renderer = 'svg', opt
         prevWindowSize &&
         (prevWindowSize.height !== windowSize.height || prevWindowSize.width !== windowSize.width)
       ) {
-        instance.setOption(updateChartFontSize(option), true);
+        instance.setOption(toResponsiveOption(option), true);
         instance.resize({ animation: { duration: 500 } });
       }
     },
