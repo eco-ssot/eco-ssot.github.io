@@ -5,15 +5,16 @@ import { appApi } from './app';
 export const decarbonizationApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getDecarbonization: builder.query({
-      query: (query, year = APP_CONSTANTS.CURRENT_YEAR, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL) => ({
+      query: (query, business = APP_CONSTANTS.BUSINESS_MAPPING.ALL, year = APP_CONSTANTS.CURRENT_YEAR, month = APP_CONSTANTS.CURRENT_MONTH) => ({
         query,
-        url: `decarbon?business=${business}&site=ALL&plant=ALL&is_ytm=ALL&year=${year}&month=09`,
+        url: `decarbon?business=${business}&site=ALL&plant=ALL&is_ytm=ALL&year=${year}&month=${month}`,
       }),
+    
       transformResponse: (res) => {
-        console.log(res.data)
+        console.log(res.data[0])
         return {
           ...res,
-          data: res.data.sort((a, b) => b.item.localeCompare(a.item)),
+          data: res.data.sort((a, b) => b.main.localeCompare(a.main)).sort((a, b) => b.item.localeCompare(a.item)),
         };
       },
     }),

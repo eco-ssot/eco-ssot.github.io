@@ -15,7 +15,7 @@ export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
   const { data } = useGetDecarbonizationQuery();
   const { latestDate, accumulationPeriod } = useAccumulationPeriod();
-  const columns = useMemo(() => COLUMNS({ t, latestDate }), [t, latestDate]);
+  const columns = useMemo(() => COLUMNS({ t, latestDate ,data}), [t, latestDate,data]);
   console.log(data);
   return (
     <PageContainer>
@@ -27,7 +27,7 @@ export default function DecarbonizationPage() {
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">
         <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
-        <Legend dotClassName="bg-yellow-500" label={t('component:legend.meetTargetYet')} />
+        {/* <Legend dotClassName="bg-yellow-500" label={t('component:legend.meetTargetYet')} /> */}
         <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
       </div>
       <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">

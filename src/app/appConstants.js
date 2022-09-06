@@ -3,6 +3,8 @@ const CURRENT_YEAR = new Date().getFullYear();
 const LAST_YEAR = CURRENT_YEAR - 1;
 const BASE_YEAR = 2016;
 const MIN_YEAR = 2020;
+const CURRENT_MONTH = new Date().getMonth()+1;
+
 const YEAR_OPTIONS = Array.from({ length: CURRENT_YEAR - MIN_YEAR + 1 }, (_, i) => ({
   key: String(CURRENT_YEAR - i),
   value: String(CURRENT_YEAR - i),
@@ -156,6 +158,7 @@ const APP_CONSTANTS = {
   GLOBAL_QUERY_KEY_ALIAS,
   BASE_NUMBER_PRECISION,
   CURRENT_YEAR: String(CURRENT_YEAR),
+  CURRENT_MONTH: String(CURRENT_MONTH),
   LAST_YEAR: String(LAST_YEAR),
   BASE_YEAR: String(BASE_YEAR),
   BASE_YEAR_CARBON: import.meta.env.VITE_BASE_YEAR_CARBON || '2016',
