@@ -19,8 +19,8 @@ RUN rm /app/src/setupTests.js
 RUN yarn install --network-timeout 1000000 && yarn build:${STAGE} && yarn cache clean
 
 # nginx state for serving content
-# FROM nginx:alpine
-FROM fholzer/nginx-brotli
+FROM nginx:alpine
+# FROM fholzer/nginx-brotli
 
 # RUN apk update && apk add bash jq
 
