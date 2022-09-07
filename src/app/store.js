@@ -26,6 +26,7 @@ export const store = configureStore({
     publicApi.middleware,
     graphApi.middleware,
   ],
+  devTools: import.meta.env.DEV,
 });
 
 setupListeners(store.dispatch);
