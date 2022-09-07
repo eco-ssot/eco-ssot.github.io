@@ -5,8 +5,21 @@ import { useTable } from 'react-table';
 import Dot from '../../components/dot/Dot';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t, latestDate }) => {
+export const COLUMNS = ({ t, latestDate,data  }) => {
+  if(data?.data){
+    return []
+  }
+  console.log(data?.data)
   const year = new Date(latestDate).getFullYear();
+  const yearOrder = data?.data.map((data) =>
+    Object.keys(data)
+      ?.filter(function (value) {
+        return value >= 202212;
+      })
+      ?.sort((a, b) => a.localeCompare(b))
+  )[0];
+  console.log(yearOrder);
+
   return [
     {
       Header: t('decarbonizationPage:category'),
@@ -89,78 +102,104 @@ export const COLUMNS = ({ t, latestDate }) => {
         }
       },
     },
-    {
-      Header: t('decarbonizationPage:2022'),
-      accessor: 'targets[0]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2023'),
-      accessor: 'targets[1]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2024'),
-      accessor: 'targets[2]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2025'),
-      accessor: 'targets[3]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2026'),
-      accessor: 'targets[4]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2027'),
-      accessor: 'targets[5]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2028'),
-      accessor: 'targets[6]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2029'),
-      accessor: 'targets[7]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2030'),
-      accessor: 'targets[8]',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-      },
-    },
+    ...yearOrder?.map((year) => {
+      return {
+        Header: year,
+        accessor: String(year),
+        // id:  year,
+        className: 'text-right w-32 p-3',
+        Cell: (cell) => {
+          return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+        },
+      };
+    }),
+
+    // yearOrder?.map((year,i) => {
+    //   console.log(year,i)
+    //   return {
+    //     Header: t('decarbonizationPage:2022'),
+    //     accessor: yearOrder[i],
+    //     id:yearOrder[i],
+    //     className: 'text-right w-32 p-3',
+    //     Cell: (cell) => {
+    //       return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //     },
+    //   };
+    // }),
+
+    // {
+    //   Header: t('decarbonizationPage:2022'),
+    //   accessor: yearOrder[0],
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+
+    // {
+    //   Header: t('decarbonizationPage:2023'),
+    //   accessor: '202312',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2024'),
+    //   accessor: '202412',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2025'),
+    //   accessor: '202512',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2026'),
+    //   accessor: '202612',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2027'),
+    //   accessor: '202712',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2028'),
+    //   accessor: '202812',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2029'),
+    //   accessor: '202912',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
+    // {
+    //   Header: t('decarbonizationPage:2030'),
+    //   accessor: '203012',
+    //   className: 'text-right w-32 p-3',
+    //   Cell: (cell) => {
+    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+    //   },
+    // },
   ];
 };
 
@@ -208,37 +247,31 @@ export default function DecarbonizationTable({
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
               {row.cells.map((cell, j) => {
-                // const rowSpan = cell.row.original.rowSpan?.[cell.column.id];
-                console.log(cell.row, cell.row.id);
                 let rowSpan = null;
                 if (j === 0) {
                   if (i === 1 || i === 8) {
-                    rowSpan = 5
+                    rowSpan = 5;
                   } else if (i === 6) {
-                    rowSpan= 2
+                    rowSpan = 2;
                   } else if (i === 0) {
-                    rowSpan = 1
+                    rowSpan = 1;
                   } else {
                     return null;
                   }
                 }
                 if (j === 1) {
-                  if (i === 1 ) {
-                    rowSpan = 3
-                  } else if (i === 4||i === 6) {
-                    rowSpan= 2
+                  if (i === 1) {
+                    rowSpan = 3;
+                  } else if (i === 4 || i === 6) {
+                    rowSpan = 2;
                   } else if (i === 8) {
-                    rowSpan= 4
-                  } else if (i === 0 ||i === 12) {
-                    rowSpan = 1
+                    rowSpan = 4;
+                  } else if (i === 0 || i === 12) {
+                    rowSpan = 1;
                   } else {
                     return null;
                   }
                 }
-                console.log(cell.row.original.item, rowSpan);
-                // if (rowSpan === 0) {
-                //   return null;
-                // }
 
                 return (
                   <td
@@ -246,7 +279,12 @@ export default function DecarbonizationTable({
                       {
                         className: clsx(
                           cell.column.className,
-                          cell.row.id === '0' || cell.row.id === '5' || cell.row.id === '7' || cell.row.id === '12'
+                          rowSpan === 5 ||
+                            rowSpan === 2 ||
+                            cell.row.id === '0' ||
+                            cell.row.id === '5' ||
+                            cell.row.id === '7' ||
+                            cell.row.id === '12'
                             ? 'align-top border-b-2  border-primary-600'
                             : 'align-top'
                         ),
@@ -267,7 +305,6 @@ export default function DecarbonizationTable({
                       }
                     >
                       {cell.render('Cell')}
-                      {/* {j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')} */}
                     </div>
                   </td>
                 );

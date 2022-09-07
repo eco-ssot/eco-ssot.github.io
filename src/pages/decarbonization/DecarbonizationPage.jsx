@@ -15,8 +15,8 @@ export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
   const { data } = useGetDecarbonizationQuery();
   const { latestDate, accumulationPeriod } = useAccumulationPeriod();
-  const columns = useMemo(() => COLUMNS({ t, latestDate ,data}), [t, latestDate,data]);
-  console.log(data);
+  const columns = useMemo(() => COLUMNS({ t, latestDate,data}), [t, latestDate,data]);
+  console.log(columns)
   return (
     <PageContainer>
       <div className="flex items-center justify-between">
