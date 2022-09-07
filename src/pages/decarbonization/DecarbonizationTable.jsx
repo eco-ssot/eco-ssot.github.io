@@ -5,20 +5,8 @@ import { useTable } from 'react-table';
 import Dot from '../../components/dot/Dot';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t, latestDate,data  }) => {
-  if(data?.data){
-    return []
-  }
-  console.log(data?.data)
+export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   const year = new Date(latestDate).getFullYear();
-  const yearOrder = data?.data.map((data) =>
-    Object.keys(data)
-      ?.filter(function (value) {
-        return value >= 202212;
-      })
-      ?.sort((a, b) => a.localeCompare(b))
-  )[0];
-  console.log(yearOrder);
 
   return [
     {
@@ -102,9 +90,10 @@ export const COLUMNS = ({ t, latestDate,data  }) => {
         }
       },
     },
-    ...yearOrder?.map((year) => {
+  ].concat(
+    yearOrder?.map((year) => {
       return {
-        Header: year,
+        Header: year.replace("12",t('decarbonizationPage:year')),
         accessor: String(year),
         // id:  year,
         className: 'text-right w-32 p-3',
@@ -112,95 +101,8 @@ export const COLUMNS = ({ t, latestDate,data  }) => {
           return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
         },
       };
-    }),
-
-    // yearOrder?.map((year,i) => {
-    //   console.log(year,i)
-    //   return {
-    //     Header: t('decarbonizationPage:2022'),
-    //     accessor: yearOrder[i],
-    //     id:yearOrder[i],
-    //     className: 'text-right w-32 p-3',
-    //     Cell: (cell) => {
-    //       return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //     },
-    //   };
-    // }),
-
-    // {
-    //   Header: t('decarbonizationPage:2022'),
-    //   accessor: yearOrder[0],
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-
-    // {
-    //   Header: t('decarbonizationPage:2023'),
-    //   accessor: '202312',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2024'),
-    //   accessor: '202412',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2025'),
-    //   accessor: '202512',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2026'),
-    //   accessor: '202612',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2027'),
-    //   accessor: '202712',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2028'),
-    //   accessor: '202812',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2029'),
-    //   accessor: '202912',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-    // {
-    //   Header: t('decarbonizationPage:2030'),
-    //   accessor: '203012',
-    //   className: 'text-right w-32 p-3',
-    //   Cell: (cell) => {
-    //     return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
-    //   },
-    // },
-  ];
+    })
+  );
 };
 
 const defaultPropGetter = () => ({});

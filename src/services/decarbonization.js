@@ -1,5 +1,3 @@
-import APP_CONSTANTS from '../app/appConstants';
-
 import { appApi } from './app';
 
 export const decarbonizationApi = appApi.injectEndpoints({
@@ -7,13 +5,9 @@ export const decarbonizationApi = appApi.injectEndpoints({
     getDecarbonization: builder.query({
       query: (
         query,
-        business = APP_CONSTANTS.BUSINESS_MAPPING.ALL,
-        year = APP_CONSTANTS.CURRENT_YEAR,
-        month = APP_CONSTANTS.CURRENT_MONTH
       ) => ({
         query,
-        url: `decarbonization`,
-        // url: `decarbon?business=${business}&site=ALL&plant=ALL&is_ytm=ALL&year=${year}&month=${month}`,
+        url: `decarbon`,
       }),
 
       transformResponse: (res) => {
@@ -25,7 +19,6 @@ export const decarbonizationApi = appApi.injectEndpoints({
           });
           return newElement;
         })
-        console.log(newData);
         return {
           ...res,
           data: newData.sort((a, b) => b.main.localeCompare(a.main)).sort((a, b) => b.item.localeCompare(a.item)),
