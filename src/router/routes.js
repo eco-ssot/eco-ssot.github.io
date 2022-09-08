@@ -78,6 +78,12 @@ export const managementRoutes = [
     ],
   },
   {
+    path: 'decarbonization',
+    element: lazyPreload(() => import('../pages/management/DecarbonizationSetUpPage'), { name: '/management/DecarbonizationSetUpPage' }),
+    i18nKey: 'decarbonization',
+    skeleton: ManagementSkeleton,
+  },
+  {
     path: 'data-status',
     element: lazyPreload(() => import('../pages/management/DataStatusPage'), { name: '/management/DataStatusPage' }),
     i18nKey: 'dataStatus',

@@ -47,13 +47,6 @@ const COLUMNS = ({ t, canEdit, setData, patchVersion }) => [
     editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
   },
   {
-    Header: t('managementPage:changelog.item'),
-    accessor: 'item',
-    className: 'w-1/5 text-center',
-    editable: true,
-    editableComponentProps: { className: 'text-left h-10', wrapperClassName: 'w-full' },
-  },
-  {
     Header: t('managementPage:changelog.introduce'),
     accessor: 'detail',
     className: 'w-1/5 text-center',
@@ -140,7 +133,6 @@ function AddVersion({
   const [dateOption, setDateOption] = useState(new Date());
   const [versionNo, setVersionNo] = useState(defaultValue);
   const [description, setDescription] = useState(defaultValue);
-  const [item, setItem] = useState(defaultValue);
   const [detail, setDetail] = useState(defaultValue);
   const [page, setPage] = useState(defaultValue);
   const [postVersion] = usePostVersionMutation();
@@ -153,7 +145,6 @@ function AddVersion({
         setOpen(false);
         setVersionNo(defaultValue);
         setDescription(defaultValue);
-        setItem(defaultValue);
         setDetail(defaultValue);
         setPage(defaultValue);
       }}
@@ -167,7 +158,6 @@ function AddVersion({
               onCancel();
               setVersionNo(defaultValue);
               setDescription(defaultValue);
-              setItem(defaultValue);
               setDetail(defaultValue);
               setPage(defaultValue);
             }}
@@ -179,7 +169,6 @@ function AddVersion({
               const payload = {
                 version: versionNo,
                 description: description,
-                item: item,
                 detail: detail,
                 playbook_page: page,
               };
@@ -191,14 +180,13 @@ function AddVersion({
                   setOpen(false);
                   setVersionNo(defaultValue);
                   setDescription(defaultValue);
-                  setItem(defaultValue);
                   setDetail(defaultValue);
                   setPage(defaultValue);
                 }
               });
             }}
             className={
-              (!versionNo || !description || !description || !detail || !item || !page) &&
+              (!versionNo || !description || !description || !detail  || !page) &&
               'pointer-events-none opacity-50'
             }
           >
@@ -220,7 +208,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-          <div className="min-w-32 text-left">版號:</div>
+        <div className="min-w-32 text-left">{t('managementPage:changelog.version')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
@@ -231,7 +219,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-          <div className="min-w-32 text-left">更新內容:</div>
+        <div className="min-w-32 text-left">{t('managementPage:changelog.updateContent')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
@@ -242,18 +230,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-          <div className="min-w-32 text-left">項目:</div>
-          <Input
-            className="text-left"
-            containerClassName="w-full"
-            onChange={(e) => setItem(e.target.value)}
-            defaultValue={item}
-            placeholder={placeholder}
-            onBlur={() => onBlur(item)}
-          />
-        </div>
-        <div className="flex items-center">
-          <div className="min-w-32 text-left">新功能介紹:</div>
+        <div className="min-w-32 text-left">{t('managementPage:changelog.introduce')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
@@ -264,7 +241,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-          <div className="min-w-32 text-left">說明書頁數:</div>
+        <div className="min-w-32 text-left">{t('managementPage:changelog.pages')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
