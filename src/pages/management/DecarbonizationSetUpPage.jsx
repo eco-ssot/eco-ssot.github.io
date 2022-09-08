@@ -4,7 +4,7 @@ import { PencilIcon } from '@heroicons/react/solid';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
+import DecarbonTable, { EditableButton, EditableIconButton } from '../../components/table/DecarbonTable';
 import useAdmin from '../../hooks/useAdmin';
 import { useGetDecarbonizationQuery } from '../../services/decarbonization';
 import { toFormattedNumber } from '../../utils/number';
@@ -127,7 +127,7 @@ export default function DecarbonizationPage() {
       <div className="flex h-full flex-col space-y-6 rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium">{t('managementPage:decarbonization.title')}</div>
         <div className="flex flex-col overflow-auto rounded-t-lg shadow">
-          <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} decarbon={"decarbon"}/>
+          <DecarbonTable columns={columns} data={_data} updateMyData={updateMyData(setData)}/>
         </div>
       </div>
     </div>

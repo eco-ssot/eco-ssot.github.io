@@ -194,7 +194,6 @@ export default function EditableTable({
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
   stickyHeader = true,
-  decarbon,
 }) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable({
     columns,
@@ -257,7 +256,31 @@ export default function EditableTable({
                 ) {
                   return null;
                 }
-               
+                  let rowSpan = null;
+                  if (i === 0) {
+                    if (j === 1 || j === 8) {
+                      rowSpan = 5;
+                    } else if (j === 6) {
+                      rowSpan = 2;
+                    } else if (j === 0) {
+                      rowSpan = 1;
+                    } else {
+                      return null;
+                    }
+                  }
+                  if (i === 1) {
+                    if (j === 1) {
+                      rowSpan = 3;
+                    } else if (j === 4 || j === 6) {
+                      rowSpan = 2;
+                    } else if (j === 8) {
+                      rowSpan = 4;
+                    } else if (j === 0 || j === 12) {
+                      rowSpan = 1;
+                    } else {
+                      return null;
+                    }
+                  }
                   return (
                     <td
                       {...cell.getCellProps([
@@ -268,11 +291,8 @@ export default function EditableTable({
                         getColumnProps(cell.column),
                         getCellProps(cell),
                       ])}
-                      {...(cell.column.rowSpan && cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
-                      {...(cell.row.original.id === 'addRow' &&
-                        i === cell.row.original.startIndex && {
-                          colSpan: cell.row.original.colSpan,
-                        })}
+                      {...(rowSpan && { rowSpan })}
+  
                     >
                       {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
                         <IconButton
