@@ -8,6 +8,7 @@ import ManagementSkeleton from '../pages/management/ManagementSkeleton';
 import { appApi } from '../services/app';
 import { authApi } from '../services/auth';
 import { carbonApi } from '../services/carbon';
+import { decarbonizationApi } from '../services/decarbonization';
 import { electricityApi } from '../services/electricity';
 import { managementApi } from '../services/management';
 import { overviewApi } from '../services/overview';
@@ -82,6 +83,17 @@ export const managementRoutes = [
     element: lazyPreload(() => import('../pages/management/DecarbonizationSetUpPage'), { name: '/management/DecarbonizationSetUpPage' }),
     i18nKey: 'decarbonization',
     skeleton: ManagementSkeleton,
+    prefetchApis: [
+      {
+        api: decarbonizationApi,
+        endpoints: [
+          {
+            name: 'getDecarbonization',
+            queryKeys: ['Decarbonization'],
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'data-status',
@@ -393,6 +405,17 @@ export const privateRoutes = [
     }),
     i18nKey: 'decarbonization',
     hidden: import.meta.env.VITE_HIDE_DECARBONIZATION === '1',
+    prefetchApis: [
+      {
+        api: decarbonizationApi,
+        endpoints: [
+          {
+            name: 'getDecarbonization',
+            queryKeys: ['Decarbonization'],
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/management',

@@ -4,14 +4,12 @@ import { PencilIcon } from '@heroicons/react/solid';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import Dot from '../../components/dot/Dot';
 import EditableTable, { EditableButton, EditableIconButton } from '../../components/table/EditableTable';
-import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
 import useAdmin from '../../hooks/useAdmin';
 import { useGetDecarbonizationQuery } from '../../services/decarbonization';
 import { toFormattedNumber } from '../../utils/number';
 import { updateMyData } from '../../utils/table';
-const COLUMNS = (t, canEdit, setData, year, yearOrder) => [
+const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
   {
     Header: t('decarbonizationPage:category'),
     accessor: 'item',
@@ -53,68 +51,14 @@ const COLUMNS = (t, canEdit, setData, year, yearOrder) => [
   },
   { Header: t('decarbonizationPage:base'), accessor: 'main', className: 'text-left p-3' },
   { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
-  {
-    Header: year + t('decarbonizationPage:ytm'),
-    accessor: 'ytm' + year,
-    className: 'text-right p-3',
-    Cell: (cell) => {
-      if (cell.row.original.status === 0) {
-        return (
-          <div className="flex items-center justify-end space-x-2">
-            <Dot color="bg-dangerous-500" />
-            <div className="text-right">
-              {toFormattedNumber(
-                cell.value,
-                cell.value > 100000
-                  ? { unit: 1e8, suffix: '億度', precision: 1 }
-                  : {} && (cell.value === 0 || cell.value > 1)
-                  ? ''
-                  : { unit: 1e-2, suffix: '%', precision: 2 }
-              )}
-            </div>
-          </div>
-        );
-      } else if (cell.row.original.status === 1) {
-        return (
-          <div className="flex items-center justify-end space-x-2">
-            <Dot color="bg-yellow-500" />
-            <div className="text-right">
-              {toFormattedNumber(
-                cell.value,
-                cell.value > 100000
-                  ? { unit: 1e8, suffix: '億度', precision: 1 }
-                  : ('' && '' && cell.value === 0) || cell.value > 1
-                  ? ''
-                  : { unit: 1e-2, suffix: '%', precision: 2 }
-              )}
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <div className="flex items-center justify-end space-x-2">
-            <Dot color="bg-green-500" />
-            <div className="text-right">
-              {toFormattedNumber(
-                cell.value,
-                cell.value > 100000
-                  ? { unit: 1e8, suffix: '億度', precision: 1 }
-                  : {} && (cell.value === 0 || cell.value > 1)
-                  ? ''
-                  : { unit: 1e-2, suffix: '%', precision: 2 }
-              )}
-            </div>
-          </div>
-        );
-      }
-    },
-  },
+ 
   ...yearOrder?.map((year) => {
     return {
       Header: year.replace('12', t('decarbonizationPage:year')),
       accessor: String(year),
       // id:  year,
       className: 'text-right p-3',
+      rowSpan: 0,
       Cell: (cell) => {
         return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
       },
@@ -129,16 +73,16 @@ const COLUMNS = (t, canEdit, setData, year, yearOrder) => [
       //   const [patchVersion] = usePatchVersionMutation();
       return cell.row.original.editing ? (
         <EditableButton
-        //   onClick={() => {
-        //     const { editing, ...rest } = cell.row.original;
-        //     patchVersion(rest);
-        //     return setData((prev) =>
-        //       prev.map((r, i) => ({
-        //         ...r,
-        //         ...(i === cell.row.index && { editing: false }),
-        //       }))
-        //     );
-        //   }}
+          onClick={() => {
+            // const { editing, ...rest } = cell.row.original;
+            // patchVersion(rest);
+            // return setData((prev) =>
+            //   prev.map((r, i) => ({
+            //     ...r,
+            //     ...(i === cell.row.index && { editing: false }),
+            //   }))
+            // );
+          }}
         >
           {t('component:button.save')}
         </EditableButton>
@@ -167,17 +111,14 @@ export default function DecarbonizationPage() {
   const { canEdit } = useAdmin();
   const { data: { data } = {} } = useGetDecarbonizationQuery();
   const [_data, setData] = useState(data);
-  const { latestDate } = useAccumulationPeriod();
-  console.log(data);
-  const yearOrder = data?.map((data) =>
+  const yearOrder = useMemo(() => [data?(data?.map((data) =>
     Object.keys(data)
       ?.filter(function (value) {
         return value >= 202212;
       })
       ?.sort((a, b) => a.localeCompare(b))
-  )[0];
-  const year = new Date(latestDate).getFullYear();
-  const columns = useMemo(() => COLUMNS(t, canEdit, setData, year, yearOrder), [t, canEdit, year, yearOrder]);
+  )[0]):[]], [data])[0]
+  const columns = useMemo(() => COLUMNS({ t, canEdit, setData, yearOrder }), [t, canEdit, yearOrder]);
   useEffect(() => {
     data && setData(data);
   }, [data]);
@@ -186,7 +127,7 @@ export default function DecarbonizationPage() {
       <div className="flex h-full flex-col space-y-6 rounded bg-primary-900 p-4 shadow">
         <div className="text-xl font-medium">{t('managementPage:decarbonization.title')}</div>
         <div className="flex flex-col overflow-auto rounded-t-lg shadow">
-          <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} />
+          <EditableTable columns={columns} data={_data} updateMyData={updateMyData(setData)} decarbon={"decarbon"}/>
         </div>
       </div>
     </div>

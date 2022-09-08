@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-
 import Legend from '../../components/legend/Legend';
 import PageContainer from '../../components/page-container/PageContainer';
 import Tag from '../../components/tag/Tag';
@@ -24,6 +23,7 @@ export default function DecarbonizationPage() {
     ?.sort((a, b) => a.localeCompare(b))
 )[0];
   const columns = useMemo(() => COLUMNS({ t, latestDate,yearOrder}), [t, latestDate,yearOrder]);
+
   return (
     <PageContainer>
       <div className="flex items-center justify-between">

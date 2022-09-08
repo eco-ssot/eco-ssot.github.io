@@ -194,6 +194,7 @@ export default function EditableTable({
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
   stickyHeader = true,
+  decarbon,
 }) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable({
     columns,
@@ -206,11 +207,11 @@ export default function EditableTable({
       <thead className={clsx('bg-primary-800 ', stickyHeader && 'sticky top-0 z-1')}>
         {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => {
+            {headerGroup.headers.map((column, j) => {
+
               if (column.rowSpan === 0 && headerGroups.length > 1) {
                 return null;
               }
-
               return (
                 <th
                   {...column.getHeaderProps([
@@ -238,7 +239,7 @@ export default function EditableTable({
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
+        {rows.map((row, j) => {
           prepareRow(row);
           return (
             <tr
@@ -252,44 +253,101 @@ export default function EditableTable({
             >
               {row.cells.map((cell, i) => {
                 if (
-                  (cell.column.rowSpan && cell.row.index > 0) ||
-                  (cell.row.original.id === 'addRow' && i > cell.row.original.startIndex)
+                  (cell.column.rowSpan && cell.row.index > 0) 
                 ) {
                   return null;
                 }
-
-                return (
-                  <td
-                    {...cell.getCellProps([
-                      {
-                        className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
-                        style: cell.column.style,
-                      },
-                      getColumnProps(cell.column),
-                      getCellProps(cell),
-                    ])}
-                    {...(cell.column.rowSpan && cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
-                    {...(cell.row.original.id === 'addRow' &&
-                      i === cell.row.original.startIndex && {
-                        colSpan: cell.row.original.colSpan,
-                      })}
-                  >
-                    {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
-                      <IconButton
-                        onClick={() =>
-                          setData((prev) => {
-                            const action = prev.slice(-1);
-                            return [...prev.slice(0, -1), { editing: true }, ...action];
-                          })
-                        }
-                      >
-                        <PlusIcon className="h-5 w-5" />
-                      </IconButton>
-                    ) : (
-                      cell.render('Cell')
-                    )}
-                  </td>
-                );
+                if(decarbon ==="decarbon"){
+                  let rowSpan = null;
+                  if (i === 0) {
+                    if (j === 1 || j === 8) {
+                      rowSpan = 5;
+                    } else if (j === 6) {
+                      rowSpan = 2;
+                    } else if (j === 0) {
+                      rowSpan = 1;
+                    } else {
+                      return null;
+                    }
+                  }
+                  if (i === 1) {
+                    if (j === 1) {
+                      rowSpan = 3;
+                    } else if (j === 4 || j === 6) {
+                      rowSpan = 2;
+                    } else if (j === 8) {
+                      rowSpan = 4;
+                    } else if (j === 0 || j === 12) {
+                      rowSpan = 1;
+                    } else {
+                      return null;
+                    }
+                  }
+                  return (
+                    <td
+                      {...cell.getCellProps([
+                        {
+                          className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
+                          style: cell.column.style,
+                        },
+                        getColumnProps(cell.column),
+                        getCellProps(cell),
+                      ])}
+                      {...(rowSpan && { rowSpan })}
+  
+                    >
+                      {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
+                        <IconButton
+                          onClick={() =>
+                            setData((prev) => {
+                              const action = prev.slice(-1);
+                              return [...prev.slice(0, -1), { editing: true }, ...action];
+                            })
+                          }
+                        >
+                          <PlusIcon className="h-5 w-5" />
+                        </IconButton>
+                      ) : (
+                        cell.render('Cell')
+                      )}
+                    </td>
+                  );
+                }else{
+                  return (
+                    <td
+                      {...cell.getCellProps([
+                        {
+                          className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
+                          style: cell.column.style,
+                        },
+                        getColumnProps(cell.column),
+                        getCellProps(cell),
+                      ])}
+                      {...(cell.column.rowSpan && cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
+                      {...(cell.row.original.id === 'addRow' &&
+                        i === cell.row.original.startIndex && {
+                          colSpan: cell.row.original.colSpan,
+                        })}
+                    >
+                      {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
+                        <IconButton
+                          onClick={() =>
+                            setData((prev) => {
+                              const action = prev.slice(-1);
+                              return [...prev.slice(0, -1), { editing: true }, ...action];
+                            })
+                          }
+                        >
+                          <PlusIcon className="h-5 w-5" />
+                        </IconButton>
+                      ) : (
+                        cell.render('Cell')
+                      )}
+                    </td>
+                  );
+                }
+                
+                
               })}
             </tr>
           );
