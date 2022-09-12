@@ -63,14 +63,14 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
           if (cell.value.unit === '億度') {
             return toFormattedNumber(
               cell.value.amount,
-              cell.value.unit ? { suffix: " "+cell.value.unit, precision: 1 } : ''
+              cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
             );
           } else if (cell.value.unit === '噸' || cell.value.unit === 'MWH') {
-            return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix:" "+cell.value.unit } : '');
+            return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: ' ' + cell.value.unit } : '');
           } else {
             return toFormattedNumber(
               cell.value.amount,
-              cell.value.unit ? { suffix: " "+cell.value.unit, precision: 1 } : ''
+              cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
             );
           }
         },
@@ -142,7 +142,7 @@ export default function DecarbonizationTable({
                     rowSpan = 2;
                   } else if (i === 8) {
                     rowSpan = 5;
-                  } else if (i === 0 ) {
+                  } else if (i === 0) {
                     rowSpan = 1;
                   } else {
                     return null;
