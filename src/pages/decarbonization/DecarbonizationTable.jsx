@@ -7,66 +7,36 @@ import { toFormattedNumber } from '../../utils/number';
 
 export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   const year = new Date(latestDate).getFullYear();
-
+  const NAME_URL_MAPPING = {
+    總電量: '/electricity',
+    碳排放: '/carbon',
+    節能耗電: '/analysis/electricity#POWER_SAVING',
+    可再生能源: '/renewable-energy',
+  };
   return [
     {
       Header: t('decarbonizationPage:category'),
       accessor: 'item',
       className: 'text-left p-3',
       Cell: (cell) => {
-        if (cell.value === '總電量') {
-          const titleUrl = '/electricity';
-          return <Link to={titleUrl}>{cell.value}</Link>;
-        } else if (cell.value === '碳排放') {
-          const titleUrl = '/carbon';
-          return <Link to={titleUrl}>{cell.value}</Link>;
-        } else if (cell.value === '節能耗電') {
-          const titleUrl = '/analysis/electricity#POWER_SAVING';
-          return <Link to={titleUrl}>{cell.value}</Link>;
-        } else if (cell.value === '可再生能源') {
-          const titleUrl = '/renewable-energy';
-          return <Link to={titleUrl}>{cell.value}</Link>;
-        } else {
-          const titleUrl = '';
-          return <Link to={titleUrl}>{cell.value}</Link>;
-        }
+        return <Link to={NAME_URL_MAPPING[cell.value]}>{cell.value}</Link>;
       },
     },
     { Header: t('decarbonizationPage:base'), accessor: 'main', className: 'text-left p-3' },
     { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
     {
       Header: year + t('decarbonizationPage:ytm'),
-      accessor: 'ytm' + year,
+      accessor: 'actuals',
       className: 'text-right w-40 p-3',
       Cell: (cell) => {
-        if (cell.row.original.status === 0) {
+        if (cell.value[0] !== undefined) {
           return (
             <div className="flex items-center justify-end space-x-2">
               <Dot color="bg-dangerous-500" />
               <div className="text-right">
                 {toFormattedNumber(
-                  cell.value,
-                  cell.value > 100000
-                    ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : {} && (cell.value === 0 || cell.value > 1)
-                    ? ''
-                    : { unit: 1e-2, suffix: '%', precision: 2 }
-                )}
-              </div>
-            </div>
-          );
-        } else if (cell.row.original.status === 1) {
-          return (
-            <div className="flex items-center justify-end space-x-2">
-              <Dot color="bg-yellow-500" />
-              <div className="text-right">
-                {toFormattedNumber(
-                  cell.value,
-                  cell.value > 100000
-                    ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : ('' && '' && cell.value === 0) || cell.value > 1
-                    ? ''
-                    : { unit: 1e-2, suffix: '%', precision: 2 }
+                  cell.value[0].amount,
+                  cell.value[0].unit ? { suffix: cell.value[0].unit, precision: 1 } : ''
                 )}
               </div>
             </div>
@@ -76,14 +46,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
             <div className="flex items-center justify-end space-x-2">
               <Dot color="bg-green-500" />
               <div className="text-right">
-                {toFormattedNumber(
-                  cell.value,
-                  cell.value > 100000
-                    ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : {} && (cell.value === 0 || cell.value > 1)
-                    ? ''
-                    : { unit: 1e-2, suffix: '%', precision: 2 }
-                )}
+                {/* {toFormattedNumber(cell.value[0].amount, cell.value[0].unit ? { suffix: cell.value[0].unit, precision: 1 } : '')} */}
               </div>
             </div>
           );
@@ -93,12 +56,23 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   ].concat(
     yearOrder?.map((year) => {
       return {
-        Header: year.replace("12",t('decarbonizationPage:year')),
+        Header: year.replace('12', t('decarbonizationPage:year')),
         accessor: String(year),
-        // id:  year,
         className: 'text-right w-32 p-3',
         Cell: (cell) => {
-          return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: cell.value.unit, precision: 1 } : '');
+          if (cell.value.unit === '億度') {
+            return toFormattedNumber(
+              cell.value.amount,
+              cell.value.unit ? { suffix: " "+cell.value.unit, precision: 1 } : ''
+            );
+          } else if (cell.value.unit === '噸' || cell.value.unit === 'MWH') {
+            return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix:" "+cell.value.unit } : '');
+          } else {
+            return toFormattedNumber(
+              cell.value.amount,
+              cell.value.unit ? { suffix: " "+cell.value.unit, precision: 1 } : ''
+            );
+          }
         },
       };
     })
