@@ -1,6 +1,7 @@
 {
   "nav": {
     "goal": "年度目標維護",
+    "decarbonization": "脫碳目標設定",
     "dataStatus": "資料更新狀態",
     "pic": "資料維護PIC",
     "csrAndFemStatus": "FEM & CSR數值狀態",
@@ -117,5 +118,11 @@
     "after": "異動後",
     "description": "說明",
     "changeDate": "異動日期"
-  }
+  }, "decarbonization": {
+      "title": "脫碳目標設定",
+      "category": "項目",
+      "base": "基礎",
+      "detail": "詳情",
+    "year": " 年"
+}
 }

@@ -55,7 +55,6 @@ export const carbonApi = appApi.injectEndpoints({
             []
           )
         );
-
         return {
           maxDate,
           data: [...records, ...total].map(toRow),

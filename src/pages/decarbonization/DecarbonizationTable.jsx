@@ -5,60 +5,38 @@ import { useTable } from 'react-table';
 import Dot from '../../components/dot/Dot';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t, latestDate }) => {
+export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   const year = new Date(latestDate).getFullYear();
+  const NAME_URL_MAPPING = {
+    總電量: '/electricity',
+    碳排放: '/carbon',
+    節能耗電: '/analysis/electricity#POWER_SAVING',
+    可再生能源: '/renewable-energy',
+  };
   return [
-    { Header: t('decarbonizationPage:category'), accessor: 'category', className: 'text-left p-3' },
-    { Header: t('decarbonizationPage:base'), accessor: 'base', className: 'text-left p-3' },
-    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
     {
-      Header: t('decarbonizationPage:2021'),
-      accessor: '2021',
-      className: 'text-right w-32 p-3',
+      Header: t('decarbonizationPage:category'),
+      accessor: 'item',
+      className: 'text-left p-3',
       Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
+        return <Link to={NAME_URL_MAPPING[cell.value]}>{cell.value}</Link>;
       },
     },
+    { Header: t('decarbonizationPage:base'), accessor: 'main', className: 'text-left p-3' },
+    { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
     {
       Header: year + t('decarbonizationPage:ytm'),
-      accessor: 'ytm' + year,
+      accessor: 'actuals',
       className: 'text-right w-40 p-3',
       Cell: (cell) => {
-        if (cell.row.original.status === 0) {
+        if (cell.value[0] !== undefined) {
           return (
             <div className="flex items-center justify-end space-x-2">
               <Dot color="bg-dangerous-500" />
               <div className="text-right">
                 {toFormattedNumber(
-                  cell.value,
-                  cell.value > 100000
-                    ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : {} && (cell.value === 0 || cell.value > 1)
-                    ? ''
-                    : { unit: 1e-2, suffix: '%', precision: 2 }
-                )}
-              </div>
-            </div>
-          );
-        } else if (cell.row.original.status === 1) {
-          return (
-            <div className="flex items-center justify-end space-x-2">
-              <Dot color="bg-yellow-500" />
-              <div className="text-right">
-                {toFormattedNumber(
-                  cell.value,
-                  cell.value > 100000
-                    ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : ('' && '' && cell.value === 0) || cell.value > 1
-                    ? ''
-                    : { unit: 1e-2, suffix: '%', precision: 2 }
+                  cell.value[0].amount,
+                  cell.value[0].unit ? { suffix: cell.value[0].unit, precision: 1 } : ''
                 )}
               </div>
             </div>
@@ -68,156 +46,37 @@ export const COLUMNS = ({ t, latestDate }) => {
             <div className="flex items-center justify-end space-x-2">
               <Dot color="bg-green-500" />
               <div className="text-right">
-                {toFormattedNumber(
-                  cell.value,
-                  cell.value > 100000
-                    ? { unit: 1e8, suffix: '億度', precision: 1 }
-                    : {} && (cell.value === 0 || cell.value > 1)
-                    ? ''
-                    : { unit: 1e-2, suffix: '%', precision: 2 }
-                )}
+                {/* {toFormattedNumber(cell.value[0].amount, cell.value[0].unit ? { suffix: cell.value[0].unit, precision: 1 } : '')} */}
               </div>
             </div>
           );
         }
       },
     },
-    {
-      Header: t('decarbonizationPage:2022'),
-      accessor: '2022',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2023'),
-      accessor: '2023',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2024'),
-      accessor: '2024',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2025'),
-      accessor: '2025',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2026'),
-      accessor: '2026',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2027'),
-      accessor: '2027',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2028'),
-      accessor: '2028',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2029'),
-      accessor: '2029',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-    {
-      Header: t('decarbonizationPage:2030'),
-      accessor: '2030',
-      className: 'text-right w-32 p-3',
-      Cell: (cell) => {
-        return toFormattedNumber(
-          cell.value,
-          cell.value > 100000
-            ? { unit: 1e8, suffix: '億度', precision: 1 }
-            : {} && (cell.value === 0 || cell.value > 1)
-            ? ''
-            : { unit: 1e-2, suffix: '%', precision: 2 }
-        );
-      },
-    },
-  ];
+  ].concat(
+    yearOrder?.map((year) => {
+      return {
+        Header: year.replace('12', t('decarbonizationPage:year')),
+        accessor: String(year),
+        className: 'text-right w-32 p-3',
+        Cell: (cell) => {
+          if (cell.value.unit === '億度') {
+            return toFormattedNumber(
+              cell.value.amount,
+              cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
+            );
+          } else if (cell.value.unit === '噸' || cell.value.unit === 'MWH') {
+            return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: ' ' + cell.value.unit } : '');
+          } else {
+            return toFormattedNumber(
+              cell.value.amount,
+              cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
+            );
+          }
+        },
+      };
+    })
+  );
 };
 
 const defaultPropGetter = () => ({});
@@ -264,10 +123,32 @@ export default function DecarbonizationTable({
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
               {row.cells.map((cell, j) => {
-                const rowSpan = cell.row.original.rowSpan?.[cell.column.id];
-                if (rowSpan === 0) {
-                  return null;
+                let rowSpan = null;
+                if (j === 0) {
+                  if (i === 1 || i === 8) {
+                    rowSpan = 5;
+                  } else if (i === 6) {
+                    rowSpan = 2;
+                  } else if (i === 0) {
+                    rowSpan = 1;
+                  } else {
+                    return null;
+                  }
                 }
+                if (j === 1) {
+                  if (i === 1) {
+                    rowSpan = 3;
+                  } else if (i === 4 || i === 6) {
+                    rowSpan = 2;
+                  } else if (i === 8) {
+                    rowSpan = 5;
+                  } else if (i === 0) {
+                    rowSpan = 1;
+                  } else {
+                    return null;
+                  }
+                }
+
                 return (
                   <td
                     {...cell.getCellProps([
@@ -277,7 +158,7 @@ export default function DecarbonizationTable({
                           rowSpan === 5 ||
                             rowSpan === 2 ||
                             cell.row.id === '0' ||
-                            cell.row.id === '2' ||
+                            cell.row.id === '5' ||
                             cell.row.id === '7' ||
                             cell.row.id === '12'
                             ? 'align-top border-b-2  border-primary-600'
@@ -294,12 +175,12 @@ export default function DecarbonizationTable({
                       className={
                         j === 0
                           ? ' decoration-white-600 cursor-pointer underline underline-offset-4'
-                          : 'cursor-default' && cell.column.id < new Date(latestDate).getFullYear()
+                          : 'cursor-default' && cell.column.Header.split(' ')[0] < new Date(latestDate).getFullYear()
                           ? 'opacity-60'
                           : ''
                       }
                     >
-                      {j === 0 ? <Link to={cell.row.original.link}>{cell.render('Cell')}</Link> : cell.render('Cell')}
+                      {cell.render('Cell')}
                     </div>
                   </td>
                 );

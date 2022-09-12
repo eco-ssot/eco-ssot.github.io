@@ -1,6 +1,7 @@
 {
   "nav": {
     "goal": "Annual Target",
+    "decarbonization": "Decarbonization Set Up",
     "dataStatus": "Data Update Status",
     "pic": "Data Maintain PIC",
     "csrAndFemStatus": "FEM & CSR Status",
@@ -117,5 +118,13 @@
     "after": "After",
     "description": "Description",
     "changeDate": "Change Date"
-  }
+  },
+  "decarbonization": {
+    "title": "Decarbonization Set Up",
+    "category": "Category",
+    "base": "Base",
+    "detail": "Detail",
+    "year": " Year"
+}
+
 }
