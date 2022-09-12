@@ -25,13 +25,16 @@ export function getLabelFontSize(fontSize = getFontSize()) {
       return { fontSize: 18, lineHeight: 28 };
     case 15:
       return { fontSize: 14, lineHeight: 20 };
+    case 13:
+    case 12:
+      return { fontSize: 12, lineHeight: 16 };
     case 11:
     case 10.5:
     case 10:
       return { fontSize: 10, lineHeight: 12 };
 
     default:
-      return { fontSize, lineHeight: 16 };
+      return { fontSize };
   }
 }
 
@@ -46,7 +49,12 @@ export function toResponsiveOption(option) {
   const mapper = (key, value) => {
     if (isPlainObject(value) && /label/i.test(key)) {
       const { lineHeight, fontSize: _fontSize } = getLabelFontSize(fontSize);
-      return [key, value.fontSize ? value : { ...value, lineHeight, fontSize: Math.max(_fontSize, minFontsize) }];
+      return [
+        key,
+        value.fontSize
+          ? value
+          : { ...value, ...(lineHeight && { lineHeight }), fontSize: Math.max(_fontSize, minFontsize) },
+      ];
     }
 
     if (typeof value === 'number' && /top|bottom|left|right|size|width|fontsize|radius/i.test(key)) {
