@@ -274,8 +274,8 @@ export default function EditableTable({
                     } else if (j === 4 || j === 6) {
                       rowSpan = 2;
                     } else if (j === 8) {
-                      rowSpan = 4;
-                    } else if (j === 0 || j === 12) {
+                      rowSpan = 5;
+                    } else if (j === 0 ) {
                       rowSpan = 1;
                     } else {
                       return null;
@@ -285,7 +285,7 @@ export default function EditableTable({
                     <td
                       {...cell.getCellProps([
                         {
-                          className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
+                          className: clsx('px-2 text-gray-50 text-lg align-top', cell.column.className),
                           style: cell.column.style,
                         },
                         getColumnProps(cell.column),

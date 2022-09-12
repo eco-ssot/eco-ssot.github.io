@@ -141,8 +141,8 @@ export default function DecarbonizationTable({
                   } else if (i === 4 || i === 6) {
                     rowSpan = 2;
                   } else if (i === 8) {
-                    rowSpan = 4;
-                  } else if (i === 0 || i === 12) {
+                    rowSpan = 5;
+                  } else if (i === 0 ) {
                     rowSpan = 1;
                   } else {
                     return null;
