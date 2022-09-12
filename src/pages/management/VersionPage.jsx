@@ -170,6 +170,7 @@ function AddVersion({
                 version: versionNo,
                 description: description,
                 detail: detail,
+                item:  "test",
                 playbook_page: page,
               };
               postVersion({
