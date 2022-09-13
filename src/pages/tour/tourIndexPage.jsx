@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import data from './data.json';
 
-const Carousel = () => {
+const Carousel = (version) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
 
@@ -40,6 +40,7 @@ const Carousel = () => {
 
   return (
     <div className="carousel h-full w-full">
+      <div className="whitespace-nowrap text-2xl font-medium">{version.version.length === 0 ? '無' : version.version[0].description}</div>
       <div className="relative h-full w-full content-between self-stretch overflow-hidden">
         <div className="top left absolute flex h-5/6 w-full content-between justify-between self-stretch">
           <button
@@ -83,10 +84,10 @@ const Carousel = () => {
         >
           {data.resources.map((resource, index) => {
             return (
-              <div key={index} className="carousel-item relative m-4 h-full w-full snap-start gap-1 text-center">
+              <div key={index} className="carousel-item relative  h-full w-full snap-start gap-1 text-center m-4">
                 <a
                   href={resource.link}
-                  className="z-0 block aspect-square h-5/6 w-screen bg-cover bg-left-top bg-no-repeat bg-origin-padding"
+                  className="z-0 block aspect-square h-5/6 w-[87vw] bg-cover bg-left-top bg-no-repeat bg-origin-padding border-white border-2"
                   style={{ backgroundImage: `url(${resource.imageUrl || ''})` }}
                 >
                   <img
@@ -113,7 +114,9 @@ const Carousel = () => {
           );
         })}
       </div>
-      <div className="absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 space-x-3 whitespace-nowrap text-xl">12gjhjgjgjghfghfhf3</div>
+      <div className="absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 space-x-3 whitespace-nowrap text-xl">
+        {version.version.length === 0 ? '無' : version.version[0].detail}
+      </div>
     </div>
   );
 };
@@ -123,9 +126,7 @@ export default function TourIndexPage({ className, data }) {
     <div className={clsx(className, !className && '-mt-16 h-screen w-screen overflow-hidden pt-16')}>
       <div className="h-full w-full p-4">
         <div className="flex h-full w-full flex-col ">
-          <div className="whitespace-nowrap text-2xl font-medium">{data.length === 0 ? '無' : data[0].description}</div>
-          <Carousel />
-          <div className="m-4 whitespace-nowrap text-xl font-medium">{data.length === 0 ? '無' : data[0].detail}</div>
+          <Carousel version={data} />
         </div>
       </div>
     </div>

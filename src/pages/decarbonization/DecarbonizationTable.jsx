@@ -20,7 +20,7 @@ export const COLUMNS = ({ t, yearOrder }) => {
       Cell: (cell) => {
         return (
           <MyNavLink
-            to={{ pathname: NAME_URL_MAPPING[cell.value] }}
+            to={{ pathname: NAME_URL_MAPPING[cell.value] ,state:{ from: '/decarbonization',replace:true}}}
           >
             {cell.value}
           </MyNavLink>
