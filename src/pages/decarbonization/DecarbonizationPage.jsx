@@ -18,7 +18,7 @@ export default function DecarbonizationPage() {
   const yearOrder = data?.data.map((data) =>
   Object.keys(data)
     ?.filter(function (value) {
-      return value >= 202212;
+      return value >= 202211;
     })
     ?.sort((a, b) => a.localeCompare(b))
 )[0];
@@ -33,8 +33,8 @@ export default function DecarbonizationPage() {
         </Tag>
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">
+        <Legend dotClassName="bg-white" label={t('component:legend.noData')} />
         <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
-        {/* <Legend dotClassName="bg-yellow-500" label={t('component:legend.meetTargetYet')} /> */}
         <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
       </div>
       <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">

@@ -6,6 +6,7 @@ import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
+import Back from '../../components/back/Back';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import useNavigate from '../../router/useNavigate';
 
@@ -50,6 +51,7 @@ export default function ElectricityBaselinePage() {
   const navigate = useNavigate();
   return (
     <>
+      <Back className="block" />
       <div className="-mt-16 grid h-screen w-screen grid-rows-5 gap-4 overflow-hidden p-4 pt-20">
         <TabPanel>
           {({ isBaseline, isPrediction, isPowerSaving, option, business, s, p, tabIndex, refs }) => (

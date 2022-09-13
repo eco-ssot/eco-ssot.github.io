@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import APP_CONSTANTS from '../../app/appConstants';
+import Back from '../../components/back/Back';
 import ButtonGroup from '../../components/button/ButtonGroup';
 import HistorySearch from '../../components/history-search/HistorySearch';
 import Legend from '../../components/legend/Legend';
@@ -20,10 +21,12 @@ const ElectricityIndexPage = lazyPreload(() => import('../electricity-index/Elec
 export default function TablePage({ title, downloadResource, table: Table, historyTable: HistoryTable }) {
   const { t } = useTranslation(['component']);
   const navigate = useNavigate();
+
   return (
     <TablePanel>
       {({ isHistory, isOverview, option, prevOption, missingPlants, year, showElectricityIndex, showHistoryTab }) => (
         <>
+          <Back className="block"/>
           <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full flex-col overflow-auto">
             <div
               className={clsx(

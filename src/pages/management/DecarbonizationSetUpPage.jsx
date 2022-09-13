@@ -2,13 +2,14 @@ import { useState, useMemo, useEffect } from 'react';
 
 import { PencilIcon } from '@heroicons/react/solid';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import DecarbonTable, { EditableButton, EditableIconButton } from '../../components/table/DecarbonTable';
 import useAdmin from '../../hooks/useAdmin';
+import MyNavLink from '../../router/MyNavLink';
 import { useGetDecarbonizationQuery } from '../../services/decarbonization';
 import { toFormattedNumber } from '../../utils/number';
 import { updateMyData } from '../../utils/table';
+
 const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
   {
     Header: t('decarbonizationPage:category'),
@@ -21,7 +22,14 @@ const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
         節能耗電: '/analysis/electricity#POWER_SAVING',
         可再生能源: '/renewable-energy',
       };
-      return <Link to={NAME_URL_MAPPING[cell.value]}>{cell.value}</Link>;
+      return (
+        <MyNavLink
+          to={{ pathname: NAME_URL_MAPPING[cell.value] } }
+          className={'decoration-white-600 cursor-pointer underline underline-offset-4'}
+        >
+          {cell.value}
+        </MyNavLink>
+      );
     },
   },
   { Header: t('decarbonizationPage:base'), accessor: 'main', className: 'text-left p-3' },

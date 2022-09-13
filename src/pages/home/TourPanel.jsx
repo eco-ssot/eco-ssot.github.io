@@ -1,6 +1,6 @@
 import Modal from '../../components/modal/Modal';
 import { useGetVersionQuery } from '../../services/management';
-import TourIndexPage from '../tour/tourIndexPage';
+import TourIndexPage from '../tour/TourIndexPage';
 
 export default function TourPanel({ open = false, setOpen = () => {}}) {
   const { data: { data: version } = {} } = useGetVersionQuery();
