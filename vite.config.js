@@ -27,6 +27,7 @@ export default defineConfig({
           echartsVendor: ['echarts'],
           lodashVendor: ['lodash'],
           azureVendor: ['@azure/msal-browser', '@azure/msal-react'],
+          azureStorageVendor: ['@azure/storage-blob'],
         },
       },
     },
