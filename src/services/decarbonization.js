@@ -17,7 +17,7 @@ export const decarbonizationApi = appApi.injectEndpoints({
             newElement[item.year + '12'] = targets[index];
           });
           actuals.forEach((item, index) => {
-            newElement[item.year + '11'] = actuals[0];
+            newElement[item.year + '11'] = actuals[index];
           });
           return newElement;
         });
