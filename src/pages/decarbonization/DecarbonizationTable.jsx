@@ -165,9 +165,7 @@ export default function DecarbonizationTable({
                           'text-lg',
                           cell.column.className,
                           rowSpan && 'align-top',
-                          cell.column.id === 'item' && 'border-b-2 border-primary-600',
-                          i > 0 && row.original.item !== rows[i - 1]?.original?.item && 'border-t-2 border-primary-600',
-                          i === rows.length - 1 && 'border-b-2 border-primary-600'
+                          i > 0 && row.original.item !== rows[i - 1]?.original?.item && 'border-t-2 border-primary-600'
                         ),
                         style: cell.column.style,
                       },

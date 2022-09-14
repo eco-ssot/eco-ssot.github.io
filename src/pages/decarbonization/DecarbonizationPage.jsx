@@ -36,7 +36,7 @@ export default function DecarbonizationPage() {
         {/* <Legend dotClassName="bg-yellow-500" label={t('component:legend.meetTargetYet')} /> */}
         <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
       </div>
-      <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
+      <div className="flex w-full flex-col overflow-auto rounded-t-lg border-b-2 border-b-primary-600 shadow">
         {data?.data && (
           <DecarbonizationTable
             columns={columns}
@@ -46,7 +46,7 @@ export default function DecarbonizationPage() {
               return { className: 'bg-primary-800 py-2' };
             }}
             getRowProps={(row) => ({
-              className: clsx('border-b border-divider'),
+              className: row.index < data?.data?.length - 1 && clsx('border-b border-divider'),
             })}
             getCellProps={(cell) => {
               return { className: 'py-2' };

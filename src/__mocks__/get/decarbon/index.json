@@ -43,7 +43,7 @@
     },
     {
       "item": "可再生能源",
-      "main": "自建太陽能",
+      "main": "當年度",
       "detail": "自建太陽能",
       "actuals": [{ "amount": 0.02189423503063375, "year": 2022, "unit": "%", "status": 0 }],
       "targets": [
