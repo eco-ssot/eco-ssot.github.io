@@ -16,15 +16,15 @@ export default function DecarbonizationPage() {
   const { data } = useGetDecarbonizationQuery();
   const { latestDate, accumulationPeriod } = useAccumulationPeriod();
   const yearOrder = data?.data.map((data) =>
-  Object.keys(data)
-    ?.filter(function (value) {
-      return value >= 202211;
-    })
-    ?.sort((a, b) => a.localeCompare(b))
-)[0];
-  const columns = useMemo(() => COLUMNS({ t, latestDate,yearOrder}), [t, latestDate,yearOrder]);
+    Object.keys(data)
+      ?.filter(function (value) {
+        return value >= 202211;
+      })
+      ?.sort((a, b) => a.localeCompare(b))
+  )[0];
+  const columns = useMemo(() => COLUMNS({ t, latestDate, yearOrder }), [t, latestDate, yearOrder]);
   return (
-    <PageContainer>
+    <PageContainer className="flex flex-col">
       <div className="flex items-center justify-between">
         <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
