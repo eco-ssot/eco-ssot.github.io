@@ -1,12 +1,11 @@
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
 import { useTable } from 'react-table';
 
 import Dot from '../../components/dot/Dot';
+import MyNavLink from '../../router/MyNavLink';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t, latestDate, yearOrder }) => {
-  const year = new Date(latestDate).getFullYear();
+export const COLUMNS = ({ t, yearOrder }) => {
   const NAME_URL_MAPPING = {
     總電量: '/electricity',
     碳排放: '/carbon',
@@ -19,58 +18,83 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
       accessor: 'item',
       className: 'text-left p-3',
       Cell: (cell) => {
-        return <Link to={NAME_URL_MAPPING[cell.value]}>{cell.value}</Link>;
+        return (
+          <MyNavLink
+            to={{ pathname: NAME_URL_MAPPING[cell.value] ,state:{ from: '/decarbonization',replace:true}}}
+          >
+            {cell.value}
+          </MyNavLink>
+        );
       },
     },
     { Header: t('decarbonizationPage:base'), accessor: 'main', className: 'text-left p-3' },
     { Header: t('decarbonizationPage:detail'), accessor: 'detail', className: 'text-left p-3' },
-    {
-      Header: year + t('decarbonizationPage:ytm'),
-      accessor: 'actuals',
-      className: 'text-right w-40 p-3',
-      Cell: (cell) => {
-        if (cell.value[0] !== undefined) {
-          return (
-            <div className="flex items-center justify-end space-x-2">
-              <Dot color="bg-dangerous-500" />
-              <div className="text-right">
-                {toFormattedNumber(
-                  cell.value[0].amount,
-                  cell.value[0].unit ? { suffix: cell.value[0].unit, precision: 1 } : ''
-                )}
-              </div>
-            </div>
-          );
-        } else {
-          return (
-            <div className="flex items-center justify-end space-x-2">
-              <Dot color="bg-green-500" />
-              <div className="text-right">
-                {/* {toFormattedNumber(cell.value[0].amount, cell.value[0].unit ? { suffix: cell.value[0].unit, precision: 1 } : '')} */}
-              </div>
-            </div>
-          );
-        }
-      },
-    },
   ].concat(
     yearOrder?.map((year) => {
       return {
-        Header: year.replace('12', t('decarbonizationPage:year')),
+        Header: year.match('12')
+          ? year.replace('12', t('decarbonizationPage:year'))
+          : year.replace('11', t('decarbonizationPage:ytm')),
         accessor: String(year),
-        className: 'text-right w-32 p-3',
+        className: 'text-right w-36 p-3',
         Cell: (cell) => {
-          if (cell.value.unit === '億度') {
-            return toFormattedNumber(
-              cell.value.amount,
-              cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
-            );
-          } else if (cell.value.unit === '噸' || cell.value.unit === 'MWH') {
-            return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: ' ' + cell.value.unit } : '');
+          if (cell.value?.unit === '億度') {
+            if (year.match('11')) {
+              return (
+                <div className="flex items-center justify-end space-x-2">
+                  <Dot color="bg-green-500" />
+                  <div className="text-right">
+                    {toFormattedNumber(
+                      cell.value?.amount,
+                      cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                    )}
+                  </div>
+                </div>
+              );
+            } else {
+              return toFormattedNumber(
+                cell.value?.amount,
+                cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+              );
+            }
+          } else if (cell.value?.unit === '噸' || cell.value?.unit === 'MWH') {
+            if (year.match('11')) {
+              return (
+                <div className="flex items-center justify-end space-x-2">
+                  <Dot color="bg-green-500" />
+                  <div className="text-right">
+                    {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
+                  </div>
+                </div>
+              );
+            } else {
+              return toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '');
+            }
+          } else if (cell.value?.unit === '%') {
+            if (year.match('11')) {
+              return (
+                <div className="flex items-center justify-end space-x-2">
+                  <Dot color="bg-green-500" />
+                  <div className="text-right">
+                    {toFormattedNumber(
+                      cell.value?.amount,
+                      cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                    )}
+                  </div>
+                </div>
+              );
+            } else {
+              return toFormattedNumber(
+                cell.value?.amount,
+                cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+              );
+            }
           } else {
-            return toFormattedNumber(
-              cell.value.amount,
-              cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
+            return (
+              <div className="flex items-center justify-end space-x-2">
+                <Dot color="bg-white" />
+                <div className="text-right">-</div>
+              </div>
             );
           }
         },
