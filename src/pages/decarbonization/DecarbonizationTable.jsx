@@ -220,7 +220,7 @@ export default function DecarbonizationTable({
                     {...cell.getCellProps([
                       {
                         className: clsx(
-                          'text-lg',
+                          'text-lg whitespace-nowrap',
                           cell.column.className,
                           rowSpan && 'align-top',
                           i > 0 && row.original.item !== rows[i - 1]?.original?.item && 'border-t-2 border-primary-600'

@@ -194,7 +194,6 @@ export default function EditableTable({
   getRowProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
   stickyHeader = true,
-  decarbon,
 }) {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable({
     columns,
