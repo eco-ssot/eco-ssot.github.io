@@ -16,16 +16,15 @@ export default function DecarbonizationPage() {
   const { data } = useGetDecarbonizationQuery();
   const { latestDate, accumulationPeriod } = useAccumulationPeriod();
   const yearOrder = data?.data.map((data) =>
-  Object.keys(data)
-    ?.filter(function (value) {
-      return value >= 202211;
-    })
-    ?.sort((a, b) => a.localeCompare(b))
-)[0];
-  const columns = useMemo(() => COLUMNS({ t, latestDate,yearOrder}), [t, latestDate,yearOrder]);
-
+    Object.keys(data)
+      ?.filter(function (value) {
+        return value >= 202211;
+      })
+      ?.sort((a, b) => a.localeCompare(b))
+  )[0];
+  const columns = useMemo(() => COLUMNS({ t, latestDate, yearOrder }), [t, latestDate, yearOrder]);
   return (
-    <PageContainer>
+    <PageContainer className="flex flex-col">
       <div className="flex items-center justify-between">
         <div className="text-xl font-medium">{t('decarbonizationPage:title')}</div>
         <Tag>
@@ -37,7 +36,12 @@ export default function DecarbonizationPage() {
         <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
         <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
       </div>
-      <div className="flex w-full flex-col overflow-auto rounded-t-lg shadow">
+      <div
+        className={clsx(
+          'flex w-full flex-col overflow-auto rounded-t-lg shadow',
+          data?.data?.length && 'border-b-2 border-primary-600'
+        )}
+      >
         {data?.data && (
           <DecarbonizationTable
             columns={columns}
@@ -47,7 +51,7 @@ export default function DecarbonizationPage() {
               return { className: 'bg-primary-800 py-2' };
             }}
             getRowProps={(row) => ({
-              className: clsx('border-b border-divider'),
+              className: row.index < data?.data?.length - 1 && clsx('border-b border-divider'),
             })}
             getCellProps={(cell) => {
               return { className: 'py-2' };

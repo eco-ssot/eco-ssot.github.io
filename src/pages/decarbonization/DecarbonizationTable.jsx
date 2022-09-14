@@ -20,7 +20,7 @@ export const COLUMNS = ({ t, yearOrder }) => {
       Cell: (cell) => {
         return (
           <MyNavLink
-            to={{ pathname: NAME_URL_MAPPING[cell.value] ,state:{ from: '/decarbonization',replace:true}}}
+            to={{ pathname: NAME_URL_MAPPING[cell.value], state: { from: '/decarbonization', replace: true } }}
           >
             {cell.value}
           </MyNavLink>
@@ -77,25 +77,27 @@ export const COLUMNS = ({ t, yearOrder }) => {
                   <Dot color="bg-green-500" />
                   <div className="text-right">
                     {toFormattedNumber(
-                      cell.value.amount,
-                      cell.value.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                      cell.value?.amount,
+                      cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
                     )}
                   </div>
                 </div>
               );
             } else {
               return toFormattedNumber(
-                cell.value.amount,
-                cell.value.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                cell.value?.amount,
+                cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
               );
             }
           } else {
-            return (
-              <div className="flex items-center justify-end space-x-2">
-                <Dot color="bg-white" />
-                <div className="text-right">-</div>
-              </div>
-            );
+            if (year.match('11')) {
+              return (
+                <div className="flex items-center justify-end space-x-2">
+                  <Dot color="bg-white" animation={false} />
+                  <div className="text-right">-</div>
+                </div>
+              );
+            }
           }
         },
       };
@@ -128,7 +130,10 @@ export default function DecarbonizationTable({
               <th
                 {...column.getHeaderProps([
                   {
-                    className: column.className,
+                    className: clsx(
+                      column.className,
+                      'sticky top-0 text-lg font-medium tracking-wider whitespace-nowrap'
+                    ),
                     style: column.style,
                   },
                   getColumnProps(column),
@@ -147,30 +152,9 @@ export default function DecarbonizationTable({
           return (
             <tr {...row.getRowProps(getRowProps(row))}>
               {row.cells.map((cell, j) => {
-                let rowSpan = null;
-                if (j === 0) {
-                  if (i === 1 || i === 8) {
-                    rowSpan = 5;
-                  } else if (i === 6) {
-                    rowSpan = 2;
-                  } else if (i === 0) {
-                    rowSpan = 1;
-                  } else {
-                    return null;
-                  }
-                }
-                if (j === 1) {
-                  if (i === 1) {
-                    rowSpan = 3;
-                  } else if (i === 4 || i === 6) {
-                    rowSpan = 2;
-                  } else if (i === 8) {
-                    rowSpan = 5;
-                  } else if (i === 0) {
-                    rowSpan = 1;
-                  } else {
-                    return null;
-                  }
+                const rowSpan = cell.row.original.rowSpan?.[cell.column.id];
+                if (rowSpan === 0) {
+                  return null;
                 }
 
                 return (
@@ -178,15 +162,10 @@ export default function DecarbonizationTable({
                     {...cell.getCellProps([
                       {
                         className: clsx(
+                          'text-lg',
                           cell.column.className,
-                          rowSpan === 5 ||
-                            rowSpan === 2 ||
-                            cell.row.id === '0' ||
-                            cell.row.id === '5' ||
-                            cell.row.id === '7' ||
-                            cell.row.id === '12'
-                            ? 'align-top border-b-2  border-primary-600'
-                            : 'align-top'
+                          rowSpan && 'align-top',
+                          i > 0 && row.original.item !== rows[i - 1]?.original?.item && 'border-t-2 border-primary-600'
                         ),
                         style: cell.column.style,
                       },

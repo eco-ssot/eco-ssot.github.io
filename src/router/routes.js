@@ -80,7 +80,9 @@ export const managementRoutes = [
   },
   {
     path: 'decarbonization',
-    element: lazyPreload(() => import('../pages/management/DecarbonizationSetUpPage'), { name: '/management/DecarbonizationSetUpPage' }),
+    element: lazyPreload(() => import('../pages/management/DecarbonizationSetUpPage'), {
+      name: '/management/DecarbonizationSetUpPage',
+    }),
     i18nKey: 'decarbonization',
     skeleton: ManagementSkeleton,
     prefetchApis: [
@@ -411,7 +413,6 @@ export const privateRoutes = [
         endpoints: [
           {
             name: 'getDecarbonization',
-            queryKeys: ['Decarbonization'],
           },
         ],
       },
