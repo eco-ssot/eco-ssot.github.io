@@ -5,7 +5,7 @@ import Dot from '../../components/dot/Dot';
 import MyNavLink from '../../router/MyNavLink';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t, yearOrder }) => {
+export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   const NAME_URL_MAPPING = {
     總電量: '/electricity',
     碳排放: '/carbon',
@@ -38,11 +38,18 @@ export const COLUMNS = ({ t, yearOrder }) => {
         accessor: String(year),
         className: 'text-right w-36 p-3',
         Cell: (cell) => {
+          const currentYear = new Date(latestDate).getFullYear() + '12';
           if (cell.value?.unit === '億度') {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot color="bg-green-500" />
+                  <Dot
+                    color={
+                      cell.value?.amount > cell?.row?.original[currentYear]?.amount
+                        ? 'bg-green-500'
+                        : 'bg-dangerous-500'
+                    }
+                  />
                   <div className="text-right">
                     {toFormattedNumber(
                       cell.value?.amount,
@@ -57,11 +64,36 @@ export const COLUMNS = ({ t, yearOrder }) => {
                 cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
               );
             }
-          } else if (cell.value?.unit === '噸' || cell.value?.unit === 'MWH') {
+          } else if (cell.value?.unit === '噸') {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot color="bg-green-500" />
+                  <Dot
+                    color={
+                      cell.value?.amount > cell?.row?.original[currentYear]?.amount
+                        ? 'bg-green-500'
+                        : 'bg-dangerous-500'
+                    }
+                  />
+                  <div className="text-right">
+                    {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
+                  </div>
+                </div>
+              );
+            } else {
+              return toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '');
+            }
+          } else if (cell.value?.unit === 'MWH') {
+            if (year.match('11')) {
+              return (
+                <div className="flex items-center justify-end space-x-2">
+                  <Dot
+                    color={
+                      cell.value?.amount < cell?.row?.original[currentYear]?.amount
+                        ? 'bg-green-500'
+                        : 'bg-dangerous-500'
+                    }
+                  />
                   <div className="text-right">
                     {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
                   </div>
@@ -72,17 +104,43 @@ export const COLUMNS = ({ t, yearOrder }) => {
             }
           } else if (cell.value?.unit === '%') {
             if (year.match('11')) {
-              return (
-                <div className="flex items-center justify-end space-x-2">
-                  <Dot color="bg-green-500" />
-                  <div className="text-right">
-                    {toFormattedNumber(
-                      cell.value?.amount,
-                      cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
-                    )}
+              if (cell?.row?.original?.item === '可再生能源' || cell?.row?.original?.item === '節能耗電') {
+                return (
+                  <div className="flex items-center justify-end space-x-2">
+                    <Dot
+                      color={
+                        cell.value?.amount < cell?.row?.original[currentYear]?.amount
+                          ? 'bg-green-500'
+                          : 'bg-dangerous-500'
+                      }
+                    />
+                    <div className="text-right">
+                      {toFormattedNumber(
+                        cell.value?.amount,
+                        cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
+                );
+              } else {
+                return (
+                  <div className="flex items-center justify-end space-x-2">
+                    <Dot
+                      color={
+                        cell.value?.amount > cell?.row?.original[currentYear]?.amount
+                          ? 'bg-green-500'
+                          : 'bg-dangerous-500'
+                      }
+                    />
+                    <div className="text-right">
+                      {toFormattedNumber(
+                        cell.value?.amount,
+                        cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                      )}
+                    </div>
+                  </div>
+                );
+              }
             } else {
               return toFormattedNumber(
                 cell.value?.amount,
