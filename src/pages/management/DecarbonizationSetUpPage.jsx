@@ -42,18 +42,20 @@ const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
       className: 'text-right p-3',
       rowSpan: 0,
       Cell: (cell) => {
-        if (cell.value.unit === '億度') {
+        if (cell.value?.unit === '億度') {
           return toFormattedNumber(
-            cell.value.amount,
-            cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
+            cell.value?.amount,
+            cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
           );
-        } else if (cell.value.unit === '噸' || cell.value.unit === 'MWH') {
-          return toFormattedNumber(cell.value.amount, cell.value.unit ? { suffix: ' ' + cell.value.unit } : '');
-        } else {
+        } else if (cell.value?.unit === '噸' || cell.value?.unit === 'MWH') {
+          return toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '');
+        } else if(cell.value?.unit === '%'){
           return toFormattedNumber(
-            cell.value.amount,
-            cell.value.unit ? { suffix: ' ' + cell.value.unit, precision: 1 } : ''
+            cell.value?.amount,
+            cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
           );
+        }else {
+          return "-";
         }
       },
     };
