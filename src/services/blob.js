@@ -15,7 +15,6 @@ class BlobClient {
     for await (const item of iter) {
       ret.push(item);
     }
-
     return ret;
   }
 

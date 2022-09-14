@@ -4,13 +4,9 @@ import clsx from 'clsx';
 
 import BlobClient from '../../services/blob';
 
-import data from './data.json';
-
 const Carousel = (version) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
-  console.log(BlobClient.blobServiceClient);
-  console.log(BlobClient.listContainers());
   const movePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prevState) => prevState - 1);
@@ -18,7 +14,7 @@ const Carousel = (version) => {
   };
 
   const moveNext = () => {
-    if (carousel.current !== null) {
+    if (carousel.current !== null && currentIndex < version?.version?.length - 1) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   };
@@ -28,13 +24,12 @@ const Carousel = (version) => {
       return currentIndex <= 0;
     }
 
-    if (direction === 'next' && carousel.current !== null) {
+    if (direction === 'next' && carousel.current !== null && currentIndex < version?.version?.length - 1) {
       return;
     }
 
     return false;
   };
-
   useEffect(() => {
     if (carousel !== null && carousel.current !== null) {
       carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
@@ -44,7 +39,7 @@ const Carousel = (version) => {
   return (
     <div className="carousel h-full w-full">
       <div className="whitespace-nowrap text-2xl font-medium">
-        {version.version.length === 0 ? '無' : version.version[0].description}
+        {version?.version?.length === 0 ? '無' : version?.version[currentIndex].description}
       </div>
       <div className="relative flex h-full w-full content-between self-stretch overflow-hidden ">
         <div className="top left absolute flex h-5/6 w-full content-between justify-between self-stretch">
@@ -87,40 +82,39 @@ const Carousel = (version) => {
           ref={carousel}
           className="carousel-container relative z-0 mx-24 flex h-full w-full touch-pan-x snap-x snap-mandatory overflow-hidden scroll-smooth "
         >
-          {data.resources.map((resource, index) => {
+          {version?.version?.map((data, index) => {
             return (
-              <div key={index} className="carousel-item relative  m-4 h-full snap-start gap-1 text-center">
-                <a
-                  href={resource.link}
-                  className="z-0 block aspect-square h-5/6 w-[76vw] border-2 border-white bg-cover bg-left-top bg-no-repeat bg-origin-padding"
-                  style={{ backgroundImage: `url(${resource.imageUrl || ''})` }}
+              <div key={index} className="carousel-item relative m-4 h-full snap-start gap-1 text-center">
+                <div
+                  className="z-0 block aspect-square h-5/6 w-[calc(100vw-30rem)] border-2 border-white bg-cover bg-left-top bg-no-repeat bg-origin-padding mx-3"
+                  style={{
+                    backgroundImage: `url(${
+                      BlobClient.getImageLink(data.version + '/' + data.playbook_page + '.png') || ''
+                    })`,
+                  }}
                 >
                   <img
-                    src={resource.imageUrl || ''}
-                    alt={resource.title}
+                    src={BlobClient.getImageLink(data.version + '/' + data.playbook_page + '.png') || ''}
+                    alt={data.description}
                     className="hidden aspect-square h-full w-full"
                   />
-                </a>
+                </div>
               </div>
             );
           })}
         </div>
       </div>
       <div className="z-31 absolute bottom-16 left-1/2 flex -translate-x-1/2 space-x-3">
-        {data.resources.map((resource, index) => {
-          return (
-            <button
-              key={index}
-              type="button"
-              className="h-3 w-3 rounded-full bg-gray-500"
-              aria-current="false"
-              aria-label="Slide 1"
-            ></button>
-          );
+        {version?.version?.map((resource, index) => {
+          if (currentIndex === index) {
+            return <button key={index} type="button" className="h-3 w-3 rounded-full bg-white"></button>;
+          } else {
+            return <button key={index} type="button" className="h-3 w-3 rounded-full bg-gray-500"></button>;
+          }
         })}
       </div>
       <div className="absolute bottom-7 left-1/2 z-30 flex -translate-x-1/2 space-x-3 whitespace-nowrap text-xl">
-        {version.version.length === 0 ? '無' : version.version[0].detail}
+        {version?.version.length === 0 ? '無' : version?.version[currentIndex].detail}
       </div>
     </div>
   );

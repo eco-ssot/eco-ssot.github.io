@@ -9,7 +9,6 @@ export const decarbonizationApi = appApi.injectEndpoints({
       }),
 
       transformResponse: (res) => {
-        console.log(res);
         const newData = res?.data?.map((data) => {
           const { item, main, detail, actuals, targets } = data;
           const newElement = { item, main, detail };

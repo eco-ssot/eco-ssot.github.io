@@ -8,7 +8,6 @@ export default function Back() {
   const { t } = useTranslation(['component', 'analysisPage']);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   return (
     <div
