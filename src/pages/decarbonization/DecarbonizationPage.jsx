@@ -36,7 +36,12 @@ export default function DecarbonizationPage() {
         {/* <Legend dotClassName="bg-yellow-500" label={t('component:legend.meetTargetYet')} /> */}
         <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
       </div>
-      <div className="flex w-full flex-col overflow-auto rounded-t-lg border-b-2 border-b-primary-600 shadow">
+      <div
+        className={clsx(
+          'flex w-full flex-col overflow-auto rounded-t-lg shadow',
+          data?.data?.length && 'border-b-2 border-primary-600'
+        )}
+      >
         {data?.data && (
           <DecarbonizationTable
             columns={columns}
