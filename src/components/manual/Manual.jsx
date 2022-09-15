@@ -3,10 +3,8 @@ import { useState } from 'react';
 import { Popover } from '@headlessui/react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import { isBoolean } from 'lodash';
 
 import { ReactComponent as PdfIcon } from '../../icons/file-pdf-solid.svg';
-// import DeleteVersionModal from '../modal/DeleteVersionModal';
 import TourPanel from '../../pages/home/TourPanel';
 import Legend from '../legend/Legend'
 import Tooltip from '../tooltip/Tooltip';
@@ -39,7 +37,7 @@ export default function Manual({ lng }) {
           <ChevronDownIcon className="h-5 w-5 fill-gray-50" />
         </Popover.Button>
         <Popover.Panel className="absolute z-10 mt-2 flex flex-col space-y-2 rounded border border-divider bg-primary-900 p-2 shadow">
-          <div className='flex cursor-pointer' onClick={() => setOpen()}>
+          <div className='flex cursor-pointer' onClick={() => setOpen(true)}>
           <Legend dotClassName="bg-dangerous-700"/>
             <div className="cursor-pointer whitespace-nowrap" >
             新功能導覽
@@ -65,7 +63,7 @@ export default function Manual({ lng }) {
           </a>
         </Popover.Panel>
       </Popover>
-      <TourPanel open={!isBoolean(open)} setOpen={setOpen} />
+      <TourPanel open={Boolean(open) } setOpen={setOpen} />
     </>
   );
 }

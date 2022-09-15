@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 
 import clsx from 'clsx';
 import { isEmpty } from 'lodash';
@@ -23,7 +23,7 @@ const BUTTON_GROUP_OPTIONS = [
 ];
 
 export function TabPanel({ children }) {
-  const { hash, search } = useLocation();
+  const { hash, search, state } = useLocation();
   const { lng, business, y, m, cy, s, p, pt, ...option } = qs.parse(search);
   const tabIndex = BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === hash.slice(1));
   const baselineRef = useRef({});
@@ -33,6 +33,10 @@ export function TabPanel({ children }) {
   const isBaseline = tabIndex <= 0;
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
+  const showBack = useMemo(
+    () => state?.from === '/decarbonization' || state?.from === '/management/decarbonization',
+    [state]
+  );
   return children({
     s,
     p,
@@ -43,19 +47,26 @@ export function TabPanel({ children }) {
     isPowerSaving,
     refs,
     tabIndex: tabIndex < 0 ? 0 : tabIndex,
+    showBack,
   });
 }
 
 export default function ElectricityBaselinePage() {
   const { t } = useTranslation(['baselinePage', 'component']);
   const navigate = useNavigate();
+
   return (
     <>
-      <Back className="block" />
-      <div className="-mt-16 grid h-screen w-screen grid-rows-5 gap-4 overflow-hidden p-4 pt-20">
-        <TabPanel>
-          {({ isBaseline, isPrediction, isPowerSaving, option, business, s, p, tabIndex, refs }) => (
-            <>
+      <TabPanel>
+        {({ isBaseline, isPrediction, isPowerSaving, option, business, s, p, tabIndex, refs, showBack }) => (
+          <>
+            {showBack && <Back className="block" />}
+            <div
+              className={clsx(
+                '-mt-16 grid w-screen grid-rows-5 gap-4 overflow-hidden p-4 pt-20',
+                showBack ? 'h-[calc(100vh-4rem)]' : 'h-screen'
+              )}
+            >
               <div
                 className={clsx(
                   'flex flex-col space-y-4 overflow-auto rounded bg-primary-900 p-4 shadow',
@@ -92,10 +103,10 @@ export default function ElectricityBaselinePage() {
               </div>
               {isBaseline && !isEmpty(option) && <ChartPanel {...option} business={business} />}
               {isPowerSaving && <PowerSavingPlanPanel {...option} business={business} />}
-            </>
-          )}
-        </TabPanel>
-      </div>
+            </div>
+          </>
+        )}
+      </TabPanel>
     </>
   );
 }

@@ -24,10 +24,25 @@ export default function TablePage({ title, downloadResource, table: Table, histo
 
   return (
     <TablePanel>
-      {({ isHistory, isOverview, option, prevOption, missingPlants, year, showElectricityIndex, showHistoryTab }) => (
+      {({
+        isHistory,
+        isOverview,
+        option,
+        prevOption,
+        missingPlants,
+        year,
+        showElectricityIndex,
+        showHistoryTab,
+        showBack,
+      }) => (
         <>
-          <Back className="block"/>
-          <div className="flex h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full flex-col overflow-auto">
+          <div
+            className={clsx(
+              'flex max-h-[calc(100vh-4rem)] w-full flex-col overflow-auto',
+              showBack ? 'h-[calc(100vh-6rem)]' : 'h-[calc(100vh-4rem)]'
+            )}
+          >
+            {showBack && <Back className="block" />}
             <div
               className={clsx(
                 'relative m-4 mb-0 flex flex-col space-y-2 rounded bg-primary-900 p-4',

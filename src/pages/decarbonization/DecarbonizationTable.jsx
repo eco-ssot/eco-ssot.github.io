@@ -5,6 +5,8 @@ import Dot from '../../components/dot/Dot';
 import MyNavLink from '../../router/MyNavLink';
 import { toFormattedNumber } from '../../utils/number';
 
+import { getHigherThan, getDownThan } from './helpers';
+
 export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   const NAME_URL_MAPPING = {
     總電量: '/electricity',
@@ -19,9 +21,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
       className: 'text-left p-3',
       Cell: (cell) => {
         return (
-          <MyNavLink
-            to={{ pathname: NAME_URL_MAPPING[cell.value], state: { from: '/decarbonization', replace: true } }}
-          >
+          <MyNavLink to={{ pathname: NAME_URL_MAPPING[cell.value] }} state={{ from: '/decarbonization' }}>
             {cell.value}
           </MyNavLink>
         );
@@ -43,13 +43,8 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot
-                    color={
-                      cell.value?.amount > cell?.row?.original[currentYear]?.amount
-                        ? 'bg-green-500'
-                        : 'bg-dangerous-500'
-                    }
-                  />
+                  <Dot color={getHigherThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
+
                   <div className="text-right">
                     {toFormattedNumber(
                       cell.value?.amount,
@@ -68,13 +63,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot
-                    color={
-                      cell.value?.amount > cell?.row?.original[currentYear]?.amount
-                        ? 'bg-green-500'
-                        : 'bg-dangerous-500'
-                    }
-                  />
+                  <Dot color={getHigherThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
                   <div className="text-right">
                     {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
                   </div>
@@ -87,13 +76,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot
-                    color={
-                      cell.value?.amount < cell?.row?.original[currentYear]?.amount
-                        ? 'bg-green-500'
-                        : 'bg-dangerous-500'
-                    }
-                  />
+                  <Dot color={getDownThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
                   <div className="text-right">
                     {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
                   </div>
@@ -107,13 +90,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
               if (cell?.row?.original?.item === '可再生能源' || cell?.row?.original?.item === '節能耗電') {
                 return (
                   <div className="flex items-center justify-end space-x-2">
-                    <Dot
-                      color={
-                        cell.value?.amount < cell?.row?.original[currentYear]?.amount
-                          ? 'bg-green-500'
-                          : 'bg-dangerous-500'
-                      }
-                    />
+                    <Dot color={getDownThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
                     <div className="text-right">
                       {toFormattedNumber(
                         cell.value?.amount,
@@ -125,13 +102,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
               } else {
                 return (
                   <div className="flex items-center justify-end space-x-2">
-                    <Dot
-                      color={
-                        cell.value?.amount > cell?.row?.original[currentYear]?.amount
-                          ? 'bg-green-500'
-                          : 'bg-dangerous-500'
-                      }
-                    />
+                    <Dot color={getHigherThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
                     <div className="text-right">
                       {toFormattedNumber(
                         cell.value?.amount,

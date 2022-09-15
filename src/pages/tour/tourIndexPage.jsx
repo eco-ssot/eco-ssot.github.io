@@ -83,33 +83,42 @@ const Carousel = (version) => {
           className="carousel-container relative z-0 mx-24 flex h-full w-full touch-pan-x snap-x snap-mandatory overflow-hidden scroll-smooth "
         >
           {version?.version?.map((data, index) => {
+            const backgroundImage = BlobClient.listBlobs({ prefix: data?.version + '/' + data?.playbook_page })?.then(
+              (res) => {
+                const url = BlobClient.getImageLink(res[0].name);
+                return url;
+              }
+            );
+
+            console.log(backgroundImage);
             return (
               <div key={index} className="carousel-item relative m-4 h-full snap-start gap-1 text-center">
                 <div
-                  className="z-0 block aspect-square h-5/6 w-[calc(100vw-30rem)] border-2 border-white bg-cover bg-left-top bg-no-repeat bg-origin-padding mx-3"
-                  style={{
-                    backgroundImage: `url(${
-                      BlobClient.getImageLink(data.version + '/' + data.playbook_page + '.png') || ''
-                    })`,
-                  }}
-                >
-                  <img
-                    src={BlobClient.getImageLink(data.version + '/' + data.playbook_page + '.png') || ''}
-                    alt={data.description}
-                    className="hidden aspect-square h-full w-full"
-                  />
-                </div>
+                  className="z-0 mx-3 block aspect-square h-5/6 w-[calc(100vw-30rem)] border-2 border-white bg-cover bg-left-top bg-no-repeat bg-origin-padding"
+                  style={
+                    {
+                      // backgroundImage: `url(${BlobClient.getImageLink(backgroundImage)})`,
+                    }
+                  }
+                ></div>
               </div>
             );
           })}
         </div>
       </div>
       <div className="z-31 absolute bottom-16 left-1/2 flex -translate-x-1/2 space-x-3">
-        {version?.version?.map((resource, index) => {
+        {version?.version?.map((version, index) => {
           if (currentIndex === index) {
             return <button key={index} type="button" className="h-3 w-3 rounded-full bg-white"></button>;
           } else {
-            return <button key={index} type="button" className="h-3 w-3 rounded-full bg-gray-500"></button>;
+            return (
+              <button
+                key={index}
+                type="button"
+                className="h-3 w-3 rounded-full bg-gray-500"
+                onClick={() => setCurrentIndex(index)}
+              ></button>
+            );
           }
         })}
       </div>

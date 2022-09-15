@@ -24,7 +24,8 @@ const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
       };
       return (
         <MyNavLink
-          to={{ pathname: NAME_URL_MAPPING[cell.value], state: { from: '/management/decarbonization', replace: true } }}
+          to={{ pathname: NAME_URL_MAPPING[cell.value] }}
+          state={{ from: '/management/decarbonization' }}
           className={'decoration-white-600 cursor-pointer underline underline-offset-4'}
         >
           {cell.value}
@@ -49,13 +50,13 @@ const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
           );
         } else if (cell.value?.unit === '噸' || cell.value?.unit === 'MWH') {
           return toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '');
-        } else if(cell.value?.unit === '%'){
+        } else if (cell.value?.unit === '%') {
           return toFormattedNumber(
             cell.value?.amount,
             cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
           );
-        }else {
-          return "-";
+        } else {
+          return '-';
         }
       },
     };

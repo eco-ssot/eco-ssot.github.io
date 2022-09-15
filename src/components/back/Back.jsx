@@ -1,18 +1,17 @@
 import { ChevronLeftIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function Back() {
+export default function Back(className) {
   const { t } = useTranslation(['component', 'analysisPage']);
   const navigate = useNavigate();
-  const location = useLocation();
 
   return (
     <div
       className={clsx(
         'ml-4 mt-4 flex cursor-pointer items-center space-x-2 text-gray-300 hover:text-green-50',
-        location.state === null ? 'block' : 'hidden'
+        className
       )}
       onClick={() => navigate(-1)}
     >
