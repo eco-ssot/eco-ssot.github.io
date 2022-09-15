@@ -87,7 +87,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
             }
           } else if (cell.value?.unit === '%') {
             if (year.match('11')) {
-              if (cell?.row?.original?.item === '可再生能源' || cell?.row?.original?.item === '節能耗電') {
+              if (cell.row?.original?.item === '可再生能源' || cell.row?.original?.item === '節能耗電') {
                 return (
                   <div className="flex items-center justify-end space-x-2">
                     <Dot color={getDownThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
