@@ -32,8 +32,8 @@ export default function DecarbonizationPage() {
         </Tag>
       </div>
       <div className="mt-4 mb-2 flex justify-end space-x-4">
+        <Legend dotClassName="bg-white" label={t('component:legend.noData')} />
         <Legend dotClassName="bg-dangerous-500" label={t('component:legend.missTarget')} />
-        {/* <Legend dotClassName="bg-yellow-500" label={t('component:legend.meetTargetYet')} /> */}
         <Legend dotClassName="bg-green-500" label={t('component:legend.meetTarget')} />
       </div>
       <div

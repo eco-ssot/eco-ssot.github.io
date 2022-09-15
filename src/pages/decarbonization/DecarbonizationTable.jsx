@@ -5,7 +5,9 @@ import Dot from '../../components/dot/Dot';
 import MyNavLink from '../../router/MyNavLink';
 import { toFormattedNumber } from '../../utils/number';
 
-export const COLUMNS = ({ t, yearOrder }) => {
+import { getHigherThan, getDownThan } from './helpers';
+
+export const COLUMNS = ({ t, latestDate, yearOrder }) => {
   const NAME_URL_MAPPING = {
     總電量: '/electricity',
     碳排放: '/carbon',
@@ -19,9 +21,7 @@ export const COLUMNS = ({ t, yearOrder }) => {
       className: 'text-left p-3',
       Cell: (cell) => {
         return (
-          <MyNavLink
-            to={{ pathname: NAME_URL_MAPPING[cell.value], state: { from: '/decarbonization', replace: true } }}
-          >
+          <MyNavLink to={{ pathname: NAME_URL_MAPPING[cell.value] }} state={{ from: '/decarbonization' }}>
             {cell.value}
           </MyNavLink>
         );
@@ -38,11 +38,13 @@ export const COLUMNS = ({ t, yearOrder }) => {
         accessor: String(year),
         className: 'text-right w-36 p-3',
         Cell: (cell) => {
+          const currentYear = new Date(latestDate).getFullYear() + '12';
           if (cell.value?.unit === '億度') {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot color="bg-green-500" />
+                  <Dot color={getDownThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
+
                   <div className="text-right">
                     {toFormattedNumber(
                       cell.value?.amount,
@@ -57,11 +59,24 @@ export const COLUMNS = ({ t, yearOrder }) => {
                 cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
               );
             }
-          } else if (cell.value?.unit === '噸' || cell.value?.unit === 'MWH') {
+          } else if (cell.value?.unit === '噸') {
             if (year.match('11')) {
               return (
                 <div className="flex items-center justify-end space-x-2">
-                  <Dot color="bg-green-500" />
+                  <Dot color={getDownThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
+                  <div className="text-right">
+                    {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
+                  </div>
+                </div>
+              );
+            } else {
+              return toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '');
+            }
+          } else if (cell.value?.unit === 'MWH') {
+            if (year.match('11')) {
+              return (
+                <div className="flex items-center justify-end space-x-2">
+                  <Dot color={getHigherThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
                   <div className="text-right">
                     {toFormattedNumber(cell.value?.amount, cell.value?.unit ? { suffix: ' ' + cell.value?.unit } : '')}
                   </div>
@@ -72,17 +87,31 @@ export const COLUMNS = ({ t, yearOrder }) => {
             }
           } else if (cell.value?.unit === '%') {
             if (year.match('11')) {
-              return (
-                <div className="flex items-center justify-end space-x-2">
-                  <Dot color="bg-green-500" />
-                  <div className="text-right">
-                    {toFormattedNumber(
-                      cell.value?.amount,
-                      cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
-                    )}
+              if (cell.row?.original?.item === '可再生能源' || cell.row?.original?.item === '節能耗電') {
+                return (
+                  <div className="flex items-center justify-end space-x-2">
+                    <Dot color={getHigherThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
+                    <div className="text-right">
+                      {toFormattedNumber(
+                        cell.value?.amount,
+                        cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
+                );
+              } else {
+                return (
+                  <div className="flex items-center justify-end space-x-2">
+                    <Dot color={getDownThan(cell.value?.amount, cell.row.original?.[currentYear]?.amount)} />
+                    <div className="text-right">
+                      {toFormattedNumber(
+                        cell.value?.amount,
+                        cell.value?.unit ? { suffix: ' ' + cell.value?.unit, precision: 1 } : ''
+                      )}
+                    </div>
+                  </div>
+                );
+              }
             } else {
               return toFormattedNumber(
                 cell.value?.amount,
@@ -162,7 +191,7 @@ export default function DecarbonizationTable({
                     {...cell.getCellProps([
                       {
                         className: clsx(
-                          'text-lg',
+                          'text-lg whitespace-nowrap',
                           cell.column.className,
                           rowSpan && 'align-top',
                           i > 0 && row.original.item !== rows[i - 1]?.original?.item && 'border-t-2 border-primary-600'

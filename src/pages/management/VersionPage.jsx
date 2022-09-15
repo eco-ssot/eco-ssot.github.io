@@ -170,6 +170,7 @@ function AddVersion({
                 version: versionNo,
                 description: description,
                 detail: detail,
+                item: null,
                 playbook_page: page,
               };
               postVersion({
@@ -186,8 +187,7 @@ function AddVersion({
               });
             }}
             className={
-              (!versionNo || !description || !description || !detail  || !page) &&
-              'pointer-events-none opacity-50'
+              (!versionNo || !description || !description || !detail || !page) && 'pointer-events-none opacity-50'
             }
           >
             {t('component:button.add')}
@@ -208,7 +208,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-        <div className="min-w-32 text-left">{t('managementPage:changelog.version')}:</div>
+          <div className="min-w-32 text-left">{t('managementPage:changelog.version')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
@@ -219,7 +219,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-        <div className="min-w-32 text-left">{t('managementPage:changelog.updateContent')}:</div>
+          <div className="min-w-32 text-left">{t('managementPage:changelog.updateContent')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
@@ -230,7 +230,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-        <div className="min-w-32 text-left">{t('managementPage:changelog.introduce')}:</div>
+          <div className="min-w-32 text-left">{t('managementPage:changelog.introduce')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"
@@ -241,7 +241,7 @@ function AddVersion({
           />
         </div>
         <div className="flex items-center">
-        <div className="min-w-32 text-left">{t('managementPage:changelog.pages')}:</div>
+          <div className="min-w-32 text-left">{t('managementPage:changelog.pages')}:</div>
           <Input
             className="text-left"
             containerClassName="w-full"

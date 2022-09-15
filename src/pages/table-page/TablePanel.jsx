@@ -9,7 +9,7 @@ import useSitePlantOptions from '../../hooks/useSitePlantOptions';
 import { useGetLatestDateQuery, useGetMissingPlantsQuery } from '../../services/app';
 
 export default function TablePanel({ children }) {
-  const { hash, pathname, search } = useLocation();
+  const { hash, pathname, search, state } = useLocation();
   const prevSearch = usePrevious(search);
   const option = useMemo(() => qs.parse(search), [search]);
   const prevOption = useMemo(() => qs.parse(prevSearch), [prevSearch]);
@@ -47,7 +47,10 @@ export default function TablePanel({ children }) {
       plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === option.p || key === option.s),
     [option.p, option.s, isElectricity, option.y, currYear, isHistory, plantOptions]
   );
-
+  const showBack = useMemo(
+    () => state?.from === '/decarbonization' || state?.from === '/management/decarbonization',
+    [state]
+  );
   return children({
     isHistory,
     isOverview,
@@ -58,5 +61,6 @@ export default function TablePanel({ children }) {
     showElectricityIndex,
     showHistoryTab,
     year: option.y || currYear,
+    showBack,
   });
 }

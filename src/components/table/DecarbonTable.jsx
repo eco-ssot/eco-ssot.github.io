@@ -256,36 +256,15 @@ export default function EditableTable({
                 ) {
                   return null;
                 }
-                  let rowSpan = null;
-                  if (i === 0) {
-                    if (j === 1 || j === 8) {
-                      rowSpan = 5;
-                    } else if (j === 6) {
-                      rowSpan = 2;
-                    } else if (j === 0) {
-                      rowSpan = 1;
-                    } else {
-                      return null;
-                    }
-                  }
-                  if (i === 1) {
-                    if (j === 1) {
-                      rowSpan = 3;
-                    } else if (j === 4 || j === 6) {
-                      rowSpan = 2;
-                    } else if (j === 8) {
-                      rowSpan = 5;
-                    } else if (j === 0 ) {
-                      rowSpan = 1;
-                    } else {
-                      return null;
-                    }
-                  }
+                const rowSpan = cell.row.original.rowSpan?.[cell.column.id];
+                if (rowSpan === 0) {
+                  return null;
+                }
                   return (
                     <td
                       {...cell.getCellProps([
                         {
-                          className: clsx('px-2 text-gray-50 text-lg align-top', cell.column.className),
+                          className: clsx('px-2 text-gray-50 text-lg align-top whitespace-nowrap', cell.column.className),
                           style: cell.column.style,
                         },
                         getColumnProps(cell.column),
