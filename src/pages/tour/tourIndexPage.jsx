@@ -7,18 +7,17 @@ import BlobClient from '../../services/blob';
 const Carousel = (version) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
+  const [blobs, setBlobs] = useState([]);
   const movePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prevState) => prevState - 1);
     }
   };
-
   const moveNext = () => {
     if (carousel.current !== null && currentIndex < version?.version?.length - 1) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   };
-
   const isDisabled = (direction) => {
     if (direction === 'prev') {
       return currentIndex <= 0;
@@ -30,11 +29,22 @@ const Carousel = (version) => {
 
     return false;
   };
+
   useEffect(() => {
     if (carousel !== null && carousel.current !== null) {
       carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
     }
   }, [currentIndex]);
+
+  const GetPage = (page) => {
+    useEffect(() => {
+      if (page !== undefined) {
+        BlobClient.listBlobs({ prefix: page })?.then((res) => {
+          setBlobs(res[0].name);
+        });
+      }
+    }, [page]);
+  };
 
   return (
     <div className="carousel h-full w-full">
@@ -83,23 +93,15 @@ const Carousel = (version) => {
           className="carousel-container relative z-0 mx-24 flex h-full w-full touch-pan-x snap-x snap-mandatory overflow-hidden scroll-smooth "
         >
           {version?.version?.map((data, index) => {
-            const backgroundImage = BlobClient.listBlobs({ prefix: data?.version + '/' + data?.playbook_page })?.then(
-              (res) => {
-                const url = BlobClient.getImageLink(res[0].name);
-                return url;
-              }
-            );
-
-            console.log(backgroundImage);
+            const page = data.version + '/' + data.playbook_page;
+            GetPage(page);
             return (
               <div key={index} className="carousel-item relative m-4 h-full snap-start gap-1 text-center">
                 <div
                   className="z-0 mx-3 block aspect-square h-5/6 w-[calc(100vw-30rem)] border-2 border-white bg-cover bg-left-top bg-no-repeat bg-origin-padding"
-                  style={
-                    {
-                      // backgroundImage: `url(${BlobClient.getImageLink(backgroundImage)})`,
-                    }
-                  }
+                  style={{
+                    backgroundImage: `url(${BlobClient.getImageLink(blobs)})`,
+                  }}
                 ></div>
               </div>
             );
