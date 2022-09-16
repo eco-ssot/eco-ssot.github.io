@@ -7,13 +7,16 @@ import Legend from '../../components/legend/Legend';
 import PageContainer from '../../components/page-container/PageContainer';
 import Tag from '../../components/tag/Tag';
 import useAccumulationPeriod from '../../hooks/useAccumulationPeriod';
+import useMyNavigate from '../../router/useMyNavigate';
 import { useGetDecarbonizationQuery } from '../../services/decarbonization';
+
 
 import DecarbonizationTable, { COLUMNS } from './DecarbonizationTable';
 
 export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
-  const { data } = useGetDecarbonizationQuery();
+  const [{ business, s, p }] = useMyNavigate();
+  const { data } = useGetDecarbonizationQuery({ business, site: s, plant: p });
   const { latestDate, accumulationPeriod } = useAccumulationPeriod();
   const yearOrder = data?.data.map((data) =>
     Object.keys(data)
