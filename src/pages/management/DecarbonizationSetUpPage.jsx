@@ -25,7 +25,7 @@ const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
       return (
         <MyNavLink
           to={{ pathname: NAME_URL_MAPPING[cell.value] }}
-          state={{ from: '/management/decarbonization' }}
+          state={{ from: '/management/decarbonization',backToPage: true  }}
           className={'decoration-white-600 cursor-pointer underline underline-offset-4'}
         >
           {cell.value}

@@ -35,6 +35,7 @@ export function TabPanel({ children }) {
   const isPowerSaving = tabIndex === 2;
   const showBack = useMemo(
     () =>
+      state?.backToPage === true &&
       (state?.from === '/decarbonization' || state?.from === '/management/decarbonization') &&
       (pathname === '/renewable-energy' ||
         pathname === '/carbon' ||

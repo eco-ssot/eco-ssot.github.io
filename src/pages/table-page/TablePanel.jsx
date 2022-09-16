@@ -49,6 +49,7 @@ export default function TablePanel({ children }) {
   );
   const showBack = useMemo(
     () =>
+      state?.backToPage === true &&
       (state?.from === '/decarbonization' || state?.from === '/management/decarbonization') &&
       (pathname === '/renewable-energy' ||
         pathname === '/carbon' ||
