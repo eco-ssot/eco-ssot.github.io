@@ -48,8 +48,14 @@ export default function TablePanel({ children }) {
     [option.p, option.s, isElectricity, option.y, currYear, isHistory, plantOptions]
   );
   const showBack = useMemo(
-    () => state?.from === '/decarbonization' || state?.from === '/management/decarbonization',
-    [state]
+    () =>
+      (state?.from === '/decarbonization' || state?.from === '/management/decarbonization') &&
+      (pathname === '/renewable-energy' ||
+        pathname === '/carbon' ||
+        pathname === '/carbon' ||
+        pathname === '/analysis/electricity#POWER_SAVING' ||
+        pathname === '/electricity'),
+    [state, pathname]
   );
   return children({
     isHistory,

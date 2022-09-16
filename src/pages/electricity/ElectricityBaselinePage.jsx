@@ -23,7 +23,7 @@ const BUTTON_GROUP_OPTIONS = [
 ];
 
 export function TabPanel({ children }) {
-  const { hash, search, state } = useLocation();
+  const { hash, search, state, pathname } = useLocation();
   const { lng, business, y, m, cy, s, p, pt, ...option } = qs.parse(search);
   const tabIndex = BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === hash.slice(1));
   const baselineRef = useRef({});
@@ -34,8 +34,14 @@ export function TabPanel({ children }) {
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
   const showBack = useMemo(
-    () => state?.from === '/decarbonization' || state?.from === '/management/decarbonization',
-    [state]
+    () =>
+      (state?.from === '/decarbonization' || state?.from === '/management/decarbonization') &&
+      (pathname === '/renewable-energy' ||
+        pathname === '/carbon' ||
+        pathname === '/carbon' ||
+        pathname === '/analysis/electricity#POWER_SAVING' ||
+        pathname === '/electricity'),
+    [state, pathname]
   );
   return children({
     s,
@@ -64,7 +70,7 @@ export default function ElectricityBaselinePage() {
             <div
               className={clsx(
                 '-mt-16 grid w-screen grid-rows-5 gap-4 overflow-hidden p-4 pt-20',
-                showBack ? 'h-[calc(100vh-4rem)]' : 'h-screen'
+                showBack ? 'h-[calc(100vh-2.5rem)]' : 'h-screen'
               )}
             >
               <div
