@@ -39,7 +39,7 @@ export default function TablePage({ title, downloadResource, table: Table, histo
           <div
             className={clsx(
               'flex max-h-[calc(100vh-4rem)] w-full flex-col overflow-auto',
-              showBack ? 'h-[calc(100vh-6rem)]' : 'h-[calc(100vh-4rem)]'
+              showBack ? 'h-[calc(100vh-5rem)]' : 'h-[calc(100vh-4rem)]'
             )}
           >
             {showBack && <Back className="block" />}

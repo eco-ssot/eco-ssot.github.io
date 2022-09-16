@@ -33,10 +33,7 @@ export function TabPanel({ children }) {
   const isBaseline = tabIndex <= 0;
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
-  const showBack = useMemo(
-    () => state?.from === '/decarbonization' || state?.from === '/management/decarbonization',
-    [state]
-  );
+  const showBack = useMemo(() => state?.backToPage === true, [state]);
   return children({
     s,
     p,
@@ -64,7 +61,7 @@ export default function ElectricityBaselinePage() {
             <div
               className={clsx(
                 '-mt-16 grid w-screen grid-rows-5 gap-4 overflow-hidden p-4 pt-20',
-                showBack ? 'h-[calc(100vh-4rem)]' : 'h-screen'
+                showBack ? 'h-[calc(100vh-2.5rem)]' : 'h-screen'
               )}
             >
               <div
