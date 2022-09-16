@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import DecarbonTable, { EditableButton, EditableIconButton } from '../../components/table/DecarbonTable';
 import useAdmin from '../../hooks/useAdmin';
 import MyNavLink from '../../router/MyNavLink';
+import useMyNavigate from '../../router/useMyNavigate';
 import { useGetDecarbonizationQuery } from '../../services/decarbonization';
 import { toFormattedNumber } from '../../utils/number';
 import { updateMyData } from '../../utils/table';
@@ -106,7 +107,8 @@ const COLUMNS = ({ t, canEdit, setData, yearOrder }) => [
 export default function DecarbonizationPage() {
   const { t } = useTranslation(['decarbonizationPage', 'common', 'component']);
   const { canEdit } = useAdmin();
-  const { data: { data } = {} } = useGetDecarbonizationQuery();
+  const [{ business, s, p }] = useMyNavigate();
+  const { data: { data } = {} } = useGetDecarbonizationQuery({ business, site: s, plant: p });
   const [_data, setData] = useState(data);
   const yearOrder = useMemo(
     () => [
