@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import BlobClient from '../../services/blob';
 
 const Carousel = (version) => {
+  const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
   const [blobs, setBlobs] = useState([]);
@@ -23,8 +24,8 @@ const Carousel = (version) => {
       return currentIndex <= 0;
     }
 
-    if (direction === 'next' && carousel.current !== null && currentIndex < version?.version?.length - 1) {
-      return;
+    if (direction === 'next' && carousel.current !== null) {
+      return currentIndex >= version?.version?.length - 1;
     }
 
     return false;
@@ -43,7 +44,8 @@ const Carousel = (version) => {
           setBlobs(res[0].name);
         });
       }
-    }, [page]);
+    }, []);
+    return blobs;
   };
 
   return (
@@ -52,15 +54,15 @@ const Carousel = (version) => {
         {version?.version?.length === 0 ? '無' : version?.version[currentIndex].description}
       </div>
       <div className="relative flex h-full w-full content-between self-stretch overflow-hidden ">
-        <div className="top left absolute flex h-5/6 w-full content-between justify-between self-stretch">
+        <div className="top left absolute flex h-5/6 w-full content-between items-center justify-between self-stretch">
           <button
+            className="z-10 m-0  h-8 w-8 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:text-gray-500 disabled:opacity-80"
             onClick={movePrev}
-            className="z-10 m-0  h-full w-8 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out"
             disabled={isDisabled('prev')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="-ml-0 h-8 w-8 rounded-full bg-gray-500 hover:bg-gray-500/75 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25"
+              className="-ml-0 h-8 w-8 rounded-full  bg-gray-600 hover:bg-gray-600/75 hover:opacity-100 "
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -71,13 +73,13 @@ const Carousel = (version) => {
             <span className="sr-only">Prev</span>
           </button>
           <button
+            className="z-10 m-0  h-8 w-8 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out disabled:cursor-not-allowed  disabled:text-gray-500 disabled:opacity-80"
             onClick={moveNext}
-            className="z-10 m-0 h-full w-8 p-0 text-center  text-white opacity-75 transition-all duration-300 ease-in-out"
             disabled={isDisabled('next')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="-ml-0 h-8 w-8 rounded-full bg-gray-500  hover:bg-gray-500/75 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25"
+              className="-ml-0 h-8 w-8 rounded-full bg-gray-600 hover:bg-gray-600/75 hover:opacity-100 "
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -93,14 +95,14 @@ const Carousel = (version) => {
           className="carousel-container relative z-0 mx-24 flex h-full w-full touch-pan-x snap-x snap-mandatory overflow-hidden scroll-smooth "
         >
           {version?.version?.map((data, index) => {
-            const page = data.version + '/' + data.playbook_page;
+            const page = data.version + '/' + data.playbook_page + '.png';
             GetPage(page);
             return (
               <div key={index} className="carousel-item relative m-4 h-full snap-start gap-1 text-center">
                 <div
                   className="z-0 mx-3 block aspect-square h-5/6 w-[calc(100vw-30rem)] border-2 border-white bg-cover bg-left-top bg-no-repeat bg-origin-padding"
                   style={{
-                    backgroundImage: `url(${BlobClient.getImageLink(blobs)})`,
+                    backgroundImage: `url(${BlobClient.getImageLink(GetPage(page))})`,
                   }}
                 ></div>
               </div>
