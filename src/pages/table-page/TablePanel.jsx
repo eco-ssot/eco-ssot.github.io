@@ -47,17 +47,8 @@ export default function TablePanel({ children }) {
       plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === option.p || key === option.s),
     [option.p, option.s, isElectricity, option.y, currYear, isHistory, plantOptions]
   );
-  const showBack = useMemo(
-    () =>
-      state?.backToPage === true &&
-      (state?.from === '/decarbonization' || state?.from === '/management/decarbonization') &&
-      (pathname === '/renewable-energy' ||
-        pathname === '/carbon' ||
-        pathname === '/carbon' ||
-        pathname === '/analysis/electricity#POWER_SAVING' ||
-        pathname === '/electricity'),
-    [state, pathname]
-  );
+  console.log(state);
+  const showBack = useMemo(() => state?.backToPage === true,[state]);
   return children({
     isHistory,
     isOverview,

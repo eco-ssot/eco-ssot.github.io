@@ -23,7 +23,7 @@ const BUTTON_GROUP_OPTIONS = [
 ];
 
 export function TabPanel({ children }) {
-  const { hash, search, state, pathname } = useLocation();
+  const { hash, search, state } = useLocation();
   const { lng, business, y, m, cy, s, p, pt, ...option } = qs.parse(search);
   const tabIndex = BUTTON_GROUP_OPTIONS.findIndex((option) => option.key === hash.slice(1));
   const baselineRef = useRef({});
@@ -33,17 +33,7 @@ export function TabPanel({ children }) {
   const isBaseline = tabIndex <= 0;
   const isPrediction = tabIndex === 1;
   const isPowerSaving = tabIndex === 2;
-  const showBack = useMemo(
-    () =>
-      state?.backToPage === true &&
-      (state?.from === '/decarbonization' || state?.from === '/management/decarbonization') &&
-      (pathname === '/renewable-energy' ||
-        pathname === '/carbon' ||
-        pathname === '/carbon' ||
-        pathname === '/analysis/electricity#POWER_SAVING' ||
-        pathname === '/electricity'),
-    [state, pathname]
-  );
+  const showBack = useMemo(() => state?.backToPage === true, [state]);
   return children({
     s,
     p,
