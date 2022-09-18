@@ -9,6 +9,7 @@ import AuthPage from '../pages/auth/AuthPage';
 import ErrorPage from '../pages/errors/ErrorPage';
 
 import RequireAuth from './RequireAuth';
+import Root from './Root';
 import { publicRoutes, privateRoutes } from './routes';
 
 export function toRoute({ index, path, routes, element: Element = Outlet, skeleton: Skeleton = PageContainer }, i) {
@@ -18,11 +19,9 @@ export function toRoute({ index, path, routes, element: Element = Outlet, skelet
         <Route
           index
           element={
-            <ErrorBoundary FallbackComponent={ErrorPage}>
-              <Suspense fallback={<Skeleton />}>
-                <Element />
-              </Suspense>
-            </ErrorBoundary>
+            <Suspense fallback={<Skeleton />}>
+              <Element />
+            </Suspense>
           }
         />
       )}
@@ -30,11 +29,9 @@ export function toRoute({ index, path, routes, element: Element = Outlet, skelet
         <Route
           path={path}
           element={
-            <ErrorBoundary FallbackComponent={ErrorPage}>
-              <Suspense fallback={<Skeleton />}>
-                <Element />
-              </Suspense>
-            </ErrorBoundary>
+            <Suspense fallback={<Skeleton />}>
+              <Element />
+            </Suspense>
           }
         >
           {routes && routes.map(toRoute)}
@@ -49,30 +46,37 @@ export default function Router({ children }) {
     <BrowserRouter>
       {children}
       <Routes>
-        <Route path="/login" element={<AuthPage />}></Route>
-        <Route path="/" element={<Layout />}>
-          {publicRoutes.map(({ path, element: Element }, i) => (
-            <Route
-              exact
-              key={i}
-              path={path}
-              element={
-                <Suspense fallback={<></>}>
-                  <Element />
-                </Suspense>
-              }
-            />
-          ))}
-        </Route>
         <Route
-          path="/"
           element={
-            <RequireAuth>
-              <Layout />
-            </RequireAuth>
+            <ErrorBoundary FallbackComponent={ErrorPage}>
+              <Root />
+            </ErrorBoundary>
           }
         >
-          {privateRoutes.map(toRoute)}
+          <Route path="/login" element={<AuthPage />}></Route>
+          <Route element={<Layout />}>
+            {publicRoutes.map(({ path, element: Element }, i) => (
+              <Route
+                exact
+                key={i}
+                path={path}
+                element={
+                  <Suspense fallback={<></>}>
+                    <Element />
+                  </Suspense>
+                }
+              />
+            ))}
+          </Route>
+          <Route
+            element={
+              <RequireAuth>
+                <Layout />
+              </RequireAuth>
+            }
+          >
+            {privateRoutes.map(toRoute)}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

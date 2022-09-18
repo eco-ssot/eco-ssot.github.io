@@ -1,8 +1,8 @@
-import { forwardRef, useCallback, useEffect, useTransition } from 'react';
+import { forwardRef, startTransition, useCallback } from 'react';
 
 import qs from 'query-string';
 import { useDispatch } from 'react-redux';
-import { NavLink, useLinkClickHandler } from 'react-router-dom';
+import { NavLink, useLinkClickHandler, useLocation, useResolvedPath } from 'react-router-dom';
 
 import APP_CONSTANTS from '../app/appConstants';
 import { setLoadingPage } from '../app/appSlice';
@@ -10,7 +10,9 @@ import { store } from '../app/store';
 import usePlantPermission from '../hooks/usePlantPermission';
 
 const MyNavLink = forwardRef(
-  ({ onClick, state, target, to, api, prefetchApis, onMouseEnter, replace = false, ...rest }, ref) => {
+  ({ state, target, to, api, prefetchApis, onMouseEnter, replace = false, end = true, ...rest }, ref) => {
+    const { pathname } = useLocation();
+    const { pathname: nextPathname } = useResolvedPath(to);
     const handleClick = useLinkClickHandler(to, {
       replace,
       state,
@@ -48,17 +50,17 @@ const MyNavLink = forwardRef(
       [plantPermission, to?.search, state?.from]
     );
 
-    const [pending, startTransition] = useTransition();
+    const dispatch = useDispatch();
     const navigate = useCallback(
       (e) => {
-        startTransition(() => {
-          onClick?.(e);
-          if (!e?.defaultPrevented) {
-            handleClick(e);
-          }
-        });
+        e.preventDefault();
+        if (pathname !== nextPathname) {
+          dispatch(setLoadingPage({ [nextPathname]: true }));
+        }
+
+        startTransition(() => handleClick(e));
       },
-      [onClick, handleClick]
+      [pathname, nextPathname, handleClick, dispatch]
     );
 
     const onPrefetch = useCallback(
@@ -78,25 +80,18 @@ const MyNavLink = forwardRef(
       [onMouseEnter, prefetchApis, getQuery]
     );
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      if (!state?.skipLoadingPage) {
-        dispatch(setLoadingPage({ [to?.pathname || to]: pending }));
-      }
-    }, [to, pending, state?.skipLoadingPage, dispatch]);
-
     return (
-      <>
-        <NavLink
-          {...rest}
-          state={state}
-          to={to}
-          onClick={navigate}
-          ref={ref}
-          target={target}
-          onMouseEnter={onPrefetch}
-        />
-      </>
+      <NavLink
+        state={state}
+        to={to}
+        onClick={navigate}
+        ref={ref}
+        target={target}
+        onMouseEnter={onPrefetch}
+        replace={replace}
+        end={end}
+        {...rest}
+      />
     );
   }
 );

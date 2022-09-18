@@ -21,11 +21,6 @@ export default function ManagementPage() {
   const isIndexPage = useMemo(() => pathname === '/management', [pathname]);
   const tabs = useMemo(() => managementRoutes.filter((route) => !route.hidden), []);
   const isMatched = useCallback(({ isActive, index }) => isActive || (index && isIndexPage), [isIndexPage]);
-  const renderOutlet = useCallback(() => {
-    const IndexPage = tabs[0].element;
-    return isIndexPage ? <IndexPage /> : <Outlet />;
-  }, [isIndexPage, tabs]);
-
   return (
     <div className="grid h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full grid-cols-8 grid-rows-2 gap-4 overflow-hidden p-4">
       <div className="col-span-1 row-span-2">
@@ -88,7 +83,7 @@ export default function ManagementPage() {
           </div>
         </div>
       </div>
-      {renderOutlet()}
+      <Outlet />
     </div>
   );
 }

@@ -21,7 +21,7 @@ export const COLUMNS = ({ t, latestDate, yearOrder }) => {
       className: 'text-left p-3',
       Cell: (cell) => {
         return (
-          <MyNavLink to={{ pathname: NAME_URL_MAPPING[cell.value] }} state={{ from: '/decarbonization' ,backToPage: true }}>
+          <MyNavLink to={NAME_URL_MAPPING[cell.value]} state={{ from: '/decarbonization', backToPage: true }}>
             {cell.value}
           </MyNavLink>
         );

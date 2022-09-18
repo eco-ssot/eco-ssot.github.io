@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
@@ -15,16 +15,11 @@ export default function NavBar({ className }) {
   const { t } = useTranslation(['location']);
   const { pathname, search } = useLocation();
   const tabs = useMemo(() => privateRoutes.filter((route) => !route.hidden), []);
-  const preloadElements = useCallback((route) => {
-    route.element?.preload?.();
-    route.routes?.forEach(preloadElements);
-  }, []);
-
   return (
     <div className={clsx('flex flex-grow space-x-4', className)}>
-      {tabs.map(({ path, i18nKey, element, routes, prefetchApis, index }, i) => (
+      {tabs.map(({ path, i18nKey, element, prefetchApis, index }, i) => (
         <MyNavLink
-          onMouseEnter={() => preloadElements({ element, routes })}
+          onMouseEnter={() => element?.preload()}
           aria-label={`nav-${i18nKey}`}
           key={i}
           to={{
@@ -61,28 +56,31 @@ export default function NavBar({ className }) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 z-50 mt-1 w-48 origin-top-right rounded-md border border-divider bg-primary-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            {tabs.slice(5).map(({ path, i18nKey, element, routes, prefetchApis }, i) => (
-              <div className="px-1 py-1" key={i}>
+            {tabs.slice(5).map(({ path, i18nKey, element, prefetchApis }, i) => (
+              <MyNavLink
+                key={i}
+                onMouseEnter={() => element?.preload()}
+                to={{
+                  pathname: path,
+                  search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
+                }}
+                state={{ from: pathname }}
+                className={clsx('group flex w-full items-center rounded p-1 text-lg font-medium text-current')}
+                prefetchApis={prefetchApis}
+              >
                 <Menu.Item>
                   {({ active }) => (
-                    <MyNavLink
-                      onMouseEnter={() => preloadElements({ element, routes })}
-                      to={{
-                        pathname: path,
-                        search: qs.pick(search, APP_CONSTANTS.GLOBAL_QUERY_KEYS),
-                      }}
-                      state={{ from: pathname }}
+                    <div
                       className={clsx(
-                        'group flex w-full items-center rounded-md px-2 py-2 text-lg font-medium text-current',
+                        'group flex w-full items-center rounded p-2 text-lg font-medium text-current',
                         active ? 'bg-primary-600 text-gray-50' : 'text-gray-200 hover:text-gray-50'
                       )}
-                      prefetchApis={prefetchApis}
                     >
-                      <span className="block truncate">{t(i18nKey)}</span>
-                    </MyNavLink>
+                      {t(i18nKey)}
+                    </div>
                   )}
                 </Menu.Item>
-              </div>
+              </MyNavLink>
             ))}
           </Menu.Items>
         </Transition>

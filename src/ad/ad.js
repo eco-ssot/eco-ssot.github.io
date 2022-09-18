@@ -9,6 +9,10 @@ const msalInstance = new PublicClientApplication(msalConfig);
 const accounts = msalInstance.getAllAccounts();
 
 function initialAccount(account) {
+  if (import.meta.env.VITE_MOCK_AD === '1') {
+    return;
+  }
+
   msalInstance.setActiveAccount(account);
   msalInstance.acquireTokenSilent({ scopes: ['https://graph.microsoft.com/.default'] }).then(({ accessToken }) => {
     if (accessToken) {

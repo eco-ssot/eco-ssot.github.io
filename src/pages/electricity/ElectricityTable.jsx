@@ -88,7 +88,7 @@ const HEADERS = ({ t, pct, currYear = APP_CONSTANTS.CURRENT_YEAR, lastYear = APP
                   prefetchAnalysis({ ...nextQuery, PREFETCH: '/electricity' });
                   prefetchExplanation({ ...nextQuery, PREFETCH: '/electricity' });
                 }}
-                state={{ from: '/electricity', skipLoadingPage: true }}
+                state={{ from: '/electricity' }}
               >
                 {isFinite(cell.value) && cell.value > 0 && <Dot />}
                 <div className={clsx('underline', baseClassName)}>{ratioFormatter(cell.value)}</div>

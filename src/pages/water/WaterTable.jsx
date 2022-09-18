@@ -122,7 +122,7 @@ const HEADERS = ({
                   prefetchAnalysis({ ...nextQuery, PREFETCH: '/water' });
                   prefetchExplanation({ ...nextQuery, PREFETCH: '/water' });
                 }}
-                state={{ from: '/water', skipLoadingPage: true }}
+                state={{ from: '/water' }}
               >
                 {isFinite(cell.value) && cell.value > -pct && <Dot />}
                 {targetFormatter(-pct, { formatter: ratioFormatter, className: 'underline' })(cell)}

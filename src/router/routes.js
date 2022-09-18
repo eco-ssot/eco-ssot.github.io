@@ -88,12 +88,7 @@ export const managementRoutes = [
     prefetchApis: [
       {
         api: decarbonizationApi,
-        endpoints: [
-          {
-            name: 'getDecarbonization',
-            queryKeys: ['Decarbonization'],
-          },
-        ],
+        endpoints: [{ name: 'getDecarbonization' }],
       },
     ],
   },
@@ -130,11 +125,7 @@ export const managementRoutes = [
       },
       {
         api: authApi,
-        endpoints: [
-          {
-            name: 'getUserList',
-          },
-        ],
+        endpoints: [{ name: 'getUserList' }],
       },
     ],
   },
@@ -148,11 +139,7 @@ export const managementRoutes = [
     prefetchApis: [
       {
         api: publicApi,
-        endpoints: [
-          {
-            name: 'getPlantChangelog',
-          },
-        ],
+        endpoints: [{ name: 'getPlantChangelog' }],
       },
     ],
   },
@@ -170,11 +157,7 @@ export const managementRoutes = [
     prefetchApis: [
       {
         api: managementApi,
-        endpoints: [
-          {
-            name: 'getVersion',
-          },
-        ],
+        endpoints: [{ name: 'getVersion' }],
       },
     ],
   },
@@ -410,11 +393,7 @@ export const privateRoutes = [
     prefetchApis: [
       {
         api: decarbonizationApi,
-        endpoints: [
-          {
-            name: 'getDecarbonization',
-          },
-        ],
+        endpoints: [{ name: 'getDecarbonization' }],
       },
     ],
   },

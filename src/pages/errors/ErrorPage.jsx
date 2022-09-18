@@ -1,6 +1,6 @@
 export default function ErrorPage({ error, resetErrorBoundary }) {
   return (
-    <div className="inset-0 flex h-full min-h-screen flex-grow flex-col items-center justify-center">
+    <div className="inset-0 flex h-full min-h-screen min-w-full flex-grow flex-col items-center justify-center">
       <div className="max-w-screen-sm mx-auto -translate-y-24 text-center">
         <h1 className="mb-4 text-9xl font-extrabold tracking-tight text-primary-600">500</h1>
         <p className="mb-4 text-3xl font-bold tracking-tight text-gray-50">Something went wrong</p>

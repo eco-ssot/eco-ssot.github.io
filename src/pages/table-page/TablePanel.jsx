@@ -47,8 +47,8 @@ export default function TablePanel({ children }) {
       plantOptions.filter(({ isPlant }) => isPlant).find(({ key }) => key === option.p || key === option.s),
     [option.p, option.s, isElectricity, option.y, currYear, isHistory, plantOptions]
   );
-  console.log(state);
-  const showBack = useMemo(() => state?.backToPage === true,[state]);
+
+  const showBack = useMemo(() => state?.backToPage === true, [state]);
   return children({
     isHistory,
     isOverview,
