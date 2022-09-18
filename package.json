@@ -32,7 +32,7 @@
     "react-error-boundary": "^3.1.4",
     "react-ga": "^3.3.0",
     "react-hook-form": "^7.32.2",
-    "react-hot-toast": "^2.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-i18next": "^11.16.7",
     "react-merge-refs": "^2.0.1",
     "react-redux": "^8.0.1",
