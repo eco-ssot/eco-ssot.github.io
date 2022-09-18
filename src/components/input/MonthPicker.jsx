@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';

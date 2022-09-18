@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import { UploadIcon } from '@heroicons/react/outline';
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
@@ -142,7 +142,7 @@ const HEADERS = ({
             )}
             onClick={() => setOpen(true)}
           >
-            <UploadIcon className="h-5 w-5" />
+            <ArrowUpTrayIcon className="h-5 w-5" />
           </IconButton>
         </div>
       );

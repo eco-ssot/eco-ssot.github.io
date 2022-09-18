@@ -1,7 +1,7 @@
 import { Fragment, useMemo, useState } from 'react';
 
 import { Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +79,7 @@ function Announce() {
             </Transition>
           ))}
         </div>
-        <XIcon
+        <XMarkIcon
           className="h-5 w-5 cursor-pointer text-gray-300 hover:text-gray-50"
           onClick={() => dispatch(setShowAnnounce(false))}
         />

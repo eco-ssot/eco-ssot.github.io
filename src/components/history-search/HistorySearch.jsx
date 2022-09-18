@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';

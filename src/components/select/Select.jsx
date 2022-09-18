@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useMeasure } from 'react-use';
 

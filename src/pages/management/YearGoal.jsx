@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 
-import { PencilIcon } from '@heroicons/react/solid';
+import { PencilIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';

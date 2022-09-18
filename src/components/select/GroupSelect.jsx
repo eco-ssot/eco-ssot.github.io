@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 
 import Ellipsis from '../ellipsis/Ellipsis';

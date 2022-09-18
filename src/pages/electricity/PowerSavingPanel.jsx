@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 
-import { PencilIcon, PlusIcon, XIcon } from '@heroicons/react/solid';
+import { PencilIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -240,7 +240,7 @@ export default function PowerSavingPanel({ year, plant }) {
       >
         {_data?.slice(-1)?.[0]?.isNew ? (
           <>
-            <XIcon className="h-5 w-5" /> {t('component:button.cancel')}
+            <XMarkIcon className="h-5 w-5" /> {t('component:button.cancel')}
           </>
         ) : (
           <>

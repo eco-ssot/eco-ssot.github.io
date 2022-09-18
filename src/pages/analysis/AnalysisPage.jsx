@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

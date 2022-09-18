@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 
-import { TrashIcon } from '@heroicons/react/outline';
-import { PencilIcon, XIcon, CheckIcon } from '@heroicons/react/solid';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, XMarkIcon, CheckIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { partition } from 'lodash';
@@ -114,7 +114,7 @@ const COLUMNS = ({ t, setData, year, canEdit, data, dataRef, deleteRef }) => [
                   setData(dataRef.current);
                 }}
               >
-                <XIcon className="h-5 w-5" />
+                <XMarkIcon className="h-5 w-5" />
               </EditableIconButton>
             </div>
           ) : (
@@ -215,7 +215,7 @@ const COLUMNS_BY_SITE = ({ t, setData, canEdit, year, dataRef, deleteRef }) => [
                   setData(dataRef.current);
                 }}
               >
-                <XIcon className="h-5 w-5" />
+                <XMarkIcon className="h-5 w-5" />
               </EditableIconButton>
             </div>
           ) : (

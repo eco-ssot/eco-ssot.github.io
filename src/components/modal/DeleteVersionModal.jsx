@@ -1,4 +1,4 @@
-import { InformationCircleIcon } from '@heroicons/react/solid';
+import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from 'react-i18next';
 
 import { useDeleteVersionMutation } from '../../services/management';

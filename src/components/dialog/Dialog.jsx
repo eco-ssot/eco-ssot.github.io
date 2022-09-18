@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 
 import { Transition, Dialog as HeadlessDialog } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
 export default function Dialog({
@@ -65,7 +65,7 @@ export default function Dialog({
                           afterClose();
                         }}
                       >
-                        <XIcon className="h-5 w-5" />
+                        <XMarkIcon className="h-5 w-5" />
                       </button>
                     </div>
                   )}

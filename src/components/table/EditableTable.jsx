@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { PlusIcon } from '@heroicons/react/solid';
+import { PlusIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { isNil } from 'lodash';
 import { useTable } from 'react-table';
@@ -207,7 +207,6 @@ export default function EditableTable({
         {headerGroups.map((headerGroup, i) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column, j) => {
-
               if (column.rowSpan === 0 && headerGroups.length > 1) {
                 return null;
               }
@@ -251,45 +250,42 @@ export default function EditableTable({
               })}
             >
               {row.cells.map((cell, i) => {
-                if (
-                  (cell.column.rowSpan && cell.row.index > 0) 
-                ) {
+                if (cell.column.rowSpan && cell.row.index > 0) {
                   return null;
                 }
-               
-                  return (
-                    <td
-                      {...cell.getCellProps([
-                        {
-                          className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
-                          style: cell.column.style,
-                        },
-                        getColumnProps(cell.column),
-                        getCellProps(cell),
-                      ])}
-                      {...(cell.column.rowSpan && cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
-                      {...(cell.row.original.id === 'addRow' &&
-                        i === cell.row.original.startIndex && {
-                          colSpan: cell.row.original.colSpan,
-                        })}
-                    >
-                      {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
-                        <IconButton
-                          onClick={() =>
-                            setData((prev) => {
-                              const action = prev.slice(-1);
-                              return [...prev.slice(0, -1), { editing: true }, ...action];
-                            })
-                          }
-                        >
-                          <PlusIcon className="h-5 w-5" />
-                        </IconButton>
-                      ) : (
-                        cell.render('Cell')
-                      )}
-                    </td>
-                  );
-                
+
+                return (
+                  <td
+                    {...cell.getCellProps([
+                      {
+                        className: clsx('px-2 text-gray-50 text-lg', cell.column.className),
+                        style: cell.column.style,
+                      },
+                      getColumnProps(cell.column),
+                      getCellProps(cell),
+                    ])}
+                    {...(cell.column.rowSpan && cell.row.index === 0 && { rowSpan: cell.column.rowSpan })}
+                    {...(cell.row.original.id === 'addRow' &&
+                      i === cell.row.original.startIndex && {
+                        colSpan: cell.row.original.colSpan,
+                      })}
+                  >
+                    {cell.row.original.id === 'addRow' && i === cell.row.original.startIndex ? (
+                      <IconButton
+                        onClick={() =>
+                          setData((prev) => {
+                            const action = prev.slice(-1);
+                            return [...prev.slice(0, -1), { editing: true }, ...action];
+                          })
+                        }
+                      >
+                        <PlusIcon className="h-5 w-5" />
+                      </IconButton>
+                    ) : (
+                      cell.render('Cell')
+                    )}
+                  </td>
+                );
               })}
             </tr>
           );

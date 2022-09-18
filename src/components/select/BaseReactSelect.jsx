@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Select, { components } from 'react-select';
 import AsyncSelect from 'react-select/async';

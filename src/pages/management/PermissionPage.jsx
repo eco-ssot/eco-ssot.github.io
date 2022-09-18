@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
 
-import { UserAddIcon } from '@heroicons/react/outline';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -157,7 +157,7 @@ function UserForm({ users }) {
       titleClassName="bg-primary-800 px-4 py-2 rounded-t"
     >
       <Button className={clsx('space-x-1', !canEdit && 'pointer-events-none opacity-50')}>
-        <UserAddIcon className="h-5 w-5" />
+        <UserPlusIcon className="h-5 w-5" />
         <div>Add/Edit User</div>
       </Button>
     </Dialog>

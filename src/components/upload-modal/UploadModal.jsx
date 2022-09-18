@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { UploadIcon } from '@heroicons/react/outline';
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { isNil } from 'lodash';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -43,7 +43,7 @@ export default function UploadModal({ title, open, setOpen, uploadExcel, isSucce
             uploadExcel(formData);
           }}
         >
-          <UploadIcon className="mr-2 h-5 w-5" />
+          <ArrowUpTrayIcon className="mr-2 h-5 w-5" />
           Import
         </Button>
       }

@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from '@heroicons/react/solid';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 
 import Tag from '../../components/tag/Tag';
 

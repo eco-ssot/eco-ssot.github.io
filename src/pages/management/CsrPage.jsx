@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 
-import { InformationCircleIcon } from '@heroicons/react/outline';
-import { PencilIcon } from '@heroicons/react/solid';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { PencilIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { get } from 'lodash';
 import { toast } from 'react-hot-toast';

@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from 'react';
 
-import { ArrowUpIcon } from '@heroicons/react/solid';
+import { ArrowUpIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';

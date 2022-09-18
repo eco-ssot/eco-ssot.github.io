@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/outline';
+import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
 export default function Arrow({ className, direction = null }) {

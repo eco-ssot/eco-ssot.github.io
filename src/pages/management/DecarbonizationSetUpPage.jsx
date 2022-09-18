@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 
-import { PencilIcon } from '@heroicons/react/solid';
+import { PencilIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from 'react-i18next';
 
 import DecarbonTable, { EditableButton, EditableIconButton } from '../../components/table/DecarbonTable';

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 
-import { CheckIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
-import { MenuAlt4Icon, PencilIcon } from '@heroicons/react/solid';
+import { CheckIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars2Icon, PencilIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
@@ -254,7 +254,7 @@ const COLUMNS = ({ t, setData, snapshotRef, oilOptions, compressOptions, runOpti
                   );
                 }}
               />
-              <XIcon
+              <XMarkIcon
                 className="h-5 w-5 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -443,7 +443,7 @@ const Row = ({ row, index, moveRow, getColumnProps, getCellProps, getRowProps, o
           >
             {cell.column.isDndColumn ? (
               <div className={clsx('flex items-center justify-center')}>
-                <MenuAlt4Icon className="hidden h-5 w-5 group-hover:block" />
+                <Bars2Icon className="hidden h-5 w-5 group-hover:block" />
                 <div className="group-hover:hidden">{cell.render('Cell')}</div>
               </div>
             ) : (

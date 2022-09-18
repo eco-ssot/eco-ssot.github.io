@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 
-import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { isBoolean } from 'lodash';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';

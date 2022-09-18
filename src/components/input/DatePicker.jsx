@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 
-import { CalendarIcon } from '@heroicons/react/outline';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { CalendarIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { isNil } from 'lodash';

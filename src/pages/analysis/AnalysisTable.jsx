@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
 
 import { Disclosure } from '@headlessui/react';
-import { EyeIcon, EyeOffIcon, PlusIcon, TrashIcon, XIcon } from '@heroicons/react/outline';
-import { PencilIcon, ChevronDownIcon, CheckIcon } from '@heroicons/react/solid';
+import { EyeIcon, EyeSlashIcon, PlusIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, ChevronDownIcon, CheckIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { differenceInWeeks, isValid, isPast, format } from 'date-fns';
 import { isBoolean, isNil } from 'lodash';
@@ -267,7 +267,7 @@ export function AnalysisSubTable({
                               )
                             }
                           >
-                            <XIcon className="h-5 w-5" />
+                            <XMarkIcon className="h-5 w-5" />
                           </EditableIconButton>
                         </div>
                       </>
@@ -424,7 +424,7 @@ export default function AnalysisTable({
               </>
             ) : (
               <>
-                <EyeOffIcon className="h-5 w-5" />
+                <EyeSlashIcon className="h-5 w-5" />
                 <div>{t('analysisPage:hideItems')}</div>
               </>
             )}
@@ -440,7 +440,7 @@ export default function AnalysisTable({
           >
             {isAddingRow ? (
               <>
-                <XIcon className="h-5 w-5" />
+                <XMarkIcon className="h-5 w-5" />
                 <div>{t('analysisPage:cancelAdd')}</div>
               </>
             ) : (
@@ -535,7 +535,7 @@ export default function AnalysisTable({
                           })
                         }
                       >
-                        <XIcon className="h-5 w-5" />
+                        <XMarkIcon className="h-5 w-5" />
                       </EditableIconButton>
                     </div>
                   </>
@@ -558,7 +558,7 @@ export default function AnalysisTable({
                           });
                         }}
                       >
-                        {visible ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+                        {visible ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                       </EditableIconButton>
                     </div>
                   </>

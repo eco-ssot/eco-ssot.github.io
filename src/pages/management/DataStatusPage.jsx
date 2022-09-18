@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { UploadIcon } from '@heroicons/react/outline';
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { subMonths } from 'date-fns';
 import { toast } from 'react-hot-toast';
@@ -202,7 +202,7 @@ export default function DataStatusPage() {
           <div className="relative flex items-center justify-center">
             <div className="absolute left-0 flex">
               <Button className="left-0 space-x-1" onClick={() => setOpen(true)}>
-                <UploadIcon className="h-5 w-5" />
+                <ArrowUpTrayIcon className="h-5 w-5" />
                 <div>{t('managementPage:dataStatus.importMonthlyReport')}</div>
               </Button>
               {user?.roles?.includes('dev') && (

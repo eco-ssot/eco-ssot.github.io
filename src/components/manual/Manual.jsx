@@ -1,14 +1,13 @@
 import { useState } from 'react';
 
 import { Popover } from '@headlessui/react';
-import { ExternalLinkIcon } from '@heroicons/react/outline';
-import { ChevronDownIcon } from '@heroicons/react/solid';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 import { ReactComponent as PdfIcon } from '../../icons/file-pdf-solid.svg';
 import TourPanel from '../../pages/home/TourPanel';
-import Legend from '../legend/Legend'
+import Legend from '../legend/Legend';
 import Tooltip from '../tooltip/Tooltip';
-
 
 const PATH = {
   zh: '/ECO SSOT 系統說明手冊_v3.0.0.pdf',
@@ -37,11 +36,9 @@ export default function Manual({ lng }) {
           <ChevronDownIcon className="h-5 w-5 fill-gray-50" />
         </Popover.Button>
         <Popover.Panel className="absolute z-10 mt-2 flex flex-col space-y-2 rounded border border-divider bg-primary-900 p-2 shadow">
-          <div className='flex cursor-pointer' onClick={() => setOpen(true)}>
-          <Legend dotClassName="bg-dangerous-700"/>
-            <div className="cursor-pointer whitespace-nowrap" >
-            新功能導覽
-          </div>
+          <div className="flex cursor-pointer" onClick={() => setOpen(true)}>
+            <Legend dotClassName="bg-dangerous-700" />
+            <div className="cursor-pointer whitespace-nowrap">新功能導覽</div>
           </div>
           <a
             target="_blank"
@@ -50,7 +47,7 @@ export default function Manual({ lng }) {
             rel="noreferrer"
           >
             <div className="whitespace-nowrap">中文</div>
-            <ExternalLinkIcon className="h-5 w-5 scale-90" />
+            <ArrowTopRightOnSquareIcon className="h-5 w-5 scale-90" />
           </a>
           <a
             target="_blank"
@@ -59,11 +56,11 @@ export default function Manual({ lng }) {
             rel="noreferrer"
           >
             <div className="whitespace-nowrap">English</div>
-            <ExternalLinkIcon className="h-5 w-5 scale-90" />
+            <ArrowTopRightOnSquareIcon className="h-5 w-5 scale-90" />
           </a>
         </Popover.Panel>
       </Popover>
-      <TourPanel open={Boolean(open) } setOpen={setOpen} />
+      <TourPanel open={Boolean(open)} setOpen={setOpen} />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/solid';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 
 import Button from '../button/Button';
@@ -59,7 +59,7 @@ export default function Modal({
                     onClose();
                   }}
                 >
-                  <XIcon className="h-5 w-5 " />
+                  <XMarkIcon className="h-5 w-5 " />
                 </IconButton>
               </Dialog.Title>
               {children}

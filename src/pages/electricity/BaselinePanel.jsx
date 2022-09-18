@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 
-import { ArrowUpIcon } from '@heroicons/react/solid';
+import { ArrowUpIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { get, isNil } from 'lodash';
 import { useTranslation } from 'react-i18next';
