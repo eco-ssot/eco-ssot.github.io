@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 
 import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
 import { Listbox, Transition } from '@headlessui/react';
@@ -23,21 +23,15 @@ export default function Select({
   onChange = () => {},
 }) {
   const [ref, { width }] = useMeasure();
-  const { x, y, reference, floating, update, strategy, refs } = useFloating({
+  const { x, y, reference, floating, strategy } = useFloating({
     strategy: _strategy,
     ...(_placement !== 'auto' && { placement: _placement }),
     middleware: [
       ...(_placement === 'auto' ? [autoPlacement({ padding: 8, allowedPlacements: ['top', 'bottom'] })] : []),
     ],
+    whileElementsMounted: autoUpdate,
   });
 
-  useEffect(() => {
-    if (!refs.reference.current || !refs.floating.current) {
-      return;
-    }
-
-    return autoUpdate(refs.reference.current, refs.floating.current, update);
-  }, [refs.reference, refs.floating, update]);
   return (
     <Listbox value={selected} onChange={onChange}>
       {({ open }) => (

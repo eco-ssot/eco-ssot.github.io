@@ -1,4 +1,4 @@
-import { cloneElement, Fragment, isValidElement, useEffect, useRef, useState } from 'react';
+import { cloneElement, Fragment, isValidElement, useRef, useState, useMemo } from 'react';
 
 import {
   offset,
@@ -17,6 +17,7 @@ import {
 } from '@floating-ui/react-dom-interactions';
 import { Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import { mergeRefs } from 'react-merge-refs';
 
 const FLIP_SIDES = {
   left: 'right',
@@ -42,8 +43,6 @@ export default function Tooltip({
     reference,
     floating,
     context,
-    refs,
-    update,
     middlewareData,
     strategy: _strategy,
     placement: _placement,
@@ -58,24 +57,23 @@ export default function Tooltip({
       ...(arrowRef.current ? [arrow({ element: arrowRef.current })] : []),
     ],
     ...(placement !== 'auto' && { placement }),
+    whileElementsMounted: autoUpdate,
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    useHover(context, interactive ? { handleClose: safePolygon({ restMs: 25 }) } : undefined),
+    useHover(context, {
+      delay: 50,
+      ...(interactive && { handleClose: safePolygon({ blockPointerEvents: false, restMs: 50 }) }),
+    }),
     useFocus(context),
     useRole(context, { role: 'tooltip' }),
     useDismiss(context),
   ]);
 
-  useEffect(() => {
-    if (refs.reference.current && refs.floating.current && open) {
-      return autoUpdate(refs.reference.current, refs.floating.current, update);
-    }
-  }, [refs.reference, refs.floating, update, open]);
-
+  const ref = useMemo(() => mergeRefs([reference, children.ref]), [reference, children]);
   return (
     <>
-      {isValidElement(children) && cloneElement(children, getReferenceProps({ ref: reference }))}
+      {isValidElement(children) && cloneElement(children, getReferenceProps({ ref, ...children.props }))}
       <FloatingPortal>
         <Transition appear show={show && open && !!label}>
           <div
